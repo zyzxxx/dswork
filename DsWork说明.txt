@@ -1,0 +1,19 @@
+DsWork说明：
+DsWork框架包括java版本和C#版本
+	java版：采用Hibernate3.5.6|MyBatis、SpringMVC
+	  C#版：采用ibatisnet、Spring.Net、MVC4
+
+目录说明：
+DsWorkJava：java框架的核心源代码
+DsWorkNet：C#框架的核心源代码
+web：项目的一套web框架，可选用
+	对于web项目，获取web作为项目“web”
+	其中java或C#版本需要的不同文件，看/web/说明.txt
+Lib：需要的大部份基础类库（框架jar或dll已在其中）
+	java版：获取/Lib作为Eclipse项目“Lib”
+	  C#版：获取/Lib/LibNet作为类库引用目录
+demo：简单的演示demo程序
+
+	
+
+DemoJava项目
