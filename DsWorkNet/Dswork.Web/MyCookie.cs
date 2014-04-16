@@ -1,0 +1,185 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Web;
+
+namespace Dswork.Web
+{
+	/// <summary>
+	/// Cookie的常用操作
+	/// </summary>
+	public class MyCookie
+	{
+		private Object request;
+		private Object response;
+
+		/// <summary>
+		/// 初始化cookie
+		/// </summary>
+		/// <param name="context">HttpContext</param>
+		public MyCookie(HttpContext context)
+		{
+			this.request = context.Request;
+			this.response = context.Response;
+		}
+
+		/// <summary>
+		/// 初始化cookie
+		/// </summary>
+		/// <param name="context">HttpContextBase</param>
+		public MyCookie(HttpContextBase context)
+		{
+			this.request = context.Request;
+			this.response = context.Response;
+		}
+
+		/// <summary>
+		/// 初始化cookie
+		/// </summary>
+		/// <param name="request">HttpRequest</param>
+		/// <param name="response">HttpResponse</param>
+		public MyCookie(HttpRequest request, HttpResponse response)
+		{
+			this.request = request;
+			this.response = response;
+		}
+
+		/// <summary>
+		/// 初始化cookie
+		/// </summary>
+		/// <param name="request">HttpRequestBase</param>
+		/// <param name="response">HttpResponseBase</param>
+		public MyCookie(HttpRequestBase request, HttpResponseBase response)
+		{
+			this.request = request;
+			this.response = response;
+		}
+
+		/// <summary>
+		/// 往客户端写入Cookie，当页面关闭时删除cookie，当前应用所有页面有效
+		/// </summary>
+		/// <param name="name">cookie参数名</param>
+		/// <param name="value">cookie参数值</param>
+		public void AddCookie(String name, String value)
+		{
+			AddCookie(name, value, -1, "/", null);
+			//AddCookie(name, value, -1, HttpRuntime.AppDomainAppVirtualPath);
+			//AddCookie(name, value, -1, request.ApplicationPath);
+		}
+
+		/// <summary>
+		/// 往客户端写入Cookie，当前应用所有页面有效
+		/// </summary>
+		/// <param name="name">cookie参数名</param>
+		/// <param name="value">cookie参数值</param>
+		/// <param name="maxAge">有效时间，int(单位秒)，0:删除Cookie，-1:页面关闭时删除cookie</param>
+		public void AddCookie(String name, String value, int maxAge)
+		{
+			AddCookie(name, value, maxAge, "/", null);
+		}
+
+		/// <summary>
+		/// 往客户端写入Cookie，当前应用所有页面有效
+		/// </summary>
+		/// <param name="name">cookie参数名</param>
+		/// <param name="value">cookie参数值</param>
+		/// <param name="maxAge">有效时间，int(单位秒)，0:删除Cookie，-1:页面关闭时删除cookie</param>
+		/// <param name="path">与cookie一起传输的虚拟路径</param>
+		public void AddCookie(String name, String value, int maxAge, String path)
+		{
+			AddCookie(name, value, maxAge, path, null);
+		}
+
+		/// <summary>
+		/// 往客户端写入Cookie，当前应用所有页面有效
+		/// </summary>
+		/// <param name="name">cookie参数名</param>
+		/// <param name="value">cookie参数值</param>
+		/// <param name="maxAge">有效时间，int(单位秒)，0:删除Cookie，-1:页面关闭时删除cookie</param>
+		/// <param name="path">与cookie一起传输的虚拟路径</param>
+		public void AddCookie(String name, String value, int maxAge, String path, String domain)
+		{
+			HttpCookie cookie = new HttpCookie(name, value);
+			cookie.Expires = DateTime.Now.AddSeconds(maxAge);
+			cookie.Path = path;
+			if(domain != null)
+			{
+				cookie.Domain = domain;
+			}
+			AddCookie(cookie);
+		}
+
+		/// <summary>
+		/// 往客户端写入Cookie，当前应用所有页面有效
+		/// </summary>
+		/// <param name="name">cookie参数名</param>
+		/// <param name="value">cookie参数值</param>
+		/// <param name="dt">有效时间，DateTime</param>
+		/// <param name="path">与cookie一起传输的虚拟路径</param>
+		public void AddCookie(String name, String value, DateTime dt, String path, String domain)
+		{
+			HttpCookie cookie = new HttpCookie(name, value);
+			cookie.Expires = dt;
+			cookie.Path = path;
+			if(domain != null)
+			{
+				cookie.Domain = domain;
+			}
+			AddCookie(cookie);
+		}
+
+		/// <summary>
+		/// 删除cookie
+		/// </summary>
+		/// <param name="name">cookie参数名</param>
+		public void DelCookie(String name)
+		{
+			AddCookie(name, "", DateTime.Now.AddSeconds(-1), "/", null);
+		}
+
+		/// <summary>
+		/// 根据cookie名称取得参数值
+		/// </summary>
+		/// <param name="name">cookie参数名</param>
+		/// <returns>存在返回String，不存在返回null</returns>
+		public string GetValue(String name)
+		{
+			HttpCookie cookie;
+			try
+			{
+				cookie = ((HttpRequestBase)request).Cookies[name];
+			}
+			catch
+			{
+				cookie = ((HttpRequest)request).Cookies[name];
+			}
+			if(cookie != null)
+			{
+				return cookie.Value;
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// 根据Cookie参数名判断Cookie是否存在该值
+		/// </summary>
+		/// <param name="name">cookie参数名</param>
+		/// <returns>存在返回true，不存在返回false</returns>
+		public Boolean Exist(String name)
+		{
+			return GetValue(name) != null;
+		}
+
+		private void AddCookie(HttpCookie cookie)
+		{
+			try
+			{
+				((HttpResponseBase)response).Cookies.Add(cookie);
+			}
+			catch
+			{
+				((HttpResponse)response).Cookies.Add(cookie);
+			}
+		}
+	}
+}
