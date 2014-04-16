@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-//import dswork.mvc.BaseController;
 import dswork.web.MyRequest;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
@@ -26,7 +25,7 @@ import testwork.service.demo.DemoService;
 @Controller
 @SuppressWarnings("unchecked")
 @RequestMapping("/manage/demo")
-public class DemoController// extends BaseController
+public class DemoController
 {
 	@Autowired
 	private DemoService service;
