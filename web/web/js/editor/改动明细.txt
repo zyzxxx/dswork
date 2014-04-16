@@ -1,0 +1,33 @@
+v1.1.14 Change (2012-7-1)
+xheditor.js修改明细：
+1、simple和full对调
+2、full值：
+"Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Img,Emot"
+改为
+"Cut,Copy,Paste,Pastetext,|,Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,|,Align,List,Outdent,Indent,|,Link,Unlink,Hr,Emot,Table,|,Source,Fullscreen"
+
+可补充内容如下：
+,Anchor,Img,Flash,Media(,Hr,Emot,Table,)
+,Preview,Print(,Fullscreen)
+
+
+xheditor.js中的代码
+e('<div style="font:12px Arial;width:245px;word-wrap:break-word;word-break:break-all;outline:none;" role="dialog" tabindex="-1"><p><span style="font-size:20px;color:#1997DF;">xhEditor</span><br />v1.1.14 (build 120701)</p><p>xhEditor\u662f\u57fa\u4e8ejQuery\u5f00\u53d1\u7684\u8de8\u5e73\u53f0\u8f7b\u91cf\u53ef\u89c6\u5316XHTML\u7f16\u8f91\u5668\uff0c\u57fa\u4e8e<a href="http://www.gnu.org/licenses/lgpl.html" target="_blank">LGPL</a>\u5f00\u6e90\u534f\u8bae\u53d1\u5e03\u3002</p><p>Copyright &copy; <a href="http://xheditor.com/" target="_blank">xhEditor.com</a>. All rights reserved.</p></div>');
+可修改为
+e('<div style="font:12px Arial;width:145px;word-wrap:break-word;word-break:break-all;outline:none;" role="dialog" tabindex="-1"><p><span style="font-size:20px;color:#1997DF;">xhEditor</span></p><p>Copyright &copy; <a href="http://xheditor.com/" target="_blank">xhEditor.com</a>. <br />All rights reserved.</p></div><div style="font:12px Arial;width:145px;word-wrap:break-word;word-break:break-all;outline:none;" role="dialog" tabindex="-1"><p><span style="font-size:20px;color:#1997DF;">xhEditor</span></p><p>Copyright &copy; <a href="http://xheditor.com/" target="_blank">xhEditor.com</a>. <br />All rights reserved.</p></div>');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

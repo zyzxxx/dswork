@@ -1,0 +1,5 @@
+#div_maskContainer {display:none;}
+/*蒙版样式*/
+#div_Mask {z-index:9999;filter:alpha(opacity = 40);position:absolute;left:0px;top:0px;background-color:#EFF4FA;filter:alpha(opacity = 100);}
+/*显示信息样式*/
+#div_loading {z-index:10000;width:300px;height:60px;position:absolute;border:1px outset #B4E0F2;padding-top:40px;text-align:center;background-color:#E9F0F9;filter:alpha(opacity = 100);!important}

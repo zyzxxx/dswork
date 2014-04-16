@@ -1,0 +1,28 @@
+/share 需要复制到开发项目中的内容，复制的位置看/share/说明.txt
+
+web项目需要的目录
+	/web/js
+	/web/themes
+	/web/index.html
+
+JavaWeb项目，目录可删掉的内容
+	/web.sln
+	/web.v11.suo
+	/web/bin
+	/web/Config
+	/web/obj
+	/web/Properties
+	/web/Global.asax
+	/web/Global.asax.cs
+	/web/Web.config
+	/web/web.csproj
+	/web/web.csproj.user
+	/web/Web.Debug.config
+	/web/web.Release.config
+
+CSharpWeb项目，目录可删掉的内容
+	/.classpath
+	/.mymetadata
+	/.project
+	/src
+	/web/WEB-INF

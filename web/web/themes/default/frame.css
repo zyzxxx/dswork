@@ -1,0 +1,229 @@
+/*系统后台局css*/
+/*IE6背景图片不缓存BUG*/
+* {filter:expression(document.execCommand("BackgroundImageCache", false, true));}
+/** {filter:gray;}*/
+
+/*-------------全局样式-------------*/
+html {height:100%;border:0;padding:0px;margin:0px;}
+body {height:100%;border:0;padding:0px;margin:0px;}
+body {font-family:"宋体"}/*font-family:"宋体", tahoma, "Arial Narrow", arial, sans-serif;*/
+body, div, p, select, span, tr, td, a, input, textarea {font-size:12px;color:#182a2d;}
+form {margin:0px;padding:0px;}
+body, table, tr {background-color:#ffffff;}
+table.normal {width:100%;}
+
+/*-------------信息提示-------------*/
+span.msg {color:#0000ff;}
+span.tips {color:#0000ff;}
+span.imp {padding-left:3px;color:#ff0000;font-weight:bold;}/*必填框*号*/
+
+/*-------------超 链 接-------------*/
+a {text-decoration:none;}
+a:link {color:#182a2d;}/*未访问过的超链接*/
+a:visited {color:#182a2d;}/*访问过的超链接*/
+a:hover {color:#205e92;}/*鼠标指向的超链接*/
+a:active {color:#182a2d;}/*激活的超链接*/
+
+/*-------------工 具 箱-------------*/
+.menuTool {}
+/*功能菜单单元格*/
+.menuTool a {padding:2px 0px 2px 18px;}
+
+.menuTool a.excel {background:url(img/file/excel.gif) 0px 0px no-repeat;}
+.menuTool a.exe {background:url(img/file/exe.gif) 0px 0px no-repeat;}
+.menuTool a.file {background:url(img/file/file.gif) 0px 0px no-repeat;}
+.menuTool a.flash {background:url(img/file/flash.gif) 0px 0px no-repeat;}
+.menuTool a.mp3 {background:url(img/file/mp3.gif) 0px 0px no-repeat;}
+.menuTool a.pdf {background:url(img/file/pdf.gif) 0px 0px no-repeat;}
+.menuTool a.psd {background:url(img/file/psd.gif) 0px 0px no-repeat;}
+.menuTool a.word {background:url(img/file/word.gif) 0px 0px no-repeat;}
+
+.menuTool a.add     {background:url(img/menu.png) 0px   0px no-repeat;}
+.menuTool a.del     {background:url(img/menu.png) 0px  -25px no-repeat;}
+.menuTool a.upd     {background:url(img/menu.png) 0px  -50px no-repeat;}
+.menuTool a.get     {background:url(img/menu.png) 0px  -75px no-repeat;}
+.menuTool a.insert  {background:url(img/menu.png) 0px   0px no-repeat;}
+.menuTool a.delete  {background:url(img/menu.png) 0px  -25px no-repeat;}
+.menuTool a.update  {background:url(img/menu.png) 0px  -50px no-repeat;}
+.menuTool a.select  {background:url(img/menu.png) 0px  -75px no-repeat;}
+
+.menuTool a.check   {background:url(img/menu.png) 0px -100px no-repeat;}
+.menuTool a.clock   {background:url(img/menu.png) 0px -125px no-repeat;}
+.menuTool a.copy    {background:url(img/menu.png) 0px -150px no-repeat;}
+.menuTool a.edit    {background:url(img/menu.png) 0px -175px no-repeat;}
+.menuTool a.find    {background:url(img/menu.png) 0px -200px no-repeat;}
+.menuTool a.go      {background:url(img/menu.png) 0px -225px no-repeat;}
+.menuTool a.graph   {background:url(img/menu.png) 0px -250px no-repeat;}
+/*
+.menuTool a.img     {background:url(img/menu.png) 0px -275px no-repeat;}
+*/
+.menuTool a.key     {background:url(img/menu.png) 0px -300px no-repeat;}
+.menuTool a.lock    {background:url(img/menu.png) 0px -325px no-repeat;}
+.menuTool a.look    {background:url(img/menu.png) 0px -350px no-repeat;}
+.menuTool a.pause   {background:url(img/menu.png) 0px -375px no-repeat;}
+.menuTool a.pic     {background:url(img/menu.png) 0px -400px no-repeat;}
+.menuTool a.printer {background:url(img/menu.png) 0px -425px no-repeat;}
+.menuTool a.recheck {background:url(img/menu.png) 0px -450px no-repeat;}
+.menuTool a.refresh {background:url(img/menu.png) 0px -475px no-repeat;}
+.menuTool a.commit  {background:url(img/menu.png) 0px -500px no-repeat;}
+/*
+.menuTool a.save    {background:url(img/menu.png) 0px -500px no-repeat;}
+.menuTool a.saves   {background:url(img/menu.png) 0px -525px no-repeat;}
+*/
+.menuTool a.start   {background:url(img/menu.png) 0px -550px no-repeat;}
+.menuTool a.tool    {background:url(img/menu.png) 0px -575px no-repeat;}
+.menuTool a.uncheck {background:url(img/menu.png) 0px -600px no-repeat;}
+.menuTool a.user    {background:url(img/menu.png) 0px -625px no-repeat;}
+.menuTool a.warn    {background:url(img/menu.png) 0px -650px no-repeat;}
+
+.menuTool .back {background:url(img/menu/back.gif) 0px 0px no-repeat;}
+.menuTool .close {background:url(img/menu/close.gif) 0px 0px no-repeat;}
+.menuTool .save {background:url(img/menu/save.gif) 0px 0px no-repeat;}
+.menuTool .upload {background:url('img/menu/upload.gif') 0px 0px no-repeat;}
+.menuTool .download {background:url('img/menu/download.gif') 0px 0px no-repeat;}
+
+.menuTool .vline {background-color:silver;padding-left:1px;padding-right:0px;margin:0px 2px 0px 2px;}
+
+
+
+.menuTool-back {background:url('img/menu/back.gif') no-repeat;}
+.menuTool-close {background:url(img/menu/close.gif) no-repeat;}
+.menuTool-save {background:url('img/menu/save.gif') no-repeat;}
+.menuTool-printer {background:url('img/menu/printer.png') no-repeat;}
+.menuTool-leftarrow {background:url('img/menu/leftarrow.png') no-repeat;}
+.menuTool-rightarrow {background:url('img/menu/rightarrow.png') no-repeat;}
+.menuTool-uparrow {background:url('img/menu/uparrow.png') no-repeat;}
+.menuTool-downarrow {background:url('img/menu/downarrow.png') no-repeat;}
+.menuTool-upload {background:url('img/menu/upload.gif') no-repeat;}
+.menuTool-download {background:url('img/menu/download.gif') no-repeat;}
+
+.menuTool-excel {background:url(img/file/excel.gif) 0px 0px no-repeat;}
+.menuTool-exe {background:url(img/file/exe.gif) 0px 0px no-repeat;}
+.menuTool-file {background:url(img/file/file.gif) 0px 0px no-repeat;}
+.menuTool-flash {background:url(img/file/flash.gif) 0px 0px no-repeat;}
+.menuTool-mp3 {background:url(img/file/mp3.gif) 0px 0px no-repeat;}
+.menuTool-pdf {background:url(img/file/pdf.gif) 0px 0px no-repeat;}
+.menuTool-psd {background:url(img/file/psd.gif) 0px 0px no-repeat;}
+.menuTool-word {background:url(img/file/word.gif) 0px 0px no-repeat;}
+
+.menuTool-add     {background:url(img/menu.png) 0px   0px no-repeat;}
+.menuTool-del     {background:url(img/menu.png) 0px  -25px no-repeat;}
+.menuTool-upd     {background:url(img/menu.png) 0px  -50px no-repeat;}
+.menuTool-get     {background:url(img/menu.png) 0px  -75px no-repeat;}
+.menuTool-insert  {background:url(img/menu.png) 0px   0px no-repeat;}
+.menuTool-delete  {background:url(img/menu.png) 0px  -25px no-repeat;}
+.menuTool-update  {background:url(img/menu.png) 0px  -50px no-repeat;}
+.menuTool-select  {background:url(img/menu.png) 0px  -75px no-repeat;}
+
+.menuTool-check   {background:url(img/menu.png) 0px -100px no-repeat;}
+.menuTool-clock   {background:url(img/menu.png) 0px -125px no-repeat;}
+.menuTool-copy    {background:url(img/menu.png) 0px -150px no-repeat;}
+.menuTool-edit    {background:url(img/menu.png) 0px -175px no-repeat;}
+.menuTool-find    {background:url(img/menu.png) 0px -200px no-repeat;}
+.menuTool-go      {background:url(img/menu.png) 0px -225px no-repeat;}
+.menuTool-graph   {background:url(img/menu.png) 0px -250px no-repeat;}
+/*
+.menuTool-img     {background:url(img/menu.png) 0px -275px no-repeat;}
+*/
+.menuTool-key     {background:url(img/menu.png) 0px -300px no-repeat;}
+.menuTool-lock    {background:url(img/menu.png) 0px -325px no-repeat;}
+.menuTool-look    {background:url(img/menu.png) 0px -350px no-repeat;}
+.menuTool-pause   {background:url(img/menu.png) 0px -375px no-repeat;}
+.menuTool-pic     {background:url(img/menu.png) 0px -400px no-repeat;}
+.menuTool-printer {background:url(img/menu.png) 0px -425px no-repeat;}
+.menuTool-recheck {background:url(img/menu.png) 0px -450px no-repeat;}
+.menuTool-refresh {background:url(img/menu.png) 0px -475px no-repeat;}
+.menuTool-commit  {background:url(img/menu.png) 0px -500px no-repeat;}
+/*
+.menuTool-save    {background:url(img/menu.png) 0px -500px no-repeat;}
+.menuTool-saves   {background:url(img/menu.png) 0px -525px no-repeat;}
+*/
+.menuTool-start   {background:url(img/menu.png) 0px -550px no-repeat;}
+.menuTool-tool    {background:url(img/menu.png) 0px -575px no-repeat;}
+.menuTool-uncheck {background:url(img/menu.png) 0px -600px no-repeat;}
+.menuTool-user    {background:url(img/menu.png) 0px -625px no-repeat;}
+.menuTool-warn    {background:url(img/menu.png) 0px -650px no-repeat;}
+
+/*-------------页面标题-------------*/
+table.listLogo {width:100%;border:#c2c2c2 solid 1px;}
+table.listLogo td {color:#000000;background-color:#d9e5fd;background:url(img/bg/panel_logo.png) 0px 0px repeat-x;height:25x;text-align:right;vertical-align:middle;white-space:nowrap;padding:5px 5px 5px 5px;}
+table.listLogo td.title {text-align:left;}
+table.listLogo td.panel {background:url(img/bg/panel_title.png) 0px 0px repeat-x;}
+
+/*-------------表单-------------*/
+input.button, input.delete {padding:2px 3px 0px 3px;cursor:pointer;color:#000000;border:#000000 solid 1px;}
+input.button {background:url(img/button/button.gif) 0px 0px repeat-x;}
+input.delete {border:none;width:18px;height:18px;background:url(img/button/delete.gif) 0px 0px no-repeat;}
+input.text {width:200px;}
+input.readonlytext {width:200px;background-color:#e1e1e1;color:#000000;}
+textarea.readonlytext {width:100%;background-color:#e1e1e1;color:#000000;}
+div.line {display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hidden;}
+
+/*-------------查询表单-------------*/
+.queryTable {width:100%;border:#c2c2c2 solid 1px;}
+.queryTable td {background-color:#ffffff;height:25px;padding:0px 0px 0px 0px;}
+.queryTable td.title {text-align:right;padding-left:1px;}
+.queryTable td.input {text-align:left;padding-right:1px;}
+.queryTable td.query {text-align:center;}
+.queryTable input.button {background:url(img/button/query.gif) 0px 0px repeat-x;}/*input.button*/
+
+/*-------------数据列表-------------*/
+/*数据表格*/
+.topTable, .bottomTable, .listTable {width:100%;border:#c2c2c2 solid 1px;background-color:#c2c2c2;}
+.topTable, .bottomTable, .listTable tr {height:25px;}
+.topTable, .bottomTable, .listTable td {vertical-align:middle;text-align:center;}
+.topTable {border-bottom:none;}/*表格上面*/
+.bottomTable {border-top:none;}/*表格下面*/
+.bottomTable td{background-color:#d9e5fd;}
+.listTable {border:none;}/*数据表格*/
+.listTable tr {padding:0px 2px 0px 2px;}
+.listTable td {background-color:#ffffff;color:#2b3e44;word-wrap:break-word;word-break:break-all;}
+/*标题*/.listTable tr.list_title {height:30px;}
+.listTable tr.list_title td{background-color:#dfe9fd;color:#24373d;background:url(img/bg/panel_logo.png) 0px 0px repeat-x;}
+/*奇数*/.listTable tr.list_odd{}
+.listTable tr.list_odd td{background-color:#eff4ff;}
+/*偶数*/.listTable tr.list_even {}
+.listTable tr.list_even td {background-color:#ffffff;}
+/*停留*/.listTable tr.list_over {}
+.listTable tr.list_over td {background-color:#fdfad0;}
+/*默认*/.listTable tr.list {height:23px;}
+.listTable tr.list td {background-color:#ffffff;}
+
+/*-------------翻页导航-------------*/
+.pageview, .pageview * {margin:0px;padding:0px;font-family:tahoma;color:#182a2d;font-size:12px;height:30px;line-height:30px;vertical-align:text-middle;}
+.pageview {float:right;font-family:tahoma;text-align:right;padding:0px 10px 0px 0px;width:100%;}
+.pageview a {text-decoration:none;border:none;}
+.pageview a:link {}
+.pageview a:visited {}
+.pageview a:hover {color:#205e92;}
+.pageview a:active {}
+.pageview a.first{width:38px;padding-left: 14px;background:url(img/pageview/first.gif) no-repeat;background-position:left center;}
+.pageview a.prev {width:38px;padding-left: 13px;background:url(img/pageview/prev.gif ) no-repeat;background-position:left center;}
+.pageview a.next {width:38px;padding-right:13px;background:url(img/pageview/next.gif ) no-repeat;background-position:right center;}
+.pageview a.last {width:38px;padding-right:14px;background:url(img/pageview/last.gif ) no-repeat;background-position:right center;}/**/
+.pageview input {line-height:16px;height:16px;text-align:center;}
+.pageview input.input{width:25px;border:#7998c6 solid 1px;font-size:12px;}
+.pageview input.go   {width:22px;cursor:pointer;border:none;background:url(img/pageview/go.gif) 0px 0px no-repeat;font-size:10px;font-weight:bold;}
+
+
+/*-------------表单表格样式-------------*/
+td.form_title, td.form_input {height:25px;padding-left:3px;padding-right:3px;}
+/*表单标题*/td.form_title {text-align:right;background-color:#e6eefe;}
+/*表单内容*/td.form_input {text-align:left;background-color:#ffffff;}
+/*表单信息*/
+td.form_tips {text-align:center;height:50px;vertical-align:middle;}
+/*表单底部列(一般放置铵钮)*/
+td.form_bottom {height:30px;background-color:#ffffff;text-align:center;vertical-align:middle;border-top:#6ea5eb solid 1px;}
+
+.treebody {height:100%;}
+.treebody .treediv {overflow:auto;height:100%;}
+
+.easyuiMenu {width:120px;}
+.divMenuRight {width:120px;border:none;background-color:#aaaaaa;text-align:left;padding:0px;position:absolute;visibility:hidden;}
+.divMenuRight ul {margin:1px;padding:1px;cursor: pointer;list-style:none outside none;background-color:#f1f1f1;}
+.divMenuRight ul li {margin:2px 0px;padding:2px 0px 2px 0px}
+.divMenuRight ul li.link {padding:2px 0px 2px 18px}
+.divMenuRight ul li.sep {padding:0px;height:1px;background-color:#dddddd;}
+
+div.district {display:none;position:absolute;height:200px;width:200px;background-color:white;border:1px solid;overflow:hidden;}
+div.district ul.tree {height:190px;width:190px;overflow:auto;}
