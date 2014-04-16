@@ -1,7 +1,10 @@
 DsWork说明：
 DsWork框架包括java版本和C#版本
-	java版：采用Hibernate3.5.6|MyBatis、SpringMVC
-	  C#版：采用ibatisnet、Spring.Net、MVC4
+	除MVC层不完全一致外，java和C#版本各分层及类方法基本一致
+	ibatisnet及MyBatis均支持Dialect分页
+	Dao层 -> Service层 -> Controller层
+		java版：采用Hibernate3.5.6|MyBatis、SpringMVC
+		  C#版：采用ibatisnet、Spring.Net、MVC4
 
 目录说明：
 DsWorkJava：java框架的核心源代码
