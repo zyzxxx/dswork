@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dswork.Spring</name>
+    </assembly>
+    <members>
+        <member name="T:Dswork.Spring.BeanFactory">
+            <summary>
+            从ApplicationContext取得spring管理的类
+            </summary>
+        </member>
+    </members>
+</doc>
