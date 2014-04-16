@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	   default-autowire="byName" default-lazy-init="false">
+
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mappingLocations" >
+			<list>
+				<value>classpath*:/testwork/mapper/**/*.hbm.xml</value>
+			</list>
+		</property>
+		<property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<!--
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
+				<prop key="hibernate.default_batch_fetch_size">4</prop>
+				-->
+				<prop key="hibernate.query.substitutions">true 1, false 0</prop>
+				<prop key="hibernate.jdbc.batch_size">0</prop>
+			</props>
+		</property>
+	</bean>
+
+</beans>
