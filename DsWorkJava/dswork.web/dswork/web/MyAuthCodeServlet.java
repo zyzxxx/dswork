@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 在Servlet中产生验证码图片
  */
-public class MyAuthCode extends HttpServlet
+public class MyAuthCodeServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	public static String SessionName_Randcode = "randcode";
@@ -17,7 +17,7 @@ public class MyAuthCode extends HttpServlet
 	/**
 	 * Constructor of the object.
 	 */
-	public MyAuthCode()
+	public MyAuthCodeServlet()
 	{
 		super();
 	}
