@@ -4,8 +4,7 @@
 /** {filter:gray;}*/
 
 /*-------------全局样式-------------*/
-html {height:100%;border:0;padding:0px;margin:0px;}
-body {height:100%;border:0;padding:0px;margin:0px;}
+html,body {height:100%;border:0;padding:0px;margin:0px;}
 body {font-family:"宋体"}/*font-family:"宋体", tahoma, "Arial Narrow", arial, sans-serif;*/
 body, div, p, select, span, tr, td, a, input, textarea {font-size:12px;color:#182a2d;}
 form {margin:0px;padding:0px;}
