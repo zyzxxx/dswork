@@ -172,7 +172,7 @@ public class MyImage
 		{
 			g.setColor(getRandColor(0, 200));
 			String arg = String.valueOf(this.code[i]);
-			g.drawString(arg, w * i + 10, height - 4);
+			g.drawString(arg, w * i + 2, height - 4);
 		}
 		ImageIO.write(image, "jpeg", stream);
 	}
