@@ -12,7 +12,8 @@ import javax.imageio.ImageIO;
 
 public class MyImage
 {
-	public static final String AUTHCODE_STRING = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	// 去掉小写字母中的l,i，去掉大写字母中的O
+	public static final String AUTHCODE_STRING = "abcdefghjkmnopqrstuvwxyzABCDEFGHIJKLMNPQRSTUVWXYZ0123456789";
 	// 图片宽度
 	private int width = 60;
 	// 图片高度
