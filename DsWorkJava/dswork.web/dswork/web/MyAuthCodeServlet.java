@@ -44,10 +44,12 @@ public class MyAuthCodeServlet extends HttpServlet
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
-		int w = getInt(request, "width", 60), h = getInt(request, "width", 20);
+		int w = getInt(request, "width", 60), h = getInt(request, "height", 20), l = getInt(request, "length", 4);
 		MyImage image = new MyImage();
 		image.setWidth(w);
 		image.setHeight(h);
+		image.setLength(l);
+		
 		String sRand = image.getAuthCode();
 		request.getSession().setAttribute(SessionName_Randcode, sRand);
 		image.drawImgeToOutStream(response.getOutputStream());

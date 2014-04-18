@@ -71,7 +71,7 @@ public class MyImage
 	{
 		if(this.font == null)
 		{
-			this.font = new Font("Arial", Font.ITALIC, 18);
+			this.font = new Font("Arial", Font.ITALIC, this.height - 2);
 		}
 		return font;
 	}
@@ -147,8 +147,8 @@ public class MyImage
 		g.setColor(getRandColor(0, 255));
 		// 画边框
 		g.drawRect(0, 0, width - 1, height - 1);
-		// 随机产生干扰线，使图象中的认证码不易被其它程序探测到
-		for(int i = 0; i < 50; i++)
+		// 随机产生height*2条干扰线，使图象中的认证码不易被其它程序探测到
+		for(int i = 0; i < height*2; i++)
 		{
 			g.setColor(getRandColor(160, 200));
 			int x = random.nextInt(width);
@@ -157,8 +157,8 @@ public class MyImage
 			int y1 = random.nextInt(height);
 			g.drawLine(x, y, x1, y1);
 		}
-		// 随机产生100点，使图象中的认证码不易被其它程序探测到
-		for(int i = 0; i < 50; i++)
+		// 随机产生width点，使图象中的认证码不易被其它程序探测到
+		for(int i = 0; i < width; i++)
 		{
 			g.setColor(getRandColor(160, 200));
 			int x = random.nextInt(width);
