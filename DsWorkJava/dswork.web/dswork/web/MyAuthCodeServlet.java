@@ -44,7 +44,6 @@ public class MyAuthCodeServlet extends HttpServlet
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
-		
 		MyImage image = new MyImage();
 		String sRand = image.getAuthCode();
 		request.getSession().setAttribute(SessionName_Randcode, sRand);

@@ -167,7 +167,7 @@ public class MyImage
 		// 用随机产生的颜色将验证码绘制到图像中。
 		g.setFont(this.getFont());
 		this.getArrayAuthCode();
-		int w = (int)(width-10)/length;
+		int w = (int) (width - 10) / length;
 		for(int i = 0; i < this.code.length; i++)
 		{
 			g.setColor(getRandColor(0, 180));
