@@ -3,6 +3,10 @@ package dswork.android.demo.component.alphabet;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import android.view.Menu;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
 import dswork.android.R;
 import dswork.android.model.Person;
 import dswork.android.service.PersonService;
@@ -11,9 +15,6 @@ import dswork.android.ui.AlphaBar.OnAlphaBarListener;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.view.OleFragmentActivity;
-import android.view.Menu;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
 
 public class AlphabetActivity extends OleFragmentActivity 
 {

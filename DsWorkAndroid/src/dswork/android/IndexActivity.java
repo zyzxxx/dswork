@@ -3,8 +3,7 @@ package dswork.android;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import dswork.android.ui.PosPoint;
-import dswork.android.util.WorkUtil;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -16,10 +15,9 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Toast;
+import dswork.android.ui.PosPoint;
+import dswork.android.util.WorkUtil;
 
 public class IndexActivity extends FragmentActivity implements ActionBar.TabListener 
 {

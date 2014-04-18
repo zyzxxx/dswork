@@ -2,6 +2,9 @@ package dswork.android.demo.component.loadmore;
 
 import java.util.HashMap;
 import java.util.List;
+
+import android.view.Menu;
+import android.widget.SimpleAdapter;
 import dswork.android.R;
 import dswork.android.model.Person;
 import dswork.android.service.PersonService;
@@ -10,8 +13,6 @@ import dswork.android.ui.MoreListView.OnLoadMoreListener;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.view.OleFragmentActivity;
-import android.view.Menu;
-import android.widget.SimpleAdapter;
 
 public class LoadMoreActivity extends OleFragmentActivity
 {

@@ -2,9 +2,7 @@ package dswork.android.demo.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import dswork.android.R;
-import dswork.android.ui.OleTab;
-import dswork.android.ui.OleTab.OnOleTabListener;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +12,9 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import dswork.android.R;
+import dswork.android.ui.OleTab;
+import dswork.android.ui.OleTab.OnOleTabListener;
 
 public class OleTabFragment extends Fragment
 {

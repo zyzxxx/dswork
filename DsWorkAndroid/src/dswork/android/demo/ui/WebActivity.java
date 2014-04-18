@@ -5,25 +5,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import dswork.android.R;
-import dswork.android.R.id;
-import dswork.android.R.layout;
-import dswork.android.R.menu;
-import dswork.android.model.Demo;
-import dswork.android.service.DemoService;
-import dswork.android.util.MyStrictMode;
-
-import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.Intent;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import dswork.android.R;
+import dswork.android.model.Demo;
+import dswork.android.service.DemoService;
+import dswork.android.util.MyStrictMode;
 
 public class WebActivity extends Activity 
 {

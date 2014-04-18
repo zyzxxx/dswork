@@ -1,17 +1,17 @@
 package dswork.android.demo.component.db;
 
-import dswork.android.R;
-import dswork.android.model.Person;
-import dswork.android.service.PersonService;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.view.OleActivity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import dswork.android.R;
+import dswork.android.model.Person;
+import dswork.android.service.PersonService;
+import dswork.android.util.InjectUtil;
+import dswork.android.util.InjectUtil.InjectView;
+import dswork.android.view.OleActivity;
 
 public class DbEditActivity extends OleActivity 
 {

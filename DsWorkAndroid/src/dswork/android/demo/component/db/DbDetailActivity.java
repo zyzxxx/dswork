@@ -1,14 +1,14 @@
 package dswork.android.demo.component.db;
 
+import android.content.Intent;
+import android.view.Menu;
+import android.widget.TextView;
 import dswork.android.R;
 import dswork.android.model.Person;
 import dswork.android.service.PersonService;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.view.OleActivity;
-import android.content.Intent;
-import android.view.Menu;
-import android.widget.TextView;
 
 public class DbDetailActivity extends OleActivity 
 {

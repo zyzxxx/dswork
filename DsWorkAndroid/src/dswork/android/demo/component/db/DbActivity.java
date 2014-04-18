@@ -1,16 +1,6 @@
 package dswork.android.demo.component.db;
 
 import java.util.List;
-import dswork.android.R;
-import dswork.android.model.Person;
-import dswork.android.service.PersonService;
-import dswork.android.ui.MultiCheck.MultiCheckAdapter;
-import dswork.android.ui.MultiCheck.MultiCheckListView.ActionModeListener;
-import dswork.android.ui.MultiCheck.MultiCheckListView;
-import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.view.OleActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,6 +12,16 @@ import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
+import dswork.android.R;
+import dswork.android.model.Person;
+import dswork.android.service.PersonService;
+import dswork.android.ui.MultiCheck.MultiCheckAdapter;
+import dswork.android.ui.MultiCheck.MultiCheckListView;
+import dswork.android.ui.MultiCheck.MultiCheckListView.ActionModeListener;
+import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
+import dswork.android.util.InjectUtil;
+import dswork.android.util.InjectUtil.InjectView;
+import dswork.android.view.OleActivity;
 
 public class DbActivity extends OleActivity
 {
@@ -41,9 +41,9 @@ public class DbActivity extends OleActivity
 		List<Person> persons = service.query();
 		//实列化MultiCheck适配器，并初始化MultiCheck
 		MultiCheckAdapter adapter = new MultiCheckAdapter(this, persons, R.layout.activity_db_item,
-				new String[]{"name","sortkey","phone","amount"},new int[]{R.id.name,R.id.sortkey,R.id.phone,R.id.amount},
+				R.id.id, R.id.chk, new String[]{"name","sortkey","phone","amount"},new int[]{R.id.name,R.id.sortkey,R.id.phone,R.id.amount},
 				new MyViewCache());
-		listView.getMultiCheck(persons, adapter, listView, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.component.db.DbDetailActivity"));
+		listView.getMultiCheck(persons, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.component.db.DbDetailActivity"));
 		listView.setActionModeListener(new ActionModeListener()
 		{
 			@Override

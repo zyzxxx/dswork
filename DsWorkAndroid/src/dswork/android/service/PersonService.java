@@ -2,12 +2,13 @@ package dswork.android.service;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Context;
+import android.database.Cursor;
 import dswork.android.dao.PersonDao;
 import dswork.android.db.BaseDao;
 import dswork.android.db.BaseService;
 import dswork.android.model.Person;
-import android.content.Context;
-import android.database.Cursor;
 
 public class PersonService extends BaseService<Person, Long>
 {
