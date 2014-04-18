@@ -44,7 +44,10 @@ public class MyAuthCodeServlet extends HttpServlet
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
+		int w = getInt(request, "width", 60), h = getInt(request, "width", 20);
 		MyImage image = new MyImage();
+		image.setWidth(w);
+		image.setHeight(h);
 		String sRand = image.getAuthCode();
 		request.getSession().setAttribute(SessionName_Randcode, sRand);
 		image.drawImgeToOutStream(response.getOutputStream());
@@ -69,5 +72,18 @@ public class MyAuthCodeServlet extends HttpServlet
 	 */
 	public void init() throws ServletException
 	{
+	}
+	
+	private static int getInt(HttpServletRequest request, String key, int defaultValue)
+	{
+		try
+		{
+			String str = request.getParameter(key);
+			return (str == null || str.trim().equals("")) ? defaultValue : Integer.parseInt(str.trim());
+		}
+		catch(Exception ex)
+		{
+			return defaultValue;
+		}
 	}
 }
