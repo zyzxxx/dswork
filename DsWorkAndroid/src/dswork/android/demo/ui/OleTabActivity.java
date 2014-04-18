@@ -1,0 +1,46 @@
+package dswork.android.demo.ui;
+
+import dswork.android.R;
+import dswork.android.R.id;
+import dswork.android.R.layout;
+import android.os.Bundle;
+import android.app.ActionBar;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.graphics.Color;
+import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+
+public class OleTabActivity extends FragmentActivity
+{
+	@Override
+	protected void onCreate(Bundle savedInstanceState) 
+	{
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_oletab);
+		
+		// Set up the action bar.
+		final ActionBar actionBar = getActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);//显示左上角返回键
+		
+		getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, new OleTabFragment()).commit();
+	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.alphabet, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		switch(item.getItemId())
+		{
+			case android.R.id.home://返回
+				this.finish();
+				break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+}
