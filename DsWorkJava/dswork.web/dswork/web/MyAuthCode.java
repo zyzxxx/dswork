@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * 在Servlet中产生验证码图片
  */
-public class ValidCode extends HttpServlet
+public class MyAuthCode extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;
 	public static String SessionName_Randcode = "randcode";
@@ -17,7 +17,7 @@ public class ValidCode extends HttpServlet
 	/**
 	 * Constructor of the object.
 	 */
-	public ValidCode()
+	public MyAuthCode()
 	{
 		super();
 	}
@@ -45,7 +45,7 @@ public class ValidCode extends HttpServlet
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
 		
-		AuthCodeImage image = new AuthCodeImage();
+		MyImage image = new MyImage();
 		String sRand = image.getAuthCode();
 		request.getSession().setAttribute(SessionName_Randcode, sRand);
 		image.drawImgeToOutStream(response.getOutputStream());

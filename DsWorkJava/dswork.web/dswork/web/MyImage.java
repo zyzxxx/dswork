@@ -10,7 +10,7 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-public class AuthCodeImage
+public class MyImage
 {
 	public static final String AUTHCODE_STRING = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	// 图片宽度
