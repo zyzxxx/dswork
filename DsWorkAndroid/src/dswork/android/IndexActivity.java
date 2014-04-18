@@ -3,7 +3,6 @@ package dswork.android;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
