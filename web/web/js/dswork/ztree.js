@@ -6,7 +6,7 @@ $dswork.ztree = {
 	cid:"", vid:""
 };
 $dswork.ztree.root = {//在使用数据时可指定根节点，在调用树之前更新root
-	id:0, pid:-1, status:0, state:0, code:"", isParent:true, name:""//根节点名称
+	id:0, pid:-1, gid:-1, status:0, state:0, code:"", isParent:true, name:""//根节点名称
 };
 $dswork.ztree.nodeArray = [$dswork.ztree.root];// 如果需要自定义初始化节点，可直接定义此变量
 
