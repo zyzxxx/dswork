@@ -5,7 +5,7 @@ $(function()
 		var a = $("input[name='keyIndex']:checked");
 		var _c = 0;
 		for(var i = 0;i < a.length;i++){_c++;}
-		if(_c > 0){if(confirm("确认删除吗？")){$("#_submit_").click();return true;}}else{alert("请选择记录！");}
+		if(_c > 0){if(confirm("确认删除吗？")){$("#listForm").submit();return true;}}else{alert("请选择记录！");}
 		return false;
 	});
 	$("[name=keyIndex]").click(function(event){event.stopPropagation();}).dblclick(function(event){event.stopPropagation();});
