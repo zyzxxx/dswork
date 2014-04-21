@@ -52,9 +52,17 @@ function getReturnValue()
 {
 	parent.closeWindow();
 }
+window.onload = function()
+{
+	// 用于兼容旧的写法，旧的写法src不为空
+	if('${url}' == "")
+	{
+		document.getElementById("chooseFrame").src = parent.args.url;
+	}
+}
 </script>
 </head>
 <body>
-<iframe src="${url}" style="width:100%;height:100%;" width="100%" height="100%" frameborder="0" scrolling="auto"></iframe>
+<iframe id="chooseFrame" name="chooseFrame" src="${url}" style="width:100%;height:100%;" width="100%" height="100%" frameborder="0" scrolling="auto"></iframe>
 </body>
 </html>
