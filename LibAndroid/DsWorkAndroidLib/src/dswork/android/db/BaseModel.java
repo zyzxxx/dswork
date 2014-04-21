@@ -2,7 +2,7 @@ package dswork.android.db;
 
 public abstract class BaseModel 
 {
-	private Long id;
+	protected Long id;
 
 	public Long getId() {
 		return id;
