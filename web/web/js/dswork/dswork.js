@@ -25,6 +25,16 @@ $dswork.getWebRootPath = function()
 	return (p.match(/\/\w+/))[0];
 };
 var ctx = $dswork.getWebRootPath();
+$dswork.getChoose = function(m)
+{
+	m.url = ctx + "/commons/share/getChoose.jsp";
+	return $jskey.dialog.show(m);
+};
+$dswork.getChooseByKey = function(m)
+{
+	m.url = ctx + "/commons/share/getChooseByKey.jsp";
+	return $jskey.dialog.show(m);
+};
 String.prototype.trim = function()
 {
 	return this.replace(/(^\s*)|(\s*$)/g, "");//移除首尾空格
