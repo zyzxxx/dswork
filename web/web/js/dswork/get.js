@@ -95,4 +95,4 @@ $dswork.page.menu = function(delURL, updURL, getByIdURL, page, showContext)
 			});
 		}
 	});
-}
+};
