@@ -48,5 +48,14 @@
     <string name="title_activity_db_add">添加页（DbAddActivity）</string>
     <string name="title_activity_db_edit">修改页（DbEditActivity）</string>
     <string name="btn_save">保存</string>
+    <string name="title_activity_demo">DemoActivity</string>
+    <string name="title">标题</string>
+    <string name="content">内容</string>
+    <string name="foundtime">创建时间</string>
+    <string name="projUrl">http://192.168.1.102:8088/DemoJava</string>
+    <string name="moduleUrl">/manage/demo/</string>
+    <string name="title_activity_demo_add">DemoAddActivity</string>
+    <string name="title_activity_demo_edit">DemoEditActivity</string>
+    <string name="title_activity_demo_detail">DemoDetailActivity</string>
 
 </resources>

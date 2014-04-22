@@ -2,10 +2,11 @@
  * DEMOModel
  */
 package dswork.android.model;
-public class Demo
+
+import dswork.android.db.BaseModel;
+
+public class Demo extends BaseModel
 {
-	//主键
-	private Long id = 0L;
 	//标题
 	private String title = "";
 	//内容
@@ -20,21 +21,16 @@ public class Demo
 
 	public Demo(Long id, String title, String content, String foundtime) 
 	{
-		super();
 		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.foundtime = foundtime;
 	}
-
-	public Long getId()
+	public Demo(String title, String content, String foundtime) 
 	{
-		return this.id;
-	}
-
-	public void setId(Long id)
-	{
-		this.id = id;
+		this.title = title;
+		this.content = content;
+		this.foundtime = foundtime;
 	}
 
 	public String getTitle()

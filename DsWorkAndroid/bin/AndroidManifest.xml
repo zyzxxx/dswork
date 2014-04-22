@@ -46,11 +46,6 @@
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.ui.WebActivity"
-            android:label="@string/app_name"
-            android:parentActivityName=".IndexActivity" >
-        </activity>
-        <activity
             android:name="dswork.android.demo.ui.SlidingMenuActivity"
             android:label="@string/title_activity_slidingmenu"
             android:logo="@drawable/ic_3"
@@ -88,6 +83,26 @@
         <activity
             android:name="dswork.android.demo.component.loadmore.LoadMoreActivity"
             android:label="@string/title_activity_loadmore" >
+        </activity>
+        <activity
+            android:name="dswork.android.demo.component.web.DemoActivity"
+            android:label="@string/title_activity_demo"
+            android:parentActivityName=".IndexActivity" >
+        </activity>
+        <activity
+            android:name="dswork.android.demo.component.web.DemoAddActivity"
+            android:label="@string/title_activity_demo_add"
+            android:parentActivityName=".IndexActivity" >
+        </activity>
+        <activity
+            android:name="dswork.android.demo.component.web.DemoEditActivity"
+            android:label="@string/title_activity_demo_edit"
+            android:parentActivityName=".IndexActivity" >
+        </activity>
+        <activity
+            android:name="dswork.android.demo.component.web.DemoDetailActivity"
+            android:label="@string/title_activity_demo_detail"
+            android:parentActivityName=".IndexActivity" >
         </activity>
 
         <!-- 测试 -->

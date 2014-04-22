@@ -134,7 +134,6 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.ViewPager, R.drawable.ic_launcher, "ViewPager", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.ui.ViewPagerActivity", false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.FragmentTabHost, R.drawable.ic_launcher, "FragmentTabHost", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.ui.FragmentTabHostActivity", false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.OleTab, R.drawable.ic_launcher, "OleTab", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.ui.OleTabActivity", false,null,null,null));
-			WorkUtil.addShortcut(getActivity(), rootView, R.id.web, R.drawable.ic_3, "web", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.ui.WebActivity", false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.SlidingMenu, R.drawable.ic_map, "SlidingMenu", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.ui.SlidingMenuActivity", false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.FragmentDemo, R.drawable.ic_map, "FragmentDemo", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.ui.FragmentDemoActivity", false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.html_tab, R.drawable.ic_config, "html_tab", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.ui.HtmlTabActivity", false, null, null, null));
@@ -151,6 +150,7 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.db, R.drawable.ic_launcher, "db", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.db.DbActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.alphabet, R.drawable.ic_launcher, "alphabet", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.alphabet.AlphabetActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.loadmore, R.drawable.ic_launcher, "loadmore", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.loadmore.LoadMoreActivity",false, null, null, null));
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.web, R.drawable.ic_3, "web", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.web.DemoActivity", false, null, null, null));
 			return rootView;
 		}
 	}
