@@ -14,7 +14,7 @@ import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.view.OleActivity;
 
-public class PersonEditActivity extends OleActivity 
+public class PersonUpdActivity extends OleActivity 
 {
 	@InjectView(id=R.id.name) EditText nameText;//姓名
 	@InjectView(id=R.id.phone) EditText phoneText;//电话

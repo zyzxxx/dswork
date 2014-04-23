@@ -69,7 +69,7 @@
             android:label="@string/title_activity_person_add" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.PersonEditActivity"
+            android:name="dswork.android.demo.framework.app.single.PersonUpdActivity"
             android:label="@string/title_activity_person_edit" >
         </activity>
         <activity

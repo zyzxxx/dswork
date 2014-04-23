@@ -48,7 +48,7 @@ public class PersonActivity extends OleActivity
 			{
 				return new OleActionMode(PersonActivity.this, controller, R.menu.context_menu, R.id.menu_upd, 
 						R.id.menu_del_confirm, listView,
-						"dswork.android", "dswork.android.demo.framework.app.single.PersonEditActivity");
+						"dswork.android", "dswork.android.demo.framework.app.single.PersonUpdActivity");
 			}
 		});
 	}
