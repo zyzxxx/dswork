@@ -87,6 +87,25 @@ public abstract class BaseService<T, PK extends Serializable>
 		getEntityDao().close();
 	}	
 	/**
+	 * 删除记录(批量)
+	 * @param table 表名
+	 * @param pks 主键值集合字符串,以逗号隔开
+	 */
+	public void deleteBatch(String table, String pks)
+	{
+		getEntityDao().beginTransaction();
+		try
+		{
+			getEntityDao().deleteBatch(table, pks);
+			getEntityDao().setTransactionSuccessful();
+		}
+		finally
+		{
+			getEntityDao().endTransaction();
+		}
+		getEntityDao().close();
+	}	
+	/**
 	 * 修改记录
 	 * @param table 表名
 	 * @param values 要修改的列的键值对
@@ -130,9 +149,48 @@ public abstract class BaseService<T, PK extends Serializable>
 	/**
 	 * 修改记录
 	 * @param o Model实例
+	 * @param ids 主键值集合字符串，以逗号隔开
+	 * @param fieldNames 需要修改的属性名
+	 */
+	public void update(T o, String ids, String[] fieldNames)
+	{
+		getEntityDao().beginTransaction();
+		try
+		{
+			getEntityDao().update(o, ids, fieldNames);
+			getEntityDao().setTransactionSuccessful();
+		}
+		finally
+		{
+			getEntityDao().endTransaction();
+		}
+		getEntityDao().close();
+	}
+	/**
+	 * 修改记录
+	 * @param o Model实例
 	 * @param ids 主键值数组
 	 */
 	public void update(T o, long[] ids)
+	{
+		getEntityDao().beginTransaction();
+		try
+		{
+			getEntityDao().update(o, ids);
+			getEntityDao().setTransactionSuccessful();
+		}
+		finally
+		{
+			getEntityDao().endTransaction();
+		}
+		getEntityDao().close();
+	}
+	/**
+	 * 修改记录
+	 * @param o Model实例
+	 * @param ids 主键值集合字符串，以逗号隔开
+	 */
+	public void update(T o, String ids)
 	{
 		getEntityDao().beginTransaction();
 		try

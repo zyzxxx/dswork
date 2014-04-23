@@ -3,6 +3,8 @@ package dswork.android.db;
 import java.io.Serializable;
 import java.util.List;
 
+import org.apache.commons.beanutils.ConvertUtils;
+
 import dswork.android.util.SqlUtil;
 
 
@@ -91,6 +93,20 @@ public abstract class BaseDao<T, PK extends Serializable>
 		}
 	}
 	/**
+	 * 删除记录(批量)
+	 * @param table 表名
+	 * @param pks 主键值集合
+	 */
+	public void deleteBatch(String table, String pks)
+	{
+		String[] _pks_s = pks.split(",");
+		PK[] _pks_l = (PK[])ConvertUtils.convert(_pks_s, Long.class);
+		for(int i=0; i<_pks_l.length; i++)
+		{
+			this.delete(table, _pks_l[i]);
+		}
+	}
+	/**
 	 * 修改记录
 	 * @param table 表名
 	 * @param values 要修改的列的键值对
@@ -122,6 +138,25 @@ public abstract class BaseDao<T, PK extends Serializable>
 	/**
 	 * 修改记录
 	 * @param o Model实例
+	 * @param ids 主键值集合字符串,以逗号隔开
+	 * @param fieldNames 需要修改的属性名
+	 */
+	public void update(T o, String ids, String[] fieldNames)
+	{
+		ContentValues cv= new ContentValues();
+		for(String n:fieldNames)
+		{
+			cv.put(n, SqlUtil.getValueByName(o, n));
+		}
+		String[] _ids = ids.split(",");
+		for(String id:_ids)
+		{
+			getWritableDb().update(SqlUtil.getTableNameByModel(o), cv, "id=?", new String[]{id.toString()});
+		}
+	}
+	/**
+	 * 修改记录
+	 * @param o Model实例
 	 * @param ids 主键值数组
 	 */
 	public void update(T o, long[] ids)
@@ -129,6 +164,19 @@ public abstract class BaseDao<T, PK extends Serializable>
 		for(Long id:ids)
 		{
 			getWritableDb().update(SqlUtil.getTableNameByModel(o), SqlUtil.getValues(o), "id=?", new String[]{id.toString()});
+		}
+	}
+	/**
+	 * 修改记录
+	 * @param o Model实例
+	 * @param ids 主键值集合字符串，以逗号隔开
+	 */
+	public void update(T o, String ids)
+	{
+		String[] _ids = ids.split(",");
+		for(String id:_ids)
+		{
+			getWritableDb().update(SqlUtil.getTableNameByModel(o), SqlUtil.getValues(o), "id=?", new String[]{id});
 		}
 	}
 	/**

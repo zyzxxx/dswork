@@ -6,6 +6,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="lib" path="D:/android/jar/android-support-v4.jar"/>
 	<classpathentry kind="lib" path="D:/android/jar/pinyin4j-2.5.0.jar"/>
+	<classpathentry kind="lib" path="libs/commons-beanutils-core-1.8.3.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
