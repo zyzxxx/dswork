@@ -32,32 +32,31 @@
         <item>Clock</item>
     </string-array>
 
-    <string name="title_activity_db">列表页（DbActivity）</string>
     <string name="id">ID</string>
-    <string name="name">姓名</string>
-    <string name="phone">电话</string>
-    <string name="amount">存款</string>
-    <string name="sortkey">拼音</string>
-    <string name="menu_add">+添加</string>
     <string name="confirm">删除</string>
     <string name="cancel">取消</string>
     <string name="yes">是</string>
     <string name="no">否</string>
     <string name="confirm_del">确定删除吗？</string>
     <string name="confirm_upd">确定批量修改吗？</string>
-    <string name="title_activity_db_detail">明细页（DbDetailActivity）</string>
-    <string name="title_activity_db_add">添加页（DbAddActivity）</string>
-    <string name="title_activity_db_edit">修改页（DbEditActivity）</string>
     <string name="btn_save">保存</string>
-    <string name="title_activity_demo">DemoActivity</string>
+    <string name="title_activity_person">列表页（PersonActivity）</string>
+    <string name="title_activity_person_detail">明细页（PersonDetailActivity）</string>
+    <string name="title_activity_person_add">添加页（PersonEditActivity）</string>
+    <string name="title_activity_person_edit">修改页（PersonEditActivity）</string>
+    <string name="name">姓名</string>
+    <string name="phone">电话</string>
+    <string name="amount">存款</string>
+    <string name="sortkey">拼音</string>
+    <string name="menu_add">+添加</string>
+    <string name="title_activity_demo">列表页（DemoActivity）</string>
+    <string name="title_activity_demo_detail">明细页（DemoDetailActivity）</string>
+    <string name="title_activity_demo_add">添加页（DemoAddActivity)</string>
+    <string name="title_activity_demo_upd">修改页（DemoUpdActivity)</string>
     <string name="title">标题</string>
     <string name="content">内容</string>
     <string name="foundtime">创建时间</string>
     <string name="projUrl">http://192.168.1.105:8088/DemoJava</string>
     <string name="moduleUrl">/manage/demo/</string>
-    <string name="title_activity_demo_add">DemoAddActivity</string>
-    <string name="title_activity_demo_edit">DemoEditActivity</string>
-    <string name="title_activity_demo_detail">DemoDetailActivity</string>
-    <string name="title_activity_demo_upd">DemoUpdActivity</string>
 
 </resources>

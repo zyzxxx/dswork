@@ -61,20 +61,20 @@
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.DbActivity"
-            android:label="@string/title_activity_db" >
+            android:name="dswork.android.demo.framework.app.single.PersonActivity"
+            android:label="@string/title_activity_person" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.DbAddActivity"
-            android:label="@string/title_activity_db_add" >
+            android:name="dswork.android.demo.framework.app.single.PersonAddActivity"
+            android:label="@string/title_activity_person_add" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.DbEditActivity"
-            android:label="@string/title_activity_db_edit" >
+            android:name="dswork.android.demo.framework.app.single.PersonEditActivity"
+            android:label="@string/title_activity_person_edit" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.DbDetailActivity"
-            android:label="@string/title_activity_db_detail" >
+            android:name="dswork.android.demo.framework.app.single.PersonDetailActivity"
+            android:label="@string/title_activity_person_detail" >
         </activity>
         <activity
             android:name="dswork.android.demo.component.alphabet.AlphabetActivity"

@@ -14,7 +14,7 @@ import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.view.OleActivity;
 
-public class DbAddActivity extends OleActivity 
+public class PersonAddActivity extends OleActivity 
 {
 	@InjectView(id=R.id.name) EditText nameText;//姓名
 	@InjectView(id=R.id.phone) EditText phoneText;//电话
@@ -25,7 +25,7 @@ public class DbAddActivity extends OleActivity
 	@Override
 	public void initMainView() 
 	{
-		setContentView(R.layout.activity_db_add);
+		setContentView(R.layout.activity_person_add);
 		InjectUtil.injectView(this);//注入控件
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
@@ -36,7 +36,7 @@ public class DbAddActivity extends OleActivity
 	@Override
 	public void initMenu(Menu menu) 
 	{
-		getMenuInflater().inflate(R.menu.db_add, menu);
+		getMenuInflater().inflate(R.menu.person_add, menu);
 	}
 	
 	private final class SaveClickListener implements OnClickListener
@@ -57,6 +57,6 @@ public class DbAddActivity extends OleActivity
 		controller.add(p);
 		Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 		this.finish();
-		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DbActivity.class));
+		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, PersonActivity.class));
 	}
 }

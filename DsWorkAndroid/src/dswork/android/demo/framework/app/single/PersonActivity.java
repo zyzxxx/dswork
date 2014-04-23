@@ -20,7 +20,7 @@ import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.view.OleActivity;
 
-public class DbActivity extends OleActivity
+public class PersonActivity extends OleActivity
 {
 	@InjectView(id=R.id.listView) MultiCheckListView listView;//列表视图
 	@InjectView(id=R.id.chkAll) CheckBox chkAll;//全选框CheckBox
@@ -28,7 +28,7 @@ public class DbActivity extends OleActivity
 
 	@Override
 	public void initMainView() {
-		setContentView(R.layout.activity_db);
+		setContentView(R.layout.activity_person);
 		InjectUtil.injectView(this);//注入控件
 		
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
@@ -37,25 +37,25 @@ public class DbActivity extends OleActivity
 		controller = new PersonController(this);
 		List<Person> persons = controller.get(new HashMap());
 		//实列化MultiCheck适配器，并初始化MultiCheck
-		MultiCheckAdapter adapter = new MultiCheckAdapter(this, persons, R.layout.activity_db_item,
+		MultiCheckAdapter adapter = new MultiCheckAdapter(this, persons, R.layout.activity_person_item,
 				R.id.id, R.id.chk, new String[]{"name","sortkey","phone","amount"},new int[]{R.id.name,R.id.sortkey,R.id.phone,R.id.amount},
 				new MyViewCache());
-		listView.getMultiCheck(persons, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.DbDetailActivity"));
+		listView.getMultiCheck(persons, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.PersonDetailActivity"));
 		listView.setActionModeListener(new ActionModeListener()
 		{
 			@Override
 			public Callback getActionModeCallback() 
 			{
-				return new OleActionMode(DbActivity.this, controller, R.menu.context_menu, R.id.menu_upd, 
+				return new OleActionMode(PersonActivity.this, controller, R.menu.context_menu, R.id.menu_upd, 
 						R.id.menu_del_confirm, listView,
-						"dswork.android", "dswork.android.demo.framework.app.single.DbEditActivity");
+						"dswork.android", "dswork.android.demo.framework.app.single.PersonEditActivity");
 			}
 		});
 	}
 
 	@Override
 	public void initMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.db, menu);
+		getMenuInflater().inflate(R.menu.person, menu);
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class DbActivity extends OleActivity
 				this.finish();
 				break;
 			case R.id.menu_add://添加
-				startActivity(new Intent().setClass(this, DbAddActivity.class));
+				startActivity(new Intent().setClass(this, PersonAddActivity.class));
 				break;
 		}
 	}
