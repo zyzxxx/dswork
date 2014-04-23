@@ -3,14 +3,13 @@ package dswork.android.ui.MultiCheck;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 import dswork.android.db.BaseModel;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.ActionMode;
 import android.view.KeyEvent;
 import android.view.View;
@@ -38,9 +37,9 @@ public class MultiCheckListView extends ListView
     private boolean isMultiChoose = false;//判断是否多选模式 （默认false）
 	private ActionModeListener listener;
     
-    public MultiCheckListView(Context context, AttributeSet attrs) 
+    public MultiCheckListView(Context ctx, AttributeSet attrs) 
     {
-    	super(context, attrs);
+    	super(ctx, attrs);
     	this.ctx = ctx;
     }
     
@@ -108,6 +107,20 @@ public class MultiCheckListView extends ListView
 		}
 		return ids;
 	}
+	/**
+	 * 获取主键值集合字符串，以逗号隔开
+	 * @return String
+	 */
+	public String getIds()
+	{
+		String ids = "";
+		for(int i=0; i<this.idList.size(); i++)
+		{
+			ids += String.valueOf(idList.get(i)) + (i+1<idList.size()?",":"");
+		}
+		Log.i("ids is :", ids);
+		return ids;
+	}
 	
 	/**
 	 * 刷新列表
@@ -173,7 +186,6 @@ public class MultiCheckListView extends ListView
             if(isMultiChoose)  
             {//多选模式，单击选中
             	checkOne(v, pos);
-                Toast.makeText(getContext(), "You choose "+checkNum+"items.", Toast.LENGTH_SHORT).show();  
             }  
             else  
             {//非多选模式，跳转到明细页  
