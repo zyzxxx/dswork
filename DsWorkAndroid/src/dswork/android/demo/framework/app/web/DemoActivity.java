@@ -2,14 +2,11 @@ package dswork.android.demo.framework.app.web;
 
 import java.util.HashMap;
 import java.util.List;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.ActionMode;
 import android.view.ActionMode.Callback;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -21,6 +18,7 @@ import dswork.android.ui.MultiCheck.MultiCheckAdapter;
 import dswork.android.ui.MultiCheck.MultiCheckListView;
 import dswork.android.ui.MultiCheck.MultiCheckListView.ActionModeListener;
 import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
+import dswork.android.ui.OleActionMode;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.util.MyStrictMode;
@@ -33,7 +31,8 @@ public class DemoActivity extends OleActivity
 	DemoController controller;
 
 	@Override
-	public void initMainView() {
+	public void initMainView()
+	{
 		MyStrictMode.setPolicy();//webapp需要调用此方法
 		setContentView(R.layout.activity_demo);
 		InjectUtil.injectView(this);//注入控件
@@ -51,8 +50,12 @@ public class DemoActivity extends OleActivity
 		listView.setActionModeListener(new ActionModeListener()
 		{
 			@Override
-			public Callback getActionModeCallback() {
-				return new MyActionMode();
+			public Callback getActionModeCallback() 
+			{
+				return new OleActionMode(DemoActivity.this, R.menu.context_menu, R.id.menu_upd, 
+						R.id.menu_del_confirm, listView,
+						new updateListener(), new deleteListener(),
+						"dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity");
 			}
 		});
 	}
@@ -81,84 +84,6 @@ public class DemoActivity extends OleActivity
 		public TextView nameView;
 		public TextView phoneView;
 		public TextView amountView;
-	}
-	
-	//自定义ActionMode，进入多选模式下启用
-	private final class MyActionMode implements ActionMode.Callback 
-	{
-		@Override
-		public boolean onCreateActionMode(ActionMode mode,Menu menu) 
-		{
-			//填充ActionMode的menu
-			MenuInflater inflater = mode.getMenuInflater();
-	        inflater.inflate(R.menu.context_menu, menu);
-			return true;
-		}
-		@Override
-		public boolean onPrepareActionMode(ActionMode mode,Menu menu)
-		{
-			return false;
-		}
-		@Override
-		public boolean onActionItemClicked(ActionMode mode,MenuItem item) 
-		{
-			boolean result = false;
-			switch (item.getItemId()) 
-			{
-				case R.id.menu_edit://修改
-		        	if(listView.getIdList().size() > 0)
-		        	{
-		        		if(listView.getIdList().size() == 1)
-		        		{//一条	
-		        			Bundle b = new Bundle();
-		        			b.putString("ids", listView.getIds());
-		        			b.putLongArray("idsArr", listView.getIdArray());
-		        			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity").putExtras(b));
-		        		}
-		        		else
-		        		{//多条
-			        		new AlertDialog.Builder(DemoActivity.this)
-			        		.setTitle(R.string.confirm_upd)
-			        		.setIcon(android.R.drawable.ic_dialog_info)
-			        		.setNegativeButton(R.string.no, null)
-			        		.setPositiveButton(R.string.yes, new updateListener())
-			        		.show();
-		        		}
-		        		result = true;
-		        	}
-		        	else
-		        	{
-		        		Toast.makeText(getApplicationContext(), "未选中 ！", Toast.LENGTH_SHORT).show();  
-		                result = false;
-		        	}
-					break;
-		        case R.id.menu_confirm://删除
-		        	if(listView.getIdList().size()>0)
-		        	{
-		        		new AlertDialog.Builder(DemoActivity.this)
-		        		.setTitle(R.string.confirm_del)
-		        		.setIcon(android.R.drawable.ic_delete)
-		        		.setNegativeButton(R.string.no, null)
-		        		.setPositiveButton(R.string.yes, new deleteListener())
-		        		.show();
-		        		result = true;
-		        	}
-		        	else
-		        	{
-		        		Toast.makeText(getApplicationContext(), "未选中 ！", Toast.LENGTH_SHORT).show();  
-		                result = false;
-		        	}
-		        default:
-		        	result = false;
-			}
-			return result;
-		}
-		@Override
-		//左上角的勾
-		public void onDestroyActionMode(ActionMode mode) 
-		{
-			listView.isMultiMode(false);//关闭多选模式
-		}
 	}
 	
 	//删除操作监听类

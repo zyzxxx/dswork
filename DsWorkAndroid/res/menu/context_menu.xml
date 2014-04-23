@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <item 
-        android:id="@+id/menu_edit" 
+        android:id="@+id/menu_upd" 
         android:icon="@android:drawable/ic_menu_edit"/>
     <item 
         android:id="@+id/menu_del" 
         android:icon="@android:drawable/ic_menu_delete">
         <menu>
 		    <item
-		        android:id="@+id/menu_cancel"
+		        android:id="@+id/menu_del_cancel"
 		        android:title="@string/cancel"/>
 		    <item
-		        android:id="@+id/menu_confirm"
+		        android:id="@+id/menu_del_confirm"
 		        android:title="@string/confirm"/>
         </menu>
     </item>

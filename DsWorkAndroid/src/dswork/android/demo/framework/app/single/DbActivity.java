@@ -1,13 +1,10 @@
 package dswork.android.demo.framework.app.single;
 
 import java.util.List;
-import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.ActionMode;
 import android.view.ActionMode.Callback;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -15,6 +12,7 @@ import android.widget.Toast;
 import dswork.android.R;
 import dswork.android.model.Person;
 import dswork.android.service.PersonService;
+import dswork.android.ui.OleActionMode;
 import dswork.android.ui.MultiCheck.MultiCheckAdapter;
 import dswork.android.ui.MultiCheck.MultiCheckListView;
 import dswork.android.ui.MultiCheck.MultiCheckListView.ActionModeListener;
@@ -47,8 +45,12 @@ public class DbActivity extends OleActivity
 		listView.setActionModeListener(new ActionModeListener()
 		{
 			@Override
-			public Callback getActionModeCallback() {
-				return new MyActionMode();
+			public Callback getActionModeCallback() 
+			{
+				return new OleActionMode(DbActivity.this, R.menu.context_menu, R.id.menu_upd, 
+						R.id.menu_del_confirm, listView,
+						new updateListener(), new deleteListener(),
+						"dswork.android", "dswork.android.demo.framework.app.single.DbEditActivity");
 			}
 		});
 	}
@@ -77,81 +79,6 @@ public class DbActivity extends OleActivity
 		public TextView nameView;
 		public TextView phoneView;
 		public TextView amountView;
-	}
-	
-	//自定义ActionMode，进入多选模式下启用
-	private final class MyActionMode implements ActionMode.Callback 
-	{
-		@Override
-		public boolean onCreateActionMode(ActionMode mode,Menu menu) 
-		{
-			//填充ActionMode的menu
-			MenuInflater inflater = mode.getMenuInflater();
-	        inflater.inflate(R.menu.context_menu, menu);
-			return true;
-		}
-		@Override
-		public boolean onPrepareActionMode(ActionMode mode,Menu menu)
-		{
-			return false;
-		}
-		@Override
-		public boolean onActionItemClicked(ActionMode mode,MenuItem item) 
-		{
-			boolean result = false;
-			switch (item.getItemId()) 
-			{
-				case R.id.menu_edit://修改
-		        	if(listView.getIdList().size() > 0)
-		        	{
-		        		if(listView.getIdList().size() == 1)
-		        		{//一条
-		        			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.DbEditActivity").putExtra("ids", listView.getIdArray()));
-		        		}
-		        		else
-		        		{//多条
-			        		new AlertDialog.Builder(DbActivity.this)
-			        		.setTitle(R.string.confirm_upd)
-			        		.setIcon(android.R.drawable.ic_dialog_info)
-			        		.setNegativeButton(R.string.no, null)
-			        		.setPositiveButton(R.string.yes, new updateListener())
-			        		.show();
-		        		}
-		        		result = true;
-		        	}
-		        	else
-		        	{
-		        		Toast.makeText(getApplicationContext(), "未选中 ！", Toast.LENGTH_SHORT).show();  
-		                result = false;
-		        	}
-					break;
-		        case R.id.menu_confirm://删除
-		        	if(listView.getIdList().size()>0)
-		        	{
-		        		new AlertDialog.Builder(DbActivity.this)
-		        		.setTitle(R.string.confirm_del)
-		        		.setIcon(android.R.drawable.ic_delete)
-		        		.setNegativeButton(R.string.no, null)
-		        		.setPositiveButton(R.string.yes, new deleteListener())
-		        		.show();
-		        		result = true;
-		        	}
-		        	else
-		        	{
-		        		Toast.makeText(getApplicationContext(), "未选中 ！", Toast.LENGTH_SHORT).show();  
-		                result = false;
-		        	}
-		        default:
-		        	result = false;
-			}
-			return result;
-		}
-		@Override
-		//左上角的勾
-		public void onDestroyActionMode(ActionMode mode) 
-		{
-			listView.isMultiMode(false);//关闭多选模式
-		}
 	}
 	
 	//删除操作监听类
