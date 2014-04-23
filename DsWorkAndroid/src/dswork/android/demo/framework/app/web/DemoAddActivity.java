@@ -3,7 +3,7 @@ package dswork.android.demo.framework.app.web;
 import java.util.HashMap;
 import java.util.Map;
 import dswork.android.R;
-import dswork.android.service.DemoController;
+import dswork.android.controller.DemoController;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.MyStrictMode;
 import dswork.android.util.InjectUtil.InjectView;
