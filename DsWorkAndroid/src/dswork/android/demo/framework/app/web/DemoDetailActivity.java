@@ -1,4 +1,4 @@
-package dswork.android.demo.component.web;
+package dswork.android.demo.framework.app.web;
 
 import android.content.Intent;
 import android.view.Menu;

@@ -42,6 +42,7 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 		fgms = new ArrayList<Fragment>();
 		fgms.add(new Fragment1());
 		fgms.add(new Fragment2());
+		fgms.add(new Fragment3());
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 		mViewPager = (ViewPager)findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -79,7 +80,7 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 
 		@Override
 		public int getCount() {
-			return 2;
+			return 3;
 		}
 
 		@Override
@@ -90,6 +91,8 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 				return getString(R.string.title_ui).toUpperCase(l);
 			case 1:
 				return getString(R.string.title_component).toUpperCase(l);
+			case 2:
+				return getString(R.string.title_framework).toUpperCase(l);
 			}
 			return null;
 		}
@@ -151,6 +154,16 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.alphabet, R.drawable.ic_launcher, "alphabet", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.alphabet.AlphabetActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.loadmore, R.drawable.ic_launcher, "loadmore", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.loadmore.LoadMoreActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.web, R.drawable.ic_3, "web", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.web.DemoActivity", false, null, null, null));
+			return rootView;
+		}
+	}
+	public static class Fragment3 extends Fragment
+	{
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
+		{
+			View rootView = inflater.inflate(R.layout.fragment_index_3, container, false);
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.webapp, R.drawable.ic_launcher, "webapp", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.framework.app.web.DemoActivity", false, null, null, null));
 			return rootView;
 		}
 	}

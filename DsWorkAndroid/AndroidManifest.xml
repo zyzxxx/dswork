@@ -85,22 +85,22 @@
             android:label="@string/title_activity_loadmore" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.web.DemoActivity"
+            android:name="dswork.android.demo.framework.app.web.DemoActivity"
             android:label="@string/title_activity_demo"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.web.DemoAddActivity"
+            android:name="dswork.android.demo.framework.app.web.DemoAddActivity"
             android:label="@string/title_activity_demo_add"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.web.DemoEditActivity"
-            android:label="@string/title_activity_demo_edit"
+            android:name="dswork.android.demo.framework.app.web.DemoUpdActivity"
+            android:label="@string/title_activity_demo_upd"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.web.DemoDetailActivity"
+            android:name="dswork.android.demo.framework.app.web.DemoDetailActivity"
             android:label="@string/title_activity_demo_detail"
             android:parentActivityName=".IndexActivity" >
         </activity>

@@ -1,4 +1,4 @@
-package dswork.android.demo.component.web;
+package dswork.android.demo.framework.app.web;
 
 import java.util.HashMap;
 import java.util.List;
@@ -47,7 +47,7 @@ public class DemoActivity extends OleActivity
 		MultiCheckAdapter adapter = new MultiCheckAdapter(this, list, R.layout.activity_demo_item,
 				R.id.id, R.id.chk, new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
 				new MyViewCache());
-		listView.getMultiCheck(list, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.component.web.DemoDetailActivity"));
+		listView.getMultiCheck(list, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoDetailActivity"));
 		listView.setActionModeListener(new ActionModeListener()
 		{
 			@Override
@@ -109,8 +109,11 @@ public class DemoActivity extends OleActivity
 		        	if(listView.getIdList().size() > 0)
 		        	{
 		        		if(listView.getIdList().size() == 1)
-		        		{//一条
-		        			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.component.web.DemoEditActivity").putExtra("ids", listView.getIdArray()));
+		        		{//一条	
+		        			Bundle b = new Bundle();
+		        			b.putString("ids", listView.getIds());
+		        			b.putLongArray("idsArr", listView.getIdArray());
+		        			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity").putExtras(b));
 		        		}
 		        		else
 		        		{//多条
@@ -175,13 +178,10 @@ public class DemoActivity extends OleActivity
 		@Override
 		public void onClick(DialogInterface dialog, int which) 
 		{
-    		Toast.makeText(getApplicationContext(), "fuck", Toast.LENGTH_SHORT).show(); 
 			Bundle b = new Bundle();
 			b.putString("ids", listView.getIds());
-			System.out.println("listView.getIdArray() -> "+listView.getIdArray());
 			b.putLongArray("idsArr", listView.getIdArray());
-//			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.component.web.DemoEditActivity").putExtras(b));
-//			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.component.web.DemoEditActivity").putExtra("idsArr", listView.getIdArray()));
+			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity").putExtras(b));
 		}
 	}
 }

@@ -7,6 +7,7 @@
     <string name="title_activity_index">IndexActivity</string>
     <string name="title_ui">ui</string>
     <string name="title_component">component</string>
+    <string name="title_framework">framework</string>
     <string name="title_tab1">tab1</string>
     <string name="title_tab2">tab2</string>
     <string name="title_tab3">tab3</string>
@@ -52,10 +53,11 @@
     <string name="title">标题</string>
     <string name="content">内容</string>
     <string name="foundtime">创建时间</string>
-    <string name="projUrl">http://192.168.1.102:8088/DemoJava</string>
+    <string name="projUrl">http://192.168.1.105:8088/DemoJava</string>
     <string name="moduleUrl">/manage/demo/</string>
     <string name="title_activity_demo_add">DemoAddActivity</string>
     <string name="title_activity_demo_edit">DemoEditActivity</string>
     <string name="title_activity_demo_detail">DemoDetailActivity</string>
+    <string name="title_activity_demo_upd">DemoUpdActivity</string>
 
 </resources>
