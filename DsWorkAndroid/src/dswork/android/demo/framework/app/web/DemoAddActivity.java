@@ -1,7 +1,5 @@
 package dswork.android.demo.framework.app.web;
 
-import java.util.HashMap;
-import java.util.Map;
 import dswork.android.R;
 import dswork.android.controller.DemoController;
 import dswork.android.model.Demo;

@@ -2,15 +2,12 @@ package dswork.android.demo.framework.app.web;
 
 import java.util.HashMap;
 import java.util.List;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.ActionMode.Callback;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
 import dswork.android.R;
 import dswork.android.controller.DemoController;
 import dswork.android.model.Demo;
@@ -84,28 +81,4 @@ public class DemoActivity extends OleActivity
 		public TextView phoneView;
 		public TextView amountView;
 	}
-	
-//	//删除操作监听类
-//	private class deleteListener implements DialogInterface.OnClickListener
-//	{
-//		@Override
-//		public void onClick(DialogInterface dialog, int which) 
-//		{
-//    		String result = controller.deleteBatch(listView.getIds());//执行删除
-//    		listView.refreshListView(controller.get(new HashMap()));//刷新列表
-//    		Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show(); 
-//		}
-//	}
-//	//修改操作监听类
-//	private class updateListener implements DialogInterface.OnClickListener
-//	{
-//		@Override
-//		public void onClick(DialogInterface dialog, int which) 
-//		{
-//			Bundle b = new Bundle();
-//			b.putString("ids", listView.getIds());
-//			b.putLongArray("idsArr", listView.getIdArray());
-//			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity").putExtras(b));
-//		}
-//	}
 }
