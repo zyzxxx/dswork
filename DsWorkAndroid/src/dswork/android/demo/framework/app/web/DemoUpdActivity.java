@@ -1,8 +1,5 @@
 package dswork.android.demo.framework.app.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,12 +59,11 @@ public class DemoUpdActivity extends OleActivity
 
 	public void save(View v)
 	{
-		Map m = new HashMap();
-		m.put("ids", ids);
-		m.put("title", title.getText().toString().trim());
-		m.put("content", content.getText().toString().trim());
-		m.put("foundtime", foundtime.getText().toString().trim());
-		String result = controller.upd(m);
+		Demo po = new Demo();
+		po.setTitle(title.getText().toString().trim());
+		po.setContent(content.getText().toString().trim());
+		po.setFoundtime(foundtime.getText().toString().trim());
+		String result = controller.upd(po, ids);
 		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 		this.finish();
 		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoActivity.class));

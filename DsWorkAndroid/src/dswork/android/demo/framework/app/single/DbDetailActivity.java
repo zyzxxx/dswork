@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.view.Menu;
 import android.widget.TextView;
 import dswork.android.R;
+import dswork.android.controller.PersonController;
 import dswork.android.model.Person;
-import dswork.android.service.PersonService;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.view.OleActivity;
@@ -17,7 +17,7 @@ public class DbDetailActivity extends OleActivity
 	@InjectView(id=R.id.sortkey) TextView sortkeyText;//拼音
 	@InjectView(id=R.id.phone) TextView phoneText;//电话
 	@InjectView(id=R.id.amount) TextView amountText;//存款
-	private PersonService service;//注入service
+	private PersonController controller;
 
 	@Override
 	public void initMainView() 
@@ -26,10 +26,10 @@ public class DbDetailActivity extends OleActivity
 		InjectUtil.injectView(this);//注入控件
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
-		service=new PersonService(this);
+		controller = new PersonController(this);
 		Intent intent=getIntent();
 		long id = intent.getLongExtra("id",0);
-		Person p = service.getById(id);
+		Person p = controller.getById(id);
 		idText.setText(p.getId().toString());
 		nameText.setText(p.getName());
 		sortkeyText.setText(p.getSortkey());

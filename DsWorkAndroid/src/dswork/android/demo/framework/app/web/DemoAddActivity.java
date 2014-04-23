@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import dswork.android.R;
 import dswork.android.controller.DemoController;
+import dswork.android.model.Demo;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.MyStrictMode;
 import dswork.android.util.InjectUtil.InjectView;
@@ -53,11 +54,11 @@ public class DemoAddActivity extends OleActivity
 	
 	public void save(View v)
 	{
-		Map m = new HashMap();
-		m.put("title", title.getText().toString().trim());
-		m.put("content", content.getText().toString().trim());
-		m.put("foundtime", foundtime.getText().toString().trim());
-		String result = controller.add(m);
+		Demo po = new Demo();
+		po.setTitle(title.getText().toString().trim());
+		po.setContent(content.getText().toString().trim());
+		po.setFoundtime(foundtime.getText().toString().trim());
+		String result = controller.add(po);
 		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
 		this.finish();
 		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoActivity.class));

@@ -13,7 +13,7 @@ import dswork.android.util.webutil.HttpPostObj;
 import dswork.android.util.webutil.HttpUtil;
 
 
-public class DemoController
+public class DemoController implements BaseController<Demo>
 {
 	private Context ctx;
 	
@@ -23,10 +23,14 @@ public class DemoController
 		this.ctx = ctx;
 	}
 
-	//添加
-	public String add(Map m) 
+	@Override
+	public String add(Demo po) 
 	{
 		String action = "addDemo2.htm";
+		Map m = new HashMap();
+		m.put("title", po.getTitle());
+		m.put("content", po.getContent());
+		m.put("foundtime", po.getFoundtime());
 		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
 		String result = "";
 		try
@@ -41,8 +45,9 @@ public class DemoController
 		}
 		return result;
 	}
-	//删除（批量）
-	public String deleteBatch(String ids)
+
+	@Override
+	public String deleteBatch(String ids) 
 	{
 		String action = "delJSONDemo.htm";
 		Map m = new HashMap();
@@ -61,10 +66,16 @@ public class DemoController
 		}
 		return result;
 	}
-	//修改(可批量)
-	public String upd(Map m) 
+
+	@Override
+	public String upd(Demo po, String ids) 
 	{
-		String action = "updBatchForMobile.htm";
+		String action = "updBatchForMobile.htm";		
+		Map m = new HashMap();
+		m.put("ids", ids);
+		m.put("title", po.getTitle());
+		m.put("content", po.getContent());
+		m.put("foundtime", po.getFoundtime());
 		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
 		String result = "";
 		try
@@ -79,7 +90,8 @@ public class DemoController
 		}
 		return result;
 	}
-	//获取列表
+
+	@Override
 	public List<Demo> get(Map m)
 	{
 		String action = "getDemoForMobile.htm";
@@ -102,8 +114,9 @@ public class DemoController
 		}
 		return list;
 	}
-	//明细
-	public Demo getById(Long id) 
+
+	@Override
+	public Demo getById(Long id)
 	{
 		String action = "getDemoByIdForMobile.htm";
 		Map m = new HashMap();
@@ -123,4 +136,5 @@ public class DemoController
 		}
 		return po;
 	}
+
 }
