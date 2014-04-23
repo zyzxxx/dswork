@@ -1,4 +1,4 @@
-package dswork.android.demo.component.db;
+package dswork.android.demo.framework.app.single;
 
 import java.util.List;
 import android.app.AlertDialog;
@@ -43,7 +43,7 @@ public class DbActivity extends OleActivity
 		MultiCheckAdapter adapter = new MultiCheckAdapter(this, persons, R.layout.activity_db_item,
 				R.id.id, R.id.chk, new String[]{"name","sortkey","phone","amount"},new int[]{R.id.name,R.id.sortkey,R.id.phone,R.id.amount},
 				new MyViewCache());
-		listView.getMultiCheck(persons, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.component.db.DbDetailActivity"));
+		listView.getMultiCheck(persons, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.DbDetailActivity"));
 		listView.setActionModeListener(new ActionModeListener()
 		{
 			@Override
@@ -106,7 +106,7 @@ public class DbActivity extends OleActivity
 		        	{
 		        		if(listView.getIdList().size() == 1)
 		        		{//一条
-		        			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.component.db.DbEditActivity").putExtra("ids", listView.getIdArray()));
+		        			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.DbEditActivity").putExtra("ids", listView.getIdArray()));
 		        		}
 		        		else
 		        		{//多条
@@ -171,7 +171,7 @@ public class DbActivity extends OleActivity
 		@Override
 		public void onClick(DialogInterface dialog, int which) 
 		{
-			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.component.db.DbEditActivity").putExtra("ids", listView.getIdArray()));
+			startActivity(new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.DbEditActivity").putExtra("ids", listView.getIdArray()));
 		}
 	}
 }

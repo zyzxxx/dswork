@@ -61,19 +61,19 @@
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.db.DbActivity"
+            android:name="dswork.android.demo.framework.app.single.DbActivity"
             android:label="@string/title_activity_db" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.db.DbAddActivity"
+            android:name="dswork.android.demo.framework.app.single.DbAddActivity"
             android:label="@string/title_activity_db_add" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.db.DbEditActivity"
+            android:name="dswork.android.demo.framework.app.single.DbEditActivity"
             android:label="@string/title_activity_db_edit" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.db.DbDetailActivity"
+            android:name="dswork.android.demo.framework.app.single.DbDetailActivity"
             android:label="@string/title_activity_db_detail" >
         </activity>
         <activity

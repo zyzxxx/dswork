@@ -150,10 +150,8 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 		{
 			View rootView = inflater.inflate(R.layout.fragment_index_2, container, false);
-			WorkUtil.addShortcut(getActivity(), rootView, R.id.db, R.drawable.ic_launcher, "db", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.db.DbActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.alphabet, R.drawable.ic_launcher, "alphabet", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.alphabet.AlphabetActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.loadmore, R.drawable.ic_launcher, "loadmore", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.loadmore.LoadMoreActivity",false, null, null, null));
-			WorkUtil.addShortcut(getActivity(), rootView, R.id.web, R.drawable.ic_3, "web", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.web.DemoActivity", false, null, null, null));
 			return rootView;
 		}
 	}
@@ -163,7 +161,8 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 		{
 			View rootView = inflater.inflate(R.layout.fragment_index_3, container, false);
-			WorkUtil.addShortcut(getActivity(), rootView, R.id.webapp, R.drawable.ic_launcher, "webapp", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.framework.app.web.DemoActivity", false, null, null, null));
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.webapp, R.drawable.ic_launcher, "webApp", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.framework.app.web.DemoActivity", false, null, null, null));
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.singleapp, R.drawable.ic_launcher, "singleApp", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.framework.app.single.DbActivity",false, null, null, null));
 			return rootView;
 		}
 	}

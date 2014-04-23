@@ -1,11 +1,9 @@
-package dswork.android.demo.component.db;
+package dswork.android.demo.framework.app.single;
 
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import dswork.android.R;
@@ -15,37 +13,40 @@ import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.view.OleActivity;
 
-public class DbAddActivity extends OleActivity 
+public class DbEditActivity extends OleActivity 
 {
-	@InjectView(id=R.id.btn_save) Button btnSave;//保存按钮
-	private PersonService service;
+	@InjectView(id=R.id.name) EditText nameText;//姓名
+	@InjectView(id=R.id.phone) EditText phoneText;//电话
+	@InjectView(id=R.id.amount) EditText amountText;//存款
+	private PersonService service;//注入service
+	private long[] ids;
 
 	@Override
 	public void initMainView() 
 	{
-		setContentView(R.layout.activity_db_add);
+		setContentView(R.layout.activity_db_edit);
 		InjectUtil.injectView(this);//注入控件
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
-		service = new PersonService(this);
-		btnSave.setOnClickListener(new SaveClickListener());
+		service=new PersonService(this);
+		Intent intent=getIntent();
+		ids = intent.getLongArrayExtra("ids");
+		//修改一条数据，就把旧数据读出
+		if(ids.length == 1)
+		{
+			Person p = service.getById(ids[0]);
+			nameText.setText(p.getName());
+			phoneText.setText(p.getPhone());
+			amountText.setText(p.getAmount());
+		}
 	}
 
 	@Override
 	public void initMenu(Menu menu) 
 	{
-		getMenuInflater().inflate(R.menu.db_add, menu);
+		getMenuInflater().inflate(R.menu.db_edit, menu);
 	}
-	
-	private final class SaveClickListener implements OnClickListener
-	{
-		@Override
-		public void onClick(View v) 
-		{
-			save(v);
-		}
-	}
-	
+
 	public void save(View v)
 	{
 		EditText nameText = (EditText) findViewById(R.id.name);
@@ -55,8 +56,8 @@ public class DbAddActivity extends OleActivity
 				nameText.getText().toString().trim(), 
 				phoneText.getText().toString().trim(), 
 				amountText.getText().toString().trim());
-		Log.i("model值","name:"+p.getName()+",phone:"+p.getPhone()+",amount:"+p.getAmount());
-		service.add(p);
+		Log.i("model值",p.toString());
+		service.update(p,ids);
 		Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 		this.finish();
 		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DbActivity.class));

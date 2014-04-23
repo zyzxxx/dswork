@@ -6,8 +6,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_index">IndexActivity</string>
     <string name="title_ui">ui</string>
-    <string name="title_component">component</string>
-    <string name="title_framework">framework</string>
+    <string name="title_component">组件</string>
+    <string name="title_framework">框架</string>
     <string name="title_tab1">tab1</string>
     <string name="title_tab2">tab2</string>
     <string name="title_tab3">tab3</string>

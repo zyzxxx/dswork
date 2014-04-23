@@ -4,13 +4,8 @@
     android:layout_height="match_parent" 
     android:paddingTop="20dp">
 	<TableRow android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center">
-	    <include android:id="@+id/db" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
 	    <include android:id="@+id/alphabet" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
 	    <include android:id="@+id/loadmore" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
-	</TableRow>
-	<TableRow android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center">
-	    <include android:id="@+id/web" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
-	    <include android:id="@+id/empty" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
 	    <include android:id="@+id/empty" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
 	</TableRow>
 </TableLayout>
