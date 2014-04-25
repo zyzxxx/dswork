@@ -2,6 +2,7 @@ package dswork.android.db;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.beanutils.ConvertUtils;
 
@@ -12,11 +13,13 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public abstract class BaseDao<T, PK extends Serializable>
 {
 	
 	public abstract SQLiteOpenHelper getDBHelper();
+	public abstract QueryParams getQueryParams(Map m);
 	
 	/*获取CRUD的操作对象SQLiteDatabase*/
 	public SQLiteDatabase getWritableDb() 
@@ -202,6 +205,11 @@ public abstract class BaseDao<T, PK extends Serializable>
 	 */
 	public Cursor queryCursor(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy)
 	{
+		Log.i("sql's selection",selection);
+		for(String args:selectionArgs)
+		{
+			Log.i("sql's selectionArgs",args);
+		}
 		return getReadableDb().query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
 	}
 	/**
