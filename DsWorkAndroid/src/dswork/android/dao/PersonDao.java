@@ -1,9 +1,12 @@
 package dswork.android.dao;
 
 
+import java.util.Map;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
 import dswork.android.db.BaseDao;
+import dswork.android.db.QueryParams;
 import dswork.android.model.Person;
 
 public class PersonDao extends BaseDao<Person, Long>
@@ -19,5 +22,37 @@ public class PersonDao extends BaseDao<Person, Long>
 	public SQLiteOpenHelper getDBHelper() 
 	{
 		return helper.getDBHelper();
+	}
+
+	@Override
+	public QueryParams getQueryParams(Map map) 
+	{
+		QueryParams params = new QueryParams();
+		Object tmp;
+		tmp = map.get("id");
+		if(tmp != null && String.valueOf(tmp).trim().length()>0)
+		{
+			params.addSelection("and", "id", "=");
+			params.addSelectionArgs(String.valueOf(tmp).trim());
+		}
+		tmp = map.get("name");
+		if(tmp != null && String.valueOf(tmp).trim().length()>0)
+		{
+			params.addSelection("and", "name", "like");
+			params.addSelectionArgs("%"+String.valueOf(tmp).trim()+"%");
+		}
+		tmp = map.get("phone");
+		if(tmp != null && String.valueOf(tmp).trim().length()>0)
+		{
+			params.addSelection("and", "phone", "like");
+			params.addSelectionArgs("%"+String.valueOf(tmp).trim()+"%");
+		}
+		tmp = map.get("amount");
+		if(tmp != null && String.valueOf(tmp).trim().length()>0)
+		{
+			params.addSelection("and", "amount", "=");
+			params.addSelectionArgs("%"+String.valueOf(tmp).trim()+"%");
+		}
+		return params;
 	}
 }
