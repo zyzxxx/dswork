@@ -2,6 +2,7 @@ package dswork.android.demo.framework.app.web;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import android.content.Intent;
 import android.view.ActionMode.Callback;
 import android.view.Menu;
@@ -26,7 +27,9 @@ public class DemoActivity extends OleActivity
 	@InjectView(id=R.id.listView) MultiCheckListView listView;//列表视图
 	@InjectView(id=R.id.chkAll) CheckBox chkAll;//全选框CheckBox
 	DemoController controller;
+	Map params = new HashMap();//查询参数
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public void initMainView()
 	{
@@ -37,8 +40,11 @@ public class DemoActivity extends OleActivity
 		
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
+		
 		//获取列表信息
-		List<Demo> list = controller.get(new HashMap());
+		List<Map<String,Object>> rtn_params = (List<Map<String, Object>>) getIntent().getSerializableExtra("params");//获取查询参数
+		if(null != rtn_params) params = rtn_params.get(0);
+		List<Demo> list = controller.get(params);
 		//实列化MultiCheck适配器，并初始化MultiCheck
 		MultiCheckAdapter adapter = new MultiCheckAdapter(this, list, R.layout.activity_demo_item,
 				R.id.id, R.id.chk, new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
@@ -70,6 +76,9 @@ public class DemoActivity extends OleActivity
 				break;
 			case R.id.menu_add://添加
 				startActivity(new Intent().setClass(this, DemoAddActivity.class));
+				break;
+			case R.id.menu_search://搜索
+				startActivity(new Intent().setClass(this, DemoSearchActivity.class));
 				break;
 		}
 	}

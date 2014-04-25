@@ -40,6 +40,7 @@
     <string name="confirm_del">确定删除吗？</string>
     <string name="confirm_upd">确定批量修改吗？</string>
     <string name="btn_save">保存</string>
+    <string name="btn_search">搜索</string>
     <string name="title_activity_person">列表页（PersonActivity）</string>
     <string name="title_activity_person_detail">明细页（PersonDetailActivity）</string>
     <string name="title_activity_person_add">添加页（PersonEditActivity）</string>
@@ -53,10 +54,12 @@
     <string name="title_activity_demo_detail">明细页（DemoDetailActivity）</string>
     <string name="title_activity_demo_add">添加页（DemoAddActivity)</string>
     <string name="title_activity_demo_upd">修改页（DemoUpdActivity)</string>
+    <string name="title_activity_demo_search">搜索页（DemoSearchActivity）</string>
     <string name="title">标题</string>
     <string name="content">内容</string>
     <string name="foundtime">创建时间</string>
     <string name="projUrl">http://192.168.1.105:8088/DemoJava</string>
     <string name="moduleUrl">/manage/demo/</string>
+    <string name="title_activity_person_search">PersonSearchActivity</string>
 
 </resources>

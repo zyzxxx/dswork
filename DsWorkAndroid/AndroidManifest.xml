@@ -77,6 +77,10 @@
             android:label="@string/title_activity_person_detail" >
         </activity>
         <activity
+            android:name="dswork.android.demo.framework.app.single.PersonSearchActivity"
+            android:label="@string/title_activity_person_search" >
+        </activity>
+        <activity
             android:name="dswork.android.demo.component.alphabet.AlphabetActivity"
             android:label="@string/title_activity_alphabet" >
         </activity>
@@ -104,10 +108,14 @@
             android:label="@string/title_activity_demo_detail"
             android:parentActivityName=".IndexActivity" >
         </activity>
+        <activity
+            android:name="dswork.android.demo.framework.app.web.DemoSearchActivity"
+            android:label="@string/title_activity_demo_search"
+            android:parentActivityName=".IndexActivity" >
+        </activity>
 
         <!-- 测试 -->
         <uses-library android:name="android.test.runner" />
-
     </application>
 
 </manifest>

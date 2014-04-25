@@ -5,5 +5,10 @@
         android:orderInCategory="100"
         android:showAsAction="withText|always"
         android:icon="@android:drawable/ic_input_add"/>
+    <item
+        android:id="@+id/menu_search"
+        android:orderInCategory="100"
+        android:showAsAction="withText|always"
+        android:icon="@android:drawable/ic_menu_search"/>
 
 </menu>

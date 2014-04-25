@@ -12,7 +12,6 @@ import dswork.android.model.Demo;
 import dswork.android.util.webutil.HttpPostObj;
 import dswork.android.util.webutil.HttpUtil;
 
-
 public class DemoController implements BaseController<Demo>
 {
 	private Context ctx;
@@ -136,5 +135,4 @@ public class DemoController implements BaseController<Demo>
 		}
 		return po;
 	}
-
 }

@@ -36,13 +36,14 @@ public class PersonController implements BaseController<Person>
 	}
 
 	@Override
-	public List get(Map m) {
-		return service.query();
+	public List<Person> get(Map m) {
+		return service.query(m);
 	}
 
 	@Override
 	public Person getById(Long id) {
 		return service.getById(id);
 	}
+
 
 }
