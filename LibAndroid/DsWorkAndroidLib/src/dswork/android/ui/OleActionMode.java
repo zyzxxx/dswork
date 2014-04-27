@@ -36,8 +36,8 @@ public class OleActionMode implements ActionMode.Callback
 	 * @param lv MultiCheckListView对象
 	 * @param updListener 修改操作类
 	 * @param delListener 删除操作类
-	 * @param packageName 项目报名
-	 * @param updClassName 修改Activity全类名
+	 * @param packageName 项目包名
+	 * @param updClassName 修改页Activity全类名
 	 */
 	public OleActionMode(Activity thisAct, BaseController controller,
 			int menuRes, int menuUpdRes, int menuDelConfirmRes,
