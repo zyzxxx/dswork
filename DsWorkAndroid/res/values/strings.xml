@@ -58,8 +58,18 @@
     <string name="title">标题</string>
     <string name="content">内容</string>
     <string name="foundtime">创建时间</string>
-    <string name="projUrl">http://192.168.1.105:8088/DemoJava</string>
+    <string name="projUrl">http://192.168.1.102:8088/AndroidWeb</string>
     <string name="moduleUrl">/manage/demo/</string>
     <string name="title_activity_person_search">PersonSearchActivity</string>
+    
+    <string-array name="ctrl_menu_items">
+        <item>修改</item>
+        <item>删除</item>
+        <item>Home</item>
+        <item>Email</item>
+        <item>Calendar</item>
+        <item>Browser</item>
+        <item>Clock</item>
+    </string-array>
 
 </resources>

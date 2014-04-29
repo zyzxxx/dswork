@@ -9,10 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 import dswork.android.R;
 import dswork.android.controller.DemoController;
 import dswork.android.model.Demo;
 import dswork.android.ui.MultiCheck.MultiCheckAdapter;
+import dswork.android.ui.MultiCheck.MultiCheckAdapter.ExpandCtrlMenu;
 import dswork.android.ui.MultiCheck.MultiCheckListView;
 import dswork.android.ui.MultiCheck.MultiCheckListView.ActionModeListener;
 import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
@@ -46,9 +48,19 @@ public class DemoActivity extends OleActivity
 		if(null != rtn_params) params = rtn_params.get(0);
 		List<Demo> list = controller.get(params);
 		//实列化MultiCheck适配器，并初始化MultiCheck
-		MultiCheckAdapter adapter = new MultiCheckAdapter(this, list, R.layout.activity_demo_item,
-				R.id.id, R.id.chk, new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
-				new MyViewCache());
+		MultiCheckAdapter adapter = new MultiCheckAdapter(
+				this, controller, list, listView, R.layout.activity_demo_item,
+				R.id.id, R.id.chk, R.id.ctrl_menu, R.array.ctrl_menu_items, new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
+				new MyViewCache(),
+				"dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity",
+				new ExpandCtrlMenu()
+				{
+					@Override
+					public void onItemSelected(String id_s, long id_l, int which) 
+					{
+						Toast.makeText(DemoActivity.this, id_s, Toast.LENGTH_SHORT).show();
+					}
+				}, false);
 		listView.getMultiCheck(list, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoDetailActivity"));
 		listView.setActionModeListener(new ActionModeListener()
 		{
@@ -82,12 +94,12 @@ public class DemoActivity extends OleActivity
 				break;
 		}
 	}
-	
+
 	//扩展视图缓存类
 	public class MyViewCache extends ViewCache
 	{
-		public TextView nameView;
-		public TextView phoneView;
-		public TextView amountView;
+		public TextView titleView;
+		public TextView contentView;
+		public TextView foundtimeView;
 	}
 }

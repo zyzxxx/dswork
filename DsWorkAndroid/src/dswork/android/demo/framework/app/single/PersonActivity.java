@@ -17,6 +17,7 @@ import dswork.android.model.Person;
 import dswork.android.ui.OleActionMode;
 import dswork.android.ui.MultiCheck.MultiCheckAdapter;
 import dswork.android.ui.MultiCheck.MultiCheckListView;
+import dswork.android.ui.MultiCheck.MultiCheckAdapter.ExpandCtrlMenu;
 import dswork.android.ui.MultiCheck.MultiCheckListView.ActionModeListener;
 import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
 import dswork.android.util.InjectUtil;
@@ -44,9 +45,17 @@ public class PersonActivity extends OleActivity
 		if(null != rtn_params) params = rtn_params.get(0);
 		List<Person> persons = controller.get(params);
 		//实列化MultiCheck适配器，并初始化MultiCheck
-		MultiCheckAdapter adapter = new MultiCheckAdapter(this, persons, R.layout.activity_person_item,
-				R.id.id, R.id.chk, new String[]{"name","sortkey","phone","amount"},new int[]{R.id.name,R.id.sortkey,R.id.phone,R.id.amount},
-				new MyViewCache());
+		MultiCheckAdapter adapter = new MultiCheckAdapter(
+				this, controller, persons, listView, R.layout.activity_person_item,
+				R.id.id, R.id.chk, R.id.ctrl_menu, 0, new String[]{"name","sortkey","phone","amount"},new int[]{R.id.name,R.id.sortkey,R.id.phone,R.id.amount},
+				new MyViewCache(),
+				"dswork.android", "dswork.android.demo.framework.app.single.PersonUpdActivity",
+				new ExpandCtrlMenu()
+				{
+					@Override
+					public void onItemSelected(String id_s, long id_l, int which) {
+					}
+				},false);
 		listView.getMultiCheck(persons, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.PersonDetailActivity"));
 		listView.setActionModeListener(new ActionModeListener()
 		{
