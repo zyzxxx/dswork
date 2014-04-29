@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -251,6 +252,7 @@ public class MultiCheckListView extends ListView
 	{
 		public CheckBox chk;
 		public TextView idView;
+		public ImageButton ctrlMenu;
 	}
 	
 	/**

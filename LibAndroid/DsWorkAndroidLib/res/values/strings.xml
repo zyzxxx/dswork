@@ -7,5 +7,10 @@
     <string name="no">否</string>
     <string name="confirm_del">确定删除吗？</string>
     <string name="confirm_upd">确定批量修改吗？</string>
+    <string name="ctrl_menu">操作</string>
 
+    <string-array name="ctrl_menu_items">
+        <item >修改</item>
+        <item >删除</item>
+    </string-array>
 </resources>
