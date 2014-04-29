@@ -105,5 +105,3 @@ $dswork.checkResult = function(responseText)
 	}
 	return $dswork.result.msg;
 }
-
-var $tecamo = $dswork;//兼容
