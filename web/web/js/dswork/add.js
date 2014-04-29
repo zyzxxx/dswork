@@ -9,8 +9,8 @@ $(function()
 	}
 	function showResponse(responseText, statusText)
 	{
-		obj.autoDelayHide($tecamo.checkResult(responseText), 2000);
-		obj.callBack = $tecamo.callback;
+		obj.autoDelayHide($dswork.checkResult(responseText), 2000);
+		obj.callBack = $dswork.callback;
 	}
 	_options = 
 	{
