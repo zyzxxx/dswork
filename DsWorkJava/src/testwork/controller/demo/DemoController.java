@@ -5,19 +5,19 @@
  */
 package testwork.controller.demo;
 
-import java.util.List;
-import java.util.Map;
+import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import dswork.web.MyRequest;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
+import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
 import testwork.model.demo.Demo;
 import testwork.service.demo.DemoService;
@@ -30,38 +30,41 @@ public class DemoController
 	@Autowired
 	private DemoService service;
 
-	// 添加
 	@RequestMapping("/addDemo1")
 	public String addDemo1()
 	{
-		return "/manage/demo/addDemo.jsp";
+		return "/view/manage/demo/addDemo.jsp";
 	}
-
+	
 	@RequestMapping("/addDemo2")
-	public @ResponseBody String addDemo2(Demo po)
+	public void addDemo2(PrintWriter out, Demo po)
 	{
 		try
 		{
 			service.save(po);
-			return "1";
+			out.print(1);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
-			return "0:" + e.getMessage();
+			out.print("0:" + e.getMessage());
 		}
 	}
-
-	// 删除
+	
 	@RequestMapping("/delDemo")
-	public String delDemo(HttpServletRequest request)
+	public void delDemo(HttpServletRequest request, HttpServletResponse response)
 	{
 		MyRequest req = new MyRequest(request);
 		service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
-		return "redirect:" + req.getRefererURL();
+		try
+		{
+			response.sendRedirect(req.getRefererURL());
+		}
+		catch(Exception ex)
+		{
+		}
 	}
-
-	// 修改
+	
 	@RequestMapping("/updDemo1")
 	public String updDemo1(HttpServletRequest request)
 	{
@@ -69,64 +72,44 @@ public class DemoController
 		Long id = req.getLong("keyIndex");
 		request.setAttribute("po", service.get(id));
 		request.setAttribute("page", req.getInt("page", 1));
-		return "/manage/demo/updDemo.jsp";
+		return "/view/manage/demo/updDemo.jsp";
 	}
-
+	
 	@RequestMapping("/updDemo2")
-	public @ResponseBody String updDemo2(Demo po)
+	public void updDemo2(PrintWriter out, Demo po)
 	{
 		try
 		{
 			service.update(po);
-			return "1";
+			out.print(1);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
-			return "0:" + e.getMessage();
+			out.print("0:" + e.getMessage());
 		}
 	}
-
-	// 获得分页
+	
 	@RequestMapping("/getDemo")
-	public String getDemo(HttpServletRequest request, @RequestParam(defaultValue = "1")int page, @RequestParam(defaultValue = "10")int pageSize)
+	public String getDemo(HttpServletRequest request)
 	{
 		MyRequest req = new MyRequest(request);
-		Map map = req.getParameterValueMap(false, false);
-		Page<Demo> pageModel = service.queryPage(page, pageSize, map);
+		PageRequest pr = new PageRequest();
+		pr.setFilters(req.getParameterValueMap(false, false));
+		pr.setCurrentPage(req.getInt("page", 1));
+		pr.setPageSize(req.getInt("pageSize", 10));
+		Page<Demo> pageModel = service.queryPage(pr);
 		request.setAttribute("pageModel", pageModel);
 		request.setAttribute("pageNav", new PageNav(request, pageModel));
-		return "/manage/demo/getDemo.jsp";
+		return "/view/manage/demo/getDemo.jsp";
 	}
-
-	// 明细
+	
 	@RequestMapping("/getDemoById")
-	public String getDemoById(HttpServletRequest request, @RequestParam(defaultValue = "0")Long keyIndex)
-	{
-		request.setAttribute("po", service.get(keyIndex));
-		return "/manage/demo/getDemoById.jsp";
-	}
-
-	@RequestMapping("/getJSONDemo")
-	public @ResponseBody String getJSONDemo(HttpServletRequest request)
+	public String getDemoById(HttpServletRequest request)
 	{
 		MyRequest req = new MyRequest(request);
-		Map map = req.getParameterValueMap(false, true);
-		List<Demo> demos = service.queryList(map);
-		StringBuilder builder = new StringBuilder();
-		builder.append("[");
-		for(Demo d : demos)
-		{
-			builder.append("{");
-			builder.append("\"id\":" + d.getId() + ",");
-			builder.append("\"title\":\"" + d.getTitle() + "\",");
-			builder.append("\"content\":\"" + d.getContent() + "\",");
-			builder.append("\"foundtime\":\"" + d.getFoundtime());
-			builder.append("\"},");
-		}
-		builder.deleteCharAt(builder.length() - 1);
-		builder.append("]");
-		System.out.println(builder.toString());
-		return builder.toString();
+		Long id = req.getLong("keyIndex");
+		request.setAttribute("po", service.get(id));
+		return "/view/manage/demo/getDemoById.jsp";
 	}
 }
