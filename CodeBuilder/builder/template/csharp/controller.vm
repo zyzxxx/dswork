@@ -1,0 +1,117 @@
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Module'))
+#set($Model=$vo.GetParam('Model'))
+#set($ModelName=$vo.GetParam('ModelName'))
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+using ${Frame}.Core.Page;
+using ${Frame}.Web;
+
+using ${Namespace}.Model;
+using ${Namespace}.Service;
+
+namespace Areas.${Module}.Controllers
+{
+	/// <summary>
+	/// 功能:${vo.TableComment}Controller
+	/// 开发人员:${developer}
+	/// 创建时间:${currentDate}
+	/// </summary>
+	public class ${Model}Controller : Controller
+	{
+		public virtual ${Model}Service ${ModelName}Service { set; protected get; }
+	
+		public ActionResult Add${Model}1()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public String Add${Model}2(${Model} po)
+		{
+			try
+			{
+				${ModelName}Service.Save(po);
+				return "1";
+			}
+			catch (Exception e)
+			{
+				return "0:" + e.Message;
+			}
+		}
+		
+		[HttpGet]
+		public void Del${Model}()
+		{
+			_Del${Model}();
+		}
+		[HttpPost]
+		public void Del${Model}(FormCollection collection)
+		{
+			_Del${Model}();
+		}
+		private void _Del${Model}()
+		{
+			MyRequest req = new MyRequest(Request);
+			${ModelName}Service.DeleteBatch(req.GetLongArray("keyIndex", 0));
+			Response.Redirect(req.GetRefererURL(), true);
+		}
+	
+		public ActionResult Upd${Model}1(long keyIndex)
+		{
+			MyRequest req = new MyRequest(Request);
+			ViewBag.po = ${ModelName}Service.Get(keyIndex);
+			ViewBag.page = req.GetInt("page", 1);
+			return View();
+		}
+
+		[HttpPost]
+		public String Upd${Model}2(${Model} po)
+		{
+			try
+			{
+				${ModelName}Service.Update(po);
+				return "1";
+			}
+			catch(Exception e)
+			{
+				return "0:" + e.Message;
+			}
+		}
+
+		[HttpGet]
+        public ActionResult Get${Model}()
+		{
+			return _Get${Model}();
+        }
+		[HttpPost]
+		public ActionResult Get${Model}(FormCollection collection)
+		{
+			return _Get${Model}();
+		}
+		private ActionResult _Get${Model}()
+		{
+			MyRequest req = new MyRequest(Request);
+			int page = req.GetInt("page", 1);
+			int pageSize = req.GetInt("pageSize", 10);
+			Hashtable map = req.GetParameterValueMap(false, true);
+			Page<${Model}> pageModel = ${ModelName}Service.QueryPage(page, pageSize, map);
+			ViewBag.pageModel = pageModel;
+			ViewBag.result = pageModel.GetResult<${Model}>();
+			ViewBag.pageNav = (new PageNav<${Model}>(Request, pageModel));
+			return View();
+		}
+
+		public ActionResult Get${Model}ById(long keyIndex)
+		{
+			ViewBag.po = ${ModelName}Service.Get(keyIndex);
+			return View();
+        }
+	}
+}

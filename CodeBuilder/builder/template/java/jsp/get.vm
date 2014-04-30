@@ -1,0 +1,83 @@
+#set($mf="$")
+#set($pk="ID")
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Model=$vo.GetParam('Model'))
+<%@page language="java" pageEncoding="UTF-8" import="java.util.*,${Frame}.web.MyRequest,${Frame}.core.page.*,
+${Namespace}.MyFactory"%><%
+MyRequest req = new MyRequest(request);
+Map map = req.getParameterValueMap(false, false);
+Page pageModel = MyFactory.get${Model}Service().queryPage(req.getInt("page"), req.getInt("pageSize", 10), map);
+request.setAttribute("pageModel", pageModel);
+request.setAttribute("pageNav", (new PageNav(request, pageModel)));
+request.setAttribute("param", map);
+%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>${vo.TableComment}</title>
+	<%@include file="/commons/include/get.jsp" %>
+<script type="text/javascript">
+${mf}(function()
+{
+	${mf}${Frame.ToLower()}.page.menu("del${Model}.jsp", "upd${Model}1.jsp", "get${Model}ById.jsp", "${mf}{pageModel.currentPage}");
+});
+</script>
+<%@include file="/commons/include/getEasyui.jsp" %>
+</head> 
+<body>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">${vo.TableComment}列表</td>
+		<td class="menuTool">
+			<a class="add" href="add${Model}1.jsp?page=${mf}{pageModel.currentPage}">添加</a>
+			<a class="del" id="listFormDelAll" href="#">删除所选</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<form id="queryForm" method="post" action="get${Model}.jsp">
+<table border="0" cellspacing="0" cellpadding="0" class="queryTable">
+#foreach($col in $vo.ColumnList)#if($col.ColumnName!=$pk)
+	<tr>
+		<td class="title">$col.Comment：</td>
+		<td class="input"><input type="text" name="$col.ColumnName.ToLower()" value="${mf}{fn:escapeXml(param.$col.ColumnName.ToLower())}" /></td>
+	</tr>
+#end#end
+	<tr>
+		<td class="query" colspan="2"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
+	</tr>
+</table>
+</form>
+<div class="line"></div>
+<form id="listForm" method="post" action="del${Model}.jsp">
+<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr class="list_title">
+		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
+		<td style="width:3%">操作</td>
+#foreach($col in $vo.ColumnList)#if($col.ColumnName!=$pk)
+		<td>$col.Comment</td>
+#end#end
+	</tr>
+<c:forEach items="${mf}{pageModel.result}" var="d">
+	<tr>
+		<td><input name="keyIndex" type="checkbox" value="${mf}{d.id}" /></td>
+		<td class="menuTool" keyIndex="${mf}{d.id}">&nbsp;</td>
+#foreach($col in $vo.ColumnList)
+#if($col.ColumnName!=$pk)
+		<td>${mf}{fn:escapeXml(d.$col.ColumnName.ToLower())}</td>
+#end
+#end
+	</tr>
+</c:forEach>
+</table>
+<input name="page" type="hidden" value="${mf}{pageModel.currentPage}" />
+</form>
+<table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
+	<tr><td>${mf}{pageNav.page}</td></tr>
+</table>
+<br />
+</body>
+</html>

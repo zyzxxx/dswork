@@ -1,0 +1,74 @@
+#set($mf="$")
+#set($pk="ID")
+#set($Frame=$vo.GetParam('Frame'))
+#set($Model=$vo.GetParam('Model'))
+@{
+    Layout = "~/Views/Commons/Get.cshtml";
+}
+@section head{
+<script type="text/javascript">
+$(function()
+{
+    ${mf}${Frame.ToLower()}.page.menu("Del${Model}.htm", "Upd${Model}1.htm", "Get${Model}ById.htm", "@ViewBag.pageModel.CurrentPage");
+});
+</script>
+}
+@{
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">${vo.TableComment}列表</td>
+		<td class="menuTool">
+			<a class="add" href="Add${Model}1.htm?page=@ViewBag.pageModel.CurrentPage">添加</a>
+			<a class="del" id="listFormDelAll" href="#">删除所选</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<form id="queryForm" method="post" action="Get${Model}.htm">
+<table border="0" cellspacing="0" cellpadding="0" class="queryTable">
+#foreach($col in $vo.ColumnList)#if($col.ColumnName!=$pk)
+	<tr>
+		<td class="title">$col.Comment：</td>
+		<td class="input"><input name="$col.ColumnName.ToLower()" value="@Request["$col.ColumnName.ToLower()"]" /></td>
+	</tr>
+#end#end
+	<tr>
+		<td class="query" colspan="2"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
+	</tr>
+</table>
+</form>
+<div class="line"></div>
+<form id="listForm" method="post" action="Del${Model}.htm">
+<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr class="list_title">
+		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
+		<td style="width:3%">操作</td>
+#foreach($col in $vo.ColumnList)#if($col.ColumnName!=$pk)
+		<td>$col.Comment</td>
+#end#end
+	</tr>
+@{
+    int i = 0;
+}
+@foreach(var d in @ViewBag.result)
+{
+    i++;
+	<tr class="@(i % 2 == 0 ? "list_even" : "list_odd")">
+		<td><input name="keyIndex" type="checkbox" value="@d.id" /></td>
+		<td class="menuTool" keyIndex="@d.id">&nbsp;</td>
+#foreach($col in $vo.ColumnList)
+#if($col.ColumnName!=$pk)#set($property=$col.ColumnName.ToLower())
+		<td>@d.$col.ColumnName.ToLower()</td>
+#end
+#end
+	</tr>
+}
+</table>
+<input id="_submit_" type="submit" style="display:none;" />
+<input name="page" type="hidden" value="@ViewBag.pageModel.CurrentPage" />
+</form>
+<table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
+	<tr><td>@Html.Raw(@ViewBag.pageNav.ShowPage())</td></tr>
+</table>
+<br />
+}
