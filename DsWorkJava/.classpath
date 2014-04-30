@@ -8,6 +8,7 @@
 	<classpathentry kind="src" path="dswork.ognl"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
 	<classpathentry kind="src" path="dswork.config"/>
+	<classpathentry kind="src" path="dswork.mvc"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
 	<classpathentry kind="lib" path="/Lib/commons/commons-fileupload-1.2.2.jar"/>
 	<classpathentry kind="lib" path="/Lib/jar/dom4j-1.6.1.jar"/>
