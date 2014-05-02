@@ -1,8 +1,11 @@
 package dswork.android.demo.framework.app.web;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.view.Menu;
+import android.view.Window;
 import android.widget.TextView;
+import android.widget.Toast;
 import dswork.android.R;
 import dswork.android.controller.DemoController;
 import dswork.android.model.Demo;
@@ -21,23 +24,63 @@ public class DemoDetailActivity extends OleActivity
 	@Override
 	public void initMainView() 
 	{
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);//允许标题栏显示圆形进度条
 		setContentView(R.layout.activity_demo_detail);
 		InjectUtil.injectView(this);//注入控件
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
 		controller = new DemoController(this);
-		Intent intent=getIntent();
-		Long id = intent.getLongExtra("id",0);
-		Demo po = controller.getById(id);
-		pk.setText(String.valueOf(po.getId()));
-		title.setText(po.getTitle());
-		content.setText(po.getContent());
-		foundtime.setText(po.getFoundtime());
+		//异步获取后台数据，并更新UI
+		new GetBgDataTask().execute();  
 	}
 
 	@Override
 	public void initMenu(Menu menu)
 	{
-		getMenuInflater().inflate(R.menu.demo_detail, menu);		
+//		getMenuInflater().inflate(R.menu.demo_detail, menu);		
 	}
+	
+	/**
+	 * 异步获取后台数据类
+	 * @author ole
+	 *
+	 */
+	class GetBgDataTask extends AsyncTask<String, Integer, Demo>
+	{//继承AsyncTask  
+        protected void onPreExecute () 
+        {//在 doInBackground(Params...)之前被调用，在ui线程执行  
+        	setProgressBarIndeterminateVisibility(true);
+        }
+        
+        @Override  
+        protected Demo doInBackground(String... params) 
+        {//后台耗时操作 ，不能在后台线程操作UI
+    		try {
+    			Thread.sleep(500);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}  
+            Intent intent=getIntent();
+    		Long id = intent.getLongExtra("id",0);
+    		Demo po = controller.getById(id);
+            return po;  
+        }  
+          
+		protected void onPostExecute(Demo result) 
+		{// 后台任务执行完之后被调用，在ui线程执行
+			if (result != null)
+			{
+				Toast.makeText(DemoDetailActivity.this, "加载成功",Toast.LENGTH_LONG).show();
+				pk.setText(String.valueOf(result.getId()));
+				title.setText(result.getTitle());
+				content.setText(result.getContent());
+				foundtime.setText(result.getFoundtime());
+			} 
+			else 
+			{
+				Toast.makeText(DemoDetailActivity.this, "加载失败", Toast.LENGTH_LONG).show();
+			}
+			setProgressBarIndeterminateVisibility(false);
+		}
+    } 
 }

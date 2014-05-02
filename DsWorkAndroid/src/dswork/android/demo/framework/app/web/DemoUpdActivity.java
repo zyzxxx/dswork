@@ -1,15 +1,18 @@
 package dswork.android.demo.framework.app.web;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import dswork.android.R;
 import dswork.android.controller.DemoController;
+import dswork.android.demo.framework.app.web.DemoDetailActivity.GetBgDataTask;
 import dswork.android.model.Demo;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
@@ -28,6 +31,7 @@ public class DemoUpdActivity extends OleActivity
 	@Override
 	public void initMainView() 
 	{
+		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);//允许标题栏显示圆形进度条
 		setContentView(R.layout.activity_demo_upd);
 		InjectUtil.injectView(this);//注入控件
 		controller = new DemoController(this);
@@ -43,18 +47,15 @@ public class DemoUpdActivity extends OleActivity
 		//修改一条数据，就把旧数据读出
 		if(idsArr.length == 1)
 		{
-			Demo po = controller.getById(idsArr[0]);
-			id.setText(String.valueOf(po.getId()));
-			title.setText(po.getTitle());
-			content.setText(po.getContent());
-			foundtime.setText(po.getFoundtime());
+			//异步获取后台数据，并更新UI
+			new GetBgDataTask().execute();  
 		}
 	}
 
 	@Override
 	public void initMenu(Menu menu) 
 	{
-		getMenuInflater().inflate(R.menu.demo_edit, menu);
+//		getMenuInflater().inflate(R.menu.demo_edit, menu);
 	}
 
 	public void save(View v)
@@ -68,4 +69,46 @@ public class DemoUpdActivity extends OleActivity
 		this.finish();
 		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoActivity.class));
 	}
+	
+	/**
+	 * 异步获取后台数据类
+	 * @author ole
+	 *
+	 */
+	class GetBgDataTask extends AsyncTask<String, Integer, Demo>
+	{//继承AsyncTask  
+        protected void onPreExecute () 
+        {//在 doInBackground(Params...)之前被调用，在ui线程执行  
+        	setProgressBarIndeterminateVisibility(true);
+        }
+        
+        @Override  
+        protected Demo doInBackground(String... params) 
+        {//后台耗时操作 ，不能在后台线程操作UI
+    		try {
+    			Thread.sleep(500);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}  
+			Demo po = controller.getById(idsArr[0]);
+            return po;  
+        }  
+          
+		protected void onPostExecute(Demo result) 
+		{// 后台任务执行完之后被调用，在ui线程执行
+			if (result != null)
+			{
+				Toast.makeText(DemoUpdActivity.this, "加载成功",Toast.LENGTH_LONG).show();
+				id.setText(String.valueOf(result.getId()));
+				title.setText(result.getTitle());
+				content.setText(result.getContent());
+				foundtime.setText(result.getFoundtime());
+			} 
+			else 
+			{
+				Toast.makeText(DemoUpdActivity.this, "加载失败", Toast.LENGTH_LONG).show();
+			}
+			setProgressBarIndeterminateVisibility(false);
+		}
+    } 
 }

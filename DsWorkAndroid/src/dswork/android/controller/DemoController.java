@@ -123,7 +123,8 @@ public class DemoController implements BaseController<Demo>
 		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
 		String result = "";
 		Demo po = null;
-		try{
+		try
+		{
 			result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
 			JSONObject jsonObject = new JSONObject(result);
 			po = new Demo(jsonObject.getLong("id"),jsonObject.getString("title"),jsonObject.getString("content"),jsonObject.getString("foundtime"));
