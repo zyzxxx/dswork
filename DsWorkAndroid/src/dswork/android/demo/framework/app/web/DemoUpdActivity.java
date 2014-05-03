@@ -91,12 +91,12 @@ public class DemoUpdActivity extends OleActivity
         @Override  
         protected Demo doInBackground(String... params) 
         {//后台耗时操作 ，不能在后台线程操作UI
-    		try {
-    			Thread.sleep(500);
-    		} catch (InterruptedException e) {
-    			e.printStackTrace();
-    		}  
 			Demo po = controller.getById(idsArr[0]);
+			try {
+				Thread.sleep(300);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}  
             return po;  
         }  
           

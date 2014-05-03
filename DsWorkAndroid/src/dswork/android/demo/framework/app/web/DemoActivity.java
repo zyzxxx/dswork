@@ -50,7 +50,7 @@ public class DemoActivity extends OleActivity
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
 
 		//异步获取后台数据，并更新UI
-		new GetBgDataTask().execute();  
+		new GetBgDataTask().execute();
 	}
 
 	@Override
@@ -71,6 +71,9 @@ public class DemoActivity extends OleActivity
 			case R.id.menu_search://搜索
 				startActivity(new Intent().setClass(this, DemoSearchActivity.class));
 				break;
+			case R.id.menu_refresh://刷新
+				new GetBgDataTask().execute();
+				break;
 		}
 	}
 
@@ -88,23 +91,29 @@ public class DemoActivity extends OleActivity
 	 *
 	 */
 	class GetBgDataTask extends AsyncTask<String, Integer, List<Demo>>
-	{//继承AsyncTask  
+	{//继承AsyncTask
+		@Override
+		protected void onPreExecute() 
+		{
+			waitingBar.setVisibility(ProgressBar.VISIBLE);//显示圆形进度条
+		}
+		
         @SuppressWarnings("unchecked")
 		@Override  
         protected List<Demo> doInBackground(String... _params) 
         {//后台耗时操作，不能在后台线程操作UI
-    		try {
-    			Thread.sleep(500);
-    		} catch (InterruptedException e) {
-    			e.printStackTrace();
-    		}  
     		//获取列表信息
     		List<Map<String,Object>> rtn_params = (List<Map<String, Object>>) getIntent().getSerializableExtra("params");//获取查询参数
     		if(null != rtn_params) params = rtn_params.get(0);
     		List<Demo> list = controller.get(params);
+    		try {
+    			Thread.sleep(100 * list.size());
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}  
             return list;  
-        }  
-          
+        }
+
 		protected void onPostExecute(List<Demo> list) 
 		{// 后台任务执行完之后被调用，在ui线程执行
 			if (list != null)
