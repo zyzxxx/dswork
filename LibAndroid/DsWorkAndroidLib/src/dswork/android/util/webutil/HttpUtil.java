@@ -29,12 +29,13 @@ public class HttpUtil
 			}
 			else
 			{
-				result = "http error!";
+				result = "error";
 			}
 		}
 		catch(Exception e)
 		{
-			result = e.getMessage();
+			result = "error";
+			Log.i("Exception",e.getMessage());
 			e.printStackTrace();
 		}
 		Log.i("result", result);

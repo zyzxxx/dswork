@@ -24,7 +24,7 @@ import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
 
 public class MultiCheckAdapter extends BaseAdapter 
 {
-	protected Context context;//上下文
+	protected Context ctx;//上下文
 	private BaseController controller;//控制器
 	protected List dataList;//在绑定的数据
 	private MultiCheckListView lv;
@@ -62,9 +62,9 @@ public class MultiCheckAdapter extends BaseAdapter
 	 * @param ExpandCtrlMenu 扩展ctrl_menu
 	 * @param isRewriteCtrlMenu 是否重写CtrlMenu,默认为false
 	 */
-	public MultiCheckAdapter(Context context, BaseController controller, List dataList, MultiCheckListView lv, int resource, int itemIdRes, int itemChkRes, int ctrlMenuRes, int ctrlMenuItemsRes, String[] from, int[] to, ViewCache vc, String packageName, String updClassName, ExpandCtrlMenu ecMenu, Boolean isRewriteCtrlMenu) 
+	public MultiCheckAdapter(Context ctx, BaseController controller, List dataList, MultiCheckListView lv, int resource, int itemIdRes, int itemChkRes, int ctrlMenuRes, int ctrlMenuItemsRes, String[] from, int[] to, ViewCache vc, String packageName, String updClassName, ExpandCtrlMenu ecMenu, Boolean isRewriteCtrlMenu) 
 	{
-		this.context = context;
+		this.ctx = ctx;
 		this.controller = controller;
 		this.dataList = dataList;
 		this.lv = lv;
@@ -73,7 +73,7 @@ public class MultiCheckAdapter extends BaseAdapter
 		this.itemChkRes = itemChkRes;
 		this.ctrlMenuRes = ctrlMenuRes;
 		this.ctrlMenuItemsRes = (ctrlMenuItemsRes == 0 ? R.array.ctrl_menu_items : ctrlMenuItemsRes);
-		this.inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		this.inflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.isMultiChoose = false;
 		this.from = from;
 		this.to = to;
@@ -226,7 +226,7 @@ public class MultiCheckAdapter extends BaseAdapter
 		{
 //			Log.i("itemMenuClick", String.valueOf(((TextView)v.getTag()).getText()));
 //			Toast.makeText(context, ((TextView)v.getTag()).getText(), Toast.LENGTH_SHORT).show();
-			new AlertDialog.Builder(context)
+			new AlertDialog.Builder(ctx)
 			.setTitle(R.string.ctrl_menu)
 			.setItems(ctrlMenuItemsRes, new DialogInterface.OnClickListener()
 			{
@@ -259,10 +259,10 @@ public class MultiCheckAdapter extends BaseAdapter
 				Bundle b = new Bundle();
 				b.putString("ids", id_s);
 				b.putLongArray("idsArr", id_l);
-				context.startActivity(new Intent().setClassName(packageName, updClassName).putExtras(b));
+				ctx.startActivity(new Intent().setClassName(packageName, updClassName).putExtras(b));
 				break;
 			case 1://删除
-        		new AlertDialog.Builder(context)
+        		new AlertDialog.Builder(ctx)
         		.setTitle(R.string.confirm_del)
         		.setIcon(android.R.drawable.ic_delete)
         		.setNegativeButton(R.string.no, null)
@@ -272,8 +272,15 @@ public class MultiCheckAdapter extends BaseAdapter
 					public void onClick(DialogInterface dialog, int which) 
 					{
 						String result = controller.deleteBatch(id_s);//执行删除
-			    		lv.refreshListView(controller.get(new HashMap()));//刷新列表
-			    		Toast.makeText(context.getApplicationContext(), result, Toast.LENGTH_SHORT).show(); 
+						if(result.equals("1"))
+						{
+							lv.refreshListView(controller.get(new HashMap()));//刷新列表
+							Toast.makeText(ctx.getApplicationContext(), "删除成功", Toast.LENGTH_SHORT).show(); 
+						}
+						else
+						{
+							Toast.makeText(ctx.getApplicationContext(), "操作失败，网络异常", Toast.LENGTH_LONG).show();
+						}
 					}
 				})
         		.show();

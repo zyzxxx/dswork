@@ -136,8 +136,15 @@ public class OleActionMode implements ActionMode.Callback
 		public void onClick(DialogInterface dialog, int which) 
 		{
     		String result = controller.deleteBatch(lv.getIds());//执行删除
-    		lv.refreshListView(controller.get(new HashMap()));//刷新列表
-    		Toast.makeText(thisAct.getApplicationContext(), result, Toast.LENGTH_SHORT).show(); 
+			if(result.equals("1"))
+			{
+				lv.refreshListView(controller.get(new HashMap()));//刷新列表
+				Toast.makeText(thisAct.getApplicationContext(), "删除成功", Toast.LENGTH_SHORT).show(); 
+			}
+			else
+			{
+				Toast.makeText(thisAct.getApplicationContext(), "操作失败，网络异常", Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 	

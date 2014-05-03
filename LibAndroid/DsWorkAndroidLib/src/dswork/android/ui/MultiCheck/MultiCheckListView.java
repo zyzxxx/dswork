@@ -53,7 +53,7 @@ public class MultiCheckListView extends ListView
      * @param _chkAll 全选框对象（_listView和_chkAll必须在同一个xml布局下）
      * @param _intent 明细页意图
      */
-	public void getMultiCheck(List _dataList, MultiCheckAdapter _adapter, ListView _listView, int _itemIdRes, CheckBox _chkAll, Intent _intent)
+	public void initMultiCheck(List _dataList, MultiCheckAdapter _adapter, ListView _listView, int _itemIdRes, CheckBox _chkAll, Intent _intent)
 	{
 		dataList = _dataList;
 		adapter = _adapter;
