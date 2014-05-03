@@ -57,8 +57,15 @@ public class DemoAddActivity extends OleActivity
 		po.setContent(content.getText().toString().trim());
 		po.setFoundtime(foundtime.getText().toString().trim());
 		String result = controller.add(po);
-		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-		this.finish();
-		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoActivity.class));
+		if(!result.equals("1"))
+		{
+			Toast.makeText(this, "操作失败，网络异常", Toast.LENGTH_LONG).show();
+		}
+		else
+		{
+			Toast.makeText(this, "添加成功", Toast.LENGTH_LONG).show();
+			this.finish();
+			startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoActivity.class));
+		}
 	}
 }

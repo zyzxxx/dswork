@@ -58,7 +58,7 @@
     <string name="title">标题</string>
     <string name="content">内容</string>
     <string name="foundtime">创建时间</string>
-    <string name="projUrl">http://192.168.1.101:8088/AndroidWeb</string>
+    <string name="projUrl">http://192.168.1.103:8088/AndroidWeb</string>
     <string name="moduleUrl">/manage/demo/</string>
     <string name="title_activity_person_search">PersonSearchActivity</string>
     

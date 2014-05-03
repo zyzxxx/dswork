@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import dswork.android.R;
 import dswork.android.controller.DemoController;
-import dswork.android.demo.framework.app.web.DemoDetailActivity.GetBgDataTask;
 import dswork.android.model.Demo;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
@@ -65,9 +64,16 @@ public class DemoUpdActivity extends OleActivity
 		po.setContent(content.getText().toString().trim());
 		po.setFoundtime(foundtime.getText().toString().trim());
 		String result = controller.upd(po, ids);
-		Toast.makeText(this, result, Toast.LENGTH_SHORT).show();
-		this.finish();
-		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoActivity.class));
+		if(!result.equals("1"))
+		{
+			Toast.makeText(this, "操作失败，网络异常", Toast.LENGTH_LONG).show();
+		}
+		else
+		{
+			Toast.makeText(this, "修改成功", Toast.LENGTH_LONG).show();
+			this.finish();
+			startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoActivity.class));
+		}
 	}
 	
 	/**
@@ -106,7 +112,7 @@ public class DemoUpdActivity extends OleActivity
 			} 
 			else 
 			{
-				Toast.makeText(DemoUpdActivity.this, "加载失败", Toast.LENGTH_LONG).show();
+				Toast.makeText(DemoUpdActivity.this, "加载失败，网络异常", Toast.LENGTH_LONG).show();
 			}
 			setProgressBarIndeterminateVisibility(false);
 		}

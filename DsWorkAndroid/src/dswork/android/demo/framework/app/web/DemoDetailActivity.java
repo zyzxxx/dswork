@@ -78,7 +78,7 @@ public class DemoDetailActivity extends OleActivity
 			} 
 			else 
 			{
-				Toast.makeText(DemoDetailActivity.this, "加载失败", Toast.LENGTH_LONG).show();
+				Toast.makeText(DemoDetailActivity.this, "加载失败，网络异常", Toast.LENGTH_LONG).show();
 			}
 			setProgressBarIndeterminateVisibility(false);
 		}

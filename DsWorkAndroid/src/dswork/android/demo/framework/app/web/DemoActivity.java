@@ -1,6 +1,5 @@
 package dswork.android.demo.framework.app.web;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import dswork.android.R;
@@ -32,6 +32,7 @@ public class DemoActivity extends OleActivity
 {
 	@InjectView(id=R.id.listView) MultiCheckListView listView;//列表视图
 	@InjectView(id=R.id.chkAll) CheckBox chkAll;//全选框CheckBox
+	@InjectView(id=R.id.waitingBar) ProgressBar waitingBar;//进度条
 	DemoController controller;
 	Map params = new HashMap();//查询参数
 
@@ -88,12 +89,8 @@ public class DemoActivity extends OleActivity
 	 */
 	class GetBgDataTask extends AsyncTask<String, Integer, List<Demo>>
 	{//继承AsyncTask  
-        protected void onPreExecute () 
-        {//在 doInBackground(Params...)之前被调用，在ui线程执行  
-        	setProgressBarIndeterminateVisibility(true);//显示圆形进度条
-        }
-        
-        @Override  
+        @SuppressWarnings("unchecked")
+		@Override  
         protected List<Demo> doInBackground(String... _params) 
         {//后台耗时操作，不能在后台线程操作UI
     		try {
@@ -127,7 +124,7 @@ public class DemoActivity extends OleActivity
 								Toast.makeText(DemoActivity.this, id_s, Toast.LENGTH_SHORT).show();
 							}
 						}, false);
-				listView.getMultiCheck(list, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoDetailActivity"));
+				listView.initMultiCheck(list, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoDetailActivity"));
 				listView.setActionModeListener(new ActionModeListener()
 				{
 					@Override
@@ -141,9 +138,9 @@ public class DemoActivity extends OleActivity
 			} 
 			else 
 			{
-				Toast.makeText(DemoActivity.this, "加载失败", Toast.LENGTH_LONG).show();
+				Toast.makeText(DemoActivity.this, "加载失败，网络异常", Toast.LENGTH_LONG).show();
 			}
-			setProgressBarIndeterminateVisibility(false);//隐藏圆形进度条
+			waitingBar.setVisibility(ProgressBar.GONE);//隐藏圆形进度条
 		}
     } 
 }

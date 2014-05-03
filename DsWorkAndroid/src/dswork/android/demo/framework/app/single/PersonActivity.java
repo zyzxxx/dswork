@@ -56,7 +56,7 @@ public class PersonActivity extends OleActivity
 					public void onItemSelected(String id_s, long id_l, int which) {
 					}
 				},false);
-		listView.getMultiCheck(persons, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.PersonDetailActivity"));
+		listView.initMultiCheck(persons, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.PersonDetailActivity"));
 		listView.setActionModeListener(new ActionModeListener()
 		{
 			@Override
