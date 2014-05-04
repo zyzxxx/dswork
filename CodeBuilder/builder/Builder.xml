@@ -7,6 +7,8 @@
 	<connect name="GBaseModel.dll"  type="Builder.GBaseModel"  url="Server=192.168.40.205;Port=5258;Database=demo;User Id=demo;Password=demo" />
 	<connect name="MySqlModel.dll"  type="Builder.MySqlModel"  url="server=localhost;Port=3306;Database=demo;User Id=root;Password=" />
 	<connect name="OracleModel.dll" type="Builder.OracleModel" url="Provider=OraOLEDB.Oracle.1;Data Source =127.0.0.1/orcl;User Id=demo;password=demo;" />
+	
+	免安装oracle客户端，但需要把OracleClient.rar目录解压到builder目录
 	<connect name="OracleModel.dll" type="Builder.OracleModel" url="Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)));User Id=dx;Password=dx" />
 	-->
 	
