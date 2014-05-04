@@ -3,7 +3,6 @@ package dswork.android.demo.framework.app.web;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.ActionMode.Callback;
@@ -107,7 +106,7 @@ public class DemoActivity extends OleActivity
     		if(null != rtn_params) params = rtn_params.get(0);
     		List<Demo> list = controller.get(params);
     		try {
-    			Thread.sleep(100 * list.size());
+    			Thread.sleep(100 * (list!=null?list.size():5));
     		} catch (InterruptedException e) {
     			e.printStackTrace();
     		}  
