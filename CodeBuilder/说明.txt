@@ -1,0 +1,25 @@
+默认配置文件：builder/Builder.xml
+	需要templates修改默认路径path：E:/Workspaces/workspaceDswork/CodeBuilder改为当前CodeBuilder目录路径
+	根据不同的运行方式，需要修改charset节点的outputEncoding属性
+
+
+使用Builder生成代码有三种方式：Builder.exe程序第一个运行参数为相对于其所在目录路径的配置文件
+	1、在MyEclipse中，使用build.xml生成（<charset outputEncoding="65001">UTF-8</charset>）
+		build.xml中Builder.exe的路径需要修改为实际exe程序的路径
+		Builder.exe后可增加“ your.xml”，可不使用默认的Builder.xml配置，改用build.xml目录下的your.xml文件
+	
+	
+	2、通过命令行运行Builder.exe程序（<charset outputEncoding="936">UTF-8</charset>）
+		Builder.exe ../your.xml
+	
+	
+	3、双击Builder.exe程序（<charset outputEncoding="936">UTF-8</charset>）
+		仅能使用默认配置文件Builder.xml
+		注意，这种情况下，必须复制Builder.xml到Builder.exe同一目录下
+
+
+!!!重要说明：
+关于不同版本说明，builder目录下2.0,4.0分别对应不同版本的.NET Famework版本号
+可复制对应版本号中的文件出来，覆盖builder下同名文件即可。
+默认builder目录下的版本号为2.0
+3.0和3.5自带了2.0的，所以3.0和3.5的运行2.0版本的即可
