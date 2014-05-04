@@ -10,10 +10,12 @@
         android:orderInCategory="100"
         android:showAsAction="withText|always"
         android:icon="@android:drawable/ic_menu_search"/>
+    <!-- 
     <item
         android:id="@+id/menu_refresh"
         android:orderInCategory="100"
         android:showAsAction="withText|always"
         android:icon="@android:drawable/ic_menu_rotate"/>
+     -->
 
 </menu>

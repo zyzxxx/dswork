@@ -10,6 +10,8 @@
 
     <!-- 访问internet权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- 改变配置信息 -->
+	<uses-permission android:name="android.permission.CHANGE_CONFIGURATION"></uses-permission>
 
     <!-- 测试 -->
     <instrumentation
@@ -88,9 +90,11 @@
             android:name="dswork.android.demo.component.loadmore.LoadMoreActivity"
             android:label="@string/title_activity_loadmore" >
         </activity>
+        <!-- android:configChanges 防止横竖屏切换时重刷Activity -->
         <activity
             android:name="dswork.android.demo.framework.app.web.DemoMainActivity"
             android:label="@string/title_activity_demo_main"
+            android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity

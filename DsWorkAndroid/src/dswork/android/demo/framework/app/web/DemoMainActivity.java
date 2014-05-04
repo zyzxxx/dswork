@@ -2,8 +2,6 @@ package dswork.android.demo.framework.app.web;
 
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -23,6 +21,7 @@ import dswork.android.view.OleListFragment;
 
 public class DemoMainActivity extends SlidingFragmentActivity //OleActivity
 {
+	private static SlidingMenu sdMenu;
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
@@ -35,12 +34,13 @@ public class DemoMainActivity extends SlidingFragmentActivity //OleActivity
 		//嵌套DemoListFragment
 		getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new DemoListFragment()).commit();
 		// 设置滑动菜单的属性值
-	    getSlidingMenu().setMode(SlidingMenu.LEFT);
-		getSlidingMenu().setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
-		getSlidingMenu().setShadowWidthRes(R.dimen.shadow_width);	
-		getSlidingMenu().setShadowDrawable(R.drawable.shadow);
-		getSlidingMenu().setBehindOffsetRes(R.dimen.slidingmenu_offset);
-		getSlidingMenu().setFadeDegree(0.35f);
+		sdMenu = getSlidingMenu();
+		sdMenu.setMode(SlidingMenu.LEFT);
+		sdMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_MARGIN);
+		sdMenu.setShadowWidthRes(R.dimen.shadow_width);	
+		sdMenu.setShadowDrawable(R.drawable.shadow);
+		sdMenu.setBehindOffsetRes(R.dimen.slidingmenu_offset);
+		sdMenu.setFadeDegree(0.35f);
 		// 设置左边菜单打开后的视图界面
 	    setBehindContentView(R.layout.left_slidingmenu_frame);	
 	    getSupportFragmentManager().beginTransaction().replace(R.id.left_slidingmenu_frame, new LeftSlidingMenu()).commit();
@@ -49,14 +49,17 @@ public class DemoMainActivity extends SlidingFragmentActivity //OleActivity
 //		getSupportFragmentManager().beginTransaction().replace(R.id.rightmenu_frame, new SlidingMenuListFragment()).commit();
 	}
 	
-	@SuppressLint("ValidFragment")
 	/**
 	 * 左边SlidingMenu内部类
 	 * @author ole
 	 *
 	 */
-	private class LeftSlidingMenu extends OleListFragment 
+	public static class LeftSlidingMenu extends OleListFragment 
 	{
+		public LeftSlidingMenu() {
+			super();
+		}
+
 		@Override
 		public View initMainView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 		{
@@ -118,31 +121,31 @@ public class DemoMainActivity extends SlidingFragmentActivity //OleActivity
 					//切换主页的fragment
 					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new DemoListFragment()).commit();
 					//关闭左菜单
-					getSlidingMenu().toggle();
+					sdMenu.toggle();
 					break;
 				case 1:
 					//切换主页的fragment
 					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new Fragment1()).commit();
 					//关闭左菜单
-					getSlidingMenu().toggle();
+					sdMenu.toggle();
 					break;
 				case 2:
 					//切换主页的fragment
 					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new Fragment2()).commit();
 					//关闭左菜单
-					getSlidingMenu().toggle();
+					sdMenu.toggle();
 					break;
 				case 3:
 					//切换主页的fragment
 					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new Fragment3()).commit();
 					//关闭左菜单
-					getSlidingMenu().toggle();
+					sdMenu.toggle();
 					break;
 				default :
 					//切换主页的fragment
 					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new DemoListFragment()).commit();
 					//关闭左菜单
-					getSlidingMenu().toggle();break;
+					sdMenu.toggle();break;
 			}
 		}
 	}

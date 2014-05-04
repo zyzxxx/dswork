@@ -14,8 +14,12 @@ import android.os.Bundle;
 import android.view.ActionMode.Callback;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,8 +42,9 @@ public class DemoListFragment extends OleSherlockFragment
 	@InjectView(id=R.id.listView) MultiCheckListView listView;//列表视图
 	@InjectView(id=R.id.chkAll) CheckBox chkAll;//全选框CheckBox
 	@InjectView(id=R.id.waitingBar) ProgressBar waitingBar;//进度条
-	DemoController controller;
-	Map params = new HashMap();//查询参数
+	@InjectView(id=R.id.refresh) ImageView refresh;//刷新按钮
+	private DemoController controller;
+	private Map params = new HashMap();//查询参数
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -55,6 +60,9 @@ public class DemoListFragment extends OleSherlockFragment
 		View convertView = inflater.inflate(R.layout.fragment_demo_list, container, false);
 		InjectUtil.injectView(this, convertView);//注入控件
 		controller = new DemoController(getActivity());
+		
+		refresh.setOnClickListener(new RefreshClickListener());
+		
 		//异步获取后台数据，并更新UI
 		new GetBgDataTask().execute();
 		return convertView;
@@ -80,9 +88,9 @@ public class DemoListFragment extends OleSherlockFragment
 			case R.id.menu_search://搜索
 				startActivity(new Intent().setClass(getActivity(), DemoSearchActivity.class));
 				break;
-			case R.id.menu_refresh://刷新
-				new GetBgDataTask().execute();
-				break;
+//			case R.id.menu_refresh://刷新
+//				new GetBgDataTask().execute();
+//				break;
 		}
 		return true;
 	}
@@ -127,7 +135,7 @@ public class DemoListFragment extends OleSherlockFragment
 		{// 后台任务执行完之后被调用，在ui线程执行
 			if (list != null)
 			{
-				Toast.makeText(getActivity(), "加载成功",Toast.LENGTH_LONG).show();
+//				Toast.makeText(getActivity(), "加载成功",Toast.LENGTH_LONG).show();
 				//实列化MultiCheck适配器
 				MultiCheckAdapter adapter = new MultiCheckAdapter(
 						getActivity(), controller, list, listView, R.layout.activity_demo_item,
@@ -163,4 +171,14 @@ public class DemoListFragment extends OleSherlockFragment
 			waitingBar.setVisibility(ProgressBar.GONE);//隐藏圆形进度条
 		}
     }
+	
+	private class RefreshClickListener implements OnClickListener
+	{
+		@Override
+		public void onClick(View v) 
+		{
+			refresh.startAnimation(AnimationUtils.loadAnimation(DemoListFragment.this.getActivity(), R.anim.rotate));
+			new GetBgDataTask().execute();
+		}
+	}
 }
