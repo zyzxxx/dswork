@@ -63,7 +63,7 @@ public class DemoListFragment extends OleSherlockFragment
 	@Override
 	public void initMenu(Menu menu, MenuInflater inflater) 
 	{
-		inflater.inflate(R.menu.demo, menu);
+		inflater.inflate(R.menu.demo_list, menu);
 	} 
 	
 	@Override
