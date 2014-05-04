@@ -1,0 +1,27 @@
+作为cs端程序运行时
+
+删除根目录下的三个文件：
+.classpath
+.mymetadata
+.project
+
+删除/web目录
+删除/src/testwork/controller目录
+
+复制/cs/目录下的两个文件到项目根目录下
+然后重新导入到myeclipse下，或者关闭project后再打开也可以
+
+运行testwork.cs.Start
+
+
+
+
+需要修改的配置：
+/web/WEB-INF/web.xml下的webAppRootKey值，对应/src/config/log4j.properties下对应的key
+/web/WEB-INF/springmvc-servlet.xml
+	1：testwork.controller改为实际项目controller的包名
+/src/config/applicationContext-project.xml
+	1：testwork.dao改为实际项目dao的包名
+	2：testwork.service改为实际项目service的包名
+/src/config/config.properties
+	1：对应的数据库连接信息

@@ -1,0 +1,39 @@
+/*IE6背景图片不缓存BUG*/
+* {filter:expression(document.execCommand("BackgroundImageCache", false, true));}
+* {font-size:12px;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;}
+html {height:100%;}
+body {height:100%;margin:0px;padding:0px;overflow:hidden;}
+iframe {margin:0px;padding:0px;border:none;width:100%;height:100%;}
+
+a {font-size:12px;cursor:hand;cursor:pointer;text-decoration:none;}
+a:link {color:#2e3094;}
+a:visited {color:#2e3094;}
+a:hover {color:#ff0000;}
+
+/*top frame*/
+.topframe {border-style:none;border-width:0px;height:100%;width:100%;top:0px;left:0px;}
+.topframe td.left {padding-left: 5px; font-size:12px; line-height: 24px;}
+.topframe td.left .show {font-size:12px;color:#2e3094;padding-right:20px;}
+.topframe td.right {/*按钮及用户显示位置的设置*/text-align:right;vertical-align:middle;padding-right:10px;}
+.topframe td.right span.date{padding-right: 20px; font-size: 12px; color:#2e3094;}
+.topframe td.right .img{/*按钮图片的样式*/border:0;border-style:none;vertical-align:middle;}
+.topframe td.right a {padding-left:3px;}
+
+/*middle frame*/
+.middleframe {border:none;width:100%;height:100%;}
+.middleframe tr, .middleframe td {height:100%;vertical-align:top;}
+
+.middleframe #menu {width:200px;height:100%;background-color:#edf2f8;border:#658dcb solid 1px;border-right-style:none;}
+
+.middleframe .drop {vertical-align:middle;text-align:center;width:6px;height:100%;font-size:0px;background-color:#99b3dd;background:url("middle/dropbg.jpg") repeat-y;background-position:right;overflow:hidden;}
+.middleframe .dropimg {cursor:pointer;}
+
+.middleframe .view {vertical-align:top;padding-bottom:25px;overflow:hidden;background-color:#ffffff;border:1px #658dcb solid;height:100%;/*IE下的内容会有部分显示到浏览器下方*/}
+.middleframe .view .nav {top:0px;left:0px;background-color:#fdfad0;width:100%;height:26px;white-space:normal;border-bottom:1px #c1cfe6 solid;overflow:hidden;}
+.middleframe .view .nav #mynav {float:left;line-height:24px;padding-left:30px;color:#2e3094;background:url(middle/navarrow.gif) 10px 4px no-repeat;}
+.middleframe .view .nav .goback {float:right;height:25px;width:108px;line-height:24px;text-align:center;background:url(middle/goback.gif) 0px 2px no-repeat;}
+.middleframe .view iframe {height:100%;vertical-align:top;}
+
+/*bottom frame*/
+.bottomframe {font-size:12px;width:100%;height:100%;background-color:#edf2f8;background:url("bottom/bg.gif") repeat-x;background-position:top;line-height:25px;color:#2e3094;text-align:center;}
+.bottomframe .copyRight {font-size:12px;}

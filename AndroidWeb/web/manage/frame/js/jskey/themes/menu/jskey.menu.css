@@ -1,0 +1,58 @@
+/*IE6背景图片不缓存BUG*/
+* {filter:expression(document.execCommand("BackgroundImageCache", false, true));}
+html {height:100%;margin:0;padding:0px;border:0px;overflow:auto;}
+body {height:100%;margin:0;padding:0px;border:0px;font-size:12px;font-weight:bold;background-color:#edf2f8;text-align:center;overflow:auto;}
+a {font-size:12px;}
+td {font-size:12px;}
+
+.jskeymenu {width:100%;height:100%;border:0px;}
+
+/*分层菜单的样式设置*/
+.jskeymenu .menuOpen {
+	background-color:#ffffff;
+	overflow:hidden;width:100%;height:26px;
+	background:url("img/topbg.jpg") repeat-x;background-position:top;
+	padding-left:10px;padding-top:2px;cursor:pointer;border:none;
+	color:#333333;text-align:left;font-weight:bold;
+}
+.jskeymenu .menuClose {
+	background-color:#ffffff;
+	overflow:hidden;width:100%;height:26px;
+	background:url("img/topbg.jpg") repeat-x;background-position:top;
+	padding-left:10px;padding-top:2px;cursor:pointer;border:none;
+	color:#333333;text-align:left;font-weight:bold;
+}
+.jskeymenu .cellOpen {width:100%;height:100%;}
+.jskeymenu .cellClose {width:100%;height:0%;}
+.jskeymenu .cellContent {width:100%;height:100%;overflow-y:auto;overflow-x:hidden;}
+
+/*QQ式菜单的列表样式设置*/
+/*
+.jskeymenu .imgdiv {width:99%;cursor:pointer;text-align:left;line-height:20px;margin:5px 0px 0px 3px;font-weight:bold;}
+.jskeymenu .imgdiv img {width:20px;height:20px;border:solid #edf2f8 1px;vertical-align:middle;margin:0px 3px 0px 5px;}
+*/
+/*QQ式菜单的头像样式设置*/
+/**/
+.jskeymenu .imgdiv {margin-top:5px;width:99%;cursor:pointer;text-align:center;}
+.jskeymenu .imgdiv img {width:32px;height:32px;margin-bottom:2px;display:block;border:solid #edf2f8 1px;margin:auto;}
+
+
+/*鼠标移过*/
+.jskeymenu .imgdiv img.imgout {border:solid #edf2f8 1px;}
+.jskeymenu .outfont {color:#333333;}
+/*鼠标移开*/
+.jskeymenu .imgdiv img.imgover {border:solid #f9f4ee 1px;}
+.jskeymenu .overfont {color:#ff0000;text-decoration:underline;}
+
+/*树装菜单的样式设置*/
+/*父节点*/
+div.treenodes {display:block;width:95%;white-space:nowrap;vertical-align:top;text-align:left;}
+div.treenodeout, div.treenodeover {font-size:12px;display:inline;}
+div.treenodeout {color:#333333;}
+div.treenodeover {color:#ff0000;}
+/*子节点*/
+div.treenode {cursor:pointer;display:block;width:95%;padding-left:3px;white-space:nowrap;vertical-align:top;text-align:left;}
+div.treenode .img {border:0px;width:18px;height:18px;}
+div.treedivout, div.treedivover {height:18px;padding-left:3px;font-size:12px;padding-top:3px;display:inline;line-height:18px;}
+div.treedivout {color:#333333;}
+div.treedivover {color:#333333;}
