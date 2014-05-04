@@ -1,0 +1,55 @@
+﻿#set($list=$model.ColumnList)##数据表的所有列
+#set($tableName=$model.TableName)##数据表的表名称
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../../themes/default/frame.css" />
+<script type="text/javascript" src="../../js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../../js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="../../js/jskey/jskey_core.js"></script>
+<script type="text/javascript" src="../../js/dswork/dswork.js"></script>
+<script type="text/javascript" src="../../js/dswork/mask/mask.js"></script>
+<script type="text/javascript" src="../../js/dswork/add.js"></script>
+<script type="text/javascript">
+$dswork.showNavTitle = "编辑";
+$(function(){$dswork.showNavigation($dswork.showNavTitle);});
+</script>
+<script type="text/javascript" src="../../js/dswork/ajaxSubmit.js"></script>
+	<script type="text/javascript">
+	$dswork.callback = function()
+	{
+		if($dswork.result.type == 1)
+		{
+			location.href = "get.html";
+		}
+	}
+	</script>
+</head>
+<body>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">修改</td>
+		<td>
+			<div class="menuTool">
+				<a class="save" id="dataFormSave" href="#">保存</a>
+				<a class="back" href="get.html">返回</a>
+			</div>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<form id="dataForm" method="post" action="../../submit.html">
+<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+#foreach($col in $list)
+	<tr>
+		<td class="form_title">$col：</td>
+		<td class="form_input"><input type="text" value="" /></td>
+	</tr>
+#end
+</table>
+</form>
+</body>
+</html>
