@@ -89,8 +89,8 @@
             android:label="@string/title_activity_loadmore" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoActivity"
-            android:label="@string/title_activity_demo"
+            android:name="dswork.android.demo.framework.app.web.DemoMainActivity"
+            android:label="@string/title_activity_demo_main"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity

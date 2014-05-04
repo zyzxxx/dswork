@@ -3,12 +3,18 @@ package dswork.android.demo.framework.app.web;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.view.ActionMode.Callback;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.Window;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,9 +31,9 @@ import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
 import dswork.android.util.InjectUtil;
 import dswork.android.util.InjectUtil.InjectView;
 import dswork.android.util.MyStrictMode;
-import dswork.android.view.OleActivity;
+import dswork.android.view.OleSherlockFragment;
 
-public class DemoActivity extends OleActivity
+public class DemoListFragment extends OleSherlockFragment
 {
 	@InjectView(id=R.id.listView) MultiCheckListView listView;//列表视图
 	@InjectView(id=R.id.chkAll) CheckBox chkAll;//全选框CheckBox
@@ -35,45 +41,50 @@ public class DemoActivity extends OleActivity
 	DemoController controller;
 	Map params = new HashMap();//查询参数
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public void initMainView()
+	public void onCreate(Bundle savedInstanceState) 
+	{
+		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);//使fragment可以控制Activity中的menu
+	}
+
+	@Override
+	public View initMainView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 	{
 		MyStrictMode.setPolicy();//webapp需要调用此方法
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);//允许标题栏显示圆形进度条
-		setContentView(R.layout.activity_demo);
-		InjectUtil.injectView(this);//注入控件
-		controller = new DemoController(this);
-		
-		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
-		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
-
+		View convertView = inflater.inflate(R.layout.fragment_demo_list, container, false);
+		InjectUtil.injectView(this, convertView);//注入控件
+		controller = new DemoController(getActivity());
 		//异步获取后台数据，并更新UI
 		new GetBgDataTask().execute();
+		return convertView;
 	}
 
 	@Override
-	public void initMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.demo, menu);
-	}
+	public void initMenu(Menu menu, MenuInflater inflater) 
+	{
+		inflater.inflate(R.menu.demo, menu);
+	} 
 	
 	@Override
-	public void initMenuItemSelected(MenuItem item) {
+	public boolean initMenuItemSelected(MenuItem item) 
+	{
 		switch(item.getItemId())
 		{
 			case android.R.id.home://返回
-				this.finish();
+				getActivity().finish();
 				break;
 			case R.id.menu_add://添加
-				startActivity(new Intent().setClass(this, DemoAddActivity.class));
+				startActivity(new Intent().setClass(getActivity(), DemoAddActivity.class));
 				break;
 			case R.id.menu_search://搜索
-				startActivity(new Intent().setClass(this, DemoSearchActivity.class));
+				startActivity(new Intent().setClass(getActivity(), DemoSearchActivity.class));
 				break;
 			case R.id.menu_refresh://刷新
 				new GetBgDataTask().execute();
 				break;
 		}
+		return true;
 	}
 
 	//扩展视图缓存类
@@ -86,7 +97,6 @@ public class DemoActivity extends OleActivity
 	
 	/**
 	 * 异步获取后台数据类
-	 * @author ole
 	 *
 	 */
 	class GetBgDataTask extends AsyncTask<String, Integer, List<Demo>>
@@ -102,7 +112,7 @@ public class DemoActivity extends OleActivity
         protected List<Demo> doInBackground(String... _params) 
         {//后台耗时操作，不能在后台线程操作UI
     		//获取列表信息
-    		List<Map<String,Object>> rtn_params = (List<Map<String, Object>>) getIntent().getSerializableExtra("params");//获取查询参数
+    		List<Map<String,Object>> rtn_params = (List<Map<String, Object>>) getActivity().getIntent().getSerializableExtra("params");//获取查询参数
     		if(null != rtn_params) params = rtn_params.get(0);
     		List<Demo> list = controller.get(params);
     		try {
@@ -117,28 +127,30 @@ public class DemoActivity extends OleActivity
 		{// 后台任务执行完之后被调用，在ui线程执行
 			if (list != null)
 			{
-				Toast.makeText(DemoActivity.this, "加载成功",Toast.LENGTH_LONG).show();
-				//实列化MultiCheck适配器，并初始化MultiCheck
+				Toast.makeText(getActivity(), "加载成功",Toast.LENGTH_LONG).show();
+				//实列化MultiCheck适配器
 				MultiCheckAdapter adapter = new MultiCheckAdapter(
-						DemoActivity.this, controller, list, listView, R.layout.activity_demo_item,
+						getActivity(), controller, list, listView, R.layout.activity_demo_item,
 						R.id.id, R.id.chk, R.id.ctrl_menu, R.array.ctrl_menu_items, new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
 						new MyViewCache(),
 						"dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity",
-						new ExpandCtrlMenu()
-						{//列表项扩展菜单
+						new ExpandCtrlMenu()//列表项扩展菜单
+						{
 							@Override
 							public void onItemSelected(String id_s, long id_l, int which) 
 							{
-								Toast.makeText(DemoActivity.this, id_s, Toast.LENGTH_SHORT).show();
+								Toast.makeText(getActivity(), id_s, Toast.LENGTH_SHORT).show();
 							}
 						}, false);
+				//初始化MultiCheck
 				listView.initMultiCheck(list, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoDetailActivity"));
+				//实例化ActionMode
 				listView.setActionModeListener(new ActionModeListener()
 				{
 					@Override
 					public Callback getActionModeCallback() 
 					{
-						return new OleActionMode(DemoActivity.this, controller, R.menu.context_menu, R.id.menu_upd, 
+						return new OleActionMode(getActivity(), controller, R.menu.context_menu, R.id.menu_upd, 
 								R.id.menu_del_confirm, listView,
 								"dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity");
 					}
@@ -146,9 +158,9 @@ public class DemoActivity extends OleActivity
 			} 
 			else 
 			{
-				Toast.makeText(DemoActivity.this, "加载失败，网络异常", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), "加载失败，网络异常", Toast.LENGTH_LONG).show();
 			}
 			waitingBar.setVisibility(ProgressBar.GONE);//隐藏圆形进度条
 		}
-    } 
+    }
 }

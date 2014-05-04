@@ -65,7 +65,7 @@ public class DemoAddActivity extends OleActivity
 		{
 			Toast.makeText(this, "添加成功", Toast.LENGTH_LONG).show();
 			this.finish();
-			startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoActivity.class));
+			startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoMainActivity.class));
 		}
 	}
 }

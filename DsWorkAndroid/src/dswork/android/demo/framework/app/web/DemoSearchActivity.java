@@ -60,6 +60,6 @@ public class DemoSearchActivity extends OleActivity
 		List<Map<String,Object>> params = new ArrayList<Map<String,Object>>();
 		params.add(m);
 		this.finish();
-		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoActivity.class).putExtra("params", (Serializable)params));
+		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoMainActivity.class).putExtra("params", (Serializable)params));
 	}
 }
