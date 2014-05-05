@@ -34,7 +34,7 @@ public class ${Model}Controller extends BaseController
 	@RequestMapping("/add${Model}1")
 	public String add${Model}1()
 	{
-		return "/view${urlpath}/${Module}/add${Model}.jsp";
+		return "${urlpath}/${Module}/add${Model}.jsp";
 	}
 	
 	@RequestMapping("/add${Model}2")
@@ -67,7 +67,7 @@ public class ${Model}Controller extends BaseController
 		Long id = req.getLong("keyIndex");
 		request.setAttribute("po", service.get(id));
 		request.setAttribute("page", req.getInt("page", 1));
-		return "/view${urlpath}/${Module}/upd${Model}.jsp";
+		return "${urlpath}/${Module}/upd${Model}.jsp";
 	}
 	
 	@RequestMapping("/upd${Model}2")
@@ -92,7 +92,7 @@ public class ${Model}Controller extends BaseController
 		Page<${Model}> pageModel = service.queryPage(getPageRequest());
 		request.setAttribute("pageModel", pageModel);
 		request.setAttribute("pageNav", new PageNav<${Model}>(request, pageModel));
-		return "/view${urlpath}/${Module}/get${Model}.jsp";
+		return "${urlpath}/${Module}/get${Model}.jsp";
 	}
 
 	//明细
@@ -101,6 +101,6 @@ public class ${Model}Controller extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		request.setAttribute("po", service.get(id));
-		return "/view${urlpath}/${Module}/get${Model}ById.jsp";
+		return "${urlpath}/${Module}/get${Model}ById.jsp";
 	}
 }

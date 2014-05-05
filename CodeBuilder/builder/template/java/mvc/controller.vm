@@ -37,7 +37,7 @@ public class ${Model}Controller
 	@RequestMapping("/add${Model}1")
 	public String add${Model}1()
 	{
-		return "/WEB-INF/view${urlpath}/${Module}/add${Model}.jsp";
+		return "${urlpath}/${Module}/add${Model}.jsp";
 	}
 	
 	@RequestMapping("/add${Model}2")
@@ -78,7 +78,7 @@ public class ${Model}Controller
 		Long id = req.getLong("keyIndex");
 		request.setAttribute("po", service.get(id));
 		request.setAttribute("page", req.getInt("page", 1));
-		return "/WEB-INF/view${urlpath}/${Module}/upd${Model}.jsp";
+		return "${urlpath}/${Module}/upd${Model}.jsp";
 	}
 	
 	@RequestMapping("/upd${Model}2")
@@ -109,7 +109,7 @@ public class ${Model}Controller
 		PageNav pageNav = new PageNav(request, pageModel);
 		request.setAttribute("pageModel", pageModel);
 		request.setAttribute("pageNav", pageNav);
-		return "/WEB-INF/view${urlpath}/${Module}/get${Model}.jsp";
+		return "${urlpath}/${Module}/get${Model}.jsp";
 	}
 
 	//明细
@@ -119,6 +119,6 @@ public class ${Model}Controller
 		MyRequest req = new MyRequest(request);
 		Long keyIndex = req.getLong("keyIndex");
 		request.setAttribute("po", service.get(keyIndex));
-		return "/WEB-INF/view${urlpath}/${Module}/get${Model}ById.jsp";
+		return "${urlpath}/${Module}/get${Model}ById.jsp";
 	}
 }
