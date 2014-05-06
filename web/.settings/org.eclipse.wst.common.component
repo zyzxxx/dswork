@@ -3,5 +3,7 @@
     <wb-module deploy-name="web">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/" source-path="/web"/>
+        <property name="context-root" value="web"/>
+        <property name="java-output-path" value="/web/web/WEB-INF/classes"/>
     </wb-module>
 </project-modules>
