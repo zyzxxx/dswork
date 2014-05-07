@@ -1,6 +1,7 @@
 package dswork.core.page;
 
 import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -32,8 +33,8 @@ public class PageNav<T>
 			sb.append("<form id=\"").append(formId).append("\" method=\"post\" style=\"display:none;\" action=\"").append(request.getRequestURL().toString()).append("\">");
 			sb.append("<input id=\"").append(formId).append("_page\" name=\"").append(pageName).append("\" type=\"hidden\" value=\"1\"/>\n");
 			sb.append("<input id=\"").append(formId).append("_pageSize\" name=\"").append(page.getPageSizeName()).append("\" type=\"hidden\" value=\"").append(page.getPageSize()).append("\"/>\n");
-			
-			@SuppressWarnings("unchecked")
+
+			@SuppressWarnings("all")
 			Enumeration e = request.getParameterNames();
 			String key = "";
 			String value[];

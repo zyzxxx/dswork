@@ -15,7 +15,7 @@ import org.springframework.util.ReflectionUtils;
 /**
  * apache BeanUtils的等价类，只是将check exception改为uncheck exception
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class BeanUtils extends org.apache.commons.beanutils.BeanUtils
 {
 	protected static final Log logger = LogFactory.getLog(BeanUtils.class);

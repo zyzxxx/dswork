@@ -9,7 +9,7 @@ import java.util.Map;
  *  &lt;/if&gt;
  * </pre>
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class Ognl
 {
 	/**

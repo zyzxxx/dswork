@@ -3,7 +3,7 @@ package dswork.spring;
 /**
  * 从ApplicationContext取得spring管理的类
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class BeanFactory
 {
 	/**

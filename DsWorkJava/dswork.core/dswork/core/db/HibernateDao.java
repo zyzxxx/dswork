@@ -25,7 +25,7 @@ import dswork.core.page.PageRequest;
  * Hibernate抽象类
  * @author skey
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public abstract class HibernateDao extends HibernateDaoSupport
 {
 	private static final long serialVersionUID = 1L;

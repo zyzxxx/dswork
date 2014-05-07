@@ -2,7 +2,7 @@ package dswork.core.mybatis;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class DynamicDataSource extends AbstractRoutingDataSource
 {
 	private static final ThreadLocal contextHolder = new ThreadLocal();

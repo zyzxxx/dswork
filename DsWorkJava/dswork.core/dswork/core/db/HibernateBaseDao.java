@@ -23,7 +23,7 @@ import dswork.core.page.PageRequest;
  * @param &lt;T&gt; 对象模型
  * @param &lt;PK&gt; 主键类
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public abstract class HibernateBaseDao<E, PK extends Serializable> extends HibernateDao implements EntityDao<E, PK>
 {
 	private static final long serialVersionUID = 1L;

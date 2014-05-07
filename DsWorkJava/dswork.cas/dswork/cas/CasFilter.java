@@ -79,7 +79,7 @@ public class CasFilter implements Filter
 		return String.valueOf(o).trim();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("all")
 	private static String getLoginURL(HttpServletRequest request) throws UnsupportedEncodingException
 	{
 		String url = "";

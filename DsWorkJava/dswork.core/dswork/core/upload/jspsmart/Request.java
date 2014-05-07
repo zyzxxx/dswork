@@ -3,6 +3,7 @@ package dswork.core.upload.jspsmart;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+@SuppressWarnings("all")
 public class Request
 {
 	private Hashtable<String, Hashtable<Integer, String>> m_parameters;

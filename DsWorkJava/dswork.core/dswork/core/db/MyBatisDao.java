@@ -3,13 +3,12 @@ package dswork.core.db;
 import java.util.List;
 //import java.util.Map;
 
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.ibatis.session.RowBounds;
-
 import org.springframework.dao.support.DaoSupport;
 import org.springframework.util.Assert;
-
 import org.mybatis.spring.SqlSessionTemplate;
 
 import dswork.core.page.Page;
@@ -19,9 +18,10 @@ import dswork.core.page.PageRequest;
  * MyBatis抽象类
  * @author skey
  */
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public abstract class MyBatisDao extends DaoSupport
 {
+	private static final long serialVersionUID = 1L;
 	protected final Log log = LogFactory.getLog(getClass());
 	
 	/**

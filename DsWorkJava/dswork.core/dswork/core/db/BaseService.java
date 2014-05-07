@@ -17,8 +17,10 @@ import dswork.core.page.PageRequest;
  * @param &lt;T&gt; 对象模型
  * @param &lt;PK&gt; 主键类
  */
+@SuppressWarnings("all")
 public abstract class BaseService<T, PK extends Serializable>
 {
+	private static final long serialVersionUID = 1L;
 	protected Log log = LogFactory.getLog(getClass());
 
 	/**
@@ -88,7 +90,6 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param map 查询参数和条件数据
 	 * @return List
 	 */
-	@SuppressWarnings("unchecked")
 	public List<T> queryList(Map map)
 	{
 		PageRequest request = new PageRequest();
@@ -114,7 +115,6 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param map 查询参数和条件数据
 	 * @return Page
 	 */
-	@SuppressWarnings("unchecked")
 	public Page<T> queryPage(int currentPage, int pageSize, Map map)
 	{
 		PageRequest request = new PageRequest();

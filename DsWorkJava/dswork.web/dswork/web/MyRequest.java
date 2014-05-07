@@ -5,7 +5,6 @@ import javax.servlet.http.*;
 import java.beans.BeanInfo;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
-
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -16,6 +15,7 @@ import java.util.regex.Pattern;
  * @author skey
  * @version 3
  */
+@SuppressWarnings("all")
 public class MyRequest
 {
 	private HttpServletRequest request;
@@ -33,7 +33,6 @@ public class MyRequest
 	 * 取得当前页的URL，如有参数则带参数
 	 * @return String
 	 */
-	@SuppressWarnings("unchecked")
 	public String getCurrentUrl()
 	{
 		StringBuilder urlThisPage = new StringBuilder();
@@ -74,7 +73,6 @@ public class MyRequest
 	 * @param separator 分隔符
 	 * @return String
 	 */
-	@SuppressWarnings("unchecked")
 	public String getCurrentUrlUniteParameter(String separator)
 	{
 		StringBuilder urlThisPage = new StringBuilder();
@@ -374,7 +372,6 @@ public class MyRequest
 	 * @param isSecure 是否过滤为安全字符
 	 * @return Map
 	 */
-	@SuppressWarnings("unchecked")
 	public Map getParameterValueMap(boolean remainArray, boolean isSecure)
 	{
 		return getParameterValueMap(remainArray, ",", isSecure);
@@ -387,7 +384,6 @@ public class MyRequest
 	 * @param isSecure 是否过滤为安全字符
 	 * @return Map
 	 */
-	@SuppressWarnings("unchecked")
 	public Map getParameterValueMap(boolean remainArray, String separator, boolean isSecure)
 	{
 		Map map = new HashMap();
