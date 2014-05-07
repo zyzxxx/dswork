@@ -4,13 +4,14 @@
 package testwork.service.demo;
 
 import org.springframework.stereotype.Service;
+
 import dswork.core.db.EntityDao;
 import dswork.core.db.BaseService;
 import testwork.model.demo.Demo;
 import testwork.dao.demo.DemoDao;
 
 @Service
-@SuppressWarnings("unchecked")
+@SuppressWarnings(value={"unchecked", "rawtypes"})
 public class DemoService extends BaseService<Demo, java.lang.Long>
 {
 	private DemoDao dao;

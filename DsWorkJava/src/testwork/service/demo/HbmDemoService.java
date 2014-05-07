@@ -10,7 +10,7 @@ import testwork.model.demo.*;
 import testwork.dao.demo.HbmDemoDao;
 
 @Service
-@SuppressWarnings("unchecked")
+@SuppressWarnings(value={"unchecked", "rawtypes"})
 public class HbmDemoService extends BaseService<Demo, java.lang.Long>
 {
 	@Autowired

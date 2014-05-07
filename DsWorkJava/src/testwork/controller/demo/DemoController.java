@@ -23,7 +23,7 @@ import testwork.model.demo.Demo;
 import testwork.service.demo.DemoService;
 
 @Controller
-@SuppressWarnings("unchecked")
+@SuppressWarnings(value={"unchecked", "rawtypes"})
 @RequestMapping("/manage/demo")
 public class DemoController
 {

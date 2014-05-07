@@ -6,10 +6,9 @@ package testwork.model.demo;
 //@javax.persistence.Entity
 //@org.hibernate.annotations.Entity(dynamicUpdate = true)
 //@Table(name = "DEMO")
+@SuppressWarnings("all")
 public class Demo// implements java.io.Serializable
 {
-	private static final long serialVersionUID = 1L;
-	
 	//样例编号
 	private Long id = 0L;
 	//标题
