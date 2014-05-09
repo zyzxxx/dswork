@@ -12,44 +12,44 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
-	<classpathentry kind="lib" path="/Lib/commons/commons-fileupload-1.2.2.jar"/>
-	<classpathentry kind="lib" path="/Lib/commons/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/commons/commons-dbcp-1.4.jar"/>
-	<classpathentry kind="lib" path="/Lib/commons/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/commons/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/commons/commons-pool-1.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/commons/commons-io-2.3.jar"/>
-	<classpathentry kind="lib" path="/Lib/commons/commons-beanutils-core-1.8.3.jar"/>
-	<classpathentry kind="lib" path="/Lib/database/sqlite/sqlite-jdbc-3.6.0.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/antlr-runtime.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/hibernate3.5.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/javassist-3.15.0-GA.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/javax.persistence.jar"/>
-	<classpathentry kind="lib" path="/Lib/jar/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/jar/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/jar/ognl-2.7.3.jar"/>
-	<classpathentry kind="lib" path="/Lib/jar/Jimi.jar"/>
-	<classpathentry kind="lib" path="/Lib/jar/json-lib-2.4-jdk15.jar"/>
-	<classpathentry kind="lib" path="/Lib/jar/aopalliance.jar"/>
-	<classpathentry kind="lib" path="/Lib/jar/cglib-nodep-2.2.jar"/>
-	<classpathentry kind="lib" path="/Lib/log/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="/Lib/log/log4jdbc4-1.2.jar"/>
-	<classpathentry kind="lib" path="/Lib/log/slf4j-api-1.6.4.jar"/>
-	<classpathentry kind="lib" path="/Lib/log/slf4j-log4j12-1.6.4.jar"/>
-	<classpathentry kind="lib" path="/Lib/module/qr/qrcore.jar"/>
-	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.3.jar"/>
-	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-aop.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-beans.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-context.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-core.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-expression.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-jdbc.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-orm.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-tx.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-web.jar"/>
-	<classpathentry kind="lib" path="/Lib/spring/spring-webmvc.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/commons/commons-fileupload-1.2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/commons/commons-collections-3.2.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/commons/commons-dbcp-1.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/commons/commons-lang-2.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/commons/commons-logging-1.1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/commons/commons-pool-1.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/commons/commons-io-2.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/commons/commons-beanutils-core-1.8.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/database/sqlite/sqlite-jdbc-3.6.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/hibernate/antlr-2.7.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/hibernate/antlr-runtime.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/hibernate/hibernate3.5.6.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/hibernate/javassist-3.15.0-GA.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/hibernate/javax.persistence.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/jar/dom4j-1.6.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/jar/jta-1.1.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/jar/ognl-2.7.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/jar/Jimi.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/jar/json-lib-2.4-jdk15.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/jar/aopalliance.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/jar/cglib-nodep-2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/log/log4j-1.2.16.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/log/log4jdbc4-1.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/log/slf4j-api-1.6.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/log/slf4j-log4j12-1.6.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/module/qr/qrcore.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/mybatis/mybatis-3.2.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-aop.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-beans.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-context.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-core.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-expression.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-jdbc.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-orm.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-tx.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-web.jar"/>
+	<classpathentry exported="true" kind="lib" path="/Lib/spring/spring-webmvc.jar"/>
 	<classpathentry kind="lib" path="lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
