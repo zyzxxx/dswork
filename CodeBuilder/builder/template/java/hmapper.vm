@@ -3,7 +3,7 @@
 	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 #set($Namespace=$vo.GetParam('Namespace'))
-#set($Module=$vo.GetParam('Module'))
+#set($Module=$vo.GetParam('Javamodule'))
 #set($Model=$vo.GetParam('Model'))
 #set($ModelName=$vo.GetParam('ModelName'))
 #set($v=$vo.ColumnList)
@@ -34,7 +34,7 @@
 #elseif($precision>=4 && $precision<=10)#set($proType="integer")
 #end
 #end
-<hibernate-mapping package="${Namespace}.model.${Module}">
+<hibernate-mapping package="${Namespace}.model${Module}">
 	<class name="${Model}" table="${vo.TableName}" dynamic-insert="true" dynamic-update="true">
 	#getHbmResult($v)
 </class>

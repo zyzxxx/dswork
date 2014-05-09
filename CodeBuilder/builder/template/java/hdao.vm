@@ -1,6 +1,6 @@
 #set($Frame=$vo.GetParam('Frame'))
 #set($Namespace=$vo.GetParam('Namespace'))
-#set($Module=$vo.GetParam('Module'))
+#set($Module=$vo.GetParam('Javamodule'))
 #set($Model=$vo.GetParam('Model'))
 #set($v=$vo.ColumnList)
 #macro (getCode $list)
@@ -21,12 +21,12 @@
 /**
  * ${vo.TableComment}Dao
  */
-package ${Namespace}.dao.${Module};
+package ${Namespace}.dao${Module};
 
 import java.util.Map;
 
 import ${Frame}.core.db.HibernateBaseDao;
-import ${Namespace}.model.${Module}.${Model};
+import ${Namespace}.model${Module}.${Model};
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;

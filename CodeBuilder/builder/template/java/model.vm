@@ -5,7 +5,7 @@
 #set($setMethod="")
 #set($getMethod="")
 #set($Namespace=$vo.GetParam('Namespace'))
-#set($Module=$vo.GetParam('Module'))
+#set($Module=$vo.GetParam('Javamodule'))
 #set($Model=$vo.GetParam('Model'))
 #macro (getProType $obj)
 #set($precision=$obj.Precision)
@@ -47,7 +47,7 @@
 /**
  * ${vo.TableComment}${myModel}
  */
-package ${Namespace}.model.${Module};
+package ${Namespace}.model${Module};
 public class $Model
 {
 #foreach($columnModel in $vo.ColumnList)

@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 #set($Namespace=$vo.GetParam('Namespace'))
-#set($Module=$vo.GetParam('Module'))
+#set($Module=$vo.GetParam('Javamodule'))
 #set($Model=$vo.GetParam('Model'))
 #set($ModelName=$vo.GetParam('ModelName'))
 #set($v=$vo.ColumnList)
@@ -51,9 +51,9 @@
 			<if test="@Ognl@isNotEmpty($tmp)"> and $tmp.ToUpper() like '%'||#{$tmp}||'%' </if>
 #end
 #end
-<mapper namespace="${Namespace}.model.${Module}.${Model}">
+<mapper namespace="${Namespace}.model${Module}.${Model}">
 
-	<insert id="insert" parameterType="${Namespace}.model.${Module}.${Model}">
+	<insert id="insert" parameterType="${Namespace}.model${Module}.${Model}">
 		<selectKey resultType="Long" order="BEFORE" keyProperty="id">
 			select SEQ_ID.NEXTVAL from dual
 		</selectKey>
@@ -67,12 +67,12 @@
 		delete from ${vo.TableName} where ID=#{id}
 	</delete>
 
-	<update id="update" parameterType="${Namespace}.model.${Module}.${Model}">
+	<update id="update" parameterType="${Namespace}.model${Module}.${Model}">
 		update ${vo.TableName} set#getUpdateValues($v)
 		where ID=#{id}
 	</update>
 
-	<resultMap id="result" type="${Namespace}.model.${Module}.${Model}">
+	<resultMap id="result" type="${Namespace}.model${Module}.${Model}">
 	#getResult($v)
 </resultMap>
 

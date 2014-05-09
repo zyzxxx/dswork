@@ -1,6 +1,7 @@
 #set($Frame=$vo.GetParam('Frame'))
 #set($Namespace=$vo.GetParam('Namespace'))
-#set($Module=$vo.GetParam('Module'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Webmodule=$vo.GetParam('Webmodule'))
 #set($Model=$vo.GetParam('Model'))
 #set($ModelName=$vo.GetParam('ModelName'))
 /**
@@ -8,7 +9,7 @@
  * 开发人员:${developer}
  * 创建时间:${currentDate}
  */
-package ${Namespace}.controller.${Module};
+package ${Namespace}.controller${Module};
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -19,12 +20,12 @@ import ${Frame}.mvc.BaseController;
 import ${Frame}.core.page.Page;
 import ${Frame}.core.page.PageNav;
 import ${Frame}.core.util.CollectionUtil;
-import ${Namespace}.model.${Module}.${Model};
-import ${Namespace}.service.${Module}.${Model}Service;
+import ${Namespace}.model${Module}.${Model};
+import ${Namespace}.service${Module}.${Model}Service;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("${urlpath}/${Module}")
+@RequestMapping("${Webmodule}")
 public class ${Model}Controller extends BaseController
 {
 	@Autowired
@@ -34,7 +35,7 @@ public class ${Model}Controller extends BaseController
 	@RequestMapping("/add${Model}1")
 	public String add${Model}1()
 	{
-		return "${urlpath}/${Module}/add${Model}.jsp";
+		return "${Webmodule}/add${Model}.jsp";
 	}
 	
 	@RequestMapping("/add${Model}2")
@@ -67,7 +68,7 @@ public class ${Model}Controller extends BaseController
 		Long id = req.getLong("keyIndex");
 		request.setAttribute("po", service.get(id));
 		request.setAttribute("page", req.getInt("page", 1));
-		return "${urlpath}/${Module}/upd${Model}.jsp";
+		return "${Webmodule}/upd${Model}.jsp";
 	}
 	
 	@RequestMapping("/upd${Model}2")
@@ -92,7 +93,7 @@ public class ${Model}Controller extends BaseController
 		Page<${Model}> pageModel = service.queryPage(getPageRequest());
 		request.setAttribute("pageModel", pageModel);
 		request.setAttribute("pageNav", new PageNav<${Model}>(request, pageModel));
-		return "${urlpath}/${Module}/get${Model}.jsp";
+		return "${Webmodule}/get${Model}.jsp";
 	}
 
 	//明细
@@ -101,6 +102,6 @@ public class ${Model}Controller extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		request.setAttribute("po", service.get(id));
-		return "${urlpath}/${Module}/get${Model}ById.jsp";
+		return "${Webmodule}/get${Model}ById.jsp";
 	}
 }

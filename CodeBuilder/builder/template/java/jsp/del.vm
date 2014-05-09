@@ -1,6 +1,5 @@
 #set($Frame=$vo.GetParam('Frame'))
 #set($Namespace=$vo.GetParam('Namespace'))
-#set($Module=$vo.GetParam('Module'))
 #set($Model=$vo.GetParam('Model'))
 <%@page language="java" pageEncoding="UTF-8" import="java.util.*,${Frame}.web.MyRequest,${Frame}.core.util.*,
 ${Namespace}.MyFactory"%><%
