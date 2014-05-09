@@ -9,10 +9,10 @@ DsWork框架包括java版本和C#版本
 目录说明：
 DsWorkJava：java框架的核心源代码
 DsWorkNet：C#框架的核心源代码
-web：项目的一套web框架，可选用
+web：项目的一套web框架，可选用，包括了常用的js，css等
 	对于web项目，获取web作为项目“web”
 	其中java或C#版本需要的不同文件，看/web/说明.txt
 Lib：java版需要的大部份基础类库，获取/Lib作为Eclipse项目“Lib”
 LibNet：C#版类库引用目录，获取/LibNet作为类库引用目录
 
-demo：简单的演示demo程序
+demo：简单的演示demo程序，需要web的支持
