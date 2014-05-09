@@ -257,20 +257,21 @@ namespace Dswork.Core.Util
 			{
 				if(File.Exists(filePath))
 				{
-					FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-
-					byte[] bytes = new byte[(int)fileStream.Length];
-					fileStream.Read(bytes, 0, (int)bytes.Length);
-
-					//BinaryReader r = new BinaryReader(fileStream);
-					//r.BaseStream.Seek(0, SeekOrigin.Begin);// 设置当前流的位置为流的开始
-					//byte[] bytes = r.ReadBytes((int)r.BaseStream.Length);
-
-					if(fileStream != null)
-					{
-						fileStream.Close();
-					}
-					return bytes;
+                    using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
+                    {
+                        byte[] bytes = new byte[(int)fileStream.Length];
+                        fileStream.Read(bytes, 0, (int)bytes.Length);
+						
+						//BinaryReader r = new BinaryReader(fileStream);
+						//r.BaseStream.Seek(0, SeekOrigin.Begin);// 设置当前流的位置为流的开始
+						//byte[] bytes = r.ReadBytes((int)r.BaseStream.Length);
+						
+						if(fileStream != null)
+						{
+							fileStream.Close();
+						}
+                        return bytes;
+                    }
 				}
 			}
 			catch
@@ -407,9 +408,11 @@ namespace Dswork.Core.Util
 				return false;
 			}
 			Encoding enc = charsetName.ToLower().Equals("utf-8") ? new UTF8Encoding(false) : Encoding.GetEncoding(charsetName);
-			StreamWriter sw = new StreamWriter(filePath, false, enc);
-			sw.Write(content);
-			sw.Close();
+			using (StreamWriter sw = new StreamWriter(filePath, false, enc))
+			{
+				sw.Write(content);
+				sw.Close();
+			}
 			return true;
 		}
 	}
