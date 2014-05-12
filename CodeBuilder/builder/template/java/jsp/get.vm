@@ -32,8 +32,8 @@ ${mf}(function()
 	<tr>
 		<td class="title">${vo.TableComment}列表</td>
 		<td class="menuTool">
-			<a class="add" href="add${Model}1.jsp?page=${mf}{pageModel.currentPage}">添加</a>
-			<a class="del" id="listFormDelAll" href="#">删除所选</a>
+			<a class="insert" href="add${Model}1.jsp?page=${mf}{pageModel.currentPage}">添加</a>
+			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
 </table>
