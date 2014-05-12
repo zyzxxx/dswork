@@ -54,16 +54,13 @@ function attachUrl()
 {
 	var url = arguments[0];
 	var frameId = arguments[1] || "mainFrame";
-	if(url)
-	{
-		if(url.indexOf("/") == 0)
-		{
-			url = ctx + url;
-		}
-	}
-	else
+	if(!url)
 	{
 		url = "about:blank";
+	}
+	else if(url.indexOf("/") == 0)
+	{
+		url = ctx + url;
 	}
 	document.getElementById(frameId).src = url;
 }
