@@ -61,13 +61,7 @@ public class ${Model}Controller
 	{
 		MyRequest req = new MyRequest(request);
 		service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
-		try
-		{
-			response.sendRedirect(req.getRefererURL());
-		}
-		catch(Exception ex)
-		{
-		}
+		try{response.sendRedirect(req.getRefererURL());}catch(Exception ex){}
 	}
 
 	//修改
