@@ -54,7 +54,17 @@ function attachUrl()
 {
 	var url = arguments[0];
 	var frameId = arguments[1] || "mainFrame";
-	url = (url)?(ctx + url):"about:blank";
+	if(url)
+	{
+		if(url.indexOf("/") == 0)
+		{
+			url = ctx + url;
+		}
+	}
+	else
+	{
+		url = "about:blank";
+	}
 	document.getElementById(frameId).src = url;
 }
 //操作导航目录
