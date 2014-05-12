@@ -117,6 +117,7 @@ $dswork.ztree.config = {
 	},
 	data:{
 		key: {
+			name: "name"
 		},
 		simpleData: {
 			//rootPid:"-1",
