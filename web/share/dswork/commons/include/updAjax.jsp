@@ -1,2 +1,2 @@
 <%@include file="/commons/include/upd.jsp" %>
-<script type="text/javascript" src="/web/js/dswork/ajaxSubmit.js"></script>
+<script type="text/javascript">$dswork.doAjax = true;</script>
