@@ -13,8 +13,7 @@ $dswork.ztree.nodeArray = [$dswork.ztree.root];// 如果需要自定义初始化
 $dswork.ztree.showMenu = function(type, x, y){}
 $dswork.ztree.hideMenu = function()
 {
-	//if($dswork.ztree.menu){$dswork.ztree.menu.style.visibility = "hidden";}
-	if($dswork.ztree.menu){$dswork.ztree.menu.hide();}
+	try{$("#" + $dswork.ztree.menuName).menu('hide');}catch(e){}
 };
 $dswork.ztree.getSelectedNode = function()//用于替代旧ztree的取得当前选中节点，用于单选时
 {
