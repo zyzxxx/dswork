@@ -23,16 +23,14 @@
 	
 	<br /><hr /><br />
 	<input type="button" value="我的对话框" onclick="$jskey.dialog.show({url:'./jskey_dialog_demo_return.html',title:'我的标题'});" /> 相对路径<br />
-	<input type="button" value="我的对话框" onclick="$jskey.dialog.show({title:'我的标题'}, '','./jskey_dialog_demo_return.html',{v:1});" /> 相对路径<br />
-	<input type="button" value="我的对话框" onclick="$jskey.dialog.show({}, '我的标题', 'http://www.baidu.com/',{v:1});" /> 绝对路径<br />
-	<input type="button" value="我的返回值" onclick="alert('返回值是:' + ($jskey.dialog.show({}, '我的百度', './jskey_dialog_demo_return.html',{v:2})).hello);" /> 相对路径<br />
+	<input type="button" value="我的对话框" onclick="$jskey.dialog.show({title:'我的标题', url:'http://www.baidu.com/',args:{v:1}});" /> 绝对路径<br />
+	<input type="button" value="我的返回值" onclick="alert('返回值是:' + ($jskey.dialog.show({title:'我的百度', url:'./jskey_dialog_demo_return.html',args:{v:2}})).hello);" /> 相对路径<br />
 	<br /><hr /><br />
 
 	<div class="title">window.open</div>
 	
 	<br /><hr /><br />
 	<input type="button" value="我的窗口" onclick="$jskey.dialog.open({url:'http://www.baidu.com/'});" /> <br />
-	<input type="button" value="我的窗口" onclick="$jskey.dialog.open({}, 'http://www.baidu.com/');" /> <br />
 	<br /><hr /><br />
 	<pre>
 		/**
