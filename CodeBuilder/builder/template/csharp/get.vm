@@ -45,7 +45,7 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
-		<td style="width:3%">操作</td>
+		<td style="width:5%">操作</td>
 #foreach($col in $vo.ColumnList)#if($col.ColumnName!=$pk)
 		<td>$col.Comment</td>
 #end#end
