@@ -20,10 +20,13 @@ request.setAttribute("param", map);
 	<title>${vo.TableComment}</title>
 	<%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
-${mf}(function()
-{
+${mf}(function(){
 	${mf}${Frame.ToLower()}.page.menu("del${Model}.jsp", "upd${Model}1.jsp", "get${Model}ById.jsp", "${mf}{pageModel.currentPage}");
 });
+${mf}${Frame.ToLower()}.doAjax = true;
+${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.type == 1){
+	location.href = "get${Model}.htm?page=${mf}{pageModel.currentPage}";
+}}
 </script>
 <%@include file="/commons/include/getEasyui.jsp" %>
 </head> 

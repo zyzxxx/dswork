@@ -7,13 +7,9 @@
 }
 @section head{
 	<script type="text/javascript">
-	${mf}${Frame.ToLower()}.callback = function()
-	{
-		if(${mf}${Frame.ToLower()}.result.type == 1)
-		{
-			location.href = "Get${Model}.htm";
-		}
-	}
+	${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.type == 1){
+		location.href = "Get${Model}.htm";
+	}}
 	</script>
 }
 @{

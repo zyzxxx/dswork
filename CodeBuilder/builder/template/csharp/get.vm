@@ -7,10 +7,13 @@
 }
 @section head{
 <script type="text/javascript">
-$(function()
-{
+$(function(){
     ${mf}${Frame.ToLower()}.page.menu("Del${Model}.htm", "Upd${Model}1.htm", "Get${Model}ById.htm", "@ViewBag.pageModel.CurrentPage");
 });
+${mf}${Frame.ToLower()}.doAjax = true;
+${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.type == 1){
+	location.href = "get${Model}.htm?page=@ViewBag.pageModel.CurrentPage";
+}}
 </script>
 }
 @{

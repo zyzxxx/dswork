@@ -57,8 +57,16 @@ public class ${Model}Controller extends BaseController
 	@RequestMapping("/del${Model}")
 	public void del${Model}()
 	{
-		service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
-		sendRedirect(req.getRefererURL());
+		try
+		{
+			service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+			print(1);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
 	}
 
 	//修改

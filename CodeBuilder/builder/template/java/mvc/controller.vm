@@ -57,11 +57,19 @@ public class ${Model}Controller
 
 	//删除
 	@RequestMapping("/del${Model}")
-	public void del${Model}(HttpServletRequest request, HttpServletResponse response)
+	public void del${Model}(HttpServletRequest request, PrintWriter out)
 	{
-		MyRequest req = new MyRequest(request);
-		service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
-		try{response.sendRedirect(req.getRefererURL());}catch(Exception ex){}
+		try
+		{
+			MyRequest req = new MyRequest(request);
+			service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+			out.print(1);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			out.print("0:" + e.getMessage());
+		}
 	}
 
 	//修改

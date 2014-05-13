@@ -47,20 +47,27 @@ namespace Areas.${Module}.Controllers
 		}
 		
 		[HttpGet]
-		public void Del${Model}()
+		public String Del${Model}()
 		{
-			_Del${Model}();
+			return _Del${Model}();
 		}
 		[HttpPost]
-		public void Del${Model}(FormCollection collection)
+		public String Del${Model}(FormCollection collection)
 		{
-			_Del${Model}();
+			return _Del${Model}();
 		}
-		private void _Del${Model}()
+		private String _Del${Model}()
 		{
-			MyRequest req = new MyRequest(Request);
-			${ModelName}Service.DeleteBatch(req.GetLongArray("keyIndex", 0));
-			Response.Redirect(req.GetRefererURL(), true);
+			try
+			{
+				MyRequest req = new MyRequest(Request);
+				${ModelName}Service.DeleteBatch(req.GetLongArray("keyIndex", 0));
+				return "1";
+			}
+			catch(Exception e)
+			{
+				return "0:" + e.Message;
+			}
 		}
 	
 		public ActionResult Upd${Model}1(long keyIndex)
