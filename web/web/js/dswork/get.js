@@ -31,6 +31,13 @@ $(function(){
 		}
 	});
 	$("#_querySubmit_[type=button]").click(function(event){$("#queryForm").submit();});
+	$("#queryForm").keydown(function(e){
+		var e = e || event;
+		var keycode = e.which || e.keyCode;
+		if (keycode==13) {
+			$("#_querySubmit_[type=button]").click();
+		}
+	});
 });
 $dswork.page = {};
 // del,upd,getById在默认时均调用ini方法
