@@ -6,15 +6,8 @@
 <style>html,body,iframe{width:100%;height:100%;margin:0px;padding:0px;overflow:hidden;}</style>
 <script type="text/javascript">
 var winArgs={args:{data:{}},url:"about:blank",title:"Window"};
-if(window.dialogArguments)
-{
-	winArgs = window.dialogArguments;
-}
-else
-{
-	alert("您的浏览器不支持此方法");try{window.close();}catch(e){}
-}
-
+if(window.dialogArguments){winArgs = window.dialogArguments;}
+else{alert("您的浏览器不支持此方法");try{window.close();}catch(e){}}
 var args=winArgs.args;
 var reValue = null;
 window.document.title = winArgs.title;
