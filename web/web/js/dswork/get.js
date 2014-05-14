@@ -15,7 +15,8 @@ $(function(){
 		return false;
 	});
 	$("[name=keyIndex]").click(function(event){event.stopPropagation();}).dblclick(function(event){event.stopPropagation();});
-	$("#chkall").click(function(){$("input[name='keyIndex']").attr("checked", $(this).attr("checked"));});
+	//jquery1.5-//$("#chkall").click(function(){$("input[name='keyIndex']").attr("checked", $(this).attr("checked"));});
+	$("#chkall").click(function(){$("input[name='keyIndex']").prop("checked", $(this).prop("checked"));});
 	$("table.listTable td a.del").click(function(){
 		if(confirm("确认删除吗？")){return true;}else{return false;}
 	});
