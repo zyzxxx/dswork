@@ -1,4 +1,4 @@
-关于selectKey配置和字符串拼接
+关于selectKey配置和字符串拼接，在db目录已经放了不同数据库的对应模板
 	mysql：
 		select LAST_INSERT_ID()
 		concat('%',#{key},'%')
