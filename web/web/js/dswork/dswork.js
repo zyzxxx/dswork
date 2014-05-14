@@ -173,4 +173,16 @@ $(function(){
 		success:showResponse, //提交后 
 		resetForm:false //成功提交后，重置所有的表单元素的值
 	};
+	
+	try{
+	// m={id:"dsworkDialog",title:"Window",width:"400",height:"300",args:{url:"",any:*}}
+	$dswork.getChooseDialog = function(m){
+		m.url = ctx + "/commons/share/getChoose.jsp";
+		$jskey.dialog.showDialog(m);
+	};
+	$dswork.getChooseDialogByKey = function(m){
+		m.url = ctx + "/commons/share/getChooseByKey.jsp";
+		$jskey.dialog.showDialog(m);
+	};
+	}catch(e){}
 });
