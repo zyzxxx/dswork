@@ -1,4 +1,7 @@
-﻿/**
+﻿//兼容jquery1.9.x
+$.browser = {};
+$.browser.msie = /msie/.test(navigator.userAgent.toLowerCase());
+/**
  * jQuery EasyUI 1.3.2
  * 
  * Copyright (c) 2009-2013 www.jeasyui.com. All rights reserved.
