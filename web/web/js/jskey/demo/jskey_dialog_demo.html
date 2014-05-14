@@ -22,9 +22,9 @@
 	<div class="title">window.showModalDialog</div>
 	
 	<br /><hr /><br />
-	<input type="button" value="我的对话框" onclick="$jskey.dialog.show({url:'./jskey_dialog_demo_return.html',title:'我的标题'});" /> 相对路径<br />
+	<input type="button" value="我的对话框" onclick="$jskey.dialog.show({url:'jskey_dialog_demo_return.html',title:'我的标题'});" /> 相对路径<br />
 	<input type="button" value="我的对话框" onclick="$jskey.dialog.show({title:'我的标题', url:'http://www.baidu.com/',args:{v:1}});" /> 绝对路径<br />
-	<input type="button" value="我的返回值" onclick="alert('返回值是:' + ($jskey.dialog.show({title:'我的百度', url:'./jskey_dialog_demo_return.html',args:{v:2}})).hello);" /> 相对路径<br />
+	<input type="button" value="我的返回值" onclick="alert('返回值是:' + ($jskey.dialog.show({title:'我的百度', url:'jskey_dialog_demo_return.html',args:{v:2}})).hello);" /> 相对路径<br />
 	<br /><hr /><br />
 
 	<div class="title">window.open</div>
@@ -36,13 +36,52 @@
 		/**
 		 * 调用对象：$jskey.dialog
 		 */
-		
 		/**************************************************************/
 		/*模式对话框调用方法*/
 		/**************************************************************/
-
+		
 		/**
-		 * 封装window.showModalDialog
+		 * 封装jquery.easyui的dialog(需要jquery和jquery.easyui支持)
+		 * 调用方法:$jskey.dialog.showDialog(args);
+		 * 封装jquery.easyui的dialog
+		 *   args：默认为{},内容为key:value
+		 * @key:
+		 * id 弹窗ID，页面多个弹窗时必要
+		 * title 窗口标题
+		 * url 网址
+		 * args 传递的参数(JS对象/页面对象)
+		 * width=number 宽度(单位px)
+		 * height=number 高度(单位px)
+		 * @return 子页面调用parent.$jskey.dialog.returnValue="anything";
+		 * 调用页取返回值:重载$jskey.dialog.callback = function(){alert($jskey.dialog.returnValue)};
+		 */
+		showDialog:function({})
+		
+		/**************************************************************/
+		/*模式对话框调用方法*/（firefox可能不再支持）
+		/**************************************************************/
+		/**
+		 * 弹出模式对话框（不建议使用，用showDialog替代）
+		 * 调用方法:$jskey.dialog.show(args);
+		 *   args：默认为{},内容为key:value
+		 * @key:
+		 * title 窗口标题
+		 * url 需要访问的网址
+		 * args 传递的参数(JS对象/页面对象)
+		 * width=number 宽度(单位px)
+		 * height=number 高度(单位px)
+		 * reload 是否刷新父页面(true/false),默认false
+		 * status=(no,auto,yes) 是否显示状态栏
+		 * scroll=(auto,no,yes) 是否显示滚动条
+		 * resizable=(yes,no,auto) 是否可改变窗口大小
+		 * @return 子页面调用parent.$jskey.dialog.returnValue="anything";
+		 * 调用页取返回值var re = show({});
+		 */
+		show({})
+	
+		/**
+		 * 封装window.showModalDialog不能再使用
+		 * 调用方法:$jskey.dialog.showModalDialog(...);
 		 * @param:
 		 * url 网址
 		 * args 传递的参数(JS对象/页面对象)
@@ -55,32 +94,13 @@
 		 */
 		showModalDialog(url, args, width, height, status, scroll, resizable)
 		
-		/**
-		 * 弹出模式对话框,并返回window.returnValue
-		 * 调用方法:$jskey.dialog
-		 * 调用方式:$jskey.dialog.show(args1, args2...);
-		 *   args1：默认为{},内容为key:value
-		 *   args2...：按param顺序
-		 * @param:
-		 * title 窗口标题
-		 * url 当前页相对路径以"./"开头,站点根目录下绝对路径以"/"开头,其余为全网址
-		 * args 传递的参数(JS对象/页面对象)
-		 * width=number 宽度(单位px)
-		 * height=number 高度(单位px)
-		 * reload 是否刷新父页面(true/false),默认false
-		 * status=(no,auto,yes) 是否显示状态栏
-		 * scroll=(auto,no,yes) 是否显示滚动条
-		 * resizable=(yes,no,auto) 是否可改变窗口大小
-		 * @return parent.reValue="anything", reload为true则无返回值
-		 */
-		show()
-		
 		/**************************************************************/
 		/*窗口调用方法*/
 		/**************************************************************/
 		
 		/**
 		 * 封装window.open
+		 * 调用方法:$jskey.dialog.openWindow(...);
 		 * @param:
 		 * url 网址
 		 * target 打开的Window名称
@@ -100,14 +120,12 @@
 		 * @return
 		 */
 		openWindow:function(url, target, width, height, top, left, status, scroll, resizable, menubar, fullscreen, toolbar, location, directories, channelmode)
-		
+			
 		/**
 		 * 打开窗口
-		 * 调用方法:$jskey.dialog
-		 * 调用方式:$jskey.dialog.open(args1, args2...);
-		 *   args1：默认为{},内容为key:value
-		 *   args2...：按param顺序
-		 * @param:
+		 * 调用方法:$jskey.dialog.open(args);
+		 *   args：默认为{},内容为key:value
+		 * @key:
 		 * url 网址
 		 * target 打开的Window名称
 		 * width 宽度(单位px)
@@ -125,7 +143,7 @@
 		 * channelmode=(no/yes/0/1) 是否显示频道栏
 		 * @return
 		 */
-		open:function()
+		open:function({})
 		/**************************************************************/
 	</pre>
 </div>
