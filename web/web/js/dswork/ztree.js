@@ -128,7 +128,8 @@ $dswork.ztree.config = {
 	check: {
 		enable: false,
 		chkStyle: "checkbox",
-		chkboxType: {"Y":"ps","N":"s"}
+		chkboxType: {"Y":"ps","N":"s"},
+		radioType: "all"
 	}
 };
 $dswork.ztree.load = function()//默认加载页面管理
