@@ -43,7 +43,8 @@ $dswork.ztree.rightClick = function(event, treeId, treeNode)//右击节点函数
 		$dswork.ztree.showMenu("node", event.clientX, event.clientY);
 	}
 };
-$dswork.ztree.check = function(event, treeId, treeNode){};
+$dswork.ztree.beforeCheck = function(treeId, treeNode){};//点击节点按钮前函数
+$dswork.ztree.check = function(event, treeId, treeNode){};//点击节点按钮函数
 $dswork.ztree.refreshNode = function()
 {
 	var _updateParent = (arguments[0]||false)?true:false;//是否需要刷新父节点，不传默认刷新当前节点
@@ -135,6 +136,7 @@ $dswork.ztree.config = {
 $dswork.ztree.load = function()//默认加载页面管理
 {
 	$dswork.ztree.config.callback = {
+		"beforeCheck":$dswork.ztree.beforeCheck,
 		"onCheck":$dswork.ztree.check,
 		"beforeClick":$dswork.ztree.beforeClick,
 		"onClick":$dswork.ztree.click,
