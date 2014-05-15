@@ -39,7 +39,7 @@ MyBatis:
 		</script>
 		<%@include file="/commons/include/getEasyui.jsp" %>
 	标题列
-		去掉第二列：<td style="width:3%">操作</td>
+		去掉第二列：<td style="width:5%">操作</td>
 		最后面增加：<td style="width:20%;">操作</td>
 	数据列
 		去掉第二列：<td class="menuTool" keyIndex="${mf}{d.id}">&nbsp;</td>
