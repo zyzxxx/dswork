@@ -15,7 +15,7 @@
 	<statements>
 		<insert id="insert" parameterClass="${Namespace}.Model.${Model}" resultClass="${Namespace}.Model.${Model}">
 			<selectKey resultClass="long" type="post" property="id">
-				select last_insert_rowid()
+				select LAST_INSERT_ID()
 			</selectKey>
 			insert into $vo.TableName
 			(#set($count=0)
@@ -62,7 +62,7 @@
 #foreach($columnModel in $vo.ColumnList)
 #set($tmp=$columnModel.ColumnName)
 					<isNotEmpty prepend="AND" property="$tmp.ToLower()">
-						$tmp like '%'||#$tmp.ToLower()#||'%'
+						$tmp like concat('%',#$tmp.ToLower()#,'%')
 					</isNotEmpty>
 #end
 				</isParameterPresent>
