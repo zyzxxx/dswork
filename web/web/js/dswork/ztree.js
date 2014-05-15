@@ -65,6 +65,10 @@ $dswork.ztree.refreshNode = function()
 		_ztree.reAsyncChildNodes(_tnode, "refresh");//重新加载
 	}
 };
+$dswork.ztree.reAsyncChildNodes = function(parentNode, reloadType, isSilent)//仅仅重新加载
+{
+	$dswork.ztree.tree.reAsyncChildNodes(parentNode, reloadType, isSilent);
+};
 $dswork.ztree.asyncSuccess = function(event, treeId, treeNode, msg)//异步获取数据后加载到树
 {
 	try
@@ -167,6 +171,10 @@ $dswork.ztree.expandRoot = function()
 	{
 	}
 };
+$dswork.ztree.selectNode = function(treeNode, addFlag)
+{
+	return $dswork.ztree.tree.selectNode(treeNode, addFlag);
+};
 $dswork.ztree.expandNode = function(treeNode, expandFlag, sonSign, focus, callbackFlag)
 {
 	return $dswork.ztree.tree.expandNode(treeNode, expandFlag, sonSign, focus, callbackFlag);
@@ -177,7 +185,8 @@ $dswork.ztree.updateNode = function(treeNode, checkTypeFlag)
 };
 $dswork.ztree.expandAll = function()
 {
-	return $dswork.ztree.tree.expandAll(true);
+	var expandFlag = (arguments[0])?true:false;
+	return $dswork.ztree.tree.expandAll(expandFlag);
 };
 $dswork.ztree.getCheckedNodes = function(checked)
 {
