@@ -20,6 +20,9 @@ $(function(){
 	$("table.listTable td a.del").click(function(){
 		if(confirm("确认删除吗？")){return true;}else{return false;}
 	});
+	$("table.listTable td a.delete").click(function(){
+		if(confirm("确认删除吗？")){return true;}else{return false;}
+	});
 	$("table.listTable tr").each(function(){
 		if(!$(this).hasClass("list_title")){
 			$(this).addClass($(this).index()%2 == 0 ? 'list_even' : 'list_odd');
