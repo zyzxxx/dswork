@@ -18,10 +18,32 @@ $(function(){
 	//jquery1.5-//$("#chkall").click(function(){$("input[name='keyIndex']").attr("checked", $(this).attr("checked"));});
 	$("#chkall").click(function(){$("input[name='keyIndex']").prop("checked", $(this).prop("checked"));});
 	$("table.listTable td a.del").click(function(){
-		if(confirm("确认删除吗？")){return true;}else{return false;}
+		if(confirm("确认删除吗？")){
+			if($dswork.doAjax){
+				var url = $(this).attr("href");
+				$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在提交……");
+				$.post(url,{},function(responseText){
+					$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(responseText), 2000);
+					$dswork.doAjaxObject.callBack = $dswork.callback;
+				});
+				return false;
+			}
+			return true;
+		}else{return false;}
 	});
 	$("table.listTable td a.delete").click(function(){
-		if(confirm("确认删除吗？")){return true;}else{return false;}
+		if(confirm("确认删除吗？")){
+			if($dswork.doAjax){
+				var url = $(this).attr("href");
+				$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在提交……");
+				$.post(url,{},function(responseText){
+					$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(responseText), 2000);
+					$dswork.doAjaxObject.callBack = $dswork.callback;
+				});
+				return false;
+			}
+			return true;
+		}else{return false;}
 	});
 	$("table.listTable tr").each(function(){
 		if(!$(this).hasClass("list_title")){
