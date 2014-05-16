@@ -372,7 +372,7 @@ public class MyRequest
 	 * @param isSecure 是否过滤为安全字符
 	 * @return Map
 	 */
-	public Map getParameterValueMap(boolean remainArray, boolean isSecure)
+	public Map<String, Object> getParameterValueMap(boolean remainArray, boolean isSecure)
 	{
 		return getParameterValueMap(remainArray, ",", isSecure);
 	}
@@ -384,9 +384,9 @@ public class MyRequest
 	 * @param isSecure 是否过滤为安全字符
 	 * @return Map
 	 */
-	public Map getParameterValueMap(boolean remainArray, String separator, boolean isSecure)
+	public Map<String, Object> getParameterValueMap(boolean remainArray, String separator, boolean isSecure)
 	{
-		Map map = new HashMap();
+		Map<String, Object> map = new HashMap<String, Object>();
 		String key;
 		Enumeration params = request.getParameterNames();
 		// 是否保留为数组
