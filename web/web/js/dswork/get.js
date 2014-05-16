@@ -53,7 +53,7 @@ $dswork.page.ini = function(url, id, page){
 $dswork.page.del = function(event, url, id, page, tdObject){
 	if($dswork.doAjax){
 		$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在提交……");
-		$.post(url,{keyIndex:id, page:page},function(data){
+		$.post(url,{keyIndex:id, page:page},function(responseText){
 			$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(responseText), 2000);
 			$dswork.doAjaxObject.callBack = $dswork.callback;
 		});
@@ -69,6 +69,14 @@ $dswork.page.getById = function(event, url, id, page, tdObject){
 	$dswork.page.ini(url, id, page);
 };
 $dswork.page.join = function(td, menu, id){
+};
+$dswork.page.ajax = function(url, id, page, callback){
+	$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在提交……");
+	$.post(url,{keyIndex:id, page:page},function(responseText){
+		$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(responseText), 2000);
+		$dswork.doAjaxObject.callBack = callback || $dswork.callback;
+	});
+	return false;
 };
 $dswork.page.menu = function(delURL, updURL, getByIdURL, page, showContext){
 	$("#dataTable>tbody>tr>td.menuTool").each(function(){
