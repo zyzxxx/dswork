@@ -101,6 +101,47 @@ $dswork.ztree.asyncSuccess = function(event, treeId, treeNode, msg)//异步获�
 	$dswork.ztree.tid = -1;//还原
 	$dswork.ztree.tpid = -1;//还原
 };
+$dswork.ztree.moveUpdate = function(fromId, toId)// 异步树移动后需要刷新时调用
+{
+	var tree = $dswork.ztree;
+	var from = tree.getNodeByParam("id", fromId);
+	var to = tree.getNodeByParam("id", toId);
+	//判断目标节点是否已经加载出来
+	if(to != null)
+	{
+		tree.selectNode(to);// 先选中
+		//如果目标是当前节点的子节点，则不需要刷新
+		var p = to.pid, hasParent = false;
+		while(p > 0)
+		{
+			if(to.pid == from.id)
+			{
+				hasParent = true;p = 0;break;
+			}
+			else
+			{
+				p = tree.getNodeByParam("id", p).pid;
+			}
+		}
+		if(!hasParent)
+		{
+			tree.reAsyncChildNodes(to, "refresh");
+		}
+	}
+	//刷新的node不是自己的直接父节点
+	if(from.pid + "" != toId + "")
+	{
+		//刷新目标节点后，当前节点不一定还存在树中
+		from = tree.getNodeByParam("id", fromId);
+		//刷新的node不是自己的直接父节点(刷新是异步的)
+		if(from != null)
+		{
+			tree.selectNode(from);
+			tree.reAsyncChildNodes(from, "refresh");
+		}
+	}
+	tree.click();
+};
 $dswork.ztree.dataFilter = function (treeId, parentNode, responseData)//异步获取数据后未加载到树
 {
 //	if(responseData){for(var i =0; i < responseData.length; i++){responseData[i]}}
