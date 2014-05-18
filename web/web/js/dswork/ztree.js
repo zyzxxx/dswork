@@ -20,7 +20,7 @@ $dswork.ztree.getSelectedNode = function(){//当前选中节点，单选时
 };
 $dswork.ztree.beforeClick = function(treeId, treeNode, clickFlag){};//点击节点前函数
 $dswork.ztree.click = function(event, treeId, treeNode, clickFlag){};//点击节点函数
-$dswork.ztree.beforeDblClick = function(treeId, treeNode){return false;};//双击节点前函数
+$dswork.ztree.beforeDblClick = function(treeId, treeNode){return true;};//双击节点前函数
 $dswork.ztree.dblClick = function(event, treeId, treeNode){};//双击节点函数，$dswork.ztree.beforeDblClick必须返回非false
 
 $dswork.ztree.rightClick = function(event, treeId, treeNode){//右击节点函数
