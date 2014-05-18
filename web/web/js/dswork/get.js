@@ -4,12 +4,8 @@ $(function(){
 		var _c = 0;
 		for(var i = 0;i < a.length;i++){_c++;}
 		if(_c > 0){if(confirm("确认删除吗？")){
-			if($dswork.doAjax){
-				$("#listForm").ajaxSubmit(_options);
-			}
-			else{
-				$("#listForm").submit();
-			}
+			if($dswork.doAjax){$("#listForm").ajaxSubmit(_options);}
+			else{$("#listForm").submit();}
 			return true;
 		}}else{alert("请选择记录！");}
 		return false;
@@ -60,9 +56,7 @@ $(function(){
 	$("#queryForm").keydown(function(e){
 		var e = e || event;
 		var keycode = e.which || e.keyCode;
-		if (keycode==13) {
-			$("#_querySubmit_[type=button]").click();
-		}
+		if (keycode==13) {$("#_querySubmit_[type=button]").click();}
 	});
 });
 $dswork.page = {};
