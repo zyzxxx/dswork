@@ -4,20 +4,14 @@ $dswork.ztree = {
 	tid:-1, tpid:-1,//异步加载前选中的节点id和父节点id
 	cid:"", vid:""//临时变量
 };
-$dswork.ztree.root = {//在使用数据时可指定根节点，在调用树之前更新root
-	id:0, pid:-1, gid:-1, status:0, state:0, code:"", isParent:true, name:""//根节点名称
-};
-$dswork.ztree.nodeArray = [$dswork.ztree.root];// 如果需要自定义初始化节点，可直接定义此变量
+$dswork.ztree.root = {id:0, pid:-1, gid:-1, status:0, state:0, code:"", isParent:true, name:""};//默认根节点
+$dswork.ztree.nodeArray = [$dswork.ztree.root];//初始化
 
 $dswork.ztree.showMenu = function(type, x, y){}
-$dswork.ztree.hideMenu = function(){
-	try{$("#" + $dswork.ztree.menuName).menu('hide');}catch(e){}
-};
-$dswork.ztree.getSelectedNode = function(){//用于替代旧ztree的取得当前选中节点，用于单选时
+$dswork.ztree.hideMenu = function(){try{$("#" + $dswork.ztree.menuName).menu('hide');}catch(e){}};
+$dswork.ztree.getSelectedNode = function(){//当前选中节点，单选时
 	var _arr = $dswork.ztree.tree.getSelectedNodes();
-	if(_arr.length > 0){
-		return _arr[0];
-	}
+	if(_arr.length > 0){return _arr[0];}
 	else{
 		var _root = $dswork.ztree.tree.getNodeByParam("id", 0);
 		$dswork.ztree.tree.selectNode(_root);//选中
@@ -40,84 +34,60 @@ $dswork.ztree.beforeCheck = function(treeId, treeNode){};//点击节点按钮前
 $dswork.ztree.check = function(event, treeId, treeNode){};//点击节点按钮函数
 $dswork.ztree.refreshNode = function(){
 	var _updateParent = (arguments[0]||false)?true:false;//是否需要刷新父节点，不传默认刷新当前节点
-	var _ztree = $dswork.ztree.tree;
-	var _node = $dswork.ztree.getSelectedNode();//当前选中节点
-	if(_node == null){return false;}
-	var _id = parseInt((_updateParent)?_node.pid:_node.id);//需要刷新的节点id
+	var tree = $dswork.ztree.tree;
+	var _c = $dswork.ztree.getSelectedNode();//当前选中节点
+	if(_c == null){return false;}
+	var _id = parseInt((_updateParent)?_c.pid:_c.id);//需要刷新的节点id
 	if(_id >= 0){
-		$dswork.ztree.tid = _node.id;//记录选中节点id
-		$dswork.ztree.tpid = _node.pid;//记录选中节点pid
-		var _tnode = _ztree.getNodeByParam("id", _id);
-		_ztree.selectNode(_tnode);//选中
-		if(_updateParent){_tnode.isParent = true};
-		_ztree.reAsyncChildNodes(_tnode, "refresh");//重新加载
+		$dswork.ztree.tid = _c.id;//记录选中节点id
+		$dswork.ztree.tpid = _c.pid;//记录选中节点pid
+		var _t = tree.getNodeByParam("id", _id);
+		tree.selectNode(_t);//选中
+		if(_updateParent){_t.isParent = true};
+		tree.reAsyncChildNodes(_t, "refresh");//重新加载
 	}
 };
 $dswork.ztree.reAsyncChildNodes = function(parentNode, reloadType, isSilent){//仅仅重新加载
 	$dswork.ztree.tree.reAsyncChildNodes(parentNode, reloadType, isSilent);
 };
 $dswork.ztree.asyncSuccess = function(event, treeId, treeNode, msg){//异步获取数据后加载到树
-	try{
-		if($dswork.ztree.tid != -1){//选中刷新前选择的节点，并执行单击事件
-			var _ztree = $dswork.ztree.tree;
-			var _node = _ztree.getNodeByParam("id", $dswork.ztree.tid);
-			var _pnode = _ztree.getNodeByParam("id", $dswork.ztree.tpid);
-			if(_node == null){
-				if(_pnode == null){
-					_pnode = _ztree.getNodeByParam("id", 0);//根节点
-				}
-				_ztree.selectNode(_pnode);//选中
-				_ztree.expandNode(_pnode, true);//展开
-			}
-			else{
-				_ztree.selectNode(_node);//选中
-				_ztree.expandNode(_node, true);//展开
-			}
-			$dswork.ztree.click();
+	try{if($dswork.ztree.tid != -1){//选中刷新前选择的节点，并执行单击事件
+		var tree = $dswork.ztree.tree;
+		var _c = tree.getNodeByParam("id", $dswork.ztree.tid);
+		var _p = tree.getNodeByParam("id", $dswork.ztree.tpid);
+		if(_c == null){
+			if(_p == null){_p = tree.getNodeByParam("id", 0);}
+			tree.selectNode(_p);//选中
+			tree.expandNode(_p, true);//展开
 		}
-	}
-	catch(e){
-	}
+		else{
+			tree.selectNode(_c);//选中
+			tree.expandNode(_c, true);//展开
+		}
+		$dswork.ztree.click();
+	}}catch(e){}
 	$dswork.ztree.tid = -1;//还原
 	$dswork.ztree.tpid = -1;//还原
 };
 $dswork.ztree.moveUpdate = function(fromId, toId){// 异步树移动后需要刷新时调用
-	var tree = $dswork.ztree;
-	var from = tree.getNodeByParam("id", fromId);
-	var to = tree.getNodeByParam("id", toId);
-	//判断目标节点是否已经加载出来
-	if(to != null){
-		tree.selectNode(to);// 先选中
-		//判断目标是不是当前节点的子节点
-		var node = to, p = node.pid, hasParent = false;
+	var z = $dswork.ztree;
+	var from = z.getNodeByParam("id", fromId);
+	var to = z.getNodeByParam("id", toId);
+	if(to != null){//目标是否已加载
+		z.selectNode(to);
+		//判断目标是不是当前子节点
+		var node = to, p = to.pid, hasParent = false;
 		while(p != null && p >= 0){
-			if(node.pid == from.id){
-				hasParent = true;p = -1;break;
-			}
-			else{
-				node = tree.getNodeByParam("id", p);
-				if(node == null){
-					p = -1;break;
-				}
-				p = node.pid;
-			}
+			if(node.pid == from.id){hasParent = true;p = -1;break;}
+			else{node = z.getNodeByParam("id", p);if(node == null){p = -1;break;}p = node.pid;}
 		}
-		//目标是子节点时不刷新
-		if(!hasParent){
-			tree.reAsyncChildNodes(to, "refresh");
-		}
+		if(!hasParent){z.reAsyncChildNodes(to, "refresh");}//目标是子节点时不刷新
 	}
-	//刷新的node不是自己的直接父节点
-	if(from.pid + "" != toId + ""){
-		//刷新目标节点后，当前节点不一定还存在树中
-		from = tree.getNodeByParam("id", fromId);
-		//刷新的node不是自己的直接父节点(刷新是异步的)
-		if(from != null){
-			tree.selectNode(from);
-			tree.reAsyncChildNodes(from, "refresh");
-		}
+	if(from.pid + "" != toId + ""){//目标不是父节点
+		from = z.getNodeByParam("id", fromId);//刷新目标后，from不一定存在
+		if(from != null){z.selectNode(from);z.reAsyncChildNodes(from, "refresh");}
 	}
-	tree.click();
+	z.click();
 };
 $dswork.ztree.dataFilter = function (treeId, parentNode, responseData){//异步获取数据后未加载到树
 //	if(responseData){for(var i =0; i < responseData.length; i++){responseData[i]}}
@@ -162,26 +132,19 @@ $dswork.ztree.load = function(){//默认加载页面管理
 		"onClick":$dswork.ztree.click,
 		"beforeDblClick":$dswork.ztree.beforeDblClick,
 		"onDblClick":$dswork.ztree.dblClick,
-		//"beforeRightClick":,
 		"onRightClick":$dswork.ztree.rightClick,
 		"onAsyncSuccess":$dswork.ztree.asyncSuccess
 	};
 	$dswork.ztree.tree = $.fn.zTree.init($("#"+$dswork.ztree.id), $dswork.ztree.config, $dswork.ztree.nodeArray);
 };
-$dswork.ztree.loadData = function(){$dswork.ztree.load();};// 兼容旧版
-
 $dswork.ztree.expandRoot = function(){
 	try{
-		var _ztree = $dswork.ztree.tree;
-		var _pnode = _ztree.getNodeByParam("id", 0);//根节点
-		if(_pnode && $dswork.ztree.refreshNode){
-			_ztree.selectNode(_pnode);
-			_ztree.expandNode(_pnode, true);
-			$dswork.ztree.refreshNode();
+		var tree = $dswork.ztree.tree;
+		var _p = tree.getNodeByParam("id", 0);//根节点
+		if(_p && $dswork.ztree.refreshNode){
+			tree.selectNode(_p);tree.expandNode(_p, true);$dswork.ztree.refreshNode();
 		}
-	}
-	catch(e){
-	}
+	}catch(e){}
 };
 $dswork.ztree.selectNode = function(treeNode, addFlag){
 	return $dswork.ztree.tree.selectNode(treeNode, addFlag);
