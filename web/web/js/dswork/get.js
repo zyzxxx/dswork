@@ -13,20 +13,7 @@ $(function(){
 	$("[name=keyIndex]").click(function(event){event.stopPropagation();}).dblclick(function(event){event.stopPropagation();});
 	//jquery1.5-//$("#chkall").click(function(){$("input[name='keyIndex']").attr("checked", $(this).attr("checked"));});
 	$("#chkall").click(function(){$("input[name='keyIndex']").prop("checked", $(this).prop("checked"));});
-	$("table.listTable td a.del").click(function(){
-		if(confirm("确认删除吗？")){
-			if($dswork.doAjax){
-				var url = $(this).attr("href");
-				$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在提交……");
-				$.post(url,{},function(responseText){
-					$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(responseText), 2000);
-					$dswork.doAjaxObject.callBack = $dswork.callback;
-				});
-				return false;
-			}
-			return true;
-		}else{return false;}
-	});
+	$("table.listTable td a.del").click(function(){	alert("请把样式修改为delete");});
 	$("table.listTable td a.delete").click(function(){
 		if(confirm("确认删除吗？")){
 			if($dswork.doAjax){
@@ -61,9 +48,7 @@ $(function(){
 });
 $dswork.page = {};
 // del,upd,getById在默认时均调用ini方法
-$dswork.page.ini = function(url, id, page){
-	location.href = url + (url.indexOf("?")==-1?"?":"&") + "keyIndex=" + id + "&page=" + page;
-};
+$dswork.page.ini = function(url, id, page){location.href = url + (url.indexOf("?")==-1?"?":"&") + "keyIndex=" + id + "&page=" + page;};
 // tdObject用于扩展函数时方便从中获取新增的参数
 // 可覆盖以下三个方法改为自定义实现
 $dswork.page.del = function(event, url, id, page, tdObject){
@@ -74,18 +59,11 @@ $dswork.page.del = function(event, url, id, page, tdObject){
 			$dswork.doAjaxObject.callBack = $dswork.callback;
 		});
 	}
-	else{
-		$dswork.page.ini(url, id, page);
-	}
+	else{$dswork.page.ini(url, id, page);}
 };
-$dswork.page.upd = function(event, url, id, page, tdObject){
-	$dswork.page.ini(url, id, page);
-};
-$dswork.page.getById = function(event, url, id, page, tdObject){
-	$dswork.page.ini(url, id, page);
-};
-$dswork.page.join = function(td, menu, id){
-};
+$dswork.page.upd = function(event, url, id, page, tdObject){$dswork.page.ini(url, id, page);};
+$dswork.page.getById = function(event, url, id, page, tdObject){$dswork.page.ini(url, id, page);};
+$dswork.page.join = function(td, menu, id){};
 $dswork.page.ajax = function(url, id, page, callback){
 	$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在提交……");
 	$.post(url,{keyIndex:id, page:page},function(responseText){
