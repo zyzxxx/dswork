@@ -5,7 +5,7 @@ $(function(){
 	};
 	jQuery("#dataFormSave").click(function(){
 		if($dswork.beforeSubmit()){if(confirm("确定保存吗？")){
-			if($dswork.doAjax){$("#dataForm").ajaxSubmit(_options);}
+			if($dswork.doAjax){$("#dataForm").ajaxSubmit($dswork.doAjaxOption);}
 			else{$("#dataForm").submit();}
 			return true;
 		}}

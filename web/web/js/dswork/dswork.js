@@ -114,23 +114,21 @@ function MaskControl(){
 }
 $dswork.doAjax = false;
 $dswork.doAjaxObject = new MaskControl();
-$(function(){
-	function showRequest(formData, jqForm, options){
-		var queryString = $.param(formData); //组装数据，插件会自动提交数据
-		$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在保存……");
-		return true;
-	}
-	function showResponse(responseText, statusText){
-		$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(responseText), 2000);
-		$dswork.doAjaxObject.callBack = $dswork.callback;
-	}
-	_options = {
-		beforeSubmit:showRequest, //提交前
-		success:showResponse, //提交后 
-		resetForm:false //成功提交后，重置所有的表单元素的值
-	};
-	$dswork.getChoose = function(m){m.url = ctx + "/commons/share/getChoose.jsp";return $jskey.dialog.show(m);};
-	$dswork.getChooseByKey = function(m){m.url = ctx + "/commons/share/getChooseByKey.jsp";return $jskey.dialog.show(m);};
-	$dswork.getChooseDialog = function(m){m.url = ctx + "/commons/share/getChoose.jsp";$jskey.dialog.showDialog(m);};
-	$dswork.getChooseDialogByKey = function(m){m.url = ctx + "/commons/share/getChooseByKey.jsp";$jskey.dialog.showDialog(m);};
-});
+$dswork.showRequest = function(formData, jqForm, options){
+	$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在保存……");return true;
+};
+$dswork.showResponse = function(data, status, xhr){
+	$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(data), 2000);
+	$dswork.doAjaxObject.callBack = $dswork.callback;
+};
+$dswork.doAjaxShow = function(data, callback){
+	$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(data), 2000);
+	$dswork.doAjaxObject.callBack = callback;
+};
+$dswork.doAjaxOption = {beforeSubmit:$dswork.showRequest,success:$dswork.showResponse};
+_options = $dswork.doAjaxOption;
+
+$dswork.getChoose = function(m){m.url = ctx + "/commons/share/getChoose.jsp";return $jskey.dialog.show(m);};
+$dswork.getChooseByKey = function(m){m.url = ctx + "/commons/share/getChooseByKey.jsp";return $jskey.dialog.show(m);};
+$dswork.getChooseDialog = function(m){m.url = ctx + "/commons/share/getChoose.jsp";$jskey.dialog.showDialog(m);};
+$dswork.getChooseDialogByKey = function(m){m.url = ctx + "/commons/share/getChooseByKey.jsp";$jskey.dialog.showDialog(m);};

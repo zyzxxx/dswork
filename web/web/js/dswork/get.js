@@ -4,7 +4,7 @@ $(function(){
 		var _c = 0;
 		for(var i = 0;i < a.length;i++){_c++;}
 		if(_c > 0){if(confirm("确认删除吗？")){
-			if($dswork.doAjax){$("#listForm").ajaxSubmit(_options);}
+			if($dswork.doAjax){$("#listForm").ajaxSubmit($dswork.doAjaxOption);}
 			else{$("#listForm").submit();}
 			return true;
 		}}else{alert("请选择记录！");}
@@ -53,10 +53,9 @@ $dswork.page.ini = function(url, id, page){location.href = url + (url.indexOf("?
 // 可覆盖以下三个方法改为自定义实现
 $dswork.page.del = function(event, url, id, page, tdObject){
 	if($dswork.doAjax){
-		$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在提交……");
-		$.post(url,{keyIndex:id, page:page},function(responseText){
-			$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(responseText), 2000);
-			$dswork.doAjaxObject.callBack = $dswork.callback;
+		$dswork.showRequest();
+		$.post(url,{keyIndex:id, page:page},function(data){
+			$dswork.showResponse(data);
 		});
 	}
 	else{$dswork.page.ini(url, id, page);}
@@ -64,14 +63,6 @@ $dswork.page.del = function(event, url, id, page, tdObject){
 $dswork.page.upd = function(event, url, id, page, tdObject){$dswork.page.ini(url, id, page);};
 $dswork.page.getById = function(event, url, id, page, tdObject){$dswork.page.ini(url, id, page);};
 $dswork.page.join = function(td, menu, id){};
-$dswork.page.ajax = function(url, id, page, callback){
-	$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在提交……");
-	$.post(url,{keyIndex:id, page:page},function(responseText){
-		$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(responseText), 2000);
-		$dswork.doAjaxObject.callBack = callback || $dswork.callback;
-	});
-	return false;
-};
 $dswork.page.menu = function(delURL, updURL, getByIdURL, page, showContext){
 	$("#dataTable>tbody>tr>td.menuTool").each(function(){
 		var o = $(this);
