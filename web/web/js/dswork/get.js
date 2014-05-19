@@ -1,4 +1,4 @@
-$(function(){
+﻿$(function(){
 	$("#listFormDelAll").click(function(){
 		var a = $("input[name='keyIndex']:checked");
 		var _c = 0;
@@ -18,10 +18,9 @@ $(function(){
 		if(confirm("确认删除吗？")){
 			if($dswork.doAjax){
 				var url = $(this).attr("href");
-				$dswork.doAjaxObject.show("<img src='/web/js/dswork/loading.gif' />正在提交……");
-				$.post(url,{},function(responseText){
-					$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(responseText), 2000);
-					$dswork.doAjaxObject.callBack = $dswork.callback;
+				$dswork.showRequest();
+				$.post(url,{},function(data){
+					$dswork.showResponse(data);
 				});
 				return false;
 			}
