@@ -6,9 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
 
 /**
- * Cookie的常用操作
- * @author skey
- * @version 3
+ * 扩展Cookie
  */
 public class MyCookie
 {

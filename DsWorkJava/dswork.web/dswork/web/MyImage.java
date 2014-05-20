@@ -10,6 +10,9 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
+/**
+ * 生成验证码图片类
+ */
 public class MyImage
 {
 	// 去掉小写字母中的i,o，去掉大写字母中的I,O

@@ -11,9 +11,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 扩展request的功能
- * @author skey
- * @version 3
+ * 扩展Request
  */
 @SuppressWarnings("all")
 public class MyRequest
