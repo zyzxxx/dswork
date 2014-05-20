@@ -1,0 +1,65 @@
+﻿<html>
+<head>
+<title></title>
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<link rel="stylesheet" type="text/css" href="style/frame.css" />
+<script type="text/javascript">
+function reload()
+{
+	parent.frames["middleFrame"].frames["rightFrame"].location.reload();
+}
+function doLogo(img)
+{
+	var fs = parent.document.getElementById("fk");
+	if(document.getElementById("Logo").style.display == "none")
+	{
+		img.src = "style/top/showup.gif";
+		img.title = "收起";
+		fs["rows"] = "104,*,24";
+		document.getElementById("Logo").style.display = "";
+	}
+	else
+	{
+		img.src = "style/top/showdown.gif";
+		img.title = "展开";
+		fs["rows"] = "24,*,0";
+		document.getElementById("Logo").style.display = "none";
+	}
+}
+</script>
+<style type="text/css">div.logo{z-index:1;top:23px;left:25px;color:#ffffff;position:absolute;font-size:28px;font-weight:bold;font-family:"黑体", "宋体"}</style>
+</head>
+<body onselectstart="return false;" oncontextmenu="return false;" style="background-color: #EFEFEF;">
+<div id="Logo" style="width: 100%; height: 77px; overflow: hidden;">
+<div id="logoDIV" class="logo">系统平台</div>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+	<tr>
+		<td align="left" style="background: url(style/top/bg.jpg) repeat-x;">
+			<img class="img" src="style/top/left_base.jpg"/></td>
+		<td align="right" style="background: url(style/top/bg.jpg) repeat-x;">
+			<img class="img" src="style/top/right.jpg"/></td>
+	</tr>
+</table>
+</div>
+<div style="height: 24px; width: 100%; overflow: hidden; background-color: #EFEFEF;">
+<table class="topframe" cellpadding="0" cellspacing="1" border="0" width="100%">
+	<tr>
+		<td class="left" align="left" style="padding-left: 5px;">
+			<img align="absmiddle" src="style/top/admin.gif" border="0"/>
+			<span class="show">当前用户：管理员</span>
+		</td>
+		<td class="right" align="right" style="">
+			<span id="showTime" class="date"></span>
+			<img class="img" src="style/top/home.gif"/><a title="首页" onclick="parent.frames['middleFrame'].frames['rightFrame'].location='main.html';" href="#">首页</a>
+			<img class="img" src="style/top/reload.gif"/><a title="刷新主页面" onclick="reload();" href="#">刷新</a>
+			<img class="img" src="style/top/logout.gif"/><a title="退出系统" target="_top" onclick="alert('这是假的喔');return false;" href="#">退出</a>
+			<img class="img" style="cursor:pointer;" onclick="doLogo(this); return false;" align="absmiddle" src="style/top/showup.gif" border="0" title="收起" />
+		</td>
+	</tr>
+</table>
+</div>
+</body>
+</html>
