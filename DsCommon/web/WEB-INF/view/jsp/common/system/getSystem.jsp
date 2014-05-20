@@ -1,0 +1,97 @@
+<%@page language="java" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<%@include file="/commons/include/get.jsp" %>
+<script type="text/javascript">
+function updSystemStatus(objid, id){
+	var obj = $("#" + objid);
+	$.post("updSystemStatus.htm", {"keyIndex":id,"status":obj.attr("v")==0?1:0},function(data){
+		$dswork.checkResult(data);if($dswork.result.type == 1){
+		if(1 == obj.attr("v")) {
+			obj.text("启用"); obj.attr("v", 0); $("#td_" + objid).text("禁用").css("color", "red");
+		}else{
+			obj.text("禁用"); obj.attr("v", 1); $("#td_" + objid).text("启用").css("color", "");
+		}}else{alert($dswork.result.msg);}
+	});
+	return false;
+}
+$dswork.doAjax = true;
+$dswork.callback = function(){if($dswork.result.type == 1){
+	location.href = "getSystem.htm?page=${pageModel.currentPage}";
+}};
+$dswork.page.join = function(td, menu, id){
+	$(menu).append($('<div iconCls="menuTool-edit">资源管理</div>').bind("click", function(){
+		location.href = "../func/getFuncTree.htm?page=${pageModel.currentPage}&systemid=" + id;
+	})).append($('<div iconCls="menuTool-edit">角色管理</div>').bind("click", function(){
+		location.href = "../role/getRoleTree.htm?page=${pageModel.currentPage}&systemid=" + id;
+	}));
+};
+$(function(){
+	$dswork.page.menu("delSystem.htm", "updSystem1.htm", "getSystemById.htm", "${pageModel.currentPage}");
+	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
+	$("#status").bind("change", function(){
+		$("#queryForm").submit();
+	});
+});
+</script>
+<%@include file="/commons/include/getEasyui.jsp" %>
+</head> 
+<body>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">应用系统列表</td>
+		<td class="menuTool">
+			<a class="insert" href="addSystem1.htm?page=${pageModel.currentPage}">添加</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<form id="queryForm" method="post" action="getSystem.htm">
+<table border="0" cellspacing="0" cellpadding="0" class="queryTable">
+	<tr>
+		<td class="input">
+			&nbsp;名称：<input id="name" name="name" value="${fn:escapeXml(param.name)}" style="width:150px;" />
+			标识：<input id="alias" name="alias" value="${fn:escapeXml(param.alias)}" style="width:100px;" />
+			状态：<select id="status" name="status" style="width:50px;"><option value="">全部</option><option value="1"${1==param.status?' selected="selected"':''}>启用</option><option value=0${0==param.status?' selected="selected"':''}>禁用</option></select>
+		</td>
+		<td class="query"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
+	</tr>
+</table>
+</form>
+<div class="line"></div>
+<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr class="list_title">
+		<td style="width:5%">操作</td>
+		<td>名称</td>
+		<td style="width:15%;">标识</td>
+		<td style="width:7%;">状态</td>
+		<td style="width:45%;">操作</td>
+	</tr>
+<c:forEach items="${pageModel.result}" var="d" varStatus="status">
+	<tr>
+		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
+		<td>${fn:escapeXml(d.name)}</td>
+		<td>${fn:escapeXml(d.alias)}</td>
+		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
+		<td class="menuTool">
+			<a id="a_status${status.index}" name="a_status" v="${d.status}" class="check" onclick="return updSystemStatus('a_status${status.index}', '${d.id}');" href="#">${1==d.status?'禁用':'启用'}</a>
+			<a class="delete" href="delSystem.htm?keyIndex=${d.id}&page=${pageModel.currentPage}">删除</a>
+			<a class="update" href="updSystem1.htm?keyIndex=${d.id}&page=${pageModel.currentPage}">修改</a>
+			<a class="edit" href="../func/getFuncTree.htm?systemid=${d.id}&page=${pageModel.currentPage}">资源管理</a>
+			<a class="edit" href="../role/getRoleTree.htm?systemid=${d.id}&page=${pageModel.currentPage}">角色管理</a>
+		</td>
+	</tr>
+</c:forEach>
+</table>
+<input name="page" type="hidden" value="${pageModel.currentPage}" />
+</form>
+<table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
+	<tr><td>${pageNav.page}</td></tr>
+</table>
+<br />
+</body>
+</html>
