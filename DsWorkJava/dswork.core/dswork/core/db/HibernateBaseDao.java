@@ -27,8 +27,11 @@ import dswork.core.page.PageRequest;
 public abstract class HibernateBaseDao<E, PK extends Serializable> extends HibernateDao implements EntityDao<E, PK>
 {
 	private static final long serialVersionUID = 1L;
+
 	/**
-	 * 保存对象
+	 * 新增对象
+	 * @param entity 需要新增的对象模型
+	 * @return int
 	 */
 	public int save(E entity)
 	{
@@ -38,6 +41,7 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 
 	/**
 	 * 保存全部对象
+	 * @param entities 需要新增的对象模型
 	 */
 	public void saveAll(Collection<E> entities)
 	{
@@ -49,6 +53,8 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	
 	/**
 	 * 删除对象
+	 * @param primaryKey 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
+	 * @return int
 	 */
 	public int delete(PK primaryKey)
 	{
@@ -57,8 +63,11 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 		return 1;
 	}
 
+
 	/**
 	 * 删除对象
+	 * @param E 需要删除的对象模型
+	 * @return int
 	 */
 	public int delete(E entity)
 	{
@@ -68,6 +77,7 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 
 	/**
 	 * 删除全部对象
+	 * @param entities 需要新增的对象模型
 	 */
 	public void deleteAll(Collection entities)
 	{
@@ -76,6 +86,8 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 
 	/**
 	 * 更新对象
+	 * @param entity 需要更新的对象模型
+	 * @return int
 	 */
 	public int update(E entity)
 	{
@@ -84,7 +96,8 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	}
 
 	/**
-	 * 保存或更新对象
+	 * 新增或更新对象
+	 * @param entity 需要新增或更新的对象模型
 	 */
 	public void saveOrUpdate(E entity)
 	{
@@ -92,8 +105,9 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	}
 
 	/**
-	 * 取得实体数据
-	 * session.get()方法返回实体，会立刻访问数据库，如果没有对应的记录，返回null
+	 * 取得实体数据session.get()方法返回实体，会立刻访问数据库，如果没有对应的记录，返回null
+	 * @param PK 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
+	 * @return E
 	 */
 	public E get(PK id)
 	{
@@ -101,8 +115,9 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	}
 	
 	/**
-	 * 根据ID获取对象
-	 * session.load()方法返回实体或其proxy对象，如果对象不存在，抛出异常
+	 * 根据ID获取对象session.load()方法返回实体或其proxy对象，如果对象不存在，抛出异常
+	 * @param PK 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
+	 * @return E
 	 */
 	public E load(PK id)
 	{
@@ -113,6 +128,7 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	 * 不分页查询数据
 	 * @param pageRequest <Map>PageRequest.getFilters()查询参数和条件数据<br />
 	 * &nbsp; &nbsp; 需要重写queryParam(Criteria criteria)方法
+	 * @return List&lt;E&gt;
 	 */
 	public List<E> queryList(final PageRequest pageRequest)
 	{
@@ -140,6 +156,7 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	 * 分页查询数据
 	 * @param pageRequest <Map>PageRequest.getFilters()查询参数和条件数据<br />
 	 * &nbsp; &nbsp; 需要重写queryParam(Criteria criteria)方法
+	 * @return Page
 	 */
 	public Page queryPage(final PageRequest pageRequest)
 	{
@@ -170,12 +187,18 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	 * &nbsp; &nbsp; ……<br />
 	 * Base类中仅用于queryList(PageRequest)和queryPage(PageRequest)
 	 * @param map 查询参数和条件数据
-	 * @param criteria
+	 * @param criteria Criteria对象
 	 */
 	protected void queryParam(Map map, Criteria criteria)
 	{
 	}
 	
+	/**
+	 * 增加排序条件
+	 * @param orderBy 排序列名
+	 * @param isAsc 排序方式
+	 * @return Order
+	 */
 	protected Order addOrder(String orderBy, boolean isAsc)
 	{
 		if(isAsc)

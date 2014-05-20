@@ -34,7 +34,7 @@ public abstract class HibernateDao extends HibernateDaoSupport
 
 	/**
 	 * HibernateTemplate的find函数
-	 * @param hql
+	 * @param hql HQL语句
 	 * @param values 可变参数
 	 * @return List
 	 */
@@ -46,7 +46,7 @@ public abstract class HibernateDao extends HibernateDaoSupport
 
 	/**
 	 * 创建Query对象
-	 * @param hql
+	 * @param hql HQL语句
 	 * @param values 可变条件
 	 * @return Query
 	 */
@@ -69,8 +69,8 @@ public abstract class HibernateDao extends HibernateDaoSupport
 
 	/**
 	 * 创建Criteria对象
-	 * @param criterions 可变条件Restrictions
-	 *        criteria.add(Restrictions.eq(propertyName, value));
+	 * @param criterions 可变条件Restrictions<br />
+	 * &nbsp; &nbsp; criteria.add(Restrictions.eq(propertyName, value));
 	 * @return Criteria
 	 */
 	protected Criteria createCriteria(Criterion... criterions)
@@ -93,7 +93,7 @@ public abstract class HibernateDao extends HibernateDaoSupport
 
 	/**
 	 * 分页查询函数
-	 * @param hql
+	 * @param hql HQL语句
 	 * @param hqlCount 与hql“?”个数、顺序一致
 	 * @param pageRequest 仅使用page和pageSize属性，不使用Filters属性
 	 * @param values 条件参数，个数与hql“?”个数、顺序一致
@@ -135,7 +135,7 @@ public abstract class HibernateDao extends HibernateDaoSupport
 
 	/**
 	 * QBC方式分页查询数据
-	 * @param criteria Criteria
+	 * @param criteria Criteria对象
 	 * @param pageRequest 仅使用page和pageSize属性，不使用Filters属性
 	 * @return Page
 	 */

@@ -52,7 +52,7 @@ public abstract class BaseDao<T, PK extends Serializable> extends MyBatisDao imp
 	/**
 	 * 查询对象
 	 * @param primaryKey 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
-	 * @return Object对象模型
+	 * @return Object
 	 */
 	public Object get(PK primaryKey)
 	{
@@ -61,7 +61,7 @@ public abstract class BaseDao<T, PK extends Serializable> extends MyBatisDao imp
 
 	/**
 	 * 取得数据条数
-	 * @param pageRequest
+	 * @param pageRequest &lt;Map&gt;PageRequest.getFilters()查询参数和条件数据
 	 * @return int
 	 */
 	public int queryCount(PageRequest pageRequest)

@@ -32,7 +32,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	/**
 	 * 新增对象
 	 * @param entity 需要新增的对象模型
-	 * @return int返回执行结果
+	 * @return int
 	 */
 	public int save(T entity)
 	{
@@ -42,7 +42,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	/**
 	 * 根据主键删除对象
 	 * @param primaryKey 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
-	 * @return int返回执行结果
+	 * @return int
 	 */
 	public int delete(PK primaryKey)
 	{
@@ -67,7 +67,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	/**
 	 * 更新对象
 	 * @param entity 需要更新的对象模型
-	 * @return int返回执行结果
+	 * @return int
 	 */
 	public int update(T entity)
 	{
