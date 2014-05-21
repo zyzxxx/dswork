@@ -10,21 +10,19 @@ DROP TABLE IF EXISTS DS_COMMON_DICT_DATA;
 
 DROP TABLE IF EXISTS DS_COMMON_FUNC;
 
-DROP TABLE IF EXISTS DS_COMMON_LOGIN;
-
-DROP TABLE IF EXISTS DS_COMMON_ORG;
-
-DROP TABLE IF EXISTS DS_COMMON_PERMISSIBLE;
-
-DROP TABLE IF EXISTS DS_COMMON_RES;
-
 DROP TABLE IF EXISTS DS_COMMON_ROLE;
 
 DROP TABLE IF EXISTS DS_COMMON_ROLEFUNC;
 
 DROP TABLE IF EXISTS DS_COMMON_SYSTEM;
 
+DROP TABLE IF EXISTS DS_COMMON_ORG;
+
 DROP TABLE IF EXISTS DS_COMMON_USER;
+
+DROP TABLE IF EXISTS DS_COMMON_LOGIN;
+
+DROP TABLE IF EXISTS DS_COMMON_PERMISSIBLE;
 
 /*==============================================================*/
 /* Table: DS_COMMON_DICT                                        */
@@ -95,6 +93,7 @@ CREATE TABLE DS_COMMON_FUNC
    STATUS               INT(1) COMMENT '状态(0不是菜单,1菜单,不是菜单不能添加下级)',
    SEQ                  BIGINT(18) COMMENT '排序',
    MEMO                 VARCHAR(3000) COMMENT '扩展信息',
+   RESOURCES            VARCHAR(4000) COMMENT '资源集合',
    PRIMARY KEY (ID),
    CONSTRAINT FK_DS_COMMON_FUNC_SYSTEM FOREIGN KEY (SYSTEMID)
       REFERENCES DS_COMMON_SYSTEM (ID) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -103,79 +102,6 @@ CREATE TABLE DS_COMMON_FUNC
 );
 
 ALTER TABLE DS_COMMON_FUNC COMMENT '功能';
-
-/*==============================================================*/
-/* Table: DS_COMMON_LOGIN                                       */
-/*==============================================================*/
-CREATE TABLE DS_COMMON_LOGIN
-(
-   ID                   BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键',
-   LOGINTIME            VARCHAR(19) COMMENT '登录时间',
-   LOGOUTTIME           VARCHAR(19) COMMENT '登出时间',
-   TIMEOUTTIME          VARCHAR(19) COMMENT '超时时间',
-   PWDTIME              VARCHAR(19) COMMENT '密码修改时间，没修改则为空，修改成功后直接登出',
-   TICKET               VARCHAR(64) COMMENT '登录标识',
-   IP                   VARCHAR(128) COMMENT 'IP地址',
-   ACCOUNT              VARCHAR(64) COMMENT '操作人账号',
-   NAME                 VARCHAR(30) COMMENT '操作人名称',
-   STATUS               INT COMMENT '状态(0失败,1成功)',
-   PRIMARY KEY (ID)
-);
-
-ALTER TABLE DS_COMMON_LOGIN COMMENT '系统登录日志';
-
-/*==============================================================*/
-/* Table: DS_COMMON_ORG                                         */
-/*==============================================================*/
-CREATE TABLE DS_COMMON_ORG
-(
-   ID                   BIGINT(18) NOT NULL AUTO_INCREMENT COMMENT '部门ID',
-   PID                  BIGINT(18) COMMENT '上级ID(本表,所属组织机构)',
-   NAME                 VARCHAR(300) COMMENT '名称',
-   STATUS               INT(1) COMMENT '类型(2单位,1部门,0岗位)',
-   SEQ                  BIGINT(18) COMMENT '排序',
-   GID                  BIGINT(18) COMMENT '扩展分组(默认为0)',
-   DUTYSCOPE            VARCHAR(3000) COMMENT '职责范围',
-   MEMO                 VARCHAR(3000) COMMENT '备注',
-   PRIMARY KEY (ID),
-   CONSTRAINT FK_DS_COMMON_ORG FOREIGN KEY (PID)
-      REFERENCES DS_COMMON_ORG (ID) ON DELETE RESTRICT ON UPDATE RESTRICT
-);
-
-ALTER TABLE DS_COMMON_ORG COMMENT '组织机构';
-
-/*==============================================================*/
-/* Table: DS_COMMON_PERMISSIBLE                                 */
-/*==============================================================*/
-CREATE TABLE DS_COMMON_PERMISSIBLE
-(
-   ID                   BIGINT NOT NULL COMMENT '主键',
-   POSTID               BIGINT COMMENT '岗位ID',
-   SYSTEMID             BIGINT COMMENT '系统ID',
-   ROLEID               BIGINT COMMENT '角色ID',
-   FUNCID               BIGINT COMMENT '功能ID',
-   USERID               VARCHAR(64) COMMENT '用户ID'
-);
-
-ALTER TABLE DS_COMMON_PERMISSIBLE COMMENT '功能许可';
-
-/*==============================================================*/
-/* Table: DS_COMMON_RES                                         */
-/*==============================================================*/
-CREATE TABLE DS_COMMON_RES
-(
-   ID                   BIGINT(18) NOT NULL AUTO_INCREMENT COMMENT '主键',
-   FUNCID               BIGINT(18) COMMENT '所属功能ID',
-   SYSTEMID             BIGINT(18) COMMENT '所属系统ID',
-   URL                  VARCHAR(300) COMMENT '资源对应的URL',
-   SEQ                  BIGINT(18) COMMENT '排序',
-   PARAM                VARCHAR(300) COMMENT '参数(格式:name1=value2,name2=value2...)',
-   PRIMARY KEY (ID),
-   CONSTRAINT FK_DS_COMMON_RES_FUNC FOREIGN KEY (FUNCID)
-      REFERENCES DS_COMMON_FUNC (ID) ON DELETE CASCADE ON UPDATE RESTRICT
-);
-
-ALTER TABLE DS_COMMON_RES COMMENT '功能资源';
 
 /*==============================================================*/
 /* Table: DS_COMMON_ROLE                                        */
@@ -219,6 +145,26 @@ CREATE TABLE DS_COMMON_ROLEFUNC
 ALTER TABLE DS_COMMON_ROLEFUNC COMMENT '角色功能关系';
 
 /*==============================================================*/
+/* Table: DS_COMMON_ORG                                         */
+/*==============================================================*/
+CREATE TABLE DS_COMMON_ORG
+(
+   ID                   BIGINT(18) NOT NULL AUTO_INCREMENT COMMENT '部门ID',
+   PID                  BIGINT(18) COMMENT '上级ID(本表,所属组织机构)',
+   NAME                 VARCHAR(300) COMMENT '名称',
+   STATUS               INT(1) COMMENT '类型(2单位,1部门,0岗位)',
+   SEQ                  BIGINT(18) COMMENT '排序',
+   GID                  BIGINT(18) COMMENT '扩展分组(默认为0)',
+   DUTYSCOPE            VARCHAR(3000) COMMENT '职责范围',
+   MEMO                 VARCHAR(3000) COMMENT '备注',
+   PRIMARY KEY (ID),
+   CONSTRAINT FK_DS_COMMON_ORG FOREIGN KEY (PID)
+      REFERENCES DS_COMMON_ORG (ID) ON DELETE RESTRICT ON UPDATE RESTRICT
+);
+
+ALTER TABLE DS_COMMON_ORG COMMENT '组织机构';
+
+/*==============================================================*/
 /* Table: DS_COMMON_USER                                        */
 /*==============================================================*/
 CREATE TABLE DS_COMMON_USER
@@ -239,4 +185,39 @@ CREATE TABLE DS_COMMON_USER
 );
 
 ALTER TABLE DS_COMMON_USER COMMENT '用户信息';
+
+/*==============================================================*/
+/* Table: DS_COMMON_LOGIN                                       */
+/*==============================================================*/
+CREATE TABLE DS_COMMON_LOGIN
+(
+   ID                   BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键',
+   LOGINTIME            VARCHAR(19) COMMENT '登录时间',
+   LOGOUTTIME           VARCHAR(19) COMMENT '登出时间',
+   TIMEOUTTIME          VARCHAR(19) COMMENT '超时时间',
+   PWDTIME              VARCHAR(19) COMMENT '密码修改时间，没修改则为空，修改成功后直接登出',
+   TICKET               VARCHAR(64) COMMENT '登录标识',
+   IP                   VARCHAR(128) COMMENT 'IP地址',
+   ACCOUNT              VARCHAR(64) COMMENT '操作人账号',
+   NAME                 VARCHAR(30) COMMENT '操作人名称',
+   STATUS               INT COMMENT '状态(0失败,1成功)',
+   PRIMARY KEY (ID)
+);
+
+ALTER TABLE DS_COMMON_LOGIN COMMENT '系统登录日志';
+
+/*==============================================================*/
+/* Table: DS_COMMON_PERMISSIBLE                                 */
+/*==============================================================*/
+CREATE TABLE DS_COMMON_PERMISSIBLE
+(
+   ID                   BIGINT NOT NULL COMMENT '主键',
+   POSTID               BIGINT COMMENT '岗位ID',
+   SYSTEMID             BIGINT COMMENT '系统ID',
+   ROLEID               BIGINT COMMENT '角色ID',
+   FUNCID               BIGINT COMMENT '功能ID',
+   USERID               VARCHAR(64) COMMENT '用户ID'
+);
+
+ALTER TABLE DS_COMMON_PERMISSIBLE COMMENT '功能许可';
 
