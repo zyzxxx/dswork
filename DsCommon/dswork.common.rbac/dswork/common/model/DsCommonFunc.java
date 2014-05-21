@@ -172,6 +172,7 @@ public class DsCommonFunc
 					{
 						o.setUrl(s);
 					}
+					resourcesList.add(o);
 				}
 			}
 		}
