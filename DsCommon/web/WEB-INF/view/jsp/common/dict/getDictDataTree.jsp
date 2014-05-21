@@ -18,7 +18,6 @@ function refreshNode(re){
 }
 <%--var name = encodeURI(encodeURI("${fn:escapeXml(po.name)}"));--%>
 <c:if test="${po.status==1}">
-$dswork.ztree.config.data.key.name = "label";
 $dswork.ztree.click = function(){
 	var _id = $dswork.ztree.getSelectedNode().id;
 	attachUrl("getDictData.htm?dictid=${po.id}&pid=" + _id);
@@ -36,7 +35,7 @@ $dswork.ztree.showMenu = function(type, x, y){
 	else{if(!_node.isParent){$("#menu_refresh").hide();$("#menu_add").hide();$("#menu_sort").hide();}}
 	$("#" + $dswork.ztree.menuName).menu('show', {left:x,top:y});
 };
-$dswork.ztree.root.label = "${fn:escapeXml(po.label)}字典管理";
+$dswork.ztree.root.name = "${fn:escapeXml(po.label)}字典管理";
 $dswork.ztree.url = function(treeNode){return "getDictDataJson.htm?dictid=${po.id}&pid=" + treeNode.id;};
 $(function(){
 	var $z = $dswork.ztree;
