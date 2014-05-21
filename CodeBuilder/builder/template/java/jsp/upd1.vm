@@ -21,7 +21,7 @@ request.setAttribute("page", req.getInt("page", 1));
 	<script type="text/javascript">
 	${mf}${Frame.ToLower()}.callback = function(){if($${Frame.ToLower()}.result.type == 1){
 		location.href = "get${Model}.jsp?page=${mf}{page}";
-	}}
+	}};
 	</script>
 </head>
 <body>

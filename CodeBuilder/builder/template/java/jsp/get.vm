@@ -26,7 +26,7 @@ ${mf}(function(){
 ${mf}${Frame.ToLower()}.doAjax = true;
 ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.type == 1){
 	location.href = "get${Model}.htm?page=${mf}{pageModel.currentPage}";
-}}
+}};
 </script>
 <%@include file="/commons/include/getEasyui.jsp" %>
 </head> 
