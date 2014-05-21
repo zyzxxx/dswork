@@ -140,7 +140,10 @@ public class DsCommonFunc
 		return resources;
 	}
 
-	// url|param \n url|param
+	/**
+	 * 会清空resourcesList的值(格式:url|param \n url|param)
+	 * @param resources
+	 */
 	public void setResources(String resources)
 	{
 		this.resources = resources;
