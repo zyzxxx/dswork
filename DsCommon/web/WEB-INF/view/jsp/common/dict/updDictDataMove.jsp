@@ -16,7 +16,6 @@ $(function(){
 $dswork.ztree.root.label = "${fn:escapeXml(po.label)}";
 	$dswork.ztree.config.check.chkStyle = "radio";
 	$dswork.ztree.config.check.enable = true;
-	$dswork.ztree.config.data.key.name = "label";
 	$dswork.ztree.url = function(treeNode){return "getDictDataJson.htm?dictid=${po.id}&pid=" + treeNode.id;};
 	$dswork.ztree.load();
 });
