@@ -1,15 +1,14 @@
-package common.dict;
+package dswork.common;
 
-import java.util.HashMap;
 import java.util.List;
 
-import dswork.common.dao.DsCommonDictDataDao;
-import dswork.common.model.DsCommonDictData;
+import dswork.common.dao.DsCommonDao;
+import dswork.common.imodel.IDsDict;
 import dswork.spring.BeanFactory;
 
-public class DictFactory
+public class DsCommonFactory
 {
-	public static DsCommonDictDataDao getDsDictDataDao(){return (DsCommonDictDataDao) BeanFactory.getBean("dsDictDataDao");}
+	public static DsCommonDao getDsDictDataDao(){return (DsCommonDao) BeanFactory.getBean("dsCommonDao");}
 	
 	public static String Select(String name, String selectName)
 	{
@@ -22,9 +21,9 @@ public class DictFactory
 	
 	public static String Option(String name)
 	{
-		List<DsCommonDictData> list = getDsDictDataDao().queryList(null, name, new HashMap<String, Object>());
+		List<IDsDict> list = getDsDictDataDao().queryList(name, "");
 		StringBuilder sb = new StringBuilder();
-		for(DsCommonDictData dict : list)
+		for(IDsDict dict : list)
 		{
 			sb.append("<option value=\"").append(dict.getAlias()).append("\"").append(">").append(dict.getLabel()).append("</option>");
 		}
@@ -33,41 +32,40 @@ public class DictFactory
 	
 	public static String Checkbox(String name, String checkboxName)
 	{
-		List<DsCommonDictData> list = getDsDictDataDao().queryList(null, name, new HashMap<String, Object>());
+		List<IDsDict> list = getDsDictDataDao().queryList(name, "");
 		StringBuilder sb = new StringBuilder();
-		DsCommonDictData dict;
+		IDsDict dict;
 		for(int i = 0; i < list.size(); i++)
 		{
 			dict = list.get(i);
 			sb.append("<input name=\"").append(checkboxName).append("\"");
 			sb.append(" id=\"chk_").append(dict.getAlias()).append("\"");
 			sb.append(" type=\"checkbox\" value=\"").append(dict.getAlias()).append("\"");
-			if(i == list.size() - 1)
-			{
-				sb.append(" dataType=\"Group\" msg=\"必选\" alertMsg=\"" + name + ",必选\"");
-			}
 			sb.append("/>").append("<label for=\"chk_").append(dict.getAlias()).append("\">").append(dict.getLabel()).append("</label>");
 		}
+		sb.append("<input name=\"").append(checkboxName).append("\" type=\"checkbox\" dataType=\"Group\" msg=\"必选\" style=\"display:none;\" />");
 		return sb.toString();
 	}
 	
 	public static String Radio(String name, String radioName)
 	{
-		List<DsCommonDictData> list = getDsDictDataDao().queryList(null, name, new HashMap<String, Object>());
+		List<IDsDict> list = getDsDictDataDao().queryList(name, "");
 		StringBuilder sb = new StringBuilder();
-		DsCommonDictData dict;
+		IDsDict dict;
 		for(int i = 0; i < list.size(); i++)
 		{
 			dict = list.get(i);
 			sb.append("<input name=\"").append(radioName).append("\"");
 			sb.append(" id=\"rdo_").append(dict.getAlias()).append("\"");
-			sb.append("\" type=\"radio\" value=\"").append(dict.getAlias()).append("\"");
-			if(i == list.size() - 1)
-			{
-				sb.append(" dataType=\"Group\" msg=\"必选\" alertMsg=\"" + name + ",必选\"");
-			}
+			sb.append(" type=\"radio\" value=\"").append(dict.getAlias()).append("\"");
 			sb.append("/>").append("<label for=\"rdo_").append(dict.getAlias()).append("\">").append(dict.getLabel()).append("</label>");
 		}
+		sb.append("<input name=\"").append(radioName).append("\" type=\"radio\" dataType=\"Group\" msg=\"必选\" style=\"display:none;\" />");
 		return sb.toString();
+	}
+	
+	public static String Json(String name, String parentAlias)
+	{
+		return getDsDictDataDao().queryList(name, parentAlias).toString();
 	}
 }
