@@ -107,12 +107,12 @@ public class DsCommonDictData
 	{
 		try
 		{
-			return new StringBuilder().append("{id:").append(id).append(",pid:").append(pid != null && pid > 0 ? pid : 0).append(",status:").append(status).append(",isParent:").append((1 == status) ? "true" : "false").append(",label:\"").append(
+			return new StringBuilder().append("{id:").append(id).append(",pid:").append(pid != null && pid > 0 ? pid : 0).append(",status:").append(status).append(",isParent:").append((1 == status) ? "true" : "false").append(",name:\"").append(
 				String.valueOf(label).replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
 		}
 		catch(Exception e)
 		{
-			return "{id:0,pid:-1,status:0,isParent:true,label:\"\"}";
+			return "{id:0,pid:-1,status:0,isParent:true,name:\"\"}";
 		}
 	}
 }
