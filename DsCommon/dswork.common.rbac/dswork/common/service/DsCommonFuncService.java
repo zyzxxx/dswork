@@ -37,20 +37,10 @@ public class DsCommonFuncService
 	/**
 	 * 新增对象
 	 * @param po 功能对象
-	 * @param list 功能资源列表
 	 */
-	public void save(DsCommonFunc po, List<DsCommonRes> list)
+	public void save(DsCommonFunc po)
 	{
 		funcDao.save(po);
-		if (null != list)
-		{
-			for (DsCommonRes tmp : list)
-			{
-				tmp.setFuncid(po.getId());
-				tmp.setSystemid(po.getSystemid());
-				funcDao.saveRes(tmp);
-			}
-		}
 	}
 
 	/**
@@ -60,31 +50,17 @@ public class DsCommonFuncService
 	public int delete(Long id)
 	{
 		roleDao.deleteRoleFuncByFuncid(id);
-		funcDao.deleteResByFuncid(id);
 		return funcDao.delete(id);
 	}
 
 	/**
 	 * 更新对象
 	 * @param model 功能对象
-	 * @param list 功能资源列表
 	 * @return int
 	 */
-	public int update(DsCommonFunc po, List<DsCommonRes> list)
+	public int update(DsCommonFunc po)
 	{
-		funcDao.update(po);
-		if (null == list)
-		{
-			return 1;
-		}
-		funcDao.deleteResByFuncid(po.getId());
-		for (DsCommonRes tmp : list)
-		{
-			tmp.setFuncid(po.getId());
-			tmp.setSystemid(po.getSystemid());
-			funcDao.saveRes(tmp);
-		}
-		return 1;
+		return funcDao.update(po);
 	}
 
 	/**
@@ -165,15 +141,5 @@ public class DsCommonFuncService
 		PageRequest pageRequest = new PageRequest();
 		pageRequest.setFilters(map);
 		return funcDao.queryCount(pageRequest);
-	}
-	
-	/**
-	 * 根据功能主键取得资源列表数据
-	 * @param funcid 功能主键
-	 * @return List&lt;DsCommonRes&gt;
-	 */
-	public List<DsCommonRes> queryResByFuncid(long funcid)
-	{
-		return funcDao.queryResByFuncid(funcid);
 	}
 }

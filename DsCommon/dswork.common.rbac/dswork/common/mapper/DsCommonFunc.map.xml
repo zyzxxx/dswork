@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_COMMON_FUNC
-	(ID, PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO)
+	(ID, PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO, RESOURCES)
 	values
-	(null,<if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{alias}, #{uri}, #{img}, #{status}, #{seq}, #{memo})
+	(null,<if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{alias}, #{uri}, #{img}, #{status}, #{seq}, #{memo}, #{resources})
 </insert>
 
 <delete id="delete">
@@ -26,7 +26,8 @@
 		URI=#{uri},
 		IMG=#{img},
 		STATUS=#{status},
-		MEMO=#{memo}
+		MEMO=#{memo},
+		RESOURCES=#{resources}
 	where ID=#{id}
 </update>
 <update id="updatePid">
@@ -47,9 +48,10 @@
 	<result property="status" column="STATUS" />
 	<result property="seq" column="SEQ" />
 	<result property="memo" column="MEMO" />
+	<result property="resources" column="RESOURCES" />
 </resultMap>
 <sql id="columns">
-	ID, PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO
+	ID, PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO, RESOURCES
 </sql>
 <sql id="dynamicWhere">
 	<where>
@@ -77,24 +79,4 @@
 	<include refid="dynamicWhere" />
 </select>
 
-<insert id="insertRes" parameterType="dswork.common.model.DsCommonRes">
-	insert into DS_COMMON_RES
-	(ID, FUNCID, SYSTEMID, URL, SEQ, PARAM)
-	values
-	(null, #{funcid}, #{systemid}, #{url}, #{id}, #{param})
-</insert>
-<delete id="deleteResByFuncid">
-	delete from DS_COMMON_RES where FUNCID=#{funcid}
-</delete>
-<resultMap id="resultRes" type="dswork.common.model.DsCommonRes">
-	<id property="id" column="ID" />
-	<result property="funcid" column="FUNCID" />
-	<result property="systemid" column="SYSTEMID" />
-	<result property="url" column="URL" />
-	<result property="seq" column="SEQ" />
-	<result property="param" column="PARAM" />
-</resultMap>
-<select id="queryResByFuncid" resultMap="resultRes">
-	select ID, FUNCID, SYSTEMID, URL, SEQ, PARAM from DS_COMMON_RES where FUNCID = #{funcid} order by SEQ asc
-</select>
 </mapper>

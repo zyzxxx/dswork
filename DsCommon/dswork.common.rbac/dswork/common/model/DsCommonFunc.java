@@ -3,6 +3,9 @@
  */
 package dswork.common.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DsCommonFunc
 {
 	// 主键
@@ -17,14 +20,18 @@ public class DsCommonFunc
 	private String alias = "";
 	// 对应的URI
 	private String uri = "";
-	// 显示图标
-	private String img = "";
 	// 状态(0不是菜单,1菜单,不是菜单不能添加下级)
 	private Integer status = 2;
+	// 显示图标
+	private String img = "";
 	// 排序
 	private Integer seq = 0;
 	// 扩展信息
 	private String memo = "";
+	// 资源集合
+	private String resources = "";
+	// 资源集合转化的List
+	private List<DsCommonRes> resourcesList = null;
 	// 对Role设置Func时使用
 	boolean checked = false;
 	
@@ -87,6 +94,16 @@ public class DsCommonFunc
 	{
 		return this.uri;
 	}
+	
+	public Integer getStatus()
+	{
+		return status;
+	}
+	
+	public void setStatus(Integer status)
+	{
+		this.status = (status == null || status.intValue() != 1) ? 0 : 1;
+	}
 
 	public void setImg(String img)
 	{
@@ -118,14 +135,61 @@ public class DsCommonFunc
 		return this.memo;
 	}
 
-	public Integer getStatus()
+	public String getResources()
 	{
-		return status;
+		return resources;
 	}
 
-	public void setStatus(Integer status)
+	// url|param \n url|param
+	public void setResources(String resources)
 	{
-		this.status = (status == null || status.intValue() != 1) ? 0 : 1;
+		this.resources = resources;
+		this.resourcesList = null;
+	}
+	
+	public List<DsCommonRes> getResourcesList()
+	{
+		if(resourcesList == null)
+		{
+			resourcesList = new ArrayList<DsCommonRes>();
+			if(resources != null && resources.length() > 0)
+			{
+				String[] list = resources.split("\n", -1);
+				int index = -1;
+				for(String s : list)
+				{
+					DsCommonRes o = new DsCommonRes();
+					index = s.indexOf("|");
+					if(index != -1)
+					{
+						o.setUrl(s.substring(0, index));
+						o.setParam(s.substring(index+1));
+					}
+					else
+					{
+						o.setUrl(s);
+					}
+				}
+			}
+		}
+		return resourcesList;
+	}
+	
+	public void setResourcesList(List<DsCommonRes> list)
+	{
+		if(list != null && list.size() > 0)
+		{
+			StringBuilder sb = new StringBuilder();
+			for(DsCommonRes o : list)
+			{
+				sb.append(o.getUrl()).append("|").append(o.getParam()).append("\n");
+			}
+			this.resources = sb.toString().trim();
+		}
+		else
+		{
+			this.resources = "";
+		}
 	}
 
 	public boolean isChecked()

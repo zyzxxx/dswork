@@ -106,7 +106,8 @@ public class DsCommonFuncController
 					return;
 				}
 			}
-			service.save(po, list);
+			po.setResourcesList(list);
+			service.save(po);
 			out.print(1);
 		}
 		catch (Exception e)
@@ -175,7 +176,7 @@ public class DsCommonFuncController
 			parent = new DsCommonFunc();
 		}
 		int count = service.getCountByPid(id);//是否有子节点
-		List<DsCommonRes> list = service.queryResByFuncid(po.getId());
+		List<DsCommonRes> list = po.getResourcesList();
 		request.setAttribute("po", po);
 		request.setAttribute("parent", parent);
 		request.setAttribute("list", list);
@@ -253,8 +254,8 @@ public class DsCommonFuncController
 					return;
 				}
 			}
-			po.setSystemid(_po.getSystemid());// list需要使用
-			service.update(po, list);//systemid和seq不修改
+			po.setResourcesList(list);
+			service.update(po);//systemid和seq不修改
 			out.print(1);
 		}
 		catch (Exception e)
@@ -386,7 +387,7 @@ public class DsCommonFuncController
 		MyRequest req = new MyRequest(request);
 		Long id = req.getLong("keyIndex");
 		DsCommonFunc po = service.get(id);
-		List<DsCommonRes> list = service.queryResByFuncid(id);
+		List<DsCommonRes> list = po.getResourcesList();
 		request.setAttribute("po", po);
 		request.setAttribute("list", list);
 		return "/common/func/getFuncById.jsp";

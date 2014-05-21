@@ -4,12 +4,10 @@
 package dswork.common.dao;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import dswork.common.model.DsCommonFunc;
-import dswork.common.model.DsCommonRes;
 import dswork.core.db.BaseDao;
 
 @Repository
@@ -68,32 +66,4 @@ public class DsCommonFuncDao extends BaseDao<DsCommonFunc, Long>
 		return false;
 	}
 
-	/**
-	 * 新增对象
-	 * @param entity 功能资源对象
-	 * @return int
-	 */
-	public int saveRes(DsCommonRes entity)
-	{
-		return executeInsert("insertRes", entity);
-	}
-
-	/**
-	 * 删除功能下所有功能资源
-	 * @param funcid 功能主键
-	 */
-	public void deleteResByFuncid(Long funcid)
-	{
-		executeDelete("deleteResByFuncid", funcid);
-	}
-
-	/**
-	 * 根据功能获得功能资源
-	 * @param funcid 功能主键
-	 * @return List&lt;DsCommonRes&gt;
-	 */
-	public List<DsCommonRes> queryResByFuncid(Long funcid)
-	{
-		return executeSelectList("queryResByFuncid", funcid);
-	}
 }
