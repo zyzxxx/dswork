@@ -8,7 +8,7 @@
 	<%@include file="/commons/include/addAjax.jsp" %>
 	<script type="text/javascript">
 	$dswork.callback = function(){if($dswork.result.type == 1){
-		location.href = "getDict.htm?status=${param.status}&page=${parem.page};
+		location.href = "getDict.htm?status=${param.status}&page=${parem.page}";
 	}};
 	$(function(){
 		if("${param.status}" == "0"){document.getElementById("status0").checked = true;}
