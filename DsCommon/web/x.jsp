@@ -24,15 +24,15 @@
 </script>
 </head>
 <body>
-<%=DsCommonFactory.Checkbox("ztree", "chk_hello") %>
+<%=DsCommonFactory.getCheckbox("ztree", "chk_hello") %>
 <br />******************************<br />
-<%=DsCommonFactory.Radio("ztree", "rdo_hello") %>
+<%=DsCommonFactory.getRadio("ztree", "rdo_hello") %>
 <br />******************************<br />
-<%=DsCommonFactory.Select("ztree", "sel_hello") %>
+<%=DsCommonFactory.getSelect("ztree", "sel_hello") %>
 <br />******************************<br />
 <select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.Option("ztree") %></select>
 <br />******************************<br />
-<%=DsCommonFactory.Json("ztree", "") %>
+<%=DsCommonFactory.getDictJson("ztree", "") %>
 <br />******************************<br />
 <ul id="mytree" class="ztree" />
 <br />******************************<br />
