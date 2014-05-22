@@ -6,4 +6,4 @@ if(id.equals("0"))// 根节点
 {
 	id = "";
 }
-out.print(DsCommonFactory.Json("ztree", id)); %>
+out.print(DsCommonFactory.getDictJson("ztree", id)); %>

@@ -30,7 +30,7 @@
 <br />******************************<br />
 <%=DsCommonFactory.getSelect("ztree", "sel_hello") %>
 <br />******************************<br />
-<select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.Option("ztree") %></select>
+<select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.getOption("ztree") %></select>
 <br />******************************<br />
 <%=DsCommonFactory.getDictJson("ztree", "") %>
 <br />******************************<br />
