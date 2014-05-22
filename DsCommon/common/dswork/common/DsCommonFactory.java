@@ -3,7 +3,7 @@ package dswork.common;
 import java.util.List;
 
 import dswork.common.dao.DsCommonDao;
-import dswork.common.imodel.IDsDict;
+import dswork.common.model.IDsDict;
 import dswork.spring.BeanFactory;
 
 // demo

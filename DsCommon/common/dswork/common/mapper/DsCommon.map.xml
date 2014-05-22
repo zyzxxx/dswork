@@ -5,7 +5,7 @@
 
 <mapper namespace="dswork.common.dao.DsCommonDao">
 
-<resultMap id="resultDict" type="dswork.common.imodel.IDsDict">
+<resultMap id="resultDict" type="dswork.common.model.IDsDict">
 	<result property="label" column="LABEL" />
 	<result property="alias" column="ALIAS" />
 	<result property="status" column="STATUS" />

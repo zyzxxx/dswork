@@ -1,7 +1,7 @@
 /**
  * DS_DICT_DATAModel
  */
-package dswork.common.imodel;
+package dswork.common.model;
 
 public class IDsDict
 {

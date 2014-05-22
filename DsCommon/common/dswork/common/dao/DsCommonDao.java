@@ -9,7 +9,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import dswork.common.imodel.IDsDict;
+import dswork.common.model.IDsDict;
 import dswork.core.db.MyBatisDao;
 
 @Repository
