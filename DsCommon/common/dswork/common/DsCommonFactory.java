@@ -66,4 +66,8 @@ public class DsCommonFactory
 	{
 		return dao.queryListDict(name, parentAlias).toString();
 	}
+	public static String getOrgJson(Long pid, Integer status)
+	{
+		return dao.queryListOrg(pid, status).toString();
+	}
 }

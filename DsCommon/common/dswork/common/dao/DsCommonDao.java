@@ -1,5 +1,5 @@
 /**
- * 字典分类Dao
+ * 公用Dao
  */
 package dswork.common.dao;
 
@@ -10,10 +10,11 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import dswork.common.model.IDsDict;
+import dswork.common.model.IDsOrg;
 import dswork.core.db.MyBatisDao;
 
 @Repository
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class DsCommonDao extends MyBatisDao
 {
 	@Override
@@ -42,5 +43,22 @@ public class DsCommonDao extends MyBatisDao
 			}
 		}
 		return list;
+	}
+	
+	/**
+	 * 根据上级组织机构主键取得列表数据
+	 * @param pid 上级组织机构主键
+	 * @param status 0-2为指定分类（2单位，1部门，0岗位），超出0-2范围则不过滤
+	 * @return List&lt;DsCommonOrg&gt;
+	 */
+	public List<IDsOrg> queryListOrg(Long pid, Integer status)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pid", pid);
+		if(status != null && status.intValue() > -1 && status.intValue() < 3)
+		{
+			map.put("status", status);
+		}
+		return executeSelectList("queryOrg", map);
 	}
 }

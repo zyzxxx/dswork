@@ -64,7 +64,7 @@ public class IDsDict
 		}
 		catch(Exception e)
 		{
-			return "{id:0,pid:-1,status:0,isParent:true,label:\"\"}";
+			return "{id:0,pid:-1,status:0,isParent:true,name:\"\"}";
 		}
 	}
 }
