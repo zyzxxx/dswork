@@ -44,7 +44,13 @@ public class BaseController
 			ex.printStackTrace();
 		}
 	}
+	
+	protected void put(String key, Object obj)
+	{
+		request.setAttribute(key, obj);
+	}
 
+	@Deprecated
 	protected void sendRedirect(String url)
 	{
 		try
