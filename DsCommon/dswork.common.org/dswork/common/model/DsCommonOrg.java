@@ -11,7 +11,7 @@ public class DsCommonOrg
 	private Long pid = 0L;
 	// 名称
 	private String name = "";
-	// 类型(1单位,0部门,-1岗位)
+	// 类型(2单位,1部门,0岗位)
 	private Integer status = -1;
 	// 排序
 	private Long seq = 0L;
