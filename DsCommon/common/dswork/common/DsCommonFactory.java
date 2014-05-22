@@ -6,22 +6,23 @@ import dswork.common.dao.DsCommonDao;
 import dswork.common.imodel.IDsDict;
 import dswork.spring.BeanFactory;
 
+// demo
 public class DsCommonFactory
 {
-	public static DsCommonDao getDsDictDataDao(){return (DsCommonDao) BeanFactory.getBean("dsCommonDao");}
+	private static DsCommonDao getDao(){return (DsCommonDao) BeanFactory.getBean("dsCommonDao");}
+	private static DsCommonDao dao = getDao();
 	
-	public static String Select(String name, String selectName)
+	public static String getSelect(String name, String selectName)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("<select id=\"").append(selectName).append("\" name=\"").append(selectName).append("\">");
-		sb.append(Option(name));
+		sb.append(getOption(name));
 		sb.append("</select>");
 		return sb.toString();
 	}
-	
-	public static String Option(String name)
+	public static String getOption(String name)
 	{
-		List<IDsDict> list = getDsDictDataDao().queryList(name, "");
+		List<IDsDict> list = dao.queryListDict(name, "");
 		StringBuilder sb = new StringBuilder();
 		for(IDsDict dict : list)
 		{
@@ -29,10 +30,9 @@ public class DsCommonFactory
 		}
 		return sb.toString();
 	}
-	
-	public static String Checkbox(String name, String checkboxName)
+	public static String getCheckbox(String name, String checkboxName)
 	{
-		List<IDsDict> list = getDsDictDataDao().queryList(name, "");
+		List<IDsDict> list = dao.queryListDict(name, "");
 		StringBuilder sb = new StringBuilder();
 		IDsDict dict;
 		for(int i = 0; i < list.size(); i++)
@@ -46,10 +46,9 @@ public class DsCommonFactory
 		sb.append("<input name=\"").append(checkboxName).append("\" type=\"checkbox\" dataType=\"Group\" msg=\"必选\" style=\"display:none;\" />");
 		return sb.toString();
 	}
-	
-	public static String Radio(String name, String radioName)
+	public static String getRadio(String name, String radioName)
 	{
-		List<IDsDict> list = getDsDictDataDao().queryList(name, "");
+		List<IDsDict> list = dao.queryListDict(name, "");
 		StringBuilder sb = new StringBuilder();
 		IDsDict dict;
 		for(int i = 0; i < list.size(); i++)
@@ -63,9 +62,8 @@ public class DsCommonFactory
 		sb.append("<input name=\"").append(radioName).append("\" type=\"radio\" dataType=\"Group\" msg=\"必选\" style=\"display:none;\" />");
 		return sb.toString();
 	}
-	
-	public static String Json(String name, String parentAlias)
+	public static String getDictJson(String name, String parentAlias)
 	{
-		return getDsDictDataDao().queryList(name, parentAlias).toString();
+		return dao.queryListDict(name, parentAlias).toString();
 	}
 }
