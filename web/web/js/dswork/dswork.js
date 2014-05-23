@@ -132,3 +132,58 @@ $dswork.getChoose = function(m){m.url = ctx + "/commons/share/getChoose.jsp";ret
 $dswork.getChooseByKey = function(m){m.url = ctx + "/commons/share/getChooseByKey.jsp";return $jskey.dialog.show(m);};
 $dswork.getChooseDialog = function(m){m.url = ctx + "/commons/share/getChoose.jsp";$jskey.dialog.showDialog(m);};
 $dswork.getChooseDialogByKey = function(m){m.url = ctx + "/commons/share/getChooseByKey.jsp";$jskey.dialog.showDialog(m);};
+
+$dswork.showTree = function(o){if(typeof(o)!="object"){o={};}
+	var ini = {id:"showTree"
+		,title:"根节点"
+		,url:function(node){return "";}
+		,width:400,height:300,left:0,top:0
+		,click:function(id, node){return true;}
+		,dataFilter:function(id, pnode, data){return data;}
+		,check:function(treeId, node){}//点击节点按钮前函数
+		,async:true
+		,checkEnable:true
+		,chkStyle:"radio"
+		,tree:null
+		,nodeArray:[]
+	};
+	var opts = $.extend(ini, o);
+	if(opts.nodeArray.length == 0){
+		opts.nodeArray.push({id:"0", pid:"-1", isParent:true, name:opts.title, nocheck:true});
+	}
+	opts.divid = opts.id + "_div";
+	var $win = $('#'+opts.divid);
+	if($win.length){$win.css("display", "");}
+	else{
+		$win = $('<div id="'+opts.divid+'" style="z-index:100000;position:absolute;background-color:#ffffff;border:0px;"></div>').appendTo('body');
+	}
+	if($('#jskey_temp_div_close').length > 0){$winsub.remove();}
+	$winsub = $('<div id="jskey_temp_div_close" style="filter:alpha(opacity=1);opacity:0;z-index:99999;top:0px;left:0px;position:absolute;background-color:#ffffff;">&nbsp;</div>').appendTo('body');
+	$winsub.css("width", $(document).width()).css("height", $(document).height());
+	$winsub.bind("click", function(event){
+		$win.css("display", "none");
+		$winsub.remove();
+		return true;
+	});
+	$win.css("width", opts.width).css("height", opts.height).css("left", opts.left).css("top", opts.top);
+	var $tree = $('<ul id="'+opts.id+'" class="ztree" style="border:2px solid #999999;overflow:auto;z-index:100000;background-color:#ffffff;"></ul>');
+	$tree.css("width", opts.width-10).css("height", opts.height-10);
+	$win.html($tree);
+	var config = {view:{expandSpeed:""}
+		,async:{enable:opts.async,dataFilter:opts.dataFilter,url:function(id, node){return opts.url(node);}}
+		,data:{key:{name:"name"},simpleData: {enable: true,idKey:"id",pIdKey:"pid"}}
+		,check:{enable:opts.checkEnable,chkStyle:opts.chkStyle,chkboxType:{"Y":"ps","N":"s"},radioType:"all"}
+	};
+	config.callback = {
+		"beforeCheck":opts.check,
+		"onCheck":function(event, treeId, node){$winsub.click();},
+		"onClick":opts.click
+	};
+	$win.css("display", "");
+	o.tree = $.fn.zTree.init($tree, config, opts.nodeArray);//放置到原来的o中
+	try{
+		var _p = o.tree.getNodeByParam("id", 0);//根节点
+		o.tree.selectNode(_p);//选中
+		o.tree.reAsyncChildNodes(_p, "refresh");//重新加载
+	}catch(e){}
+};
