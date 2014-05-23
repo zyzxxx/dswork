@@ -466,7 +466,7 @@ public class MyRequest
 	public String getString(String key, String defaultValue)
 	{
 		String value = request.getParameter(key);
-		return (value == null || value == "") ? defaultValue : value;
+		return (value == null) ? defaultValue : value;
 	}
 
 	/**
