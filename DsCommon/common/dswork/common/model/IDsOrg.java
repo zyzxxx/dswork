@@ -1,5 +1,5 @@
 /**
- * DS_DICT_DATAModel
+ * 组织机构Model
  */
 package dswork.common.model;
 
