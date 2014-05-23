@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
     <CheckBox
-        android:id="@+id/chk"
+        android:id="@+id/itemChk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="false"
@@ -12,7 +12,7 @@
         android:focusableInTouchMode="false"
         android:gravity="center_vertical"/>
 	<TextView 
-	    android:id="@+id/id"
+	    android:id="@+id/itemId"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:textSize="22sp"/>
