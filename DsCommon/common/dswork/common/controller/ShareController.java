@@ -21,7 +21,7 @@ public class ShareController extends BaseController
 	public void getJsonDict()
 	{
 		String name = req.getString("name", "0");
-		String parentAlias = req.getString("alias", null);//null时全部节点数据，""时根节点数据
+		String parentAlias = req.getString("value", null);//null时全部节点数据，""时根节点数据
 		print(DsCommonFactory.getDictJson(name, parentAlias));
 	}
 
