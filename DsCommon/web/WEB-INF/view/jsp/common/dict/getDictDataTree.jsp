@@ -73,7 +73,7 @@ $(function(){
 </c:if>
 </script>
 </head>
-<body class="easyui-layout treebody">
+<body class="easyui-layout treebody" fit="true">
 <div region="north" style="overflow:hidden;border:0px;height:25px;">
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
@@ -85,7 +85,7 @@ $(function(){
 </table>
 </div>
 <c:if test="${po.status==1}">
-<div region="west" split="true" title="${fn:escapeXml(po.label)}" style="overflow:hidden;width:250px;">
+<div region="west" split="true" title="${fn:escapeXml(po.label)}" style="width:250px;">
 	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />
 	</div>

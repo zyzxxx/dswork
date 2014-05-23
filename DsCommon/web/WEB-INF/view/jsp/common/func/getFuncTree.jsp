@@ -61,7 +61,7 @@ $(function(){
 });
 </script>
 </head>
-<body class="easyui-layout treebody">
+<body class="easyui-layout treebody" fit="true">
 <div region="north" style="overflow:hidden;border:0px;height:25px;">
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
@@ -72,7 +72,7 @@ $(function(){
 	</tr>
 </table>
 </div>
-<div region="west" split="true" title="资源管理" style="overflow:hidden;width:250px;">
+<div region="west" split="true" title="资源管理" style="width:250px;">
 	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />
 	</div>
