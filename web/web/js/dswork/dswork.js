@@ -135,7 +135,7 @@ $dswork.getChooseDialogByKey = function(m){m.url = ctx + "/commons/share/getChoo
 
 $dswork.showTree = function(o){if(typeof(o)!="object"){o={};}
 	var ini = {id:"showTree"
-		,title:"根节点"
+		,title:"请选择"
 		,url:function(node){return "";}
 		,width:400,height:300,left:0,top:0
 		,click:function(id, node){return true;}
@@ -148,8 +148,11 @@ $dswork.showTree = function(o){if(typeof(o)!="object"){o={};}
 		,nodeArray:[]
 	};
 	var opts = $.extend(ini, o);
+	var root = {id:"0", pid:"-1", isParent:true, name:opts.title, nocheck:true};
+	root = $.extend(root, opts.root);
+	if(root.name)
 	if(opts.nodeArray.length == 0){
-		opts.nodeArray.push({id:"0", pid:"-1", isParent:true, name:opts.title, nocheck:true});
+		opts.nodeArray.push(root);
 	}
 	opts.divid = opts.id + "_div";
 	var $win = $('#'+opts.divid);
