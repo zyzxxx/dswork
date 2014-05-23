@@ -20,7 +20,7 @@ $(function(){
 	});
 	$("#orgidname").bind("click", function(e){
 		$dswork.showTree({id:"treeid",width:400,height:200,title:"根节点名11"
-			,left:$(this).offset().left, top:$(this).offset().top
+			,left:$(this).offset().left, top:$(this).offset().top+20
 			,url:function(node){return "${ctx}/share/getJsonOrg.htm?pid="+node.id;}
 			,check:function(id, node){if(node.id==0 || node.status != 1){return false;}else{$("#orgidname").val(node.name);$("#orgid").val(node.id);}}
 			,dataFilter:function(id, pnode, data){for(var i =0; i < data.length; i++){if(data[i].status == 2){data[i].nocheck=true;}}return data;}
@@ -78,5 +78,6 @@ $(function(){
 		<td class="form_input"><input type="text" id="orgidname" name="orgidname" value="" /><input type="text" id="orgid" name="orgid" value="" /></td>
 	</tr>
 </table>
+<br />
 </body>
 </html>
