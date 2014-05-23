@@ -8,13 +8,13 @@ import android.view.Menu;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import dswork.android.R;
+import dswork.android.lib.ui.AlphaBar;
+import dswork.android.lib.ui.AlphaBar.OnAlphaBarListener;
+import dswork.android.lib.util.InjectUtil;
+import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.view.OleFragmentActivity;
 import dswork.android.model.Person;
 import dswork.android.service.PersonService;
-import dswork.android.ui.AlphaBar;
-import dswork.android.ui.AlphaBar.OnAlphaBarListener;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.view.OleFragmentActivity;
 
 public class AlphabetActivity extends OleFragmentActivity 
 {

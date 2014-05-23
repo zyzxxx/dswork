@@ -3,7 +3,7 @@
  */
 package dswork.android.model;
 
-import dswork.android.db.BaseModel;
+import dswork.android.lib.db.BaseModel;
 
 public class Demo extends BaseModel
 {

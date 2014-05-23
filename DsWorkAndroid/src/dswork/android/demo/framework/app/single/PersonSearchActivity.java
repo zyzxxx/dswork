@@ -5,23 +5,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import dswork.android.R;
-import dswork.android.R.layout;
-import dswork.android.R.menu;
-import dswork.android.controller.DemoController;
-import dswork.android.controller.PersonController;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.MyStrictMode;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.view.OleActivity;
-import android.os.Bundle;
-import android.app.Activity;
+
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import dswork.android.R;
+import dswork.android.controller.PersonController;
+import dswork.android.lib.util.InjectUtil;
+import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.util.MyStrictMode;
+import dswork.android.lib.view.OleActivity;
 
 public class PersonSearchActivity extends OleActivity
 {

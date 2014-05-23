@@ -2,8 +2,8 @@ package dswork.android.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
-import dswork.android.db.BaseDBHelper;
-import dswork.android.db.DBOpenHelper;
+import dswork.android.lib.db.BaseDBHelper;
+import dswork.android.lib.db.DBOpenHelper;
 
 public class MyDBHelper extends BaseDBHelper
 {

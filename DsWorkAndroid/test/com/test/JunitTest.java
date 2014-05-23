@@ -2,7 +2,7 @@ package com.test;
 
 import android.test.AndroidTestCase;
 import android.util.Log;
-import dswork.android.util.EncryptUtil;
+import dswork.android.lib.util.EncryptUtil;
 
 public class JunitTest extends AndroidTestCase 
 {

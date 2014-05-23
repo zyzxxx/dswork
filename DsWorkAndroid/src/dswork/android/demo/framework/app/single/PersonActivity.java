@@ -12,17 +12,16 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import dswork.android.R;
 import dswork.android.controller.PersonController;
-import dswork.android.demo.framework.app.web.DemoSearchActivity;
+import dswork.android.lib.ui.OleActionMode;
+import dswork.android.lib.ui.MultiCheck.MultiCheckAdapter;
+import dswork.android.lib.ui.MultiCheck.MultiCheckAdapter.ExpandCtrlMenu;
+import dswork.android.lib.ui.MultiCheck.MultiCheckListView;
+import dswork.android.lib.ui.MultiCheck.MultiCheckListView.ActionModeListener;
+import dswork.android.lib.ui.MultiCheck.MultiCheckListView.ViewCache;
+import dswork.android.lib.util.InjectUtil;
+import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.view.OleActivity;
 import dswork.android.model.Person;
-import dswork.android.ui.OleActionMode;
-import dswork.android.ui.MultiCheck.MultiCheckAdapter;
-import dswork.android.ui.MultiCheck.MultiCheckListView;
-import dswork.android.ui.MultiCheck.MultiCheckAdapter.ExpandCtrlMenu;
-import dswork.android.ui.MultiCheck.MultiCheckListView.ActionModeListener;
-import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.view.OleActivity;
 
 public class PersonActivity extends OleActivity
 {
@@ -47,7 +46,7 @@ public class PersonActivity extends OleActivity
 		//实列化MultiCheck适配器，并初始化MultiCheck
 		MultiCheckAdapter adapter = new MultiCheckAdapter(
 				this, controller, persons, listView, R.layout.activity_person_item,
-				R.id.id, R.id.chk, R.id.ctrl_menu, 0, new String[]{"name","sortkey","phone","amount"},new int[]{R.id.name,R.id.sortkey,R.id.phone,R.id.amount},
+				R.id.itemId, R.id.itemChk, R.id.itemMenu, 0, new String[]{"name","sortkey","phone","amount"},new int[]{R.id.name,R.id.sortkey,R.id.phone,R.id.amount},
 				new MyViewCache(),
 				"dswork.android", "dswork.android.demo.framework.app.single.PersonUpdActivity",
 				new ExpandCtrlMenu()
@@ -56,7 +55,7 @@ public class PersonActivity extends OleActivity
 					public void onItemSelected(String id_s, long id_l, int which) {
 					}
 				},false);
-		listView.initMultiCheck(persons, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.PersonDetailActivity"));
+		listView.initMultiCheck(persons, adapter, listView, R.id.itemId, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.single.PersonDetailActivity"));
 		listView.setActionModeListener(new ActionModeListener()
 		{
 			@Override

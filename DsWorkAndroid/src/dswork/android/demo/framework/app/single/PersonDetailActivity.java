@@ -5,10 +5,10 @@ import android.view.Menu;
 import android.widget.TextView;
 import dswork.android.R;
 import dswork.android.controller.PersonController;
+import dswork.android.lib.util.InjectUtil;
+import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.view.OleActivity;
 import dswork.android.model.Person;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.view.OleActivity;
 
 public class PersonDetailActivity extends OleActivity 
 {

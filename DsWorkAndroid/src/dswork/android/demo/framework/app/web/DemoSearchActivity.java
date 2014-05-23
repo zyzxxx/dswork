@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -13,10 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import dswork.android.R;
 import dswork.android.controller.DemoController;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.util.MyStrictMode;
-import dswork.android.view.OleActivity;
+import dswork.android.lib.util.InjectUtil;
+import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.util.MyStrictMode;
+import dswork.android.lib.view.OleActivity;
 
 public class DemoSearchActivity extends OleActivity
 {

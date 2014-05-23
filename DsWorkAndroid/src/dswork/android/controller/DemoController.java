@@ -11,9 +11,10 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.util.Log;
 import dswork.android.R;
+import dswork.android.lib.controller.BaseController;
+import dswork.android.lib.util.webutil.HttpPostObj;
+import dswork.android.lib.util.webutil.HttpUtil;
 import dswork.android.model.Demo;
-import dswork.android.util.webutil.HttpPostObj;
-import dswork.android.util.webutil.HttpUtil;
 
 public class DemoController implements BaseController<Demo>
 {

@@ -1,11 +1,11 @@
 package dswork.android.demo.ui;
 
-import dswork.android.R;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import dswork.android.R;
 
 public class Fragment1  extends Fragment
 {

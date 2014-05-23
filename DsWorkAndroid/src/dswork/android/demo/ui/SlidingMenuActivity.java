@@ -1,13 +1,15 @@
 package dswork.android.demo.ui;
 
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+
 import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.slidingmenu.lib.SlidingMenu;
 import com.slidingmenu.lib.app.SlidingFragmentActivity;
+
 import dswork.android.R;
-import android.os.Bundle;
-import android.widget.ArrayAdapter;
 
 public class SlidingMenuActivity extends SlidingFragmentActivity 
 {

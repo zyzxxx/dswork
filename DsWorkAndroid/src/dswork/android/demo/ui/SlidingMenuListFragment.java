@@ -1,6 +1,5 @@
 package dswork.android.demo.ui;
 
-import dswork.android.R;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -11,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import dswork.android.R;
 
 public class SlidingMenuListFragment extends ListFragment {
 

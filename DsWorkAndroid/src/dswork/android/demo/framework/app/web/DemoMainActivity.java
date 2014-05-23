@@ -1,7 +1,5 @@
 package dswork.android.demo.framework.app.web;
 
-import com.slidingmenu.lib.SlidingMenu;
-import com.slidingmenu.lib.app.SlidingFragmentActivity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,11 +11,15 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.slidingmenu.lib.SlidingMenu;
+import com.slidingmenu.lib.app.SlidingFragmentActivity;
+
 import dswork.android.R;
 import dswork.android.demo.ui.Fragment1;
 import dswork.android.demo.ui.Fragment2;
 import dswork.android.demo.ui.Fragment3;
-import dswork.android.view.OleListFragment;
+import dswork.android.lib.view.OleListFragment;
 
 public class DemoMainActivity extends SlidingFragmentActivity //OleActivity
 {

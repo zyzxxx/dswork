@@ -38,7 +38,7 @@
 			    android:text="@string/amount"
 			    />
 		</LinearLayout>
-	    <dswork.android.ui.MoreListView 
+	    <dswork.android.lib.ui.MoreListView 
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:id="@+id/mListView"

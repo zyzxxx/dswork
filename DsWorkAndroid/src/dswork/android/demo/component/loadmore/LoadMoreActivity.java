@@ -6,13 +6,13 @@ import java.util.List;
 import android.view.Menu;
 import android.widget.SimpleAdapter;
 import dswork.android.R;
+import dswork.android.lib.ui.MoreListView;
+import dswork.android.lib.ui.MoreListView.OnLoadMoreListener;
+import dswork.android.lib.util.InjectUtil;
+import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.view.OleFragmentActivity;
 import dswork.android.model.Person;
 import dswork.android.service.PersonService;
-import dswork.android.ui.MoreListView;
-import dswork.android.ui.MoreListView.OnLoadMoreListener;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.view.OleFragmentActivity;
 
 public class LoadMoreActivity extends OleFragmentActivity
 {

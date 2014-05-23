@@ -1,11 +1,11 @@
 package dswork.android.demo.ui;
 
-import dswork.android.R;
-import android.os.Bundle;
 import android.app.ActionBar;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import dswork.android.R;
 
 public class ViewPagerActivity extends FragmentActivity
 {

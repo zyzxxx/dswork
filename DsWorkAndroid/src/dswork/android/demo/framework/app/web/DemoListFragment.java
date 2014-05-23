@@ -4,42 +4,47 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.ActionMode;
 import android.view.ActionMode.Callback;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
+
 import dswork.android.R;
 import dswork.android.controller.DemoController;
+import dswork.android.lib.ui.MultiCheck.MultiCheckActionMode2;
+import dswork.android.lib.ui.MultiCheck.MultiCheckAdapter2;
+import dswork.android.lib.ui.MultiCheck.MultiCheckAdapter2.ItemMenuDialog;
+import dswork.android.lib.ui.MultiCheck.MultiCheckListView2;
+import dswork.android.lib.ui.MultiCheck.MultiCheckListView2.MultiCheckActionModeListener;
+import dswork.android.lib.ui.MultiCheck.MultiCheckListView2.OnItemClickNotMultiListener;
+import dswork.android.lib.ui.MultiCheck.MultiCheckListView2.ViewCache;
+import dswork.android.lib.util.InjectUtil;
+import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.util.MyStrictMode;
+import dswork.android.lib.view.OleSherlockFragment;
 import dswork.android.model.Demo;
-import dswork.android.ui.OleActionMode;
-import dswork.android.ui.MultiCheck.MultiCheckAdapter;
-import dswork.android.ui.MultiCheck.MultiCheckAdapter.ExpandCtrlMenu;
-import dswork.android.ui.MultiCheck.MultiCheckListView;
-import dswork.android.ui.MultiCheck.MultiCheckListView.ActionModeListener;
-import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.util.MyStrictMode;
-import dswork.android.view.OleSherlockFragment;
 
 public class DemoListFragment extends OleSherlockFragment
 {
-	@InjectView(id=R.id.listView) MultiCheckListView listView;//列表视图
+	@InjectView(id=R.id.listView) MultiCheckListView2 listView;//列表视图
 	@InjectView(id=R.id.chkAll) CheckBox chkAll;//全选框CheckBox
 	@InjectView(id=R.id.waitingBar) ProgressBar waitingBar;//进度条
 	@InjectView(id=R.id.refresh) ImageView refresh;//刷新按钮
@@ -101,6 +106,7 @@ public class DemoListFragment extends OleSherlockFragment
 		public TextView titleView;
 		public TextView contentView;
 		public TextView foundtimeView;
+		public ImageButton itemMenu;
 	}
 	
 	/**
@@ -123,11 +129,6 @@ public class DemoListFragment extends OleSherlockFragment
     		List<Map<String,Object>> rtn_params = (List<Map<String, Object>>) getActivity().getIntent().getSerializableExtra("params");//获取查询参数
     		if(null != rtn_params) params = rtn_params.get(0);
     		List<Demo> list = controller.get(params);
-    		try {
-    			Thread.sleep(100 * (list!=null?list.size():5));
-    		} catch (InterruptedException e) {
-    			e.printStackTrace();
-    		}  
             return list;  
         }
 
@@ -135,43 +136,187 @@ public class DemoListFragment extends OleSherlockFragment
 		{// 后台任务执行完之后被调用，在ui线程执行
 			if (list != null)
 			{
-//				Toast.makeText(getActivity(), "加载成功",Toast.LENGTH_LONG).show();
-				//实列化MultiCheck适配器
-				MultiCheckAdapter adapter = new MultiCheckAdapter(
-						getActivity(), controller, list, listView, R.layout.activity_demo_item,
-						R.id.id, R.id.chk, R.id.ctrl_menu, R.array.ctrl_menu_items, new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
-						new MyViewCache(),
-						"dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity",
-						new ExpandCtrlMenu()//列表项扩展菜单
-						{
-							@Override
-							public void onItemSelected(String id_s, long id_l, int which) 
-							{
-								Toast.makeText(getActivity(), id_s, Toast.LENGTH_SHORT).show();
-							}
-						}, false);
-				//初始化MultiCheck
-				listView.initMultiCheck(list, adapter, listView, R.id.id, chkAll, new Intent().setClassName("dswork.android", "dswork.android.demo.framework.app.web.DemoDetailActivity"));
-				//实例化ActionMode
-				listView.setActionModeListener(new ActionModeListener()
-				{
-					@Override
-					public Callback getActionModeCallback() 
-					{
-						return new OleActionMode(getActivity(), controller, R.menu.context_menu, R.id.menu_upd, 
-								R.id.menu_del_confirm, listView,
-								"dswork.android", "dswork.android.demo.framework.app.web.DemoUpdActivity");
-					}
-				});
+				MultiCheckAdapter2 adapter = new MultiCheckAdapter2(
+						getActivity(), list, R.layout.activity_demo_item,
+						new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
+						new MyViewCache());
+				adapter.setItemMenuDialog(new MyItemMenuDialog());//实例化ItemMenuDialog
+				listView.initMultiCheck(list, adapter, chkAll);//初始化MultiCheck
+				listView.setOnItemClickNotMultiListener(new MyOnItemClickNotMultiListener());//列表项单击事件（非多选模式）
+				listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
+				Toast.makeText(getActivity(), "加载成功",Toast.LENGTH_SHORT).show();
 			} 
 			else 
 			{
-				Toast.makeText(getActivity(), "加载失败，网络异常", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), "加载失败，网络异常", Toast.LENGTH_SHORT).show();
 			}
 			waitingBar.setVisibility(ProgressBar.GONE);//隐藏圆形进度条
 		}
     }
 	
+	//列表项单击事件（非多选模式）
+	private class MyOnItemClickNotMultiListener implements OnItemClickNotMultiListener
+	{
+		@Override
+		public void onClick(View v) 
+		{
+			TextView _itemId = (TextView)v.findViewById(R.id.itemId);
+        	long id = Long.parseLong(_itemId.getText().toString());
+            getActivity().startActivity(new Intent().setClass(getActivity(), DemoDetailActivity.class).putExtra("id", id));
+		}
+	}
+	//ActionMode事件
+	private class MyMultiCheckActionModeListener implements MultiCheckActionModeListener
+	{
+		@Override
+		public Callback getActionModeCallback() 
+		{
+			return new MultiCheckActionMode2(this, R.menu.context_menu, listView);
+		}
+		@Override
+		public boolean onActionItemClicked(ActionMode mode, android.view.MenuItem item)
+		{
+			boolean result = false;
+			if(R.id.menu_upd == item.getItemId())
+			{
+	        	result = update();//修改
+			}
+			else if(R.id.menu_del_confirm == item.getItemId())
+			{
+				result = delete();//删除
+			}
+			return result;
+		}
+		private boolean update()
+		{
+			if(listView.getIdList().size() > 0)
+        	{
+        		if(listView.getIdList().size() == 1)
+        		{//一条	
+        			Bundle b = new Bundle();
+        			b.putString("ids", listView.getIds());
+        			b.putLongArray("idsArr", listView.getIdArray());
+        			getActivity().startActivity(new Intent().setClass(getActivity(), DemoUpdActivity.class).putExtras(b));
+        		}
+        		else
+        		{//多条
+	        		new AlertDialog.Builder(getActivity())
+	        		.setTitle(R.string.confirm_upd)
+	        		.setIcon(android.R.drawable.ic_dialog_info)
+	        		.setNegativeButton(R.string.no, null)
+	        		.setPositiveButton(R.string.yes, new updListener())
+	        		.show();
+        		}
+        		return true;
+        	}
+        	else
+        	{
+        		Toast.makeText(getActivity(), "未选中 ！", Toast.LENGTH_SHORT).show();  
+                return false;
+        	}
+		}
+		private boolean delete()
+		{
+        	if(listView.getIdList().size()>0)
+        	{
+        		new AlertDialog.Builder(getActivity())
+        		.setTitle(R.string.confirm_del)
+        		.setIcon(android.R.drawable.ic_delete)
+        		.setNegativeButton(R.string.no, null)
+        		.setPositiveButton(R.string.yes, new delListener())
+        		.show();
+        		return true;
+        	}
+        	else
+        	{
+        		Toast.makeText(getActivity(), "未选中 ！", Toast.LENGTH_SHORT).show();  
+                return false;
+        	}
+		}
+	}
+	//删除操作监听类
+	private class delListener implements DialogInterface.OnClickListener
+	{
+		@Override
+		public void onClick(DialogInterface dialog, int which) 
+		{
+    		String result = controller.deleteBatch(listView.getIds());//执行删除
+			if(result.equals("1"))
+			{
+				listView.refreshListView(controller.get(new HashMap()));//刷新列表
+				Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show(); 
+			}
+			else
+			{
+				Toast.makeText(getActivity(), "操作失败，网络异常", Toast.LENGTH_LONG).show();
+			}
+		}
+	}
+	//修改操作监听类
+	private class updListener implements DialogInterface.OnClickListener
+	{
+		@Override
+		public void onClick(DialogInterface dialog, int which) 
+		{
+			Bundle b = new Bundle();
+			b.putString("ids", listView.getIds());
+			b.putLongArray("idsArr", listView.getIdArray());
+			getActivity().startActivity(new Intent().setClass(getActivity(), DemoUpdActivity.class).putExtras(b));
+		}
+	}
+	//ItemMenu对话框item点击事件
+	private class MyItemMenuDialog implements ItemMenuDialog
+	{
+		@Override
+		public int setItemMenuDialogTitleRes() {
+			return R.string.item_menu_title;
+		}
+
+		@Override
+		public int setItemMenuDialogItemsRes() {
+			return R.array.my_item_menu;
+		}
+		@Override
+		public void onItemClick(final String id_s, long id_l, int which) 
+		{
+			switch (which) 
+			{
+				case 0://修改
+					Bundle b = new Bundle();
+					b.putString("ids", id_s);
+					long[] idsArr = {id_l};
+					b.putLongArray("idsArr", idsArr);
+					getActivity().startActivity(new Intent().setClass(getActivity(), DemoUpdActivity.class).putExtras(b));
+					break;
+				case 1://删除
+	        		new AlertDialog.Builder(getActivity())
+	        		.setTitle(R.string.confirm_del)
+	        		.setIcon(android.R.drawable.ic_delete)
+	        		.setNegativeButton(R.string.no, null)
+	        		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+	        		{
+						@Override
+						public void onClick(DialogInterface dialog, int which) 
+						{
+							String result = controller.deleteBatch(id_s);//执行删除
+							if(result.equals("1"))
+							{
+								listView.refreshListView(controller.get(new HashMap()));//刷新列表
+								Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show(); 
+							}
+							else
+							{
+								Toast.makeText(getActivity(), "操作失败，网络异常", Toast.LENGTH_LONG).show();
+							}
+						}
+					})
+	        		.show();
+		    		break;
+			}
+		}
+	}
+	
+	//刷新事件
 	private class RefreshClickListener implements OnClickListener
 	{
 		@Override

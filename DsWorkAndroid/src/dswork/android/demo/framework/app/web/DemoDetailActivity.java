@@ -8,10 +8,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import dswork.android.R;
 import dswork.android.controller.DemoController;
+import dswork.android.lib.util.InjectUtil;
+import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.view.OleActivity;
 import dswork.android.model.Demo;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.view.OleActivity;
 
 public class DemoDetailActivity extends OleActivity 
 {

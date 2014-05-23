@@ -1,16 +1,13 @@
 package dswork.android.demo.ui;
 
-import dswork.android.R;
-import dswork.android.R.id;
-import dswork.android.R.layout;
-import dswork.android.R.menu;
-import android.os.Bundle;
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
+import dswork.android.R;
 
 public class HtmlTabActivity extends Activity {
 	private WebView webView;

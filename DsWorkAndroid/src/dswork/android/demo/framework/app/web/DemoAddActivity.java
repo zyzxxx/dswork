@@ -1,12 +1,5 @@
 package dswork.android.demo.framework.app.web;
 
-import dswork.android.R;
-import dswork.android.controller.DemoController;
-import dswork.android.model.Demo;
-import dswork.android.util.InjectUtil;
-import dswork.android.util.MyStrictMode;
-import dswork.android.util.InjectUtil.InjectView;
-import dswork.android.view.OleActivity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -14,6 +7,13 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import dswork.android.R;
+import dswork.android.controller.DemoController;
+import dswork.android.lib.util.InjectUtil;
+import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.util.MyStrictMode;
+import dswork.android.lib.view.OleActivity;
+import dswork.android.model.Demo;
 
 public class DemoAddActivity extends OleActivity 
 {

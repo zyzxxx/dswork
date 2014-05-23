@@ -62,8 +62,8 @@
     <string name="moduleUrl">/manage/demo/</string>
     <string name="title_activity_person_search">PersonSearchActivity</string>
     
-    <string-array name="ctrl_menu_items">
-        <item>修改</item>
+    <string-array name="my_item_menu">
+        <item>修改2</item>
         <item>删除</item>
         <item>Home</item>
         <item>Email</item>

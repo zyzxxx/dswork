@@ -1,14 +1,11 @@
 package dswork.android.demo.ui;
 
-import dswork.android.R;
-import dswork.android.R.layout;
-import dswork.android.R.menu;
-import android.os.Bundle;
 import android.app.ActionBar;
-import android.app.Activity;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import dswork.android.R;
 
 public class FragmentTabHostActivity extends FragmentActivity
 {

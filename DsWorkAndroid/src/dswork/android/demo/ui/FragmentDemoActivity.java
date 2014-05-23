@@ -1,12 +1,12 @@
 package dswork.android.demo.ui;
 
-import dswork.android.R;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import dswork.android.R;
 
 public class FragmentDemoActivity extends FragmentActivity 
 {

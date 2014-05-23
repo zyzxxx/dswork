@@ -1,16 +1,11 @@
 package dswork.android.demo.ui;
 
-import dswork.android.R;
-import dswork.android.R.id;
-import dswork.android.R.layout;
-import android.os.Bundle;
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import dswork.android.R;
 
 public class OleTabActivity extends FragmentActivity
 {
