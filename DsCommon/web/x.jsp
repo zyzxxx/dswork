@@ -8,6 +8,7 @@
 <title></title>
 <%@include file="/commons/include/page.jsp"%>
 <%@include file="/commons/include/ztree.jsp"%>
+<script type="text/javascript" src="/web/js/dswork/form.js"></script>
 <script type="text/javascript">
 $(function(){
 	$("#orgpidname").bind("click", function(e){
@@ -55,16 +56,27 @@ $(function(){
 </script>
 </head>
 <body>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">测试</td>
+		<td class="menuTool">
+			<a class="save" id="dataFormSave" href="#">保存</a>
+		</td>
+	</tr>
+</table>
 <br />******************************<br />
-<select id="v1"></select> &nbsp;<select id="v2"></select> &nbsp;<select id="v3"></select> 
+<form id="dataForm" method="post" action="#">
+<span><select id="v1"></select></span>
+&nbsp;<span><select id="v2"></select></span>
+&nbsp;<span><select id="v3"></select></span> 
 <br />******************************<br />
-<%=DsCommonFactory.getCheckbox("ztree", "chk_hello") %>
+<span><%=DsCommonFactory.getCheckbox("ztree", "chk_hello") %></span>
 <br />******************************<br />
-<%=DsCommonFactory.getRadio("ztree", "rdo_hello") %>
+<span><%=DsCommonFactory.getRadio("ztree", "rdo_hello") %></span>
 <br />******************************<br />
-<%=DsCommonFactory.getSelect("ztree", "sel_hello") %>
+<span><%=DsCommonFactory.getSelect("ztree", "sel_hello") %></span>
 <br />******************************<br />
-<select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.getOption("ztree") %></select>
+<span><select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.getOption("ztree") %></select></span>
 <br />******************************<br />
 <%=DsCommonFactory.getDictJson("ztree", "") %>
 <br />******************************<br />
@@ -78,6 +90,7 @@ $(function(){
 		<td class="form_input"><input type="text" id="orgidname" name="orgidname" value="" /><input type="text" id="orgid" name="orgid" value="" /></td>
 	</tr>
 </table>
+</form>
 <br />
 </body>
 </html>
