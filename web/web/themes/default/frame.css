@@ -24,7 +24,7 @@ a:hover {color:#205e92;}/*鼠标指向的超链接*/
 a:active {color:#182a2d;}/*激活的超链接*/
 
 /*-------------工 具 箱-------------*/
-.menuTool {}
+.menuTool {white-space:normal;}
 /*功能菜单单元格*/
 .menuTool a {padding:2px 0px 2px 18px;}
 
