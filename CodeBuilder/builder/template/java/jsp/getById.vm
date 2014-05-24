@@ -45,7 +45,7 @@ request.setAttribute("po", MyFactory.get${Model}Service().get(id));
 #if($colName==$memo)
 	<tr>
 		<td class="form_title">$columnList.Comment</td>
-		<td class="form_input"><textarea class="readonlytext" style="width:100%;height:60px;">${mf}{fn:escapeXml(po.$colName.ToLower())}</textarea></td>
+		<td class="form_input"><textarea class="readonlytext" style="width:400px;height:60px;">${mf}{fn:escapeXml(po.$colName.ToLower())}</textarea></td>
 	</tr>
 #end
 #end
