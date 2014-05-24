@@ -39,7 +39,7 @@ public class DsCommonOrgController
 			parent = new DsCommonOrg();
 		}
 		request.setAttribute("parent", parent);
-		request.setAttribute("pid", req.getLong("pid"));
+		request.setAttribute("pid", pid);
 		return "/common/org/addOrg.jsp";
 	}
 	@RequestMapping("/addOrg2")
