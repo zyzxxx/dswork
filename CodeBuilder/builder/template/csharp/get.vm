@@ -13,7 +13,7 @@ $(function(){
 ${mf}${Frame.ToLower()}.doAjax = true;
 ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.type == 1){
 	location.href = "get${Model}.htm?page=@ViewBag.pageModel.CurrentPage";
-}}
+}};
 </script>
 }
 @{
