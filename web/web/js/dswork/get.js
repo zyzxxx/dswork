@@ -76,6 +76,10 @@ $dswork.page.menu = function(delURL, updURL, getByIdURL, page, showContext){
 		{_menu.append($('<div iconCls="menuTool-delete">删除</div>').bind("click", function(event){
 			if(confirm("确认删除吗？")){$dswork.page.del(event, delURL, id, page, o);}
 		}));}
+		if(getByIdURL != null && getByIdURL.length > 0)
+		{_menu.append($('<div iconCls="menuTool-select">明细</div>').bind("click", function(event){
+			$dswork.page.getById(event, getByIdURL, id, page, o);
+		}));}
 		$dswork.page.join(o, _menu, id);
 		o.append(_menu).append($('<a class="menuTool-rightarrow" href="#">&nbsp;</a>').bind("mouseover", function(event){
 			$(".easyui-menu").menu("hide");
