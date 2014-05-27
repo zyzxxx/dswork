@@ -1,13 +1,9 @@
 //jquery.js和jskey_core.js支持
 var $dswork = {};
 $dswork.showDate = function(){
-	var obj = arguments[0];
+	var o = arguments[0];
 	var f = arguments[1] || "yyyy-MM-dd";
-	$jskey.calendar.show(obj,{
-		skin:'default', lang:0,
-		beginYear:1970, endYear:2070,
-		format:f, sample:f
-	});
+	$jskey.calendar.show(o,{skin:'default', lang:0, beginYear:1970, endYear:2070, format:f, sample:f});
 };
 $dswork.getWebRootPath = function(){
 	var p = window.location.pathname;
@@ -16,10 +12,9 @@ $dswork.getWebRootPath = function(){
 	return (p.match(/\/\w+/))[0];
 };
 var ctx = $dswork.getWebRootPath();//站点虚拟根目录，没有则改为"/"
-String.prototype.trim = function(){return this.replace(/(^\s*)|(\s*$)/g, "");};
+String.prototype.trim = function(){return this.replace(/(^\s*)|(\s*$)/g, "").replace(/(^　*)|(　*$)/g, "");};
 String.prototype.replaceAll = function(t, u){
-	var i = this.indexOf(t);
-	var r = "";
+	var i = this.indexOf(t), r = "";
 	if(i == -1){return this;}
 	r += this.substring(0, i) + u;
 	if(i + t.length < this.length){r += (this.substring(i + t.length, this.length)).replaceAll(t, u);}
@@ -32,14 +27,12 @@ function attachUrl(){
 	else if(url.indexOf("/") == 0){url = ctx + url;}
 	document.getElementById(frameId).src = url;
 }
-//操作导航目录
-$dswork.showNavigation = function(title){
-	try{
-		var url = window.location.href;
-		top.frames['middleFrame'].navigation.addUrl(title, url);
-		top.frames['middleFrame'].navigation.show();
-	}catch(ex){}
-};
+//导航
+$dswork.showNavigation = function(title){try{
+	var url = window.location.href;
+	top.frames['middleFrame'].navigation.addUrl(title, url);
+	top.frames['middleFrame'].navigation.show();
+}catch(ex){}};
 
 //form
 $dswork.callback = null;
@@ -48,8 +41,7 @@ $dswork.result = {type:"", msg:""};
 $dswork.checkResult = function(responseText){
 	$dswork.result = {type:"", msg:""};
 	try{
-		var _arr = (responseText + "").split(":");
-		var _msg = "";
+		var _msg = "", _arr = (responseText + "").split(":");
 		if(_arr.length > 1){_msg = _arr[1];}
 		else{switch(_arr[0]){
 			case "0": _msg = "操作失败！";break;
@@ -72,45 +64,22 @@ function MaskControl(){
 	this.callBack = null;
 	var self = this;
 	this.show = function(html){
-		var loader = $("#div_maskContainer");
-		if(loader.length == 0){
-			var str = "<div id='div_maskContainer'><div id='div_loading'></div><div id='div_Mask'></div>";
-			if(document.all){//ie中将层浮于顶层
-				str += '<iframe style="left:expression(this.previousSibling.offsetLeft);top:expression(this.previousSibling.offsetTop);width:expression(this.previousSibling.offsetWidth);height:expression(this.previousSibling.offsetHeight);';
-				str += 'position:absolute;z-index:2000;display:expression(this.previousSibling.style.display);" scrolling="no" frameborder="no"></iframe>';
-			}
-			str += "</div>"
-			loader = $(str);
-			$("body").append(loader);
+		var m = $("#div_maskContainer"),w = $(window).width(),h = $(window).height();
+		if(m.length == 0){
+			var s = "<div id='div_maskContainer'><div id='div_maskMessage'></div><div id='div_maskBackground'></div>";
+			if(document.all){s += '<iframe style="left:expression(this.previousSibling.offsetLeft);top:expression(this.previousSibling.offsetTop);width:expression(this.previousSibling.offsetWidth);height:expression(this.previousSibling.offsetHeight);position:absolute;z-index:2000;display:expression(this.previousSibling.style.display);" scrolling="no" frameborder="no"></iframe>';}
+			s += "</div>"
+			$("body").append(m=$(s));
 		}
-		self.loader = loader;
-		var w = $(window).width();
-		var h = $(window).height();
-		var divMask = $("#div_Mask");
-		divMask.css("top", 0).css("left", 0).css("width", w).css("height", h);
-		var tipDiv = $("#div_loading");
-		if(html == undefined){html = "";}
-		tipDiv.html(html);
-		loader.show();
-		var x = (w - tipDiv.width()) / 2;
-		var y = (h - tipDiv.height()) / 2;
-		tipDiv.css("left", x);
-		tipDiv.css("top", y);
+		$("#div_maskBackground").css("top", 0).css("left", 0).css("width", w).css("height", h);
+		var tip = $("#div_maskMessage");
+		tip.html(html||"");
+		m.show();
+		var x = (w - tip.width()) / 2, y = (h - tip.height()) / 2;
+		tip.css("left", x).css("top", y);
 	},
-	this.hide = function(){
-		var loader = $("#div_maskContainer");
-		if(loader.length == 0){return;}
-		loader.remove();
-		if(self.callBack != null){self.callBack();}
-		this.callBack = null;
-	},
-	this.autoDelayHide = function(html, timeOut){
-		var loader = $("#div_maskContainer");
-		if(loader.length == 0){this.show(html);}
-		else{$("#div_loading").html(html);}
-		if(timeOut == undefined){timeOut = 3000;}
-		window.setTimeout(this.hide, timeOut);
-	}
+	this.hide = function(){var m = $("#div_maskContainer");if(m.length == 0){return;}m.remove();if(self.callBack != null){self.callBack();}this.callBack = null;},
+	this.autoDelayHide = function(html, timeOut){var m = $("#div_maskContainer");if(m.length == 0){this.show(html);}else{$("#div_maskMessage").html(html);}if(timeOut == undefined){timeOut = 3000;}window.setTimeout(this.hide, timeOut);}
 }
 $dswork.doAjax = false;
 $dswork.doAjaxObject = new MaskControl();
@@ -133,7 +102,7 @@ $dswork.getChooseByKey = function(m){m.url = ctx + "/commons/share/getChooseByKe
 $dswork.getChooseDialog = function(m){m.url = ctx + "/commons/share/getChoose.jsp";$jskey.dialog.showDialog(m);};
 $dswork.getChooseDialogByKey = function(m){m.url = ctx + "/commons/share/getChooseByKey.jsp";$jskey.dialog.showDialog(m);};
 
-$dswork.showTree = function(o){if(typeof(o)!="object"){o={};}
+$dswork.showTree = function(p){if(typeof(o)!="object"){o={};}
 	var ini = {id:"showTree"
 		,title:"请选择"
 		,url:function(node){return "";}
@@ -141,24 +110,21 @@ $dswork.showTree = function(o){if(typeof(o)!="object"){o={};}
 		,click:function(id, node){return true;}
 		,dataFilter:function(id, pnode, data){return data;}
 		,check:function(treeId, node){}//点击节点按钮前函数
-		,async:true
-		,checkEnable:true
-		,chkStyle:"radio"
-		,tree:null
-		,nodeArray:[]
+		,async:true,checkEnable:true,chkStyle:"radio"
+		,tree:null,nodeArray:[]
 	};
-	var opts = $.extend(ini, o);
-	var root = {id:"0", pid:"-1", isParent:true, name:opts.title, nocheck:true};
-	root = $.extend(root, opts.root);
+	p = $.extend(ini, p);
+	var root = {id:"0", pid:"-1", isParent:true, name:p.title, nocheck:true};
+	root = $.extend(root, p.root);
 	if(root.name)
-	if(opts.nodeArray.length == 0){
-		opts.nodeArray.push(root);
+	if(p.nodeArray.length == 0){
+		p.nodeArray.push(root);
 	}
-	opts.divid = opts.id + "_div";
-	var $win = $('#'+opts.divid);
+	p.divid = p.id + "_div";
+	var $win = $('#'+p.divid);
 	if($win.length){$win.css("display", "");}
 	else{
-		$win = $('<div id="'+opts.divid+'" style="z-index:100000;position:absolute;background-color:#ffffff;border:0px;"></div>').appendTo('body');
+		$win = $('<div id="'+p.divid+'" style="z-index:100000;position:absolute;background-color:#ffffff;border:0px;"></div>').appendTo('body');
 	}
 	if($('#jskey_temp_div_close').length > 0){$winsub.remove();}
 	$winsub = $('<div id="jskey_temp_div_close" style="filter:alpha(opacity=1);opacity:0;z-index:99999;top:0px;left:0px;position:absolute;background-color:#ffffff;">&nbsp;</div>').appendTo('body');
@@ -168,25 +134,84 @@ $dswork.showTree = function(o){if(typeof(o)!="object"){o={};}
 		$winsub.remove();
 		return true;
 	});
-	$win.css("width", opts.width).css("height", opts.height).css("left", opts.left).css("top", opts.top);
-	var $tree = $('<ul id="'+opts.id+'" class="ztree" style="border:2px solid #999999;overflow:auto;z-index:100000;background-color:#ffffff;"></ul>');
-	$tree.css("width", opts.width-10).css("height", opts.height-10);
+	$win.css("width", p.width).css("height", p.height).css("left", p.left).css("top", p.top);
+	var $tree = $('<ul id="'+p.id+'" class="ztree" style="border:2px solid #999999;overflow:auto;z-index:100000;background-color:#ffffff;"></ul>');
+	$tree.css("width", p.width-10).css("height", p.height-10);
 	$win.html($tree);
 	var config = {view:{expandSpeed:""}
-		,async:{enable:opts.async,dataFilter:opts.dataFilter,url:function(id, node){return opts.url(node);}}
+		,async:{enable:p.async,dataFilter:p.dataFilter,url:function(id, node){return p.url(node);}}
 		,data:{key:{name:"name"},simpleData: {enable: true,idKey:"id",pIdKey:"pid"}}
-		,check:{enable:opts.checkEnable,chkStyle:opts.chkStyle,chkboxType:{"Y":"ps","N":"s"},radioType:"all"}
+		,check:{enable:p.checkEnable,chkStyle:p.chkStyle,chkboxType:{"Y":"ps","N":"s"},radioType:"all"}
 	};
 	config.callback = {
-		"beforeCheck":opts.check,
+		"beforeCheck":p.check,
 		"onCheck":function(event, treeId, node){$winsub.click();},
-		"onClick":opts.click
+		"onClick":p.click
 	};
 	$win.css("display", "");
-	o.tree = $.fn.zTree.init($tree, config, opts.nodeArray);//放置到原来的o中
-	try{
-		var _p = o.tree.getNodeByParam("id", 0);//根节点
-		o.tree.selectNode(_p);//选中
-		o.tree.reAsyncChildNodes(_p, "refresh");//重新加载
-	}catch(e){}
+	o.tree = $.fn.zTree.init($tree, config, p.nodeArray);
+	try{var _pn = o.tree.getNodeByParam("id", 0);o.tree.selectNode(_pn);o.tree.reAsyncChildNodes(_pn, "refresh");}catch(e){}
+};
+
+//{sessionKey, fileKey, ext:file, limit:10240(KB), show:true}
+$dswork.upload = function(o){
+	if(typeof(o) != "object"){o = {};}
+	this.sessionKey = o.sessionKey || 1;
+	this.fileKey = parseInt(o.fileKey || 1);
+	this.ext = o.ext || "file";
+	this.count = 1;
+	this.limit = o.limit || 10240;
+	this.show  = o.show||null;
+	if(this.show == null){this.show = true;}
+	this.show == this.show ? true : false;
+	this.image = "jpg,jpeg,gif,png";
+	this.file =  "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z";
+	this.url = o.url || "/web/js/jskey/jskey_multiupload.jsp";
+};
+$dswork.upload.prototype = {
+	init:function(){try{//{id:?,vid:*?,ext};ext :"file|image|***,***"
+	var op = arguments[0];
+	if(typeof(op) != "object"){op = {};}
+	this.count++;
+	var defaults = {vid:"",sessionKey:this.sessionKey,fileKey:this.fileKey+this.count,show:this.show,limit:this.limit,ext:this.ext};
+	var p = $.extend(defaults, op);
+	p.sessionKey = parseInt(p.sessionKey);
+	p.fileKey = parseInt(p.fileKey);
+	p.limit = parseInt(p.limit);
+	p.bid = p.id + "_span";
+	p.sid = p.id + "_showdiv"
+	if(p.ext == "image"){p.types = "*." + $jskey.$replace(this.image, ",", ";*.");}
+	else if(p.ext == "file"){p.types = "*." + $jskey.$replace(this.file, ",", ";*.");}
+	else{p.types = "*." + $jskey.$replace(p.ext, ",", ";*.");}
+	var myinput = $("#" + p.id),myp = $("#" + p.id).parent(),myv;
+	if(p.vid != ""){myv=$("#" + p.vid);}
+	myp.append('<span id="' + p.bid + '"></span>');
+	if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
+	var url = this.url;
+	return $jskey.upload.init({
+	url:url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext,
+	"button_placeholder_id":p.bid,
+	file_types:p.types,
+	file_size_limit:p.limit,
+	debug:false,
+	custom_settings:{div:p.show?p.sid:"",success:function(data){// {arr:[{id,name,size,state,file,type,msg}],msg:"",err:""}
+		if(typeof (data.err) == 'undefined'){alert("upload error");return false;}
+		if(data.err != ''){alert(data.err);}
+		var o,_msg = "",_err = "",_has = myinput.attr("has") || "";
+		if(p.vid == ""){
+			var ok = false;
+			for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){ok = true;}}
+			myinput.val(ok ? p.fileKey : _has);
+		}
+		else{
+			var v = myv.val();
+			for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){v += (v != "" ? "|" : "") + o.file + ":" + o.name;}}
+			myv.val(v);
+			myinput.val(v == "" ? _has : p.fileKey);
+		}
+		var v = myinput.val();
+		if(v != "" && v != 0){myinput.attr("msg","");if(p.show){var s = $("#" + p.sid), btn = $('<input class="button" type="button" value="取消上传" />');s.append(btn);btn.bind("click", function(){myinput.val(myinput.attr("has") || "");if(p.vid!=""){myv.val("");}s.html("");myinput.attr("msg","请上传文件");});}}
+	}}
+	});
+	}catch(e){alert("upload init error\n" + e.name + "\n" + e.message);return null;}}
 };
