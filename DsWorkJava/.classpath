@@ -46,5 +46,6 @@
 	<classpathentry kind="lib" path="/Lib/module/xml/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.3.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
+	<classpathentry kind="lib" path="/Lib/database/sqlite/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
