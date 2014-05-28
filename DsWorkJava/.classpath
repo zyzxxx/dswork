@@ -9,6 +9,7 @@
 	<classpathentry kind="src" path="dswork.web"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-collections-3.2.1.jar"/>
@@ -45,6 +46,5 @@
 	<classpathentry kind="lib" path="/Lib/module/xml/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.3.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
