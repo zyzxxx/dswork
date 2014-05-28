@@ -14,8 +14,8 @@ import dswork.common.DsCommonFactory;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/share")
-public class ShareController extends BaseController
+@RequestMapping("/common/share")
+public class CommonShareController extends BaseController
 {
 	@RequestMapping("/getJsonDict")
 	public void getJsonDict()
