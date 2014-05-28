@@ -18,7 +18,7 @@ import dswork.core.db.BaseService;
 import dswork.core.page.PageRequest;
 
 @Service
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class DsCommonSystemService extends BaseService<DsCommonSystem, java.lang.Long>
 {
 	@Autowired

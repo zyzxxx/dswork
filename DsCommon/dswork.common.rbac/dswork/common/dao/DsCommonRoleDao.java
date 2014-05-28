@@ -12,7 +12,7 @@ import dswork.common.model.DsCommonRoleFunc;
 import dswork.core.db.BaseDao;
 
 @Repository
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class DsCommonRoleDao extends BaseDao<DsCommonRole, Long>
 {
 	@Override

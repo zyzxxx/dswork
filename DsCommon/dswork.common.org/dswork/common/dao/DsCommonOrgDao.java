@@ -11,7 +11,7 @@ import dswork.common.model.DsCommonOrg;
 import dswork.core.db.BaseDao;
 
 @Repository
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class DsCommonOrgDao extends BaseDao<DsCommonOrg, Long>
 {
 	@Override
