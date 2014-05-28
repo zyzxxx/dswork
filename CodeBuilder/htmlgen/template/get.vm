@@ -7,13 +7,13 @@
 <head>
 	<title>${tableName}</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css" href="../../themes/default/frame.css" />
-<script type="text/javascript" src="../../js/jquery/jquery.js"></script>
-<script type="text/javascript" src="../../js/jquery/jquery.form.js"></script>
-<script type="text/javascript" src="../../js/jskey/jskey_core.js"></script>
-<script type="text/javascript" src="../../js/dswork/dswork.js"></script>
-<script type="text/javascript" src="../../js/dswork/get.js"></script>
+<link rel="stylesheet" type="text/css" href="../../../web/js/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="../../../web/themes/default/frame.css" />
+<script type="text/javascript" src="../../../web/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../../../web/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="../../../web/js/jskey/jskey_core.js"></script>
+<script type="text/javascript" src="../../../web/js/dswork/dswork.js"></script>
+<script type="text/javascript" src="../../../web/js/dswork/get.js"></script>
 <script type="text/javascript">
 $dswork.showNavTitle = "${tableName}";
 $(function(){$dswork.showNavigation($dswork.showNavTitle);});
@@ -29,7 +29,7 @@ ${tmp}(function()
 	${tmp}dswork.page.menu("#", "edit.html", "edit.html", "1");
 });
 </script>
-<script type="text/javascript" src="../../js/easyui/jquery.easyui.js"></script>
+<script type="text/javascript" src="../../../web/js/easyui/jquery.easyui.js"></script>
 </head> 
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
