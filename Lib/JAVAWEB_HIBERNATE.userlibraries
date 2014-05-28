@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <eclipse-userlibraries version="2">
-    <library name="WebMyBatis" systemlibrary="true">
+    <library name="JAVAWEB_HIBERNATE" systemlibrary="true">
         <archive path="/Lib/common/aopalliance.jar"/>
         <archive path="/Lib/common/cglib-nodep-2.2.jar"/>
         <archive path="/Lib/common/jimi.jar"/>
@@ -30,7 +30,13 @@
         <archive path="/Lib/common/spring/spring-tx.jar"/>
         <archive path="/Lib/common/spring/spring-web.jar"/>
         <archive path="/Lib/common/spring/spring-webmvc.jar"/>
-        <archive path="/Lib/mybatis/mybatis-3.2.3.jar"/>
-        <archive path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
+        <archive path="/Lib/hibernate/antlr-2.7.6.jar"/>
+        <archive path="/Lib/hibernate/antlr-runtime.jar"/>
+        <archive path="/Lib/hibernate/hibernate3.5.6.jar"/>
+        <archive path="/Lib/hibernate/javassist-3.15.0-GA.jar"/>
+        <archive path="/Lib/hibernate/javax.persistence.jar"/>
+        <archive path="/Lib/hibernate/jta-1.1.jar"/>
+        <archive path="/Lib/hibernate/spring-orm.jar"/>
+        <archive path="/Lib/module/xml/dom4j-1.6.1.jar"/>
     </library>
 </eclipse-userlibraries>
