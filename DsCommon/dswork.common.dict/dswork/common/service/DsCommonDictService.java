@@ -15,7 +15,7 @@ import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
 
 @Service
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class DsCommonDictService
 {
 	@Autowired

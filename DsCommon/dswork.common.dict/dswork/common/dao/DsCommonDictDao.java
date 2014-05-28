@@ -12,7 +12,7 @@ import dswork.common.model.DsCommonDict;
 import dswork.core.db.BaseDao;
 
 @Repository
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class DsCommonDictDao extends BaseDao<DsCommonDict, Long>
 {
 	@Override

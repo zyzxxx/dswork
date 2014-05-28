@@ -14,7 +14,7 @@ import dswork.core.db.BaseDao;
 import dswork.core.page.PageRequest;
 
 @Repository
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class DsCommonDictDataDao extends BaseDao<DsCommonDictData, Long>
 {
 	@Override
