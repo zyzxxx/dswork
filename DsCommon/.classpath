@@ -14,7 +14,7 @@
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-io-2.3.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-lang-2.6.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/commons/commons-pool-1.6.jar"/>\
+	<classpathentry kind="lib" path="/Lib/common/commons/commons-pool-1.6.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.core.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.mvc.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.spring.jar"/>
@@ -48,5 +48,6 @@
 	<classpathentry kind="lib" path="/Lib/module/xml/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.3.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAWEB"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
