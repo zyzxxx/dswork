@@ -69,7 +69,6 @@ $(function()
 		<td>${d.title}</td>
 		<td>${d.content}</td>
 		<td>${d.foundtime}</td>
-		<td>${d.foundtime}</td>
 		<td class="menuTool">
 			<a class="upd" href="updDemo1.htm?keyIndex=${d.id}">修改</a>
 			<a class="del" href="delDemo.htm?keyIndex=${d.id}">删除</a>

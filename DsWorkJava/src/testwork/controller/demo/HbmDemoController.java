@@ -23,7 +23,6 @@ import testwork.model.demo.Demo;
 import testwork.service.demo.HbmDemoService;
 
 @Controller
-@SuppressWarnings(value={"unchecked", "rawtypes"})
 @RequestMapping("/manage/hbmdemo")
 public class HbmDemoController
 {

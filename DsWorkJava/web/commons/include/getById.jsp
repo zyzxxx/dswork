@@ -4,8 +4,8 @@
 <script type="text/javascript" src="/web/js/jquery/jquery.js"></script>
 <script type="text/javascript" src="/web/js/jskey/jskey_core.js"></script>
 <script type="text/javascript" src="/web/js/dswork/dswork.js"></script>
-<script type="text/javascript" src="/web/js/dswork/getById.js"></script>
 <script type="text/javascript">
+$(function(){try{$(".form_title").css("width", "20%");}catch(e){}});
 $dswork.showNavTitle = "\u660e\u7ec6";<%--detail--%>
 $(function(){$dswork.showNavigation($dswork.showNavTitle);});
 </script>
