@@ -19,7 +19,6 @@ $(function()
 	$dswork.page.menu("delDemo.htm", "updDemo1.htm", "getDemoById.htm", ${pageModel.currentPage});
 });
 </script>
-<%@include file="/commons/include/getEasyui.jsp" %>
 </head> 
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
