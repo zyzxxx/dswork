@@ -19,7 +19,6 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 	location.href = "get${Model}.htm?page=${mf}{pageModel.currentPage}";
 }};
 </script>
-<%@include file="/commons/include/getEasyui.jsp" %>
 </head> 
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
