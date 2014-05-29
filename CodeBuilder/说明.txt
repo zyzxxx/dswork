@@ -1,26 +1,29 @@
 使用前请查看说明文件：
 	1、/CodeBuilder/builder/template/说明.txt
 	2、/CodeBuilder/builder/Builder.xml 里面的注释说明
+		主要看connect节点和builder节点
 
 
 默认配置文件：builder/Builder.xml
-	需要templates修改默认路径path：E:/Workspaces/workspaceDswork/CodeBuilder改为当前CodeBuilder目录路径
-	根据不同的运行方式，需要修改charset节点的outputEncoding属性
+	修改templates节点的path属性：E:/Workspaces/workspaceDswork/CodeBuilder改为当前CodeBuilder目录路径
+	修改charset节点的outputEncoding属性
+		MyEclipse或Eclipse修改为：<charset outputEncoding="65001">UTF-8</charset>
+		Window下运行修改为：<charset outputEncoding="936">UTF-8</charset>
 
 
 使用Builder生成代码有三种方式：Builder.exe程序第一个运行参数为相对于其所在目录路径的配置文件
-	1、在MyEclipse中，使用build.xml生成（<charset outputEncoding="65001">UTF-8</charset>）
-		build.xml中Builder.exe的路径需要修改为实际exe程序的路径
-		Builder.exe后可增加“ your.xml”，可不使用默认的Builder.xml配置，改用build.xml目录下的your.xml文件
+	1、MyEclipse/Eclipse
+		build.xml中exec节点的command属性修改为当前CodeBuilder/builder/Builder.exe的路径
+		复制根目录下的your.xml为mime.xml文件
+		右键build.xml，选择“Run As” -> “Ant Build”
+	
+	2、通过命令行运行Builder.exe程序
+		进入Builder.exe所在目录，输入：Builder.exe ../mime.xml
 	
 	
-	2、通过命令行运行Builder.exe程序（<charset outputEncoding="936">UTF-8</charset>）
-		Builder.exe ../your.xml
-	
-	
-	3、双击Builder.exe程序（<charset outputEncoding="936">UTF-8</charset>）
+	3、双击Builder.exe程序
 		仅能使用默认配置文件Builder.xml
-		注意，这种情况下，必须复制Builder.xml到Builder.exe同一目录下
+		注意，Builder.xml和Builder.exe必须为同一目录
 
 
 !!!重要说明：
