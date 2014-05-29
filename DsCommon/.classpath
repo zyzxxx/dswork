@@ -38,14 +38,6 @@
 	<classpathentry kind="lib" path="/Lib/common/jimi.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/ognl-2.7.3.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/antlr-runtime.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/hibernate3.5.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/javassist-3.15.0-GA.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/javax.persistence.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/spring-orm.jar"/>
-	<classpathentry kind="lib" path="/Lib/module/xml/dom4j-1.6.1.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.3.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAWEB"/>
