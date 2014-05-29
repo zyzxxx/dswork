@@ -4,16 +4,15 @@
 <html>
 <head>
 <title></title>
-<style>html,body,iframe{width:100%;height:100%;margin:0px;padding:0px;overflow:hidden;}</style>
+<style>html,body{width:100%;height:100%;margin:0px;padding:0px;overflow:hidden;}</style>
 <script type="text/javascript">
-var reValue;// 用于调用页主动获取或兼容旧页面
-var $jskey={dialog:{returnValue:{},dialogArguments:{args:args}}};//为了统一子页面
-var source = parent.$jskey.dialog.dialogArguments.args.data;//原始对象
+var reValue;
+var isDialog = (parent.$jskey && parent.$jskey.dialog && parent.$jskey.dialog.dialogArguments);
+var source = isDialog ? parent.$jskey.dialog.dialogArguments.args.data : parent.args.data;//原始对象
 var data = source;
 function refreshData(){
 	reValue = data;
-	$jskey.dialog.returnValue = data;
-	parent.$jskey.dialog.returnValue = data;
+	if(isDialog){parent.$jskey.dialog.returnValue = reValue;}else{parent.reValue = reValue;}
 }
 refreshData();
 function setModel(m){
@@ -30,12 +29,15 @@ function refreshModel(m){//用于刷新和判断是否已选
 	return false;
 }
 function getReturnValue(){closeWindow();}
-function closeWindow(){parent.$jskey.dialog.close();}
-$jskey.dialog.close = function(){closeWindow();};
+function closeWindow(){
+	if(isDialog){parent.$jskey.dialog.close();}else{parent.closeWindow();}
+}
 window.onload = function(){if('${url}' == ""){
-	document.getElementById("chooseFrame").src = parent.$jskey.dialog.dialogArguments.args.url;
+	document.getElementById("chooseFrame").src = isDialog ? parent.$jskey.dialog.dialogArguments.args.url : parent.args.url;
 }}
 </script>
 </head>
-<body><iframe id="chooseFrame" name="chooseFrame" src="${url}" style="width:100%;height:100%;border:0px;" width="100%" height="100%" frameborder="0" scrolling="auto"></iframe></body>
+<body>
+<iframe id="chooseFrame" name="chooseFrame" src="${url}" style="width:100%;height:100%;border:0px;" width="100%" height="100%" frameborder="0" scrolling="auto"></iframe>
+</body>
 </html>
