@@ -1,0 +1,12 @@
+dswork.common.dict目录
+	字典分类和字典项
+
+
+供超级管理员使用，设置全局数据
+dswork.common.org目录
+	组织机构：单位、部门、岗位
+dswork.common.rbac目录
+	权限设置：系统、功能（功能资源）、角色
+
+
+
