@@ -105,5 +105,6 @@ $dswork.page.menu = function(delURL, updURL, getByIdURL, page, showContext){
 				event.preventDefault();
 			});
 		}
+		_menu.menu();
 	});
 };
