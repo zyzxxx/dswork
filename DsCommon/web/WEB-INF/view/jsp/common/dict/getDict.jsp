@@ -26,7 +26,6 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getDict.htm?status=${param.status}&page=${pageModel.currentPage}";
 }};
 </script>
-<%@include file="/commons/include/getEasyui.jsp" %>
 </head> 
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

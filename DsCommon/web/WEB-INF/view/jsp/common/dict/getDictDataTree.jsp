@@ -6,7 +6,6 @@
 <head>
 	<title></title>
 	<%@include file="/commons/include/page.jsp"%>
-	<%@include file="/commons/include/getEasyui.jsp" %>
 <c:if test="${po.status==1}">
 	<%@include file="/commons/include/ztree.jsp"%>
 </c:if>

@@ -43,7 +43,6 @@ $("#listFormMoveAll").click(function(){
 $("#dataTable>tbody>tr>td.v").each(function(){try{$(this).text($(this).text()=="2"?"单位":($(this).text()=="1"?"部门":"岗位"));}catch(e){}});
 });
 </script>
-<%@include file="/commons/include/getEasyui.jsp" %>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

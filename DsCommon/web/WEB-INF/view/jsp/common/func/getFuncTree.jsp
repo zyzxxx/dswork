@@ -6,7 +6,6 @@
 <head>
 	<title></title>
 	<%@include file="/commons/include/page.jsp"%>
-	<%@include file="/commons/include/getEasyui.jsp" %>
 	<%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 $dswork.callback = null;
