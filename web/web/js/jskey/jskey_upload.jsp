@@ -1,5 +1,19 @@
 <%--Desc: 上传 | Author: skey--%><%@page language="java" pageEncoding="UTF-8"
 import="java.io.File,java.net.URLDecoder,dswork.core.upload.JskeyUpload,dswork.core.upload.jspsmart.*"
+%><%!
+private static long thisId = 0;
+private static final String UPLOAD_MAXSIZE_M = (JskeyUpload.UPLOAD_MAXSIZE/1024/1024) + "M";
+public synchronized static long genId() throws Exception
+{
+	long id = 0;
+	do
+	{
+		id = System.currentTimeMillis();
+	}
+	while (id == thisId);
+	thisId = id;
+	return id;
+}
 %><%String ext = "";
 try
 {
@@ -64,7 +78,7 @@ try
 			catch(Exception e)
  			{
 				e.printStackTrace();
-				%>{"err":"上传失败！文件后缀只能为：<%=ext%>(小写扩展名)；文件大小不能超过<%=JskeyUpload.UPLOAD_MAXSIZE_M %>","msg":"","name":"","ext":""}<%
+				%>{"err":"上传失败！文件后缀只能为：<%=ext%>(小写扩展名)；文件大小不能超过<%=UPLOAD_MAXSIZE_M %>","msg":"","name":"","ext":""}<%
 				
  			}
 		}
@@ -76,6 +90,6 @@ catch(Exception ex)
 {
 	System.out.println(ex.getMessage());
 	//ex.printStackTrace();
-	%>{"err":"上传失败或被取消！文件后缀只能为：<%=ext%>(小写扩展名)；文件大小不能超过<%=JskeyUpload.UPLOAD_MAXSIZE_M %>","msg":"","name":"","ext":""}<%
+	%>{"err":"上传失败或被取消！文件后缀只能为：<%=ext%>(小写扩展名)；文件大小不能超过<%=UPLOAD_MAXSIZE_M %>","msg":"","name":"","ext":""}<%
 }
 %>
