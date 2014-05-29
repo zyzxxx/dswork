@@ -6,7 +6,7 @@ $dswork.ztree = {
 $dswork.ztree.root = {id:0, pid:-1, gid:-1, status:0, state:0, code:"", isParent:true, name:""};//默认根节点
 $dswork.ztree.nodeArray = [$dswork.ztree.root];//初始化
 
-$dswork.ztree.showMenu = function(type, x, y){}
+$dswork.ztree.showMenu = function(type, x, y){};
 $dswork.ztree.hideMenu = function(){try{$("#" + $dswork.ztree.menuName).menu('hide');}catch(e){}};
 $dswork.ztree.getSelectedNode = function(){//当前选中节点，单选时
 	var _arr = $dswork.ztree.tree.getSelectedNodes();
@@ -98,7 +98,7 @@ $dswork.ztree.dataFilter = function (treeId, parentNode, responseData){//异步�
 	return responseData;
 };
 $dswork.ztree.setFontCss = function(treeId, treeNode){return {};};
-$dswork.ztree.url = function(treeNode){}//必须修改，针对根进行异步加载时，treeNode = null
+$dswork.ztree.url = function(treeNode){};//必须修改，针对根进行异步加载时，treeNode = null
 $dswork.ztree.config = {
 	callback:null,//必须修改
 	view:{
