@@ -52,7 +52,7 @@ public class DsCommonOrgController
 				out.print("0:名称不能为空");
 				return;
 			}
-			if(0 < po.getPid().longValue())//存在上级节点时
+			if(0 < po.getPid().longValue())// 存在上级节点时
 			{
 				DsCommonOrg parent = service.get(po.getPid());
 				if(null == parent)
@@ -60,15 +60,20 @@ public class DsCommonOrgController
 					out.print("0:参数错误，请刷新重试");
 					return;
 				}
-				if (0 == parent.getStatus())//上级是岗位
+				if(0 == parent.getStatus())// 上级是岗位
 				{
 					out.print("0:岗位无法添加下级");
+					return;
+				}
+				if(1 == parent.getStatus() && po.getStatus() == 2)// 上级是部门
+				{
+					out.print("0:部门无法设置下级单位");
 					return;
 				}
 			}
 			else
 			{
-				po.setStatus(2);//没有上级时必须为单位
+				po.setStatus(2);// 没有上级时必须为单位
 			}
 			service.save(po);
 			out.print(1);
@@ -165,6 +170,20 @@ public class DsCommonOrgController
 			if(_po.getPid() <= 0)
 			{
 				po.setStatus(2);// 没有上级则为单位
+			}
+			else// 存在上级节点时
+			{
+				DsCommonOrg parent = service.get(po.getPid());
+				if(null == parent)
+				{
+					out.print("0:参数错误，请刷新重试");
+					return;
+				}
+				if(1 == parent.getStatus() && po.getStatus() == 2)// 上级是部门
+				{
+					out.print("0:部门无法设置下级单位");
+					return;
+				}
 			}
 			service.update(po);
 			out.print(1);
