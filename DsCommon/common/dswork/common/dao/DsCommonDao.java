@@ -59,6 +59,14 @@ public class DsCommonDao extends MyBatisDao
 		{
 			map.put("status", status);
 		}
-		return executeSelectList("queryOrg", map);
+		List<IDsOrg> list = executeSelectList("queryOrg", map);
+		if(pid == 0)
+		{
+			for(IDsOrg po : list)
+			{
+				po.setPid("0");
+			}
+		}
+		return list;
 	}
 }
