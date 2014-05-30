@@ -11,7 +11,7 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 @Repository
-@SuppressWarnings(value={"unchecked", "rawtypes"})
+@SuppressWarnings(value={"all"})
 public class HbmDemoDao extends HibernateBaseDao<Demo, java.lang.Long>
 {
 	public Class getEntityClass()

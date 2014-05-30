@@ -99,7 +99,7 @@ public class HbmDemoController
 		pr.setPageSize(req.getInt("pageSize", 10));
 		Page<Demo> pageModel = service.queryPage(pr);
 		request.setAttribute("pageModel", pageModel);
-		request.setAttribute("pageNav", new PageNav(request, pageModel));
+		request.setAttribute("pageNav", new PageNav<Demo>(request, pageModel));
 		return "/view/manage/demo/getDemo.jsp";
 	}
 	

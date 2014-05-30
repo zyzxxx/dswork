@@ -11,7 +11,7 @@ import testwork.model.demo.Demo;
 import testwork.dao.demo.DemoDao;
 
 @Service
-@SuppressWarnings(value={"unchecked", "rawtypes"})
+@SuppressWarnings(value={"all"})
 public class DemoService extends BaseService<Demo, java.lang.Long>
 {
 	private DemoDao dao;

@@ -9,7 +9,7 @@ import dswork.core.db.BaseDao;
 import testwork.model.demo.Demo;
 
 @Repository
-@SuppressWarnings(value={"unchecked", "rawtypes"})
+@SuppressWarnings(value={"all"})
 public class DemoDao extends BaseDao<Demo, Long>
 {
 	@Override
