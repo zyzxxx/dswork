@@ -13,12 +13,7 @@ JavaWeb项目，目录可删掉的内容
 	/web/obj
 	/web/Properties
 	/web/Global.asax
-	/web/Global.asax.cs
 	/web/Web.config
-	/web/web.csproj
-	/web/web.csproj.user
-	/web/Web.Debug.config
-	/web/web.Release.config
 
 CSharpWeb项目，目录可删掉的内容
 	/.classpath
