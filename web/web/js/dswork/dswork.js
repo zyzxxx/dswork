@@ -5,6 +5,11 @@ $dswork.showDate = function(){
 	var f = arguments[1] || "yyyy-MM-dd";
 	$jskey.calendar.show(o,{skin:'default', lang:0, beginYear:1970, endYear:2070, format:f, sample:f});
 };
+$dswork.getChoose = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose.html";return $jskey.dialog.show(m);};
+$dswork.getChooseByKey = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose_key.html";return $jskey.dialog.show(m);};
+$dswork.getChooseDialog = function(m){return $jskey.dialog.showChoose(m);};
+$dswork.getChooseDialogByKey = function(m){return $jskey.dialog.showChooseKey(m);};
+
 $dswork.getWebRootPath = function(){
 	var p = window.location.pathname;
 	var i = p.indexOf("/");
@@ -97,26 +102,20 @@ $dswork.doAjaxShow = function(data, callback){
 $dswork.doAjaxOption = {beforeSubmit:$dswork.showRequest,success:$dswork.showResponse};
 _options = $dswork.doAjaxOption;
 
-$dswork.getChoose = function(m){m.url = ctx + "/commons/share/getChoose.jsp";return $jskey.dialog.show(m);};
-$dswork.getChooseByKey = function(m){m.url = ctx + "/commons/share/getChooseByKey.jsp";return $jskey.dialog.show(m);};
-$dswork.getChooseDialog = function(m){m.url = ctx + "/commons/share/getChoose.jsp";$jskey.dialog.showDialog(m);};
-$dswork.getChooseDialogByKey = function(m){m.url = ctx + "/commons/share/getChooseByKey.jsp";$jskey.dialog.showDialog(m);};
-
-$dswork.showTree = function(p){if(typeof(o)!="object"){o={};}
+$dswork.showTree = function(p){if(typeof(p)!="object"){p={};}
 	var ini = {id:"showTree"
 		,title:"请选择"
 		,url:function(node){return "";}
 		,width:400,height:300,left:0,top:0
 		,click:function(id, node){return true;}
 		,dataFilter:function(id, pnode, data){return data;}
-		,check:function(treeId, node){}//点击节点按钮前函数
+		,check:function(treeId, node){}
 		,async:true,checkEnable:true,chkStyle:"radio"
 		,tree:null,nodeArray:[]
 	};
 	p = $.extend(ini, p);
 	var root = {id:"0", pid:"-1", isParent:true, name:p.title, nocheck:true};
 	root = $.extend(root, p.root);
-	if(root.name)
 	if(p.nodeArray.length == 0){
 		p.nodeArray.push(root);
 	}
@@ -138,21 +137,25 @@ $dswork.showTree = function(p){if(typeof(o)!="object"){o={};}
 	var $tree = $('<ul id="'+p.id+'" class="ztree" style="border:2px solid #999999;overflow:auto;z-index:100000;background-color:#ffffff;"></ul>');
 	$tree.css("width", p.width-10).css("height", p.height-10);
 	$win.html($tree);
-	var config = {view:{expandSpeed:""}
+	var cfg = {view:{expandSpeed:""}
 		,async:{enable:p.async,dataFilter:p.dataFilter,url:function(id, node){return p.url(node);}}
-		,data:{key:{name:"name"},simpleData: {enable: true,idKey:"id",pIdKey:"pid"}}
+		,data:{key:{name:"name"},simpleData:{enable:true,idKey:"id",pIdKey:"pid"}}
 		,check:{enable:p.checkEnable,chkStyle:p.chkStyle,chkboxType:{"Y":"ps","N":"s"},radioType:"all"}
 	};
-	config.callback = {
+	cfg.callback = {
 		"beforeCheck":p.check,
 		"onCheck":function(event, treeId, node){$winsub.click();},
 		"onClick":p.click
 	};
 	$win.css("display", "");
-	o.tree = $.fn.zTree.init($tree, config, p.nodeArray);
-	try{var _pn = o.tree.getNodeByParam("id", 0);o.tree.selectNode(_pn);o.tree.reAsyncChildNodes(_pn, "refresh");}catch(e){}
+	p.tree = $.fn.zTree.init($tree, cfg, p.nodeArray);
+	try{var _pn = p.tree.getNodeByParam("id", 0);p.tree.selectNode(_pn);p.tree.reAsyncChildNodes(_pn, "refresh");}catch(e){}
 };
 
+$dswork.uploadURL = "/web/js/jskey/jskey_multiupload.jsp";
+if($dswork.dotnet){
+	$dswork.uploadURL = "/web/js/jskey/jskey_multiupload.aspx";
+}
 //{sessionKey, fileKey, ext:file, limit:10240(KB), show:true}
 $dswork.upload = function(o){
 	if(typeof(o) != "object"){o = {};}
@@ -166,11 +169,10 @@ $dswork.upload = function(o){
 	this.show == this.show ? true : false;
 	this.image = "jpg,jpeg,gif,png";
 	this.file =  "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z";
-	this.url = o.url || "/web/js/jskey/jskey_multiupload.jsp";
+	this.url = o.url || $dswork.uploadURL;
 };
 $dswork.upload.prototype = {
-	init:function(){try{//{id:?,vid:*?,ext};ext :"file|image|***,***"
-	var op = arguments[0];
+	init:function(op){try{//{id:?,vid:*?,ext};ext :"file|image|***,***"
 	if(typeof(op) != "object"){op = {};}
 	this.count++;
 	var defaults = {vid:"",sessionKey:this.sessionKey,fileKey:this.fileKey+this.count,show:this.show,limit:this.limit,ext:this.ext};

@@ -111,17 +111,17 @@ $dswork.ztree.config = {
 		url:function(treeId, treeNode){return $dswork.ztree.url(treeNode);}
 	},
 	data:{
-		key: {
+		key:{
 			name: "name"
 		},
-		simpleData: {
+		simpleData:{
 			//rootPid:"-1",
-			enable: true,
+			enable:true,
 			idKey:"id",
 			pIdKey:"pid"
 		}
 	},
-	check: {
+	check:{
 		enable: false,
 		chkStyle: "checkbox",
 		chkboxType: {"Y":"ps","N":"s"},
