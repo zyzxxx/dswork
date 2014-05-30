@@ -46,6 +46,6 @@
 #end
 #end
 </table>
-<input type="hidden" name="id" value="@ViewBag.po.id" />
+<input type="hidden" name="$pk.ToLower()" value="@ViewBag.po.$pk.ToLower()" />
 </form>
 }
