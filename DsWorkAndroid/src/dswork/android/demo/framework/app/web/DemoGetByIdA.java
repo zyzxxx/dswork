@@ -13,7 +13,7 @@ import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.view.OleActivity;
 import dswork.android.model.Demo;
 
-public class DemoDetailActivity extends OleActivity 
+public class DemoGetByIdA extends OleActivity 
 {
 	@InjectView(id=R.id.id) TextView pk;//id
 	@InjectView(id=R.id.title) TextView title;//姓名
@@ -25,7 +25,7 @@ public class DemoDetailActivity extends OleActivity
 	public void initMainView() 
 	{
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);//允许标题栏显示圆形进度条
-		setContentView(R.layout.activity_demo_detail);
+		setContentView(R.layout.demo_getbyid_a);
 		InjectUtil.injectView(this);//注入控件
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
@@ -70,7 +70,7 @@ public class DemoDetailActivity extends OleActivity
 		{// 后台任务执行完之后被调用，在ui线程执行
 			if (result != null)
 			{
-				Toast.makeText(DemoDetailActivity.this, "加载成功",Toast.LENGTH_LONG).show();
+				Toast.makeText(DemoGetByIdA.this, "加载成功",Toast.LENGTH_LONG).show();
 				pk.setText(String.valueOf(result.getId()));
 				title.setText(result.getTitle());
 				content.setText(result.getContent());
@@ -78,7 +78,7 @@ public class DemoDetailActivity extends OleActivity
 			} 
 			else 
 			{
-				Toast.makeText(DemoDetailActivity.this, "加载失败，网络异常", Toast.LENGTH_LONG).show();
+				Toast.makeText(DemoGetByIdA.this, "加载失败，网络异常", Toast.LENGTH_LONG).show();
 			}
 			setProgressBarIndeterminateVisibility(false);
 		}

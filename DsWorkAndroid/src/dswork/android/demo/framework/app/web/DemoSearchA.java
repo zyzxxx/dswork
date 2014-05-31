@@ -19,7 +19,7 @@ import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.util.MyStrictMode;
 import dswork.android.lib.view.OleActivity;
 
-public class DemoSearchActivity extends OleActivity
+public class DemoSearchA extends OleActivity
 {
 	@InjectView(id=R.id.title) EditText title;//标题
 	@InjectView(id=R.id.content) EditText content;//内容
@@ -31,7 +31,7 @@ public class DemoSearchActivity extends OleActivity
 	public void initMainView() 
 	{
 		MyStrictMode.setPolicy();//webapp需要调用此方法
-		setContentView(R.layout.activity_demo_search);
+		setContentView(R.layout.demo_search_a);
 		InjectUtil.injectView(this);//注入控件
 		controller = new DemoController(this);
 		btnSearch.setOnClickListener(new SearchClickListener());
@@ -61,6 +61,6 @@ public class DemoSearchActivity extends OleActivity
 		List<Map<String,Object>> params = new ArrayList<Map<String,Object>>();
 		params.add(m);
 		this.finish();
-		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoMainActivity.class).putExtra("params", (Serializable)params));
+		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, MainA.class).putExtra("params", (Serializable)params));
 	}
 }

@@ -17,7 +17,7 @@ import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.view.OleActivity;
 import dswork.android.model.Demo;
 
-public class DemoUpdActivity extends OleActivity
+public class DemoUpdA extends OleActivity
 {
 	@InjectView(id=R.id.id) TextView id;//主键
 	@InjectView(id=R.id.title) EditText title;//标题
@@ -31,7 +31,7 @@ public class DemoUpdActivity extends OleActivity
 	public void initMainView() 
 	{
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);//允许标题栏显示圆形进度条
-		setContentView(R.layout.activity_demo_upd);
+		setContentView(R.layout.demo_upd_a);
 		InjectUtil.injectView(this);//注入控件
 		controller = new DemoController(this);
 		
@@ -72,7 +72,7 @@ public class DemoUpdActivity extends OleActivity
 		{
 			Toast.makeText(this, "修改成功", Toast.LENGTH_LONG).show();
 			this.finish();
-			startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoMainActivity.class));
+			startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, MainA.class));
 		}
 	}
 	
@@ -104,7 +104,7 @@ public class DemoUpdActivity extends OleActivity
 		{// 后台任务执行完之后被调用，在ui线程执行
 			if (result != null)
 			{
-				Toast.makeText(DemoUpdActivity.this, "加载成功",Toast.LENGTH_LONG).show();
+				Toast.makeText(DemoUpdA.this, "加载成功",Toast.LENGTH_LONG).show();
 				id.setText(String.valueOf(result.getId()));
 				title.setText(result.getTitle());
 				content.setText(result.getContent());
@@ -112,7 +112,7 @@ public class DemoUpdActivity extends OleActivity
 			} 
 			else 
 			{
-				Toast.makeText(DemoUpdActivity.this, "加载失败，网络异常", Toast.LENGTH_LONG).show();
+				Toast.makeText(DemoUpdA.this, "加载失败，网络异常", Toast.LENGTH_LONG).show();
 			}
 			setProgressBarIndeterminateVisibility(false);
 		}

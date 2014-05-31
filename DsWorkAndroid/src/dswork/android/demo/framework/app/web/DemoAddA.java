@@ -15,7 +15,7 @@ import dswork.android.lib.util.MyStrictMode;
 import dswork.android.lib.view.OleActivity;
 import dswork.android.model.Demo;
 
-public class DemoAddActivity extends OleActivity 
+public class DemoAddA extends OleActivity 
 {
 	@InjectView(id=R.id.title) EditText title;//标题
 	@InjectView(id=R.id.content) EditText content;//内容
@@ -27,7 +27,7 @@ public class DemoAddActivity extends OleActivity
 	public void initMainView() 
 	{
 		MyStrictMode.setPolicy();//webapp需要调用此方法
-		setContentView(R.layout.activity_demo_add);
+		setContentView(R.layout.demo_add_a);
 		InjectUtil.injectView(this);//注入控件
 		controller = new DemoController(this);
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
@@ -65,7 +65,7 @@ public class DemoAddActivity extends OleActivity
 		{
 			Toast.makeText(this, "添加成功", Toast.LENGTH_LONG).show();
 			this.finish();
-			startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, DemoMainActivity.class));
+			startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, MainA.class));
 		}
 	}
 }

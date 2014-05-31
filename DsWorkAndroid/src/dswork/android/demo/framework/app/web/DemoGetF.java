@@ -2,7 +2,6 @@ package dswork.android.demo.framework.app.web;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -39,17 +38,15 @@ import dswork.android.lib.ui.MultiCheck.MultiCheckListView2.ViewCache;
 import dswork.android.lib.util.InjectUtil;
 import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.util.MyStrictMode;
-import dswork.android.lib.view.OleSherlockFragment;
+import dswork.android.lib.view.BaseGetOleSherlockFragment;
 import dswork.android.model.Demo;
 
-public class DemoListFragment extends OleSherlockFragment
+public class DemoGetF extends BaseGetOleSherlockFragment<Demo>
 {
 	@InjectView(id=R.id.listView) MultiCheckListView2 listView;//列表视图
-	@InjectView(id=R.id.chkAll) CheckBox chkAll;//全选框CheckBox
 	@InjectView(id=R.id.waitingBar) ProgressBar waitingBar;//进度条
 	@InjectView(id=R.id.refresh) ImageView refresh;//刷新按钮
 	private DemoController controller;
-	private Map params = new HashMap();//查询参数
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
@@ -62,7 +59,7 @@ public class DemoListFragment extends OleSherlockFragment
 	public View initMainView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 	{
 		MyStrictMode.setPolicy();//webapp需要调用此方法
-		View convertView = inflater.inflate(R.layout.fragment_demo_list, container, false);
+		View convertView = inflater.inflate(R.layout.demo_get_f, container, false);
 		InjectUtil.injectView(this, convertView);//注入控件
 		controller = new DemoController(getActivity());
 		
@@ -88,10 +85,10 @@ public class DemoListFragment extends OleSherlockFragment
 				getActivity().finish();
 				break;
 			case R.id.menu_add://添加
-				startActivity(new Intent().setClass(getActivity(), DemoAddActivity.class));
+				startActivity(new Intent().setClass(getActivity(), DemoAddA.class));
 				break;
 			case R.id.menu_search://搜索
-				startActivity(new Intent().setClass(getActivity(), DemoSearchActivity.class));
+				startActivity(new Intent().setClass(getActivity(), DemoSearchA.class));
 				break;
 //			case R.id.menu_refresh://刷新
 //				new GetBgDataTask().execute();
@@ -104,7 +101,6 @@ public class DemoListFragment extends OleSherlockFragment
 	public class MyViewCache extends ViewCache
 	{
 		public TextView titleView;
-		public TextView contentView;
 		public TextView foundtimeView;
 		public ImageButton itemMenu;
 	}
@@ -119,6 +115,7 @@ public class DemoListFragment extends OleSherlockFragment
 		protected void onPreExecute() 
 		{
 			waitingBar.setVisibility(ProgressBar.VISIBLE);//显示圆形进度条
+			refresh.startAnimation(AnimationUtils.loadAnimation(DemoGetF.this.getActivity(), R.anim.rotate));
 		}
 		
         @SuppressWarnings("unchecked")
@@ -126,9 +123,7 @@ public class DemoListFragment extends OleSherlockFragment
         protected List<Demo> doInBackground(String... _params) 
         {//后台耗时操作，不能在后台线程操作UI
     		//获取列表信息
-    		List<Map<String,Object>> rtn_params = (List<Map<String, Object>>) getActivity().getIntent().getSerializableExtra("params");//获取查询参数
-    		if(null != rtn_params) params = rtn_params.get(0);
-    		List<Demo> list = controller.get(params);
+    		List<Demo> list = controller.get(getParams());
             return list;  
         }
 
@@ -137,11 +132,11 @@ public class DemoListFragment extends OleSherlockFragment
 			if (list != null)
 			{
 				MultiCheckAdapter2 adapter = new MultiCheckAdapter2(
-						getActivity(), list, R.layout.activity_demo_item,
+						getActivity(), list, R.layout.demo_get_item,
 						new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
 						new MyViewCache());
 				adapter.setItemMenuDialog(new MyItemMenuDialog());//实例化ItemMenuDialog
-				listView.initMultiCheck(list, adapter, chkAll);//初始化MultiCheck
+				listView.initMultiCheck(list, adapter);//初始化MultiCheck
 				listView.setOnItemClickNotMultiListener(new MyOnItemClickNotMultiListener());//列表项单击事件（非多选模式）
 				listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
 				Toast.makeText(getActivity(), "加载成功",Toast.LENGTH_SHORT).show();
@@ -162,7 +157,7 @@ public class DemoListFragment extends OleSherlockFragment
 		{
 			TextView _itemId = (TextView)v.findViewById(R.id.itemId);
         	long id = Long.parseLong(_itemId.getText().toString());
-            getActivity().startActivity(new Intent().setClass(getActivity(), DemoDetailActivity.class).putExtra("id", id));
+            getActivity().startActivity(new Intent().setClass(getActivity(), DemoGetByIdA.class).putExtra("id", id));
 		}
 	}
 	//ActionMode事件
@@ -177,43 +172,17 @@ public class DemoListFragment extends OleSherlockFragment
 		public boolean onActionItemClicked(ActionMode mode, android.view.MenuItem item)
 		{
 			boolean result = false;
-			if(R.id.menu_upd == item.getItemId())
+			switch(item.getItemId())
 			{
-	        	result = update();//修改
-			}
-			else if(R.id.menu_del_confirm == item.getItemId())
-			{
-				result = delete();//删除
+				case R.id.menu_del_confirm:
+					result = delete();//删除
+					break;
+				case R.id.menu_chkall:
+					listView.toggleChecked(item);//切换全/不选
+					result = true;
+					break;
 			}
 			return result;
-		}
-		private boolean update()
-		{
-			if(listView.getIdList().size() > 0)
-        	{
-        		if(listView.getIdList().size() == 1)
-        		{//一条	
-        			Bundle b = new Bundle();
-        			b.putString("ids", listView.getIds());
-        			b.putLongArray("idsArr", listView.getIdArray());
-        			getActivity().startActivity(new Intent().setClass(getActivity(), DemoUpdActivity.class).putExtras(b));
-        		}
-        		else
-        		{//多条
-	        		new AlertDialog.Builder(getActivity())
-	        		.setTitle(R.string.confirm_upd)
-	        		.setIcon(android.R.drawable.ic_dialog_info)
-	        		.setNegativeButton(R.string.no, null)
-	        		.setPositiveButton(R.string.yes, new updListener())
-	        		.show();
-        		}
-        		return true;
-        	}
-        	else
-        	{
-        		Toast.makeText(getActivity(), "未选中 ！", Toast.LENGTH_SHORT).show();  
-                return false;
-        	}
 		}
 		private boolean delete()
 		{
@@ -261,7 +230,7 @@ public class DemoListFragment extends OleSherlockFragment
 			Bundle b = new Bundle();
 			b.putString("ids", listView.getIds());
 			b.putLongArray("idsArr", listView.getIdArray());
-			getActivity().startActivity(new Intent().setClass(getActivity(), DemoUpdActivity.class).putExtras(b));
+			getActivity().startActivity(new Intent().setClass(getActivity(), DemoUpdA.class).putExtras(b));
 		}
 	}
 	//ItemMenu对话框item点击事件
@@ -286,7 +255,7 @@ public class DemoListFragment extends OleSherlockFragment
 					b.putString("ids", id_s);
 					long[] idsArr = {id_l};
 					b.putLongArray("idsArr", idsArr);
-					getActivity().startActivity(new Intent().setClass(getActivity(), DemoUpdActivity.class).putExtras(b));
+					getActivity().startActivity(new Intent().setClass(getActivity(), DemoUpdA.class).putExtras(b));
 					break;
 				case 1://删除
 	        		new AlertDialog.Builder(getActivity())
@@ -322,7 +291,7 @@ public class DemoListFragment extends OleSherlockFragment
 		@Override
 		public void onClick(View v) 
 		{
-			refresh.startAnimation(AnimationUtils.loadAnimation(DemoListFragment.this.getActivity(), R.anim.rotate));
+			refresh.startAnimation(AnimationUtils.loadAnimation(DemoGetF.this.getActivity(), R.anim.rotate));
 			new GetBgDataTask().execute();
 		}
 	}
