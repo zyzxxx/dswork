@@ -9,6 +9,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
+import android.view.ActionMode.Callback;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import dswork.android.lib.R;
 import dswork.android.lib.db.BaseModel;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
@@ -28,11 +30,10 @@ public class MultiCheckListView2 extends ListView
 	private Context ctx;
 	private List<BaseModel> dataList;//数据集合
 	private MultiCheckAdapter2 adapter;//自定义适配器
-	private CheckBox chkAll;//全选CheckBox
 	private List<Long> idList = new ArrayList<Long>();//主键集合
     private int checkNum;//多选模式下，选中个数
     private boolean isMultiChoose = false;//判断是否多选模式 （默认false）
-    private ActionMode mMode;
+    private android.view.ActionMode mMode;
 	private MultiCheckActionModeListener listener;
 	private OnItemClickNotMultiListener itemClickNotMultiListener;
     
@@ -46,16 +47,12 @@ public class MultiCheckListView2 extends ListView
      * 初始化多选模式
      * @param _dataList 数据集合
      * @param _adapter 自定义适配器（必须继承自MultiCheckAdapter）
-     * @param _chkAll 全选框对象（_listView和_chkAll必须在同一个xml布局下）
      */
-	public void initMultiCheck(List _dataList, MultiCheckAdapter2 _adapter, CheckBox _chkAll)
+	public void initMultiCheck(List _dataList, MultiCheckAdapter2 _adapter)
 	{
 		this.dataList = _dataList;
 		this.adapter = _adapter;
 		this.setAdapter(adapter);
-		this.chkAll = _chkAll;
-		//初始化全选CheckBox监听事件
-		this.chkAll.setOnCheckedChangeListener(new ChkAllListener());
 		//初始化列表数据和监听事件
 		this.setOnItemClickListener(new MyOnItemClickListener());//单击事件
 		this.setOnItemLongClickListener(new MyOnItemLongClickListener());//长按事件
@@ -71,7 +68,6 @@ public class MultiCheckListView2 extends ListView
 		//若非多选模式，隐藏多选CheckBox，勾掉所有列表项的CheckBox
 		if(!isMultiChoose)
 		{
-			chkAll.setVisibility(CheckBox.GONE);
 			noCheckAll();
 		}
     	adapter.setIsMultiChoose(isMultiChoose);
@@ -127,6 +123,28 @@ public class MultiCheckListView2 extends ListView
 		this.setAdapter(adapter);//刷新adapter
 	}
 	
+	/**
+	 * 切换全选/全不选（用于MenuItem）
+	 * @param item
+	 */
+	public void toggleChecked(MenuItem item)
+	{
+		idList.clear();
+		if(item.isChecked())
+		{
+			item.setChecked(false);
+			item.setIcon(R.drawable.btn_check_off_holo_light);
+			noCheckAll();
+		}
+		else 
+		{
+			item.setChecked(true);
+			item.setIcon(R.drawable.btn_check_on_holo_light);
+			CheckAll();
+		}
+		adapter.notifyDataSetChanged();
+	}
+	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) 
 	{
@@ -135,31 +153,10 @@ public class MultiCheckListView2 extends ListView
         {
 			if(isMultiChoose)
 			{
-				chkAll.setVisibility(CheckBox.GONE);
 				isMultiMode(false);
 			}
         }
 		return super.onKeyDown(keyCode, event);
-	}
-	
-	//全选框CheckBox监听类
-	private class ChkAllListener implements OnCheckedChangeListener
-	{
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) 
-		{
-			idList.clear();
-			if(isChecked)
-			{//全选
-				CheckAll();
-			}
-			else
-			{//反选
-				noCheckAll();
-			}
-			adapter.notifyDataSetChanged();
-		    Toast.makeText(getContext(), "You choose "+checkNum+"items.", Toast.LENGTH_SHORT).show();  
-		}
 	}
 	
 	//listView单击item监听类
@@ -185,7 +182,6 @@ public class MultiCheckListView2 extends ListView
 		public boolean onItemLongClick(AdapterView<?> arg0, View v, int pos, long arg3) 
 		{
 			mMode = startActionMode(listener.getActionModeCallback());//启动ActionMode
-			chkAll.setVisibility(CheckBox.VISIBLE);//显示全选框CheckBox
 			isMultiMode(true);//设为多选模式
 			checkOne(v, pos);//选中一项
 	        return true;
@@ -234,7 +230,6 @@ public class MultiCheckListView2 extends ListView
 	//全不选
 	private void noCheckAll()
 	{
-		chkAll.setChecked(false);
 		HashMap<Integer, Boolean> isSelected = new HashMap<Integer, Boolean>();      
         for (int i = 0; i < dataList.size(); i++) isSelected.put(i, false);  
         adapter.setIsSelected(isSelected);
@@ -278,7 +273,7 @@ public class MultiCheckListView2 extends ListView
 		 * 实列化MultiCheckActionMode
 		 * @return MultiCheckActionMode对象
 		 */
-		public ActionMode.Callback getActionModeCallback();
+		public Callback getActionModeCallback();
 		/**
 		 * ActionItem点击事件
 		 * @param mode ActionMode对象
