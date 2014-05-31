@@ -4,8 +4,7 @@
     android:layout_height="match_parent"
 	android:descendantFocusability="blocksDescendants">
   	<include 
-  	    android:id="@+id/item_ckb"
-  	    layout="@layout/item_ckb" 
+  	    layout="@layout/item_id" 
   	    android:layout_width="wrap_content" 
   	    android:layout_height="wrap_content"
 	    android:layout_alignParentLeft="true"/>
@@ -46,5 +45,10 @@
 	    layout="@layout/item_menu" 
 	    android:layout_width="wrap_content" 
 	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"/>
+  	<include 
+  	    layout="@layout/item_chk" 
+  	    android:layout_width="wrap_content" 
+  	    android:layout_height="wrap_content"
 	    android:layout_alignParentRight="true"/>
 </RelativeLayout>

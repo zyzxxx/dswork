@@ -5,7 +5,7 @@
   	android:descendantFocusability="blocksDescendants">
   	<include 
   	    android:id="@+id/item_ckb"
-  	    layout="@layout/item_ckb" 
+  	    layout="@layout/item_chk" 
   	    android:layout_width="wrap_content" 
   	    android:layout_height="wrap_content"
   	    android:layout_alignParentLeft="true"/>

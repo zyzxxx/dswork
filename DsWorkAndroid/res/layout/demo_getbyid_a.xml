@@ -7,8 +7,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".DemoSearchActivity" >
+    tools:context=".DemoGetByIdA" >
 
     <LinearLayout 
         android:orientation="horizontal"
@@ -17,8 +16,29 @@
 		<TextView
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
+		    android:text="@string/id" />
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="：" />
+		<TextView 
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:id="@+id/id"/>
+    </LinearLayout>
+    <LinearLayout 
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
 		    android:text="@string/title" />
-		<EditText 
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="：" />
+		<TextView 
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:id="@+id/title"/>
@@ -31,7 +51,11 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="@string/content" />
-		<EditText 
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="：" />
+		<TextView 
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:id="@+id/content"/>
@@ -44,16 +68,14 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="@string/foundtime" />
-		<EditText 
+		<TextView
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:text="：" />
+		<TextView 
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:id="@+id/foundtime"/>
     </LinearLayout>
-    <Button 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/btn_search"
-        android:id="@+id/btn_search"/>
 
 </LinearLayout>
