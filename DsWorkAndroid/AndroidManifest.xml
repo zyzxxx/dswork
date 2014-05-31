@@ -92,28 +92,28 @@
         </activity>
         <!-- android:configChanges 防止横竖屏切换时重刷Activity -->
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoMainActivity"
+            android:name="dswork.android.demo.framework.app.web.MainA"
             android:label="@string/title_activity_demo_main"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoAddActivity"
+            android:name="dswork.android.demo.framework.app.web.DemoAddA"
             android:label="@string/title_activity_demo_add"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoUpdActivity"
+            android:name="dswork.android.demo.framework.app.web.DemoUpdA"
             android:label="@string/title_activity_demo_upd"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoDetailActivity"
+            android:name="dswork.android.demo.framework.app.web.DemoGetByIdA"
             android:label="@string/title_activity_demo_detail"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoSearchActivity"
+            android:name="dswork.android.demo.framework.app.web.DemoSearchA"
             android:label="@string/title_activity_demo_search"
             android:parentActivityName=".IndexActivity" >
         </activity>
