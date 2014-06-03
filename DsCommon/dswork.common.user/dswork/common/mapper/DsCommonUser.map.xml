@@ -2,9 +2,9 @@
 <!DOCTYPE mapper PUBLIC
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="dswork.common.model.sys.SysUser">
+<mapper namespace="dswork.common.model.DsCommonUser">
 
-<insert id="insert" parameterType="dswork.common.model.sys.SysUser">
+<insert id="insert" parameterType="dswork.common.model.DsCommonUser">
 	insert into DS_COMMON_USER
 	(ID, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME)
 	values
@@ -15,7 +15,7 @@
 	delete from DS_COMMON_USER where ID=#{id}
 </delete>
 
-<update id="update" parameterType="dswork.common.model.sys.SysUser">
+<update id="update" parameterType="dswork.common.model.DsCommonUser">
 	update DS_COMMON_USER set
 		NAME=#{name},
 		IDCARD=#{idcard},
