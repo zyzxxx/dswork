@@ -154,7 +154,6 @@ CREATE TABLE DS_COMMON_ORG
    NAME                 VARCHAR(300) COMMENT '名称',
    STATUS               INT(1) COMMENT '类型(2单位,1部门,0岗位)',
    SEQ                  BIGINT(18) COMMENT '排序',
-   GID                  BIGINT(18) COMMENT '扩展分组(默认为0)',
    DUTYSCOPE            VARCHAR(3000) COMMENT '职责范围',
    MEMO                 VARCHAR(3000) COMMENT '备注',
    PRIMARY KEY (ID),

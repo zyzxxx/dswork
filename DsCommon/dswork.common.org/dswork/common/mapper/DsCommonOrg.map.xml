@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonOrg">
 	insert into DS_COMMON_ORG
-	(ID, PID, NAME, STATUS, SEQ, GID, DUTYSCOPE, MEMO)
+	(ID, PID, NAME, STATUS, SEQ, DUTYSCOPE, MEMO)
 	values
-	(null, <if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{name}, #{status}, #{seq}, #{gid}, #{dutyscope}, #{memo})
+	(null, <if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{name}, #{status}, #{seq}, #{dutyscope}, #{memo})
 </insert>
 
 <delete id="delete">
@@ -37,13 +37,12 @@
 	<result property="name" column="NAME" />
 	<result property="status" column="STATUS" />
 	<result property="seq" column="SEQ" />
-	<result property="gid" column="GID" />
 	<result property="dutyscope" column="DUTYSCOPE" />
 	<result property="memo" column="MEMO" />
 </resultMap>
 
 <sql id="columns">
-	ID, PID, NAME, STATUS, SEQ, GID, DUTYSCOPE, MEMO
+	ID, PID, NAME, STATUS, SEQ, DUTYSCOPE, MEMO
 </sql>
 
 <sql id="dynamicWhere">
@@ -52,9 +51,6 @@
 			<if test="0 &lt; pid"> and PID=#{pid} </if>
 			<if test="0 &gt;= pid"> and PID is null </if>
 		</if>
-		<if test="@Ognl@isNotEmpty(gid)"> and GID=#{gid} </if>
-		<if test="@Ognl@isNotEmpty(name)"> and NAME like '%'||#{name}||'%' </if>
-		<if test="@Ognl@isNotEmpty(dutyscope)"> and DUTYSCOPE like '%'||#{dutyscope}||'%' </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 	</where>
 </sql>

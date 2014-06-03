@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="dswork.common.model.sys.SysUser">
+
+<insert id="insert" parameterType="dswork.common.model.sys.SysUser">
+	insert into DS_COMMON_USER
+	(ID, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME)
+	values
+	(null, LOWER(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{cakey}, #{workcard}, #{createtime})
+</insert>
+
+<delete id="delete">
+	delete from DS_COMMON_USER where ID=#{id}
+</delete>
+
+<update id="update" parameterType="dswork.common.model.sys.SysUser">
+	update DS_COMMON_USER set
+		NAME=#{name},
+		IDCARD=#{idcard},
+		EMAIL=#{email},
+		MOBILE=#{mobile},
+		PHONE=#{phone},
+		WORKCARD=#{workcard}
+	where ID=#{id}
+</update>
+<update id="updateCakey">
+	update DS_COMMON_USER set CAKEY=#{cakey} where ID=#{id}
+</update>
+<update id="updateStatus">
+	update DS_COMMON_USER set STATUS=#{status} where ID=#{id}
+</update>
+<update id="updatePassword">
+	update DS_COMMON_USER set PASSWORD=#{password} where ID=#{id}
+</update>
+
+<resultMap id="result" type="dswork.common.model.DsCommonUser">
+	<id property="id" column="ID" />
+	<result property="account" column="ACCOUNT" />
+	<result property="password" column="PASSWORD" />
+	<result property="name" column="NAME" />
+	<result property="idcard" column="IDCARD" />
+	<result property="status" column="STATUS" />
+	<result property="email" column="EMAIL" />
+	<result property="mobile" column="MOBILE" />
+	<result property="phone" column="PHONE" />
+	<result property="cakey" column="CAKEY" />
+	<result property="workcard" column="WORKCARD" />
+	<result property="createtime" column="CREATETIME" />
+</resultMap>
+
+<sql id="columns">
+	ID, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME
+</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT like concat('%',#{account},'%') </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
+		<if test="@Ognl@isNotEmpty(mobile)"> and MOBILE=#{mobile} </if>
+		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
+		<if test="@Ognl@isNotEmpty(idcard)"> and IDCARD=#{idcard} </if>
+		<if test="@Ognl@isNotEmpty(workcard)"> and WORKCARD=#{workcard} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from DS_COMMON_USER where ID=#{id}
+</select>
+
+<select id="getByAccount" resultMap="result">
+	select <include refid="columns" /> from DS_COMMON_USER where ACCOUNT=LOWER(#{account})
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="columns" /> from DS_COMMON_USER
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from DS_COMMON_USER
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>

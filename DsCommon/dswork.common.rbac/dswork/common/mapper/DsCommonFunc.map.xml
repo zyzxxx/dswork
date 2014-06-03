@@ -60,11 +60,8 @@
 			<if test="0 &gt;= pid"> and PID is null </if>
 		</if>
 		<if test="@Ognl@isNotEmpty(systemid)"> and SYSTEMID=#{systemid} </if>
-		<if test="@Ognl@isNotEmpty(name)"> and NAME like '%'||#{name}||'%' </if>
 		<if test="@Ognl@isNotEmpty(alias)"> and ALIAS=#{alias} </if>
-		<if test="@Ognl@isNotEmpty(uri)"> and URI like '%'||#{uri}||'%' </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-		<if test="@Ognl@isNotEmpty(memo)"> and MEMO like '%'||#{memo}||'%' </if>
 	</where>
 </sql>
 <select id="select" resultMap="result">

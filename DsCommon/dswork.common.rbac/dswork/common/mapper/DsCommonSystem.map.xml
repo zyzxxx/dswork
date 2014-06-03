@@ -46,16 +46,13 @@
 </sql>
 <sql id="dynamicWhere">
 	<where>
-		<if test="@Ognl@isNotEmpty(name)"> and NAME like '%'||#{name}||'%' </if>
-		<if test="@Ognl@isNotEmpty(alias)"> and ALIAS like '%'||#{alias}||'%' </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
+		<if test="@Ognl@isNotEmpty(alias)"> and ALIAS=#{alias} </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 	</where>
 </sql>
 <select id="select" resultMap="result">
 	select <include refid="columns" /> from DS_COMMON_SYSTEM where ID=#{id}
-</select>
-<select id="getByAlias" resultMap="result">
-	select <include refid="columns" /> from DS_COMMON_SYSTEM where ALIAS=#{alias}
 </select>
 <select id="query" resultMap="result">
 	select <include refid="columns" /> from DS_COMMON_SYSTEM

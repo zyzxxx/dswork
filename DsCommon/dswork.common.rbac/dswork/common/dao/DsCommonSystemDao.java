@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import dswork.common.model.DsCommonFunc;
 import dswork.common.model.DsCommonSystem;
 import dswork.core.db.BaseDao;
 
@@ -41,8 +42,10 @@ public class DsCommonSystemDao extends BaseDao<DsCommonSystem, Long>
 	 */
 	public boolean isExistByAlias(String alias)
 	{
-		DsCommonSystem m = (DsCommonSystem) executeSelect("getByAlias", alias);
-		if (m != null && m.getId().longValue() != 0)
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("alias", alias);
+		DsCommonSystem m = (DsCommonSystem) executeSelect("query", map);
+		if(m != null && m.getId().longValue() != 0)
 		{
 			return true;
 		}

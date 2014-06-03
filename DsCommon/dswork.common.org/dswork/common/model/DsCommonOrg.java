@@ -15,8 +15,6 @@ public class DsCommonOrg
 	private Integer status = -1;
 	// 排序
 	private Long seq = 0L;
-	// 分组信息(扩展)
-	private Long gid = 0L;
 	// 职责范围
 	private String dutyscope = "";
 	// 备注
@@ -40,16 +38,6 @@ public class DsCommonOrg
 	public Long getPid()
 	{
 		return this.pid;
-	}
-
-	public Long getGid()
-	{
-		return gid;
-	}
-
-	public void setGid(Long gid)
-	{
-		this.gid = gid;
 	}
 
 	public void setName(String name)

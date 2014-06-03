@@ -5,10 +5,10 @@
 	<classpathentry kind="src" path="dswork.common.dict"/>
 	<classpathentry kind="src" path="dswork.common.org"/>
 	<classpathentry kind="src" path="dswork.common.rbac"/>
+	<classpathentry kind="src" path="dswork.common.user"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE"/>
-	<classpathentry kind="con" path="melibrary.com.genuitec.eclipse.j2eedt.core.MYECLIPSE_JAVAEE_5_CONTAINER"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-dbcp-1.4.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-io-2.3.jar"/>
