@@ -1,5 +1,5 @@
-.jskey-tooltip { padding: 5px; font-size: 12px; position: absolute; z-index: 100000; }
-  .jskey-tooltip-inner { padding: 8px 8px 8px 8px; background-color:#00A3FF; font-weight:bold;font-family:"ËÎÌå";color: #000000; text-align: center; white-space:nowrap; }
+.jskey-tooltip { padding: 5px; font-size: 12px; position: absolute; z-index: 8999; }
+  .jskey-tooltip-inner { padding: 8px 8px 8px 8px; background-color:#00A3FF; font-weight:bold;font-family:"å®‹ä½“";color: #000000; text-align: center; white-space:nowrap; }
   .jskey-tooltip-inner { border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px; }
   .jskey-tooltip-arrow { position: absolute; background: url('jskey_tooltip.gif') no-repeat top left; width: 9px; height: 5px; }
   .jskey-tooltip-n .jskey-tooltip-arrow { top: 0; left: 50%; margin-left: -4px; }
