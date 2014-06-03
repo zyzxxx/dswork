@@ -5,5 +5,9 @@ var treedata = [
 	,{id:103,name:'组织管理', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm', items:[]}
 	,{id:104,name:'组织管理指定', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm?rootid=1', items:[]}
 	,{id:105,name:'样例', img:"", imgOpen:"", url:'/x.jsp', items:[]}
+	,{id:106,name:'扩展功能', img:"", imgOpen:"", url:'', items:[
+		{id:201,name:'用户管理', img:"", imgOpen:"", url:'/common/user/getUser.htm', items:[]}
+		,{id:202,name:'#', img:"", imgOpen:"", url:'', items:[]}
+	]}
 ]}
 ];
