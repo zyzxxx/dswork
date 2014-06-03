@@ -19,6 +19,7 @@ function updStatus(objid, id){
 	else{alert("失败!"+data);}});
 	return false;
 }
+$(function(){try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}});
 </script>
 </head> 
 <body>
@@ -38,7 +39,7 @@ function updStatus(objid, id){
 		<td class="input">
 			&nbsp;姓名：<input id="name" name="name" value="${fn:escapeXml(param.name)}" style="width:75px;" />
 			手机：<input id="mobile" name="mobile" value="${fn:escapeXml(param.mobile)}" style="width:75px;" />
-			状态：<select id="status" name="status" style="width:50px;"><option value="">全部</option><option value="1"${1==param.status?' selected="selected"':''}>启用</option><option value=0${0==param.status?' selected="selected"':''}>禁用</option></select>
+			状态：<select id="status" name="status" style="width:50px;"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
 	</tr>
