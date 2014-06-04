@@ -23,6 +23,34 @@ public class DsCommonUserDao extends BaseDao<DsCommonUser, Long>
 	}
 
 	/**
+	 * 修改CA证书
+	 * @param id 用户对象ID
+	 * @param cakey ca证书
+	 */
+	public void updateCAKey(long id, String cakey)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("cakey", cakey);
+		executeUpdate("updateCAKey", map);
+	}
+
+	/**
+	 * 修改用户组织机构
+	 * @param id 用户对象ID
+	 * @param orgpid 单位ID
+	 * @param orgid 单位部门ID
+	 */
+	public void updateOrg(long id, Long orgpid, Long orgid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("orgpid", orgpid);
+		map.put("orgid", orgid);
+		executeUpdate("updateOrg", map);
+	}
+
+	/**
 	 * 修改密码
 	 * @param id 用户对象ID
 	 * @param password 加密后的密码
@@ -46,19 +74,6 @@ public class DsCommonUserDao extends BaseDao<DsCommonUser, Long>
 		map.put("id", id);
 		map.put("status", status);
 		executeUpdate("updateStatus", map);
-	}
-
-	/**
-	 * 修改CA证书
-	 * @param id 用户对象ID
-	 * @param cakey ca证书
-	 */
-	public void updateCAKey(long id, String cakey)
-	{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("cakey", cakey);
-		executeUpdate("updateCAKey", map);
 	}
 
 	/**

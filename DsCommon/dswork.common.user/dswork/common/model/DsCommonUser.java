@@ -29,6 +29,14 @@ public class DsCommonUser
 	private String workcard = "";
 	// 创建时间
 	private String createtime = "";
+	// 所属单位
+	private Long orgpid = 0L;
+	// 所属部门
+	private Long orgid = 0L;
+	// 单位名称
+	private String orgpname = "";
+	// 部门名称
+	private String orgname = "";
 
 	public Long getId()
 	{
@@ -148,6 +156,46 @@ public class DsCommonUser
 	public void setCreatetime(String createtime)
 	{
 		this.createtime = createtime;
+	}
+
+	public Long getOrgpid()
+	{
+		return orgpid;
+	}
+
+	public void setOrgpid(Long orgpid)
+	{
+		this.orgpid = orgpid;
+	}
+
+	public Long getOrgid()
+	{
+		return orgid;
+	}
+
+	public void setOrgid(Long orgid)
+	{
+		this.orgid = orgid;
+	}
+
+	public String getOrgpname()
+	{
+		return orgpname;
+	}
+
+	public void setOrgpname(String orgpname)
+	{
+		this.orgpname = orgpname;
+	}
+
+	public String getOrgname()
+	{
+		return orgname;
+	}
+
+	public void setOrgname(String orgname)
+	{
+		this.orgname = orgname;
 	}
 
 	@Override

@@ -150,6 +150,39 @@ public class DsCommonUserController
 		}
 	}
 
+	@RequestMapping("/updUserOrg1")
+	public String updUserOrg1(HttpServletRequest request)
+	{
+		MyRequest req = new MyRequest(request);
+		Long id = req.getLong("keyIndex");
+		if(id > 0)
+		{
+			DsCommonUser po = service.get(id);
+			request.setAttribute("po", po);
+			request.setAttribute("page", req.getInt("page", 1));
+			return "/common/user/updUserOrg.jsp";
+		}
+		return null;
+	}
+	@RequestMapping("/updUserOrg2")
+	public void updUserOrg2(HttpServletRequest request, PrintWriter out)
+	{
+		try
+		{
+			MyRequest req = new MyRequest(request);
+			long id = req.getLong("id");
+			long orgpid = req.getLong("orgpid");
+			long orgid = req.getLong("orgid");
+			service.updateOrg(id, orgpid, orgid);
+			out.print(1);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			out.print("0:" + e.getMessage());
+		}
+	}
+
 	@RequestMapping("/updUserPassword1")
 	public String updUserPassword1(HttpServletRequest request)
 	{

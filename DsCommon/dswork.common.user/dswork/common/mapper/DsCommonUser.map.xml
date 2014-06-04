@@ -6,9 +6,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonUser">
 	insert into DS_COMMON_USER
-	(ID, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME)
+	(ID, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME, ORGPID, ORGID)
 	values
-	(null, LOWER(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{cakey}, #{workcard}, #{createtime})
+	(null, LOWER(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{cakey}, #{workcard}, #{createtime}, #{orgpid}, #{orgid})
 </insert>
 
 <delete id="delete">
@@ -34,6 +34,9 @@
 <update id="updatePassword">
 	update DS_COMMON_USER set PASSWORD=#{password} where ID=#{id}
 </update>
+<update id="updateOrg">
+	update DS_COMMON_USER set ORGPID=#{orgpid}, ORGID=#{orgid} where ID=#{id}
+</update>
 
 <resultMap id="result" type="dswork.common.model.DsCommonUser">
 	<id property="id" column="ID" />
@@ -48,38 +51,48 @@
 	<result property="cakey" column="CAKEY" />
 	<result property="workcard" column="WORKCARD" />
 	<result property="createtime" column="CREATETIME" />
+	<result property="orgpid" column="ORGPID" />
+	<result property="orgid" column="ORGID" />
+	<result property="orgpname" column="ORGPNAME" />
+	<result property="orgname" column="ORGNAME" />
 </resultMap>
 
 <sql id="columns">
-	ID, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME
+	u.ID, u.ACCOUNT, u.PASSWORD, u.NAME, u.IDCARD, u.STATUS, u.EMAIL, u.MOBILE, u.PHONE, u.CAKEY, u.WORKCARD, u.CREATETIME, u.ORGPID, u.ORGID
+	,upo.NAME as ORGPNAME, uo.NAME as ORGNAME
 </sql>
 
 <sql id="dynamicWhere">
 	<where>
-		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT like concat('%',#{account},'%') </if>
-		<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
-		<if test="@Ognl@isNotEmpty(mobile)"> and MOBILE=#{mobile} </if>
-		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-		<if test="@Ognl@isNotEmpty(idcard)"> and IDCARD=#{idcard} </if>
-		<if test="@Ognl@isNotEmpty(workcard)"> and WORKCARD=#{workcard} </if>
+		<if test="@Ognl@isNotEmpty(account)"> and u.ACCOUNT like concat('%',#{account},'%') </if>
+		<if test="@Ognl@isNotEmpty(name)"> and u.NAME like concat('%',#{name},'%') </if>
+		<if test="@Ognl@isNotEmpty(mobile)"> and u.MOBILE=#{mobile} </if>
+		<if test="@Ognl@isNotEmpty(status)"> and u.STATUS=#{status} </if>
+		<if test="@Ognl@isNotEmpty(idcard)"> and u.IDCARD=#{idcard} </if>
+		<if test="@Ognl@isNotEmpty(workcard)"> and u.WORKCARD=#{workcard} </if>
 	</where>
+</sql>
+<sql id="dynamicFrom">
+	from DS_COMMON_USER u
+	left join DS_COMMON_ORG upo on upo.id=u.orgpid
+	left join DS_COMMON_ORG uo on uo.id=u.orgid
 </sql>
 
 <select id="select" resultMap="result">
-	select <include refid="columns" /> from DS_COMMON_USER where ID=#{id}
+	select <include refid="columns" /> <include refid="dynamicFrom" /> where u.ID=#{id}
 </select>
 
 <select id="getByAccount" resultMap="result">
-	select <include refid="columns" /> from DS_COMMON_USER where ACCOUNT=LOWER(#{account})
+	select <include refid="columns" /> <include refid="dynamicFrom" /> where u.ACCOUNT=LOWER(#{account})
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="columns" /> from DS_COMMON_USER
+	select <include refid="columns" /> <include refid="dynamicFrom" />
 	<include refid="dynamicWhere" />
 </select>
 
 <select id="queryCount" resultType="int">
-	select count(1) from DS_COMMON_USER
+	select count(1) from DS_COMMON_USER u
 	<include refid="dynamicWhere" />
 </select>
 

@@ -28,6 +28,27 @@ public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Lon
 	}
 
 	/**
+	 * 修改CA证书
+	 * @param id 用户对象ID
+	 * @param cakey ca证书
+	 */
+	public void updateCAKey(long id, String cakey)
+	{
+		dao.updateCAKey(id, cakey);
+	}
+
+	/**
+	 * 修改用户组织机构
+	 * @param id 用户对象ID
+	 * @param orgpid 单位ID
+	 * @param orgid 单位部门ID
+	 */
+	public void updateOrg(long id, Long orgpid, Long orgid)
+	{
+		dao.updateOrg(id, orgpid, orgid);
+	}
+
+	/**
 	 * 修改密码
 	 * @param id 用户对象ID
 	 * @param password 加密后的密码
@@ -46,16 +67,6 @@ public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Lon
 	public void updateStatus(long id, int status)
 	{
 		dao.updateStatus(id, status);
-	}
-
-	/**
-	 * 修改CA证书
-	 * @param id 用户对象ID
-	 * @param cakey ca证书
-	 */
-	public void updateCAKey(long id, String cakey)
-	{
-		dao.updateCAKey(id, cakey);
 	}
 
 	/**
