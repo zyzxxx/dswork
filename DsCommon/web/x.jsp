@@ -14,7 +14,7 @@ $(function(){
 	$("#orgpidname").bind("click", function(e){
 		$dswork.showTree({id:"treeid1",width:400,height:200,root:{name:"选择单位"}
 			,left:$(this).offset().left, top:$(this).offset().top+20
-			,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?status=2&pid="+node.id;}
+			,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
 			,check:function(id, node){if(node.id==0){return false;}else{$("#orgpidname").val(node.name);$("#orgpid").val(node.id);}}
 			,dataFilter:function(id, pnode, data){var d=[];for(var i =0; i < data.length; i++){if(data[i].status == 2){d.push(data[i]);}}return d;}
 		})
