@@ -172,14 +172,16 @@ CREATE TABLE DS_COMMON_USER
    ACCOUNT              VARCHAR(64) NOT NULL COMMENT '帐号',
    PASSWORD             VARCHAR(256) COMMENT '密码',
    NAME                 VARCHAR(30) COMMENT '姓名',
-   MOBILE               VARCHAR(30) COMMENT '手机',
-   PHONE                VARCHAR(30) COMMENT '电话',
+   IDCARD               VARCHAR(64) COMMENT '身份证号',
    STATUS               INT(1) COMMENT '状态(0,禁止,1,允许)',
    EMAIL                VARCHAR(300) COMMENT '电子邮件',
+   MOBILE               VARCHAR(30) COMMENT '手机',
+   PHONE                VARCHAR(30) COMMENT '电话',
+   WORKCARD             VARCHAR(64) COMMENT '工作证号',
    CAKEY                VARCHAR(1024) COMMENT 'CA证书的KEY',
    CREATETIME           VARCHAR(19) COMMENT '创建时间',
-   IDCARD               VARCHAR(64) COMMENT '身份证号',
-   WORKCARD             VARCHAR(64) COMMENT '工作证号',
+   ORGPI                BIGINT(18) COMMENT '单位ID',
+   ORGID                BIGINT(18) COMMENT '部门ID',
    PRIMARY KEY (ID)
 );
 
