@@ -11,15 +11,31 @@ function updStatus(objid, id){
 	var obj = $("#" + objid), o = document.getElementById(objid);
 	$.post("updUserStatus.htm",{"keyIndex":id,"status":obj.attr("v")==0?1:0},function(data){if(1 == data){
 		if(1 == obj.attr("v")){
-			obj.text("设为管理员").attr("v", 0);$("#td_" + objid).text("普通用户").css("color", "");
+			obj.text("启用").attr("v", 0);$("#td_" + objid).text("禁用").css("color", "red");
 		}
 		else{
-			obj.text("设为普通用户").attr("v", 1);$("#td_" + objid).text("管理员").css("color", "red");
+			obj.text("禁用").attr("v", 1);$("#td_" + objid).text("启用").css("color", "");
 		}}
 	else{alert("失败!"+data);}});
 	return false;
 }
-$(function(){try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}});
+$dswork.page.join = function(td, menu, id){
+	if(id > 0){
+		$(menu).append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(){
+			location.href = "updUser1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
+		})).append($('<div iconCls="menuTool-user">调职</div>').bind("click", function(){
+			location.href = "updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
+		}));
+	}
+};
+$(function(){
+	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
+	$dswork.page.menu("", "", "getUserById.htm", "${pageModel.currentPage}");
+	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
+	$("#status").bind("change", function(){
+		$("#queryForm").submit();
+	});
+});
 </script>
 </head> 
 <body>
@@ -47,26 +63,28 @@ $(function(){try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}})
 </form>
 <div class="line"></div>
 <form id="listForm" method="post" action="delUser.htm">
-<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td style="width:2%;"><input id="chkall" type="checkbox" /></td>
-		<td style="width:28%;">姓名(帐号)</td>
-		<td style="width:15%;">手机</td>
-		<td style="width:25%;">邮箱</td>
+		<td style="width:5%">操作</td>
+		<td style="width:20%;">姓名(帐号)</td>
+		<td>单位</td>
+		<td style="width:15%;">部门</td>
 		<td style="width:8%;">状态</td>
-		<td style="width:22%;">操作</td>
+		<td style="width:15%;">操作</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d" varStatus="status">
 	<tr>
 		<td><input name="keyIndex" type="checkbox" value="${d.id}" ${'admin'==d.account?'style="display:none;"':''}/></td>
+		<td class="menuTool" keyIndex="${'admin'==d.account?'0':d.id}">&nbsp;</td>
 		<td style="text-align:left;">&nbsp;${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
-		<td>${fn:escapeXml(d.mobile)}</td>
-		<td>${fn:escapeXml(d.email)}</td>
+		<td>${fn:escapeXml(d.orgpname)}</td>
+		<td>${fn:escapeXml(d.orgname)}</td>
 		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
 		<td class="menuTool">
 			<a ${'admin'==d.account?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="check" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
-			<a ${'admin'==d.account?'style="display:none;"':''} class="upd" href="updUser1.htm?keyIndex=${d.id}">修改</a>
-			<a class="get" href="getUserById.htm?keyIndex=${d.id}">明细</a>
+			<c:if test="${'admin'!=d.account}"><a class="update" href="updUser1.htm?keyIndex=${d.id}">修改</a></c:if>
+			<c:if test="${'admin'==d.account}"><a class="get" href="getUserById.htm?keyIndex=${d.id}">明细</a></c:if>
 		</td>
 	</tr>
 </c:forEach>
