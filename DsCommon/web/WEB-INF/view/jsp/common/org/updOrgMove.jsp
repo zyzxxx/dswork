@@ -11,8 +11,9 @@
 var data = parent.$jskey.dialog.dialogArguments.args.data;
 var arr = data.split(",");
 $(function(){
-	$dswork.ztree.root.name = "组织机构";
+	$dswork.ztree.root.name = "${po!=null?po.name:'组织机构'}";
 	$dswork.ztree.root.id = ${rootid};
+	$dswork.ztree.root.status = ${po!=null?po.status:2};
 	$dswork.ztree.config.check.chkStyle = "radio";
 	$dswork.ztree.config.check.enable = true;
 	$dswork.ztree.url = function(treeNode){return "getOrgJson.htm?pid=" + treeNode.id;};
@@ -22,7 +23,7 @@ $dswork.ztree.beforeCheck = function(treeId, treeNode){
 	if(!treeNode.isParent){return false;}
 };
 $dswork.ztree.check = function(event, treeId, treeNode){
-	parent.$jskey.dialog.returnValue = treeNode.id;
+	parent.$jskey.dialog.returnValue = {id:treeNode.id, status:treeNode.status};
 };
 $dswork.ztree.dataFilter = function (treeId, parentNode, responseData){//异步获取数据后未加载到树
 	var newData = [];var has = false;

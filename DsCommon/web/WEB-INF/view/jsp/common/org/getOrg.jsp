@@ -12,16 +12,26 @@ $dswork.callback = function(){if($dswork.result.type == 1){parent.refreshNode(tr
 $(function(){
 $dswork.page.menu("", "updOrg1.htm", "getOrgById.htm", "");
 $("#listFormMoveAll").click(function(){
-	var _c = 0;var v = "0";
-	$("input[name='keyIndex']:checked").each(function(){_c++;v=v+","+$(this).val();});
+	var _c = 0, v = "0", isSub = false, isUnit = false;
+	$("input[name='keyIndex']:checked").each(function(){
+		_c++;v=v+","+$(this).val();
+		isSub = ($(this).attr("v") != "2") || isSub;
+		if($(this).attr("v") == "2"){isUnit = true;}
+	});
 	if(_c > 0){
 		v = v.substr(2, v.length-2);
 		$("#moveids").val(v);
 		var obj = {"title":"移动到选中节点","args":{"data":v}, "url":"updOrgMove1.htm?rootid=${rootid}"};
 		obj.buttons = [{text:"移动",iconCls:"menuTool-save",handler:function(){
-			if($jskey.dialog.returnValue != null){
-				if($jskey.dialog.returnValue == "${pid}"){$jskey.dialog.close();return false;}
-				$("#movepid").val($jskey.dialog.returnValue);
+			var re = $jskey.dialog.returnValue;
+			if(re != null){
+				if(re.id == "${pid}"){alert("目标节点与当前节点相同");return false;}
+				if(re.id == "0" && isSub){alert("部门或岗位不能移到根节点");return false;}
+				if(re.status != "2"){
+					if(isUnit){alert("不能移到非单位节点！");return false;}
+					$jskey.dialog.close();return false;
+				}
+				$("#movepid").val(re.id);
 				$("#moveForm").ajaxSubmit({
 					beforeSubmit:$dswork.showRequest,
 					success:function(data){
@@ -80,7 +90,7 @@ $("#dataTable>tbody>tr>td.v").each(function(){try{$(this).text($(this).text()=="
 	</tr>
 <c:forEach items="${list}" var="d">
 	<tr>
-		<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
+		<td><input name="keyIndex" type="checkbox" value="${d.id}" v="${d.status}" /></td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td class="v">${d.status}</td>
 		<td>${fn:escapeXml(d.name)}</td>
