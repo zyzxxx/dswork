@@ -115,7 +115,7 @@ public class DsCommonOrgController
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			out.print("0:下级节点或用户不为空");
 		}
 	}
 
@@ -235,8 +235,7 @@ public class DsCommonOrgController
 	{
 		MyRequest req = new MyRequest(request);
 		Long rootid = req.getLong("rootid");//作为限制根节点显示
-		DsCommonOrg po = service.get(req.getLong("pid"));
-		request.setAttribute("po", po);
+		request.setAttribute("po", (rootid > 0)?service.get(rootid):null);
 		request.setAttribute("rootid", rootid);
 		return "/common/org/updOrgMove.jsp";
 	}
