@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 	<LinearLayout
@@ -34,18 +35,4 @@
 	   		android:layout_marginRight="10dip"
 	        android:fastScrollEnabled="true"/>
 	</LinearLayout>
-	<ProgressBar 
-	    android:id="@+id/waitingBar"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_gravity="center"
-	    style="@android:attr/progressBarStyle"/>
-	<ImageView 
-	    android:id="@+id/refresh"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_marginRight="10dp"
-	    android:layout_marginBottom="10dp"
-	    android:layout_gravity="right|bottom"
-	    android:src="@android:drawable/ic_menu_rotate"/>
 </FrameLayout>

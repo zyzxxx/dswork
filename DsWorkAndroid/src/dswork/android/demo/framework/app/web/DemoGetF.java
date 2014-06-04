@@ -2,7 +2,6 @@ package dswork.android.demo.framework.app.web;
 
 import java.util.HashMap;
 import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,17 +14,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
-import android.widget.CheckBox;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
-
 import dswork.android.R;
 import dswork.android.controller.DemoController;
 import dswork.android.lib.ui.MultiCheck.MultiCheckActionMode2;
@@ -43,9 +40,8 @@ import dswork.android.model.Demo;
 
 public class DemoGetF extends BaseGetOleSherlockFragment<Demo>
 {
+	@InjectView(id=R.id.rootLayout) FrameLayout rootLayout;//根布局
 	@InjectView(id=R.id.listView) MultiCheckListView2 listView;//列表视图
-	@InjectView(id=R.id.waitingBar) ProgressBar waitingBar;//进度条
-	@InjectView(id=R.id.refresh) ImageView refresh;//刷新按钮
 	private DemoController controller;
 
 	@Override
@@ -62,11 +58,8 @@ public class DemoGetF extends BaseGetOleSherlockFragment<Demo>
 		View convertView = inflater.inflate(R.layout.demo_get_f, container, false);
 		InjectUtil.injectView(this, convertView);//注入控件
 		controller = new DemoController(getActivity());
-		
-		refresh.setOnClickListener(new RefreshClickListener());
-		
 		//异步获取后台数据，并更新UI
-		new GetBgDataTask().execute();
+		new BaseGetDataTask().execute();
 		return convertView;
 	}
 
@@ -84,15 +77,15 @@ public class DemoGetF extends BaseGetOleSherlockFragment<Demo>
 			case android.R.id.home://返回
 				getActivity().finish();
 				break;
-			case R.id.menu_add://添加
-				startActivity(new Intent().setClass(getActivity(), DemoAddA.class));
+			case R.id.menu_refresh://刷新
+				new BaseGetDataTask().execute();
 				break;
 			case R.id.menu_search://搜索
 				startActivity(new Intent().setClass(getActivity(), DemoSearchA.class));
 				break;
-//			case R.id.menu_refresh://刷新
-//				new GetBgDataTask().execute();
-//				break;
+			case R.id.menu_add://添加
+				startActivity(new Intent().setClass(getActivity(), DemoAddA.class));
+				break;
 		}
 		return true;
 	}
@@ -104,50 +97,28 @@ public class DemoGetF extends BaseGetOleSherlockFragment<Demo>
 		public TextView foundtimeView;
 		public ImageButton itemMenu;
 	}
-	
-	/**
-	 * 异步获取后台数据类
-	 *
-	 */
-	class GetBgDataTask extends AsyncTask<String, Integer, List<Demo>>
-	{//继承AsyncTask
-		@Override
-		protected void onPreExecute() 
-		{
-			waitingBar.setVisibility(ProgressBar.VISIBLE);//显示圆形进度条
-			refresh.startAnimation(AnimationUtils.loadAnimation(DemoGetF.this.getActivity(), R.anim.rotate));
-		}
-		
-        @SuppressWarnings("unchecked")
-		@Override  
-        protected List<Demo> doInBackground(String... _params) 
-        {//后台耗时操作，不能在后台线程操作UI
-    		//获取列表信息
-    		List<Demo> list = controller.get(getParams());
-            return list;  
-        }
 
-		protected void onPostExecute(List<Demo> list) 
-		{// 后台任务执行完之后被调用，在ui线程执行
-			if (list != null)
-			{
-				MultiCheckAdapter2 adapter = new MultiCheckAdapter2(
-						getActivity(), list, R.layout.demo_get_item,
-						new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
-						new MyViewCache());
-				adapter.setItemMenuDialog(new MyItemMenuDialog());//实例化ItemMenuDialog
-				listView.initMultiCheck(list, adapter);//初始化MultiCheck
-				listView.setOnItemClickNotMultiListener(new MyOnItemClickNotMultiListener());//列表项单击事件（非多选模式）
-				listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
-				Toast.makeText(getActivity(), "加载成功",Toast.LENGTH_SHORT).show();
-			} 
-			else 
-			{
-				Toast.makeText(getActivity(), "加载失败，网络异常", Toast.LENGTH_SHORT).show();
-			}
-			waitingBar.setVisibility(ProgressBar.GONE);//隐藏圆形进度条
-		}
-    }
+	@Override
+	public FrameLayout getRootLayout() {
+		return rootLayout;
+	}
+	
+	@Override
+	public List<Demo> getDataInBackground() {
+		return controller.get(getParams());
+	}
+	
+	@Override
+	public void executeUI(List<Demo> list) {
+		MultiCheckAdapter2 adapter = new MultiCheckAdapter2(
+				getActivity(), list, R.layout.demo_get_item,
+				new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
+				new MyViewCache());
+		adapter.setItemMenuDialog(new MyItemMenuDialog());//实例化ItemMenuDialog
+		listView.initMultiCheck(list, adapter);//初始化MultiCheck
+		listView.setOnItemClickNotMultiListener(new MyOnItemClickNotMultiListener());//列表项单击事件（非多选模式）
+		listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
+	}
 	
 	//列表项单击事件（非多选模式）
 	private class MyOnItemClickNotMultiListener implements OnItemClickNotMultiListener
@@ -284,15 +255,5 @@ public class DemoGetF extends BaseGetOleSherlockFragment<Demo>
 			}
 		}
 	}
-	
-	//刷新事件
-	private class RefreshClickListener implements OnClickListener
-	{
-		@Override
-		public void onClick(View v) 
-		{
-			refresh.startAnimation(AnimationUtils.loadAnimation(DemoGetF.this.getActivity(), R.anim.rotate));
-			new GetBgDataTask().execute();
-		}
-	}
 }
+
