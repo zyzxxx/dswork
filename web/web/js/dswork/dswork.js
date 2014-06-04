@@ -149,7 +149,7 @@ $dswork.showTree = function(p){if(typeof(p)!="object"){p={};}
 	};
 	$win.css("display", "");
 	p.tree = $.fn.zTree.init($tree, cfg, p.nodeArray);
-	try{var _pn = p.tree.getNodeByParam("id", 0);p.tree.selectNode(_pn);p.tree.reAsyncChildNodes(_pn, "refresh");}catch(e){}
+	try{var _pn = p.tree.getNodeByParam("id", root.id);p.tree.selectNode(_pn);p.tree.reAsyncChildNodes(_pn, "refresh");}catch(e){}
 };
 
 $dswork.uploadURL = "/web/js/jskey/jskey_multiupload.jsp";
