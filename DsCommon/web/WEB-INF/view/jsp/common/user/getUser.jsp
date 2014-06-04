@@ -23,7 +23,7 @@ $dswork.page.join = function(td, menu, id){
 	if(id > 0){
 		$(menu).append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(){
 			location.href = "updUser1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
-		})).append($('<div iconCls="menuTool-user">调职</div>').bind("click", function(){
+		})).append($('<div iconCls="menuTool-user">调动</div>').bind("click", function(){
 			location.href = "updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
 		}));
 	}
@@ -70,8 +70,8 @@ $(function(){
 		<td style="width:20%;">姓名(帐号)</td>
 		<td>单位</td>
 		<td style="width:15%;">部门</td>
-		<td style="width:8%;">状态</td>
-		<td style="width:15%;">操作</td>
+		<td style="width:7%;">状态</td>
+		<td style="width:23%;">操作</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d" varStatus="status">
 	<tr>
@@ -83,7 +83,10 @@ $(function(){
 		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
 		<td class="menuTool">
 			<a ${'admin'==d.account?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="check" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
-			<c:if test="${'admin'!=d.account}"><a class="update" href="updUser1.htm?keyIndex=${d.id}">修改</a></c:if>
+			<c:if test="${'admin'!=d.account}">
+				<a class="update" href="updUser1.htm?page=${pageModel.currentPage}&keyIndex=${d.id}">修改</a>
+				<a class="user" href="updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
+			</c:if>
 			<c:if test="${'admin'==d.account}"><a class="get" href="getUserById.htm?keyIndex=${d.id}">明细</a></c:if>
 		</td>
 	</tr>
