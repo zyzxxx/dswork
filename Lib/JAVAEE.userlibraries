@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="JAVAEE" systemlibrary="true">
+        <archive path="/DsWorkJava/lib/jsp-api.jar"/>
+        <archive path="/DsWorkJava/lib/servlet-api.jar"/>
+    </library>
+</eclipse-userlibraries>
