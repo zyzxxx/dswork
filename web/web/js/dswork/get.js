@@ -68,6 +68,7 @@ $dswork.page.menu = function(delURL, updURL, getByIdURL, page, showContext){
 		var id = o.attr("keyIndex");
 		if(id == null || typeof(id)=="undefined"){return true;}
 		var _menu = $('<div class="easyui-menu" style="width:150px;"></div>');
+		$dswork.page.join(o, _menu, id);
 		if(updURL != null && updURL.length > 0)
 		{_menu.append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(event){
 			$dswork.page.upd(event, updURL, id, page, o);
@@ -79,8 +80,7 @@ $dswork.page.menu = function(delURL, updURL, getByIdURL, page, showContext){
 		if(getByIdURL != null && getByIdURL.length > 0)
 		{_menu.append($('<div iconCls="menuTool-select">明细</div>').bind("click", function(event){
 			$dswork.page.getById(event, getByIdURL, id, page, o);
-		}));}
-		$dswork.page.join(o, _menu, id);
+		}));o.parent().css("cursor", "pointer").bind("dblclick", function(event){$dswork.page.getById(event, getByIdURL, id, page, o);});}
 		o.append(_menu).append($('<a class="menuTool-rightarrow" href="#">&nbsp;</a>').bind("mouseover", function(event){
 			$(".easyui-menu").menu("hide");
 			$(_menu).menu('show', {left: $(this).offset().left + 16, top: o.offset().top + 3});
@@ -94,10 +94,6 @@ $dswork.page.menu = function(delURL, updURL, getByIdURL, page, showContext){
 			$(_menu).menu('show', {left: $(this).offset().left + 16, top: o.offset().top + 3});
 			event.preventDefault();
 		}));
-		if(getByIdURL != null && getByIdURL.length > 0)
-		{o.parent().css("cursor", "pointer").bind("dblclick", function(event){
-			$dswork.page.getById(event, getByIdURL, id, page, o);
-		});}
 		if(showContext == null || showContext){
 			o.parent().bind("contextmenu", function(event){
 				$(".easyui-menu").menu("hide");
