@@ -11,40 +11,180 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="lib" path="/Lib/common/commons/commons-collections-3.2.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/commons/commons-dbcp-1.4.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/commons/commons-io-2.3.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/commons/commons-lang-2.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/commons/commons-logging-1.1.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/commons/commons-pool-1.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/log/log4j-1.2.16.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/log/log4jdbc4-1.2.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/log/slf4j-api-1.6.4.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/log/slf4j-log4j12-1.6.4.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/spring/spring-aop.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/spring/spring-beans.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/spring/spring-context.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/spring/spring-core.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/spring/spring-expression.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/spring/spring-jdbc.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/spring/spring-tx.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/spring/spring-web.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/spring/spring-webmvc.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/aopalliance.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/cglib-nodep-2.2.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/jimi.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/ognl-2.7.3.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/antlr-runtime.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/hibernate3.5.6.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/javassist-3.15.0-GA.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/javax.persistence.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/jta-1.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/hibernate/spring-orm.jar"/>
-	<classpathentry kind="lib" path="/Lib/module/xml/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.3.jar"/>
-	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
-	<classpathentry kind="lib" path="/Lib/database/sqlite/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry kind="lib" path="/Lib/common/commons/commons-collections-3.2.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/commons/commons-dbcp-1.4.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/commons/commons-io-2.3.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/commons/commons-lang-2.6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/commons/commons-logging-1.1.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/commons/commons-pool-1.6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/log/log4j-1.2.16.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/log/log4jdbc4-1.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/log/slf4j-api-1.6.4.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/log/slf4j-log4j12-1.6.4.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/spring/spring-aop.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/spring/spring-beans.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/spring/spring-context.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/spring/spring-core.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/spring/spring-expression.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/spring/spring-jdbc.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/spring/spring-tx.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/spring/spring-web.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/spring/spring-webmvc.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/aopalliance.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/cglib-nodep-2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/jimi.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/jstl-1.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/common/ognl-2.7.3.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/hibernate/antlr-2.7.6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/hibernate/antlr-runtime.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/hibernate/hibernate3.5.6.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/hibernate/javassist-3.15.0-GA.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/hibernate/javax.persistence.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/hibernate/jta-1.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/hibernate/spring-orm.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/module/xml/dom4j-1.6.1.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.3.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Lib/database/sqlite/sqlite-jdbc-3.7.2.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
