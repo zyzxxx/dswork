@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="src" path="common"/>
 	<classpathentry kind="src" path="config"/>
 	<classpathentry kind="src" path="dswork.common.dict"/>
 	<classpathentry kind="src" path="dswork.common.org"/>
 	<classpathentry kind="src" path="dswork.common.rbac"/>
 	<classpathentry kind="src" path="dswork.common.user"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-collections-3.2.1.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-dbcp-1.4.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-io-2.3.jar"/>
@@ -40,6 +39,7 @@
 	<classpathentry kind="lib" path="/Lib/common/ognl-2.7.3.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.3.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAWEB">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
