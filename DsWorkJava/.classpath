@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5">
+		<accessrules>
+			<accessrule kind="accessible" pattern="**"/>
+		</accessrules>
+	</classpathentry>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="dswork.config"/>
 	<classpathentry kind="src" path="dswork.core"/>
@@ -9,6 +12,7 @@
 	<classpathentry kind="src" path="dswork.ognl"/>
 	<classpathentry kind="src" path="dswork.spring"/>
 	<classpathentry kind="src" path="dswork.web"/>
+	<classpathentry kind="src" path="log4jdbc"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE"/>
 	<classpathentry kind="lib" path="/Lib/database/sqlite/sqlite-jdbc-3.7.2.jar">
