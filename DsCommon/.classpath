@@ -8,6 +8,7 @@
 	<classpathentry kind="src" path="dswork.common.org"/>
 	<classpathentry kind="src" path="dswork.common.rbac"/>
 	<classpathentry kind="src" path="dswork.common.user"/>
+	<classpathentry kind="src" path="dswork.common.permit"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAWEB">
 		<attributes>
