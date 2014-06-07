@@ -176,7 +176,7 @@ public class DsCommonRoleService
 	 * @param roleid 角色主键
 	 * @return List&lt;DsCommonRoleFunc&gt;
 	 */
-	public List<DsCommonRoleFunc> getFuncListByRoleid(long roleid)
+	public List<DsCommonRoleFunc> queryFuncListByRoleid(long roleid)
 	{
 		return roleDao.queryRoleFuncByRoleid(roleid);
 	}
