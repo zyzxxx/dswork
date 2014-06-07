@@ -8,5 +8,6 @@ var treedata = [
 	 {id:100001,name:'字典管理', img:"", imgOpen:"", url:'/common/dict/getDict.htm', items:[]}
 	,{id:100002,name:'系统管理', img:"", imgOpen:"", url:'/common/system/getSystem.htm', items:[]}
 	,{id:100003,name:'组织管理', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm', items:[]}
+	,{id:100004,name:'岗位授权管理', img:"", imgOpen:"", url:'/common/orgrole/getOrgTree.htm', items:[]}
 ]}
 ];

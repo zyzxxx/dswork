@@ -6,6 +6,7 @@
 	<classpathentry kind="src" path="config"/>
 	<classpathentry kind="src" path="dswork.common.dict"/>
 	<classpathentry kind="src" path="dswork.common.org"/>
+	<classpathentry kind="src" path="dswork.common.org.role"/>
 	<classpathentry kind="src" path="dswork.common.rbac"/>
 	<classpathentry kind="src" path="dswork.common.user"/>
 	<classpathentry kind="src" path="dswork.common.permit"/>
