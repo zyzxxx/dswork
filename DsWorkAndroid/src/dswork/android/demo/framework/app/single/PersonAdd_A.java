@@ -14,7 +14,7 @@ import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.view.OleActivity;
 import dswork.android.model.Person;
 
-public class PersonAddActivity extends OleActivity 
+public class PersonAdd_A extends OleActivity 
 {
 	@InjectView(id=R.id.name) EditText nameText;//姓名
 	@InjectView(id=R.id.phone) EditText phoneText;//电话
@@ -25,7 +25,7 @@ public class PersonAddActivity extends OleActivity
 	@Override
 	public void initMainView() 
 	{
-		setContentView(R.layout.activity_person_add);
+		setContentView(R.layout.person_add_a);
 		InjectUtil.injectView(this);//注入控件
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
@@ -57,6 +57,6 @@ public class PersonAddActivity extends OleActivity
 		controller.add(p);
 		Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 		this.finish();
-		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, PersonActivity.class));
+		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, PersonGet_A.class));
 	}
 }

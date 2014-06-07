@@ -67,11 +67,11 @@ public class DemoController implements BaseController<Demo>
 	}
 
 	@Override
-	public String upd(Demo po, String ids) 
+	public String upd(Demo po, Long id) 
 	{
-		String action = "updBatchForMobile.htm";		
+		String action = "updDemoForMobile.htm";		
 		Map m = new HashMap();
-		m.put("ids", ids);
+		m.put("id", id);
 		m.put("title", po.getTitle());
 		m.put("content", po.getContent());
 		m.put("foundtime", po.getFoundtime());

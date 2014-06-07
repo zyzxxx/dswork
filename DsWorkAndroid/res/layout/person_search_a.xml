@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".PersonDetailActivity" >
+    tools:context=".PersonSearch_A" >
 
     <LinearLayout 
         android:orientation="horizontal"
@@ -17,29 +17,8 @@
 		<TextView
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="@string/id" />
-		<TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="：" />
-		<TextView 
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:id="@+id/id"/>
-    </LinearLayout>
-    <LinearLayout 
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-		<TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
 		    android:text="@string/name" />
-		<TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="：" />
-		<TextView 
+		<EditText 
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:id="@+id/name"/>
@@ -51,29 +30,8 @@
 		<TextView
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:text="@string/sortkey" />
-		<TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="：" />
-		<TextView 
-		    android:layout_width="match_parent"
-		    android:layout_height="wrap_content"
-		    android:id="@+id/sortkey"/>
-    </LinearLayout>
-    <LinearLayout 
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-		<TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
 		    android:text="@string/phone" />
-		<TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="：" />
-		<TextView 
+		<EditText 
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:id="@+id/phone"/>
@@ -86,14 +44,16 @@
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:text="@string/amount" />
-		<TextView
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:text="：" />
-		<TextView 
+		<EditText 
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
 		    android:id="@+id/amount"/>
     </LinearLayout>
+    <Button 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/btn_search"
+        android:id="@+id/btn_search"/>
 
 </LinearLayout>

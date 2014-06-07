@@ -21,7 +21,7 @@ import dswork.android.demo.ui.Fragment2;
 import dswork.android.demo.ui.Fragment3;
 import dswork.android.lib.view.OleListFragment;
 
-public class MainA extends SlidingFragmentActivity //OleActivity
+public class Main_A extends SlidingFragmentActivity //OleActivity
 {
 	private static SlidingMenu sdMenu;
 	@Override
@@ -34,7 +34,7 @@ public class MainA extends SlidingFragmentActivity //OleActivity
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
 		//嵌套DemoListFragment
-		getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new DemoGetF()).commit();
+		getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new DemoGet_F()).commit();
 		// 设置滑动菜单的属性值
 		sdMenu = getSlidingMenu();
 		sdMenu.setMode(SlidingMenu.LEFT);
@@ -121,7 +121,7 @@ public class MainA extends SlidingFragmentActivity //OleActivity
 			{
 				case 0:
 					//切换主页的fragment
-					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new DemoGetF()).commit();
+					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new DemoGet_F()).commit();
 					//关闭左菜单
 					sdMenu.toggle();
 					break;
@@ -145,7 +145,7 @@ public class MainA extends SlidingFragmentActivity //OleActivity
 					break;
 				default :
 					//切换主页的fragment
-					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new DemoGetF()).commit();
+					getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.demo_main_frame, new DemoGet_F()).commit();
 					//关闭左菜单
 					sdMenu.toggle();break;
 			}

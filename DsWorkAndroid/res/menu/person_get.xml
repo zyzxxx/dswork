@@ -1,14 +1,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
     <item
-        android:id="@+id/menu_add"
+        android:id="@+id/menu_refresh"
         android:orderInCategory="100"
         android:showAsAction="withText|always"
-        android:icon="@android:drawable/ic_input_add"/>
+        android:icon="@android:drawable/ic_menu_rotate"/>
     <item
         android:id="@+id/menu_search"
         android:orderInCategory="100"
         android:showAsAction="withText|always"
         android:icon="@android:drawable/ic_menu_search"/>
-
+    <item
+        android:id="@+id/menu_add"
+        android:orderInCategory="100"
+        android:showAsAction="withText|always"
+        android:icon="@android:drawable/ic_input_add"/>
 </menu>
