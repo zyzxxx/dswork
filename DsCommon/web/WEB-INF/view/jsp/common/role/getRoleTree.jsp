@@ -79,7 +79,7 @@ $(function(){
 		<div id="menu_add" iconCls="menuTool-insert">添加</div>
 		<div id="menu_del" iconCls="menuTool-delete">删除</div>
 		<div id="menu_upd" iconCls="menuTool-update">修改</div>
-		<div id="menu_sort" iconCls="menuTool-tool">排序</div>
+		<div id="menu_sort" iconCls="menuTool-sort">排序</div>
 	</div>
 </div>
 <div region="center" style="overflow:hidden;">

@@ -60,7 +60,7 @@ $("#dataTable>tbody>tr>td.v").each(function(){try{$(this).text($(this).text()=="
 		<td class="title">组织机构列表</td>
 		<td class="menuTool">
 			<a class="tool" id="listFormMoveAll" href="#">移动</a>
-			<a class="tool" href="updOrgSeq1.htm?pid=${pid}">排序</a>
+			<a class="sort" href="updOrgSeq1.htm?pid=${pid}">排序</a>
 			<a class="add" href="addOrg1.htm?pid=${pid}">添加</a>
 			<a class="del" id="listFormDelAll" href="#">删除所选</a>
 		</td>

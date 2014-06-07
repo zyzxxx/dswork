@@ -51,7 +51,7 @@ $("#listFormMoveAll").click(function(){
 		<td class="title">${fn:escapeXml(po.name)}列表</td>
 		<td class="menuTool"><c:if test="${po.status==1}">
 			<a class="tool" id="listFormMoveAll" href="#">移动</a></c:if>
-			<a class="tool" href="updDictDataSeq1.htm?dictid=${po.id}&pid=${pid}">排序</a>
+			<a class="sort" href="updDictDataSeq1.htm?dictid=${po.id}&pid=${pid}">排序</a>
 			<a class="add" href="addDictData1.htm?dictid=${po.id}&pid=${pid}">添加</a>
 			<a class="del" id="listFormDelAll" href="#">删除所选</a>
 		</td>
