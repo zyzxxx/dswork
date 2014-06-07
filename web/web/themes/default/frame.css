@@ -70,23 +70,19 @@ a:active {color:#182a2d;}/*激活*/
 .menuTool a.uncheck {background:url(img/menu.png) 0px -600px no-repeat;}
 .menuTool a.user    {background:url(img/menu.png) 0px -625px no-repeat;}
 .menuTool a.warn    {background:url(img/menu.png) 0px -650px no-repeat;}
+.menuTool a.bar     {background:url(img/menu.png) 0px -675px no-repeat;}
+.menuTool a.pie     {background:url(img/menu.png) 0px -700px no-repeat;}
 
-.menuTool .bar {background:url(img/menu/bar.gif) 0px 0px no-repeat;}
 .menuTool .back {background:url(img/menu/back.gif) 0px 0px no-repeat;}
 .menuTool .close {background:url(img/menu/close.gif) 0px 0px no-repeat;}
 .menuTool .download {background:url('img/menu/download.gif') 0px 0px no-repeat;}
-.menuTool .pie {background:url(img/menu/pie.gif) 0px 0px no-repeat;}
 .menuTool .upload {background:url('img/menu/upload.gif') 0px 0px no-repeat;}
 
 .menuTool .vline {background-color:silver;padding-left:1px;padding-right:0px;margin:0px 2px 0px 2px;}
 
-
-
-.menuTool-bar {background:url(img/menu/bar.gif) no-repeat;}
 .menuTool-back {background:url('img/menu/back.gif') no-repeat;}
 .menuTool-close {background:url(img/menu/close.gif) no-repeat;}
 .menuTool-download {background:url('img/menu/download.gif') no-repeat;}
-.menuTool-pie {background:url(img/menu/pie.gif) no-repeat;}
 .menuTool-upload {background:url('img/menu/upload.gif') no-repeat;}
 
 .menuTool-leftarrow {background:url('img/menu/leftarrow.png') no-repeat;}
@@ -139,6 +135,8 @@ a:active {color:#182a2d;}/*激活*/
 .menuTool-uncheck {background:url(img/menu.png) 0px -600px no-repeat;}
 .menuTool-user    {background:url(img/menu.png) 0px -625px no-repeat;}
 .menuTool-warn    {background:url(img/menu.png) 0px -650px no-repeat;}
+.menuTool-bar     {background:url(img/menu.png) 0px -675px no-repeat;}
+.menuTool-pie     {background:url(img/menu.png) 0px -700px no-repeat;}
 
 /*---页面标题---*/
 table.listLogo {width:100%;border:#c2c2c2 solid 1px;}
