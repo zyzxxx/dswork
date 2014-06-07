@@ -374,7 +374,7 @@ public class DsCommonRoleController
 			}
 			if(0 < roleid)
 			{
-				List<DsCommonRoleFunc> flist = service.getFuncListByRoleid(roleid);
+				List<DsCommonRoleFunc> flist = service.queryFuncListByRoleid(roleid);
 				for(DsCommonRoleFunc i : flist)
 				{
 					m.get(i.getFuncid()).setChecked(true);
