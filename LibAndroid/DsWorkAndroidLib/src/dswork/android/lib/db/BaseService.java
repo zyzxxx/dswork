@@ -127,7 +127,7 @@ public abstract class BaseService<T, PK extends Serializable>
 		getEntityDao().close();
 	}
 	/**
-	 * 修改记录
+	 * 修改记录（批量）
 	 * @param o Model实例
 	 * @param ids 主键值数组
 	 * @param fieldNames 需要修改的属性名
@@ -138,6 +138,26 @@ public abstract class BaseService<T, PK extends Serializable>
 		try
 		{
 			getEntityDao().update(o, ids, fieldNames);
+			getEntityDao().setTransactionSuccessful();
+		}
+		finally
+		{
+			getEntityDao().endTransaction();
+		}
+		getEntityDao().close();
+	}
+	/**
+	 * 修改记录
+	 * @param o Model实例
+	 * @param id 主键
+	 * @param fieldNames 需要修改的属性名
+	 */
+	public void update(T o, Long id, String[] fieldNames)
+	{
+		getEntityDao().beginTransaction();
+		try
+		{
+			getEntityDao().update(o, id, fieldNames);
 			getEntityDao().setTransactionSuccessful();
 		}
 		finally
@@ -169,6 +189,25 @@ public abstract class BaseService<T, PK extends Serializable>
 	/**
 	 * 修改记录
 	 * @param o Model实例
+	 * @param id 主键
+	 */
+	public void update(T o, Long id)
+	{
+		getEntityDao().beginTransaction();
+		try
+		{
+			getEntityDao().update(o, id);
+			getEntityDao().setTransactionSuccessful();
+		}
+		finally
+		{
+			getEntityDao().endTransaction();
+		}
+		getEntityDao().close();
+	}
+	/**
+	 * 修改记录（批量）
+	 * @param o Model实例
 	 * @param ids 主键值数组
 	 */
 	public void update(T o, long[] ids)
@@ -186,7 +225,7 @@ public abstract class BaseService<T, PK extends Serializable>
 		getEntityDao().close();
 	}
 	/**
-	 * 修改记录
+	 * 修改记录（批量）
 	 * @param o Model实例
 	 * @param ids 主键值集合字符串，以逗号隔开
 	 */

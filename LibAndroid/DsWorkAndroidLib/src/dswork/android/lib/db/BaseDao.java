@@ -121,6 +121,21 @@ public abstract class BaseDao<T, PK extends Serializable>
 	/**
 	 * 修改记录
 	 * @param o Model实例
+	 * @param id 主键
+	 * @param fieldNames 需要修改的属性名
+	 */
+	public void update(T o, Long id, String[] fieldNames)
+	{
+		ContentValues cv= new ContentValues();
+		for(String n:fieldNames)
+		{
+			cv.put(n, SqlUtil.getValueByName(o, n));
+		}
+		getWritableDb().update(SqlUtil.getTableNameByModel(o), cv, "id=?", new String[]{id.toString()});
+	}
+	/**
+	 * 修改记录(批量)
+	 * @param o Model实例
 	 * @param ids 主键值数组
 	 * @param fieldNames 需要修改的属性名
 	 */
@@ -157,6 +172,15 @@ public abstract class BaseDao<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录
+	 * @param o Model实例
+	 * @param id 主键
+	 */
+	public void update(T o, Long id)
+	{
+		getWritableDb().update(SqlUtil.getTableNameByModel(o), SqlUtil.getValues(o), "id=?", new String[]{id.toString()});
+	}
+	/**
+	 * 修改记录（批量）
 	 * @param o Model实例
 	 * @param ids 主键值数组
 	 */

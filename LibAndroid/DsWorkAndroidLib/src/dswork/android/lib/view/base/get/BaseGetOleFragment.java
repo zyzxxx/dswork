@@ -1,8 +1,11 @@
-package dswork.android.lib.view;
+package dswork.android.lib.view.base.get;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -10,19 +13,48 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-public abstract class BaseGetOleSherlockFragment<T> extends OleSherlockFragment
+import dswork.android.lib.R;
+import dswork.android.lib.view.OleFragment;
+
+public abstract class BaseGetOleFragment<T> extends OleFragment
 {
-	private Map<String,Object> params = new HashMap<String,Object>();//查询参数
 	@SuppressWarnings("unchecked")
 	/**
-	 * 获取请求参数
+	 * 获取查询参数
 	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> getParams()
 	{
+		Map<String,Object> params = new HashMap<String,Object>();
 		List<Map<String,Object>> rtn_params = (List<Map<String, Object>>) getActivity().getIntent().getSerializableExtra("params");//获取查询参数
 		if(null != rtn_params) params = rtn_params.get(0);
 		return params;
+	}
+	
+	/**
+	 * 执行删除
+	 * @param id_str
+	 */
+	public void executeDel(String id_str){};
+	/**
+	 * 显示删除对话框
+	 * @param id_str
+	 */
+	public void showDeleteDialog(final String id_str)
+	{
+		new AlertDialog.Builder(getActivity())
+		.setTitle(R.string.confirm_del)
+		.setIcon(android.R.drawable.ic_delete)
+		.setNegativeButton(R.string.no, null)
+		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialog, int which) 
+			{
+				executeDel(id_str);
+			}
+		})
+		.show();
 	}
 	
 	/**
@@ -57,8 +89,7 @@ public abstract class BaseGetOleSherlockFragment<T> extends OleSherlockFragment
 		
 		@Override  
         protected List<T> doInBackground(String... _params) 
-        {//后台耗时操作，不能在后台线程操作UI
-    		//获取列表信息
+        {//后台耗时操作，获取列表数据，不能在后台线程操作UI
             return getDataInBackground();  
         }
 
