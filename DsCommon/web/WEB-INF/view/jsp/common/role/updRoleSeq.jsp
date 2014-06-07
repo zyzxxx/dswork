@@ -41,7 +41,7 @@ $dswork.callback = function(){
 		<td class="form_title" style="text-align:center;">
 			<select multiple="multiple" id="keyIndex" name="keyIndex" style="width:100%;height:380px;">
 				<c:forEach items="${list}" var="d">
-					<option value="${d.id}">${fn:escapeXml(d.name)}(${fn:escapeXml(d.alias)})</option>
+					<option value="${d.id}">${fn:escapeXml(d.name)}</option>
 				</c:forEach>
 			</select>
 		</td>

@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_COMMON_ROLE
-	(ID, PID, SYSTEMID, NAME, ALIAS, SEQ, MEMO)
+	(ID, PID, SYSTEMID, NAME, SEQ, MEMO)
 	values
-	(null, <if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{alias}, #{seq}, #{memo})
+	(null, <if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{seq}, #{memo})
 </insert>
 
 <delete id="delete">
@@ -22,7 +22,6 @@
 <update id="update" parameterType="dswork.common.model.DsCommonRole">
 	update DS_COMMON_ROLE set
 		NAME=#{name},
-		ALIAS=#{alias},
 		MEMO=#{memo}
 	where ID=#{id}
 </update>
@@ -38,12 +37,11 @@
 	<result property="pid" column="PID" />
 	<result property="systemid" column="SYSTEMID" />
 	<result property="name" column="NAME" />
-	<result property="alias" column="ALIAS" />
 	<result property="seq" column="SEQ" />
 	<result property="memo" column="MEMO" />
 </resultMap>
 <sql id="columns">
-	ID, PID, SYSTEMID, NAME, ALIAS, SEQ, MEMO
+	ID, PID, SYSTEMID, NAME, SEQ, MEMO
 </sql> 
 <sql id="dynamicWhere">
 	<where>
@@ -52,7 +50,6 @@
 			<if test="0 &gt;= pid"> and PID is null </if>
 		</if>
 		<if test="@Ognl@isNotEmpty(systemid)"> and SYSTEMID=#{systemid} </if>
-		<if test="@Ognl@isNotEmpty(alias)"> and ALIAS=#{alias} </if>
 	</where>
 </sql>
 <select id="select" resultMap="result">

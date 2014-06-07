@@ -66,15 +66,6 @@ public class DsCommonRoleController
 					return;
 				}
 			}
-			if(po.getAlias().length() != 0)
-			{
-				// 判断是否在该系统下唯一
-				if(service.isExistByAlias(po.getAlias(), po.getSystemid()))
-				{
-					out.print("0:操作失败，标识已存在");
-					return;
-				}
-			}
 			int refresh = req.getInt("refresh", 0);
 			List<DsCommonRoleFunc> list = null;
 			if(refresh == 1)// 需要修改功能权限
@@ -182,18 +173,6 @@ public class DsCommonRoleController
 			{
 				out.print("0:操作失败，请刷新重试");
 				return;
-			}
-			if(po.getAlias().length() != 0)
-			{
-				if(!po.getAlias().equals(_po.getAlias()))// 标识被修改
-				{
-					// 判断是否在该系统下唯一
-					if(service.isExistByAlias(po.getAlias(), po.getSystemid()))
-					{
-						out.print("0:操作失败，标识已存在");
-						return;
-					}
-				}
 			}
 			int refresh = req.getInt("refresh", 0);
 			List<DsCommonRoleFunc> list = null;

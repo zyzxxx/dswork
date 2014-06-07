@@ -61,7 +61,6 @@ $("#listFormMoveAll").click(function(){
 	<tr>
 		<td class="input">
 			&nbsp;名称：<input type="text" name="name" value="${fn:escapeXml(param.name)}" />
-			&nbsp;标识：<input type="text" name="alias" value="${fn:escapeXml(param.alias)}" />
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>
@@ -73,8 +72,8 @@ $("#listFormMoveAll").click(function(){
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
-		<td style="width:35%">名称</td>
-		<td>标识</td>
+		<td style="width:30%">名称</td>
+		<td>备注</td>
 		<td style="width:8%">操作</td>
 	</tr>
 <c:forEach items="${list}" var="d">
@@ -82,7 +81,7 @@ $("#listFormMoveAll").click(function(){
 		<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.name)}</td>
-		<td>${fn:escapeXml(d.alias)}</td>
+		<td>${fn:escapeXml(d.memo)}</td>
 		<td class="menuTool">
 			<a class="update" href="updRole1.htm?keyIndex=${d.id}">修改</a>
 		</td>

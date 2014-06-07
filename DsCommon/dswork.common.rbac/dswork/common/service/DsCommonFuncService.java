@@ -86,7 +86,7 @@ public class DsCommonFuncService
 	 */
 	public void updateSeq(Long[] ids)
 	{
-		for (int i = 0; i < ids.length; i++)
+		for(int i = 0; i < ids.length; i++)
 		{
 			funcDao.updateSeq(ids[i], i + 1L);
 		}
@@ -112,7 +112,7 @@ public class DsCommonFuncService
 	{
 		return (DsCommonFunc) funcDao.get(primaryKey);
 	}
-	
+
 	/**
 	 * 根据系统主键和上级功能主键取得列表数据
 	 * @param systemid 系统主键

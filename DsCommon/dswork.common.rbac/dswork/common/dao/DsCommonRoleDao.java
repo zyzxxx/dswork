@@ -49,25 +49,6 @@ public class DsCommonRoleDao extends BaseDao<DsCommonRole, Long>
 	}
 
 	/**
-	 * 判断标识是否存在
-	 * @param alias 标识
-	 * @param systemid 所属系统主键
-	 * @return boolean 存在true，不存在false
-	 */
-	public boolean isExistByAlias(String alias, long systemid)
-	{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("alias", alias);
-		map.put("systemid", systemid);
-		DsCommonRole m = (DsCommonRole) executeSelect("query", map);
-		if(m != null && m.getId().longValue() != 0)
-		{
-			return true;
-		}
-		return false;
-	}
-
-	/**
 	 * 新增对象
 	 * @param entity 角色功能对象
 	 * @return int

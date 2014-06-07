@@ -87,10 +87,6 @@ $dswork.ztree.beforeCheck = function(treeId, treeNode){return false;};
 		<td class="form_input">${fn:escapeXml(po.name)}</td>
 	</tr>
 	<tr>
-		<td class="form_title">标识：</td>
-		<td class="form_input">${fn:escapeXml(po.alias)}</td>
-	</tr>
-	<tr>
 		<td class="form_title">备注：</td>
 		<td class="form_input"><textarea id="memo" name="memo" style="width:400px;height:60px;" class="readonlytext" readonly="readonly">${fn:escapeXml(po.memo)}</textarea></td>
 	</tr>

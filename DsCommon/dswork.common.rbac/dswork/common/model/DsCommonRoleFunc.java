@@ -2,15 +2,16 @@
  * 角色功能关系Model
  */
 package dswork.common.model;
+
 public class DsCommonRoleFunc
 {
-	//主键ID
+	// 主键ID
 	private Long id = 0L;
-	//系统ID
+	// 系统ID
 	private Long systemid = 0L;
-	//角色ID
+	// 角色ID
 	private Long roleid = 0L;
-	//功能ID
+	// 功能ID
 	private Long funcid = 0L;
 
 	public void setId(Long id)
@@ -56,6 +57,6 @@ public class DsCommonRoleFunc
 	@Override
 	public String toString()
 	{
-		return "{id:"+id+",systemid:"+systemid+",roleid:"+roleid+",funcid:"+funcid+"}";
+		return "{id:" + id + ",systemid:" + systemid + ",roleid:" + roleid + ",funcid:" + funcid + "}";
 	}
 }

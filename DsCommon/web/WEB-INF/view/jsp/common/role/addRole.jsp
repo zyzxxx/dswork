@@ -86,10 +86,6 @@ $(function(){
 		<td class="form_input"><input type="text" name="name" style="width:200px;" dataType="RequireTrim" maxlength="100" value="" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">标识：</td>
-		<td class="form_input"><input type="text" name="alias" style="width:400px;" require="false" dataType="Char" maxlength="100" value="" /></td>
-	</tr>
-	<tr>
 		<td class="form_title">备注：</td>
 		<td class="form_input"><textarea name="memo" style="width:400px;height:60px;">${fn:escapeXml(po.memo)}</textarea></td>
 	</tr>

@@ -29,7 +29,7 @@ public class DsCommonRoleService
 	private DsCommonFuncDao funcDao;
 	@Autowired
 	private DsCommonRoleDao roleDao;
-	
+
 	public DsCommonSystem getSystem(Long primaryKey)
 	{
 		return (DsCommonSystem) systemDao.get(primaryKey);
@@ -43,9 +43,9 @@ public class DsCommonRoleService
 	public void save(DsCommonRole po, List<DsCommonRoleFunc> list)
 	{
 		roleDao.save(po);
-		if (null != list)
+		if(null != list)
 		{
-			for (DsCommonRoleFunc tmp : list)
+			for(DsCommonRoleFunc tmp : list)
 			{
 				tmp.setSystemid(po.getSystemid());
 				tmp.setRoleid(po.getId());
@@ -73,12 +73,12 @@ public class DsCommonRoleService
 	public int update(DsCommonRole po, List<DsCommonRoleFunc> list)
 	{
 		roleDao.update(po);
-		if (null == list)
+		if(null == list)
 		{
 			return 1;
 		}
 		roleDao.deleteRoleFuncByRoleid(po.getId());
-		for (DsCommonRoleFunc tmp : list)
+		for(DsCommonRoleFunc tmp : list)
 		{
 			tmp.setRoleid(po.getId());
 			tmp.setSystemid(po.getSystemid());
@@ -110,21 +110,10 @@ public class DsCommonRoleService
 	 */
 	public void updateSeq(Long[] ids)
 	{
-		for (int i = 0; i < ids.length; i++)
+		for(int i = 0; i < ids.length; i++)
 		{
 			roleDao.updateSeq(ids[i], i + 1L);
 		}
-	}
-
-	/**
-	 * 判断标识是否存在
-	 * @param alias 标识
-	 * @param systemid 所属系统主键
-	 * @return boolean 存在true，不存在false
-	 */
-	public boolean isExistByAlias(String alias, long systemid)
-	{
-		return roleDao.isExistByAlias(alias, systemid);
 	}
 
 	/**
@@ -136,7 +125,7 @@ public class DsCommonRoleService
 	{
 		return (DsCommonRole) roleDao.get(primaryKey);
 	}
-	
+
 	/**
 	 * 根据系统主键和上级角色主键取得列表数据
 	 * @param systemid 系统主键

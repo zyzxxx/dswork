@@ -2,24 +2,22 @@
  * 角色Model
  */
 package dswork.common.model;
+
 public class DsCommonRole
 {
-	
-	//主键
+	// 主键
 	private Long id = 0L;
-	//上级ID(本表)
+	// 上级ID(本表)
 	private Long pid = 0L;
-	//所属系统ID
+	// 所属系统ID
 	private Long systemid = 0L;
-	//名称
+	// 名称
 	private String name = "";
-	//标识
-	private String alias = "";
-	//备注
+	// 备注
 	private String memo = "";
-	//状态,未使用
+	// 排序
 	private Integer seq = 0;
-	//选择角色时处理使用
+	// 选择角色时处理使用
 	boolean checked = false;
 
 	public void setId(Long id)
@@ -62,16 +60,6 @@ public class DsCommonRole
 		return this.name;
 	}
 
-	public void setAlias(String alias)
-	{
-		this.alias = String.valueOf(alias).trim();
-	}
-
-	public String getAlias()
-	{
-		return this.alias;
-	}
-
 	public Integer getSeq()
 	{
 		return seq;
@@ -109,7 +97,7 @@ public class DsCommonRole
 		{
 			return new StringBuilder().append("{id:").append(id).append(",pid:").append(pid).append(",isParent:true").append(",checked:").append(isChecked()).append(",name:\"").append(name.trim().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			return "{id:0,pid:-1,isParent:true,checked:false,name:\"\"}";
 		}

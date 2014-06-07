@@ -2,11 +2,12 @@
  * 功能资源Model
  */
 package dswork.common.model;
+
 public class DsCommonRes
 {
-	//资源对应的URL
+	// 资源对应的URL
 	private String url = "";
-	//参数(格式:name1=value2,name2=value2...)
+	// 参数(格式:name1=value2,name2=value2...)
 	private String param = "";
 
 	public void setUrl(String url)
