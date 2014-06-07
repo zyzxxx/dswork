@@ -53,10 +53,4 @@ public class DsCommonRoleFunc
 	{
 		return this.funcid;
 	}
-
-	@Override
-	public String toString()
-	{
-		return "{id:" + id + ",systemid:" + systemid + ",roleid:" + roleid + ",funcid:" + funcid + "}";
-	}
 }
