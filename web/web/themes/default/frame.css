@@ -59,16 +59,12 @@ a:active {color:#182a2d;}/*激活*/
 .menuTool a.look    {background:url(img/menu.png) 0px -350px no-repeat;}
 .menuTool a.pause   {background:url(img/menu.png) 0px -375px no-repeat;}
 .menuTool a.pic     {background:url(img/menu.png) 0px -400px no-repeat;}
-/*
 .menuTool a.printer {background:url(img/menu.png) 0px -425px no-repeat;}
-*/
 .menuTool a.recheck {background:url(img/menu.png) 0px -450px no-repeat;}
 .menuTool a.refresh {background:url(img/menu.png) 0px -475px no-repeat;}
 .menuTool a.commit  {background:url(img/menu.png) 0px -500px no-repeat;}
-/*
 .menuTool a.save    {background:url(img/menu.png) 0px -500px no-repeat;}
-.menuTool a.saves   {background:url(img/menu.png) 0px -525px no-repeat;}
-*/
+.menuTool a.sort    {background:url(img/menu.png) 0px -525px no-repeat;}
 .menuTool a.start   {background:url(img/menu.png) 0px -550px no-repeat;}
 .menuTool a.tool    {background:url(img/menu.png) 0px -575px no-repeat;}
 .menuTool a.uncheck {background:url(img/menu.png) 0px -600px no-repeat;}
@@ -80,8 +76,6 @@ a:active {color:#182a2d;}/*激活*/
 .menuTool .close {background:url(img/menu/close.gif) 0px 0px no-repeat;}
 .menuTool .download {background:url('img/menu/download.gif') 0px 0px no-repeat;}
 .menuTool .pie {background:url(img/menu/pie.gif) 0px 0px no-repeat;}
-.menuTool .save {background:url(img/menu/save.gif) 0px 0px no-repeat;}
-.menuTool .printer {background:url('img/menu/printer.png') 0px 0px no-repeat;}
 .menuTool .upload {background:url('img/menu/upload.gif') 0px 0px no-repeat;}
 
 .menuTool .vline {background-color:silver;padding-left:1px;padding-right:0px;margin:0px 2px 0px 2px;}
@@ -136,16 +130,12 @@ a:active {color:#182a2d;}/*激活*/
 .menuTool-look    {background:url(img/menu.png) 0px -350px no-repeat;}
 .menuTool-pause   {background:url(img/menu.png) 0px -375px no-repeat;}
 .menuTool-pic     {background:url(img/menu.png) 0px -400px no-repeat;}
-/*
 .menuTool-printer {background:url(img/menu.png) 0px -425px no-repeat;}
-*/
 .menuTool-recheck {background:url(img/menu.png) 0px -450px no-repeat;}
 .menuTool-refresh {background:url(img/menu.png) 0px -475px no-repeat;}
 .menuTool-commit  {background:url(img/menu.png) 0px -500px no-repeat;}
-/*
 .menuTool-save    {background:url(img/menu.png) 0px -500px no-repeat;}
-.menuTool-saves   {background:url(img/menu.png) 0px -525px no-repeat;}
-*/
+.menuTool-sort    {background:url(img/menu.png) 0px -525px no-repeat;}
 .menuTool-start   {background:url(img/menu.png) 0px -550px no-repeat;}
 .menuTool-tool    {background:url(img/menu.png) 0px -575px no-repeat;}
 .menuTool-uncheck {background:url(img/menu.png) 0px -600px no-repeat;}
