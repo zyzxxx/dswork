@@ -23,7 +23,8 @@ public class DsCommonOrgRoleService
 
 	/**
 	 * 新增对象
-	 * @param entity 岗位角色对象
+	 * @param orgid 岗位ID
+	 * @param roleidList 角色ID集合
 	 */
 	public void save(Long orgid, List<Long> roleidList)
 	{
