@@ -1,31 +1,29 @@
 package dswork.common.controller;
 
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.web.MyRequest;
+import dswork.mvc.BaseController;
 import dswork.common.model.DsCommonOrg;
 import dswork.common.service.DsCommonOrgRoleService;
 
+@Scope("prototype")
 @Controller
 @RequestMapping("/common/orgrole")
-public class DsCommonOrgRoleController
+public class DsCommonOrgRoleController extends BaseController
 {
 	@Autowired
 	private DsCommonOrgRoleService service;
 
 	// 树形管理
 	@RequestMapping("/getOrgTree")
-	public String getOrgTree(HttpServletRequest request)
+	public String getOrgTree()
 	{
-		MyRequest req = new MyRequest(request);
 		Long rootid = req.getLong("rootid");// 作为限制根节点显示
 		DsCommonOrg po = null;
 		if(rootid > 0)
@@ -45,15 +43,14 @@ public class DsCommonOrgRoleController
 			po = new DsCommonOrg();
 			po.setName("组织机构");
 		}
-		request.setAttribute("po", po);
+		put("po", po);
 		return "/common/orgrole/getOrgTree.jsp";
 	}
 
 	// 授权
 	@RequestMapping("/updOrgRole1")
-	public String updOrgRole1(HttpServletRequest request)
+	public String updOrgRole1()
 	{
-		MyRequest req = new MyRequest(request);
 		Long id = req.getLong("keyIndex");
 		DsCommonOrg po = service.get(id);
 		if(null == po)
@@ -62,24 +59,23 @@ public class DsCommonOrgRoleController
 		}
 		if(0 == po.getStatus())// 岗位才可以授权
 		{
-			request.setAttribute("po", po);
-			request.setAttribute("list", service.queryList(id));
+			put("po", po);
+			put("list", service.queryList(id));
 			return "/common/orgrole/updOrgRole.jsp";
 		}
 		return null;
 	}
 
 	@RequestMapping("/updOrgRole2")
-	public void updOrgRole2(HttpServletRequest request, PrintWriter out)
+	public void updOrgRole2()
 	{
 		try
 		{
-			MyRequest req = new MyRequest(request);
 			Long id = req.getLong("orgid");
 			DsCommonOrg po = service.get(id);
 			if(null == po)
 			{
-				out.print(0);
+				print(0);
 				return;// 非法访问，否则肯定存在id
 			}
 			if(0 == po.getStatus())// 岗位才可以授权
@@ -94,17 +90,17 @@ public class DsCommonOrgRoleController
 					}
 				}
 				service.save(id, list);
-				out.print(1);
+				print(1);
 			}
 			else
 			{
-				out.print(0);
+				print(0);
 			}
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 }
