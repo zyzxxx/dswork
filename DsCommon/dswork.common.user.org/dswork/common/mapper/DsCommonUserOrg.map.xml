@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.common.model.DsCommonUserOrg">
+
+<insert id="insert" parameterType="dswork.common.model.DsCommonUserOrg">
+	insert into DS_COMMON_USERORG
+	(ID, ORGID, USERID)
+	values
+	(null, #{orgid}, #{userid})
+</insert>
+
+<delete id="deleteByOrgid">
+	delete from DS_COMMON_USERORG where ORGID=#{orgid}
+</delete>
+
+<delete id="deleteByUserid">
+	delete from DS_COMMON_USERORG where USERID=#{userid}
+</delete>
+
+<resultMap id="result" type="dswork.common.model.DsCommonUserOrg">
+	<result property="orgid" column="ORGID" />
+	<result property="orgname" column="ORGNAME" />
+	<result property="userid" column="USERID" />
+	<result property="username" column="USERNAME" />
+</resultMap>
+
+<select id="query" resultMap="result">
+	select a.ORGID as ORGID, a.NAME as ORGNAME, u.ID as USERID, u.NAME as USERNAME
+	from DS_COMMON_USERORG a
+	left join DS_COMMON_ORG b on a.ORGID=b.ID
+	left join DS_COMMON_USER u on a.USERID=u.ID
+	<where> 
+		<if test="@Ognl@isNotEmpty(orgid)"> and a.ORGID=#{orgid} </if>
+		<if test="@Ognl@isNotEmpty(userid)"> and a.USERID=#{userid}  </if>
+	</where>
+	order by r.SYSTEMID
+</select>
+
+</mapper>
