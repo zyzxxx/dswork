@@ -6,19 +6,22 @@ dswork.common.org目录
 	组织机构：“单位”、“部门”、“岗位”
 
 
-common目录
-	公共功能：“字典调用”、“组织机构调用”
-
-
 dswork.common.rbac目录
 	权限设置：“系统”、“功能（功能资源）”、“角色”、“角色选择”
 
 
-dswork.common.org.role目录
+@Scope("prototype")
+common目录 extends BaseController
+	公共功能：“字典调用”、“组织机构调用”
+
+
+@Scope("prototype")
+dswork.common.org.role目录 extends BaseController
 	岗位授权：需要使用common下“组织机构调用”和dswork.common.rbac下“角色选择”
 
 
-dswork.common.user目录
+@Scope("prototype")
+dswork.common.user目录 extends BaseController
 	用户管理：需要使用common下“组织机构调用”
 
 
