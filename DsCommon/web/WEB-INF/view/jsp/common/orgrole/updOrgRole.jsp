@@ -23,12 +23,20 @@ function refreshRole(){
 	var arr = map.getValueArray();
 	for(var i = 0; i < arr.length; i++){
 		var obj = arr[i],_html = "<tr class='list'>";
-		_html += "<td style='text-align:left;'>&nbsp;<a title='查看角色明细' onclick='$dswork.getRoleByKey(\"" + obj.id + "\", null);' href='#'>" + obj.sname + "</a></td>";
+		_html += "<td style='text-align:left;'>&nbsp;<a title='查看角色明细' onclick='return getRoleById(\"" + obj.id + "\");' href='#'>" + obj.sname + "</a></td>";
 		_html += "<td style='text-align:left;'>&nbsp;" + obj.systemname + "</td>"
 		_html += "<td><input type='button' class='delete' onclick='$dswork.deleteRow(this, " + obj.id + ")' /></td>";
 		_html += "</tr>";
 		$("#contactTable").append(_html);
 	}
+}
+function getRoleById(id){
+	var arr = map.getValueArray();
+	for(var i = 0; i < arr.length; i++){if(arr[i].id == id){
+		parent.showRole(id, arr[i].sname + "-功能明细");
+		break;
+	}}
+	return false;
 }
 $dswork.deleteRow = function (obj,id){map.remove(id);$(obj).parent().parent().remove();domsg(true);};
 function domsg(type){$("#showmsg").html(type?"数据已修改，未保存":"");}
@@ -44,8 +52,7 @@ $(function(){init();
 	});
 	$("#vsave").click(function(){if(confirm("确定保存？")){
 		var ids = "",arr = map.getValueArray();
-		if(arr.length > 0)
-		{
+		if(arr.length > 0){
 			ids = arr[0].id;
 			for(var i = 1; i < arr.length; i++)
 			{

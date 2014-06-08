@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014-6-7 22:59:28                            */
+/* Created on:     2014-6-8 22:41:08                            */
 /*==============================================================*/
 
 
@@ -25,6 +25,8 @@ DROP TABLE IF EXISTS DS_COMMON_ROLEFUNC;
 DROP TABLE IF EXISTS DS_COMMON_SYSTEM;
 
 DROP TABLE IF EXISTS DS_COMMON_USER;
+
+DROP TABLE IF EXISTS DS_COMMON_USERORG;
 
 /*==============================================================*/
 /* Table: DS_COMMON_DICT                                        */
@@ -239,4 +241,21 @@ CREATE TABLE DS_COMMON_USER
 );
 
 ALTER TABLE DS_COMMON_USER COMMENT '用户信息';
+
+/*==============================================================*/
+/* Table: DS_COMMON_USERORG                                     */
+/*==============================================================*/
+CREATE TABLE DS_COMMON_USERORG
+(
+   ID                   BIGINT(18) NOT NULL COMMENT '主键ID',
+   ORGID                BIGINT(18) NOT NULL COMMENT '岗位ID',
+   USERID               BIGINT(18) COMMENT '用户ID',
+   PRIMARY KEY (ID),
+   CONSTRAINT FK_DS_COMMON_USERORG_ORG FOREIGN KEY (ORGID)
+      REFERENCES DS_COMMON_ORG (ID) ON DELETE CASCADE ON UPDATE CASCADE,
+   CONSTRAINT FK_FK_DS_COMMON_USERORG_USER FOREIGN KEY (USERID)
+      REFERENCES DS_COMMON_USER (ID) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
+ALTER TABLE DS_COMMON_USERORG COMMENT '用户岗位关系';
 

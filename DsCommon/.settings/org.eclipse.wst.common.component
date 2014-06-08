@@ -7,8 +7,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.org"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.rbac"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.user"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.permit"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.org.role"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.permit"/>
 		<property name="context-root" value="DsCommon"/>
 		<property name="java-output-path" value="/DsCommon/web/WEB-INF/classes"/>
 	</wb-module>

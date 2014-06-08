@@ -49,7 +49,7 @@ public class DsCommonRoleChooseController
 		return "/common/rolechoose/getRoleTree.jsp";
 	}
 	// 获得树形管理时的json数据
-	@RequestMapping("/getRoleJson")// BySystemidAndPid
+	@RequestMapping("/getRoleJson")
 	public void getRoleJson(HttpServletRequest request, PrintWriter out)
 	{
 		MyRequest req = new MyRequest(request);
@@ -59,8 +59,8 @@ public class DsCommonRoleChooseController
 	}
 
 	// 获得功能和被分配到角色的功能
-	@RequestMapping("/getRoleFuncJson")// BySystemidAndRoleid
-	public void getRoleFuncJson(HttpServletRequest request, PrintWriter out)
+	@RequestMapping("/getRoleById")
+	public String getRoleById(HttpServletRequest request, PrintWriter out)
 	{
 		MyRequest req = new MyRequest(request);
 		Long roleid = req.getLong("roleid");
@@ -81,11 +81,14 @@ public class DsCommonRoleChooseController
 					m.get(i.getFuncid()).setChecked(true);
 				}
 			}
-			out.print(list);
+			request.setAttribute("list", list);
 		}
 		else
 		{
-			out.print("[]");
+			request.setAttribute("list", "[]");
 		}
+		request.setAttribute("sys", service.getSystem(po.getSystemid()));
+		//request.setAttribute("po", po);
+		return "/common/rolechoose/getRoleById.jsp";
 	}
 }

@@ -35,18 +35,23 @@ $dswork.ztree.dataFilter = function (treeId, parentNode, data){
 	return data;
 };
 function choose(data){
+	$jskey.dialog.callback = function(){
+		var result = $jskey.dialog.returnValue;
+		if(result != null){
+			var map = new $jskey.Map(), o;
+			for(var i = 0; i < result.length; i++){o=result[i];map.put(o.id + "", o);}
+			try{my.frames["mainFrame"].callback(map);}catch(e){alert(e.name + "\n" + e.message);}
+		}
+	};
 	$jskey.dialog.showChoose({id:"chooseSystem", title:"选择角色", args:{url:"../rolechoose/getRoleChoose.htm", data:data}, width:"600", height:"450"});
 	return false;
 }
-var my = this;
-$jskey.dialog.callback = function(){
-	var result = $jskey.dialog.returnValue;
-	if(result != null){
-		var map = new $jskey.Map(), o;
-		for(var i = 0; i < result.length; i++){o=result[i];map.put(o.id + "", o);}
-		try{my.frames["mainFrame"].callback(map);}catch(e){alert(e.name + "\n" + e.message);}
-	}
+function showRole(id, name){
+	$jskey.dialog.callback = function(){};
+	$jskey.dialog.showDialog({id:"role", title:name, url:"../rolechoose/getRoleById.htm?roleid=" + id, args:{}, width:"350", height:"450"});
+	return false;
 }
+var my = this;
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
