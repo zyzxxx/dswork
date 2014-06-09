@@ -24,16 +24,15 @@ $("#listFormMoveAll").click(function(){
 		v = v.substr(2, v.length-2);
 		$("#moveids").val(v);
 		var obj = {"title":"移动到选中节点","args":{"data":v}, "url":"updOrgMove1.htm?rootid=${rootid}"};
-		obj.buttons = [{text:"移动",iconCls:"menuTool-save",handler:function(){
+		obj.buttons = [{text:"移动",iconCls:"menuTool-key",handler:function(){
 			var re = $jskey.dialog.returnValue;
 			if(re != null){
 				if(re.id == "${pid}"){alert("目标节点与当前节点相同");return false;}
 				if(re.id == "0" && isSub){alert("部门或岗位不能移到根节点");return false;}
 				if(re.status != "2"){
 					if(isUnit){alert("不能移到非单位节点！");return false;}
-					$jskey.dialog.close();return false;
 				}
-				if(re.status == "2" && isPost){
+				else if(re.status == "2" && isPost){
 					alert("岗位不能移到单位节点！");return false;
 				}
 				$("#movepid").val(re.id);
