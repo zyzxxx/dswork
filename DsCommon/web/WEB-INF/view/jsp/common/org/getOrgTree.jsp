@@ -87,6 +87,7 @@ $dswork.ztree.dataFilter = function (treeId, parentNode, data){
 	<tr>
 		<td class="title">${fn:escapeXml(po.name)}</td>
 		<td class="menuTool">
+			<span style="color:#ff0000;font-weight:bold;">节点“移动”或修改“类型”需要重新设置所有相关用户，请谨慎操作</span>
 		</td>
 	</tr>
 </table>
