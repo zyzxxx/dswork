@@ -85,6 +85,7 @@ $dswork.ztree.dataFilter = function (treeId, parentNode, data){
 <div region="north" style="overflow:hidden;border:0px;height:25px;">
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
+		<td class="title">组织机构管理</td>
 		<td class="menuTool">
 			<span style="color:#ff0000;font-weight:bold;">节点“移动”或修改“类型”需要重新设置所有相关用户，请谨慎操作</span>
 		</td>
