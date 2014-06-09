@@ -45,8 +45,10 @@
 			</c:if>
 			<c:if test="${0 < parent.status}">
 			<input type="radio" id="status1" name="status" value="1" checked="checked" /><label for="status1">部门</label>
-			<%--不想启用岗位，只需注释岗位这行--%>
+			<%--只有部门才能设置岗位，不想启用岗位，只需注释岗位这行--%>
+			<c:if test="${1 == parent.status}">
 			<input type="radio" id="status0" name="status" value="0" /><label for="status0">岗位</label>
+			</c:if>
 			</c:if>
 		</td>
 	</tr>

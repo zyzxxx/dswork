@@ -39,13 +39,18 @@
 	<tr>
 		<td class="form_title">类型：</td>
 		<td class="form_input">
-			<c:if test="${0 < po.status}">
-			<c:if test="${1 != parent.status}">
-			<input type="radio" id="status2" name="status" value="1" ${po.status==2?'checked="checked"':''} /><label for="status2">单位</label>
+			<c:if test="${2 == po.status}">
+				<c:if test="${1 != parent.status}">
+				<input type="radio" id="status2" name="status" value="1" checked="checked" /><label for="status2">单位</label>
+				</c:if>
+				<input type="radio" id="status1" name="status" value="0" /><label for="status1">部门</label> <span style="font-weight:bold;">仅允许降级</span>
 			</c:if>
-			<input type="radio" id="status1" name="status" value="0" ${po.status!=2?'checked="checked"':''} /><label for="status1">部门</label>
+			
+			<c:if test="${1 == po.status}">
+				<input type="radio" id="status1" name="status" value="0" checked="checked" /><label for="status1">部门</label>
 			</c:if>
-			<c:if test="${0 >= po.status}">
+			
+			<c:if test="${0 == po.status}">
 			<input type="radio" id="status0" name="status" value="0" checked="checked" /><label for="status0">岗位</label>
 			</c:if>
 		</td>

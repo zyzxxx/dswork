@@ -12,11 +12,13 @@ $dswork.callback = function(){if($dswork.result.type == 1){parent.refreshNode(tr
 $(function(){
 $dswork.page.menu("", "updOrg1.htm", "getOrgById.htm", "");
 $("#listFormMoveAll").click(function(){
-	var _c = 0, v = "0", isSub = false, isUnit = false;
+	var _c = 0, v = "0", isPost = false, isSub = false, isUnit = false;
 	$("input[name='keyIndex']:checked").each(function(){
 		_c++;v=v+","+$(this).val();
-		isSub = ($(this).attr("v") != "2") || isSub;
-		if($(this).attr("v") == "2"){isUnit = true;}
+		var vv = $(this).attr("v");
+		isSub = (vv != "2") || isSub;
+		if(vv == "2"){isUnit = true;}
+		if(vv == "0"){isPost = true;}
 	});
 	if(_c > 0){
 		v = v.substr(2, v.length-2);
@@ -30,6 +32,9 @@ $("#listFormMoveAll").click(function(){
 				if(re.status != "2"){
 					if(isUnit){alert("不能移到非单位节点！");return false;}
 					$jskey.dialog.close();return false;
+				}
+				if(re.status == "2" && isPost){
+					alert("岗位不能移到单位节点！");return false;
 				}
 				$("#movepid").val(re.id);
 				$("#moveForm").ajaxSubmit({
