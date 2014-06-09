@@ -16,7 +16,7 @@ public class MyDBHelper extends BaseDBHelper
 	@Override
 	protected SQLiteOpenHelper initDBHelper()
 	{
-		return new DBOpenHelper(context, "demo.db", null, 3, 
+		return new DBOpenHelper(context, "demo.db", null, 2, 
 				new String[]{"CREATE TABLE person(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(2),phone VARCHAR(12) NULL, amount VARCHAR(20) NULL)"}, 
 				new String[]{"ALTER TABLE person ADD sortkey VARCHAR"});
 	}

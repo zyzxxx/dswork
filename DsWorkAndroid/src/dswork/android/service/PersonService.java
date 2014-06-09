@@ -48,16 +48,7 @@ public class PersonService extends BaseService<Person, Long>
 	public List<Person> query(Map<String, Object> m)
 	{
 		QueryParams p = dao.getQueryParams(m);
-		Log.i("sql's selection",p.getSelection());
-		System.out.println("sql's selection: " + p.getSelection());
-		for(String args:p.getSelectionArgs())
-		{
-			Log.i("sql's selectionArgs",args);
-			System.out.println("sql's selectionArgs: " + args);
-		}
-//		Cursor c = dao.queryCursor("person", null, "name like ?", new String[]{"%关%"}, null, null, null);
 		Cursor c = dao.queryCursor("person", null, p.getSelection(), p.getSelectionArgs(), null, null, null);
-		
 		List<Person> persons=new ArrayList<Person>();
 		while(c.moveToNext())
 		{
