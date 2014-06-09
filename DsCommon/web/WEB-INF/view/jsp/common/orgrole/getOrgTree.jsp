@@ -27,13 +27,12 @@ $(function(){
 });
 
 $dswork.ztree.dataFilter = function (treeId, parentNode, data){
-	if(data){for(var i = 0;i < data.length;i++){
-		if(data[i].status == 0){
-			data[i].icon = "${ctx}/commons/img/user.png";
-		}
-	}}
+	if(data){for(var i = 0;i < data.length;i++){if(data[i].status == 0){
+		data[i].icon = "${ctx}/commons/img/user.png";
+	}}}
 	return data;
 };
+var my = this;
 function choose(data){
 	$jskey.dialog.callback = function(){
 		var result = $jskey.dialog.returnValue;
@@ -51,7 +50,6 @@ function showRole(id, name){
 	$jskey.dialog.showDialog({id:"role", title:name, url:"../rolechoose/getRoleById.htm?roleid=" + id, args:{}, width:"350", height:"450"});
 	return false;
 }
-var my = this;
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
