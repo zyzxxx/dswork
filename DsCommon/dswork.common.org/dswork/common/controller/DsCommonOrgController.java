@@ -162,17 +162,17 @@ public class DsCommonOrgController
 				out.print("0:名称不能为空");
 				return;
 			}
-			DsCommonOrg _po = service.get(po.getId());
-			if(null == _po)
+			DsCommonOrg old = service.get(po.getId());
+			if(null == old)
 			{
 				out.print("0:操作失败，请刷新重试");
 				return;
 			}
-			if(po.getStatus() != 0 && _po.getStatus() == 0)
+			if(po.getStatus() != 0 && old.getStatus() == 0)
 			{
 				po.setStatus(0);// 岗位类型不能被更改
 			}
-			if(_po.getPid() <= 0)
+			if(old.getPid() <= 0)
 			{
 				po.setStatus(2);// 没有上级则为单位
 			}
