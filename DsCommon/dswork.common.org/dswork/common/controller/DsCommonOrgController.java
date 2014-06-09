@@ -70,6 +70,11 @@ public class DsCommonOrgController
 					out.print("0:部门无法设置下级单位");
 					return;
 				}
+				if(2 == parent.getStatus() && po.getStatus() == 0)// 上级不是部门
+				{
+					out.print("0:单位无法设置岗位");
+					return;
+				}
 			}
 			else
 			{
