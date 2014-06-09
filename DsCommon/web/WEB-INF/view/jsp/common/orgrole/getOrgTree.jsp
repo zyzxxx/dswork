@@ -32,14 +32,13 @@ $dswork.ztree.dataFilter = function (treeId, parentNode, data){
 	}}}
 	return data;
 };
-var my = this;
 function choose(data){
 	$jskey.dialog.callback = function(){
 		var result = $jskey.dialog.returnValue;
 		if(result != null){
 			var map = new $jskey.Map(), o;
 			for(var i = 0; i < result.length; i++){o=result[i];map.put(o.id + "", o);}
-			try{my.frames["mainFrame"].callback(map);}catch(e){alert(e.name + "\n" + e.message);}
+			try{window.frames["mainFrame"].callback(map);}catch(e){alert(e.name + "\n" + e.message);}
 		}
 	};
 	$jskey.dialog.showChoose({id:"chooseSystem", title:"选择角色", args:{url:"../rolechoose/getRoleChoose.htm", data:data}, width:"600", height:"450"});
