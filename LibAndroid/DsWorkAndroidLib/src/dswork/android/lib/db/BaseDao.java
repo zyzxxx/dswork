@@ -227,11 +227,6 @@ public abstract class BaseDao<T, PK extends Serializable>
 	 */
 	public Cursor queryCursor(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy)
 	{
-		Log.i("sql's selection",selection);
-		for(String args:selectionArgs)
-		{
-			Log.i("sql's selectionArgs",args);
-		}
 		return getReadableDb().query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
 	}
 	/**
