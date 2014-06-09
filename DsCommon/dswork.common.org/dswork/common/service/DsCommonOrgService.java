@@ -97,23 +97,21 @@ public class DsCommonOrgService
 	public List<DsCommonOrg> queryList(Long pid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		PageRequest request = new PageRequest();
 		map.put("pid", pid);
-		request.setFilters(map);
-		return orgDao.queryList(request);
+		return orgDao.queryList(new PageRequest(map));
 	}
 
 	/**
-	 * 获得节点的子节点个数
+	 * 获得节点指定类型的子节点个数
 	 * @param pid 上级组织机构主键
+	 * @param status 指定类型的下级节点，为null则查询全部
 	 * @return int
 	 */
-	public int getCountByPid(long pid)
+	public int getCountByPid(long pid, Integer status)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pid", pid);
-		PageRequest pageRequest = new PageRequest();
-		pageRequest.setFilters(map);
-		return orgDao.queryCount(pageRequest);
+		map.put("status", status);
+		return orgDao.queryCount(new PageRequest(map));
 	}
 }

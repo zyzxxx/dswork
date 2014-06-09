@@ -105,7 +105,7 @@ public class DsCommonOrgController
 				{
 					continue;
 				}
-				int count = service.getCountByPid(id);
+				int count = service.getCountByPid(id, null);
 				if(0 >= count)
 				{
 					service.delete(id);
@@ -178,7 +178,7 @@ public class DsCommonOrgController
 			}
 			else// 存在上级节点时
 			{
-				DsCommonOrg parent = service.get(po.getPid());
+				DsCommonOrg parent = service.get(old.getPid());
 				if(null == parent)
 				{
 					out.print("0:参数错误，请刷新重试");
@@ -187,6 +187,24 @@ public class DsCommonOrgController
 				if(1 == parent.getStatus() && po.getStatus() == 2)// 上级是部门
 				{
 					out.print("0:部门无法设置下级单位");
+					return;
+				}
+			}
+			if(old.getStatus() == 2 && po.getStatus() == 1)// 降级
+			{
+				int count = service.getCountByPid(po.getId(), 2);// 下级不能有单位
+				if(0 < count)
+				{
+					out.print("0:下级存在单位，不能降级为部门");
+					return;
+				}
+			}
+			else if(old.getStatus() == 1 && po.getStatus() == 2)// 升级
+			{
+				int count = service.getCountByPid(po.getId(), 0);// 下级不能有岗位
+				if(0 < count)
+				{
+					out.print("0:下级存在岗位，不能升级为单位");
 					return;
 				}
 			}
