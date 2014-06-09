@@ -70,6 +70,8 @@
 		<if test="@Ognl@isNotEmpty(status)"> and u.STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(idcard)"> and u.IDCARD=#{idcard} </if>
 		<if test="@Ognl@isNotEmpty(workcard)"> and u.WORKCARD=#{workcard} </if>
+		<if test="@Ognl@isNotEmpty(orgid)"> and u.ORGID=#{orgid} </if>
+		<if test="@Ognl@isNotEmpty(orgpid)"> and u.ORGPID=#{orgpid} </if>
 	</where>
 </sql>
 <sql id="dynamicFrom">

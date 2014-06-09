@@ -3,23 +3,31 @@
  */
 package dswork.common.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.common.dao.DsCommonOrgDao;
+import dswork.common.dao.DsCommonUserDao;
 import dswork.common.dao.DsCommonUserOrgDao;
 import dswork.common.model.DsCommonOrg;
+import dswork.common.model.DsCommonUser;
 import dswork.common.model.DsCommonUserOrg;
+import dswork.core.page.PageRequest;
 
 @Service
+@SuppressWarnings("all")
 public class DsCommonUserOrgService
 {
 	@Autowired
 	private DsCommonUserOrgDao userorgDao;
 	@Autowired
 	private DsCommonOrgDao orgDao;
+	@Autowired
+	private DsCommonUserDao userDao;
 
 	/**
 	 * 新增对象
@@ -89,5 +97,30 @@ public class DsCommonUserOrgService
 	public DsCommonOrg get(Long primaryKey)
 	{
 		return (DsCommonOrg) orgDao.get(primaryKey);
+	}
+	
+	/**
+	 * 根据部门ID查询岗位列表
+	 * @param pid 部门ID
+	 * @return List&gt;DsCommonOrg&lt;
+	 */
+	public List<DsCommonOrg> queryOrgList(Long pid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pid", pid);
+		map.put("status", 0);
+		return orgDao.queryList(new PageRequest(map));
+	}
+	
+	/**
+	 * 根据部门ID查询用户列表
+	 * @param pid 部门ID
+	 * @return List&gt;DsCommonUser&lt;
+	 */
+	public List<DsCommonUser> queryUserList(Long pid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("orgid", pid);
+		return userDao.queryList(new PageRequest(map));
 	}
 }

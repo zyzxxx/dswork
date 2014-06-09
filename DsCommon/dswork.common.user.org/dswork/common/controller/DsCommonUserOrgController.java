@@ -44,6 +44,16 @@ public class DsCommonUserOrgController extends BaseController
 			po.setName("组织机构");
 		}
 		put("po", po);
-		return "/common/orgrole/getOrgTree.jsp";
+		return "/common/userorg/getOrgTree.jsp";
+	}
+
+	@RequestMapping("/getUserOrg")
+	public String getUserOrg()
+	{
+		Long pid = req.getLong("pid");
+		put("pid", pid);
+		put("orgList", service.queryOrgList(pid));
+		put("userList", service.queryUserList(pid));
+		return "/common/userorg/getUserOrg.jsp";
 	}
 }
