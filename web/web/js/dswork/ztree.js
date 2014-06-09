@@ -144,7 +144,7 @@ $dswork.ztree.load = function(){//默认加载页面管理
 $dswork.ztree.expandRoot = function(){
 	try{
 		var tree = $dswork.ztree.tree;
-		var _p = tree.getNodeByParam("id", 0);//根节点
+		var _p = tree.getNodeByParam("id", $dswork.ztree.root.id);//根节点
 		if(_p && $dswork.ztree.refreshNode){
 			tree.selectNode(_p);tree.expandNode(_p, true);$dswork.ztree.refreshNode();
 		}
