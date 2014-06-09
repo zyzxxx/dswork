@@ -36,13 +36,11 @@ $(function(){
 				try{$dswork.ztree.nodeArray = eval(data);}
 				catch(ex){$dswork.ztree.nodeArray = [];}
 				$dswork.ztree.nodeArray.push($dswork.ztree.root);
-				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--)
-				{
+				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--){
 					map.put($dswork.ztree.nodeArray[i].id, $dswork.ztree.nodeArray[i]);
 				}
 				var notRoot = true, pid = 0, node = null;
-				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--)
-				{
+				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--){
 					node = $dswork.ztree.nodeArray[i];
 					notRoot = true;
 					if(node.checked){
@@ -55,8 +53,7 @@ $(function(){
 						}
 					}
 				}
-				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--)
-				{
+				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--){
 					if(!$dswork.ztree.nodeArray[i].checked) $dswork.ztree.nodeArray.splice(i, 1);
 				}
 				$dswork.ztree.load();

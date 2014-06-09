@@ -29,13 +29,11 @@ $(function(){
 				$dswork.ztree.root = {id:0, pid:-1, isParent:true, name:"功能", checked:true};
 				try{$dswork.ztree.nodeArray = eval(data);}
 				catch(ex){$dswork.ztree.nodeArray = [];}
-				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--)
-				{
+				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--){
 					map.put($dswork.ztree.nodeArray[i].id, $dswork.ztree.nodeArray[i]);
 				}
 				var notRoot = true, pid = 0, node = null;
-				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--)
-				{
+				for(var i = ($dswork.ztree.nodeArray.length - 1); i >=0; i--){
 					node = $dswork.ztree.nodeArray[i];
 					notRoot = true;
 					if(node.checked){

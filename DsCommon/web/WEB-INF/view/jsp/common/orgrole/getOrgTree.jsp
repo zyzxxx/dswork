@@ -20,18 +20,16 @@ $dswork.ztree.root.name = "组织机构管理";
 $dswork.ztree.root.id = ${po.id};
 $dswork.ztree.root.status = ${po.status};
 $dswork.ztree.url = function(treeNode){return "${ctx}/common/share/getJsonOrg.htm?pid=" + treeNode.id;};
+$dswork.ztree.dataFilter = function (treeId, parentNode, data){
+	if(data){for(var i = 0;i < data.length;i++){if(data[i].status == 0){
+		data[i].icon = "${ctx}/commons/img/user.png";
+	}}}return data;
+};
 $(function(){
 	var $z = $dswork.ztree;
 	$z.load();
 	$z.expandRoot();
 });
-
-$dswork.ztree.dataFilter = function (treeId, parentNode, data){
-	if(data){for(var i = 0;i < data.length;i++){if(data[i].status == 0){
-		data[i].icon = "${ctx}/commons/img/user.png";
-	}}}
-	return data;
-};
 function choose(data){
 	$jskey.dialog.callback = function(){
 		var result = $jskey.dialog.returnValue;

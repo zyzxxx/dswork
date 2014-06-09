@@ -33,8 +33,7 @@ function refreshRole(){
 function getRoleById(id){
 	var arr = map.getValueArray();
 	for(var i = 0; i < arr.length; i++){if(arr[i].id == id){
-		parent.showRole(id, arr[i].sname + "-功能明细");
-		break;
+		parent.showRole(id, arr[i].sname + "-功能明细");break;
 	}}
 	return false;
 }
@@ -54,10 +53,7 @@ $(function(){init();
 		var ids = "",arr = map.getValueArray();
 		if(arr.length > 0){
 			ids = arr[0].id;
-			for(var i = 1; i < arr.length; i++)
-			{
-				ids += "," + arr[i].id
-			}
+			for(var i = 1; i < arr.length; i++){ids += "," + arr[i].id}
 		}
 		$dswork.showRequest();
 		$.post("updOrgRole2.htm",{orgid:"${po.id}", roleids:ids},function(data){$dswork.showResponse(data);});

@@ -29,10 +29,7 @@ $dswork.ztree.dataFilter = function (treeId, parentNode, responseData)//异步�
 	if(responseData){for(var i=0; i<responseData.length; i++){
 		has = false;
 		for(var j=0;j<arr.length;j++){
-			if(responseData[i].id+"" == arr[j]){
-				has = true;
-				break;
-			}
+			if(responseData[i].id+"" == arr[j]){has = true;break;}
 		}
 		if(!has && responseData[i].isParent){newData.push(responseData[i]);}
 	}}

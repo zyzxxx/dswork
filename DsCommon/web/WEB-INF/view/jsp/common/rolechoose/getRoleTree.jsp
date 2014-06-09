@@ -10,8 +10,7 @@
 	<script type="text/javascript">
 	var _systemid = ${(po.id > 0)?po.id:0};
 	var _systemname = "${fn:escapeXml(po.name)}";
-	if(_systemname.length == 0)
-	{
+	if(_systemname.length == 0){
 		_systemname = "未选择系统";
 	}
 	$dswork.ztree.root.name = "角色(" + _systemname + ")";
