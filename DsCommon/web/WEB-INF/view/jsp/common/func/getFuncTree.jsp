@@ -84,7 +84,7 @@ $(function(){
 	</div>
 </div>
 <div region="center" style="overflow:hidden;">
-	<iframe id="mainFrame" src="" frameborder="0" scrolling="auto" style="width:100%;height:100%;" />
+	<iframe id="mainFrame" src="" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
 </div>
 </body>
 </html>
