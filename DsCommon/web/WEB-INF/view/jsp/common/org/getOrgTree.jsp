@@ -28,7 +28,7 @@ $dswork.ztree.showMenu = function(type, x, y){
 	if(_node.status == 0){$("#menu_refresh").hide();$("#menu_add").hide();$("#menu_sort").hide();}
 	$("#" + $dswork.ztree.menuName).menu('show', {left:x,top:y});
 };
-$dswork.ztree.root.name = "组织机构管理";
+$dswork.ztree.root.name = "${po.id > 0?fn:escapeXml(po.name):"组织机构"}";
 $dswork.ztree.root.id = ${po.id};
 $dswork.ztree.root.status = ${po.status};
 $dswork.ztree.url = function(treeNode){return "getOrgJson.htm?pid=" + treeNode.id;};
@@ -85,7 +85,6 @@ $dswork.ztree.dataFilter = function (treeId, parentNode, data){
 <div region="north" style="overflow:hidden;border:0px;height:25px;">
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">${fn:escapeXml(po.name)}</td>
 		<td class="menuTool">
 			<span style="color:#ff0000;font-weight:bold;">节点“移动”或修改“类型”需要重新设置所有相关用户，请谨慎操作</span>
 		</td>
