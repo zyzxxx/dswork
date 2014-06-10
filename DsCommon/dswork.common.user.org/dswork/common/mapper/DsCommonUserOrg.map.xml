@@ -22,21 +22,15 @@
 
 <resultMap id="result" type="dswork.common.model.DsCommonUserOrg">
 	<result property="orgid" column="ORGID" />
-	<result property="orgname" column="ORGNAME" />
 	<result property="userid" column="USERID" />
-	<result property="username" column="USERNAME" />
 </resultMap>
 
 <select id="query" resultMap="result">
-	select a.ORGID as ORGID, a.NAME as ORGNAME, u.ID as USERID, u.NAME as USERNAME
-	from DS_COMMON_USERORG a
-	left join DS_COMMON_ORG b on a.ORGID=b.ID
-	left join DS_COMMON_USER u on a.USERID=u.ID
+	select ORGID, USERID from DS_COMMON_USERORG
 	<where> 
-		<if test="@Ognl@isNotEmpty(orgid)"> and a.ORGID=#{orgid} </if>
-		<if test="@Ognl@isNotEmpty(userid)"> and a.USERID=#{userid}  </if>
+		<if test="@Ognl@isNotEmpty(orgid)"> and ORGID=#{orgid} </if>
+		<if test="@Ognl@isNotEmpty(userid)"> and USERID=#{userid}  </if>
 	</where>
-	order by r.SYSTEMID
 </select>
 
 </mapper>
