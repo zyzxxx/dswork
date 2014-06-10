@@ -24,111 +24,111 @@ a:active {color:#182a2d;}/*激活*/
 
 /*---工 具 箱---*/
 .menuTool {white-space:nowrap;}
-.menuTool a {padding:2px 0px 2px 18px;}
+.menuTool a {padding:2px 0px 2px 18px;background:url(img/menu.png) no-repeat;}
 
-.menuTool a.excel {background:url(img/file/excel.gif) 0px 0px no-repeat;}
-.menuTool a.exe {background:url(img/file/exe.gif) 0px 0px no-repeat;}
-.menuTool a.file {background:url(img/file/file.gif) 0px 0px no-repeat;}
-.menuTool a.flash {background:url(img/file/flash.gif) 0px 0px no-repeat;}
-.menuTool a.mp3 {background:url(img/file/mp3.gif) 0px 0px no-repeat;}
-.menuTool a.pdf {background:url(img/file/pdf.gif) 0px 0px no-repeat;}
-.menuTool a.psd {background:url(img/file/psd.gif) 0px 0px no-repeat;}
-.menuTool a.word {background:url(img/file/word.gif) 0px 0px no-repeat;}
+.menuTool a.excel {background:url(img/file/excel.gif) no-repeat 0px 0px;}
+.menuTool a.exe {background:url(img/file/exe.gif) no-repeat 0px 0px;}
+.menuTool a.file {background:url(img/file/file.gif) no-repeat 0px 0px;}
+.menuTool a.flash {background:url(img/file/flash.gif) no-repeat 0px 0px;}
+.menuTool a.mp3 {background:url(img/file/mp3.gif) no-repeat 0px 0px;}
+.menuTool a.pdf {background:url(img/file/pdf.gif) no-repeat 0px 0px;}
+.menuTool a.psd {background:url(img/file/psd.gif) no-repeat 0px 0px;}
+.menuTool a.word {background:url(img/file/word.gif) no-repeat 0px 0px;}
 
-.menuTool a.add     {background:url(img/menu.png) 0px    0px no-repeat;}
-.menuTool a.del     {background:url(img/menu.png) 0px  -25px no-repeat;}
-.menuTool a.upd     {background:url(img/menu.png) 0px  -50px no-repeat;}
-.menuTool a.get     {background:url(img/menu.png) 0px  -75px no-repeat;}
-.menuTool a.insert  {background:url(img/menu.png) 0px   0px no-repeat;}
-.menuTool a.delete  {background:url(img/menu.png) 0px  -25px no-repeat;}
-.menuTool a.update  {background:url(img/menu.png) 0px  -50px no-repeat;}
-.menuTool a.select  {background:url(img/menu.png) 0px  -75px no-repeat;}
-.menuTool a.check   {background:url(img/menu.png) 0px -100px no-repeat;}
-.menuTool a.clock   {background:url(img/menu.png) 0px -125px no-repeat;}
-.menuTool a.copy    {background:url(img/menu.png) 0px -150px no-repeat;}
-.menuTool a.edit    {background:url(img/menu.png) 0px -175px no-repeat;}
-.menuTool a.go      {background:url(img/menu.png) 0px -200px no-repeat;}
-.menuTool a.graph   {background:url(img/menu.png) 0px -225px no-repeat;}
-.menuTool a.key     {background:url(img/menu.png) 0px -250px no-repeat;}
-.menuTool a.lock    {background:url(img/menu.png) 0px -275px no-repeat;}
-.menuTool a.look    {background:url(img/menu.png) 0px -300px no-repeat;}
-.menuTool a.move    {background:url(img/menu.png) 0px -325px no-repeat;}
-.menuTool a.pause   {background:url(img/menu.png) 0px -350px no-repeat;}
-.menuTool a.pic     {background:url(img/menu.png) 0px -375px no-repeat;}
-.menuTool a.recheck {background:url(img/menu.png) 0px -400px no-repeat;}
-.menuTool a.refresh {background:url(img/menu.png) 0px -425px no-repeat;}
-.menuTool a.sort    {background:url(img/menu.png) 0px -450px no-repeat;}
-.menuTool a.start   {background:url(img/menu.png) 0px -475px no-repeat;}
-.menuTool a.tool    {background:url(img/menu.png) 0px -500px no-repeat;}
-.menuTool a.uncheck {background:url(img/menu.png) 0px -525px no-repeat;}
-.menuTool a.user    {background:url(img/menu.png) 0px -550px no-repeat;}
+.menuTool a.add     {background-position:0px    0px;}
+.menuTool a.del     {background-position:0px  -25px;}
+.menuTool a.upd     {background-position:0px  -50px;}
+.menuTool a.get     {background-position:0px  -75px;}
+.menuTool a.insert  {background-position:0px   0px;}
+.menuTool a.delete  {background-position:0px  -25px;}
+.menuTool a.update  {background-position:0px  -50px;}
+.menuTool a.select  {background-position:0px  -75px;}
+.menuTool a.check   {background-position:0px -100px;}
+.menuTool a.clock   {background-position:0px -125px;}
+.menuTool a.copy    {background-position:0px -150px;}
+.menuTool a.edit    {background-position:0px -175px;}
+.menuTool a.go      {background-position:0px -200px;}
+.menuTool a.graph   {background-position:0px -225px;}
+.menuTool a.key     {background-position:0px -250px;}
+.menuTool a.lock    {background-position:0px -275px;}
+.menuTool a.look    {background-position:0px -300px;}
+.menuTool a.move    {background-position:0px -325px;}
+.menuTool a.pause   {background-position:0px -350px;}
+.menuTool a.pic     {background-position:0px -375px;}
+.menuTool a.recheck {background-position:0px -400px;}
+.menuTool a.refresh {background-position:0px -425px;}
+.menuTool a.sort    {background-position:0px -450px;}
+.menuTool a.start   {background-position:0px -475px;}
+.menuTool a.tool    {background-position:0px -500px;}
+.menuTool a.uncheck {background-position:0px -525px;}
+.menuTool a.user    {background-position:0px -550px;}
 
-.menuTool a.download{background:url(img/menu.png) 0px -600px no-repeat;}
-.menuTool a.upload  {background:url(img/menu.png) 0px -625px no-repeat;}
-.menuTool a.bar     {background:url(img/menu.png) 0px -650px no-repeat;}
-.menuTool a.pie     {background:url(img/menu.png) 0px -675px no-repeat;}
-.menuTool a.commit  {background:url(img/menu.png) 0px -700px no-repeat;}
-.menuTool a.save    {background:url(img/menu.png) 0px -700px no-repeat;}
-.menuTool a.printer {background:url(img/menu.png) 0px -725px no-repeat;}
+.menuTool a.download{background-position:0px -600px;}
+.menuTool a.upload  {background-position:0px -625px;}
+.menuTool a.bar     {background-position:0px -650px;}
+.menuTool a.pie     {background-position:0px -675px;}
+.menuTool a.commit  {background-position:0px -700px;}
+.menuTool a.save    {background-position:0px -700px;}
+.menuTool a.printer {background-position:0px -725px;}
 
-.menuTool .back {background:url(img/menu/back.gif) 0px 0px no-repeat;}
-.menuTool .close {background:url(img/menu/close.gif) 0px 0px no-repeat;}
+.menuTool .back {background:url(img/menu/back.gif) no-repeat 0px 0px;}
+.menuTool .close {background:url(img/menu/close.gif) no-repeat 0px 0px;}
 
 .menuTool .vline {background-color:silver;padding-left:1px;padding-right:0px;margin:0px 2px 0px 2px;}
 
-.menuTool-back {background:url('img/menu/back.gif') no-repeat;}
+.menuTool-back {background:url(img/menu/back.gif) no-repeat;}
 .menuTool-close {background:url(img/menu/close.gif) no-repeat;}
 
-.menuTool-leftarrow {background:url('img/menu/leftarrow.png') no-repeat;}
+.menuTool-leftarrow {background:url(img/menu/leftarrow.png) no-repeat;}
 .menuTool-rightarrow {background:url('img/menu/rightarrow.png') no-repeat;}
-.menuTool-uparrow {background:url('img/menu/uparrow.png') no-repeat;}
+.menuTool-uparrow {background:url(img/menu/uparrow.png) no-repeat;}
 .menuTool-downarrow {background:url('img/menu/downarrow.png') no-repeat;}
 
 
-.menuTool-excel {background:url(img/file/excel.gif) 0px 0px no-repeat;}
-.menuTool-exe {background:url(img/file/exe.gif) 0px 0px no-repeat;}
-.menuTool-file {background:url(img/file/file.gif) 0px 0px no-repeat;}
-.menuTool-flash {background:url(img/file/flash.gif) 0px 0px no-repeat;}
-.menuTool-mp3 {background:url(img/file/mp3.gif) 0px 0px no-repeat;}
-.menuTool-pdf {background:url(img/file/pdf.gif) 0px 0px no-repeat;}
-.menuTool-psd {background:url(img/file/psd.gif) 0px 0px no-repeat;}
-.menuTool-word {background:url(img/file/word.gif) 0px 0px no-repeat;}
+.menuTool-excel {background:url(img/file/excel.gif) no-repeat 0px 0px;}
+.menuTool-exe {background:url(img/file/exe.gif) no-repeat 0px 0px;}
+.menuTool-file {background:url(img/file/file.gif) no-repeat 0px 0px;}
+.menuTool-flash {background:url(img/file/flash.gif) no-repeat 0px 0px;}
+.menuTool-mp3 {background:url(img/file/mp3.gif) no-repeat 0px 0px;}
+.menuTool-pdf {background:url(img/file/pdf.gif) no-repeat 0px 0px;}
+.menuTool-psd {background:url(img/file/psd.gif) no-repeat 0px 0px;}
+.menuTool-word {background:url(img/file/word.gif) no-repeat 0px 0px;}
 
-.menuTool-add     {background:url(img/menu.png) 0px   0px no-repeat;}
-.menuTool-del     {background:url(img/menu.png) 0px  -25px no-repeat;}
-.menuTool-upd     {background:url(img/menu.png) 0px  -50px no-repeat;}
-.menuTool-get     {background:url(img/menu.png) 0px  -75px no-repeat;}
-.menuTool-insert  {background:url(img/menu.png) 0px   0px no-repeat;}
-.menuTool-delete  {background:url(img/menu.png) 0px  -25px no-repeat;}
-.menuTool-update  {background:url(img/menu.png) 0px  -50px no-repeat;}
-.menuTool-select  {background:url(img/menu.png) 0px  -75px no-repeat;}
-.menuTool-check   {background:url(img/menu.png) 0px -100px no-repeat;}
-.menuTool-clock   {background:url(img/menu.png) 0px -125px no-repeat;}
-.menuTool-copy    {background:url(img/menu.png) 0px -150px no-repeat;}
-.menuTool-edit    {background:url(img/menu.png) 0px -175px no-repeat;}
-.menuTool-go      {background:url(img/menu.png) 0px -200px no-repeat;}
-.menuTool-graph   {background:url(img/menu.png) 0px -225px no-repeat;}
-.menuTool-key     {background:url(img/menu.png) 0px -250px no-repeat;}
-.menuTool-lock    {background:url(img/menu.png) 0px -275px no-repeat;}
-.menuTool-look    {background:url(img/menu.png) 0px -300px no-repeat;}
-.menuTool-move    {background:url(img/menu.png) 0px -325px no-repeat;}
-.menuTool-pause   {background:url(img/menu.png) 0px -350px no-repeat;}
-.menuTool-pic     {background:url(img/menu.png) 0px -375px no-repeat;}
-.menuTool-recheck {background:url(img/menu.png) 0px -400px no-repeat;}
-.menuTool-refresh {background:url(img/menu.png) 0px -425px no-repeat;}
-.menuTool-sort    {background:url(img/menu.png) 0px -450px no-repeat;}
-.menuTool-start   {background:url(img/menu.png) 0px -475px no-repeat;}
-.menuTool-tool    {background:url(img/menu.png) 0px -500px no-repeat;}
-.menuTool-uncheck {background:url(img/menu.png) 0px -525px no-repeat;}
-.menuTool-user    {background:url(img/menu.png) 0px -550px no-repeat;}
+.menuTool-add     {background:url(img/menu.png) no-repeat 0px   0px;}
+.menuTool-del     {background:url(img/menu.png) no-repeat 0px  -25px;}
+.menuTool-upd     {background:url(img/menu.png) no-repeat 0px  -50px;}
+.menuTool-get     {background:url(img/menu.png) no-repeat 0px  -75px;}
+.menuTool-insert  {background:url(img/menu.png) no-repeat 0px   0px;}
+.menuTool-delete  {background:url(img/menu.png) no-repeat 0px  -25px;}
+.menuTool-update  {background:url(img/menu.png) no-repeat 0px  -50px;}
+.menuTool-select  {background:url(img/menu.png) no-repeat 0px  -75px;}
+.menuTool-check   {background:url(img/menu.png) no-repeat 0px -100px;}
+.menuTool-clock   {background:url(img/menu.png) no-repeat 0px -125px;}
+.menuTool-copy    {background:url(img/menu.png) no-repeat 0px -150px;}
+.menuTool-edit    {background:url(img/menu.png) no-repeat 0px -175px;}
+.menuTool-go      {background:url(img/menu.png) no-repeat 0px -200px;}
+.menuTool-graph   {background:url(img/menu.png) no-repeat 0px -225px;}
+.menuTool-key     {background:url(img/menu.png) no-repeat 0px -250px;}
+.menuTool-lock    {background:url(img/menu.png) no-repeat 0px -275px;}
+.menuTool-look    {background:url(img/menu.png) no-repeat 0px -300px;}
+.menuTool-move    {background:url(img/menu.png) no-repeat 0px -325px;}
+.menuTool-pause   {background:url(img/menu.png) no-repeat 0px -350px;}
+.menuTool-pic     {background:url(img/menu.png) no-repeat 0px -375px;}
+.menuTool-recheck {background:url(img/menu.png) no-repeat 0px -400px;}
+.menuTool-refresh {background:url(img/menu.png) no-repeat 0px -425px;}
+.menuTool-sort    {background:url(img/menu.png) no-repeat 0px -450px;}
+.menuTool-start   {background:url(img/menu.png) no-repeat 0px -475px;}
+.menuTool-tool    {background:url(img/menu.png) no-repeat 0px -500px;}
+.menuTool-uncheck {background:url(img/menu.png) no-repeat 0px -525px;}
+.menuTool-user    {background:url(img/menu.png) no-repeat 0px -550px;}
 
-.menuTool-download{background:url(img/menu.png) 0px -600px no-repeat;}
-.menuTool-upload  {background:url(img/menu.png) 0px -625px no-repeat;}
-.menuTool-bar     {background:url(img/menu.png) 0px -650px no-repeat;}
-.menuTool-pie     {background:url(img/menu.png) 0px -675px no-repeat;}
-.menuTool-commit  {background:url(img/menu.png) 0px -700px no-repeat;}
-.menuTool-save    {background:url(img/menu.png) 0px -700px no-repeat;}
-.menuTool-printer {background:url(img/menu.png) 0px -725px no-repeat;}
+.menuTool-download{background:url(img/menu.png) no-repeat 0px -600px;}
+.menuTool-upload  {background:url(img/menu.png) no-repeat 0px -625px;}
+.menuTool-bar     {background:url(img/menu.png) no-repeat 0px -650px;}
+.menuTool-pie     {background:url(img/menu.png) no-repeat 0px -675px;}
+.menuTool-commit  {background:url(img/menu.png) no-repeat 0px -700px;}
+.menuTool-save    {background:url(img/menu.png) no-repeat 0px -700px;}
+.menuTool-printer {background:url(img/menu.png) no-repeat 0px -725px;}
 /*---页面标题---*/
 table.listLogo {width:100%;border:#c2c2c2 solid 1px;}
 table.listLogo td {color:#000000;background-color:#d9e5fd;background:url(img/bg/panel_logo.png) 0px 0px repeat-x;height:25x;text-align:right;vertical-align:middle;white-space:nowrap;padding:5px 5px 5px 5px;}
