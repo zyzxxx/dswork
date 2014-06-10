@@ -55,12 +55,16 @@ a:active {color:#182a2d;}/*激活*/
 .menuTool a.move    {background:url(img/menu.png) no-repeat 0px -325px;}
 .menuTool a.pause   {background:url(img/menu.png) no-repeat 0px -350px;}
 .menuTool a.pic     {background:url(img/menu.png) no-repeat 0px -375px;}
+/*
 .menuTool a.recheck {background:url(img/menu.png) no-repeat 0px -400px;}
+*/
 .menuTool a.refresh {background:url(img/menu.png) no-repeat 0px -425px;}
 .menuTool a.sort    {background:url(img/menu.png) no-repeat 0px -450px;}
 .menuTool a.start   {background:url(img/menu.png) no-repeat 0px -475px;}
 .menuTool a.tool    {background:url(img/menu.png) no-repeat 0px -500px;}
+/*
 .menuTool a.uncheck {background:url(img/menu.png) no-repeat 0px -525px;}
+*/
 .menuTool a.user    {background:url(img/menu.png) no-repeat 0px -550px;}
 
 .menuTool a.download{background:url(img/menu.png) no-repeat 0px -600px;}
@@ -114,12 +118,16 @@ a:active {color:#182a2d;}/*激活*/
 .menuTool-move    {background:url(img/menu.png) no-repeat 0px -325px;}
 .menuTool-pause   {background:url(img/menu.png) no-repeat 0px -350px;}
 .menuTool-pic     {background:url(img/menu.png) no-repeat 0px -375px;}
+/*
 .menuTool-recheck {background:url(img/menu.png) no-repeat 0px -400px;}
+*/
 .menuTool-refresh {background:url(img/menu.png) no-repeat 0px -425px;}
 .menuTool-sort    {background:url(img/menu.png) no-repeat 0px -450px;}
 .menuTool-start   {background:url(img/menu.png) no-repeat 0px -475px;}
 .menuTool-tool    {background:url(img/menu.png) no-repeat 0px -500px;}
+/*
 .menuTool-uncheck {background:url(img/menu.png) no-repeat 0px -525px;}
+*/
 .menuTool-user    {background:url(img/menu.png) no-repeat 0px -550px;}
 
 .menuTool-download{background:url(img/menu.png) no-repeat 0px -600px;}
@@ -129,6 +137,7 @@ a:active {color:#182a2d;}/*激活*/
 .menuTool-commit  {background:url(img/menu.png) no-repeat 0px -700px;}
 .menuTool-save    {background:url(img/menu.png) no-repeat 0px -700px;}
 .menuTool-printer {background:url(img/menu.png) no-repeat 0px -725px;}
+span.menuTool-save{background:url(img/menu/save.gif) no-repeat;}
 /*---页面标题---*/
 table.listLogo {width:100%;border:#c2c2c2 solid 1px;}
 table.listLogo td {color:#000000;background-color:#d9e5fd;background:url(img/bg/panel_logo.png) 0px 0px repeat-x;height:25x;text-align:right;vertical-align:middle;white-space:nowrap;padding:5px 5px 5px 5px;}
