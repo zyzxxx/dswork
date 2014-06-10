@@ -13,11 +13,12 @@
 var data = parent.$jskey.dialog.dialogArguments.args.data;
 var arr = data.split(",");
 $(function(){
-$dswork.ztree.root.label = "${fn:escapeXml(po.label)}";
+	$dswork.ztree.root.label = "${fn:escapeXml(po.label)}";
 	$dswork.ztree.config.check.chkStyle = "radio";
 	$dswork.ztree.config.check.enable = true;
 	$dswork.ztree.url = function(treeNode){return "getDictDataJson.htm?dictid=${po.id}&pid=" + treeNode.id;};
 	$dswork.ztree.load();
+	$dswork.ztree.expandRoot();
 });
 $dswork.ztree.beforeCheck = function(treeId, treeNode){
 	if(!treeNode.isParent){return false;}

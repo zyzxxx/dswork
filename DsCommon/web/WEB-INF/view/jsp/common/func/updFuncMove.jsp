@@ -11,11 +11,12 @@
 var data = parent.$jskey.dialog.dialogArguments.args.data;
 var arr = data.split(",");
 $(function(){
-$dswork.ztree.root.name = "资源-${fn:escapeXml(po.name)}";
+	$dswork.ztree.root.name = "资源-${fn:escapeXml(po.name)}";
 	$dswork.ztree.config.check.chkStyle = "radio";
 	$dswork.ztree.config.check.enable = true;
 	$dswork.ztree.url = function(treeNode){return "getFuncJson.htm?systemid=${po.id}&pid=" + treeNode.id;};
 	$dswork.ztree.load();
+	$dswork.ztree.expandRoot();
 });
 $dswork.ztree.beforeCheck = function(treeId, treeNode){
 	if(!treeNode.isParent){return false;}

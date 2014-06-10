@@ -6,6 +6,7 @@
 <head>
 	<title></title>
 	<%@include file="/commons/include/page.jsp" %>
+	<style type="text/css">.menuTool-save {background-position:center left;}</style>
 <script type="text/javascript">
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){parent.refreshNode(true);}};
@@ -24,7 +25,7 @@ $("#listFormMoveAll").click(function(){
 		v = v.substr(2, v.length-2);
 		$("#moveids").val(v);
 		var obj = {"title":"移动到选中节点","args":{"data":v}, "url":"updOrgMove1.htm?rootid=${rootid}"};
-		obj.buttons = [{text:"移动",iconCls:"menuTool-key",handler:function(){
+		obj.buttons = [{text:"移动",iconCls:"menuTool-save",handler:function(){
 			var re = $jskey.dialog.returnValue;
 			if(re != null){
 				if(re.id == "${pid}"){alert("目标节点与当前节点相同");return false;}
@@ -63,7 +64,7 @@ $("#dataTable>tbody>tr>td.v").each(function(){try{$(this).text($(this).text()=="
 	<tr>
 		<td class="title">组织机构列表</td>
 		<td class="menuTool">
-			<a class="tool" id="listFormMoveAll" href="#">移动</a>
+			<a class="move" id="listFormMoveAll" href="#">移动</a>
 			<a class="sort" href="updOrgSeq1.htm?pid=${pid}">排序</a>
 			<a class="add" href="addOrg1.htm?pid=${pid}">添加</a>
 			<a class="del" id="listFormDelAll" href="#">删除所选</a>

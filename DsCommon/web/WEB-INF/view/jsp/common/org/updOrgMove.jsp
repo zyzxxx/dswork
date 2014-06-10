@@ -18,6 +18,7 @@ $(function(){
 	$dswork.ztree.config.check.enable = true;
 	$dswork.ztree.url = function(treeNode){return "getOrgJson.htm?pid=" + treeNode.id;};
 	$dswork.ztree.load();
+	$dswork.ztree.expandRoot();
 });
 $dswork.ztree.beforeCheck = function(treeId, treeNode){
 	if(!treeNode.isParent){return false;}

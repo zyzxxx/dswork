@@ -4,44 +4,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/page.jsp" %>
-	<script type="text/javascript">
-	</script>
+<title></title>
+<%@include file="/commons/include/page.jsp" %>
+<script type="text/javascript">
+var uList = [], oList = [];
+<c:forEach items="${userList}" var="d">
+uList.push({id:"${d.id}",name:"${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})"});
+</c:forEach>
+<c:forEach items="${orgList}" var="d">
+oList.push({id:"${d.id}",name:"${fn:escapeXml(d.name)}"});
+</c:forEach>
+$(function(){
+	var t = $("#userTable"),m;
+	for(var i = 0; i < uList.length; i++){m=uList[i];
+		t.append('<tr><td>' + m.name + '</td><td class="menuTool"><a class="key" keyIndex="' + m.id + '">受权</a></td></tr>');
+	}
+	t = $("#orgTable");
+	for(var i = 0; i < oList.length; i++){m=oList[i];
+		t.append('<tr><td>' + m.name + '</td><td class="menuTool"><a class="key" keyIndex="' + m.id + '">授权</a></td></tr>');
+	}
+});
+</script>
 </head>
 <body class="easyui-tabs" fit="true">
 <div title="用户授权" style="padding:5px;overflow:hidden;">
-	<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<table id="userTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td style="width:40%;">姓名(帐号)</td>
-		<td>手机</td>
-		<td style="width:10%">操作</td>
+		<td>姓名(帐号)</td>
+		<td style="width:15%">操作</td>
 	</tr>
-<c:forEach items="${userList}" var="d">
-	<tr>
-		<td>${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
-		<td>${fn:escapeXml(d.mobile)}</td>
-		<td class="menuTool">
-			<a class="update" href="updOrg1.htm?keyIndex=${d.id}">受权</a>
-		</td>
-	</tr>
-</c:forEach>
 </table>
 </div>
 <div title="岗位授权" style="padding:5px;overflow:hidden;">
-	<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<table id="orgTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td>岗位名称</td>
-		<td style="width:10%">操作</td>
+		<td style="width:15%">操作</td>
 	</tr>
-<c:forEach items="${orgList}" var="d">
-	<tr>
-		<td>${fn:escapeXml(d.name)}</td>
-		<td class="menuTool">
-			<a class="update" href="updOrg1.htm?keyIndex=${d.id}">授权</a>
-		</td>
-	</tr>
-</c:forEach>
 </table>
 </div>
 </body>
