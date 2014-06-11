@@ -23,6 +23,18 @@ $(function(){
 	for(var i = 0; i < oList.length; i++){m=oList[i];
 		t.append('<tr><td>' + m.name + '</td><td class="menuTool"><a class="key" keyIndex="' + m.id + '">授权</a></td></tr>');
 	}
+	$("#userTable>tbody>tr>td>a.key").each(function(){
+		var o = $(this);var id = o.attr("keyIndex");if(id == null || typeof(id)=="undefined"){return true;}
+		o.click(function(event){
+			return parent.callfn(true, "用户岗位设置", id, "updSetUser.htm?id=" + id, uList, oList);
+		});
+	});
+	$("#orgTable>tbody>tr>td>a.key").each(function(){
+		var o = $(this);var id = o.attr("keyIndex");if(id == null || typeof(id)=="undefined"){return true;}
+		o.click(function(event){
+			return parent.callfn(false, "岗位用户设置", id, "updSetOrg.htm?id=" + id, uList, oList);
+		});
+	});
 });
 </script>
 </head>

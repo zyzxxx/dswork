@@ -5,8 +5,11 @@
 <html>
 <head>
 	<title></title>
-	<%@include file="/commons/include/page.jsp" %>
+	<%@include file="/commons/include/upd.jsp" %>
 	<script type="text/javascript">
+	var data = parent.$jskey.dialog.dialogArguments.args.data;
+	var uList = data.uList, oList = data.uList;
+	
 	</script>
 </head>
 <body>

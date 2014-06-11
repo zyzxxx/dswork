@@ -56,4 +56,83 @@ public class DsCommonUserOrgController extends BaseController
 		put("userList", service.queryUserList(pid));
 		return "/common/userorg/getUserOrg.jsp";
 	}
+
+	@RequestMapping("/updSetUser1")
+	public String updSetUser1()
+	{
+		Long id = req.getLong("id");
+		put("list", service.queryListByUserid(id));
+		return "/common/userorg/updSetUser.jsp";
+	}
+	@RequestMapping("/updSetUser2")
+	public void updSetUser2()
+	{
+		try
+		{
+			Long userid = req.getLong("userid");
+			if(userid > 0)
+			{
+				String ids = req.getString("orgids", "");
+				List<Long> list = new ArrayList<Long>();
+				if(ids.length() > 0)
+				{
+					for(String tmp : ids.split(","))
+					{
+						list.add(new Long(tmp));
+					}
+				}
+				service.saveByUser(userid, list);
+				print(1);
+			}
+			else
+			{
+				print(0);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
+
+	@RequestMapping("/updSetOrg1")
+	public String updSetOrg1()
+	{
+		Long id = req.getLong("id");
+		put("list", service.queryListByOrgid(id));
+		return "/common/userorg/updSetOrg.jsp";
+	}
+	@RequestMapping("/updSetOrg2")
+	public void updSetOrg2()
+	{
+		try
+		{
+			Long orgid = req.getLong("orgid");
+			if(orgid > 0)
+			{
+				String ids = req.getString("userids", "");
+				List<Long> list = new ArrayList<Long>();
+				if(ids.length() > 0)
+				{
+					for(String tmp : ids.split(","))
+					{
+						list.add(new Long(tmp));
+					}
+				}
+				service.saveByOrg(orgid, list);
+				print(1);
+			}
+			else
+			{
+				print(0);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
+	
 }

@@ -31,21 +31,29 @@ $(function(){
 	$z.load();
 	$z.expandRoot();
 });
-function choose(data){
-	$jskey.dialog.callback = function(){
-		var result = $jskey.dialog.returnValue;
-		if(result != null){
-			var map = new $jskey.Map(), o;
-			for(var i = 0; i < result.length; i++){o=result[i];map.put(o.id + "", o);}
-			try{window.frames["mainFrame"].callback(map);}catch(e){alert(e.name + "\n" + e.message);}
-		}
-	};
-	$jskey.dialog.showChoose({id:"chooseSystem", title:"选择角色", args:{url:"../rolechoose/getRoleChoose.htm", data:data}, width:"600", height:"450"});
-	return false;
-}
-function showRole(id, name){
-	$jskey.dialog.callback = function(){};
-	$jskey.dialog.showDialog({id:"role", title:name, url:"../rolechoose/getRoleById.htm?roleid=" + id, args:{}, width:"350", height:"450"});
+function callfn(isuser, title, id, url, uList, oList){
+	var o = {title:title, url:url, args:{data:{uList:uList, oList:oList}}, width:"600", height:"400"};
+	if(isuser){
+		o.buttons = [{text:"保存",iconCls:"menuTool-save",handler:function(){
+			var ids = $jskey.dialog.returnValue;
+			if(ids != null){
+				$dswork.showRequest();
+				$.post("updSetUser2.htm",{userid:id, orgids:ids},function(data){$dswork.showResponse(data);});
+			}
+			$jskey.dialog.close();
+		}}];
+	}
+	else{
+		o.buttons = [{text:"保存",iconCls:"menuTool-save",handler:function(){
+			var ids = $jskey.dialog.returnValue;
+			if(ids != null){
+				$dswork.showRequest();
+				$.post("updSetOrg2.htm",{orgid:id, userids:ids},function(data){$dswork.showResponse(data);});
+			}
+			$jskey.dialog.close();
+		}}];
+	}
+	$jskey.dialog.showDialog(o);
 	return false;
 }
 </script>

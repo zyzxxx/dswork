@@ -49,7 +49,7 @@ $("#listFormMoveAll").click(function(){
 				$jskey.dialog.close();
 			}
 			else{alert("请选择需要移动的目标节点位置");}
-		}}];	
+		}}];
 		$jskey.dialog.showDialog(obj);
 		return true;
 	}else{alert("请选择记录！");}
