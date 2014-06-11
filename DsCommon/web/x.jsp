@@ -11,21 +11,23 @@
 <script type="text/javascript" src="/web/js/dswork/form.js"></script>
 <script type="text/javascript">
 $(function(){
-	$("#orgpidname").bind("click", function(e){
+	$("#orgpname").bind("click", function(e){
 		$dswork.showTree({id:"treeid1",width:400,height:200,root:{name:"选择单位"}
 			,left:$(this).offset().left, top:$(this).offset().top+20
 			,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
-			,check:function(id, node){if(node.id==0){return false;}else{$("#orgpidname").val(node.name);$("#orgpid").val(node.id);}}
+			,check:function(id, node){if(node.id==0){return false;}else{$("#orgpname").val(node.name);$("#orgpid").val(node.id);$("#orgname").val();$("#orgid").val();}}
 			,dataFilter:function(id, pnode, data){var d=[];for(var i =0; i < data.length; i++){if(data[i].status == 2){d.push(data[i]);}}return d;}
-		})
+		});
 	});
-	$("#orgidname").bind("click", function(e){
-		$dswork.showTree({id:"treeid2",width:400,height:200,title:"选择部门"
+	$("#orgname").bind("click", function(e){
+		var rootid = $("#orgpid").val();
+		if(rootid == ""){alert("请先选择单位");return false;}
+		$dswork.showTree({id:"treeid2",width:400,height:200,root:{id:rootid, name:"选择部门-"+$("#orgpname").val()}
 			,left:$(this).offset().left, top:$(this).offset().top+20
 			,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
-			,check:function(id, node){if(node.id==0 || node.status != 1){return false;}else{$("#orgidname").val(node.name);$("#orgid").val(node.id);}}
-			,dataFilter:function(id, pnode, data){for(var i =0; i < data.length; i++){if(data[i].status == 2){data[i].nocheck=true;}}return data;}
-		})
+			,check:function(id, node){if(node.id==0 || node.status != 1){return false;}else{$("#orgname").val(node.name);$("#orgid").val(node.id);}}
+			,dataFilter:function(id, pnode, data){var d=[];for(var i =0; i < data.length; i++){if(data[i].status == 1){d.push(data[i]);}}return d;}
+		});
 	});
 	
 	
@@ -83,11 +85,11 @@ $(function(){
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">所属单位</td>
-		<td class="form_input"><input type="text" id="orgpidname" name="orgpidname" value="" /><input type="text" id="orgpid" name="orgpid" value="" /></td>
+		<td class="form_input"><input type="text" id="orgpname" name="orgpname" readonly="readonly" value="" /><input type="text" id="orgpid" name="orgpid" readonly="readonly" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">所属部门</td>
-		<td class="form_input"><input type="text" id="orgidname" name="orgidname" value="" /><input type="text" id="orgid" name="orgid" value="" /></td>
+		<td class="form_input"><input type="text" id="orgname" name="orgname" readonly="readonly" value="" /><input type="text" id="orgid" name="orgid" readonly="readonly" value="" /></td>
 	</tr>
 </table>
 </form>
