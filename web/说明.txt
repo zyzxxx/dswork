@@ -21,3 +21,16 @@ CSharpWeb项目，目录可删掉的内容
 	/.project
 	/src
 	/web/WEB-INF
+	
+CSharpWeb项目，使用IISExpress时，需要在applicationhost.config的sites节点中增加如下配置
+            <site name="web" id="2">
+                <application path="/" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="解决方案所在目录\web\web" />
+                </application>
+                <application path="/web" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="解决方案所在目录\web\web" />
+                </application>
+                <bindings>
+                    <binding protocol="http" bindingInformation="*:7070:localhost" />
+                </bindings>
+            </site>
