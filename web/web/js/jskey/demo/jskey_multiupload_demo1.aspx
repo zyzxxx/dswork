@@ -15,7 +15,6 @@ function doAjaxFileUpload()
 	var _keyNamesId = arguments[3] || "";//存储(a:aa|b:bb)后台保存文件名:原始文件名
 	var _ext = arguments[4] || "file";//上传后缀名, file和image为默认配置类型，其余为逗号分隔的后缀名"***,***"字符串
 	var _showDiv = arguments[5] || "";//用于记录返回信息的表单项ID,可为空
-	alert(_ext);
 	try
 	{
 		$jskey.upload.init({
