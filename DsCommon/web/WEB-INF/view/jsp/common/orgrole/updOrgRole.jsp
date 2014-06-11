@@ -89,7 +89,7 @@ $(function(){init();
 	<tr>
 		<td class="title">已选角色 &nbsp;<span id="showmsg" style="color:red;"></span></td>
 		<td class="menuTool">
-			<a id="vinit" class="uncheck" href="#">取消选择</a>
+			<a id="vinit" class="refresh" href="#">重置选择</a>
 			<a id="vchoose" class="check" href="#">选择角色</a>
 			<a id="vsave" class="save" href="#">保存分配</a>
 		</td>

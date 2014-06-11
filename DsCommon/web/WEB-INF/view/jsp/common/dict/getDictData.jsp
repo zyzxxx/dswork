@@ -75,9 +75,9 @@ $("#listFormMoveAll").click(function(){
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
-		<td>名称</td>
+		<td style="width:40%">名称</td>
 		<td>标识</td>
-		<td style="width:8%">操作</td>
+		<td style="width:13%">操作</td>
 	</tr>
 <c:forEach items="${list}" var="d">
 	<tr>

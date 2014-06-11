@@ -10,11 +10,12 @@
 function updSystemStatus(objid, id){
 	var obj = $("#" + objid);
 	$.post("updSystemStatus.htm", {"keyIndex":id,"status":obj.attr("v")==0?1:0},function(data){
+		obj.removeClass("pause").removeClass("start");
 		$dswork.checkResult(data);if($dswork.result.type == 1){
 		if(1 == obj.attr("v")) {
-			obj.text("启用"); obj.attr("v", 0); $("#td_" + objid).text("禁用").css("color", "red");
+			obj.text("启用").attr("v", 0).addClass("start"); $("#td_" + objid).text("禁用").css("color", "red");
 		}else{
-			obj.text("禁用"); obj.attr("v", 1); $("#td_" + objid).text("启用").css("color", "");
+			obj.text("禁用").attr("v", 1).addClass("pause"); $("#td_" + objid).text("启用").css("color", "");
 		}}else{alert($dswork.result.msg);}
 	});
 	return false;
@@ -24,9 +25,9 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getSystem.htm?page=${pageModel.currentPage}";
 }};
 $dswork.page.join = function(td, menu, id){
-	$(menu).append($('<div iconCls="menuTool-edit">资源管理</div>').bind("click", function(){
+	$(menu).append($('<div iconCls="menuTool-graph">资源管理</div>').bind("click", function(){
 		location.href = "../func/getFuncTree.htm?page=${pageModel.currentPage}&systemid=" + id;
-	})).append($('<div iconCls="menuTool-edit">角色管理</div>').bind("click", function(){
+	})).append($('<div iconCls="menuTool-user">角色管理</div>').bind("click", function(){
 		location.href = "../role/getRoleTree.htm?page=${pageModel.currentPage}&systemid=" + id;
 	}));
 };
@@ -77,11 +78,11 @@ $(function(){
 		<td>${fn:escapeXml(d.alias)}</td>
 		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
 		<td class="menuTool">
-			<a id="a_status${status.index}" name="a_status" v="${d.status}" class="check" onclick="return updSystemStatus('a_status${status.index}', '${d.id}');" href="#">${1==d.status?'禁用':'启用'}</a>
-			<a class="delete" href="delSystem.htm?keyIndex=${d.id}&page=${pageModel.currentPage}">删除</a>
+			<a id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" onclick="return updSystemStatus('a_status${status.index}', '${d.id}');" href="#">${1==d.status?'禁用':'启用'}</a>
+			<a class="graph" href="../func/getFuncTree.htm?systemid=${d.id}&page=${pageModel.currentPage}">资源管理</a>
+			<a class="user" href="../role/getRoleTree.htm?systemid=${d.id}&page=${pageModel.currentPage}">角色管理</a>
 			<a class="update" href="updSystem1.htm?keyIndex=${d.id}&page=${pageModel.currentPage}">修改</a>
-			<a class="edit" href="../func/getFuncTree.htm?systemid=${d.id}&page=${pageModel.currentPage}">资源管理</a>
-			<a class="edit" href="../role/getRoleTree.htm?systemid=${d.id}&page=${pageModel.currentPage}">角色管理</a>
+			<a class="delete" href="delSystem.htm?keyIndex=${d.id}&page=${pageModel.currentPage}">删除</a>
 		</td>
 	</tr>
 </c:forEach>
