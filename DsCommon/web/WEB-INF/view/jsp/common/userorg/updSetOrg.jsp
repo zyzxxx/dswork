@@ -13,12 +13,13 @@
 		var o = list[i];o.check = false;
 		for(var j=1; j<arr.length; j++){if(o.id == arr[j]){o.check = true;}}
 	}
+	var oids = "0";
 	function refreshValue(){
 		var ids = "0";
 		$("input[name='keyIndex']:checked").each(function(){
 			ids += "," + $(this).val();
 		});
-		parent.$jskey.dialog.returnValue = ids;
+		parent.$jskey.dialog.returnValue = (oids == ids)?null:ids;
 	}
 	$(function(){
 		t = $("#dataTable");
@@ -26,6 +27,7 @@
 			var r = $("<tr></tr>"),chk;
 			if(m.check){
 				chk = $("<input name='keyIndex' type='checkbox' checked='checked' value='' />");
+				oids += "," + m.id;
 			}
 			else{chk = $("<input name='keyIndex' type='checkbox' value='' />");}
 			chk.attr("id", "v" + m.id).val(m.id);

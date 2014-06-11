@@ -32,13 +32,13 @@ $(function(){
 	$("#userTable>tbody>tr>td>a.key").each(function(){
 		var o = $(this);var id = o.attr("keyIndex");if(id == null || typeof(id)=="undefined"){return true;}
 		o.click(function(event){
-			return parent.callfn(true, "用户岗位设置，当前用户："+o.attr("keyName"), id, "updSetUser1.htm?id=" + id, uList, oList);
+			return parent.callfn(true, "设置岗位，用户："+o.attr("keyName"), id, "updSetUser1.htm?id=" + id, uList, oList);
 		});
 	});
 	$("#orgTable>tbody>tr>td>a.key").each(function(){
 		var o = $(this);var id = o.attr("keyIndex");if(id == null || typeof(id)=="undefined"){return true;}
 		o.click(function(event){
-			return parent.callfn(false, "岗位用户设置，当前岗位："+o.attr("keyName"), id, "updSetOrg1.htm?id=" + id, uList, oList);
+			return parent.callfn(false, "设置用户，岗位："+o.attr("keyName"), id, "updSetOrg1.htm?id=" + id, uList, oList);
 		});
 	});
 });
