@@ -18,7 +18,6 @@
 		$("input[name='keyIndex']:checked").each(function(){
 			ids += "," + $(this).val();
 		});
-		alert(ids);
 		parent.$jskey.dialog.returnValue = ids;
 	}
 	$(function(){
@@ -28,13 +27,11 @@
 			if(m.check){
 				chk = $("<input name='keyIndex' type='checkbox' checked='checked' value='' />");
 			}
-			else{
-				chk = $("<input name='keyIndex' type='checkbox' value='' />");
-			}
-			chk.val(m.id);
+			else{chk = $("<input name='keyIndex' type='checkbox' value='' />");}
+			chk.attr("id", "v" + m.id).val(m.id);
 			chk.click(function(){refreshValue();});
 			$("<td></td>").append(chk).appendTo(r);
-			$("<td></td>").html(m.name).appendTo(r);
+			$("<td></td>").html("<label style='cursor:pointer;' for='v" + m.id + "'>" + m.name + "</label>").appendTo(r);
 			t.append(r);
 		}
 		refreshValue();
@@ -44,7 +41,7 @@
 <body>
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td style="width:2%">&nbsp;</td>
+		<td style="width:8%">&nbsp;</td>
 		<td>岗位名称</td>
 	</tr>
 </table>

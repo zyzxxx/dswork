@@ -32,7 +32,7 @@ $(function(){
 	$z.expandRoot();
 });
 function callfn(isuser, title, id, url, uList, oList){
-	var o = {title:title, url:url, args:{data:{uList:uList, oList:oList}}, width:"600", height:"400"};
+	var o = {title:title, url:url, args:{data:{uList:uList, oList:oList}}, width:"300", height:"400"};
 	if(isuser){
 		o.buttons = [{text:"保存",iconCls:"menuTool-save",handler:function(){
 			var ids = $jskey.dialog.returnValue;

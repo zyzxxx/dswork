@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014-6-8 22:41:08                            */
+/* Created on:     2014-6-11 11:53:54                           */
 /*==============================================================*/
 
 
@@ -247,7 +247,7 @@ ALTER TABLE DS_COMMON_USER COMMENT '用户信息';
 /*==============================================================*/
 CREATE TABLE DS_COMMON_USERORG
 (
-   ID                   BIGINT(18) NOT NULL COMMENT '主键ID',
+   ID                   BIGINT(18) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
    ORGID                BIGINT(18) NOT NULL COMMENT '岗位ID',
    USERID               BIGINT(18) COMMENT '用户ID',
    PRIMARY KEY (ID),
