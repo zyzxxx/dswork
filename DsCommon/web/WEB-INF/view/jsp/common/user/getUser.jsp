@@ -10,11 +10,12 @@
 function updStatus(objid, id){
 	var obj = $("#" + objid), o = document.getElementById(objid);
 	$.post("updUserStatus.htm",{"keyIndex":id,"status":obj.attr("v")==0?1:0},function(data){if(1 == data){
+		obj.removeClass("pause").removeClass("start");
 		if(1 == obj.attr("v")){
-			obj.text("启用").attr("v", 0);$("#td_" + objid).text("禁用").css("color", "red");
+			obj.text("启用").attr("v", 0).addClass("start");$("#td_" + objid).text("禁用").css("color", "red");
 		}
 		else{
-			obj.text("禁用").attr("v", 1);$("#td_" + objid).text("启用").css("color", "");
+			obj.text("禁用").attr("v", 1).addClass("pause");$("#td_" + objid).text("启用").css("color", "");
 		}}
 	else{alert("失败!"+data);}});
 	return false;
@@ -82,7 +83,7 @@ $(function(){
 		<td>${fn:escapeXml(d.orgname)}</td>
 		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
 		<td class="menuTool">
-			<a ${'admin'==d.account?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="check" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
+			<a ${'admin'==d.account?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
 			<c:if test="${'admin'!=d.account}">
 				<a class="update" href="updUser1.htm?page=${pageModel.currentPage}&keyIndex=${d.id}">修改</a>
 				<a class="user" href="updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
