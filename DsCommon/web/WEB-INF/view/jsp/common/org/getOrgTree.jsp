@@ -61,17 +61,17 @@ $(function(){
 	$z.expandRoot();
 });
 
-$dswork.ztree.root.icon = "${ctx}/commons/img/org.png";
+$dswork.ztree.root.iconSkin = "groups";
 $dswork.ztree.dataFilter = function (treeId, parentNode, data){
 	if(data){for(var i = 0;i < data.length;i++){
 		if(data[i].status == 2){
-			data[i].icon = "${ctx}/commons/img/org.png";
+			data[i].iconSkin = "groups";
 		}
 		else if(data[i].status == 1){
-			data[i].icon = "${ctx}/commons/img/group.png";
+			data[i].iconSkin = "group";
 		}
 		else{
-			data[i].icon = "${ctx}/commons/img/user.png";
+			data[i].iconSkin = "user";
 		}
 	}}
 	return data;

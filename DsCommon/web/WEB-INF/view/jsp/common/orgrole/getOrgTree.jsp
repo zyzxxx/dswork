@@ -22,7 +22,7 @@ $dswork.ztree.root.status = ${po.status};
 $dswork.ztree.url = function(treeNode){return "${ctx}/common/share/getJsonOrg.htm?pid=" + treeNode.id;};
 $dswork.ztree.dataFilter = function (treeId, parentNode, data){
 	if(data){for(var i = 0;i < data.length;i++){if(data[i].status == 0){
-		data[i].icon = "${ctx}/commons/img/user.png";
+		data[i].iconSkin = "user";
 	}}}return data;
 };
 $(function(){
