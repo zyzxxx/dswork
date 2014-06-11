@@ -52,11 +52,11 @@
 	</tr>
 	<tr>
 		<td class="form_title">所属单位</td>
-		<td class="form_input"><input type="text" id="orgpname" name="orgpname" value="" /><input type="hidden" id="orgpid" name="orgpid" value="" /></td>
+		<td class="form_input"><input type="text" id="orgpname" name="orgpname" readonly="readonly" value="" /><input type="hidden" id="orgpid" name="orgpid" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">所属部门</td>
-		<td class="form_input"><input type="text" id="orgname" name="orgname" value="" /><input type="hidden" id="orgid" name="orgid" value="" /></td>
+		<td class="form_input"><input type="text" id="orgname" name="orgname" readonly="readonly" value="" /><input type="hidden" id="orgid" name="orgid" value="" /></td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />

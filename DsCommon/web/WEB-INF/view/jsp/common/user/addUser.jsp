@@ -71,11 +71,11 @@
 	</tr>
 	<tr>
 		<td class="form_title">所属部门</td>
-		<td class="form_input"><input type="text" id="orgname" name="orgname" value="" /><input type="hidden" id="orgid" name="orgid" value="" /></td>
+		<td class="form_input"><input type="text" id="orgname" name="orgname" readonly="readonly" value="" /><input type="hidden" id="orgid" name="orgid" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">邮箱：</td>
-		<td class="form_input"><input type="text" id="email" name="email" style="width:200px;" require="false" dataType="Email" maxlength="250" value="" /></td>
+		<td class="form_input"><input type="text" id="email" name="email" readonly="readonly" style="width:200px;" require="false" dataType="Email" maxlength="250" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">手机：</td>
