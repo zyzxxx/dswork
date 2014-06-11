@@ -41,12 +41,12 @@
 	</table>
 	</form>
 	<div class="line"></div>
-	<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 		<tr class="list_title">
 			<td>名称(标识)-单击系统名称进行设置</td>
 		</tr>
-	<c:forEach items="${pageModel.result}" var="d" varStatus="status">
-		<tr class="${fn:escapeXml(0==status.index%2?'list_even':'list_odd')}">
+	<c:forEach items="${pageModel.result}" var="d">
+		<tr>
 			<td style="text-align:left;" class="menuTool">
 				&nbsp;<a class="check" onclick="return appGO('${d.id}');" href="#">${fn:escapeXml(d.name)}(${fn:escapeXml(d.alias)})</a>
 			</td>
