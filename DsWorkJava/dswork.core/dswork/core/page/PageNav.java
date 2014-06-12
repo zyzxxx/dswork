@@ -15,6 +15,7 @@ public class PageNav<T>
 	private static String PAGEFORMID = "jskeyPageForm";
 	private String formId = PAGEFORMID;
 	private String formString = "";
+	private static int[] sizeArray = {10, 15, 20, 25, 30, 50};
 
 	/**
 	 * 构造函数
@@ -87,7 +88,7 @@ public class PageNav<T>
 	 */
 	public String getPage()
 	{
-		return getPage(true, true, true, true);
+		return getPage(true, true, true, true, true);
 	}
 	
 	/**
@@ -98,6 +99,19 @@ public class PageNav<T>
 	 * @param isShowJump 是否支持跳转
 	 */
 	public String getPage(boolean isViewTotal, boolean isViewPageInfo, boolean isShowLink, boolean isShowJump)
+	{
+		return getPage(true, true, true, true, true);
+	}
+	
+	/**
+	 * 显示分页控件
+	 * @param isViewTotal 是否显示所有记录数
+	 * @param isViewPageInfo 是否显示页面信息
+	 * @param isShowLink 是否翻页
+	 * @param isShowJump 是否支持跳转
+	 * @param isShowJump 是否支持定制页数
+	 */
+	public String getPage(boolean isViewTotal, boolean isViewPageInfo, boolean isShowLink, boolean isShowJump, boolean isShowJumpSize)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append(getForm());
@@ -117,11 +131,23 @@ public class PageNav<T>
 			sb.append("<a class=\"next\"" + ((page.isHasNextPage()) ? " onclick=\"$jskey.page.go('" + formId+ "', '" + page.getNextPage() + "');return false;\" href=\"#\"" : "") + ">下页</a>&nbsp;");
 			sb.append("<a class=\"last\"" + ((page.getTotalPage() > 1 && page.getCurrentPage() < page.getTotalPage()) ? " onclick=\"$jskey.page.go('" + formId+ "', '" + page.getTotalPage() + "');return false;\" href=\"#\"" : "") + ">尾页</a>&nbsp;");
 		}
-		if(isShowJump)
+		if(isShowJump || isShowJumpSize)
 		{
 			i = (i > 888L)?(0L):(i+1);
 			String pid = formId + "_go" + i;
-			sb.append("转到第 <input type=\"text\" class=\"input\" id=\"").append(pid).append("\" /> 页 ").append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.page.go('").append(formId).append("', document.getElementById('").append(pid).append("').value);\" />");
+			if(isShowJump)
+			{
+				sb.append("转到第 <input type=\"text\" class=\"input\" id=\"").append(pid).append("\" /> 页 ").append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.page.go('").append(formId).append("', document.getElementById('").append(pid).append("').value);\" />");
+			}
+			if(isShowJumpSize)
+			{
+				sb.append(" <select id=\"").append(pid).append("_s").append("\" onchange=\"document.getElementById(\'").append(formId).append("_pageSize\').value=this.value;$jskey.page.go('" + formId+ "',1);\">");
+				for(int i : sizeArray)
+				{
+					sb.append("<option value=\"").append(i).append((page.getPageSize() == i)?"\" selected=\"selected\">":"\">").append(i).append("</option>");
+				}
+				sb.append("</select>");
+			}
 		}
 		sb.append("</div>");
 		return sb.toString();
