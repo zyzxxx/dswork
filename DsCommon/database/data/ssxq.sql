@@ -1,72 +1,72 @@
 insert into DS_COMMON_DICT (ID, NAME, LABEL, STATUS, SEQ)
-values (1, 'SSXQ', '––’˛«¯ªÆ', 1, 1);
+values (1, 'SSXQ', 'Ë°åÊîøÂå∫Âàí', 1, 1);
 
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (44, null, 'π„∂´ °', '440000', '', 5, 1, 'SSXQ');
+values (44, null, 'Âπø‰∏úÁúÅ', '440000', '', 5, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4401, 44, 'π„÷› –', '440100', '', 2, 1, 'SSXQ');
+values (4401, 44, 'ÂπøÂ∑ûÂ∏Ç', '440100', '', 2, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4402, 44, '…ÿπÿ –', '440200', '', 3, 1, 'SSXQ');
+values (4402, 44, 'Èü∂ÂÖ≥Â∏Ç', '440200', '', 3, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4403, 44, '…Ó€⁄ –', '440300', '', 4, 1, 'SSXQ');
+values (4403, 44, 'Ê∑±Âú≥Â∏Ç', '440300', '', 4, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4404, 44, '÷È∫£ –', '440400', '', 5, 1, 'SSXQ');
+values (4404, 44, 'Áè†Êµ∑Â∏Ç', '440400', '', 5, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4405, 44, '…«Õ∑ –', '440500', '', 6, 1, 'SSXQ');
+values (4405, 44, 'Ê±ïÂ§¥Â∏Ç', '440500', '', 6, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4406, 44, '∑…Ω –', '440600', '', 7, 1, 'SSXQ');
+values (4406, 44, '‰ΩõÂ±±Â∏Ç', '440600', '', 7, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4407, 44, 'Ω≠√≈ –', '440700', '', 8, 1, 'SSXQ');
+values (4407, 44, 'Ê±üÈó®Â∏Ç', '440700', '', 8, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4408, 44, '’øΩ≠ –', '440800', '', 9, 1, 'SSXQ');
+values (4408, 44, 'ÊπõÊ±üÂ∏Ç', '440800', '', 9, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4409, 44, '√Ø√˚ –', '440900', '', 10, 1, 'SSXQ');
+values (4409, 44, 'ËåÇÂêçÂ∏Ç', '440900', '', 10, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4412, 44, '’ÿ«Ï –', '441200', '', 11, 1, 'SSXQ');
+values (4412, 44, 'ËÇáÂ∫ÜÂ∏Ç', '441200', '', 11, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4413, 44, 'ª›÷› –', '441300', '', 12, 1, 'SSXQ');
+values (4413, 44, 'ÊÉ†Â∑ûÂ∏Ç', '441300', '', 12, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4414, 44, '√∑÷› –', '441400', '', 13, 1, 'SSXQ');
+values (4414, 44, 'Ê¢ÖÂ∑ûÂ∏Ç', '441400', '', 13, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4415, 44, '…«Œ≤ –', '441500', '', 14, 1, 'SSXQ');
+values (4415, 44, 'Ê±ïÂ∞æÂ∏Ç', '441500', '', 14, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4416, 44, '∫”‘¥ –', '441600', '', 15, 1, 'SSXQ');
+values (4416, 44, 'Ê≤≥Ê∫êÂ∏Ç', '441600', '', 15, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4417, 44, '—ÙΩ≠ –', '441700', '', 16, 1, 'SSXQ');
+values (4417, 44, 'Èò≥Ê±üÂ∏Ç', '441700', '', 16, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4418, 44, '«Â‘∂ –', '441800', '', 17, 1, 'SSXQ');
+values (4418, 44, 'Ê∏ÖËøúÂ∏Ç', '441800', '', 17, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4419, 44, '∂´›∏ –', '441900', '', 18, 1, 'SSXQ');
+values (4419, 44, '‰∏úËéûÂ∏Ç', '441900', '', 18, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4420, 44, '÷–…Ω –', '442000', '', 19, 1, 'SSXQ');
+values (4420, 44, '‰∏≠Â±±Â∏Ç', '442000', '', 19, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4451, 44, '≥±÷› –', '445100', '', 20, 1, 'SSXQ');
+values (4451, 44, 'ÊΩÆÂ∑ûÂ∏Ç', '445100', '', 20, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4452, 44, 'Ω“—Ù –', '445200', '', 21, 1, 'SSXQ');
+values (4452, 44, 'Êè≠Èò≥Â∏Ç', '445200', '', 21, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (4453, 44, '‘∆∏° –', '445300', '', 22, 1, 'SSXQ');
+values (4453, 44, '‰∫ëÊµÆÂ∏Ç', '445300', '', 22, 1, 'SSXQ');
 
 
 
@@ -78,421 +78,421 @@ values (4453, 44, '‘∆∏° –', '445300', '', 22, 1, 'SSXQ');
 
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440101, 4401, ' –œΩ«¯', '440101', '', 440101, 1, 'SSXQ');
+values (440101, 4401, 'Â∏ÇËæñÂå∫', '440101', '', 440101, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440103, 4401, '¿ÛÕÂ«¯', '440103', '', 440103, 1, 'SSXQ');
+values (440103, 4401, 'ËçîÊπæÂå∫', '440103', '', 440103, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440104, 4401, '‘Ω–„«¯', '440104', '', 440104, 1, 'SSXQ');
+values (440104, 4401, 'Ë∂äÁßÄÂå∫', '440104', '', 440104, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440105, 4401, '∫£÷È«¯', '440105', '', 440105, 1, 'SSXQ');
+values (440105, 4401, 'Êµ∑Áè†Âå∫', '440105', '', 440105, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440106, 4401, 'ÃÏ∫”«¯', '440106', '', 440106, 1, 'SSXQ');
+values (440106, 4401, 'Â§©Ê≤≥Âå∫', '440106', '', 440106, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440111, 4401, '∞◊‘∆«¯', '440111', '', 440111, 1, 'SSXQ');
+values (440111, 4401, 'ÁôΩ‰∫ëÂå∫', '440111', '', 440111, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440112, 4401, 'ª∆∆“«¯', '440112', '', 440112, 1, 'SSXQ');
+values (440112, 4401, 'ÈªÑÂüîÂå∫', '440112', '', 440112, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440113, 4401, '∑¨ÿÆ«¯', '440113', '', 440113, 1, 'SSXQ');
+values (440113, 4401, 'Áï™Á¶∫Âå∫', '440113', '', 440113, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440114, 4401, 'ª®∂º«¯', '440114', '', 440114, 1, 'SSXQ');
+values (440114, 4401, 'Ëä±ÈÉΩÂå∫', '440114', '', 440114, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440115, 4401, 'ƒœ…≥«¯', '440115', '', 440115, 1, 'SSXQ');
+values (440115, 4401, 'ÂçóÊ≤ôÂå∫', '440115', '', 440115, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440116, 4401, '¬‹∏⁄«¯', '440116', '', 440116, 1, 'SSXQ');
+values (440116, 4401, 'ËêùÂ≤óÂå∫', '440116', '', 440116, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440183, 4401, '‘ˆ≥« –', '440183', '', 440183, 1, 'SSXQ');
+values (440183, 4401, 'Â¢ûÂüéÂ∏Ç', '440183', '', 440183, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440184, 4401, '¥”ªØ –', '440184', '', 440184, 1, 'SSXQ');
+values (440184, 4401, '‰ªéÂåñÂ∏Ç', '440184', '', 440184, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440201, 4402, ' –œΩ«¯', '440201', '', 440201, 1, 'SSXQ');
+values (440201, 4402, 'Â∏ÇËæñÂå∫', '440201', '', 440201, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440203, 4402, 'Œ‰Ω≠«¯', '440203', '', 440203, 1, 'SSXQ');
+values (440203, 4402, 'Ê≠¶Ê±üÂå∫', '440203', '', 440203, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440204, 4402, '‰•Ω≠«¯', '440204', '', 440204, 1, 'SSXQ');
+values (440204, 4402, 'ÊµàÊ±üÂå∫', '440204', '', 440204, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440205, 4402, '«˙Ω≠«¯', '440205', '', 440205, 1, 'SSXQ');
+values (440205, 4402, 'Êõ≤Ê±üÂå∫', '440205', '', 440205, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440222, 4402, ' º–Àœÿ', '440222', '', 440222, 1, 'SSXQ');
+values (440222, 4402, 'ÂßãÂÖ¥Âéø', '440222', '', 440222, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440224, 4402, '» ªØœÿ', '440224', '', 440224, 1, 'SSXQ');
+values (440224, 4402, '‰ªÅÂåñÂéø', '440224', '', 440224, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440229, 4402, 'ŒÃ‘¥œÿ', '440229', '', 440229, 1, 'SSXQ');
+values (440229, 4402, 'ÁøÅÊ∫êÂéø', '440229', '', 440229, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440232, 4402, '»È‘¥—˛◊Â◊‘÷Œœÿ', '440232', '', 440232, 1, 'SSXQ');
+values (440232, 4402, '‰π≥Ê∫êÁë∂ÊóèËá™Ê≤ªÂéø', '440232', '', 440232, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440233, 4402, '–¬∑·œÿ', '440233', '', 440233, 1, 'SSXQ');
+values (440233, 4402, 'Êñ∞‰∏∞Âéø', '440233', '', 440233, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440281, 4402, '¿÷≤˝ –', '440281', '', 440281, 1, 'SSXQ');
+values (440281, 4402, '‰πêÊòåÂ∏Ç', '440281', '', 440281, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440282, 4402, 'ƒœ–€ –', '440282', '', 440282, 1, 'SSXQ');
+values (440282, 4402, 'ÂçóÈõÑÂ∏Ç', '440282', '', 440282, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440301, 4403, ' –œΩ«¯', '440301', '', 440301, 1, 'SSXQ');
+values (440301, 4403, 'Â∏ÇËæñÂå∫', '440301', '', 440301, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440303, 4403, '¬ﬁ∫˛«¯', '440303', '', 440303, 1, 'SSXQ');
+values (440303, 4403, 'ÁΩóÊπñÂå∫', '440303', '', 440303, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440304, 4403, '∏£ÃÔ«¯', '440304', '', 440304, 1, 'SSXQ');
+values (440304, 4403, 'Á¶èÁî∞Âå∫', '440304', '', 440304, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440305, 4403, 'ƒœ…Ω«¯', '440305', '', 440305, 1, 'SSXQ');
+values (440305, 4403, 'ÂçóÂ±±Âå∫', '440305', '', 440305, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440306, 4403, '±¶∞≤«¯', '440306', '', 440306, 1, 'SSXQ');
+values (440306, 4403, 'ÂÆùÂÆâÂå∫', '440306', '', 440306, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440307, 4403, '¡˙∏⁄«¯', '440307', '', 440307, 1, 'SSXQ');
+values (440307, 4403, 'ÈæôÂ≤óÂå∫', '440307', '', 440307, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440308, 4403, '—ŒÃÔ«¯', '440308', '', 440308, 1, 'SSXQ');
+values (440308, 4403, 'ÁõêÁî∞Âå∫', '440308', '', 440308, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440401, 4404, ' –œΩ«¯', '440401', '', 440401, 1, 'SSXQ');
+values (440401, 4404, 'Â∏ÇËæñÂå∫', '440401', '', 440401, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440402, 4404, 'œ„÷ﬁ«¯', '440402', '', 440402, 1, 'SSXQ');
+values (440402, 4404, 'È¶ôÊ¥≤Âå∫', '440402', '', 440402, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440403, 4404, '∂∑√≈«¯', '440403', '', 440403, 1, 'SSXQ');
+values (440403, 4404, 'ÊñóÈó®Âå∫', '440403', '', 440403, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440404, 4404, 'ΩÕÂ«¯', '440404', '', 440404, 1, 'SSXQ');
+values (440404, 4404, 'ÈáëÊπæÂå∫', '440404', '', 440404, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440501, 4405, ' –œΩ«¯', '440501', '', 440501, 1, 'SSXQ');
+values (440501, 4405, 'Â∏ÇËæñÂå∫', '440501', '', 440501, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440507, 4405, '¡˙∫˛«¯', '440507', '', 440507, 1, 'SSXQ');
+values (440507, 4405, 'ÈæôÊπñÂå∫', '440507', '', 440507, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440511, 4405, 'Ω∆Ω«¯', '440511', '', 440511, 1, 'SSXQ');
+values (440511, 4405, 'ÈáëÂπ≥Âå∫', '440511', '', 440511, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440512, 4405, 'Â©Ω≠«¯', '440512', '', 440512, 1, 'SSXQ');
+values (440512, 4405, 'Êø†Ê±üÂå∫', '440512', '', 440512, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440513, 4405, '≥±—Ù«¯', '440513', '', 440513, 1, 'SSXQ');
+values (440513, 4405, 'ÊΩÆÈò≥Âå∫', '440513', '', 440513, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440514, 4405, '≥±ƒœ«¯', '440514', '', 440514, 1, 'SSXQ');
+values (440514, 4405, 'ÊΩÆÂçóÂå∫', '440514', '', 440514, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440515, 4405, '≥Œ∫£«¯', '440515', '', 440515, 1, 'SSXQ');
+values (440515, 4405, 'ÊæÑÊµ∑Âå∫', '440515', '', 440515, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440523, 4405, 'ƒœ∞ƒœÿ', '440523', '', 440523, 1, 'SSXQ');
+values (440523, 4405, 'ÂçóÊæ≥Âéø', '440523', '', 440523, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440601, 4406, ' –œΩ«¯', '440601', '', 440601, 1, 'SSXQ');
+values (440601, 4406, 'Â∏ÇËæñÂå∫', '440601', '', 440601, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440604, 4406, 'Ï¯≥««¯', '440604', '', 440604, 1, 'SSXQ');
+values (440604, 4406, 'Á¶ÖÂüéÂå∫', '440604', '', 440604, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440605, 4406, 'ƒœ∫£«¯', '440605', '', 440605, 1, 'SSXQ');
+values (440605, 4406, 'ÂçóÊµ∑Âå∫', '440605', '', 440605, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440606, 4406, 'À≥µ¬«¯', '440606', '', 440606, 1, 'SSXQ');
+values (440606, 4406, 'È°∫Âæ∑Âå∫', '440606', '', 440606, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440607, 4406, '»˝ÀÆ«¯', '440607', '', 440607, 1, 'SSXQ');
+values (440607, 4406, '‰∏âÊ∞¥Âå∫', '440607', '', 440607, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440608, 4406, '∏ﬂ√˜«¯', '440608', '', 440608, 1, 'SSXQ');
+values (440608, 4406, 'È´òÊòéÂå∫', '440608', '', 440608, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440701, 4407, ' –œΩ«¯', '440701', '', 440701, 1, 'SSXQ');
+values (440701, 4407, 'Â∏ÇËæñÂå∫', '440701', '', 440701, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440703, 4407, '≈ÓΩ≠«¯', '440703', '', 440703, 1, 'SSXQ');
+values (440703, 4407, 'Ëì¨Ê±üÂå∫', '440703', '', 440703, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440704, 4407, 'Ω≠∫£«¯', '440704', '', 440704, 1, 'SSXQ');
+values (440704, 4407, 'Ê±üÊµ∑Âå∫', '440704', '', 440704, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440705, 4407, '–¬ª·«¯', '440705', '', 440705, 1, 'SSXQ');
+values (440705, 4407, 'Êñ∞‰ºöÂå∫', '440705', '', 440705, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440781, 4407, 'Ã®…Ω –', '440781', '', 440781, 1, 'SSXQ');
+values (440781, 4407, 'Âè∞Â±±Â∏Ç', '440781', '', 440781, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440783, 4407, 'ø™∆Ω –', '440783', '', 440783, 1, 'SSXQ');
+values (440783, 4407, 'ÂºÄÂπ≥Â∏Ç', '440783', '', 440783, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440784, 4407, '∫◊…Ω –', '440784', '', 440784, 1, 'SSXQ');
+values (440784, 4407, 'Èπ§Â±±Â∏Ç', '440784', '', 440784, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440785, 4407, '∂˜∆Ω –', '440785', '', 440785, 1, 'SSXQ');
+values (440785, 4407, 'ÊÅ©Âπ≥Â∏Ç', '440785', '', 440785, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440801, 4408, ' –œΩ«¯', '440801', '', 440801, 1, 'SSXQ');
+values (440801, 4408, 'Â∏ÇËæñÂå∫', '440801', '', 440801, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440802, 4408, '≥‡ø≤«¯', '440802', '', 440802, 1, 'SSXQ');
+values (440802, 4408, 'Ëµ§ÂùéÂå∫', '440802', '', 440802, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440803, 4408, 'œº…Ω«¯', '440803', '', 440803, 1, 'SSXQ');
+values (440803, 4408, 'ÈúûÂ±±Âå∫', '440803', '', 440803, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440804, 4408, '∆¬Õ∑«¯', '440804', '', 440804, 1, 'SSXQ');
+values (440804, 4408, 'Âù°Â§¥Âå∫', '440804', '', 440804, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440811, 4408, '¬È’¬«¯', '440811', '', 440811, 1, 'SSXQ');
+values (440811, 4408, 'È∫ªÁ´†Âå∫', '440811', '', 440811, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440823, 4408, 'ÀÏœ™œÿ', '440823', '', 440823, 1, 'SSXQ');
+values (440823, 4408, 'ÈÅÇÊ∫™Âéø', '440823', '', 440823, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440825, 4408, '–ÏŒ≈œÿ', '440825', '', 440825, 1, 'SSXQ');
+values (440825, 4408, 'ÂæêÈóªÂéø', '440825', '', 440825, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440881, 4408, '¡ÆΩ≠ –', '440881', '', 440881, 1, 'SSXQ');
+values (440881, 4408, 'ÂªâÊ±üÂ∏Ç', '440881', '', 440881, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440882, 4408, '¿◊÷› –', '440882', '', 440882, 1, 'SSXQ');
+values (440882, 4408, 'Èõ∑Â∑ûÂ∏Ç', '440882', '', 440882, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440883, 4408, 'Œ‚¥® –', '440883', '', 440883, 1, 'SSXQ');
+values (440883, 4408, 'Âê¥Â∑ùÂ∏Ç', '440883', '', 440883, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440901, 4409, ' –œΩ«¯', '440901', '', 440901, 1, 'SSXQ');
+values (440901, 4409, 'Â∏ÇËæñÂå∫', '440901', '', 440901, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440902, 4409, '√Øƒœ«¯', '440902', '', 440902, 1, 'SSXQ');
+values (440902, 4409, 'ËåÇÂçóÂå∫', '440902', '', 440902, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440903, 4409, '√Ø∏€«¯', '440903', '', 440903, 1, 'SSXQ');
+values (440903, 4409, 'ËåÇÊ∏ØÂå∫', '440903', '', 440903, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440923, 4409, 'µÁ∞◊œÿ', '440923', '', 440923, 1, 'SSXQ');
+values (440923, 4409, 'ÁîµÁôΩÂéø', '440923', '', 440923, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440981, 4409, '∏ﬂ÷› –', '440981', '', 440981, 1, 'SSXQ');
+values (440981, 4409, 'È´òÂ∑ûÂ∏Ç', '440981', '', 440981, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440982, 4409, 'ªØ÷› –', '440982', '', 440982, 1, 'SSXQ');
+values (440982, 4409, 'ÂåñÂ∑ûÂ∏Ç', '440982', '', 440982, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440983, 4409, '–≈“À –', '440983', '', 440983, 1, 'SSXQ');
+values (440983, 4409, '‰ø°ÂÆúÂ∏Ç', '440983', '', 440983, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441201, 4412, ' –œΩ«¯', '441201', '', 441201, 1, 'SSXQ');
+values (441201, 4412, 'Â∏ÇËæñÂå∫', '441201', '', 441201, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441202, 4412, '∂À÷›«¯', '441202', '', 441202, 1, 'SSXQ');
+values (441202, 4412, 'Á´ØÂ∑ûÂå∫', '441202', '', 441202, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441203, 4412, '∂¶∫˛«¯', '441203', '', 441203, 1, 'SSXQ');
+values (441203, 4412, 'ÈºéÊπñÂå∫', '441203', '', 441203, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441223, 4412, 'π„ƒ˛œÿ', '441223', '', 441223, 1, 'SSXQ');
+values (441223, 4412, 'ÂπøÂÆÅÂéø', '441223', '', 441223, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441224, 4412, 'ª≥ºØœÿ', '441224', '', 441224, 1, 'SSXQ');
+values (441224, 4412, 'ÊÄÄÈõÜÂéø', '441224', '', 441224, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441225, 4412, '∑‚ø™œÿ', '441225', '', 441225, 1, 'SSXQ');
+values (441225, 4412, 'Â∞ÅÂºÄÂéø', '441225', '', 441225, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441226, 4412, 'µ¬«Ïœÿ', '441226', '', 441226, 1, 'SSXQ');
+values (441226, 4412, 'Âæ∑Â∫ÜÂéø', '441226', '', 441226, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441283, 4412, '∏ﬂ“™ –', '441283', '', 441283, 1, 'SSXQ');
+values (441283, 4412, 'È´òË¶ÅÂ∏Ç', '441283', '', 441283, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441284, 4412, 'Àƒª· –', '441284', '', 441284, 1, 'SSXQ');
+values (441284, 4412, 'Âõõ‰ºöÂ∏Ç', '441284', '', 441284, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441301, 4413, ' –œΩ«¯', '441301', '', 441301, 1, 'SSXQ');
+values (441301, 4413, 'Â∏ÇËæñÂå∫', '441301', '', 441301, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441302, 4413, 'ª›≥««¯', '441302', '', 441302, 1, 'SSXQ');
+values (441302, 4413, 'ÊÉ†ÂüéÂå∫', '441302', '', 441302, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441303, 4413, 'ª›—Ù«¯', '441303', '', 441303, 1, 'SSXQ');
+values (441303, 4413, 'ÊÉ†Èò≥Âå∫', '441303', '', 441303, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441322, 4413, '≤©¬ﬁœÿ', '441322', '', 441322, 1, 'SSXQ');
+values (441322, 4413, 'ÂçöÁΩóÂéø', '441322', '', 441322, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441323, 4413, 'ª›∂´œÿ', '441323', '', 441323, 1, 'SSXQ');
+values (441323, 4413, 'ÊÉ†‰∏úÂéø', '441323', '', 441323, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441324, 4413, '¡˙√≈œÿ', '441324', '', 441324, 1, 'SSXQ');
+values (441324, 4413, 'ÈæôÈó®Âéø', '441324', '', 441324, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441401, 4414, ' –œΩ«¯', '441401', '', 441401, 1, 'SSXQ');
+values (441401, 4414, 'Â∏ÇËæñÂå∫', '441401', '', 441401, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441402, 4414, '√∑Ω≠«¯', '441402', '', 441402, 1, 'SSXQ');
+values (441402, 4414, 'Ê¢ÖÊ±üÂå∫', '441402', '', 441402, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441421, 4414, '√∑œÿ', '441421', '', 441421, 1, 'SSXQ');
+values (441421, 4414, 'Ê¢ÖÂéø', '441421', '', 441421, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441422, 4414, '¥Û∆“œÿ', '441422', '', 441422, 1, 'SSXQ');
+values (441422, 4414, 'Â§ßÂüîÂéø', '441422', '', 441422, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441423, 4414, '∑·À≥œÿ', '441423', '', 441423, 1, 'SSXQ');
+values (441423, 4414, '‰∏∞È°∫Âéø', '441423', '', 441423, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441424, 4414, 'ŒÂª™œÿ', '441424', '', 441424, 1, 'SSXQ');
+values (441424, 4414, '‰∫îÂçéÂéø', '441424', '', 441424, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441426, 4414, '∆Ω‘∂œÿ', '441426', '', 441426, 1, 'SSXQ');
+values (441426, 4414, 'Âπ≥ËøúÂéø', '441426', '', 441426, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441427, 4414, 'Ω∂¡Îœÿ', '441427', '', 441427, 1, 'SSXQ');
+values (441427, 4414, 'ËïâÂ≤≠Âéø', '441427', '', 441427, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441481, 4414, '–Àƒ˛ –', '441481', '', 441481, 1, 'SSXQ');
+values (441481, 4414, 'ÂÖ¥ÂÆÅÂ∏Ç', '441481', '', 441481, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441501, 4415, ' –œΩ«¯', '441501', '', 441501, 1, 'SSXQ');
+values (441501, 4415, 'Â∏ÇËæñÂå∫', '441501', '', 441501, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441502, 4415, '≥««¯', '441502', '', 441502, 1, 'SSXQ');
+values (441502, 4415, 'ÂüéÂå∫', '441502', '', 441502, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441521, 4415, '∫£∑·œÿ', '441521', '', 441521, 1, 'SSXQ');
+values (441521, 4415, 'Êµ∑‰∏∞Âéø', '441521', '', 441521, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441523, 4415, '¬Ω∫”œÿ', '441523', '', 441523, 1, 'SSXQ');
+values (441523, 4415, 'ÈôÜÊ≤≥Âéø', '441523', '', 441523, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441581, 4415, '¬Ω∑· –', '441581', '', 441581, 1, 'SSXQ');
+values (441581, 4415, 'ÈôÜ‰∏∞Â∏Ç', '441581', '', 441581, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441601, 4416, ' –œΩ«¯', '441601', '', 441601, 1, 'SSXQ');
+values (441601, 4416, 'Â∏ÇËæñÂå∫', '441601', '', 441601, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441602, 4416, '‘¥≥««¯', '441602', '', 441602, 1, 'SSXQ');
+values (441602, 4416, 'Ê∫êÂüéÂå∫', '441602', '', 441602, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441621, 4416, '◊œΩœÿ', '441621', '', 441621, 1, 'SSXQ');
+values (441621, 4416, 'Á¥´ÈáëÂéø', '441621', '', 441621, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441622, 4416, '¡˙¥®œÿ', '441622', '', 441622, 1, 'SSXQ');
+values (441622, 4416, 'ÈæôÂ∑ùÂéø', '441622', '', 441622, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441623, 4416, '¡¨∆Ωœÿ', '441623', '', 441623, 1, 'SSXQ');
+values (441623, 4416, 'ËøûÂπ≥Âéø', '441623', '', 441623, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441624, 4416, '∫Õ∆Ωœÿ', '441624', '', 441624, 1, 'SSXQ');
+values (441624, 4416, 'ÂíåÂπ≥Âéø', '441624', '', 441624, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441625, 4416, '∂´‘¥œÿ', '441625', '', 441625, 1, 'SSXQ');
+values (441625, 4416, '‰∏úÊ∫êÂéø', '441625', '', 441625, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441701, 4417, ' –œΩ«¯', '441701', '', 441701, 1, 'SSXQ');
+values (441701, 4417, 'Â∏ÇËæñÂå∫', '441701', '', 441701, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441702, 4417, 'Ω≠≥««¯', '441702', '', 441702, 1, 'SSXQ');
+values (441702, 4417, 'Ê±üÂüéÂå∫', '441702', '', 441702, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441721, 4417, '—ÙŒ˜œÿ', '441721', '', 441721, 1, 'SSXQ');
+values (441721, 4417, 'Èò≥Ë•øÂéø', '441721', '', 441721, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441723, 4417, '—Ù∂´œÿ', '441723', '', 441723, 1, 'SSXQ');
+values (441723, 4417, 'Èò≥‰∏úÂéø', '441723', '', 441723, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441781, 4417, '—Ù¥∫ –', '441781', '', 441781, 1, 'SSXQ');
+values (441781, 4417, 'Èò≥Êò•Â∏Ç', '441781', '', 441781, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441801, 4418, ' –œΩ«¯', '441801', '', 441801, 1, 'SSXQ');
+values (441801, 4418, 'Â∏ÇËæñÂå∫', '441801', '', 441801, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441802, 4418, '«Â≥««¯', '441802', '', 441802, 1, 'SSXQ');
+values (441802, 4418, 'Ê∏ÖÂüéÂå∫', '441802', '', 441802, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441821, 4418, '∑∏‘œÿ', '441821', '', 441821, 1, 'SSXQ');
+values (441821, 4418, '‰ΩõÂÜàÂéø', '441821', '', 441821, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441823, 4418, '—Ù…Ωœÿ', '441823', '', 441823, 1, 'SSXQ');
+values (441823, 4418, 'Èò≥Â±±Âéø', '441823', '', 441823, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441825, 4418, '¡¨…Ω◊≥◊Â—˛◊Â◊‘÷Œœÿ', '441825', '', 441825, 1, 'SSXQ');
+values (441825, 4418, 'ËøûÂ±±Â£ÆÊóèÁë∂ÊóèËá™Ê≤ªÂéø', '441825', '', 441825, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441826, 4418, '¡¨ƒœ—˛◊Â◊‘÷Œœÿ', '441826', '', 441826, 1, 'SSXQ');
+values (441826, 4418, 'ËøûÂçóÁë∂ÊóèËá™Ê≤ªÂéø', '441826', '', 441826, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441827, 4418, '«Â–¬œÿ', '441827', '', 441827, 1, 'SSXQ');
+values (441827, 4418, 'Ê∏ÖÊñ∞Âéø', '441827', '', 441827, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441881, 4418, '”¢µ¬ –', '441881', '', 441881, 1, 'SSXQ');
+values (441881, 4418, 'Ëã±Âæ∑Â∏Ç', '441881', '', 441881, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (441882, 4418, '¡¨÷› –', '441882', '', 441882, 1, 'SSXQ');
+values (441882, 4418, 'ËøûÂ∑ûÂ∏Ç', '441882', '', 441882, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445101, 4451, ' –œΩ«¯', '445101', '', 445101, 1, 'SSXQ');
+values (445101, 4451, 'Â∏ÇËæñÂå∫', '445101', '', 445101, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445102, 4451, 'œÊ«≈«¯', '445102', '', 445102, 1, 'SSXQ');
+values (445102, 4451, 'ÊπòÊ°•Âå∫', '445102', '', 445102, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445121, 4451, '≥±∞≤œÿ', '445121', '', 445121, 1, 'SSXQ');
+values (445121, 4451, 'ÊΩÆÂÆâÂéø', '445121', '', 445121, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445122, 4451, '»ƒ∆Ωœÿ', '445122', '', 445122, 1, 'SSXQ');
+values (445122, 4451, 'È•∂Âπ≥Âéø', '445122', '', 445122, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445201, 4452, ' –œΩ«¯', '445201', '', 445201, 1, 'SSXQ');
+values (445201, 4452, 'Â∏ÇËæñÂå∫', '445201', '', 445201, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445202, 4452, 'È≈≥««¯', '445202', '', 445202, 1, 'SSXQ');
+values (445202, 4452, 'Ê¶ïÂüéÂå∫', '445202', '', 445202, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445221, 4452, 'Ω“∂´œÿ', '445221', '', 445221, 1, 'SSXQ');
+values (445221, 4452, 'Êè≠‰∏úÂéø', '445221', '', 445221, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445222, 4452, 'Ω“Œ˜œÿ', '445222', '', 445222, 1, 'SSXQ');
+values (445222, 4452, 'Êè≠Ë•øÂéø', '445222', '', 445222, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445224, 4452, 'ª›¿¥œÿ', '445224', '', 445224, 1, 'SSXQ');
+values (445224, 4452, 'ÊÉ†Êù•Âéø', '445224', '', 445224, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445281, 4452, '∆’ƒ˛ –', '445281', '', 445281, 1, 'SSXQ');
+values (445281, 4452, 'ÊôÆÂÆÅÂ∏Ç', '445281', '', 445281, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445301, 4453, ' –œΩ«¯', '445301', '', 445301, 1, 'SSXQ');
+values (445301, 4453, 'Â∏ÇËæñÂå∫', '445301', '', 445301, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445302, 4453, '‘∆≥««¯', '445302', '', 445302, 1, 'SSXQ');
+values (445302, 4453, '‰∫ëÂüéÂå∫', '445302', '', 445302, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445321, 4453, '–¬–Àœÿ', '445321', '', 445321, 1, 'SSXQ');
+values (445321, 4453, 'Êñ∞ÂÖ¥Âéø', '445321', '', 445321, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445322, 4453, '”Ùƒœœÿ', '445322', '', 445322, 1, 'SSXQ');
+values (445322, 4453, 'ÈÉÅÂçóÂéø', '445322', '', 445322, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445323, 4453, '‘∆∞≤œÿ', '445323', '', 445323, 1, 'SSXQ');
+values (445323, 4453, '‰∫ëÂÆâÂéø', '445323', '', 445323, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (445381, 4453, '¬ﬁ∂® –', '445381', '', 445381, 1, 'SSXQ');
+values (445381, 4453, 'ÁΩóÂÆöÂ∏Ç', '445381', '', 445381, 1, 'SSXQ');
