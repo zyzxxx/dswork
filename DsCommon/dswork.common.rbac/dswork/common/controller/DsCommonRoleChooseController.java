@@ -1,17 +1,15 @@
 package dswork.common.controller;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.web.MyRequest;
+import dswork.mvc.BaseController;
 import dswork.common.model.DsCommonFunc;
 import dswork.common.model.DsCommonRole;
 import dswork.common.model.DsCommonRoleFunc;
@@ -21,48 +19,45 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 
 //角色
+@Scope("prototype")
 @Controller
 @RequestMapping("/common/rolechoose")
-public class DsCommonRoleChooseController
+public class DsCommonRoleChooseController extends BaseController
 {
 	@Autowired
 	private DsCommonRoleChooseService service;
 
 	// 获得分页
 	@RequestMapping("/getRoleChoose")
-	public String getChoose(HttpServletRequest request)
+	public String getChoose()
 	{
-		MyRequest req = new MyRequest(request);
-		Page<DsCommonSystem> pageModel = service.querySystemPage(req.getInt("page", 1), req.getInt("pageSize", 10), req.getParameterValueMap(false, false));
-		request.setAttribute("pageModel", pageModel);
-		request.setAttribute("pageNav", new PageNav<DsCommonSystem>(request, pageModel));
+		Page<DsCommonSystem> pageModel = service.querySystemPage(getPageRequest());
+		put("pageModel", pageModel);
+		put("pageNav", new PageNav<DsCommonSystem>(request, pageModel));
 		return "/common/rolechoose/getRoleChoose.jsp";
 	}
 
 	// 树形管理
 	@RequestMapping("/getRoleTree")
-	public String getRoleTree(HttpServletRequest request)
+	public String getRoleTree()
 	{
-		MyRequest req = new MyRequest(request);
 		long systemid = req.getLong("systemid");
-		request.setAttribute("po", service.getSystem(systemid));
+		put("po", service.getSystem(systemid));
 		return "/common/rolechoose/getRoleTree.jsp";
 	}
 	// 获得树形管理时的json数据
 	@RequestMapping("/getRoleJson")
-	public void getRoleJson(HttpServletRequest request, PrintWriter out)
+	public void getRoleJson()
 	{
-		MyRequest req = new MyRequest(request);
 		long systemid = req.getLong("systemid");
 		long pid = req.getLong("pid");
-		out.print(service.queryRoleList(systemid, pid));
+		print(service.queryRoleList(systemid, pid));
 	}
 
 	// 获得功能和被分配到角色的功能
 	@RequestMapping("/getRoleById")
-	public String getRoleById(HttpServletRequest request, PrintWriter out)
+	public String getRoleById()
 	{
-		MyRequest req = new MyRequest(request);
 		Long roleid = req.getLong("roleid");
 		DsCommonRole po = service.get(roleid);
 		List<DsCommonFunc> list = service.queryFuncList(po.getSystemid());
@@ -81,14 +76,14 @@ public class DsCommonRoleChooseController
 					m.get(i.getFuncid()).setChecked(true);
 				}
 			}
-			request.setAttribute("list", list);
+			put("list", list);
 		}
 		else
 		{
-			request.setAttribute("list", "[]");
+			put("list", "[]");
 		}
-		request.setAttribute("sys", service.getSystem(po.getSystemid()));
-		//request.setAttribute("po", po);
+		put("sys", service.getSystem(po.getSystemid()));
+		//put("po", po);
 		return "/common/rolechoose/getRoleById.jsp";
 	}
 }

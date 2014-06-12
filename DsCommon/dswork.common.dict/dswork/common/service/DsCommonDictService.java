@@ -95,22 +95,17 @@ public class DsCommonDictService
 
 	/**
 	 * 默认分页方法
-	 * @param currentPage 当前页码
-	 * @param pageSize 一页显示的条数
-	 * @param map 查询参数和条件数据
+	 * @param pageRequest 条件类
 	 * @return Page&lt;DsCommonDict&gt;
 	 */
-	public Page<DsCommonDict> queryPage(int currentPage, int pageSize, Map map)
+	public Page<DsCommonDict> queryPage(PageRequest pageRequest)
 	{
+		Map map = (Map)pageRequest.getFilters();
 		if(map.get("label") != null)
 		{
 			map.put("label", getSecureString(map.get("label")));
 		}
-		PageRequest pr = new PageRequest();
-		pr.setCurrentPage(currentPage);
-		pr.setPageSize(pageSize);
-		pr.setFilters(map);
-		return dsCommonDictDao.queryPage(pr);
+		return dsCommonDictDao.queryPage(pageRequest);
 	}
 	
 	/**

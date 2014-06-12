@@ -5,12 +5,12 @@
  */
 package dswork.common.controller;
 
-import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -21,11 +21,12 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.util.CollectionUtil;
 import dswork.core.util.UniqueId;
-import dswork.web.MyRequest;
+import dswork.mvc.BaseController;
 
+@Scope("prototype")
 @Controller
 @RequestMapping("/common/dict")
-public class DsCommonDictController
+public class DsCommonDictController extends BaseController
 {
 	@Autowired
 	private DsCommonDictService service;
@@ -37,149 +38,140 @@ public class DsCommonDictController
 		return "/common/dict/addDict.jsp";
 	}
 	@RequestMapping("/addDict2")
-	public void addDict2(PrintWriter out, DsCommonDict po)
+	public void addDict2(DsCommonDict po)
 	{
 		try
 		{
 			po.setId(UniqueId.genId());
 			if(po.getName().trim().length() <= 0)
 			{
-				out.print("0:保存失败，引用名不能为空");
+				print("0:保存失败，引用名不能为空");
 				return;
 			}
 			int count = service.getCountByName(po.getId(), po.getName());
 			if(count > 0)
 			{
-				out.print("0:保存失败，引用名已存在");
+				print("0:保存失败，引用名已存在");
 			}
 			else
 			{
 				service.save(po);
-				out.print(1);
+				print(1);
 			}
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 
 	// 删除
 	@RequestMapping("/delDict")
-	public void delDict(HttpServletRequest request, PrintWriter out)
+	public void delDict()
 	{
 		try
 		{
-			MyRequest req = new MyRequest(request);
 			service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
-			out.print(1);
+			print(1);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 
 	// 修改
 	@RequestMapping("/updDict1")
-	public String updDict1(HttpServletRequest request)
+	public String updDict1()
 	{
-		MyRequest req = new MyRequest(request);
 		Long id = req.getLong("keyIndex");
-		request.setAttribute("po", service.get(id));
+		put("po", service.get(id));
 		return "/common/dict/updDict.jsp";
 	}
 	@RequestMapping("/updDict2")
-	public void updDict2(PrintWriter out, DsCommonDict po)//, String changeName
+	public void updDict2(DsCommonDict po)//, String changeName
 	{
 		try
 		{
 			if(po.getName().trim().length() <= 0)
 			{
-				out.print("0:保存失败，引用名不能为空");
+				print("0:保存失败，引用名不能为空");
 				return;
 			}
 			int count = service.getCountByName(po.getId(), po.getName());
 			if(count > 0)
 			{
-				out.print("0:保存失败，引用名已存在");
+				print("0:保存失败，引用名已存在");
 			}
 			else
 			{
 				//service.update(po, "1".equals(String.valueOf(changeName)));
 				service.update(po, true);
-				out.print(1);
+				print(1);
 			}
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 
 	// 获得分页
 	@RequestMapping("/getDict")
-	public String getDict(HttpServletRequest request)
+	public String getDict()
 	{
-		MyRequest req = new MyRequest(request);
-		Map<String, Object> map = req.getParameterValueMap(false, false);
-		Page<DsCommonDict> pageModel = service.queryPage(req.getInt("page", 1), req.getInt("pageSize", 10), map);
-		request.setAttribute("pageModel", pageModel);
-		request.setAttribute("pageNav", new PageNav<DsCommonDict>(request, pageModel));
+		Page<DsCommonDict> pageModel = service.queryPage(getPageRequest());
+		put("pageModel", pageModel);
+		put("pageNav", new PageNav<DsCommonDict>(request, pageModel));
 		return "/common/dict/getDict.jsp";
 	}
 	// 树形管理
 	@RequestMapping("/getDictDataTree")
-	public String getDictDataTree(HttpServletRequest request)
+	public String getDictDataTree()
 	{
-		MyRequest req = new MyRequest(request);
 		Long id = req.getLong("keyIndex");
-		request.setAttribute("po", service.get(id));
+		put("po", service.get(id));
 		return "/common/dict/getDictDataTree.jsp";
 	}
 	// 获得树形管理时的json数据
 	@RequestMapping("/getDictDataJson")//ByDictidAndPid
-	public void getDictDataJson(HttpServletRequest request, PrintWriter out)
+	public void getDictDataJson()
 	{
-		MyRequest req = new MyRequest(request);
 		DsCommonDict po = service.get(req.getLong("dictid")); 
 		List<DsCommonDictData> list = service.queryListData(req.getLong("pid"), po.getName(), new HashMap<String, Object>());
-		out.print(list);
+		print(list);
 	}
 	// 获得列表
 	@RequestMapping("/getDictData")
-	public String getDictData(HttpServletRequest request)
+	public String getDictData()
 	{
-		MyRequest req = new MyRequest(request);
 		Long pid = req.getLong("pid");
 		DsCommonDict po = service.get(req.getLong("dictid"));
 		Map<String, Object> map = req.getParameterValueMap(false, false);
 		List<DsCommonDictData> list = service.queryListData(pid, po.getName(), map);
-		request.setAttribute("list", list);
-		request.setAttribute("po", po);
-		request.setAttribute("pid", pid);
+		put("list", list);
+		put("po", po);
+		put("pid", pid);
 		return "/common/dict/getDictData.jsp";
 	}
 
 	// 添加
 	@RequestMapping("/addDictData1")
-	public String addDsDictData1(HttpServletRequest request)
+	public String addDsDictData1()
 	{
-		MyRequest req = new MyRequest(request);
 		Long dictid = req.getLong("dictid");
-		request.setAttribute("pid", req.getLong("pid"));
-		request.setAttribute("dict", service.get(dictid));
+		put("pid", req.getLong("pid"));
+		put("dict", service.get(dictid));
 		return "/common/dict/addDictData.jsp";
 	}
 	@RequestMapping("/addDictData2")
-	public void addDictData2(HttpServletRequest request, PrintWriter out)
+	public void addDictData2()
 	{
 		try
 		{
-			MyRequest req = new MyRequest(request);
 			DsCommonDict dict = service.get(req.getLong("dictid"));
 			Long pid = req.getLong("pid");
 			
@@ -196,7 +188,7 @@ public class DsCommonDictController
 				po.setMemo(memoArr[i]);
 				if(po.getAlias().trim().length() <= 0)
 				{
-					v++;//out.print("0:保存失败，标识不能为空");
+					v++;//print("0:保存失败，标识不能为空");
 					continue;
 				}
 				po.setId(UniqueId.genId());
@@ -206,28 +198,27 @@ public class DsCommonDictController
 				int count = service.getCountDataByAlias(po.getAlias(), dict.getName(), po.getId());
 				if(count > 0)
 				{
-					v++;//out.print("0:保存失败，标识已存在");
+					v++;//print("0:保存失败，标识已存在");
 					s += "," + po.getAlias();
 					continue;
 				}
 				service.saveData(po);
 			}
-			out.print("1" + (v > 0?":"+v+"个保存失败，标识已存在" + s:""));
+			print("1" + (v > 0?":"+v+"个保存失败，标识已存在" + s:""));
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 	
 	// 删除
 	@RequestMapping("/delDictData")
-	public void delDictData(HttpServletRequest request, PrintWriter out)
+	public void delDictData()
 	{
 		try
 		{
-			MyRequest req = new MyRequest(request);
 			int v = 0;
 			long[] ids = req.getLongArray("keyIndex", 0);
 			for(long id : ids)
@@ -243,36 +234,35 @@ public class DsCommonDictController
 				}
 				else
 				{
-					v++;//out.print("0:下级节点不为空，不能删除");
+					v++;//print("0:下级节点不为空，不能删除");
 				}
 			}
-			out.print("1" + (v > 0?":"+v+"个不能删除，下级节点不为空":""));
+			print("1" + (v > 0?":"+v+"个不能删除，下级节点不为空":""));
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 	
 	// 修改
 	@RequestMapping("/updDictData1")
-	public String updDictData1(HttpServletRequest request)
+	public String updDictData1()
 	{
-		MyRequest req = new MyRequest(request);
 		Long id = req.getLong("keyIndex");
-		request.setAttribute("po", service.getData(id));
+		put("po", service.getData(id));
 		return "/common/dict/updDictData.jsp";
 	}
 	@RequestMapping("/updDictData2")
-	public void updDictData2(PrintWriter out, DsCommonDictData po)
+	public void updDictData2(DsCommonDictData po)
 	{
 		DsCommonDictData m = service.getData(po.getId());
 		try
 		{
 			if(po.getAlias().trim().length() <= 0)
 			{
-				out.print("0:保存失败，标识不能为空");
+				print("0:保存失败，标识不能为空");
 				return;
 			}
 			if(!m.getAlias().equals(po.getAlias()))
@@ -280,70 +270,66 @@ public class DsCommonDictController
 				int count = service.getCountDataByAlias(po.getAlias(), m.getName(), po.getId());
 				if(count > 0)
 				{
-					out.print("0:保存失败，标识已存在");
+					print("0:保存失败，标识已存在");
 					return;
 				}
 			}
 			service.updateData(po);
-			out.print(1);
+			print(1);
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 	
 	// 排序
 	@RequestMapping("/updDictDataSeq1")
-	public String updDictDataSeq1(HttpServletRequest request)
+	public String updDictDataSeq1()
 	{
-		MyRequest req = new MyRequest(request);
 		Long pid = req.getLong("pid");
 		DsCommonDict po = service.get(req.getLong("dictid"));
 		List<DsCommonDictData> list = service.queryListData(pid, po.getName(), new HashMap<String, Object>());
-		request.setAttribute("list", list);
-		request.setAttribute("po", po);
-		request.setAttribute("pid", pid);
+		put("list", list);
+		put("po", po);
+		put("pid", pid);
 		return "/common/dict/updDictDataSeq.jsp";
 	}
 	@RequestMapping("/updDictDataSeq2")
-	public void updDictDataSeq2(HttpServletRequest request, PrintWriter out)
+	public void updDictDataSeq2()
 	{
-		MyRequest req = new MyRequest(request);
 		Long[] ids = CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0));
 		try
 		{
 			if(ids.length > 0)
 			{
 				service.updateDataSeq(ids);
-				out.print(1);// 刷新列表页
+				print(1);// 刷新列表页
 			}
 			else
 			{
-				out.print("0:没有需要排序的节点");
+				print("0:没有需要排序的节点");
 			}
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 	
 	// 移动
 	@RequestMapping("/updDictDataMove1")
-	public String updDictDataMove1(HttpServletRequest request)
+	public String updDictDataMove1()
 	{
-		MyRequest req = new MyRequest(request);
 		DsCommonDict po = service.get(req.getLong("dictid"));
-		request.setAttribute("po", po);
+		put("po", po);
 		return "/common/dict/updDictDataMove.jsp";
 	}
 	@RequestMapping("/updDictDataMove2")
-	public void updDictDataMove2(HttpServletRequest request, PrintWriter out)
+	public void updDictDataMove2()
 	{
-		MyRequest req = new MyRequest(request);
 		DsCommonDict po = service.get(req.getLong("dictid"));
 		long pid = req.getLong("pid");
 		if(pid <= 0)
@@ -355,7 +341,7 @@ public class DsCommonDictController
 			DsCommonDictData m = service.getData(pid);
 			if(m == null || !m.getName().equals(po.getName()))
 			{
-				out.print("0:不能进行移动");// 移动的节点不存在，或者不在相同的字典分类
+				print("0:不能进行移动");// 移动的节点不存在，或者不在相同的字典分类
 				return;
 			}
 		}
@@ -365,27 +351,26 @@ public class DsCommonDictController
 			if(ids.length > 0)
 			{
 				service.updateDataPid(ids, pid);
-				out.print(1);
+				print(1);
 			}
 			else
 			{
-				out.print("0:没有需要移动的节点");
+				print("0:没有需要移动的节点");
 			}
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			out.print("0:" + e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 
 	// 明细
 	@RequestMapping("/getDictDataById")
-	public String getDictDataById(HttpServletRequest request)
+	public String getDictDataById()
 	{
-		MyRequest req = new MyRequest(request);
 		Long id = req.getLong("keyIndex");
-		request.setAttribute("po", service.getData(id));
+		put("po", service.getData(id));
 		return "/common/dict/getDictDataById.jsp";
 	}
 	

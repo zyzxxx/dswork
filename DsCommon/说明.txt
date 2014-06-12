@@ -11,22 +11,22 @@ dswork.common.org目录
 
 
 @Scope("prototype")
-common目录 extends BaseController
+common目录
 	公共功能：“字典调用”、“组织机构调用”
 
 
 @Scope("prototype")
-dswork.common.org.role目录 extends BaseController
+dswork.common.org.role目录
 	岗位授权：需要使用common下“组织机构调用”和dswork.common.rbac下“角色选择”
 
 
 @Scope("prototype")
-dswork.common.user目录 extends BaseController
+dswork.common.user目录
 	用户管理：需要使用common下“组织机构调用”
 
 
 @Scope("prototype")
-dswork.common.user.org目录 extends BaseController
+dswork.common.user.org目录
 	用户授权：需要dswork.common.org读取岗位列表，和dswork.common.user读取用户列表
 
 

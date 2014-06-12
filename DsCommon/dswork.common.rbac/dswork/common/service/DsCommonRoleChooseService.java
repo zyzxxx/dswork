@@ -36,13 +36,9 @@ public class DsCommonRoleChooseService
 		return (DsCommonSystem) systemDao.get(primaryKey);
 	}
 	
-	public Page<DsCommonSystem> querySystemPage(int currentPage, int pageSize, Map map)
+	public Page<DsCommonSystem> querySystemPage(PageRequest pageRequest)
 	{
-		PageRequest request = new PageRequest();
-		request.setFilters(map);
-		request.setCurrentPage(currentPage);
-		request.setPageSize(pageSize);
-		Page<DsCommonSystem> page = systemDao.queryPage(request);
+		Page<DsCommonSystem> page = systemDao.queryPage(pageRequest);
 		return page;
 	}
 
