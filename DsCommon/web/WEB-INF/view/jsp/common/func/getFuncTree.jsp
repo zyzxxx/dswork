@@ -16,15 +16,10 @@ $dswork.ztree.click = function(){
 	else{attachUrl("getFuncById.htm?keyIndex=" + treeNode.id);}
 	return false;
 };
-$dswork.ztree.beforeDblClick = function(treeId, treeNode){
-	if(treeNode.id > 0){attachUrl("getFuncById.htm?keyIndex=" + treeNode.id);}
-	else{attachUrl("getFunc.htm?systemid=${po.id}&pid=" + treeNode.id);}
-	return true;
-};
 $dswork.ztree.showMenu = function(type, x, y){
 	var _node = $dswork.ztree.getSelectedNode();
-	$("#menu_refresh").show();$("#menu_add").show();$("#menu_del").show();$("#menu_upd").show();$("#menu_sort").show();
-	if(0 == _node.id){$("#menu_del").hide();$("#menu_upd").hide();}
+	$("#menu_refresh").show();$("#menu_add").show();$("#menu_del").show();$("#menu_upd").show();$("#menu_sort").show();$("#menu_select").show();
+	if(0 == _node.id){$("#menu_del").hide();$("#menu_upd").hide();$("#menu_select").hide();}
 	$("#" + $dswork.ztree.menuName).menu('show', {left:x,top:y});
 };
 $dswork.ztree.root.name = "资源管理";
@@ -56,6 +51,9 @@ $(function(){
 	$("#menu_sort").click(function(){
 		attachUrl("updFuncSeq1.htm?systemid=${po.id}&pid=" + $z.getSelectedNode().id);$z.hideMenu();
 	});
+	$("#menu_select").click(function(){
+		attachUrl("getFuncById.htm?keyIndex=" + $z.getSelectedNode().id);$z.hideMenu();
+	});
 	$z.expandRoot();
 });
 </script>
@@ -81,6 +79,7 @@ $(function(){
 		<div id="menu_del" iconCls="menuTool-delete">删除</div>
 		<div id="menu_upd" iconCls="menuTool-update">修改</div>
 		<div id="menu_sort" iconCls="menuTool-sort">排序</div>
+		<div id="menu_select" iconCls="menuTool-select">明细</div>
 	</div>
 </div>
 <div region="center" style="overflow:hidden;">
