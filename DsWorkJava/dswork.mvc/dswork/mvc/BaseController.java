@@ -13,6 +13,7 @@ import dswork.web.MyRequest;
 
 public class BaseController
 {
+	protected static String PageSize_SessionName = "dswork_session_pagesize";
 	protected HttpServletRequest request;
 	protected HttpServletResponse response;
 	protected HttpSession session;
@@ -68,7 +69,18 @@ public class BaseController
 		PageRequest pr = new PageRequest();
 		pr.setFilters(req.getParameterValueMap(false, false));
 		pr.setCurrentPage(req.getInt("page", 1));
-		pr.setPageSize(req.getInt("pageSize", 10));
+		int pagesize = 10;
+		try
+		{
+			pagesize = Integer.parseInt(String.valueOf(session.getAttribute(PageSize_SessionName)).trim());
+		}
+		catch(Exception ex)
+		{
+			pagesize = 10;
+		}
+		pagesize = req.getInt("pageSize", pagesize);
+		session.setAttribute(PageSize_SessionName, pagesize);
+		pr.setPageSize(pagesize);
 		return pr;
 	}
 }

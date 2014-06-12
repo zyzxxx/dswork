@@ -109,7 +109,7 @@ public class PageNav<T>
 	 * @param isViewPageInfo 是否显示页面信息
 	 * @param isShowLink 是否翻页
 	 * @param isShowJump 是否支持跳转
-	 * @param isShowJump 是否支持定制页数
+	 * @param isShowJump 是否支持定制记录数
 	 */
 	public String getPage(boolean isViewTotal, boolean isViewPageInfo, boolean isShowLink, boolean isShowJump, boolean isShowJumpSize)
 	{
