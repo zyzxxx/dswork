@@ -32,7 +32,7 @@ $(function(){
 	
 	
 	function loaddata(value, selectid){
-		$.post("${ctx}/common/share/getJsonDict.htm",{name:"ztree", value:value},function(data){
+		$.post("${ctx}/common/share/getJsonDict.htm",{name:"SSXQ", value:value},function(data){
 			var s = $("#" + selectid);
 			var a = eval(data);
 			for(var i=0; i<a.length; i++){
@@ -72,15 +72,15 @@ $(function(){
 &nbsp;<span><select id="v2"></select></span>
 &nbsp;<span><select id="v3"></select></span> 
 <br />******************************<br />
-<span><%=DsCommonFactory.getCheckbox("ztree", "chk_hello") %></span>
+<span><%=DsCommonFactory.getCheckbox("SSXQ", "chk_hello") %></span>
 <br />******************************<br />
-<span><%=DsCommonFactory.getRadio("ztree", "rdo_hello") %></span>
+<span><%=DsCommonFactory.getRadio("SSXQ", "rdo_hello") %></span>
 <br />******************************<br />
-<span><%=DsCommonFactory.getSelect("ztree", "sel_hello") %></span>
+<span><%=DsCommonFactory.getSelect("SSXQ", "sel_hello") %></span>
 <br />******************************<br />
-<span><select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.getOption("ztree") %></select></span>
+<span><select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.getOption("SSXQ") %></select></span>
 <br />******************************<br />
-<%=DsCommonFactory.getDictJson("ztree", "") %>
+<%=DsCommonFactory.getDictJson("SSXQ", "") %>
 <br />******************************<br />
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
