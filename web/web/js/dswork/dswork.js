@@ -73,7 +73,7 @@ function MaskControl(){
 		if(m.length == 0){
 			var s = "<div id='div_maskContainer'><div id='div_maskMessage'></div><div id='div_maskBackground'></div>";
 			if(document.all){s += '<iframe style="left:expression(this.previousSibling.offsetLeft);top:expression(this.previousSibling.offsetTop);width:expression(this.previousSibling.offsetWidth);height:expression(this.previousSibling.offsetHeight);position:absolute;z-index:2000;display:expression(this.previousSibling.style.display);" scrolling="no" frameborder="no"></iframe>';}
-			s += "</div>"
+			s += "</div>";
 			$("body").append(m=$(s));
 		}
 		$("#div_maskBackground").css("top", 0).css("left", 0).css("width", w).css("height", h);
@@ -82,9 +82,9 @@ function MaskControl(){
 		m.show();
 		var x = (w - tip.width()) / 2, y = (h - tip.height()) / 2;
 		tip.css("left", x).css("top", y);
-	},
-	this.hide = function(){var m = $("#div_maskContainer");if(m.length == 0){return;}m.remove();if(self.callBack != null){self.callBack();}this.callBack = null;},
-	this.autoDelayHide = function(html, timeOut){var m = $("#div_maskContainer");if(m.length == 0){this.show(html);}else{$("#div_maskMessage").html(html);}if(timeOut == undefined){timeOut = 3000;}window.setTimeout(this.hide, timeOut);}
+	};
+	this.hide = function(){var m = $("#div_maskContainer");if(m.length == 0){return;}m.remove();if(self.callBack != null){self.callBack();}this.callBack = null;};
+	this.autoDelayHide = function(html, timeOut){var m = $("#div_maskContainer");if(m.length == 0){this.show(html);}else{$("#div_maskMessage").html(html);}if(timeOut == undefined){timeOut = 3000;}window.setTimeout(this.hide, timeOut);};
 }
 $dswork.doAjax = false;
 $dswork.doAjaxObject = new MaskControl();
@@ -181,11 +181,11 @@ $dswork.upload.prototype = {
 	p.fileKey = parseInt(p.fileKey);
 	p.limit = parseInt(p.limit);
 	p.bid = p.id + "_span";
-	p.sid = p.id + "_showdiv"
+	p.sid = p.id + "_showdiv";
 	if(p.ext == "image"){p.types = "*." + $jskey.$replace(this.image, ",", ";*.");}
 	else if(p.ext == "file"){p.types = "*." + $jskey.$replace(this.file, ",", ";*.");}
 	else{p.types = "*." + $jskey.$replace(p.ext, ",", ";*.");}
-	var myinput = $("#" + p.id),myp = $("#" + p.id).parent(),myv;
+	var myinput = $("#" + p.id),myp = $("#" + p.id).parent(),myv=null;
 	if(p.vid != ""){myv=$("#" + p.vid);}
 	myp.append('<span id="' + p.bid + '"></span>');
 	if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
@@ -199,7 +199,7 @@ $dswork.upload.prototype = {
 	custom_settings:{div:p.show?p.sid:"",success:function(data){// {arr:[{id,name,size,state,file,type,msg}],msg:"",err:""}
 		if(typeof (data.err) == 'undefined'){alert("upload error");return false;}
 		if(data.err != ''){alert(data.err);}
-		var o,_msg = "",_err = "",_has = myinput.attr("has") || "";
+		var _has = myinput.attr("has") || "";
 		if(p.vid == ""){
 			var ok = false;
 			for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){ok = true;}}
