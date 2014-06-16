@@ -159,6 +159,7 @@ div.line {display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hid
 .queryTable td.title {text-align:right;padding-left:1px;}
 .queryTable td.input {text-align:left;padding-right:1px;}
 .queryTable td.query {text-align:center;}
+.queryTable input.text {width:80px;}
 .queryTable input.button {background:url(img/button/query.gif) 0px 0px repeat-x;}/*input.button*/
 
 /*---数据列表---*/
