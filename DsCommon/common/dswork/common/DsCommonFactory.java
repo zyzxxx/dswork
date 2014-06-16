@@ -38,10 +38,9 @@ public class DsCommonFactory
 		for(int i = 0; i < list.size(); i++)
 		{
 			dict = list.get(i);
-			sb.append("<input name=\"").append(checkboxName).append("\"");
-			sb.append(" id=\"chk_").append(dict.getAlias()).append("\"");
+			sb.append("<label><input name=\"").append(checkboxName).append("\"");
 			sb.append(" type=\"checkbox\" value=\"").append(dict.getAlias()).append("\"");
-			sb.append("/>").append("<label for=\"chk_").append(dict.getAlias()).append("\">").append(dict.getLabel()).append("</label>");
+			sb.append("/>").append(dict.getLabel()).append("</label>");
 		}
 		sb.append("<input name=\"").append(checkboxName).append("\" type=\"checkbox\" dataType=\"Group\" msg=\"必选\" style=\"display:none;\" />");
 		return sb.toString();
@@ -54,14 +53,20 @@ public class DsCommonFactory
 		for(int i = 0; i < list.size(); i++)
 		{
 			dict = list.get(i);
-			sb.append("<input name=\"").append(radioName).append("\"");
-			sb.append(" id=\"rdo_").append(dict.getAlias()).append("\"");
+			sb.append("<label><input name=\"").append(radioName).append("\"");
 			sb.append(" type=\"radio\" value=\"").append(dict.getAlias()).append("\"");
-			sb.append("/>").append("<label for=\"rdo_").append(dict.getAlias()).append("\">").append(dict.getLabel()).append("</label>");
+			sb.append("/>").append(dict.getLabel()).append("</label>");
 		}
 		sb.append("<input name=\"").append(radioName).append("\" type=\"radio\" dataType=\"Group\" msg=\"必选\" style=\"display:none;\" />");
 		return sb.toString();
 	}
+	
+	/**
+	 * 获取指定节点的列表数据
+	 * @param name 字典分类名
+	 * @param parentAlias 上级标识，当alias为null时获取全部节点数据，当alias为""时获取根节点数据
+	 * @return String
+	 */
 	public static String getDictJson(String name, String parentAlias)
 	{
 		return dao.queryListDict(name, parentAlias).toString();
