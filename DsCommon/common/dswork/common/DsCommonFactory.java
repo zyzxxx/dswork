@@ -6,7 +6,6 @@ import dswork.common.dao.DsCommonDao;
 import dswork.common.model.IDsDict;
 import dswork.spring.BeanFactory;
 
-// demo
 public class DsCommonFactory
 {
 	private static DsCommonDao getDao(){return (DsCommonDao) BeanFactory.getBean("dsCommonDao");}
@@ -38,9 +37,7 @@ public class DsCommonFactory
 		for(int i = 0; i < list.size(); i++)
 		{
 			dict = list.get(i);
-			sb.append("<label><input name=\"").append(checkboxName).append("\"");
-			sb.append(" type=\"checkbox\" value=\"").append(dict.getAlias()).append("\"");
-			sb.append("/>").append(dict.getLabel()).append("</label>");
+			sb.append("<label><input name=\"").append(checkboxName).append("\" type=\"checkbox\" value=\"").append(dict.getAlias()).append("\"/>").append(dict.getLabel()).append("</label>");
 		}
 		sb.append("<input name=\"").append(checkboxName).append("\" type=\"checkbox\" dataType=\"Group\" msg=\"必选\" style=\"display:none;\" />");
 		return sb.toString();
@@ -53,9 +50,7 @@ public class DsCommonFactory
 		for(int i = 0; i < list.size(); i++)
 		{
 			dict = list.get(i);
-			sb.append("<label><input name=\"").append(radioName).append("\"");
-			sb.append(" type=\"radio\" value=\"").append(dict.getAlias()).append("\"");
-			sb.append("/>").append(dict.getLabel()).append("</label>");
+			sb.append("<label><input name=\"").append(radioName).append("\" type=\"radio\" value=\"").append(dict.getAlias()).append("\"/>").append(dict.getLabel()).append("</label>");
 		}
 		sb.append("<input name=\"").append(radioName).append("\" type=\"radio\" dataType=\"Group\" msg=\"必选\" style=\"display:none;\" />");
 		return sb.toString();
@@ -71,6 +66,13 @@ public class DsCommonFactory
 	{
 		return dao.queryListDict(name, parentAlias).toString();
 	}
+	
+	/**
+	 * 根据上级组织机构主键取得列表数据
+	 * @param pid 上级组织机构主键
+	 * @param status 0-2为指定分类（2单位，1部门，0岗位），超出0-2范围则不过滤
+	 * @return String
+	 */
 	public static String getOrgJson(Long pid, Integer status)
 	{
 		return dao.queryListOrg(pid, status).toString();
