@@ -36,7 +36,7 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 	<tr>
 		<td class="input">
 #foreach($col in $vo.ColumnList)#if($col.ColumnName!=$pk)
-			&nbsp;$col.Comment：<input type="text" name="$col.ColumnName.ToLower()" value="${mf}{fn:escapeXml(param.$col.ColumnName.ToLower())}" />
+			&nbsp;$col.Comment：<input type="text" class="text" name="$col.ColumnName.ToLower()" value="${mf}{fn:escapeXml(param.$col.ColumnName.ToLower())}" />
 #end#end
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
