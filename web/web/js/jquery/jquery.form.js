@@ -686,12 +686,15 @@ var els2;
 if (els && !/MSIE [678]/.test(navigator.userAgent)) {
 els = $(els).get();
 }
+//fix ie10 flash object
+try{
 if ( formId ) {
 els2 = $(':input[form=' + formId + ']').get();
 if ( els2.length ) {
 els = (els || []).concat(els2);
 }
 }
+}catch(e){}
 if (!els || !els.length) {
 return a;
 }
