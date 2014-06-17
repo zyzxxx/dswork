@@ -2,7 +2,6 @@ package dswork.android.demo.framework.app.single;
 
 import java.util.HashMap;
 import java.util.List;
-
 import android.content.Intent;
 import android.view.ActionMode;
 import android.view.ActionMode.Callback;
@@ -99,6 +98,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 				new MyViewCache());
 		adapter.setItemMenuDialog(new MyItemMenuDialog());//实例化ItemMenuDialog
 		listView.initMultiCheck(list, adapter);//初始化MultiCheck
+		listView.setFastScrollDrawable(R.drawable.ic_menu_moreoverflow);
 		listView.setOnItemClickNotMultiListener(new MyOnItemClickNotMultiListener());//列表项单击事件（非多选模式）
 		listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
 	}
