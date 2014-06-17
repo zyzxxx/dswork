@@ -142,7 +142,6 @@ span.menuTool-save{background:url(img/menu/save.gif) no-repeat;}
 table.listLogo {width:100%;border:#c2c2c2 solid 1px;}
 table.listLogo td {color:#000000;background-color:#d9e5fd;background:url(img/bg/panel_logo.png) 0px 0px repeat-x;height:25x;text-align:right;vertical-align:middle;white-space:nowrap;padding:5px 5px 5px 5px;}
 table.listLogo td.title {text-align:left;}
-table.listLogo td.panel {background:url(img/bg/panel_title.png) 0px 0px repeat-x;}
 
 /*---表单---*/
 input.button, input.delete {padding:2px 3px 0px 3px;cursor:pointer;color:#000000;border:#000000 solid 1px;}
