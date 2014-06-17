@@ -1,10 +1,12 @@
 package dswork.android.lib.ui.MultiCheck;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -15,12 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.AbsListView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import dswork.android.lib.R;
 import dswork.android.lib.db.BaseModel;
 
@@ -143,6 +143,27 @@ public class MultiCheckListView extends ListView
 			CheckAll();
 		}
 		adapter.notifyDataSetChanged();
+	}
+	
+	/**
+	 * 设置快速滚动条图片
+	 * @param _drawable
+	 */
+	public void setFastScrollDrawable(int _drawable)
+	{
+		try { 
+			Field f = AbsListView.class.getDeclaredField("mFastScroller"); 
+			f.setAccessible(true); 
+			Object o=f.get(this); 
+			f=f.getType().getDeclaredField("mThumbDrawable"); 
+			f.setAccessible(true); 
+			Drawable drawable=(Drawable) f.get(o); 
+			drawable=getResources().getDrawable(_drawable); 
+			f.set(o,drawable); 
+//			Toast.makeText(this, f.getType().getName(), 1000).show(); 
+		} catch (Exception e) { 
+			throw new RuntimeException(e); 
+		}
 	}
 	
 	@Override
