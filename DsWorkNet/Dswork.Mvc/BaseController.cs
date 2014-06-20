@@ -6,7 +6,7 @@ using Dswork.Web;
 
 namespace Dswork.Mvc
 {
-	public abstract class BaseController : Controller
+	public class BaseController : Controller
 	{
 		protected static String PageSize_SessionName = "dswork_session_pagesize";
 		private MyRequest _req;
