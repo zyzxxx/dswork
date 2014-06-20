@@ -65,7 +65,7 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 <input name="page" type="hidden" value="@ViewBag.pageModel.CurrentPage" />
 </form>
 <table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
-	<tr><td>@Html.Raw(@ViewBag.pageNav.ShowPage())</td></tr>
+	<tr><td>@Html.Raw(@ViewBag.pageNav.GetPage())</td></tr>
 </table>
 <br />
 }
