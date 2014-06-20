@@ -15,7 +15,7 @@ public class PageNav<T>
 	private static String PAGEFORMID = "jskeyPageForm";
 	private String formId = PAGEFORMID;
 	private String formString = "";
-	private static int[] sizeArray = {10, 15, 20, 25, 30, 50};
+	private static int[] sizeArray = {5, 10, 15, 20, 25, 30, 50};
 
 	/**
 	 * 构造函数
@@ -97,19 +97,7 @@ public class PageNav<T>
 	 * @param isViewPageInfo 是否显示页面信息
 	 * @param isShowLink 是否翻页
 	 * @param isShowJump 是否支持跳转
-	 */
-	public String getPage(boolean isViewTotal, boolean isViewPageInfo, boolean isShowLink, boolean isShowJump)
-	{
-		return getPage(true, true, true, true, true);
-	}
-	
-	/**
-	 * 显示分页控件
-	 * @param isViewTotal 是否显示所有记录数
-	 * @param isViewPageInfo 是否显示页面信息
-	 * @param isShowLink 是否翻页
-	 * @param isShowJump 是否支持跳转
-	 * @param isShowJump 是否支持定制记录数
+	 * @param isShowJumpSize 是否支持定制记录数
 	 */
 	public String getPage(boolean isViewTotal, boolean isViewPageInfo, boolean isShowLink, boolean isShowJump, boolean isShowJumpSize)
 	{
@@ -142,9 +130,9 @@ public class PageNav<T>
 			if(isShowJumpSize)
 			{
 				sb.append(" <select id=\"").append(pid).append("_s").append("\" onchange=\"document.getElementById(\'").append(formId).append("_pageSize\').value=this.value;$jskey.page.go('" + formId+ "',1);\">");
-				for(int i : sizeArray)
+				for(int j : sizeArray)
 				{
-					sb.append("<option value=\"").append(i).append((page.getPageSize() == i)?"\" selected=\"selected\">":"\">").append(i).append("</option>");
+					sb.append("<option value=\"").append(j).append((page.getPageSize() == j)?"\" selected=\"selected\">":"\">").append(j).append("</option>");
 				}
 				sb.append("</select>");
 			}
