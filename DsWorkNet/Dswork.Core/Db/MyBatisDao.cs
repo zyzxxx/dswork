@@ -2,8 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
 
 using IBatisNet.DataMapper;
 using IBatisNet.DataMapper.MappedStatements;

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Dswork.Core.Mybaits.Dialect
 {
+	/// <summary>
+	/// Dialect
+	/// </summary>
 	public class Dialect : IDialect
 	{
 		/// <summary>
