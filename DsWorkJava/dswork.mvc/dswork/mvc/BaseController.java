@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import dswork.core.page.PageRequest;
 import dswork.web.MyRequest;
 
-public abstract class BaseController
+public class BaseController
 {
 	protected static String PageSize_SessionName = "dswork_session_pagesize";
 	protected HttpServletRequest request;
@@ -49,6 +49,19 @@ public abstract class BaseController
 	protected void put(String key, Object obj)
 	{
 		request.setAttribute(key, obj);
+	}
+
+	@Deprecated
+	protected void sendRedirect(String url)
+	{
+		try
+		{
+			response.sendRedirect(url);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	protected PageRequest getPageRequest()
