@@ -47,17 +47,8 @@ namespace Areas.${Module}.Controllers
 			}
 		}
 		
-		[HttpGet]
+		[AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
 		public String Del${Model}()
-		{
-			return _Del${Model}();
-		}
-		[HttpPost]
-		public String Del${Model}(FormCollection collection)
-		{
-			return _Del${Model}();
-		}
-		private String _Del${Model}()
 		{
 			try
 			{
@@ -91,17 +82,8 @@ namespace Areas.${Module}.Controllers
 			}
 		}
 
-		[HttpGet]
+		[AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
         public ActionResult Get${Model}()
-		{
-			return _Get${Model}();
-        }
-		[HttpPost]
-		public ActionResult Get${Model}(FormCollection collection)
-		{
-			return _Get${Model}();
-		}
-		private ActionResult _Get${Model}()
 		{
 			Page<${Model}> pageModel = ${ModelName}Service.QueryPage(GetPageRequest());
 			ViewBag.pageModel = pageModel;
