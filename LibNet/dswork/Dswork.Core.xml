@@ -595,19 +595,19 @@
             <param name="request">HttpRequestWrapper</param>
             <param name="page">Page&lt;T&gt;</param>
         </member>
-        <member name="M:Dswork.Core.Page.PageNav`1.ShowForm">
+        <member name="M:Dswork.Core.Page.PageNav`1.GetForm">
             <summary>
             输出表单
             </summary>
             <returns>String</returns>
         </member>
-        <member name="M:Dswork.Core.Page.PageNav`1.ShowPage">
+        <member name="M:Dswork.Core.Page.PageNav`1.GetPage">
             <summary>
             显示默认的翻页效果
             </summary>
             <returns>String</returns>
         </member>
-        <member name="M:Dswork.Core.Page.PageNav`1.ShowPage(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+        <member name="M:Dswork.Core.Page.PageNav`1.GetPage(System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             显示分页控件
             </summary>
@@ -615,12 +615,7 @@
             <param name="isViewPageInfo">是否显示页面信息</param>
             <param name="isShowLink">是否翻页</param>
             <param name="isShowJump">是否支持跳转</param>
-            <returns>String</returns>
-        </member>
-        <member name="M:Dswork.Core.Page.PageNav`1.GetPage">
-            <summary>
-            显示翻页效果
-            </summary>
+            <param name="isShowJumpSize">是否支持定制记录数</param>
             <returns>String</returns>
         </member>
         <member name="T:Dswork.Core.Page.PageRequest">
