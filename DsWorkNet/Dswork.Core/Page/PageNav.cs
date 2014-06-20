@@ -19,6 +19,7 @@ namespace Dswork.Core.Page
 		private String formId = PAGEFORMID;
 		private String formString = "";
 		private String Path = "";
+		private static int[] sizeArray = {5, 10, 15, 20, 25, 30, 50 };
 
 		/// <summary>
 		/// 初始化formString
@@ -117,7 +118,7 @@ namespace Dswork.Core.Page
 		/// 输出表单
 		/// </summary>
 		/// <returns>String</returns>
-		public String ShowForm()
+		public String GetForm()
 		{
 			if(!isOutForm)
 			{
@@ -131,9 +132,9 @@ namespace Dswork.Core.Page
 		/// 显示默认的翻页效果
 		/// </summary>
 		/// <returns>String</returns>
-		public String ShowPage()
+		public String GetPage()
 		{
-			return ShowPage(true, true, true, true);
+			return GetPage(true, true, true, true, true);
 		}
 
 		/// <summary>
@@ -143,11 +144,12 @@ namespace Dswork.Core.Page
 		/// <param name="isViewPageInfo">是否显示页面信息</param>
 		/// <param name="isShowLink">是否翻页</param>
 		/// <param name="isShowJump">是否支持跳转</param>
+		/// <param name="isShowJumpSize">是否支持定制记录数</param>
 		/// <returns>String</returns>
-		public String ShowPage(Boolean isViewTotal, Boolean isViewPageInfo, Boolean isShowLink, Boolean isShowJump)
+		public String GetPage(Boolean isViewTotal, Boolean isViewPageInfo, Boolean isShowLink, Boolean isShowJump, Boolean isShowJumpSize)
 		{
 			StringBuilder sb = new StringBuilder();
-			sb.Append(ShowForm());
+			sb.Append(GetForm());
 			sb.Append("<div class='pageview'>");
 			if(isViewTotal)
 			{
@@ -168,20 +170,22 @@ namespace Dswork.Core.Page
 			{
 				i = (i > 888L) ? (0L) : (i + 1);
 				String pid = formId + "_go" + i;
-				sb.Append("转到第 <input type=\"text\" class=\"input\" id=\"").Append(pid).Append("\" /> 页 ").Append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.page.go('").Append(formId).Append("', document.getElementById('").Append(pid).Append("').value);\" />");
+				if(isShowJump)
+				{
+					sb.Append("转到第 <input type=\"text\" class=\"input\" id=\"").Append(pid).Append("\" /> 页 ").Append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.page.go('").Append(formId).Append("', document.getElementById('").Append(pid).Append("').value);\" />");
+				}
+				if(isShowJumpSize)
+				{
+					sb.Append(" <select id=\"").Append(pid).Append("_s").Append("\" onchange=\"document.getElementById(\'").Append(formId).Append("_pageSize\').value=this.value;$jskey.page.go('" + formId+ "',1);\">");
+					foreach(int j in sizeArray)
+					{
+						sb.Append("<option value=\"").Append(j).Append((page.PageSize == j)?"\" selected=\"selected\">":"\">").Append(j).Append("</option>");
+					}
+					sb.Append("</select>");
+				}
 			}
 			sb.Append("</div>");
 			return sb.ToString();
-		}
-
-		/// <summary>
-		/// 显示翻页效果
-		/// </summary>
-		/// <returns>String</returns>
-		[Obsolete("Recommended to use ShowPage()", false)]
-		public String GetPage()
-		{
-			return ShowPage(true, true, true, true);
 		}
 	}
 }
