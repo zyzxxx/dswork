@@ -33,14 +33,13 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 <div class="line"></div>
 <form id="queryForm" method="post" action="get${Model}.htm">
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
+	<tr>
+		<td class="input">
 #foreach($col in $vo.ColumnList)#if($col.ColumnName!=$pk)
-	<tr>
-		<td class="title">$col.Comment：</td>
-		<td class="input"><input type="text" class="text" name="$col.ColumnName.ToLower()" value="${mf}{fn:escapeXml(param.$col.ColumnName.ToLower())}" /></td>
-	</tr>
+			&nbsp;$col.Comment：<input type="text" class="text" name="$col.ColumnName.ToLower()" value="${mf}{fn:escapeXml(param.$col.ColumnName.ToLower())}" />
 #end#end
-	<tr>
-		<td class="query" colspan="2"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
+		</td>
+		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>
 </table>
 </form>
