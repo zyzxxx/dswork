@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 using ${Frame}.Core.Page;
 using ${Frame}.Web;
+using ${Frame}.Mvc;
 
 using ${Namespace}.Model;
 using ${Namespace}.Service;
@@ -23,7 +24,7 @@ namespace Areas.${Module}.Controllers
 	/// 开发人员:${developer}
 	/// 创建时间:${currentDate}
 	/// </summary>
-	public class ${Model}Controller : Controller
+	public class ${Model}Controller : BaseController
 	{
 		public virtual ${Model}Service ${ModelName}Service { set; protected get; }
 	
@@ -60,7 +61,6 @@ namespace Areas.${Module}.Controllers
 		{
 			try
 			{
-				MyRequest req = new MyRequest(Request);
 				${ModelName}Service.DeleteBatch(req.GetLongArray("keyIndex", 0));
 				return "1";
 			}
@@ -72,7 +72,6 @@ namespace Areas.${Module}.Controllers
 	
 		public ActionResult Upd${Model}1(long keyIndex)
 		{
-			MyRequest req = new MyRequest(Request);
 			ViewBag.po = ${ModelName}Service.Get(keyIndex);
 			ViewBag.page = req.GetInt("page", 1);
 			return View();
@@ -104,11 +103,7 @@ namespace Areas.${Module}.Controllers
 		}
 		private ActionResult _Get${Model}()
 		{
-			MyRequest req = new MyRequest(Request);
-			int page = req.GetInt("page", 1);
-			int pageSize = req.GetInt("pageSize", 10);
-			Hashtable map = req.GetParameterValueMap(false, true);
-			Page<${Model}> pageModel = ${ModelName}Service.QueryPage(page, pageSize, map);
+			Page<${Model}> pageModel = ${ModelName}Service.QueryPage(GetPageRequest());
 			ViewBag.pageModel = pageModel;
 			ViewBag.result = pageModel.GetResult<${Model}>();
 			ViewBag.pageNav = (new PageNav<${Model}>(Request, pageModel));
