@@ -21,7 +21,7 @@ public class BaseController
 	private PrintWriter out;
 	
 	@ModelAttribute
-	public void setReqAndRes(HttpServletRequest request, HttpServletResponse response)
+	public void BaseInitialization(HttpServletRequest request, HttpServletResponse response)
 	{
 		this.request = request;
 		this.response = response;
