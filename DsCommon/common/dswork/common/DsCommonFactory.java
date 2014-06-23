@@ -3,7 +3,7 @@ package dswork.common;
 import java.util.List;
 
 import dswork.common.dao.DsCommonDao;
-import dswork.common.model.IDsDict;
+import dswork.common.model.IDict;
 import dswork.spring.BeanFactory;
 
 public class DsCommonFactory
@@ -25,9 +25,9 @@ public class DsCommonFactory
 	}
 	public static String getOption(String name, String parentAlias)
 	{
-		List<IDsDict> list = dao.queryListDict(name, parentAlias);
+		List<IDict> list = dao.queryListDict(name, parentAlias);
 		StringBuilder sb = new StringBuilder();
-		for(IDsDict dict : list)
+		for(IDict dict : list)
 		{
 			sb.append("<option value=\"").append(dict.getAlias()).append("\"").append(">").append(dict.getLabel()).append("</option>");
 		}
@@ -35,9 +35,9 @@ public class DsCommonFactory
 	}
 	public static String getCheckbox(String name, String checkboxName)
 	{
-		List<IDsDict> list = dao.queryListDict(name, "");
+		List<IDict> list = dao.queryListDict(name, "");
 		StringBuilder sb = new StringBuilder();
-		IDsDict dict;
+		IDict dict;
 		for(int i = 0; i < list.size(); i++)
 		{
 			dict = list.get(i);
@@ -48,9 +48,9 @@ public class DsCommonFactory
 	}
 	public static String getRadio(String name, String radioName)
 	{
-		List<IDsDict> list = dao.queryListDict(name, "");
+		List<IDict> list = dao.queryListDict(name, "");
 		StringBuilder sb = new StringBuilder();
-		IDsDict dict;
+		IDict dict;
 		for(int i = 0; i < list.size(); i++)
 		{
 			dict = list.get(i);

@@ -5,7 +5,7 @@
 
 <mapper namespace="dswork.common.dao.DsCommonDao">
 
-<resultMap id="resultDict" type="dswork.common.model.IDsDict">
+<resultMap id="resultDict" type="dswork.common.model.IDict">
 	<result property="label" column="LABEL" />
 	<result property="alias" column="ALIAS" />
 	<result property="status" column="STATUS" />
@@ -23,7 +23,7 @@
 </select>
 
 
-<resultMap id="resultOrg" type="dswork.common.model.IDsOrg">
+<resultMap id="resultOrg" type="dswork.common.model.IOrg">
 	<id property="id" column="ID" />
 	<result property="pid" column="PID" />
 	<result property="name" column="NAME" />

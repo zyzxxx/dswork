@@ -3,7 +3,7 @@
  */
 package dswork.common.model;
 
-public class IDsOrg
+public class IOrg
 {
 	// 部门ID
 	private String id = "";

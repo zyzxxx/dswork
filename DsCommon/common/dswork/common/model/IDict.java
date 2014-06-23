@@ -3,7 +3,7 @@
  */
 package dswork.common.model;
 
-public class IDsDict
+public class IDict
 {
 	// 标识
 	private String alias = "";

@@ -9,8 +9,8 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
-import dswork.common.model.IDsDict;
-import dswork.common.model.IDsOrg;
+import dswork.common.model.IDict;
+import dswork.common.model.IOrg;
 import dswork.core.db.MyBatisDao;
 
 @Repository
@@ -29,15 +29,15 @@ public class DsCommonDao extends MyBatisDao
 	 * @param alias 上级标识，当alias为null时获取全部节点数据，当alias为""时获取根节点数据
 	 * @return List&lt;IDsDict&gt;
 	 */
-	public List<IDsDict> queryListDict(String name, String parentAlias)
+	public List<IDict> queryListDict(String name, String parentAlias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", String.valueOf(name));
 		map.put("alias", parentAlias);
-		List<IDsDict> list = executeSelectList("queryDict", map);
+		List<IDict> list = executeSelectList("queryDict", map);
 		if(parentAlias != null && parentAlias.length() > 0)
 		{
-			for(IDsDict po : list)
+			for(IDict po : list)
 			{
 				po.setPid(parentAlias);
 			}
@@ -51,7 +51,7 @@ public class DsCommonDao extends MyBatisDao
 	 * @param status 0-2为指定分类（2单位，1部门，0岗位），超出0-2范围则不过滤
 	 * @return List&lt;DsCommonOrg&gt;
 	 */
-	public List<IDsOrg> queryListOrg(Long pid, Integer status)
+	public List<IOrg> queryListOrg(Long pid, Integer status)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pid", pid);
@@ -59,10 +59,10 @@ public class DsCommonDao extends MyBatisDao
 		{
 			map.put("status", status);
 		}
-		List<IDsOrg> list = executeSelectList("queryOrg", map);
+		List<IOrg> list = executeSelectList("queryOrg", map);
 		if(pid == 0)
 		{
-			for(IDsOrg po : list)
+			for(IOrg po : list)
 			{
 				po.setPid("0");
 			}
