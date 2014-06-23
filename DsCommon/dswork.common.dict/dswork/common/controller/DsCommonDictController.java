@@ -1,7 +1,5 @@
 /**
- * 功能:DS_DICTController
- * 开发人员:fzj
- * 创建时间:2014/4/15 18:27:04
+ * 功能:字典Controller
  */
 package dswork.common.controller;
 

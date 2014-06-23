@@ -1,5 +1,5 @@
 /**
- * DS_DICTModel
+ * 字典分类Model
  */
 package dswork.common.model;
 
