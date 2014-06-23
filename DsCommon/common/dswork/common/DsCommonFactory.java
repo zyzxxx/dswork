@@ -10,18 +10,22 @@ public class DsCommonFactory
 {
 	private static DsCommonDao getDao(){return (DsCommonDao) BeanFactory.getBean("dsCommonDao");}
 	private static DsCommonDao dao = getDao();
-	
+
 	public static String getSelect(String name, String selectName)
+	{
+		return getSelect(name, selectName, "");
+	}
+	public static String getSelect(String name, String selectName, String parentAlias)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("<select id=\"").append(selectName).append("\" name=\"").append(selectName).append("\">");
-		sb.append(getOption(name));
+		sb.append(getOption(name, parentAlias));
 		sb.append("</select>");
 		return sb.toString();
 	}
-	public static String getOption(String name)
+	public static String getOption(String name, String parentAlias)
 	{
-		List<IDsDict> list = dao.queryListDict(name, "");
+		List<IDsDict> list = dao.queryListDict(name, parentAlias);
 		StringBuilder sb = new StringBuilder();
 		for(IDsDict dict : list)
 		{
