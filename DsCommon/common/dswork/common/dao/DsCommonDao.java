@@ -1,5 +1,5 @@
 /**
- * 公用Dao
+ * 公共Dao
  */
 package dswork.common.dao;
 
