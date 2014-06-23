@@ -1,3 +1,6 @@
+/**
+ * 字典Service
+ */
 package dswork.common.service;
 
 import java.util.HashMap;
