@@ -138,10 +138,6 @@ a:active {color:#182a2d;}/*激活*/
 .menuTool-save    {background:url(img/menu.png) no-repeat 0px -700px;}
 .menuTool-printer {background:url(img/menu.png) no-repeat 0px -725px;}
 span.menuTool-save{background:url(img/menu/save.gif) no-repeat;}
-/*---页面标题---*/
-table.listLogo {width:100%;border:#c2c2c2 solid 1px;}
-table.listLogo td {color:#000000;background-color:#d9e5fd;background:url(img/bg/panel_logo.png) 0px 0px repeat-x;height:25x;text-align:right;vertical-align:middle;white-space:nowrap;padding:5px 5px 5px 5px;}
-table.listLogo td.title {text-align:left;}
 
 /*---表单---*/
 input.button, input.delete {padding:2px 3px 0px 3px;cursor:pointer;color:#000000;border:#000000 solid 1px;}
@@ -173,7 +169,7 @@ div.line {display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hid
 .listTable tr {padding:0px 2px 0px 2px;}
 .listTable td {background-color:#ffffff;color:#2b3e44;word-wrap:break-word;word-break:break-all;}
 /*标题*/.listTable tr.list_title {height:30px;}
-.listTable tr.list_title td{background-color:#dfe9fd;color:#24373d;background:url(img/bg/panel_logo.png) 0px 0px repeat-x;}
+.listTable tr.list_title td{color:#24373d;}
 /*奇数*/.listTable tr.list_odd{}
 .listTable tr.list_odd td{background-color:#eff4ff;}
 /*偶数*/.listTable tr.list_even {}
@@ -182,6 +178,26 @@ div.line {display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hid
 .listTable tr.list_over td {background-color:#fdfad0;}
 /*默认*/.listTable tr.list {height:23px;}
 .listTable tr.list td {background-color:#ffffff;}
+
+/*---页面标题---*/
+table.listLogo {width:100%;border:#c2c2c2 solid 1px;}
+table.listLogo td {color:#000000;height:25x;text-align:right;vertical-align:middle;white-space:nowrap;padding:5px 5px 5px 5px;}
+table.listLogo td.title {text-align:left;}
+
+table.listLogo td,
+.listTable tr.list_title td,
+.listTable tr.list_title th
+{
+  background-color: #E0ECFF;
+  background: -webkit-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background: -moz-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background: -o-linear-gradient(top,#EFF5FF 0,#E0ECFF 100%);
+  background: linear-gradient(to bottom,#EFF5FF 0,#E0ECFF 100%);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);
+}
+
+
 
 /*---翻页导航---*/
 .pageview, .pageview * {margin:0px;padding:0px;font-family:tahoma;color:#182a2d;font-size:12px;height:30px;line-height:30px;vertical-align:text-middle;}
