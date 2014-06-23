@@ -78,7 +78,7 @@ $(function(){
 <br />******************************<br />
 <span><%=DsCommonFactory.getSelect("SSXQ", "sel_hello") %></span>
 <br />******************************<br />
-<span><select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.getOption("SSXQ") %></select></span>
+<span><select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.getOption("SSXQ", "440100") %></select></span>
 <br />******************************<br />
 <%=DsCommonFactory.getDictJson("SSXQ", "") %>
 <br />******************************<br />
