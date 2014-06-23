@@ -1,7 +1,5 @@
 /**
- * 功能:WB_SERVICEController
- * 开发人员:乐盈
- * 创建时间:2014-5-21 13:27:18
+ * 功能:公共Controller
  */
 package dswork.common.controller;
 
@@ -29,6 +27,7 @@ public class CommonShareController extends BaseController
 	public void getJsonOrg()
 	{
 		long pid = req.getLong("pid");
-		print(DsCommonFactory.getOrgJson(pid, null));
+		int status = req.getInt("status", -1);
+		print(DsCommonFactory.getOrgJson(pid, (status > -1 && status < 3)?status:null));
 	}
 }
