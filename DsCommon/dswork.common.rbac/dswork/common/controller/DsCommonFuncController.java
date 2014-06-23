@@ -149,6 +149,25 @@ public class DsCommonFuncController extends BaseController
 			print("0:" + e.getMessage());
 		}
 	}
+	// 删除系统全部功能
+	@RequestMapping("/delFuncBySystem")
+	public void delFuncBySystem()
+	{
+		try
+		{
+			long id = req.getLong("systemid", 0);
+			if(0 < id)
+			{
+				service.deleteBySystem(id);
+			}
+			print("1");
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
 
 	// 修改
 	@RequestMapping("/updFunc1")

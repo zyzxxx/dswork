@@ -77,6 +77,15 @@ public class DsCommonRoleDao extends BaseDao<DsCommonRole, Long>
 	}
 
 	/**
+	 * 删除系统下所有角色功能
+	 * @param systemid 系统主键
+	 */
+	public void deleteRoleFuncBySystemid(Long systemid)
+	{
+		executeDelete("deleteRoleFuncBySystemid", systemid);
+	}
+	
+	/**
 	 * 根据角色获得角色功能
 	 * @param roleid 角色主键
 	 * @return List&lt;DsCommonRoleFunc&gt;

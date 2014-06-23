@@ -5,6 +5,7 @@ package dswork.common.dao;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import dswork.common.model.DsCommonFunc;
@@ -18,6 +19,15 @@ public class DsCommonFuncDao extends BaseDao<DsCommonFunc, Long>
 	public Class getEntityClass()
 	{
 		return DsCommonFunc.class;
+	}
+	
+	/**
+	 * 删除系统下所有功能
+	 * @param systemid 系统主键
+	 */
+	public void deleteBySystemid(Long systemid)
+	{
+		executeDelete("deleteBySystemid", systemid);
 	}
 
 	/**

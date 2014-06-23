@@ -19,6 +19,10 @@
 	delete from DS_COMMON_FUNC where ID=#{id}
 </delete>
 
+<delete id="deleteBySystemid">
+	delete from DS_COMMON_FUNC where SYSTEMID=#{systemid}
+</delete>
+
 <update id="update" parameterType="dswork.common.model.DsCommonFunc">
 	update DS_COMMON_FUNC set
 		NAME=#{name},

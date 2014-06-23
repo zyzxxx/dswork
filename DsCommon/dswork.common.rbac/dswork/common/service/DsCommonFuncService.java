@@ -44,13 +44,25 @@ public class DsCommonFuncService
 	}
 
 	/**
-	 * 删除功能,包括其资源和被分配到角色的信息。
+	 * 删除功能,包括其资源和被分配到角色的信息
 	 * @param id 功能主键
 	 */
 	public int delete(Long id)
 	{
 		roleDao.deleteRoleFuncByFuncid(id);
 		return funcDao.delete(id);
+	}
+	
+	/**
+	 * 删除系统的所有功能和被分配到角色的信息
+	 * @param systemid 系统主键
+	 * @return int
+	 */
+	public int deleteBySystem(Long systemid)
+	{
+		roleDao.deleteRoleFuncBySystemid(systemid);
+		funcDao.deleteBySystemid(systemid);
+		return 1;
 	}
 
 	/**

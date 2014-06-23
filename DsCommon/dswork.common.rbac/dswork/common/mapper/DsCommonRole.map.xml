@@ -76,6 +76,9 @@
 <delete id="deleteRoleFuncByRoleid">
 	delete from DS_COMMON_ROLEFUNC where ROLEID=#{roleid}
 </delete>
+<delete id="deleteRoleFuncBySystemid">
+	delete from DS_COMMON_ROLEFUNC where SYSTEMID=#{systemid}
+</delete>
 <resultMap id="resultRoleFunc" type="dswork.common.model.DsCommonRoleFunc">
 	<id property="id" column="ID" />
 	<result property="systemid" column="SYSTEMID" />
