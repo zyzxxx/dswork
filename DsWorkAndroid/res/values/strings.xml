@@ -74,9 +74,9 @@
 
     <!-- sql -->
     <string-array name="createTableSql">
-        <item>CREATE TABLE person(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(2),phone VARCHAR(12) NULL, amount VARCHAR(20) NULL)</item>
+        <item>CREATE TABLE person(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(2),phone VARCHAR(12) NULL, amount VARCHAR(20) NULL, sortkey VARCHAR NULL)</item>
     </string-array>
     <string-array name="updateTableSql">
-        <item>ALTER TABLE person ADD sortkey VARCHAR</item>
+        <item></item>
     </string-array>
 </resources>
