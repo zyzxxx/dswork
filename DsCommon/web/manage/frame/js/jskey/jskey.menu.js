@@ -129,8 +129,8 @@ expandNode:function(imgid, objid, img, imgOpen){
 getCellHTML:function(obj, pnodeName){
 	var html = "";
 	if(obj.items.length == 0){
-		var _img = this.path + "/" + ((obj.img == null || obj.img == "") ? "setting.gif" : obj.img);
-		var _imgOpen = this.path + "/" + ((obj.imgOpen == null || obj.imgOpen == "") ? "setting.gif" : obj.imgOpen);
+		var _img = this.path + "/" + ((obj.img == null || obj.img == "") ? "default.gif" : obj.img);
+		var _imgOpen = this.path + "/" + ((obj.imgOpen == null || obj.imgOpen == "") ? "default.gif" : obj.imgOpen);
 		html += "<div style=\"text-align:center;margin:auto;\">";
 		html += "<div class=\"imgdiv outfont\" onmouseover=\"$jskey.menu.imgMouse(this,'" + obj.id + "','" + _imgOpen + "',true)\"";
 		html += "\tonmouseout=\"$jskey.menu.imgMouse(this,'" + obj.id + "', '" + _img + "',false)\"";
