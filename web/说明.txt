@@ -2,6 +2,7 @@
 
 web项目需要的目录
 	/web/js
+	/web/share
 	/web/themes
 	/web/index.html
 
