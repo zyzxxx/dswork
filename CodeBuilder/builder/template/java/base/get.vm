@@ -70,6 +70,5 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 <table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
 	<tr><td>${mf}{pageNav.page}</td></tr>
 </table>
-<br />
 </body>
 </html>

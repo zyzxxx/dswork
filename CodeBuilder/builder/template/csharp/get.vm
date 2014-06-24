@@ -67,5 +67,4 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 <table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
 	<tr><td>@Html.Raw(@ViewBag.pageNav.GetPage())</td></tr>
 </table>
-<br />
 }
