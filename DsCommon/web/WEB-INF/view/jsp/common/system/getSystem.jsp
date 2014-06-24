@@ -92,6 +92,5 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
 	<tr><td>${pageNav.page}</td></tr>
 </table>
-<br />
 </body>
 </html>
