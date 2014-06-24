@@ -87,6 +87,17 @@ span.tmpzTreeMove_arrow {width:16px; height:16px; display: inline-block; padding
 ul.ztree.zTreeDragUL {margin:0; padding:0; position:absolute; width:auto; height:auto;overflow:hidden; background-color:#cfcfcf; border:1px #00B83F dotted; opacity:0.8; filter:alpha(opacity=80)}
 .zTreeMask {z-index:10000; background-color:#cfcfcf; opacity:0.0; filter:alpha(opacity=0); position:absolute}
 
+
+.ztree li span.button.groups_ico_open,
+.ztree li span.button.groups_ico_close,
+.ztree li span.button.groups_ico_docu{margin-right:2px; background: url(v/groups.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.group_ico_open,
+.ztree li span.button.group_ico_close,
+.ztree li span.button.group_ico_docu{margin-right:2px; background: url(v/group.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+.ztree li span.button.user_ico_open,
+.ztree li span.button.user_ico_close,
+.ztree li span.button.user_ico_docu{margin-right:2px; background: url(v/user.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+
 /* level style*/
 /*.ztree li span.button.level0 {
 	display:none;
