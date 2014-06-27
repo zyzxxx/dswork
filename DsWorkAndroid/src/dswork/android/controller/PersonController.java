@@ -26,7 +26,7 @@ public class PersonController implements BaseController<Person>
 	}
 
 	@Override
-	public String deleteBatch(String ids) {
+	public String deleteBatch(Long[] ids) {
 		service.deleteBatch("person", ids);
 		return "1";
 	}
@@ -46,6 +46,8 @@ public class PersonController implements BaseController<Person>
 	public Person getById(Long id) {
 		return service.getById(id);
 	}
-
-
+	
+	public List<Person> queryPage(Map m, int offset, int maxResult){
+		return service.queryPage(m, offset, maxResult);
+	}
 }

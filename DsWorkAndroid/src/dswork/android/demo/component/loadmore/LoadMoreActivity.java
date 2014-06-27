@@ -61,7 +61,7 @@ public class LoadMoreActivity extends OleFragmentActivity
 	
 	public void queryScroll(int offset, int maxResult)
 	{
-		persons = service.queryScroll(offset, maxResult);
+		persons = service.queryPage(null, offset, maxResult);
 		for(Person p:persons)
 		{
 			HashMap<String,Object> item=new HashMap<String,Object>();

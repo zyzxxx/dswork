@@ -15,6 +15,7 @@ import dswork.android.lib.controller.BaseController;
 import dswork.android.lib.util.webutil.HttpPostObj;
 import dswork.android.lib.util.webutil.HttpUtil;
 import dswork.android.model.Demo;
+import dswork.android.model.Person;
 
 public class DemoController implements BaseController<Demo>
 {
@@ -36,31 +37,25 @@ public class DemoController implements BaseController<Demo>
 		m.put("foundtime", po.getFoundtime());
 		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
 		String result = "";
-		try
-		{
+		try{
 			result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return result;
 	}
 
 	@Override
-	public String deleteBatch(String ids) 
+	public String deleteBatch(Long[] ids) 
 	{
 		String action = "delJSONDemo.htm";
 		Map m = new HashMap();
-		m.put("keyIndex", ids);
+		m.put("keyIndex", HttpUtil.idsConvertToStr(ids));//Long[] ids 转  String ids
 		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
 		String result = "";
-		try
-		{
+		try{
 			result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return result;
@@ -77,12 +72,9 @@ public class DemoController implements BaseController<Demo>
 		m.put("foundtime", po.getFoundtime());
 		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
 		String result = "";
-		try
-		{
+		try{
 			result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 		return result;
@@ -94,8 +86,7 @@ public class DemoController implements BaseController<Demo>
 		String action = "getDemoForMobile.htm";
 		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
 		List<Demo> list = new ArrayList<Demo>();
-		try
-		{
+		try{
 			String result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
 			if(!result.equals("error"))
 			{
@@ -111,9 +102,7 @@ public class DemoController implements BaseController<Demo>
 			{
 				list = null;
 			}
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			list = null;
 			e.printStackTrace();
 			Log.i("controller Exception",e.getMessage());
@@ -129,8 +118,7 @@ public class DemoController implements BaseController<Demo>
 		m.put("keyIndex", id);
 		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
 		Demo po = new Demo();
-		try
-		{
+		try{
 			String result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
 			if(!result.equals("error"))
 			{
@@ -141,13 +129,43 @@ public class DemoController implements BaseController<Demo>
 			{
 				po = null;
 			}
-		}
-		catch(Exception e)
-		{
+		}	catch(Exception e){
 			po = null;
 			e.printStackTrace();
 			Log.i("controller Exception",e.getMessage());
 		}
 		return po;
+	}
+	
+	public List<Demo> queryPage(Map m, int offset, int maxResult){
+		String action = "getDemoPageForMobile.htm";
+		int page = offset/maxResult+1;
+		System.out.println("【页码】:"+page+"|offset:"+offset+"|pageSize:"+maxResult);
+		m.put("page", page);
+		m.put("pageSize", maxResult);
+		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
+		List<Demo> list = new ArrayList<Demo>();
+		try{
+			String result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
+			if(!result.equals("error"))
+			{
+				JSONArray arr = new JSONArray(result);
+				for(int i=0; i<arr.length(); i++)
+				{
+					JSONObject o = arr.getJSONObject(i);
+					Demo Demo = new Demo(o.getLong("id"), o.getString("title"), o.getString("content"), o.getString("foundtime"));
+					list.add(Demo);
+				}
+			}
+			else
+			{
+				list = null;
+			}
+		}catch(Exception e){
+			list = null;
+			e.printStackTrace();
+			Log.i("controller Exception",e.getMessage());
+		}
+		return list;
 	}
 }

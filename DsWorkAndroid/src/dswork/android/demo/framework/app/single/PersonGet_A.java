@@ -2,6 +2,7 @@ package dswork.android.demo.framework.app.single;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import android.content.Intent;
 import android.view.ActionMode;
 import android.view.ActionMode.Callback;
@@ -20,6 +21,8 @@ import dswork.android.lib.ui.MultiCheck.MultiCheckAdapter.ItemMenuDialog;
 import dswork.android.lib.ui.MultiCheck.MultiCheckListView;
 import dswork.android.lib.ui.MultiCheck.MultiCheckListView.MultiCheckActionModeListener;
 import dswork.android.lib.ui.MultiCheck.MultiCheckListView.OnItemClickNotMultiListener;
+import dswork.android.lib.ui.MultiCheck.MultiCheckListView.PullDownToRefreshListener;
+import dswork.android.lib.ui.MultiCheck.MultiCheckListView.PullUpToRefreshListener;
 import dswork.android.lib.ui.MultiCheck.MultiCheckListView.ViewCache;
 import dswork.android.lib.util.InjectUtil;
 import dswork.android.lib.util.InjectUtil.InjectView;
@@ -74,7 +77,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	{
 		public TextView nameView;
 		public TextView sortkeyView;
-		public ImageButton itemMenu;
+//		public ImageButton itemMenu;
 	}
 
 	@Override
@@ -86,9 +89,8 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	@Override
 	public List<Person> getDataInBackground() 
 	{
-		return controller.get(getParams());
+		return queryPage(getParams(), 0, listView.getAvgDataNum());
 	}
-
 	@Override
 	public void executeUI(List<Person> list)
 	{
@@ -101,11 +103,31 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 		listView.setFastScrollDrawable(R.drawable.ic_menu_moreoverflow);
 		listView.setOnItemClickNotMultiListener(new MyOnItemClickNotMultiListener());//列表项单击事件（非多选模式）
 		listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
+		//设置PullRefresh属性
+		listView.setMaxDataNum(controller.get(getParams()).size());//设置数据最大值
+		listView.setAvgDataNum(10);//平均每次取10条数据
+		listView.setPerDataNum(10);//每秒取10条数据
+		listView.setPullUpToRefreshListener(new MyPullUpToRefreshListener());//上拉刷新
+		listView.setPullDownToRefreshListener(new MyPullDownToRefreshListener());//下拉刷新
 	}
-	@Override
-	public void executeDel(String id_str)
+	
+	//分页查询
+	public List<Person> queryPage(Map m, int offset, int maxResult)
 	{
-		String result = controller.deleteBatch(id_str);//执行删除
+		List<Person> list = controller.queryPage(m, offset, maxResult);
+		System.out.println("offset:"+offset+"|maxResult:"+maxResult+"|获取数据量："+list.size());
+		for(Person po : list) 
+		{
+			System.out.println("po's id:"+po.getId());
+			listView.addDataItem(po);
+		}
+		return list;
+	}
+	
+	@Override
+	public void executeDel(Long[] ids)
+	{
+		String result = controller.deleteBatch(ids);//执行删除
 		if(result.equals("1"))
 		{
 			listView.refreshListView(controller.get(new HashMap()));//刷新列表
@@ -139,7 +161,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 					startActivity(new Intent().setClass(PersonGet_A.this, PersonUpd_A.class).putExtra("id", id_long));
 					break;
 				case 1://删除
-					PersonGet_A.this.showDeleteDialog(id_str);
+					PersonGet_A.this.showDeleteDialog(new Long[]{id_long});
 		    		break;
 			}
 		}
@@ -159,8 +181,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	private class MyMultiCheckActionModeListener implements MultiCheckActionModeListener
 	{
 		@Override
-		public Callback getActionModeCallback()
-		{
+		public Callback getActionModeCallback(){
 			return new MultiCheckActionMode(this, R.menu.context_menu, listView);
 		}
 		@Override
@@ -171,11 +192,9 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 			{
 				case R.id.menu_del_confirm://删除
 		        	if(listView.getIdList().size()>0){
-		        		PersonGet_A.this.showDeleteDialog(listView.getIds());
+		        		PersonGet_A.this.showDeleteDialog(listView.getIdArray());
 		        		result = true;
-		        	}
-		        	else
-		        	{
+		        	}else{
 		        		Toast.makeText(PersonGet_A.this, "未选中 ！", Toast.LENGTH_SHORT).show();  
 		        		result = false;
 		        	}
@@ -186,6 +205,22 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 					break;
 			}
 			return result;
+		}
+	}
+	//上拉刷新事件
+	private class MyPullUpToRefreshListener implements PullUpToRefreshListener
+	{
+		@Override
+		public void pullUpToRefresh() {
+			queryPage(getParams(), listView.getCurDataNum(), listView.getLoadDataNum());//获取下一页数据
+		}
+	}
+	//下拉刷新事件
+	private class MyPullDownToRefreshListener implements PullDownToRefreshListener
+	{
+		@Override
+		public void pullDownToRefresh() {
+			queryPage(getParams(), 0, listView.getAvgDataNum());//获取首页数据
 		}
 	}
 }

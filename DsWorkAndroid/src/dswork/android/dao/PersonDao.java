@@ -28,30 +28,33 @@ public class PersonDao extends BaseDao<Person, Long>
 	public QueryParams getQueryParams(Map map) 
 	{
 		QueryParams params = new QueryParams();
-		Object tmp;
-		tmp = map.get("id");
-		if(tmp != null && String.valueOf(tmp).trim().length()>0)
+		if(map != null)
 		{
-			params.addSelection("and", "id", "=");
-			params.addSelectionArgs(String.valueOf(tmp).trim());
-		}
-		tmp = map.get("name");
-		if(tmp != null && String.valueOf(tmp).trim().length()>0)
-		{
-			params.addSelection("and", "name", "like");
-			params.addSelectionArgs("%"+String.valueOf(tmp).trim()+"%");
-		}
-		tmp = map.get("phone");
-		if(tmp != null && String.valueOf(tmp).trim().length()>0)
-		{
-			params.addSelection("and", "phone", "like");
-			params.addSelectionArgs("%"+String.valueOf(tmp).trim()+"%");
-		}
-		tmp = map.get("amount");
-		if(tmp != null && String.valueOf(tmp).trim().length()>0)
-		{
-			params.addSelection("and", "amount", "=");
-			params.addSelectionArgs("%"+String.valueOf(tmp).trim()+"%");
+			Object tmp;
+			tmp = map.get("id");
+			if(tmp != null && String.valueOf(tmp).trim().length()>0)
+			{
+				params.addSelection("and", "id", "=");
+				params.addSelectionArgs(String.valueOf(tmp).trim());
+			}
+			tmp = map.get("name");
+			if(tmp != null && String.valueOf(tmp).trim().length()>0)
+			{
+				params.addSelection("and", "name", "like");
+				params.addSelectionArgs("%"+String.valueOf(tmp).trim()+"%");
+			}
+			tmp = map.get("phone");
+			if(tmp != null && String.valueOf(tmp).trim().length()>0)
+			{
+				params.addSelection("and", "phone", "like");
+				params.addSelectionArgs("%"+String.valueOf(tmp).trim()+"%");
+			}
+			tmp = map.get("amount");
+			if(tmp != null && String.valueOf(tmp).trim().length()>0)
+			{
+				params.addSelection("and", "amount", "=");
+				params.addSelectionArgs(String.valueOf(tmp).trim());
+			}
 		}
 		return params;
 	}

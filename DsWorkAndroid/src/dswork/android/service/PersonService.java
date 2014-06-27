@@ -64,15 +64,15 @@ public class PersonService extends BaseService<Person, Long>
 		return persons;
 	}
 	
-	//分页加载
-	public List<Person> queryScroll(int offset, int maxResult)
+	public List<Person> queryPage(Map m, int offset, int maxResult)
 	{
 		List<Person> persons=new ArrayList<Person>();
-		Cursor c = dao.queryCursorScrollData(new Person(), "", offset, maxResult);
+		Cursor c = dao.queryPage(new Person(), m, null, null, null, offset, maxResult);
 		while(c.moveToNext())
 		{
 			Person p = new Person();
-			p.setId(c.getLong(c.getColumnIndex("_id")));
+			System.out.println("Long id:"+c.getLong(c.getColumnIndex("id")));
+			p.setId(c.getLong(c.getColumnIndex("id")));
 			p.setName(c.getString(c.getColumnIndex("name")));
 			p.setPhone(c.getString(c.getColumnIndex("phone")));
 			p.setAmount(c.getString(c.getColumnIndex("amount")));
