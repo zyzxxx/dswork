@@ -55,16 +55,12 @@ public class SqlUtil
 		Field[] fields = o.getClass().getDeclaredFields();
 		//将列名放到list中
 		List<String> columnList = new ArrayList<String>();
+		if(isNeedId)
+		{
+			columnList.add("id");
+		}
 		for(int i=0;i<fields.length;i++)
 		{
-			if(fields[i].getName().equals("id"))
-			{
-				if(isNeedId)
-				{
-					columnList.add(fields[i].getName()+" as _id");
-				}
-				continue;
-			}
 			columnList.add(fields[i].getName());
 		}
 		//list转换成string[]

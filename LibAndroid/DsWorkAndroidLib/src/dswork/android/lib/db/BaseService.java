@@ -2,6 +2,9 @@ package dswork.android.lib.db;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+
+import dswork.android.lib.util.SqlUtil;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -59,6 +62,25 @@ public abstract class BaseService<T, PK extends Serializable>
 		try
 		{
 			getEntityDao().delete(table, primaryKey);
+			getEntityDao().setTransactionSuccessful();
+		}
+		finally
+		{
+			getEntityDao().endTransaction();
+		}
+		getEntityDao().close();
+	}
+	/**
+	 * 删除记录(批量)
+	 * @param table 表名
+	 * @param pks PK[]主键值数组
+	 */
+	public void deleteBatch(String table, PK[] pks)
+	{
+		getEntityDao().beginTransaction();
+		try
+		{
+			getEntityDao().deleteBatch(table, pks);
 			getEntityDao().setTransactionSuccessful();
 		}
 		finally
@@ -262,7 +284,6 @@ public abstract class BaseService<T, PK extends Serializable>
 		}
 		getEntityDao().close();
 	}
-
 	/**
 	 * 查询
 	 * @param table 表名
@@ -281,14 +302,17 @@ public abstract class BaseService<T, PK extends Serializable>
 	/**
 	 * 分页查询
 	 * @param o model对象
-	 * @param orderBy 排序
-	 * @param offet 记录索引
-	 * @param maxResult 需要显示的记录数
-	 * @return
+	 * @param m 查询参数Map
+	 * @param groupBy 分组
+	 * @param having 分组条件
+	 * @param orderBy 排序类
+	 * @param offset 跳过前面几条数据
+	 * @param maxResult 获取几条
+	 * @return 游标
 	 */
-	public Cursor queryCursorScrollData(T o, String orderBy, int offset, int maxResult)
+	public Cursor queryPage(T o, Map<String, Object> m, String groupBy, String having, String orderBy, int offset, int maxResult)
 	{
-		return getEntityDao().queryCursorScrollData(o, orderBy, offset, maxResult);
+		return getEntityDao().queryPage(o, m, groupBy, having, orderBy, offset, maxResult);
 	}
 	/**
 	 * 获取记录数

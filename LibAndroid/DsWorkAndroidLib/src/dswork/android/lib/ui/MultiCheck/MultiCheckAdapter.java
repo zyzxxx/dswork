@@ -87,50 +87,42 @@ public class MultiCheckAdapter extends BaseAdapter
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent)
+	public View getView(int position, View itemView, ViewGroup parent)
 	{
 		BaseModel o = (BaseModel) dataList.get(position);
-		convertView = inflater.inflate(itemLayoutRes, null);
+		itemView = inflater.inflate(itemLayoutRes, null);
 		//找到显示控件
 		ViewCache cache = new ViewCache();
-		cache.chk = (CheckBox)convertView.findViewById(itemChkRes);
-		cache.idView = (TextView)convertView.findViewById(itemIdRes);
-		cache.itemMenu = (ImageButton) convertView.findViewById(itemMenuRes);
-		try
-		{
-			for(int i=0;i<to.length;i++)
-			{
+		cache.chk = (CheckBox)itemView.findViewById(itemChkRes);
+		cache.idView = (TextView)itemView.findViewById(itemIdRes);
+		cache.itemMenu = (ImageButton) itemView.findViewById(itemMenuRes);
+		try{
+			cache.idView.setText(o.getId().toString());
+			for(int i=0;i<to.length;i++){
 				Method m = o.getClass().getMethod("get"+from[i].substring(0,1).toUpperCase()+from[i].substring(1));
-				((TextView)convertView.findViewById(to[i])).setText(String.valueOf(m.invoke(o)));
+				((TextView)itemView.findViewById(to[i])).setText(String.valueOf(m.invoke(o)));
 			}
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 		//保存视图缓存对象至View的Tag属性中
-		convertView.setTag(cache);
+		itemView.setTag(cache);
 		//判断是否显示checkbox和ctrlMenu
-		if(isMultiChoose) 
-		{
+		if(isMultiChoose){
 			cache.chk.setVisibility(CheckBox.VISIBLE);
 			cache.itemMenu.setVisibility(ImageButton.GONE);
-		}
-		else 
-		{
+		}else{
 			cache.chk.setVisibility(CheckBox.GONE);
 			cache.itemMenu.setVisibility(ImageButton.VISIBLE);
 		}
-		//id赋值，根据isSelected来设置checkbox的选中状况 
-		if(null!=getIsSelected().get(position))
-		{
+		//根据isSelected来设置checkbox的选中状况 
+		if(null!=getIsSelected().get(position)){
 			cache.chk.setChecked(getIsSelected().get(position));
-			cache.idView.setText(o.getId().toString());
 			cache.itemMenu.setTag(cache.idView);//保存记录id到Tag中方便后续操作
 		}
-		//单击每项的ctrlMenu弹出菜单
-		cache.itemMenu.setOnClickListener(new ItemMenuOnClickListener());
-		return convertView;
+		cache.itemMenu.setTag(cache.idView);//保存记录id到Tag中方便后续操作
+		cache.itemMenu.setOnClickListener(new ItemMenuOnClickListener());//单击每项的ctrlMenu弹出菜单
+		return itemView;
 	}
 
 	/**

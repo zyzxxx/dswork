@@ -142,7 +142,7 @@ public class MoreListView extends ListView
 		        }
 			}
 		});
-    	pullDownDelalyLoad();
+//    	pullDownDelalyLoad();
 	}
 	private void initHeaderView()
 	{

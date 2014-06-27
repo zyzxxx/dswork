@@ -84,7 +84,19 @@ public abstract class BaseDao<T, PK extends Serializable>
 	/**
 	 * 删除记录(批量)
 	 * @param table 表名
-	 * @param pks 主键值集合
+	 * @param pks PK[]主键值数组
+	 */
+	public void deleteBatch(String table, PK[] pks)
+	{
+		for(PK pk : pks)
+		{
+			this.delete(table, pk);
+		}
+	}
+	/**
+	 * 删除记录(批量)
+	 * @param table 表名
+	 * @param pks List<?>主键值集合
 	 */
 	public void deleteBatch(String table, List<PK> pks)
 	{
@@ -101,6 +113,10 @@ public abstract class BaseDao<T, PK extends Serializable>
 	public void deleteBatch(String table, String pks)
 	{
 		String[] _pks_s = pks.split(",");
+		for(String v:_pks_s)
+		{
+			System.out.println("要删除的id:"+v);
+		}
 		PK[] _pks_l = (PK[])ConvertUtils.convert(_pks_s, Long.class);
 		for(int i=0; i<_pks_l.length; i++)
 		{
@@ -229,19 +245,22 @@ public abstract class BaseDao<T, PK extends Serializable>
 	{
 		return getReadableDb().query(table, columns, selection, selectionArgs, groupBy, having, orderBy);
 	}
+	
 	/**
 	 * 分页查询
 	 * @param o model对象
-	 * @param orderBy 排序
-	 * @param offet 记录索引
-	 * @param maxResult 需要显示的记录数
-	 * @return
+	 * @param m 查询参数Map
+	 * @param groupBy 分组
+	 * @param having 分组条件
+	 * @param orderBy 排序类
+	 * @param offset 跳过前面几条数据
+	 * @param maxResult 获取几条
+	 * @return 游标
 	 */
-	public Cursor queryCursorScrollData(T o, String orderBy, int offset, int maxResult)
+	public Cursor queryPage(T o, Map<String, Object> m, String groupBy, String having, String orderBy, int offset, int maxResult)
 	{
-		return getReadableDb().rawQuery(
-				"select "+SqlUtil.getColumnsStr(o, true)+" from "+SqlUtil.getTableNameByModel(o)+" "+orderBy+" limit ?,?", 
-				new String[]{String.valueOf(offset),String.valueOf(maxResult)});
+		QueryParams p = this.getQueryParams(m);
+		return getReadableDb().query(SqlUtil.getTableNameByModel(o), SqlUtil.getColumnsArr(o, true), p.getSelection(), p.getSelectionArgs(), groupBy, having, orderBy, offset+","+maxResult);
 	}
 	
 	/**

@@ -40,6 +40,22 @@ public class HttpUtil
 		}
 		Log.i("result", result);
 		return result;
-		
+	}
+	
+	/**
+	 * Long类型id数组转成String类型（如"1,2,3,4"）
+	 * @param ids
+	 * @return String
+	 */
+	public static String idsConvertToStr(Long[] ids)
+	{
+		String _ids = "";
+		for(int i=0;i<ids.length;i++)
+		{
+			_ids += ids[i];
+			if(i+1<ids.length) _ids += ",";
+		}
+		Log.i("列名串",_ids);
+		return _ids;
 	}
 }

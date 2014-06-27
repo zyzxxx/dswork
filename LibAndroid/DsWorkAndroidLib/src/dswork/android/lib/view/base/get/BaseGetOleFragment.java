@@ -33,14 +33,14 @@ public abstract class BaseGetOleFragment<T> extends OleFragment
 	
 	/**
 	 * 执行删除
-	 * @param id_str
+	 * @param ids Long类型数组
 	 */
-	public void executeDel(String id_str){};
+	public void executeDel(Long[] ids){};
 	/**
 	 * 显示删除对话框
-	 * @param id_str
+	 * @param ids Long类型数组
 	 */
-	public void showDeleteDialog(final String id_str)
+	public void showDeleteDialog(final Long[] ids)
 	{
 		new AlertDialog.Builder(getActivity())
 		.setTitle(R.string.confirm_del)
@@ -51,7 +51,7 @@ public abstract class BaseGetOleFragment<T> extends OleFragment
 			@Override
 			public void onClick(DialogInterface dialog, int which) 
 			{
-				executeDel(id_str);
+				executeDel(ids);
 			}
 		})
 		.show();

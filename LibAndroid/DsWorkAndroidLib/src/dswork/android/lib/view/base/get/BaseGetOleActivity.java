@@ -31,14 +31,14 @@ public abstract class BaseGetOleActivity<T> extends OleActivity
 	
 	/**
 	 * 执行删除
-	 * @param id_str
+	 * @param ids Long类型数组
 	 */
-	public void executeDel(String id_str){};
+	public void executeDel(Long[] ids){};
 	/**
 	 * 显示删除对话框
-	 * @param id_str
+	 * @param ids Long类型数组
 	 */
-	public void showDeleteDialog(final String id_str)
+	public void showDeleteDialog(final Long[] ids)
 	{
 		new AlertDialog.Builder(this)
 		.setTitle(R.string.confirm_del)
@@ -49,11 +49,36 @@ public abstract class BaseGetOleActivity<T> extends OleActivity
 			@Override
 			public void onClick(DialogInterface dialog, int which) 
 			{
-				executeDel(id_str);
+				executeDel(ids);
 			}
 		})
 		.show();
 	}
+//	/**
+//	 * 执行删除
+//	 * @param id_str
+//	 */
+//	public void executeDel(String id_str){};
+//	/**
+//	 * 显示删除对话框
+//	 * @param id_str
+//	 */
+//	public void showDeleteDialog(final String id_str)
+//	{
+//		new AlertDialog.Builder(this)
+//		.setTitle(R.string.confirm_del)
+//		.setIcon(android.R.drawable.ic_delete)
+//		.setNegativeButton(R.string.no, null)
+//		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) 
+//			{
+//				executeDel(id_str);
+//			}
+//		})
+//		.show();
+//	}
 	
 	/**
 	 * 获取列表页根布局FrameLayout对象
