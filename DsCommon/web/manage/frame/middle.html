@@ -1,53 +1,42 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
 <title></title>
+<meta charset="UTF-8" />
 <link rel="stylesheet" type="text/css" href="style/frame.css" />
-<script type="text/javascript" src="js/Navigation.js"></script>
+<link rel="stylesheet" type="text/css" href="js/easyui/themes/default/panel_tabs.css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/easyui/jquery.panel_tabs.js"></script>
 <script language="javascript">
-function switchDorp(imgObj){
-	imagesOpen = "style/middle/open.gif";
-	imagesClose = "style/middle/close.gif";
-	var menuObj=document.getElementById("menu");
-	if (menuObj.style.display=="none"){
-		imgObj.title="关闭左边菜单";
-		imgObj.src=imagesOpen;
-		menuObj.style.display="";
+function re(){$('#tt').tabs('resize');}
+function GoDorp(o){
+	var m=document.getElementById("menu");
+	if(m.style.display=="none"){
+		o.title="关闭左边菜单";o.src="style/middle/open.gif";m.style.display="";
 	}else{
-		imgObj.title="打开左边菜单";
-		imgObj.src=imagesClose;
-		menuObj.style.display="none";
+		o.title="打开左边菜单";o.src="style/middle/close.gif";m.style.display="none";
 	}
+	re();
 }
-function frameGoBack(){
-	var mainframe=window.frames["rightFrame"];
-	mainframe.history.go(-1);
-}
-//document.oncontextmenu = new Function("return false");
-var navigation=new Navigation("mynav");
+$(function(){$(window).resize(function(){re()});});
 </script>
-<!--[if IE 6]><style>#rightFrame {height:expression(document.body.clientHeight-25);}</style><![endif]-->
+<!--[if IE 6]><script>
+function re(){$('#tt').parent().css("width","1");$('#tt').tabs('resize');$('#tt').parent().css("width","");$('#tt').tabs('resize');}
+</script><![endif]-->
 </head>
-<body onselectstart="return false;" oncontextmenu="return false;">
-<table id="oTable" width="100%" height="100%" class="middleframe" border="0" cellpadding="0" cellspacing="0">
-	<tr>
-		<td id="menu">
-			<iframe id="leftFrame" name="leftFrame" scrolling="no" frameborder="0" src="left.html"></iframe>
-		</td>
-		<td class="drop">
-			<img class="dropimg" src="style/middle/open.gif" title="关闭左边菜单" onClick="switchDorp(this)"/>
-		</td>
-		<td>
-			<div class="view">
-				<div class="nav">
-					<div id="mynav">导航位置:</div>
-					<div class="goback"><a href="#" onclick="frameGoBack()">返回上一页</a></div>
-				</div>
-				<iframe id="rightFrame" name="rightFrame" scrolling="yes" frameborder="0" src="main.html"></iframe>
+<body>
+<div class="middleframe">
+	<div id="menu">
+		<iframe id="leftFrame" name="leftFrame" scrolling="no" frameborder="0" src="left.html"></iframe>
+	</div>
+	<div class="drop"><img src="style/middle/open.gif" title="关闭左边菜单" onclick="GoDorp(this)"/></div>
+	<div class="view">
+		<div id="tt" class="easyui-tabs" fit="true" style="overflow:hidden;" plain="false">
+			<div title="首页" style="overflow:hidden;" closable="false">
+				<div style="overflow:hidden;width:100%;height:100%;"><iframe id="rightFrame" name="rightFrame" scrolling="no" frameborder="0" src="main.html"></iframe></div>
 			</div>
-		</td>
-	</tr>
-</table>
+		</div>
+	</div>
+</div>
 </body>
 </html>
