@@ -11,7 +11,8 @@
     <!-- 访问internet权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 改变配置信息 -->
-	<uses-permission android:name="android.permission.CHANGE_CONFIGURATION"></uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" >
+    </uses-permission>
 
     <!-- 测试 -->
     <instrumentation
@@ -31,6 +32,7 @@
             android:uiOptions="splitActionBarWhenNarrow" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -83,18 +85,18 @@
             android:label="@string/title_activity_person_search" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.alphabet.AlphabetActivity"
+            android:name="dswork.android.demo.component.AlphabetActivity"
             android:label="@string/title_activity_alphabet" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.loadmore.LoadMoreActivity"
+            android:name="dswork.android.demo.component.LoadMoreActivity"
             android:label="@string/title_activity_loadmore" >
         </activity>
         <!-- android:configChanges 防止横竖屏切换时重刷Activity -->
         <activity
             android:name="dswork.android.demo.framework.app.web.Main_A"
-            android:label="@string/title_activity_demo_main"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_demo_main"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
@@ -120,6 +122,11 @@
 
         <!-- 测试 -->
         <uses-library android:name="android.test.runner" />
+
+        <activity
+            android:name="dswork.android.demo.component.SwipeRefreshActivity"
+            android:label="@string/title_activity_swipe_refresh" >
+        </activity>
     </application>
 
 </manifest>
