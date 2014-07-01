@@ -151,8 +151,9 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 		public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) 
 		{
 			View rootView = inflater.inflate(R.layout.fragment_index_2, container, false);
-			WorkUtil.addShortcut(getActivity(), rootView, R.id.alphabet, R.drawable.ic_launcher, "alphabet", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.alphabet.AlphabetActivity",false, null, null, null));
-			WorkUtil.addShortcut(getActivity(), rootView, R.id.loadmore, R.drawable.ic_launcher, "loadmore", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.loadmore.LoadMoreActivity",false, null, null, null));
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.alphabet, R.drawable.ic_launcher, "alphabet", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.AlphabetActivity",false, null, null, null));
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.loadmore, R.drawable.ic_launcher, "loadmore", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.LoadMoreActivity",false, null, null, null));
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.SwipeRefreshLayout, R.drawable.ic_launcher, "SwipeRefreshLayout", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.SwipeRefreshActivity",false, null, null, null));
 			return rootView;
 		}
 	}
