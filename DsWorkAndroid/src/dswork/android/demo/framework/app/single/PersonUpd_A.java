@@ -1,5 +1,6 @@
 package dswork.android.demo.framework.app.single;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -22,6 +23,7 @@ public class PersonUpd_A extends BaseUpdOleActivity<Person>
 	private PersonController controller;
 	private Long id;
 
+	@SuppressLint("NewApi")
 	@Override
 	public void initMainView() 
 	{
@@ -46,7 +48,8 @@ public class PersonUpd_A extends BaseUpdOleActivity<Person>
 				name_v.getText().toString().trim(), 
 				phone_v.getText().toString().trim(), 
 				amount_v.getText().toString().trim());
-		controller.upd(p, id);
+		p.setId(id);
+		controller.upd(p);
 		Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
 		this.finish();
 		startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, PersonGet_A.class));

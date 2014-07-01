@@ -24,7 +24,6 @@ import dswork.android.lib.ui.MultiCheck.MultiCheckAdapter.ItemMenuDialog;
 import dswork.android.lib.ui.MultiCheck.MultiCheckListView;
 import dswork.android.lib.ui.MultiCheck.MultiCheckListView.MultiCheckActionModeListener;
 import dswork.android.lib.ui.MultiCheck.MultiCheckListView.OnItemClickNotMultiListener;
-import dswork.android.lib.ui.MultiCheck.MultiCheckListView.PullDownToRefreshListener;
 import dswork.android.lib.ui.MultiCheck.MultiCheckListView.PullUpToRefreshListener;
 import dswork.android.lib.ui.MultiCheck.MultiCheckListView.ViewCache;
 import dswork.android.lib.util.InjectUtil;
@@ -100,6 +99,7 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 	@Override
 	public List<Demo> getDataInBackground() 
 	{
+		listView.setAvgDataNum(5);//平均每次取5条数据
 		return queryPage(getParams(), 0, listView.getAvgDataNum());
 	}
 	
@@ -116,10 +116,9 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 		listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
 		//设置PullRefresh属性
 		listView.setMaxDataNum(controller.get(getParams()).size());//设置数据最大值
-		listView.setAvgDataNum(10);//平均每次取10条数据
-		listView.setPerDataNum(10);//每秒取10条数据
+//		listView.setAvgDataNum(5);//平均每次取10条数据
+		listView.setPerDataNum(5);//每秒取10条数据
 		listView.setPullUpToRefreshListener(new MyPullUpToRefreshListener());//上拉刷新
-		listView.setPullDownToRefreshListener(new MyPullDownToRefreshListener());//下拉刷新
 	}
 	
 	//分页查询
@@ -220,14 +219,6 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 		@Override
 		public void pullUpToRefresh() {
 			queryPage(getParams(), listView.getCurDataNum(), listView.getAvgDataNum());//获取下一页数据
-		}
-	}
-	//下拉刷新事件
-	private class MyPullDownToRefreshListener implements PullDownToRefreshListener
-	{
-		@Override
-		public void pullDownToRefresh() {
-			queryPage(getParams(), 0, listView.getAvgDataNum());//获取首页数据
 		}
 	}
 }

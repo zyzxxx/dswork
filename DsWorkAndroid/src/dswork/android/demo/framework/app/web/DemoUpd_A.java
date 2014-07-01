@@ -1,5 +1,6 @@
 package dswork.android.demo.framework.app.web;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -24,6 +25,7 @@ public class DemoUpd_A extends BaseUpdOleActivity<Demo>
 	private DemoController controller;
 	private Long id;
 
+	@SuppressLint("NewApi")
 	@Override
 	public void initMainView() 
 	{
@@ -34,6 +36,7 @@ public class DemoUpd_A extends BaseUpdOleActivity<Demo>
 		InjectUtil.injectView(this);//注入控件
 		controller = new DemoController(this);//注入Controller
 		id = getIntent().getLongExtra("id", 0);//获取id主键
+		System.out.println("主键值："+id);
 		new BaseGetDataTask().execute();//异步获取后台数据，并更新UI
 	}
 
@@ -65,16 +68,14 @@ public class DemoUpd_A extends BaseUpdOleActivity<Demo>
 	public void save(View v)
 	{
 		Demo po = new Demo();
+		po.setId(id);
 		po.setTitle(title_v.getText().toString().trim());
 		po.setContent(content_v.getText().toString().trim());
 		po.setFoundtime(foundtime_v.getText().toString().trim());
-		String result = controller.upd(po, id);
-		if(!result.equals("1"))
-		{
+		String result = controller.upd(po);
+		if(!result.equals("1")){
 			Toast.makeText(this, "操作失败，网络异常", Toast.LENGTH_LONG).show();
-		}
-		else
-		{
+		}else{
 			Toast.makeText(this, "修改成功", Toast.LENGTH_LONG).show();
 			this.finish();
 			startActivity(new Intent().setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP).setClass(this, Main_A.class));
