@@ -6,6 +6,6 @@
 	<TableRow android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center">
 	    <include android:id="@+id/alphabet" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
 	    <include android:id="@+id/loadmore" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
-	    <include android:id="@+id/empty" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
+	    <include android:id="@+id/SwipeRefreshLayout" layout="@layout/shortcut" android:layout_width="0dp" android:layout_weight="1"/>
 	</TableRow>
 </TableLayout>

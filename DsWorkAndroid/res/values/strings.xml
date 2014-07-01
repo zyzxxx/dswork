@@ -58,10 +58,8 @@
     <string name="title">标题</string>
     <string name="content">内容</string>
     <string name="foundtime">创建时间</string>
-    <string name="projUrl">http://192.168.1.102:8088/AndroidWeb</string>
-    <string name="moduleUrl">/manage/demo/</string>
     <string name="title_activity_person_search">PersonSearchActivity</string>
-    
+
     <string-array name="my_item_menu">
         <item>修改2</item>
         <item>删除</item>
@@ -72,11 +70,17 @@
         <item>Clock</item>
     </string-array>
 
-    <!-- sql -->
+    <!-- server url -->
+    <string name="projUrl">http://192.168.1.107:8088/DemoJava</string>
+    <string name="moduleUrl">/mobile/demo/</string>
+    <!-- database sql -->
     <string-array name="createTableSql">
         <item>CREATE TABLE person(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(2),phone VARCHAR(12) NULL, amount VARCHAR(20) NULL, sortkey VARCHAR NULL)</item>
     </string-array>
     <string-array name="updateTableSql">
         <item></item>
     </string-array>
+
+    <string name="title_activity_swipe_refresh">SwipeRefreshActivity</string>
+
 </resources>
