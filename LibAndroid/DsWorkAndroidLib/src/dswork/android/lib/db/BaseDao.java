@@ -1,6 +1,7 @@
 package dswork.android.lib.db;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import java.util.Map;
 
@@ -189,11 +190,12 @@ public abstract class BaseDao<T, PK extends Serializable>
 	/**
 	 * 修改记录
 	 * @param o Model实例
-	 * @param id 主键
+	 * @throws Exception 
 	 */
-	public void update(T o, Long id)
+	public void update(T o) throws Exception
 	{
-		getWritableDb().update(SqlUtil.getTableNameByModel(o), SqlUtil.getValues(o), "id=?", new String[]{id.toString()});
+		getWritableDb().update(SqlUtil.getTableNameByModel(o), SqlUtil.getValues(o), "id=?", 
+				new String[]{String.valueOf(o.getClass().getSuperclass().getMethod("getId").invoke(o))});
 	}
 	/**
 	 * 修改记录（批量）

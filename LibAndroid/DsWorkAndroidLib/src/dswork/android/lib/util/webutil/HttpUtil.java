@@ -14,27 +14,22 @@ public class HttpUtil
 	public static String sendHttpPost(HttpPostObj postObj)
 	{
 		String result = "";
+		System.out.println("postObj.getUrl():"+postObj.getUrl());
 		HttpPost req = new HttpPost(postObj.getUrl());
-		try
-		{
+		try{
 			//发送HTTP request
 			req.setEntity(new UrlEncodedFormEntity(postObj.getParams(), HTTP.UTF_8));
 			//取得HTTP response
 			HttpResponse resp = new DefaultHttpClient().execute(req);
-			
 			//若状态码为200 ok
-			if(resp.getStatusLine().getStatusCode() == 200)
-			{
+			if(resp.getStatusLine().getStatusCode() == 200){
 				result = EntityUtils.toString(resp.getEntity(),"UTF-8");
-			}
-			else
-			{
+			}else{
 				result = "error";
 			}
-		}
-		catch(Exception e)
-		{
+		}catch(Exception e){
 			result = "error";
+			System.out.println(e.getMessage());
 			Log.i("Exception",e.getMessage());
 			e.printStackTrace();
 		}

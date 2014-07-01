@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import dswork.android.lib.R;
@@ -44,13 +45,9 @@ public class MultiCheckListView extends ListView
 	private MultiCheckActionModeListener listener;//MultiCheckActionMode监听器
 	private OnItemClickNotMultiListener itemClickNotMultiListener;//item项单击监听器（非多选模式下）
 	/*PullRefresh属性**********/
-	private LinearLayout headerView;//顶部布局
-	private LinearLayout inHeaderView;//headerView内的布局
-	private TextView RefreshTips;//刷新更多...
-	private LinearLayout footerView;//底部布局
+	private RelativeLayout footerView;//底部布局
 	private LinearLayout inFooterView;//footerView内的布局
 	private TextView MoreTips;//更多...
-	private ProgressBar downRefreshPb;//下拉刷新进度条
 	private ProgressBar upRefreshPb;//上拉刷新进度条
 	private int MaxDataNum;//最大数据条数
 	private int AvgDataNum = 10;//每次获取数据数
@@ -61,7 +58,6 @@ public class MultiCheckListView extends ListView
     private int firstVisibleIndex;// 第一可见条目的索引
     private Handler handler;
     private PullUpToRefreshListener uListener;//上拉刷新监听器
-    private PullDownToRefreshListener dListener;//下拉刷新监听器
     
     public MultiCheckListView(Context ctx, AttributeSet attrs) 
     {
@@ -419,7 +415,6 @@ public class MultiCheckListView extends ListView
 	{
 		handler = new Handler();
 		dataList = new ArrayList<BaseModel>();//初始化data
-		initHeaderView();//画header布局
 		initFooterView();//画footer布局
 		//滑动加载数据
 		super.setOnScrollListener(new OnScrollListener()
@@ -429,63 +424,39 @@ public class MultiCheckListView extends ListView
 			{
 				firstVisibleIndex = firstVisibleItem;// 计算第一可见条目的索引
 		        lastVisibleIndex = firstVisibleItem + visibleItemCount - 1;// 计算最后可见条目的索引
-		        // 所有的条目已经和最大条数相等，则移除底部的View
-		        System.out.println("[totalItemCount]"+totalItemCount+"|[MaxDataNum]"+(MaxDataNum+1));
-		        if (totalItemCount == MaxDataNum + 2) 
-		        {
-//		        	MultiCheckListView.this.removeFooterView(footerView);
-		        	footerView.setVisibility(View.GONE);
-//		            Toast.makeText(ctx, "数据全部加载完成，没有更多数据！", Toast.LENGTH_LONG).show();
-		        }
 			}
 			@Override
 			public void onScrollStateChanged(AbsListView view, int scrollState) 
 			{
-		        if (lastVisibleIndex==(adapter.getCount()+1) && MaxDataNum>adapter.getCount() && scrollState==OnScrollListener.SCROLL_STATE_IDLE) 
+		        if (lastVisibleIndex==adapter.getCount() && scrollState==OnScrollListener.SCROLL_STATE_IDLE) 
 		        {//上拉(滑到底部后自动加载，判断listview已经停止滚动并且最后可视的条目等于adapter的条目)
-		        	pullUpDelalyLoad();
-		        }
-		        else if(firstVisibleIndex==0 && scrollState==OnScrollListener.SCROLL_STATE_IDLE)
-		        {//下拉
-		        	pullDownDelalyLoad();
+			        if(MaxDataNum>adapter.getCount()){
+			        	pullUpDelalyLoad();
+					}else {
+			        	footerView.setVisibility(View.GONE);
+			            Toast.makeText(ctx, "到底了！", Toast.LENGTH_SHORT).show();
+					}
 		        }
 			}
 		});
-//    	pullDownDelalyLoad();
-	}
-	private void initHeaderView()
-	{
-		//创建顶部布局
-		headerView = new LinearLayout(ctx);
-		headerView.setOrientation(LinearLayout.VERTICAL);
-		headerView.setGravity(Gravity.CENTER_HORIZONTAL);
-		//创建"刷新更多..."提示
-		RefreshTips = new TextView(ctx);
-		RefreshTips.setText("↓ 释放更多...");
-		inHeaderView = new LinearLayout(ctx);
-		inHeaderView.setGravity(Gravity.CENTER);
-		ViewGroup.LayoutParams RefreshTipsParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		inHeaderView.addView(RefreshTips, RefreshTipsParams);
-		ViewGroup.LayoutParams headerViewParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150);
-		headerView.addView(inHeaderView, headerViewParams);
-		//创建ProgressBar
-		downRefreshPb = new ProgressBar(ctx);
-		downRefreshPb.setVisibility(GONE);
-		headerView.addView(downRefreshPb, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-		//添加顶部布局
-		addHeaderView(headerView);
 	}
 	private void initFooterView()
 	{
 		//创建底部布局
-		footerView = new LinearLayout(ctx);
-		footerView.setOrientation(LinearLayout.VERTICAL);
+		footerView = new RelativeLayout(ctx);
 		footerView.setGravity(Gravity.CENTER_HORIZONTAL);
+		footerView.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View v) {
+				pullUpDelalyLoad();
+			}
+		});
 		//创建"更多..."提示
 		MoreTips = new TextView(ctx);
 		MoreTips.setText("↑ 更多...");
 		inFooterView = new LinearLayout(ctx);
-		inFooterView.setGravity(Gravity.CENTER);
+		inFooterView.setGravity(Gravity.CENTER_HORIZONTAL);
 		ViewGroup.LayoutParams MoreTipsParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 		inFooterView.addView(MoreTips, MoreTipsParams);
 		ViewGroup.LayoutParams bottomViewParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150);
@@ -500,37 +471,17 @@ public class MultiCheckListView extends ListView
 	//上拉加载数据
 	private void pullUpDelalyLoad()
 	{
-		inFooterView.setVisibility(View.GONE);
-		upRefreshPb.setVisibility(View.VISIBLE);
+		inFooterView.setVisibility(GONE);
+		upRefreshPb.setVisibility(VISIBLE);
 		handler.postDelayed(new Runnable()
 		{
 			@Override
 			public void run() 
 			{
 				uListener.pullUpToRefresh();
-				inFooterView.setVisibility(View.VISIBLE);
-				upRefreshPb.setVisibility(View.GONE);
+				inFooterView.setVisibility(VISIBLE);
+				upRefreshPb.setVisibility(GONE);
 				adapter.notifyDataSetChanged();
-			}
-		},1000*(AvgDataNum/PerDataNum));
-	}
-	//下拉加载数据
-	private void pullDownDelalyLoad()
-	{
-		inHeaderView.setVisibility(View.GONE);
-		downRefreshPb.setVisibility(View.VISIBLE);
-		handler.postDelayed(new Runnable()
-		{
-			@Override
-			public void run() 
-			{
-				dataList.clear();
-				dListener.pullDownToRefresh();
-				inHeaderView.setVisibility(View.VISIBLE);
-				downRefreshPb.setVisibility(View.GONE);
-				adapter.notifyDataSetChanged();
-				MultiCheckListView.this.setSelection(1);
-				footerView.setVisibility(View.VISIBLE);
 			}
 		},1000*(AvgDataNum/PerDataNum));
 	}
@@ -547,19 +498,5 @@ public class MultiCheckListView extends ListView
 	public interface PullUpToRefreshListener
 	{
 		public void pullUpToRefresh();
-	}
-	
-	/**
-	 * 下拉刷新监听器
-	 * @param listener
-	 */
-	public void setPullDownToRefreshListener(PullDownToRefreshListener listener)
-	{
-		this.dListener = listener;
-	}
-	
-	public interface PullDownToRefreshListener
-	{
-		public void pullDownToRefresh();
 	}
 }

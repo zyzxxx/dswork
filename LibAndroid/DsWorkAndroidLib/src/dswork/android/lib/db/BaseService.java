@@ -3,9 +3,6 @@ package dswork.android.lib.db;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
-
-import dswork.android.lib.util.SqlUtil;
-
 import android.content.ContentValues;
 import android.database.Cursor;
 
@@ -211,15 +208,18 @@ public abstract class BaseService<T, PK extends Serializable>
 	/**
 	 * 修改记录
 	 * @param o Model实例
-	 * @param id 主键
 	 */
-	public void update(T o, Long id)
+	public void update(T o)
 	{
 		getEntityDao().beginTransaction();
 		try
 		{
-			getEntityDao().update(o, id);
+			getEntityDao().update(o);
 			getEntityDao().setTransactionSuccessful();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 		finally
 		{

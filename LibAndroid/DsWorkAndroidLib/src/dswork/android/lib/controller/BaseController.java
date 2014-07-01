@@ -7,7 +7,7 @@ public interface BaseController<T>
 {
 	public String add(T po);
 	public String deleteBatch(Long[] ids);
-	public String upd(T po, Long id);
+	public String upd(T po);
 	public List<T> get(Map m);
 	public T getById(Long id);
 }

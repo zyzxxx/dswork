@@ -13,4 +13,8 @@
         <item >修改</item>
         <item >删除</item>
     </string-array>
+    
+    <string name="app_list_footer_more">更多</string>
+    <string name="app_list_footer_loading">加载中</string>
+    <string name="app_list_header_refresh_last_update">刷新</string>
 </resources>
