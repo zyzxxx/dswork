@@ -1,17 +1,11 @@
 package dswork.android.lib.controller;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.json.JSONObject;
-
-import android.util.Log;
 import dswork.android.lib.util.webutil.HttpPostObj;
 import dswork.android.lib.util.webutil.HttpUtil;
-
 
 public abstract class BaseWebController<T> implements BaseController<T>
 {
