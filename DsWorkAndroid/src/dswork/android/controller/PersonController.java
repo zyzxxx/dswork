@@ -32,8 +32,8 @@ public class PersonController implements BaseController<Person>
 	}
 
 	@Override
-	public String upd(Person po,  Long id) {
-		service.update(po, id);
+	public String upd(Person po) {
+		service.update(po);
 		return "1";
 	}
 

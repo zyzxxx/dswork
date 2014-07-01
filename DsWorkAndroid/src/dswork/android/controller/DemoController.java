@@ -1,23 +1,18 @@
 package dswork.android.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import android.content.Context;
 import android.util.Log;
 import dswork.android.R;
-import dswork.android.lib.controller.BaseController;
-import dswork.android.lib.util.webutil.HttpPostObj;
+import dswork.android.lib.controller.BaseWebController;
 import dswork.android.lib.util.webutil.HttpUtil;
 import dswork.android.model.Demo;
-import dswork.android.model.Person;
 
-public class DemoController implements BaseController<Demo>
+public class DemoController extends BaseWebController<Demo>
 {
 	private Context ctx;
 	
@@ -28,68 +23,35 @@ public class DemoController implements BaseController<Demo>
 	}
 
 	@Override
+	public String getModulePath() {
+		return ctx.getString(R.string.projUrl)+"/mobile/demo/";
+	}
+
+	@Override
 	public String add(Demo po) 
 	{
-		String action = "addDemo2.htm";
-		Map m = new HashMap();
-		m.put("title", po.getTitle());
-		m.put("content", po.getContent());
-		m.put("foundtime", po.getFoundtime());
-		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
-		String result = "";
-		try{
-			result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return result;
+		return sendRequest("addDemo.htm", getModelMap(po,false));
 	}
 
 	@Override
 	public String deleteBatch(Long[] ids) 
 	{
-		String action = "delJSONDemo.htm";
-		Map m = new HashMap();
-		m.put("keyIndex", HttpUtil.idsConvertToStr(ids));//Long[] ids 转  String ids
-		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
-		String result = "";
-		try{
-			result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return result;
+		return sendRequest("delDemo.htm", getKeyIndexMap(HttpUtil.idsConvertToStr(ids)));
 	}
 
 	@Override
-	public String upd(Demo po, Long id) 
+	public String upd(Demo po) 
 	{
-		String action = "updDemoForMobile.htm";		
-		Map m = new HashMap();
-		m.put("id", id);
-		m.put("title", po.getTitle());
-		m.put("content", po.getContent());
-		m.put("foundtime", po.getFoundtime());
-		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
-		String result = "";
-		try{
-			result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		return result;
+		return sendRequest("updDemo.htm", getModelMap(po,true));
 	}
 
 	@Override
 	public List<Demo> get(Map m)
 	{
-		String action = "getDemoForMobile.htm";
-		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
 		List<Demo> list = new ArrayList<Demo>();
 		try{
-			String result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
-			if(!result.equals("error"))
-			{
+			String result = sendRequest("get.htm", m);//发送HttpPost请求
+			if(!result.equals("error")){
 				JSONArray arr = new JSONArray(result);
 				for(int i=0; i<arr.length(); i++)
 				{
@@ -97,9 +59,7 @@ public class DemoController implements BaseController<Demo>
 					Demo Demo = new Demo(o.getLong("id"), o.getString("title"), o.getString("content"), o.getString("foundtime"));
 					list.add(Demo);
 				}
-			}
-			else
-			{
+			}else{
 				list = null;
 			}
 		}catch(Exception e){
@@ -113,56 +73,39 @@ public class DemoController implements BaseController<Demo>
 	@Override
 	public Demo getById(Long id)
 	{
-		String action = "getDemoByIdForMobile.htm";
-		Map m = new HashMap();
-		m.put("keyIndex", id);
-		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
-		Demo po = new Demo();
+		Demo po = null;
 		try{
-			String result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
-			if(!result.equals("error"))
-			{
+			String result = sendRequest("getDemoById.htm", getKeyIndexMap(id));
+			if(!result.equals("error")){
 				JSONObject jsonObject = new JSONObject(result);
 				po = new Demo(jsonObject.getLong("id"),jsonObject.getString("title"),jsonObject.getString("content"),jsonObject.getString("foundtime"));
 			}
-			else
-			{
-				po = null;
-			}
-		}	catch(Exception e){
-			po = null;
+		}catch(Exception e){
 			e.printStackTrace();
 			Log.i("controller Exception",e.getMessage());
 		}
 		return po;
 	}
 	
-	public List<Demo> queryPage(Map m, int offset, int maxResult){
-		String action = "getDemoPageForMobile.htm";
+	public List<Demo> queryPage(Map m, int offset, int maxResult)
+	{
 		int page = offset/maxResult+1;
-		System.out.println("【页码】:"+page+"|offset:"+offset+"|pageSize:"+maxResult);
 		m.put("page", page);
 		m.put("pageSize", maxResult);
-		HttpPostObj postObj = new HttpPostObj(ctx.getString(R.string.projUrl) + ctx.getString(R.string.moduleUrl) + action, m);
-		List<Demo> list = new ArrayList<Demo>();
+		System.out.println("【页码】:"+page+"|offset:"+offset+"|pageSize:"+maxResult);
+		List<Demo> list = null;
 		try{
-			String result = HttpUtil.sendHttpPost(postObj);//发送HttpPost请求
-			if(!result.equals("error"))
-			{
+			String result = sendRequest("queryPage.htm", m);
+			if(!result.equals("error")){
+				list = new ArrayList<Demo>();
 				JSONArray arr = new JSONArray(result);
-				for(int i=0; i<arr.length(); i++)
-				{
+				for(int i=0; i<arr.length(); i++){
 					JSONObject o = arr.getJSONObject(i);
 					Demo Demo = new Demo(o.getLong("id"), o.getString("title"), o.getString("content"), o.getString("foundtime"));
 					list.add(Demo);
 				}
 			}
-			else
-			{
-				list = null;
-			}
 		}catch(Exception e){
-			list = null;
 			e.printStackTrace();
 			Log.i("controller Exception",e.getMessage());
 		}
