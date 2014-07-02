@@ -9,7 +9,11 @@
 	<classpathentry kind="src" path="dswork.common.org.role"/>
 	<classpathentry kind="src" path="dswork.common.user"/>
 	<classpathentry kind="src" path="dswork.common.user.org"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAWEB">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
