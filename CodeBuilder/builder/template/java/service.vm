@@ -16,7 +16,7 @@ import ${Namespace}.model${Module}.${Model};
 import ${Namespace}.dao${Module}.${Model}Dao;
 
 @Service
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class ${Model}Service extends BaseService<${Model}, Long>
 {
 	@Autowired

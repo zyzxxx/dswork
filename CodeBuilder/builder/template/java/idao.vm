@@ -12,7 +12,7 @@ import ${Frame}.core.db.BaseDao;
 import ${Namespace}.model${Module}.${Model};
 
 @Repository
-@SuppressWarnings("unchecked")
+@SuppressWarnings("all")
 public class ${Model}Dao extends BaseDao<${Model}, Long>
 {
 	@Override
