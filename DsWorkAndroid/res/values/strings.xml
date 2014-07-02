@@ -71,8 +71,7 @@
     </string-array>
 
     <!-- server url -->
-    <string name="projUrl">http://192.168.1.107:8088/DemoJava</string>
-    <string name="moduleUrl">/mobile/demo/</string>
+    <string name="projPath">http://192.168.1.107:8088/DemoJava</string>
     <!-- database sql -->
     <string-array name="createTableSql">
         <item>CREATE TABLE person(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(2),phone VARCHAR(12) NULL, amount VARCHAR(20) NULL, sortkey VARCHAR NULL)</item>
