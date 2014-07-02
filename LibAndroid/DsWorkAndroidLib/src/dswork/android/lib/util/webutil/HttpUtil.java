@@ -38,8 +38,8 @@ public class HttpUtil
 	}
 	
 	/**
-	 * Long类型id数组转成String类型（如"1,2,3,4"）
-	 * @param ids
+	 * Long类型id数组转成String类型（如new Long[]{1，2，3，4}转"1,2,3,4"）
+	 * @param ids Long[]
 	 * @return String
 	 */
 	public static String idsConvertToStr(Long[] ids)
