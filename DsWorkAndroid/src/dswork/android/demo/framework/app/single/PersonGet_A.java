@@ -61,6 +61,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 				this.finish();
 				break;
 			case R.id.menu_refresh://刷新
+				isEmptyParams(true);
 				new BaseGetDataTask().execute();
 				break;
 			case R.id.menu_search://搜索
@@ -77,7 +78,6 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	{
 		public TextView nameView;
 		public TextView sortkeyView;
-//		public ImageButton itemMenu;
 	}
 
 	@Override
@@ -89,6 +89,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	@Override
 	public List<Person> getDataInBackground() 
 	{
+		listView.setAvgDataNum(5);//平均每次取5条数据
 		return queryPage(getParams(), 0, listView.getAvgDataNum());
 	}
 	@Override
@@ -99,13 +100,13 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 				new String[]{"name","sortkey"}, new int[]{R.id.name,R.id.sortkey},
 				new MyViewCache());
 		adapter.setItemMenuDialog(new MyItemMenuDialog());//实例化ItemMenuDialog
-		listView.initMultiCheck(list, adapter);//初始化MultiCheck
+		listView.init(list, adapter);//初始化MultiCheck
 		listView.setFastScrollDrawable(R.drawable.ic_menu_moreoverflow);
 		listView.setOnItemClickNotMultiListener(new MyOnItemClickNotMultiListener());//列表项单击事件（非多选模式）
 		listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
 		//设置PullRefresh属性
 		listView.setMaxDataNum(controller.get(getParams()).size());//设置数据最大值
-		listView.setAvgDataNum(10);//平均每次取10条数据
+//		listView.setAvgDataNum(10);//平均每次取10条数据
 		listView.setPerDataNum(10);//每秒取10条数据
 		listView.setPullUpToRefreshListener(new MyPullUpToRefreshListener());//上拉刷新
 	}
@@ -117,7 +118,6 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 		System.out.println("offset:"+offset+"|maxResult:"+maxResult+"|获取数据量："+list.size());
 		for(Person po : list) 
 		{
-			System.out.println("po's id:"+po.getId());
 			listView.addDataItem(po);
 		}
 		return list;
@@ -129,7 +129,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 		String result = controller.deleteBatch(ids);//执行删除
 		if(result.equals("1"))
 		{
-			listView.refreshListView(controller.get(new HashMap()));//刷新列表
+			listView.refreshListView(queryPage(getParams(), 0, listView.getAvgDataNum()));//刷新列表
 			Toast.makeText(PersonGet_A.this, "删除成功", Toast.LENGTH_SHORT).show(); 
 		}
 		else

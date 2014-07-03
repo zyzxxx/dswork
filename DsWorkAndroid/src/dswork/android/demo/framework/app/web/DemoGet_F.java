@@ -1,6 +1,5 @@
 package dswork.android.demo.framework.app.web;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import android.content.Intent;
@@ -71,6 +70,7 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 				getActivity().finish();
 				break;
 			case R.id.menu_refresh://刷新
+				isEmptyParams(true);
 				new BaseGetDataTask().execute();
 				break;
 			case R.id.menu_search://搜索
@@ -111,7 +111,7 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 				new String[]{"title","foundtime"},new int[]{R.id.title,R.id.foundtime},
 				new MyViewCache());
 		adapter.setItemMenuDialog(new MyItemMenuDialog());//实例化ItemMenuDialog
-		listView.initMultiCheck(list, adapter);//初始化MultiCheck
+		listView.init(list, adapter);//初始化MultiCheck
 		listView.setOnItemClickNotMultiListener(new MyOnItemClickNotMultiListener());//列表项单击事件（非多选模式）
 		listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
 		//设置PullRefresh属性
@@ -121,20 +121,13 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 		listView.setPullUpToRefreshListener(new MyPullUpToRefreshListener());//上拉刷新
 	}
 	
-	//分页查询
-	public List<Demo> queryPage(Map m, int offset, int maxResult)
-	{
-		List<Demo> list = controller.queryPage(m, offset, maxResult);
-		for(Demo po : list) listView.addDataItem(po);
-		return list;
-	}
 	@Override
 	public void executeDel(Long[] ids)
 	{
 		String result = controller.deleteBatch(ids);//执行删除
 		if(result.equals("1"))
 		{
-			listView.refreshListView(controller.get(new HashMap()));//刷新列表
+			listView.refreshListView(queryPage(getParams(), 0, listView.getAvgDataNum()));//刷新列表
 			Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show(); 
 		}
 		else
@@ -220,6 +213,14 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 		public void pullUpToRefresh() {
 			queryPage(getParams(), listView.getCurDataNum(), listView.getAvgDataNum());//获取下一页数据
 		}
+	}
+	
+	//分页查询
+	public List<Demo> queryPage(Map m, int offset, int maxResult)
+	{
+		List<Demo> list = controller.queryPage(m, offset, maxResult);
+		for(Demo po : list) listView.addDataItem(po);
+		return list;
 	}
 }
 
