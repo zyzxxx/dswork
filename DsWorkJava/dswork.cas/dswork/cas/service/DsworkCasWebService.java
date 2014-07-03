@@ -12,7 +12,7 @@ import dswork.cas.model.ISystem;
 import dswork.cas.model.IUser;
 
 
-@WebService(name = "DsworkCasWebService", targetNamespace = "http://cas.service.frame.dswork/")
+@WebService(name = "DsworkCasWebService", targetNamespace = "http://service.cas.dswork/")
 @SOAPBinding(style = SOAPBinding.Style.RPC)
 public interface DsworkCasWebService
 {
