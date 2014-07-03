@@ -16,17 +16,25 @@ import dswork.android.lib.view.OleActivity;
 
 public abstract class BaseGetOleActivity<T> extends OleActivity
 {
-	@SuppressWarnings("unchecked")
+	private Boolean isEmptyParams = false;
+	private Map<String,Object> params;
 	/**
 	 * 获取查询参数
 	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> getParams()
 	{
-		Map<String,Object> params = new HashMap<String,Object>();
+		params = new HashMap<String,Object>();
 		List<Map<String,Object>> rtn_params = (List<Map<String, Object>>) getIntent().getSerializableExtra("params");//获取查询参数
-		if(null != rtn_params) params = rtn_params.get(0);
+		if(null != rtn_params && !isEmptyParams) params = rtn_params.get(0);
 		return params;
+	}
+	/**
+	 * 是否设空查询参数
+	 */
+	public void isEmptyParams(Boolean b)
+	{
+		isEmptyParams = b;
 	}
 	
 	/**
@@ -54,31 +62,6 @@ public abstract class BaseGetOleActivity<T> extends OleActivity
 		})
 		.show();
 	}
-//	/**
-//	 * 执行删除
-//	 * @param id_str
-//	 */
-//	public void executeDel(String id_str){};
-//	/**
-//	 * 显示删除对话框
-//	 * @param id_str
-//	 */
-//	public void showDeleteDialog(final String id_str)
-//	{
-//		new AlertDialog.Builder(this)
-//		.setTitle(R.string.confirm_del)
-//		.setIcon(android.R.drawable.ic_delete)
-//		.setNegativeButton(R.string.no, null)
-//		.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener()
-//		{
-//			@Override
-//			public void onClick(DialogInterface dialog, int which) 
-//			{
-//				executeDel(id_str);
-//			}
-//		})
-//		.show();
-//	}
 	
 	/**
 	 * 获取列表页根布局FrameLayout对象

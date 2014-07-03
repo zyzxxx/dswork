@@ -98,7 +98,8 @@ public class MultiCheckAdapter extends BaseAdapter
 		cache.itemMenu = (ImageButton) itemView.findViewById(itemMenuRes);
 		try{
 			cache.idView.setText(o.getId().toString());
-			for(int i=0;i<to.length;i++){
+			for(int i=0;i<to.length;i++)
+			{
 				Method m = o.getClass().getMethod("get"+from[i].substring(0,1).toUpperCase()+from[i].substring(1));
 				((TextView)itemView.findViewById(to[i])).setText(String.valueOf(m.invoke(o)));
 			}

@@ -35,7 +35,7 @@ import dswork.android.lib.db.BaseModel;
 public class MultiCheckListView extends ListView 
 {
 	private Context ctx;
-	private List<BaseModel> dataList;//数据集
+	private List<BaseModel> dataList = new ArrayList<BaseModel>();//数据集
 	/*MultiCheck属性**********/
 	private MultiCheckAdapter adapter;//自定义适配器
 	private List<Long> idList = new ArrayList<Long>();//主键集合
@@ -45,6 +45,7 @@ public class MultiCheckListView extends ListView
 	private MultiCheckActionModeListener listener;//MultiCheckActionMode监听器
 	private OnItemClickNotMultiListener itemClickNotMultiListener;//item项单击监听器（非多选模式下）
 	/*PullRefresh属性**********/
+	private Boolean hasFooterView = false;//是否已有底部布局
 	private RelativeLayout footerView;//底部布局
 	private LinearLayout inFooterView;//footerView内的布局
 	private TextView MoreTips;//更多...
@@ -63,7 +64,7 @@ public class MultiCheckListView extends ListView
     {
     	super(ctx, attrs);
     	this.ctx = ctx;
-    	initView();
+    	initFooterView();
     }
     
     /*MultiCheck方法**********/
@@ -72,7 +73,7 @@ public class MultiCheckListView extends ListView
      * @param _dataList 数据集合
      * @param _adapter 自定义适配器（必须继承自MultiCheckAdapter）
      */
-	public void initMultiCheck(List _dataList, MultiCheckAdapter _adapter)
+	public void init(List _dataList, MultiCheckAdapter _adapter)
 	{
 		this.dataList = _dataList;
 		this.adapter = _adapter;
@@ -80,6 +81,7 @@ public class MultiCheckListView extends ListView
 		//初始化列表数据和监听事件
 		this.setOnItemClickListener(new MyOnItemClickListener());//单击事件
 		this.setOnItemLongClickListener(new MyOnItemLongClickListener());//长按事件
+		initFooterView();
 	}
 	
 	/**
@@ -89,11 +91,7 @@ public class MultiCheckListView extends ListView
 	public void isMultiMode(boolean b)
 	{
 		isMultiChoose = b;
-		//若非多选模式，隐藏多选CheckBox，勾掉所有列表项的CheckBox
-		if(!isMultiChoose)
-		{
-			noCheckAll();
-		}
+		if(!isMultiChoose) noCheckAll();//若非多选模式，隐藏多选CheckBox，勾掉所有列表项的CheckBox
     	adapter.setIsMultiChoose(isMultiChoose);
     	adapter.notifyDataSetChanged();
 	}
@@ -113,10 +111,10 @@ public class MultiCheckListView extends ListView
 	public Long[] getIdArray()
 	{
 		Long[] ids = new Long[this.idList.size()];
-		for(int i=0;i<this.idList.size();i++)
+		for(int i=0; i<this.idList.size(); i++)
 		{
 			ids[i] = this.idList.get(i);
-			System.out.println("ids["+i+"]:"+ids[i]);
+			System.out.println("id_arr["+i+"]:"+ids[i]);
 		}
 		return ids;
 	}
@@ -193,7 +191,7 @@ public class MultiCheckListView extends ListView
 	public boolean onKeyDown(int keyCode, KeyEvent event) 
 	{
 		//键盘返回键
-		if (keyCode == KeyEvent.KEYCODE_BACK )  
+		if (keyCode == KeyEvent.KEYCODE_BACK )
         {
 			if(isMultiChoose)
 			{
@@ -209,11 +207,11 @@ public class MultiCheckListView extends ListView
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View v, int pos, long arg3) 
 		{
-            if(isMultiChoose)  
+            if(isMultiChoose)
             {//多选模式，单击选中
             	checkOne(v, pos);
-            }  
-            else  
+            }
+            else
             {//非多选模式，由用户实现接口
             	itemClickNotMultiListener.onClick(v);
             } 
@@ -235,7 +233,6 @@ public class MultiCheckListView extends ListView
 	//单选
 	private void checkOne(View v, int pos)
 	{
-		pos = pos-1;
 		// 取得ViewCache对象，这样就省去了通过层层的findViewById去实例化我们需要的cb实例的步骤    
     	ViewCache holder = (ViewCache) v.getTag();    
         // 改变CheckBox的状态    
@@ -409,14 +406,13 @@ public class MultiCheckListView extends ListView
 		this.dataList.add(item);
 	}
 	/**
-	 * 初始化上拉下拉视图
+	 * 初始化底部上拉刷新视图
 	 */
-	private void initView()
+	private void initFooterView()
 	{
 		handler = new Handler();
-		dataList = new ArrayList<BaseModel>();//初始化data
-		initFooterView();//画footer布局
-		//滑动加载数据
+		drawFooterView();
+		//滑动加载数据事件
 		super.setOnScrollListener(new OnScrollListener()
 		{
 			@Override
@@ -430,43 +426,52 @@ public class MultiCheckListView extends ListView
 			{
 		        if (lastVisibleIndex==adapter.getCount() && scrollState==OnScrollListener.SCROLL_STATE_IDLE) 
 		        {//上拉(滑到底部后自动加载，判断listview已经停止滚动并且最后可视的条目等于adapter的条目)
-			        if(MaxDataNum>adapter.getCount()){
+			        if(MaxDataNum>adapter.getCount())
+			        {
 			        	pullUpDelalyLoad();
-					}else {
-			        	footerView.setVisibility(View.GONE);
+			        	footerView.setVisibility(VISIBLE);
+					}
+			        else
+			        {
+			        	footerView.setVisibility(GONE);
 			            Toast.makeText(ctx, "到底了！", Toast.LENGTH_SHORT).show();
 					}
 		        }
 			}
 		});
 	}
-	private void initFooterView()
+	//画底部上拉刷新视图
+	private void drawFooterView()
 	{
-		//创建底部布局
-		footerView = new RelativeLayout(ctx);
-		footerView.setGravity(Gravity.CENTER_HORIZONTAL);
-		footerView.setOnClickListener(new OnClickListener()
+		if(!hasFooterView)
 		{
-			@Override
-			public void onClick(View v) {
-				pullUpDelalyLoad();
-			}
-		});
-		//创建"更多..."提示
-		MoreTips = new TextView(ctx);
-		MoreTips.setText("↑ 更多...");
-		inFooterView = new LinearLayout(ctx);
-		inFooterView.setGravity(Gravity.CENTER_HORIZONTAL);
-		ViewGroup.LayoutParams MoreTipsParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-		inFooterView.addView(MoreTips, MoreTipsParams);
-		ViewGroup.LayoutParams bottomViewParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150);
-		footerView.addView(inFooterView, bottomViewParams);
-		//创建ProgressBar
-		upRefreshPb = new ProgressBar(ctx);
-		upRefreshPb.setVisibility(GONE);
-		footerView.addView(upRefreshPb, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-		//添加底部布局
-		addFooterView(footerView);
+			//创建底部布局
+			footerView = new RelativeLayout(ctx);
+			footerView.setGravity(Gravity.CENTER_HORIZONTAL);
+			footerView.setOnClickListener(new OnClickListener(){
+				@Override
+				public void onClick(View v){
+					return;
+				}
+			});
+			//创建"更多..."提示
+			MoreTips = new TextView(ctx);
+			MoreTips.setText("↑ 更多...");
+			inFooterView = new LinearLayout(ctx);
+			inFooterView.setGravity(Gravity.CENTER_HORIZONTAL);
+			ViewGroup.LayoutParams MoreTipsParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+			inFooterView.addView(MoreTips, MoreTipsParams);
+			ViewGroup.LayoutParams bottomViewParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150);
+			footerView.addView(inFooterView, bottomViewParams);
+			//创建ProgressBar
+			upRefreshPb = new ProgressBar(ctx);
+			upRefreshPb.setVisibility(GONE);
+			footerView.addView(upRefreshPb, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+			//添加底部布局
+			addFooterView(footerView);
+			hasFooterView = true;
+		}
+		footerView.setVisibility(VISIBLE);
 	}
 	//上拉加载数据
 	private void pullUpDelalyLoad()

@@ -18,17 +18,25 @@ import dswork.android.lib.view.OleFragment;
 
 public abstract class BaseGetOleFragment<T> extends OleFragment
 {
-	@SuppressWarnings("unchecked")
+	private Boolean isEmptyParams = false;
+	private Map<String,Object> params;
 	/**
 	 * 获取查询参数
 	 * @return Map<String, Object>
 	 */
 	public Map<String, Object> getParams()
 	{
-		Map<String,Object> params = new HashMap<String,Object>();
+		params = new HashMap<String,Object>();
 		List<Map<String,Object>> rtn_params = (List<Map<String, Object>>) getActivity().getIntent().getSerializableExtra("params");//获取查询参数
-		if(null != rtn_params) params = rtn_params.get(0);
+		if(null != rtn_params && !isEmptyParams) params = rtn_params.get(0);
 		return params;
+	}
+	/**
+	 * 是否设空查询参数
+	 */
+	public void isEmptyParams(Boolean b)
+	{
+		isEmptyParams = b;
 	}
 	
 	/**
