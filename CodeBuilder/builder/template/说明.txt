@@ -37,7 +37,6 @@ MyBatis:
 			${mf}tecamo.page.menu("del${Model}.htm", "upd${Model}1.htm", "get${Model}ById.htm", "${mf}{pageModel.currentPage}");
 		});
 		</script>
-		<%@include file="/commons/include/getEasyui.jsp" %>
 	标题列
 		去掉第二列：<td style="width:5%">操作</td>
 		最后面增加：<td style="width:20%;">操作</td>
