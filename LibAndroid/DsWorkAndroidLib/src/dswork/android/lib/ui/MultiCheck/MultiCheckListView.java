@@ -13,18 +13,16 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ActionMode.Callback;
-import android.view.Gravity;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,9 +45,8 @@ public class MultiCheckListView extends ListView
 	/*PullRefresh属性**********/
 	private Boolean hasFooterView = false;//是否已有底部布局
 	private RelativeLayout footerView;//底部布局
-	private LinearLayout inFooterView;//footerView内的布局
-	private TextView MoreTips;//更多...
-	private ProgressBar upRefreshPb;//上拉刷新进度条
+	private LinearLayout moretipsView;//更多...
+	private LinearLayout loadingView;//上拉刷新进度条
 	private int MaxDataNum;//最大数据条数
 	private int AvgDataNum = 10;//每次获取数据数
 	private int PerDataNum = 20;//每秒获取数据数
@@ -445,29 +442,16 @@ public class MultiCheckListView extends ListView
 	{
 		if(!hasFooterView)
 		{
-			//创建底部布局
-			footerView = new RelativeLayout(ctx);
-			footerView.setGravity(Gravity.CENTER_HORIZONTAL);
+			LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			footerView = (RelativeLayout) inflater.inflate(R.layout.footer_refresh, null);
 			footerView.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v){
 					return;
 				}
 			});
-			//创建"更多..."提示
-			MoreTips = new TextView(ctx);
-			MoreTips.setText("↑ 更多...");
-			inFooterView = new LinearLayout(ctx);
-			inFooterView.setGravity(Gravity.CENTER_HORIZONTAL);
-			ViewGroup.LayoutParams MoreTipsParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-			inFooterView.addView(MoreTips, MoreTipsParams);
-			ViewGroup.LayoutParams bottomViewParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 150);
-			footerView.addView(inFooterView, bottomViewParams);
-			//创建ProgressBar
-			upRefreshPb = new ProgressBar(ctx);
-			upRefreshPb.setVisibility(GONE);
-			footerView.addView(upRefreshPb, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-			//添加底部布局
+			moretipsView = (LinearLayout) footerView.findViewById(R.id.moretips);
+			loadingView = (LinearLayout) footerView.findViewById(R.id.loading);
 			addFooterView(footerView);
 			hasFooterView = true;
 		}
@@ -476,19 +460,32 @@ public class MultiCheckListView extends ListView
 	//上拉加载数据
 	private void pullUpDelalyLoad()
 	{
-		inFooterView.setVisibility(GONE);
-		upRefreshPb.setVisibility(VISIBLE);
+		moretipsView.setVisibility(GONE);
+		loadingView.setVisibility(VISIBLE);
 		handler.postDelayed(new Runnable()
 		{
 			@Override
 			public void run() 
 			{
 				uListener.pullUpToRefresh();
-				inFooterView.setVisibility(VISIBLE);
-				upRefreshPb.setVisibility(GONE);
+				moretipsView.setVisibility(VISIBLE);
+				loadingView.setVisibility(GONE);
 				adapter.notifyDataSetChanged();
 			}
 		},1000*(AvgDataNum/PerDataNum));
+//		inFooterView.setVisibility(GONE);
+//		upRefreshPb.setVisibility(VISIBLE);
+//		handler.postDelayed(new Runnable()
+//		{
+//			@Override
+//			public void run() 
+//			{
+//				uListener.pullUpToRefresh();
+//				inFooterView.setVisibility(VISIBLE);
+//				upRefreshPb.setVisibility(GONE);
+//				adapter.notifyDataSetChanged();
+//			}
+//		},1000*(AvgDataNum/PerDataNum));
 	}
 	
 	/**
