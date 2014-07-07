@@ -6,7 +6,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
@@ -17,10 +16,10 @@ public class HttpUtil
 	public static String sendHttpPost(HttpPostObj postObj)
 	{
 		String result = "";
-		System.out.println("action url:"+postObj.getUrl());
-		HttpPost req = new HttpPost(postObj.getUrl());
 		try{
 			//发送HTTP request
+			HttpPost req = new HttpPost(postObj.getUrl());
+			System.out.println("action url:"+postObj.getUrl());
 			req.setEntity(new UrlEncodedFormEntity(postObj.getParams(), HTTP.UTF_8));
 			//设置网络超时
 			HttpClient client =  new DefaultHttpClient();
