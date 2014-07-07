@@ -220,10 +220,20 @@ public class MultiCheckListView extends ListView
 		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View v, int pos, long arg3) 
 		{
-			mMode = startActionMode(listener.getActionModeCallback());//启动ActionMode
-			isMultiMode(true);//设为多选模式
-			checkOne(v, pos);//选中一项
-	        return true;
+			if(null==mMode)
+			{
+				mMode = startActionMode(listener.getActionModeCallback());//启动ActionMode
+				isMultiMode(true);//设为多选模式
+				checkOne(v, pos);//选中一项
+				return true;
+			}
+			else
+			{
+				mMode.finish();//关闭ActionMode
+				mMode = null;
+				isMultiMode(false);//设为非多选模式
+				return false;
+			}
 		}
 	}
 	
@@ -274,7 +284,7 @@ public class MultiCheckListView extends ListView
         adapter.setIsSelected(isSelected);
         idList.clear();
         checkNum = 0;
-        mMode.setSubtitle(checkNum+" selected");
+        if(mMode!=null)mMode.setSubtitle(checkNum+" selected");
 	}
 	
 	//视图缓存类
@@ -473,19 +483,6 @@ public class MultiCheckListView extends ListView
 				adapter.notifyDataSetChanged();
 			}
 		},1000*(AvgDataNum/PerDataNum));
-//		inFooterView.setVisibility(GONE);
-//		upRefreshPb.setVisibility(VISIBLE);
-//		handler.postDelayed(new Runnable()
-//		{
-//			@Override
-//			public void run() 
-//			{
-//				uListener.pullUpToRefresh();
-//				inFooterView.setVisibility(VISIBLE);
-//				upRefreshPb.setVisibility(GONE);
-//				adapter.notifyDataSetChanged();
-//			}
-//		},1000*(AvgDataNum/PerDataNum));
 	}
 	
 	/**
