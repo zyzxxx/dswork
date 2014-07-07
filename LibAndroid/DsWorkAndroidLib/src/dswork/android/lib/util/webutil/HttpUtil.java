@@ -1,9 +1,12 @@
 package dswork.android.lib.util.webutil;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
@@ -14,23 +17,22 @@ public class HttpUtil
 	public static String sendHttpPost(HttpPostObj postObj)
 	{
 		String result = "";
-		System.out.println("postObj.getUrl():"+postObj.getUrl());
+		System.out.println("action url:"+postObj.getUrl());
 		HttpPost req = new HttpPost(postObj.getUrl());
 		try{
 			//发送HTTP request
 			req.setEntity(new UrlEncodedFormEntity(postObj.getParams(), HTTP.UTF_8));
+			//设置网络超时
+			HttpClient client =  new DefaultHttpClient();
+			HttpConnectionParams.setConnectionTimeout(client.getParams(), 6000);//连接建立的超时时间
+			HttpConnectionParams.setSoTimeout(client.getParams(), 15000);//连接建立后，没有收到response的超时时间
 			//取得HTTP response
-			HttpResponse resp = new DefaultHttpClient().execute(req);
+			HttpResponse resp = client.execute(req);
 			//若状态码为200 ok
-			if(resp.getStatusLine().getStatusCode() == 200){
-				result = EntityUtils.toString(resp.getEntity(),"UTF-8");
-			}else{
-				result = "error";
-			}
+			if(resp.getStatusLine().getStatusCode() == 200) result = EntityUtils.toString(resp.getEntity(),"UTF-8");
+			else result = "error";
 		}catch(Exception e){
 			result = "error";
-			System.out.println(e.getMessage());
-			Log.i("Exception",e.getMessage());
 			e.printStackTrace();
 		}
 		Log.i("result", result);
