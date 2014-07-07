@@ -99,8 +99,7 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 	@Override
 	public List<Demo> getDataInBackground() 
 	{
-		listView.setAvgDataNum(5);//平均每次取5条数据
-		return queryPage(getParams(), 0, listView.getAvgDataNum());
+		return queryPage(getParams(), 0, 5);
 	}
 	
 	@Override
@@ -116,8 +115,8 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 		listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
 		//设置PullRefresh属性
 		listView.setMaxDataNum(controller.get(getParams()).size());//设置数据最大值
-//		listView.setAvgDataNum(5);//平均每次取10条数据
-		listView.setPerDataNum(5);//每秒取10条数据
+		listView.setAvgDataNum(5);//平均每次取n条数据
+		listView.setPerDataNum(5);//每秒取n条数据
 		listView.setPullUpToRefreshListener(new MyPullUpToRefreshListener());//上拉刷新
 	}
 	
@@ -125,13 +124,10 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 	public void executeDel(Long[] ids)
 	{
 		String result = controller.deleteBatch(ids);//执行删除
-		if(result.equals("1"))
-		{
+		if(result.equals("1")){
 			listView.refreshListView(queryPage(getParams(), 0, listView.getAvgDataNum()));//刷新列表
-			Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show(); 
-		}
-		else
-		{
+			Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
+		}else{
 			Toast.makeText(getActivity(), "操作失败，网络异常", Toast.LENGTH_LONG).show();
 		}
 	}
@@ -192,9 +188,8 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 		        	if(listView.getIdList().size()>0){
 		        		DemoGet_F.this.showDeleteDialog(listView.getIdArray());
 		        		result = true;
-		        	}
-		        	else{
-		        		Toast.makeText(getActivity(), "未选中 ！", Toast.LENGTH_SHORT).show();  
+		        	}else{
+		        		Toast.makeText(getActivity(), "未选中 ！", Toast.LENGTH_SHORT).show();
 		        		result = false;
 		        	}
 					break;
@@ -219,7 +214,9 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 	public List<Demo> queryPage(Map m, int offset, int maxResult)
 	{
 		List<Demo> list = controller.queryPage(m, offset, maxResult);
-		for(Demo po : list) listView.addDataItem(po);
+		if(null!=list){
+			for(Demo po : list) listView.addDataItem(po);
+		}
 		return list;
 	}
 }
