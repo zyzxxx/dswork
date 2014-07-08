@@ -6,7 +6,7 @@ web项目需要的目录
 	/web/themes
 	/web/index.html
 
-JavaWeb项目，目录可删掉的内容
+JavaWeb项目，可删掉的内容
 	/web.sln
 	/web.v11.suo
 	/web/bin
@@ -15,7 +15,7 @@ JavaWeb项目，目录可删掉的内容
 	/web/Global.asax
 	/web/Web.config
 
-CSharpWeb项目，目录可删掉的内容
+CSharpWeb项目，可删掉的内容
 	/.classpath
 	/.mymetadata
 	/.project
