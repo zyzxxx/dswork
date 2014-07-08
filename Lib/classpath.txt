@@ -7,10 +7,11 @@
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-pool-1.6.jar"/>\
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.core.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.mvc.jar"/>
+	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.ognl.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.spring.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.web.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.ognl.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/log/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="/Lib/common/log/log4jdbc-interceptor.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/log/log4jdbc4-1.2.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/log/slf4j-api-1.6.4.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/log/slf4j-log4j12-1.6.4.jar"/>
