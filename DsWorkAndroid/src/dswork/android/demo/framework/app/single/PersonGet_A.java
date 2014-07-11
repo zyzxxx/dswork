@@ -89,8 +89,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	@Override
 	public List<Person> getDataInBackground() 
 	{
-		listView.setAvgDataNum(5);//平均每次取5条数据
-		return queryPage(getParams(), 0, listView.getAvgDataNum());
+		return queryPage(getParams(), 0, 5);
 	}
 	@Override
 	public void executeUI(List<Person> list)
@@ -99,28 +98,16 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 				PersonGet_A.this, list, R.layout.person_get_item,
 				new String[]{"name","sortkey"}, new int[]{R.id.name,R.id.sortkey},
 				new MyViewCache());
-		adapter.setItemMenuDialog(new MyItemMenuDialog());//实例化ItemMenuDialog
+//		adapter.setItemMenuDialog(new MyItemMenuDialog());//使用ItemMenuDialog
 		listView.init(list, adapter);//初始化MultiCheck
-		listView.setFastScrollDrawable(R.drawable.ic_menu_moreoverflow);
+//		listView.setFastScrollDrawable(R.drawable.ic_menu_moreoverflow);//修改快速滚动条图片
 		listView.setOnItemClickNotMultiListener(new MyOnItemClickNotMultiListener());//列表项单击事件（非多选模式）
 		listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
 		//设置PullRefresh属性
 		listView.setMaxDataNum(controller.get(getParams()).size());//设置数据最大值
-//		listView.setAvgDataNum(10);//平均每次取10条数据
-		listView.setPerDataNum(10);//每秒取10条数据
+		listView.setAvgDataNum(5);//平均每次取n条数据
+		listView.setPerDataNum(5);//每秒取n条数据
 		listView.setPullUpToRefreshListener(new MyPullUpToRefreshListener());//上拉刷新
-	}
-	
-	//分页查询
-	public List<Person> queryPage(Map m, int offset, int maxResult)
-	{
-		List<Person> list = controller.queryPage(m, offset, maxResult);
-		System.out.println("offset:"+offset+"|maxResult:"+maxResult+"|获取数据量："+list.size());
-		for(Person po : list) 
-		{
-			listView.addDataItem(po);
-		}
-		return list;
 	}
 	
 	@Override
@@ -129,7 +116,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 		String result = controller.deleteBatch(ids);//执行删除
 		if(result.equals("1"))
 		{
-			listView.refreshListView(queryPage(getParams(), 0, listView.getAvgDataNum()));//刷新列表
+			listView.refreshListView(queryPage(getParams(), 0, listView.getCurDataNum()));//刷新列表
 			Toast.makeText(PersonGet_A.this, "删除成功", Toast.LENGTH_SHORT).show(); 
 		}
 		else
@@ -139,32 +126,32 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	}
 
 	//ItemMenu对话框item点击事件
-	private class MyItemMenuDialog implements ItemMenuDialog
-	{
-		@Override
-		public int setItemMenuDialogTitleRes()
-		{
-			return R.string.item_menu_title;
-		}
-		@Override
-		public int setItemMenuDialogItemsRes() 
-		{
-			return R.array.my_item_menu;
-		}
-		@Override
-		public void onItemClick(final String id_str, Long id_long, int which) 
-		{
-			switch (which) 
-			{
-				case 0://修改
-					startActivity(new Intent().setClass(PersonGet_A.this, PersonUpd_A.class).putExtra("id", id_long));
-					break;
-				case 1://删除
-					PersonGet_A.this.showDeleteDialog(new Long[]{id_long});
-		    		break;
-			}
-		}
-	}
+//	private class MyItemMenuDialog implements ItemMenuDialog
+//	{
+//		@Override
+//		public int setItemMenuDialogTitleRes()
+//		{
+//			return R.string.item_menu_title;
+//		}
+//		@Override
+//		public int setItemMenuDialogItemsRes() 
+//		{
+//			return R.array.my_item_menu;
+//		}
+//		@Override
+//		public void onItemClick(final String id_str, Long id_long, int which) 
+//		{
+//			switch (which) 
+//			{
+//				case 0://修改
+//					startActivity(new Intent().setClass(PersonGet_A.this, PersonUpd_A.class).putExtra("id", id_long));
+//					break;
+//				case 1://删除
+//					PersonGet_A.this.showDeleteDialog(new Long[]{id_long});
+//		    		break;
+//			}
+//		}
+//	}
 	//列表项单击事件（非多选模式）
 	private class MyOnItemClickNotMultiListener implements OnItemClickNotMultiListener
 	{
@@ -213,5 +200,15 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 		public void pullUpToRefresh() {
 			queryPage(getParams(), listView.getCurDataNum(), listView.getLoadDataNum());//获取下一页数据
 		}
+	}
+	
+	//分页查询
+	public List<Person> queryPage(Map m, int offset, int maxResult)
+	{
+		listView.setMaxDataNum(controller.get(getParams()).size());//设置数据最大值
+		//获取下一页数据
+		List<Person> list = controller.queryPage(m, offset, maxResult);
+		for(Person po : list) listView.addDataItem(po);
+		return list;
 	}
 }

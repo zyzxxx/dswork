@@ -125,7 +125,7 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 	{
 		String result = controller.deleteBatch(ids);//执行删除
 		if(result.equals("1")){
-			listView.refreshListView(queryPage(getParams(), 0, listView.getAvgDataNum()));//刷新列表
+			listView.refreshListView(queryPage(getParams(), 0, listView.getCurDataNum()));//刷新列表
 			Toast.makeText(getActivity(), "删除成功", Toast.LENGTH_SHORT).show();
 		}else{
 			Toast.makeText(getActivity(), "操作失败，网络异常", Toast.LENGTH_LONG).show();
@@ -213,6 +213,8 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 	//分页查询
 	public List<Demo> queryPage(Map m, int offset, int maxResult)
 	{
+		listView.setMaxDataNum(controller.get(getParams()).size());//设置数据最大值
+		//获取下一页数据
 		List<Demo> list = controller.queryPage(m, offset, maxResult);
 		if(null!=list){
 			for(Demo po : list) listView.addDataItem(po);
