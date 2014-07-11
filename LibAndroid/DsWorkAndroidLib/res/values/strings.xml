@@ -17,4 +17,7 @@
     <string name="app_list_footer_more">更多</string>
     <string name="app_list_footer_loading">加载中</string>
     <string name="app_list_header_refresh_last_update">刷新</string>
+    
+    <string name="footer_more">↑  更多</string>
+    <string name="footer_loading">加载中...</string>
 </resources>

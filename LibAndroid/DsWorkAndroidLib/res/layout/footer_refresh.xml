@@ -12,15 +12,7 @@
         <TextView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textColor="@color/abs__holo_blue_light"
-            android:text="↑  "/>
-        <TextView 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textColor="@color/abs__holo_blue_light"
-            android:text="更多..."/>
+            android:text="@string/footer_more"/>
     </LinearLayout>
     <LinearLayout 
         android:id="@+id/loading"
@@ -33,13 +25,10 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_gravity="center"
-	        style="?android:attr/progressBarStyle"/>
+	        style="?android:attr/progressBarStyleSmall"/>
         <TextView 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textColor="@color/abs__holo_blue_light"
-            android:text="loading..."/>
+            android:text="@string/footer_loading"/>
     </LinearLayout>
-
 </RelativeLayout>
