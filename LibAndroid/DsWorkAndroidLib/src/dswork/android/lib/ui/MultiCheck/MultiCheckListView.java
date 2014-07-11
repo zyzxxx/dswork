@@ -139,7 +139,8 @@ public class MultiCheckListView extends ListView
 		if(mMode!=null)noCheckAll();
 		dataList.clear();
 		dataList.addAll(_dataList);
-		this.setAdapter(adapter);//刷新adapter
+		adapter.notifyDataSetChanged();
+//		this.setAdapter(adapter);//刷新adapter
 	}
 	
 	/**

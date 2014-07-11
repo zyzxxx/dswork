@@ -109,20 +109,21 @@ public class MultiCheckAdapter extends BaseAdapter
 		//保存视图缓存对象至View的Tag属性中
 		itemView.setTag(cache);
 		//判断是否显示checkbox和ctrlMenu
-		if(isMultiChoose){
-			cache.chk.setVisibility(CheckBox.VISIBLE);
-			cache.itemMenu.setVisibility(ImageButton.GONE);
-		}else{
-			cache.chk.setVisibility(CheckBox.GONE);
-			cache.itemMenu.setVisibility(ImageButton.VISIBLE);
-		}
+		if(isMultiChoose) cache.chk.setVisibility(CheckBox.VISIBLE);
+		else cache.chk.setVisibility(CheckBox.GONE);
 		//根据isSelected来设置checkbox的选中状况 
-		if(null!=getIsSelected().get(position)){
-			cache.chk.setChecked(getIsSelected().get(position));
+		if(null!=getIsSelected().get(position)) cache.chk.setChecked(getIsSelected().get(position));
+		
+		if(cache.itemMenu!=null)
+		{
+			//多选模式下隐藏，否则显示
+			if(isMultiChoose) cache.itemMenu.setVisibility(ImageButton.GONE);
+			else cache.itemMenu.setVisibility(ImageButton.VISIBLE);
+			//根据isSelected来设置checkbox的选中状况 
+//			if(null!=getIsSelected().get(position)) cache.itemMenu.setTag(cache.idView);//保存记录id到Tag中方便后续操作
 			cache.itemMenu.setTag(cache.idView);//保存记录id到Tag中方便后续操作
+			cache.itemMenu.setOnClickListener(new ItemMenuOnClickListener());//单击每项的ctrlMenu弹出菜单
 		}
-		cache.itemMenu.setTag(cache.idView);//保存记录id到Tag中方便后续操作
-		cache.itemMenu.setOnClickListener(new ItemMenuOnClickListener());//单击每项的ctrlMenu弹出菜单
 		return itemView;
 	}
 
