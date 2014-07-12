@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>${vo.TableComment}</title>
+	<title></title>
 	<%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
 ${mf}(function(){
