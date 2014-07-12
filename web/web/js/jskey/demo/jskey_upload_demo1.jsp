@@ -7,8 +7,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+<meta charset="UTF-8" />
+<title></title>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jskey/jskey_upload.js"></script>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jskey/jskey_core.js"></script>
 <script type="text/javascript">
