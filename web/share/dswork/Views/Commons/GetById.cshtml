@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="UTF-8" />
 <title>@RenderSection("title", false)</title>
 <link rel="stylesheet" type="text/css" href="/web/js/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="/web/themes/default/frame.css" />
@@ -11,9 +11,7 @@
 <script type="text/javascript">$dswork.dotnet = true;</script>
 <script type="text/javascript" src="/web/js/dswork/dswork.js"></script>
 <script type="text/javascript">
-	$(function(){try{$(".form_title").css("width", "20%");}catch(e){}});
-	$dswork.showNavTitle = "\u660e\u7ec6";
-	$(function(){$dswork.showNavigation($dswork.showNavTitle);});
+$(function(){try{$(".form_title").css("width", "20%");}catch(e){}});
 </script>
 @RenderSection("head", false)
 </head>
