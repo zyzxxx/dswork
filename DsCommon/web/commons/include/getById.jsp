@@ -10,6 +10,4 @@
 <script type="text/javascript" src="/web/js/dswork/form.js"></script>
 <script type="text/javascript">
 $(function(){try{$(".form_title").css("width", "20%");}catch(e){}});
-$dswork.showNavTitle = "\u660e\u7ec6";<%--detail--%>
-$(function(){$dswork.showNavigation($dswork.showNavTitle);});
 </script>

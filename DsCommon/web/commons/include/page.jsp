@@ -8,7 +8,3 @@
 <script type="text/javascript" src="/web/js/jskey/jskey_core.js"></script>
 <script type="text/javascript" src="/web/js/dswork/dswork.js"></script>
 <script type="text/javascript" src="/web/js/dswork/get.js"></script>
-<script type="text/javascript">
-$dswork.showNavTitle = "\u5217\u8868";<%--list--%>
-$(function(){$dswork.showNavigation($dswork.showNavTitle);});
-</script>
