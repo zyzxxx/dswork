@@ -3,7 +3,7 @@ response.setHeader("Cache-Control","no-store");
 response.setDateHeader("Expires", 0);
 response.setHeader("Pragma","no-cache"); 
 %>
-<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <link rel="stylesheet" type="text/css" href="/web/js/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="/web/themes/default/frame.css" />
 <script type="text/javascript" src="/web/js/jquery/jquery.js"></script>
