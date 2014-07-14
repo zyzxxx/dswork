@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta charset="UTF-8" />
 <title></title>
 <link rel="stylesheet" type="text/css" href="../../../web/js/easyui/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="../../../web/themes/default/frame.css" />
@@ -12,10 +12,6 @@
 <script type="text/javascript" src="../../../web/js/jskey/jskey_core.js"></script>
 <script type="text/javascript" src="../../../web/js/dswork/dswork.js"></script>
 <script type="text/javascript" src="../../../web/js/dswork/form.js"></script>
-<script type="text/javascript">
-$dswork.showNavTitle = "编辑";
-$(function(){$dswork.showNavigation($dswork.showNavTitle);});
-</script>
 <script type="text/javascript">$dswork.doAjax = true;</script>
 <script type="text/javascript">
 $dswork.callback = function()
