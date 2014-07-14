@@ -15,8 +15,8 @@ request.setAttribute("po", MyFactory.get${Model}Service().get(id));
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/getById.jsp" %>
+<title></title>
+<%@include file="/commons/include/getById.jsp" %>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

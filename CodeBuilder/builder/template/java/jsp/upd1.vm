@@ -16,13 +16,13 @@ request.setAttribute("page", req.getInt("page", 1));
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/updAjax.jsp" %>
-	<script type="text/javascript">
-	${mf}${Frame.ToLower()}.callback = function(){if($${Frame.ToLower()}.result.type == 1){
-		location.href = "get${Model}.jsp?page=${mf}{page}";
-	}};
-	</script>
+<title></title>
+<%@include file="/commons/include/updAjax.jsp" %>
+<script type="text/javascript">
+${mf}${Frame.ToLower()}.callback = function(){if($${Frame.ToLower()}.result.type == 1){
+	location.href = "get${Model}.jsp?page=${mf}{page}";
+}};
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
