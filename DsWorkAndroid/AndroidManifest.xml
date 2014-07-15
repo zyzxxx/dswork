@@ -89,8 +89,8 @@
             android:label="@string/title_activity_alphabet" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.LoadMoreActivity"
-            android:label="@string/title_activity_loadmore" >
+            android:name="dswork.android.demo.component.PullToRefreshActivity"
+            android:label="@string/title_activity_pulltorefresh" >
         </activity>
         <!-- android:configChanges 防止横竖屏切换时重刷Activity -->
         <activity
