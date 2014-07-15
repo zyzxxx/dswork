@@ -134,7 +134,7 @@ getCellHTML:function(obj, pnodeName){
 		html += "<div style=\"text-align:center;margin:auto;\">";
 		html += "<div class=\"imgdiv outfont\" onmouseover=\"$jskey.menu.imgMouse(this,'" + obj.id + "','" + _imgOpen + "',true)\"";
 		html += "\tonmouseout=\"$jskey.menu.imgMouse(this,'" + obj.id + "', '" + _img + "',false)\"";
-		html += " onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\">";
+		html += " ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\">";
 		html += "<img id=\"JskeyImg" + obj.id + "\"  class=\"imgOut\" src=\"" + _img + "\"/>";
 		html += obj.name + "</div></div>";//"<br/>" + 
 	}
@@ -147,7 +147,7 @@ getTreeHtml:function(obj, pnodeName, icoString){
 	var items = obj.items;
 	if(icoString.length == 1 && items.length == 0){
 		var _timg = this.path + "/" + ((obj.img == null || obj.img == "") ? "default.gif" : obj.img);
-		html += "<div class='treenode' onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\">";
+		html += "<div class='treenode' ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\">";
 		html += "<img style='border:0px;' align='absmiddle' src='" + this.imgPath + ((icoString.charAt(len - 1) == '1') ? "L" : "T") + ".gif' />";
 		html += "<img class='img' align='absmiddle' src='" + _timg + "' />";
 		html += "<div class='treenodeout' onmouseover='this.className = \"treenodeover\"' onmouseout='this.className = \"treenodeout\"'>" + obj.name + "</div>";
@@ -174,7 +174,7 @@ getTreeHtml:function(obj, pnodeName, icoString){
 			item = items[i];
 			if(item.items.length == 0){
 				var _timg = this.path + "/" + ((item.img == null || item.img == "") ? "default.gif" : item.img);
-				tempHTML += "<div class='treenode' onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + item.name + "','" + item.url + "')\">";
+				tempHTML += "<div class='treenode' ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + item.name + "','" + item.url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + item.name + "','" + item.url + "')\">";
 				for(var c = 0;c < len;c++){
 					tempHTML += "<img style='border:0px;' align='absmiddle' src='" + this.imgPath + ((icoString.charAt(c) == '0') ? "I" : "N") + ".gif' />";
 				}
@@ -288,6 +288,28 @@ $jskey.menu.changeURL = function(parentname, nodename, url){
 		var s = nodename;//parentname + '-'+nodename;
 		if(parent.$('#tt').tabs('exists', s)){
 			parent.$('#tt').tabs('select', s);
+		}
+		else{
+			parent.$('#tt').tabs('add',{
+				title:s,
+				content:'<div style="overflow:hidden;width:100%;height:100%;padding:0px;margin:0px;"><iframe scrolling="yes" frameborder="0" src="' + url + '"></iframe></div>',
+				closable:true
+			});
+		}
+	}catch(e){}}
+};
+$jskey.menu.reChangeURL = function(parentname, nodename, url){
+	if(url == null || url == "" || url == "null"){url = "";}
+	if($jskey.menu.root != ""){
+		if(url.indexOf("http:") != -1 || url.indexOf($jskey.menu.root) != 0){
+			url = $jskey.menu.root + url;
+		}
+	}
+	if(url != ""){try{
+		var s = nodename;//parentname + '-'+nodename;
+		if(parent.$('#tt').tabs('exists', s)){
+			parent.$('#tt').tabs('select', s);
+			parent.$('#tt').tabs('getTab', s).find('iframe')[0].src = url;
 		}
 		else{
 			parent.$('#tt').tabs('add',{
