@@ -38,12 +38,13 @@
 			    android:text="@string/amount"
 			    />
 		</LinearLayout>
+		<!-- 
 	    <dswork.android.lib.ui.MoreListView 
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:id="@+id/mListView"
 	        />
-		<!-- 
+		 -->
 		<com.handmark.pulltorefresh.library.PullToRefreshListView
 	        android:id="@+id/pull_refresh_list"
 	        android:layout_width="fill_parent"
@@ -56,6 +57,5 @@
 	        android:footerDividersEnabled="false"
 	        android:headerDividersEnabled="false"
 	        android:smoothScrollbar="true" />
-		 -->
 	</LinearLayout>
 </LinearLayout>
