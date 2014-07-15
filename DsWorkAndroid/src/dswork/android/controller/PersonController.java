@@ -2,13 +2,11 @@ package dswork.android.controller;
 
 import java.util.List;
 import java.util.Map;
-
 import android.content.Context;
-import dswork.android.lib.controller.BaseController;
 import dswork.android.model.Person;
 import dswork.android.service.PersonService;
 
-public class PersonController implements BaseController<Person> 
+public class PersonController
 {
 	private Context ctx;
 	private PersonService service;//注入service
@@ -19,30 +17,25 @@ public class PersonController implements BaseController<Person>
 		this.service = new PersonService(ctx);
 	}
 
-	@Override
 	public String add(Person po) {
 		service.add(po);
 		return "1";
 	}
 
-	@Override
 	public String deleteBatch(Long[] ids) {
 		service.deleteBatch("person", ids);
 		return "1";
 	}
 
-	@Override
 	public String upd(Person po) {
 		service.update(po);
 		return "1";
 	}
 
-	@Override
 	public List<Person> get(Map m) {
 		return service.query(m);
 	}
 
-	@Override
 	public Person getById(Long id) {
 		return service.getById(id);
 	}

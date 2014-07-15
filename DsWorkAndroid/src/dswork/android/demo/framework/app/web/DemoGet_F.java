@@ -2,6 +2,7 @@ package dswork.android.demo.framework.app.web;
 
 import java.util.List;
 import java.util.Map;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ActionMode;
@@ -12,9 +13,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
+
 import dswork.android.R;
 import dswork.android.controller.DemoController;
 import dswork.android.lib.ui.MultiCheck.MultiCheckActionMode;
@@ -211,9 +214,9 @@ public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 	}
 	
 	//分页查询
-	public List<Demo> queryPage(Map m, int offset, int maxResult)
+	public List<Demo> queryPage(Map<String, Object> m, int offset, int maxResult)
 	{
-		listView.setMaxDataNum(controller.get(getParams()).size());//设置数据最大值
+		listView.setMaxDataNum(controller.getCount(getParams()));//刷新数据最大值
 		//获取下一页数据
 		List<Demo> list = controller.queryPage(m, offset, maxResult);
 		if(null!=list){

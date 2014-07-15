@@ -10,7 +10,7 @@ import dswork.android.lib.controller.BaseWebController;
 import dswork.android.lib.util.webutil.HttpUtil;
 import dswork.android.model.Demo;
 
-public class DemoController extends BaseWebController<Demo>
+public class DemoController extends BaseWebController
 {
 	private Context ctx;
 	
@@ -25,26 +25,22 @@ public class DemoController extends BaseWebController<Demo>
 		return ctx.getString(R.string.projPath)+"/mobile/demo/";
 	}
 
-	@Override
 	public String add(Demo po) 
 	{
 		return sendRequest("addDemo.htm", getModelMap(po,false));
 	}
 
-	@Override
 	public String deleteBatch(Long[] ids) 
 	{
 		return sendRequest("delDemo.htm", getKeyIndexMap(HttpUtil.idsConvertToStr(ids)));
 	}
 
-	@Override
 	public String upd(Demo po) 
 	{
 		return sendRequest("updDemo.htm", getModelMap(po,true));
 	}
 
-	@Override
-	public List<Demo> get(Map m)
+	public List<Demo> get(Map<String, Object> m)
 	{
 		List<Demo> list = null;
 		try{
@@ -58,7 +54,6 @@ public class DemoController extends BaseWebController<Demo>
 		return list;
 	}
 
-	@Override
 	public Demo getById(Long id)
 	{
 		Demo po = null;
@@ -73,12 +68,11 @@ public class DemoController extends BaseWebController<Demo>
 		return po;
 	}
 	
-	public List<Demo> queryPage(Map<String, Integer> m, int offset, int maxResult)
+	public List<Demo> queryPage(Map<String, Object> m, int offset, int maxResult)
 	{
 		int page = offset/maxResult+1;
 		m.put("page", page);
 		m.put("pageSize", maxResult);
-		System.out.println("【页码】:"+page+"|offset:"+offset+"|pageSize:"+maxResult);
 		List<Demo> list = null;
 		try{
 			String result = sendRequest("queryPage.htm", m);
@@ -89,5 +83,17 @@ public class DemoController extends BaseWebController<Demo>
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public int getCount(Map<String, Object> m)
+	{
+		int count = 0;
+		try{
+			count = Integer.valueOf(sendRequest("getCount.htm", m));
+		}catch(Exception e){
+			count = 0;
+			e.printStackTrace();
+		}
+		return count;
 	}
 }
