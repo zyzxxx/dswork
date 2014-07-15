@@ -33,4 +33,4 @@
 3.0和3.5自带了2.0的，所以3.0和3.5的运行2.0版本的即可
 
 
-如果使用Oracle免安装客户端方式使用代码生成器，需要把builder中Oracle.part01-06.rar解压到builder目录，共6个dll文件
+如果使用Oracle免安装客户端方式使用代码生成器，需要把oracle客户端dll的6个dll文件放到builder目录中(oci.dll,ocijdbc11.dll,ociw32.dll,orannzsbb11.dll,oraocci11.dll,oraociei11.dll)
