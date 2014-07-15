@@ -19,7 +19,7 @@ public class HttpUtil
 		try{
 			//发送HTTP request
 			HttpPost req = new HttpPost(postObj.getUrl());
-			System.out.println("action url:"+postObj.getUrl());
+			System.out.println("【action url】:"+postObj.getUrl());
 			req.setEntity(new UrlEncodedFormEntity(postObj.getParams(), HTTP.UTF_8));
 			//设置网络超时
 			HttpClient client =  new DefaultHttpClient();
@@ -28,13 +28,18 @@ public class HttpUtil
 			//取得HTTP response
 			HttpResponse resp = client.execute(req);
 			//若状态码为200 ok
-			if(resp.getStatusLine().getStatusCode() == 200) result = EntityUtils.toString(resp.getEntity(),"UTF-8");
-			else result = "error";
+			if(resp.getStatusLine().getStatusCode() == 200){
+				result = EntityUtils.toString(resp.getEntity(),"UTF-8");
+			}else {
+				result = "HttpResponse状态码："+resp.getStatusLine().getStatusCode();
+				Log.i("HttpResponse状态码",result);
+			}
 		}catch(Exception e){
-			result = "error";
+			result = e.getMessage();
 			e.printStackTrace();
+			Log.i("Http请求异常", result);
 		}
-		Log.i("result", result);
+		Log.i("Http result", result);
 		return result;
 	}
 	

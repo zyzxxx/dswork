@@ -3,14 +3,11 @@ package dswork.android.lib.controller;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import dswork.android.lib.util.webutil.HttpPostObj;
 import dswork.android.lib.util.webutil.HttpUtil;
 
-public abstract class BaseWebController<T> implements BaseController<T>
+public abstract class BaseWebController
 {
 	/**
 	 * 设置模块路径
