@@ -44,7 +44,7 @@ ${mf}${Frame.ToLower()}.callback = function(){if($${Frame.ToLower()}.result.type
 #if($colName!=$pk)
 	<tr>
 		<td class="form_title">$columnList.Comment</td>
-		<td class="form_input"><input type="text" name="$colName.ToLower()" value="${mf}{fn:escapeXml(po.$colName.ToLower())}" /></td>
+		<td class="form_input"><input type="text" name="$colName.ToLower()" maxlength="100" value="${mf}{fn:escapeXml(po.$colName.ToLower())}" /></td>
 	</tr>
 #end
 #end

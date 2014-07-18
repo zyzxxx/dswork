@@ -32,7 +32,7 @@
 #if($colName!=$pk)
 	<tr>
 		<td class="form_title">$colComment</td>
-		<td class="form_input"><input type="text" name="$colName.ToLower()" value="" /></td>
+		<td class="form_input"><input type="text" name="$colName.ToLower()" maxlength="100" value="" /></td>
 	</tr>
 #end
 #end

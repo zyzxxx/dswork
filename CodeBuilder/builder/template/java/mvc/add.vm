@@ -36,7 +36,7 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 #if($colName!=$pk)
 	<tr>
 		<td class="form_title">$columnList.Comment</td>
-		<td class="form_input"><input type="text" name="$colName.ToLower()" value="" /></td>
+		<td class="form_input"><input type="text" name="$colName.ToLower()" maxlength="100" value="" /></td>
 	</tr>
 #end
 #end
