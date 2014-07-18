@@ -6,11 +6,12 @@ import java.util.Map;
 /**
  * 分页请求信息
  */
+@SuppressWarnings("all")
 public class PageRequest implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	private Map<String, Object> filters = null;
+	private Map filters = null;
 	private int currentPage;
 	private int pageSize;
 	private String pageName = "page";
@@ -28,7 +29,7 @@ public class PageRequest implements Serializable
 	 * 构造函数
 	 * @param filters 条件
 	 */
-	public PageRequest(Map<String, Object> filters)
+	public PageRequest(Map filters)
 	{
 		this(0, 0, filters);
 	}
@@ -78,7 +79,7 @@ public class PageRequest implements Serializable
 	 * 取得泛型参数
 	 * @return Map&lt;String, Object&gt;
 	 */
-	public Map<String, Object> getFilters()
+	public Map getFilters()
 	{
 		return filters;
 	}
@@ -87,7 +88,7 @@ public class PageRequest implements Serializable
 	 * 设置泛型参数
 	 * @param filters 条件
 	 */
-	public void setFilters(Map<String, Object> filters)
+	public void setFilters(Map filters)
 	{
 		this.filters = filters;
 	}
