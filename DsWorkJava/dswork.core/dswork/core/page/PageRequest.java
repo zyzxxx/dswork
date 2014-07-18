@@ -1,6 +1,10 @@
 package dswork.core.page;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 分页请求信息
@@ -81,6 +85,43 @@ public class PageRequest implements Serializable
 	{
 		return filters;
 	}
+
+	/**
+	 * 根据泛型取得参数
+	 * @param filters
+	 * @return Object
+	 */
+	@SuppressWarnings("unchecked")
+	public <T> T getFilters(T t)
+	{
+		try
+		{
+			t = (T)filters;
+		}
+		catch(Exception ex)
+		{
+		}
+		return t;
+	}
+
+	/**
+	 * 取得Map参数
+	 * @return Map&lt;String, Object&gt;
+	 */
+	public Map<String, Object> getFiltersMap()
+	{
+		return getFilters(new HashMap<String, Object>());
+	}
+
+	/**
+	 * 取得List参数
+	 * @return List&lt;Object&gt;
+	 */
+	public List<Object> getFiltersList()
+	{
+		return getFilters(new ArrayList<Object>());
+	}
+	
 
 	/**
 	 * 设置泛型参数，用MyBatis时使用Map，用Hibernate时使用List
