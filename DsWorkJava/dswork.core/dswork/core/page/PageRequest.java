@@ -1,9 +1,6 @@
 package dswork.core.page;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -13,13 +10,11 @@ public class PageRequest implements Serializable
 {
 	private static final long serialVersionUID = 1L;
 
-	private Object filters = null;
+	private Map<String, Object> filters = null;
 	private int currentPage;
 	private int pageSize;
 	private String pageName = "page";
 	private String pageSizeName = "pageSize";
-	private final static Map<String, Object> _map = new HashMap<String, Object>();
-	private final static List<Object> _list = new ArrayList<Object>(); 
 
 	/**
 	 * 构造函数
@@ -31,9 +26,9 @@ public class PageRequest implements Serializable
 
 	/**
 	 * 构造函数
-	 * @param filters 条件，用MyBatis时使用Map，用Hibernate时使用List
+	 * @param filters 条件
 	 */
-	public PageRequest(Object filters)
+	public PageRequest(Map<String, Object> filters)
 	{
 		this(0, 0, filters);
 	}
@@ -52,9 +47,9 @@ public class PageRequest implements Serializable
 	 * 构造函数
 	 * @param currentPage 当前页码
 	 * @param pageSize 一页显示的条数
-	 * @param filters 条件，用MyBatis时使用Map，用Hibernate时使用List
+	 * @param filters 条件
 	 */
-	public PageRequest(int currentPage, int pageSize, Object filters)
+	public PageRequest(int currentPage, int pageSize, Map<String, Object> filters)
 	{
 		setCurrentPage(currentPage);
 		setPageSize(pageSize);
@@ -80,49 +75,19 @@ public class PageRequest implements Serializable
 	}
 
 	/**
-	 * 取得泛型参数，用MyBatis时使用Map，用Hibernate时使用List
-	 * @return Object
+	 * 取得泛型参数
+	 * @return Map&lt;String, Object&gt;
 	 */
-	public Object getFilters()
+	public Map<String, Object> getFilters()
 	{
 		return filters;
 	}
 
 	/**
-	 * 根据泛型取得参数，扩展getFilters()
-	 * @param filters
-	 * @return Object
+	 * 设置泛型参数
+	 * @param filters 条件
 	 */
-	@SuppressWarnings("unchecked")
-	public <T> T getFilters(T t)
-	{
-		return (T)filters;
-	}
-
-	/**
-	 * 取得Map参数，扩展getFilters()
-	 * @return Map&lt;String, Object&gt;
-	 */
-	public Map<String, Object> getFiltersMap()
-	{
-		return getFilters(_map);
-	}
-
-	/**
-	 * 取得List参数，扩展getFilters()
-	 * @return List&lt;Object&gt;
-	 */
-	public List<Object> getFiltersList()
-	{
-		return getFilters(_list);
-	}
-	
-
-	/**
-	 * 设置泛型参数，用MyBatis时使用Map，用Hibernate时使用List
-	 * @param filters
-	 */
-	public void setFilters(Object filters)
+	public void setFilters(Map<String, Object> filters)
 	{
 		this.filters = filters;
 	}
