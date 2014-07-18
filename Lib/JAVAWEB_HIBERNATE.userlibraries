@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <eclipse-userlibraries version="2">
-    <library name="JAVAWEB_HIBERNATE" systemlibrary="true">
+    <library name="JAVAWEB_HIBERNATE" systemlibrary="false">
         <archive path="/Lib/common/aopalliance.jar"/>
         <archive path="/Lib/common/cglib-nodep-2.2.jar"/>
         <archive path="/Lib/common/jimi.jar"/>
