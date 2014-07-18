@@ -18,6 +18,8 @@ public class PageRequest implements Serializable
 	private int pageSize;
 	private String pageName = "page";
 	private String pageSizeName = "pageSize";
+	private final static Map<String, Object> _map = new HashMap<String, Object>();
+	private final static List<Object> _list = new ArrayList<Object>(); 
 
 	/**
 	 * 构造函数
@@ -87,39 +89,32 @@ public class PageRequest implements Serializable
 	}
 
 	/**
-	 * 根据泛型取得参数
+	 * 根据泛型取得参数，扩展getFilters()
 	 * @param filters
 	 * @return Object
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> T getFilters(T t)
 	{
-		try
-		{
-			t = (T)filters;
-		}
-		catch(Exception ex)
-		{
-		}
-		return t;
+		return (T)filters;
 	}
 
 	/**
-	 * 取得Map参数
+	 * 取得Map参数，扩展getFilters()
 	 * @return Map&lt;String, Object&gt;
 	 */
 	public Map<String, Object> getFiltersMap()
 	{
-		return getFilters(new HashMap<String, Object>());
+		return getFilters(_map);
 	}
 
 	/**
-	 * 取得List参数
+	 * 取得List参数，扩展getFilters()
 	 * @return List&lt;Object&gt;
 	 */
 	public List<Object> getFiltersList()
 	{
-		return getFilters(new ArrayList<Object>());
+		return getFilters(_list);
 	}
 	
 
