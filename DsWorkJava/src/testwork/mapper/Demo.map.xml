@@ -18,7 +18,6 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="@Ognl@isNotEmpty(id)"> and ID like '%'||#{id}||'%' </if>
 			<if test="@Ognl@isNotEmpty(title)"> and TITLE like '%'||#{title}||'%' </if>
 			<if test="@Ognl@isNotEmpty(content)"> and CONTENT like '%'||#{content}||'%' </if>
 			<if test="@Ognl@isNotEmpty(foundtime)"> and FOUNDTIME like '%'||#{foundtime}||'%' </if>
