@@ -214,3 +214,13 @@ $dswork.upload.prototype = {
 	});
 	}catch(e){alert("upload init error\n" + e.name + "\n" + e.message);return null;}}
 };
+$(function(){
+	$("input").each(function(){
+		var o = $(this);
+		if(o.hasClass("WebDate") && o.attr("format")){
+			o.bind("click", function(event){
+				$dswork.showDate(this, o.attr("format"));
+			});
+		}
+	});
+});
