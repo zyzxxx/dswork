@@ -221,6 +221,7 @@ $(function(){
 			o.bind("click", function(event){
 				$dswork.showDate(this, o.attr("format"));
 			});
+			o.prop("readonly", true);
 		}
 	});
 });
