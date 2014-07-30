@@ -169,10 +169,10 @@ $dswork.upload = function(o){
 	this.url = o.url || $dswork.uploadURL;
 };
 $dswork.upload.prototype = {
-	init:function(op){try{//{id:?,vid:*?,ext};ext :"file|image|***,***"
+	init:function(op){try{//{id:?,vid:*?,uploadone:,ext};ext :"file|image|***,***",uploadone:"true|false"
 	if(typeof(op) != "object"){op = {};}
 	this.count++;
-	var defaults = {vid:"",sessionKey:this.sessionKey,fileKey:this.fileKey+this.count,show:this.show,limit:this.limit,ext:this.ext};
+	var defaults = {uploadone:"true",vid:"",sessionKey:this.sessionKey,fileKey:this.fileKey+this.count,show:this.show,limit:this.limit,ext:this.ext};
 	var p = $.extend(defaults, op);
 	p.sessionKey = parseInt(p.sessionKey);
 	p.fileKey = parseInt(p.fileKey);
@@ -188,7 +188,7 @@ $dswork.upload.prototype = {
 	if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
 	var url = this.url;
 	return $jskey.upload.init({
-	url:url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext,
+	url:url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false"),
 	"button_placeholder_id":p.bid,
 	file_types:p.types,
 	file_size_limit:p.limit,
