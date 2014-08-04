@@ -38,7 +38,7 @@ public class DsCommonSystemController extends BaseController
 			}
 			else
 			{
-				if (!service.isExistByAlias(po.getAlias()))
+				if (!service.isExistsByAlias(po.getAlias()))
 				{
 					po.setStatus(0);// 默认禁用系统
 					service.save(po);

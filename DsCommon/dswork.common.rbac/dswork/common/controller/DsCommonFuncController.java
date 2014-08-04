@@ -74,7 +74,7 @@ public class DsCommonFuncController extends BaseController
 			if (po.getAlias().length() != 0)
 			{
 				//判断是否在该系统下唯一
-				if (service.isExistByAlias(po.getAlias(), po.getSystemid()))
+				if (service.isExistsByAlias(po.getAlias(), po.getSystemid()))
 				{
 					print("0:操作失败，标识已存在");
 					return;
@@ -221,7 +221,7 @@ public class DsCommonFuncController extends BaseController
 				if (!po.getAlias().equals(_po.getAlias()))//标识被修改
 				{
 					//判断是否在该系统下唯一
-					if (service.isExistByAlias(po.getAlias(), po.getSystemid()))
+					if (service.isExistsByAlias(po.getAlias(), po.getSystemid()))
 					{
 						print("0:操作失败，标识已存在");
 						return;

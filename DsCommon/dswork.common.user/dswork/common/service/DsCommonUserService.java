@@ -74,9 +74,9 @@ public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Lon
 	 * @param account 账号
 	 * @return boolean 存在true，不存在false
 	 */
-	public boolean isExistByAccount(String account)
+	public boolean isExistsByAccount(String account)
 	{
-		return dao.isExistByAccount(account);
+		return dao.isExistsByAccount(account);
 	}
 
 	/**

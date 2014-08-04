@@ -81,7 +81,7 @@ public class DsCommonUserDao extends BaseDao<DsCommonUser, Long>
 	 * @param account
 	 * @return 存在返回true，不存在返回false
 	 */
-	public boolean isExistByAccount(String account)
+	public boolean isExistsByAccount(String account)
 	{
 		DsCommonUser user = getByAccount(account);
 		if(user != null && user.getId().longValue() != 0)

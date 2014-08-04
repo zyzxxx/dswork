@@ -40,7 +40,7 @@ public class DsCommonSystemDao extends BaseDao<DsCommonSystem, Long>
 	 * @param alias 标识
 	 * @return boolean 存在true，不存在false
 	 */
-	public boolean isExistByAlias(String alias)
+	public boolean isExistsByAlias(String alias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("alias", alias);

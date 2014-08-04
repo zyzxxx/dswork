@@ -110,9 +110,9 @@ public class DsCommonFuncService
 	 * @param systemid 所属系统主键
 	 * @return boolean 存在true，不存在false
 	 */
-	public boolean isExistByAlias(String alias, long systemid)
+	public boolean isExistsByAlias(String alias, long systemid)
 	{
-		return funcDao.isExistByAlias(alias, systemid);
+		return funcDao.isExistsByAlias(alias, systemid);
 	}
 
 	/**

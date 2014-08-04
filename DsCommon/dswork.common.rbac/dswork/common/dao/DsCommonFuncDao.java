@@ -63,7 +63,7 @@ public class DsCommonFuncDao extends BaseDao<DsCommonFunc, Long>
 	 * @param systemid 所属系统主键
 	 * @return boolean 存在true，不存在false
 	 */
-	public boolean isExistByAlias(String alias, long systemid)
+	public boolean isExistsByAlias(String alias, long systemid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("alias", alias);

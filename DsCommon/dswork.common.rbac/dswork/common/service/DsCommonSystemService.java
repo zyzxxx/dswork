@@ -57,9 +57,9 @@ public class DsCommonSystemService extends BaseService<DsCommonSystem, java.lang
 	 * @param alias 标识
 	 * @return boolean 存在true，不存在false
 	 */
-	public boolean isExistByAlias(String alias)
+	public boolean isExistsByAlias(String alias)
 	{
-		return systemDao.isExistByAlias(alias);
+		return systemDao.isExistsByAlias(alias);
 	}
 
 	/**

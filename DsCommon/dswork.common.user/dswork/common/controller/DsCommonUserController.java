@@ -47,7 +47,7 @@ public class DsCommonUserController extends BaseController
 			}
 			else
 			{
-				if(!service.isExistByAccount(po.getAccount()))
+				if(!service.isExistsByAccount(po.getAccount()))
 				{
 					po.setCreatetime(TimeUtil.getCurrentTime());
 					po.setStatus(0);//默认禁用用户
