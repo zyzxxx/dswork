@@ -45,7 +45,7 @@ if(fjFile > 0)
 	{
 		for(File f : filelist)
 		{
-			//JskeyUpload.GetToByte(f.getPath());//转换成byte[]
+			//JskeyUpload.getToByte(f.getPath());//转换成byte[]
 			try
 			{
 				if(f != null)
