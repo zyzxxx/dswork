@@ -1,7 +1,7 @@
 package dswork.android.ui;
 
 import java.util.HashMap;
-import dswork.android.R;
+import dswork.android.lib.R;
 import dswork.android.controller.BaseController;
 import dswork.android.ui.MultiCheck.MultiCheckListView;
 import android.app.Activity;

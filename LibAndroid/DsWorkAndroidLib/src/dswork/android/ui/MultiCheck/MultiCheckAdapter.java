@@ -72,7 +72,8 @@ public class MultiCheckAdapter extends BaseAdapter
 		this.itemIdRes = itemIdRes;
 		this.itemChkRes = itemChkRes;
 		this.ctrlMenuRes = ctrlMenuRes;
-		this.ctrlMenuItemsRes = (ctrlMenuItemsRes == 0 ? R.array.ctrl_menu_items : ctrlMenuItemsRes);
+		//this.ctrlMenuItemsRes = (ctrlMenuItemsRes == 0 ? R.array.ctrl_menu_items : ctrlMenuItemsRes);
+		this.ctrlMenuItemsRes = ctrlMenuItemsRes;
 		this.inflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.isMultiChoose = false;
 		this.from = from;
@@ -227,7 +228,8 @@ public class MultiCheckAdapter extends BaseAdapter
 //			Log.i("itemMenuClick", String.valueOf(((TextView)v.getTag()).getText()));
 //			Toast.makeText(context, ((TextView)v.getTag()).getText(), Toast.LENGTH_SHORT).show();
 			new AlertDialog.Builder(ctx)
-			.setTitle(R.string.ctrl_menu)
+			.setTitle("")
+			//.setTitle(R.string.ctrl_menu)
 			.setItems(ctrlMenuItemsRes, new DialogInterface.OnClickListener()
 			{
 				@Override

@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import dswork.android.R;
+import dswork.android.lib.R;
 
 @SuppressLint("ResourceAsColor")
 public class OleTab extends LinearLayout
