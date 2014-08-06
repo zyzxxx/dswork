@@ -17,7 +17,7 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-import dswork.android.R;
+import dswork.android.lib.R;
 import dswork.android.controller.BaseController;
 import dswork.android.db.BaseModel;
 import dswork.android.ui.MultiCheck.MultiCheckListView.ViewCache;
