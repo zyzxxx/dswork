@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import dswork.android.R;
+import dswork.android.lib.R;
 
 public class WorkUtil
 {
