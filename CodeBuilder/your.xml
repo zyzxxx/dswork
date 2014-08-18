@@ -58,7 +58,7 @@
 	</params>
 
 	<connect name="OracleModel.dll" type="Builder.OracleModel" url="Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=127.0.0.1)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=ORCL)));User Id=demo;Password=demo" />
-	<builder developer="无名" project="E:/Workspaces/workspaceTemp/java/DemoJava" templatename="base" src="src" web="web">
+	<builder developer="无名氏" project="E:/Workspaces/workspaceTemp/java/DemoJava" templatename="base" src="src" web="web">
 		<code frame="dswork" namespace="com.testwork" module="/demo" webmodule="/manage/demo" table="DEMO" model="Demo" comment="mybatis" />
 		<code frame="dswork" namespace="/com.testwork" module="demo1/vv" webmodule="/manage/demo" table="DEMO" model="Demo1" comment="hibernate" />
 	</builder>
