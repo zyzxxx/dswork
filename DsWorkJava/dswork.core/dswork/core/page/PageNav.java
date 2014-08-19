@@ -31,7 +31,7 @@ public class PageNav<T>
 		try
 		{
 			StringBuilder sb = new StringBuilder("<script language=\"javascript\">if(typeof($jskey)!=\"object\"){$jskey={};}$jskey.page={go:function(formID,page){page=parseInt(page)||1;page=(page<1)?1:page;document.getElementById(formID+\"_page\").value=page;document.getElementById(formID).submit();}};</script>\n");
-			sb.append("<form id=\"").append(formId).append("\" method=\"post\" style=\"display:none;\" action=\"").append(request.getRequestURL().toString()).append("\">");
+			sb.append("<form id=\"").append(formId).append("\" method=\"post\" style=\"display:none;\" action=\"").append(request.getRequestURI().toString()).append("\">");
 			sb.append("<input id=\"").append(formId).append("_page\" name=\"").append(pageName).append("\" type=\"hidden\" value=\"1\"/>\n");
 			sb.append("<input id=\"").append(formId).append("_pageSize\" name=\"").append(page.getPageSizeName()).append("\" type=\"hidden\" value=\"").append(page.getPageSize()).append("\"/>\n");
 
