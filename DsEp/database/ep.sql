@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014-8-20 22:55:23                           */
+/* Created on:     2014-8-21 14:46:08                           */
 /*==============================================================*/
 
 
@@ -29,6 +29,7 @@ create table DS_CMS_CATEGORY
    IMG                  varchar(300) comment '图片',
    VIEWSITE             varchar(300) comment '网站模板',
    VIEWAPP              varchar(300) comment 'APP模板',
+   SEQ                  varchar(300) comment '排序',
    primary key (ID)
 );
 
@@ -44,7 +45,7 @@ create table DS_CMS_PAGE
    CATEGORYID           bigint comment '栏目ID',
    TITLE                VARCHAR(300) comment '标题',
    KEYWORDS             VARCHAR(300) comment '关键词',
-   SUMMARY              VARCHAR(300) comment '搞要',
+   SUMMARY              VARCHAR(300) comment '摘要',
    CONTENT              text comment '内容',
    CREATETIME           VARCHAR(19) comment '创建时间',
    IMG                  VARCHAR(300) comment '图片',
