@@ -42,7 +42,7 @@ $dswork.showNavigation = function(title){try{
 
 //form
 $dswork.callback = null;
-$dswork.validCallBack = null;
+$dswork.validCallBack = function(){return true;};
 $dswork.result = {type:"", msg:""};
 $dswork.checkResult = function(responseText){
 	$dswork.result = {type:"", msg:""};
@@ -102,7 +102,10 @@ $dswork.doAjaxShow = function(data, callback){
 };
 $dswork.doAjaxOption = {beforeSubmit:$dswork.showRequest,success:$dswork.showResponse};
 _options = $dswork.doAjaxOption;
-
+$dswork.beforeSubmit = function(){
+	if(!$dswork.validCallBack()){return false;}
+	return $jskey.validator.Validate("dataForm", $dswork.validValue || 3);
+};
 $dswork.showTree = function(p){if(typeof(p)!="object"){p={};}
 	var ini = {id:"showTree"
 		,title:"请选择"
