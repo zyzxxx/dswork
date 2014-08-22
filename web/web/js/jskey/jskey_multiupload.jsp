@@ -18,7 +18,7 @@ public synchronized static long genId() throws Exception
 String ext = "";
 try
 {
-	//以下三个参数均由get方式传递
+	//参数均由get方式传递
 	ext = request.getParameter("ext");
 	ext = JskeyUpload.getUploadExt(ext);
 	String s_key = request.getParameter("sessionkey");//经由get方式传递过来的唯一标识
