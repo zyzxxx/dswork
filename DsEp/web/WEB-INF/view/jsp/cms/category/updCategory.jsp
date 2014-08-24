@@ -8,7 +8,7 @@
 <%@include file="/commons/include/updAjax.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getDsCmsCategory.htm?page=${page}";
+	location.href = "getCategory.htm";
 }};
 </script>
 </head>
@@ -18,12 +18,12 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="title">修改</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getDsCmsCategory.htm?page=${page}">返回</a>
+			<a class="back" href="getCategory.htm">返回</a>
 		</td>
 	</tr>
 </table>
 <div class="line"></div>
-<form id="dataForm" method="post" action="updDsCmsCategory2.htm">
+<form id="dataForm" method="post" action="updCategory2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">父ID</td>

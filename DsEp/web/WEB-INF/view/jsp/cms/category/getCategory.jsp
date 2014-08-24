@@ -5,14 +5,14 @@
 <html>
 <head>
 <title></title>
-<%@include file="/commons/include/get.jsp" %>
+<%@include file="/commons/include/page.jsp" %>
 <script type="text/javascript">
 $(function(){
-	$dswork.page.menu("delDsCmsCategory.htm", "updDsCmsCategory1.htm", "getDsCmsCategoryById.htm", "${pageModel.currentPage}");
+	$dswork.page.menu("delCategory.htm", "updCategory1.htm", "getCategoryById.htm", "");
 });
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getDsCmsCategory.htm?page=${pageModel.currentPage}";
+	location.href = "getCategory.htm";
 }};
 </script>
 </head> 
@@ -21,13 +21,13 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr>
 		<td class="title">栏目列表</td>
 		<td class="menuTool">
-			<a class="insert" href="addDsCmsCategory1.htm?page=${pageModel.currentPage}">添加</a>
+			<a class="insert" href="addCategory1.htm?page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
 </table>
 <div class="line"></div>
-<form id="queryForm" method="post" action="getDsCmsCategory.htm">
+<form id="queryForm" method="post" action="getCategory.htm">
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
@@ -47,7 +47,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 </table>
 </form>
 <div class="line"></div>
-<form id="listForm" method="post" action="delDsCmsCategory.htm">
+<form id="listForm" method="post" action="delCategory.htm">
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
@@ -80,10 +80,6 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 </c:forEach>
 </table>
-<input name="page" type="hidden" value="${pageModel.currentPage}" />
 </form>
-<table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
-	<tr><td>${pageNav.page}</td></tr>
-</table>
 </body>
 </html>

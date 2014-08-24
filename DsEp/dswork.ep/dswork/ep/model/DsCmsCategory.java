@@ -2,6 +2,10 @@
  * 栏目Model
  */
 package dswork.ep.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class DsCmsCategory
 {
 	//主键
@@ -26,6 +30,8 @@ public class DsCmsCategory
 	private String viewapp = "";
 	//排序
 	private Integer seq = 0;
+	//子栏目
+	private List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 
 	public Long getId()
 	{
@@ -44,7 +50,7 @@ public class DsCmsCategory
 
 	public void setPid(Long pid)
 	{
-		this.pid = pid;
+		this.pid = (pid == null || pid <= 0) ? 0 : pid;
 	}
 
 	public String getQybm()
@@ -135,5 +141,20 @@ public class DsCmsCategory
 	public void setSeq(Integer seq)
 	{
 		this.seq = seq;
+	}
+
+	public List<DsCmsCategory> getList()
+	{
+		return list;
+	}
+
+	public void clearList()
+	{
+		this.list.clear();
+	}
+	
+	public void add(DsCmsCategory item)
+	{
+		this.list.add(item);
 	}
 }

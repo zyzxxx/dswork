@@ -51,7 +51,7 @@
 
 <sql id="dynamicWhere">
 	<where>
-		QYBM=#{qybm}
+		<if test="@Ognl@isNotEmpty(qybm)"> QYBM=#{qybm} </if>
 		<if test="@Ognl@isNotEmpty(pid)">
 			<if test="0 &lt; pid"> and PID=#{pid} </if>
 			<if test="0 &gt;= pid"> and PID is null </if>
