@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>功能模块化系统，仅使用临时菜单，详细框架页面不在此包含</title>
+<style type="text/css">html, body {height:100%;width:100%;padding:0;margin:0;}a{color:#000000;line-height:25px;}</style>
 <script type="text/javascript">
 var treedata = [
 {id:100, name:'扩展功能', img:"", imgOpen:"", url:"", items:[
@@ -22,18 +23,22 @@ var treedata = [
 </script>
 </head>
 <body>
-
-
-<br />
-</body>
+<div style="height:100%;width:100%;">
+<div style="float:left;height:100%;">
 <script type="text/javascript">
 for(var i = 0; i < treedata.length; i++){
 	var item = treedata[i];
 	document.write("<br />" + item.name);
 	for(var j = 0; j < item.items.length; j++){
 		var m = item.items[j];
-		document.write("<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='_blank' href='<%=request.getContextPath()%>" + m.url + "'>" + m.name + "</a>");
+		document.write("<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='main' href='<%=request.getContextPath()%>" + m.url + "'>" + m.name + "</a>");
 	}
 }
 </script>
+</div>
+<div style="float:right;width:800px;height:100%;">
+	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="no" frameborder="0" src="#"></iframe>
+</div>
+</div>
+</body>
 </html>
