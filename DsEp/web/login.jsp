@@ -7,7 +7,6 @@ auth.setAccount("admin");
 auth.setName("管理员");
 auth.setQybm("100000");
 auth.setStatus(1);
-auth.setSex(1);
 auth.setSsdw("股份有限公司");
 auth.setSsbm("技术部");
 request.getSession().setAttribute(common.auth.AuthLogin.SessionName_LoginUser, auth);
