@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.ep.model.DsCmsPage">
+
+<insert id="insert" parameterType="dswork.ep.model.DsCmsPage">
+	<selectKey resultType="Long" order="AFTER" keyProperty="id">
+		select LAST_INSERT_ID()
+	</selectKey>
+	insert into DS_CMS_PAGE
+	(ID, QYBM, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, CREATETIME, IMG, IMGTOP, PAGETOP, VIEWSITE, VIEWAPP)
+	values
+	(null, #{qybm}, #{categoryid}, #{title}, #{keywords}, #{summary}, #{content}, #{createtime}, #{img}, #{imgtop}, #{pagetop}, #{viewsite}, #{viewapp})
+</insert>
+
+<delete id="delete">
+	delete from DS_CMS_PAGE where ID=#{id}
+</delete>
+
+<update id="update" parameterType="dswork.ep.model.DsCmsPage">
+	update DS_CMS_PAGE set
+		TITLE=#{title},
+		KEYWORDS=#{keywords},
+		SUMMARY=#{summary},
+		CONTENT=#{content},
+		CREATETIME=#{createtime},
+		IMG=#{img},
+		IMGTOP=#{imgtop},
+		PAGETOP=#{pagetop},
+		VIEWSITE=#{viewsite},
+		VIEWAPP=#{viewapp}
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="dswork.ep.model.DsCmsPage">
+	<id property="id" column="ID" />
+	<result property="qybm" column="QYBM" />
+	<result property="categoryid" column="CATEGORYID" />
+	<result property="title" column="TITLE" />
+	<result property="keywords" column="KEYWORDS" />
+	<result property="summary" column="SUMMARY" />
+	<result property="content" column="CONTENT" />
+	<result property="createtime" column="CREATETIME" />
+	<result property="img" column="IMG" />
+	<result property="imgtop" column="IMGTOP" />
+	<result property="pagetop" column="PAGETOP" />
+	<result property="viewsite" column="VIEWSITE" />
+	<result property="viewapp" column="VIEWAPP" />
+</resultMap>
+
+<sql id="columns">
+	ID, QYBM, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, CREATETIME, IMG, IMGTOP, PAGETOP, VIEWSITE, VIEWAPP
+</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		QYBM=#{qybm}
+		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
+		<if test="@Ognl@isNotEmpty(title)"> and TITLE like concat('%',#{title},'%') </if>
+		<if test="@Ognl@isNotEmpty(keywords)"> and KEYWORDS like concat('%',#{keywords},'%') </if>
+		<if test="@Ognl@isNotEmpty(summary)"> and SUMMARY like concat('%',#{summary},'%') </if>
+		<if test="@Ognl@isNotEmpty(content)"> and CONTENT like concat('%',#{content},'%') </if>
+		<if test="@Ognl@isNotEmpty(createtime)"> and CREATETIME like concat('%',#{createtime},'%') </if>
+		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=#{imgtop} </if>
+		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=#{pagetop} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from DS_CMS_PAGE where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="columns" /> from DS_CMS_PAGE
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from DS_CMS_PAGE
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>

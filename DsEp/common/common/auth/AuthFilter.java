@@ -32,32 +32,14 @@ public class AuthFilter implements Filter
 		HttpServletResponse res = (HttpServletResponse) response;
 		HttpServletRequestWrapper requestWrapper = new HttpServletRequestWrapper(req);
 		HttpServletResponseWrapper responseWraper = new HttpServletResponseWrapper(res);
-		// 取得当前路径
-		String currentUrl = req.getRequestURI().replaceAll(req.getContextPath(), "");
+		//String currentUrl = req.getRequestURI().replaceAll(req.getContextPath(), "");// 取得当前路径
 		try
 		{
 			Auth model = AuthLogin.getLoginUser(req, res);
 			// 没有登录
 			if(model == null || model.getAccount() == null)
 			{
-				res.sendRedirect(req.getContextPath() + "/login.html");
-				return;
-			}
-			// 超级管理员
-			if(!model.isSuperAdmin() && currentUrl.startsWith("/manage/info"))
-			{
-				res.sendRedirect(req.getContextPath() + "/login.html");
-				return;
-			}
-			// 管理员
-			if(!model.isAdmin() && currentUrl.startsWith("/manage/user"))
-			{
-				res.sendRedirect(req.getContextPath() + "/login.html");
-				return;
-			}
-			if(!model.isUser() && currentUrl.startsWith("/manage/msg"))
-			{
-				res.sendRedirect(req.getContextPath() + "/login.html");
+				res.sendRedirect(req.getContextPath() + "/login.jsp");
 				return;
 			}
 			chain.doFilter(requestWrapper, responseWraper);

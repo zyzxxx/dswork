@@ -94,16 +94,11 @@ public class Auth
 
 	public boolean isUser()
 	{
-		return getStatus().intValue() == 0;
+		return getStatus().intValue() != 1;
 	}
 
 	public boolean isAdmin()
 	{
 		return getStatus().intValue() == 1;
-	}
-
-	public boolean isSuperAdmin()
-	{
-		return getStatus().intValue() == -1;
 	}
 }
