@@ -8,29 +8,33 @@ import java.util.List;
 
 public class DsCmsCategory
 {
-	//主键
+	// 主键
 	private Long id = 0L;
-	//父ID
+	// 父ID
 	private Long pid = 0L;
-	//企业编码
+	// 企业编码
 	private String qybm = "";
-	//栏目名称
+	// 栏目名称
 	private String name = "";
-	//目录名称
+	// 目录名称
 	private String folder = "";
-	//状态(0列表，1单页，2外链)
-	private Integer status = 0;//├─└─
-	//链接
+	// 状态(0列表，1单页，2外链)
+	private Integer status = 0;
+	// 链接
 	private String url = "";
-	//图片
+	// 图片
 	private String img = "";
-	//网站模板
+	// 网站模板
 	private String viewsite = "";
-	//APP模板
+	// APP模板
 	private String viewapp = "";
-	//排序
+	// 排序
 	private Integer seq = 0;
-	//子栏目
+	// 级别
+	private int level = 0;
+	// 级别
+	private String label = "";
+	// 子栏目
 	private List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 
 	public Long getId()
@@ -143,6 +147,26 @@ public class DsCmsCategory
 		this.seq = seq;
 	}
 
+	public int getLevel()
+	{
+		return level;
+	}
+
+	public void setLevel(int level)
+	{
+		this.level = level;
+	}
+
+	public String getLabel()
+	{
+		return label;
+	}
+
+	public void setLabel(String label)
+	{
+		this.label = label;
+	}
+
 	public List<DsCmsCategory> getList()
 	{
 		return list;
@@ -152,7 +176,7 @@ public class DsCmsCategory
 	{
 		this.list.clear();
 	}
-	
+
 	public void add(DsCmsCategory item)
 	{
 		this.list.add(item);

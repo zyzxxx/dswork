@@ -10,5 +10,5 @@ auth.setStatus(1);
 auth.setSsdw("股份有限公司");
 auth.setSsbm("技术部");
 request.getSession().setAttribute(common.auth.AuthLogin.SessionName_LoginUser, auth);
-response.sendRedirect(path + "/manage/frame/index.jsp");
+response.sendRedirect(path + "/index.jsp");
 %>

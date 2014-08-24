@@ -12,7 +12,7 @@
 	insert into DS_CMS_CATEGORY
 	(ID, PID, QYBM, NAME, FOLDER, STATUS, URL, IMG, VIEWSITE, VIEWAPP, SEQ)
 	values
-	(null, #{pid}, #{qybm}, #{name}, #{folder}, #{status}, #{url}, #{img}, #{viewsite}, #{viewapp}, #{seq})
+	(null, <if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{qybm}, #{name}, #{folder}, #{status}, #{url}, #{img}, #{viewsite}, #{viewapp}, #{seq})
 </insert>
 
 <delete id="delete">

@@ -74,10 +74,10 @@ public class DsCmsCategoryController extends BaseController
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
 		put("page", req.getInt("page", 1));
-		return "/cms/category/updDsCmsCategory.jsp";
+		return "/cms/category/updCategory.jsp";
 	}
 	
-	@RequestMapping("/updDsCmsCategory2")
+	@RequestMapping("/updCategory2")
 	public void updCategory2(DsCmsCategory po)
 	{
 		try
@@ -96,34 +96,7 @@ public class DsCmsCategoryController extends BaseController
 	@RequestMapping("/getCategory")
 	public String getCategory()
 	{
-		PageRequest rq = getPageRequest();
-		rq.getFilters().put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
-		List<DsCmsCategory> clist = service.queryList(rq);
-		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
-		List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
-		for(DsCmsCategory m : clist)
-		{
-			map.put(m.getId(), m);
-			if(m.getPid() == 0)
-			{
-				list.add(m);// 只把根节点放入list
-			}
-		}
-		for(DsCmsCategory m : clist)
-		{
-			if(m.getPid() > 0)
-			{
-				try
-				{
-					map.get(m.getPid()).add(m);//依次放入其余节点对应的父节点
-				}
-				catch(Exception ex)
-				{
-					ex.printStackTrace();// 找不到对应的父栏目
-				}
-			}
-		}
-		put("list", list);
+		put("list", queryCategory());
 		return "/cms/category/getCategory.jsp";
 	}
 
@@ -134,5 +107,68 @@ public class DsCmsCategoryController extends BaseController
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
 		return "/cms/category/getCategoryById.jsp";
+	}
+	
+	private List<DsCmsCategory> queryCategory()
+	{
+		PageRequest rq = getPageRequest();
+		rq.getFilters().put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+		List<DsCmsCategory> clist = service.queryList(rq);
+		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
+		for(DsCmsCategory m : clist)
+		{
+			map.put(m.getId(), m);
+		}
+		List<DsCmsCategory> tlist = new ArrayList<DsCmsCategory>();
+		for(DsCmsCategory m : clist)
+		{
+			if(m.getPid() > 0)
+			{
+				try
+				{
+					map.get(m.getPid()).add(m);//放入其余节点对应的父节点
+				}
+				catch(Exception ex)
+				{
+					ex.printStackTrace();// 找不到对应的父栏目
+				}
+			}
+			else if(m.getPid() == 0)
+			{
+				tlist.add(m);// 只把根节点放入list
+			}
+		}
+		List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();//按顺序放入
+		for(int i = 0; i < tlist.size(); i++)
+		{
+			DsCmsCategory m = tlist.get(i);
+			m.setLevel(0);
+			m.setLabel("");
+			list.add(m);
+			categorySettingList(m, list);
+		}
+		return list;
+	}
+	private void categorySettingList(DsCmsCategory m, List<DsCmsCategory> list)
+	{
+		int size = m.getList().size();
+		for(int i = 0; i < size; i++)
+		{
+			DsCmsCategory n = m.getList().get(i);
+			n.setLevel(m.getLevel() + 1);
+			n.setLabel(m.getLabel());
+			if(m.getLabel().endsWith("├"))
+			{
+				n.setLabel(m.getLabel().substring(0, m.getLabel().length() - 2) + "│");
+			}
+			else if(m.getLabel().endsWith("└"))
+			{
+				n.setLabel(m.getLabel().substring(0, m.getLabel().length() - 2) + "　");
+			}
+			n.setLabel(n.getLabel() + "&nbsp;&nbsp;");
+			n.setLabel(n.getLabel() + (i==size-1?"└":"├"));
+			list.add(n);
+			categorySettingList(n, list);
+		}
 	}
 }
