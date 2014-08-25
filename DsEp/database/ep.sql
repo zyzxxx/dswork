@@ -19,44 +19,44 @@ drop table if exists DS_EP_USER;
 /*==============================================================*/
 create table DS_CMS_CATEGORY
 (
-   ID                   bigint not null auto_increment comment 'Ö÷¼ü',
-   PID                  bigint comment '¸¸ID',
-   QYBM                 varchar(300) comment 'ÆóÒµ±àÂë',
-   NAME                 varchar(300) comment 'À¸Ä¿Ãû³Æ',
-   FOLDER               varchar(300) comment 'Ä¿Â¼Ãû³Æ',
-   STATUS               int comment '×´Ì¬(0ÁĞ±í£¬1µ¥Ò³£¬2ÍâÁ´)',
-   URL                  varchar(300) comment 'Á´½Ó',
-   IMG                  varchar(300) comment 'Í¼Æ¬',
-   VIEWSITE             varchar(300) comment 'ÍøÕ¾Ä£°å',
-   VIEWAPP              varchar(300) comment 'APPÄ£°å',
-   SEQ                  varchar(300) comment 'ÅÅĞò',
+   ID                   bigint not null auto_increment comment 'ä¸»é”®',
+   PID                  bigint comment 'çˆ¶ID',
+   QYBM                 varchar(300) comment 'ä¼ä¸šç¼–ç ',
+   NAME                 varchar(300) comment 'æ ç›®åç§°',
+   FOLDER               varchar(300) comment 'ç›®å½•åç§°',
+   STATUS               int comment 'çŠ¶æ€(0åˆ—è¡¨ï¼Œ1å•é¡µï¼Œ2å¤–é“¾)',
+   URL                  varchar(300) comment 'é“¾æ¥',
+   IMG                  varchar(300) comment 'å›¾ç‰‡',
+   VIEWSITE             varchar(300) comment 'ç½‘ç«™æ¨¡æ¿',
+   VIEWAPP              varchar(300) comment 'APPæ¨¡æ¿',
+   SEQ                  varchar(300) comment 'æ’åº',
    primary key (ID)
 );
 
-alter table DS_CMS_CATEGORY comment 'À¸Ä¿';
+alter table DS_CMS_CATEGORY comment 'æ ç›®';
 
 /*==============================================================*/
 /* Table: DS_CMS_PAGE                                           */
 /*==============================================================*/
 create table DS_CMS_PAGE
 (
-   ID                   bigint not null auto_increment comment 'Ö÷¼ü',
-   QYBM                 varchar(300) comment 'ÆóÒµ±àÂë',
-   CATEGORYID           bigint comment 'À¸Ä¿ID',
-   TITLE                VARCHAR(300) comment '±êÌâ',
-   KEYWORDS             VARCHAR(300) comment '¹Ø¼ü´Ê',
-   SUMMARY              VARCHAR(300) comment 'ÕªÒª',
-   CONTENT              text comment 'ÄÚÈİ',
-   CREATETIME           VARCHAR(19) comment '´´½¨Ê±¼ä',
-   IMG                  VARCHAR(300) comment 'Í¼Æ¬',
-   IMGTOP               int comment '½¹µãÍ¼(0·ñ£¬1ÊÇ)',
-   PAGETOP              int comment 'Ê×Ò³ÍÆ¼ö(0·ñ£¬1ÊÇ)',
-   VIEWSITE             varchar(300) comment 'ÍøÕ¾Ä£°å',
-   VIEWAPP              varchar(300) comment 'APPÄ£°å',
+   ID                   bigint not null auto_increment comment 'ä¸»é”®',
+   QYBM                 varchar(300) comment 'ä¼ä¸šç¼–ç ',
+   CATEGORYID           bigint comment 'æ ç›®ID',
+   TITLE                VARCHAR(300) comment 'æ ‡é¢˜',
+   KEYWORDS             VARCHAR(300) comment 'å…³é”®è¯',
+   SUMMARY              VARCHAR(300) comment 'æ‘˜è¦',
+   CONTENT              text comment 'å†…å®¹',
+   CREATETIME           VARCHAR(19) comment 'åˆ›å»ºæ—¶é—´',
+   IMG                  VARCHAR(300) comment 'å›¾ç‰‡',
+   IMGTOP               int comment 'ç„¦ç‚¹å›¾(0å¦ï¼Œ1æ˜¯)',
+   PAGETOP              int comment 'é¦–é¡µæ¨è(0å¦ï¼Œ1æ˜¯)',
+   VIEWSITE             varchar(300) comment 'ç½‘ç«™æ¨¡æ¿',
+   VIEWAPP              varchar(300) comment 'APPæ¨¡æ¿',
    primary key (ID)
 );
 
-alter table DS_CMS_PAGE comment 'ÍøÒ³ÎÄÕÂ';
+alter table DS_CMS_PAGE comment 'ç½‘é¡µæ–‡ç« ';
 
 /*==============================================================*/
 /* Table: DS_EP_ENTERPRISE                                      */
@@ -64,15 +64,15 @@ alter table DS_CMS_PAGE comment 'ÍøÒ³ÎÄÕÂ';
 create table DS_EP_ENTERPRISE
 (
    ID                   bigint not null comment 'ID',
-   NAME                 varchar(300) comment 'ÆóÒµÃû³Æ',
-   SSXQ                 varchar(100) comment 'ËùÊôÏ½Çø',
-   QYBM                 varchar(64) comment 'ÆóÒµ±àÂë',
-   STATUS               int comment 'ÆóÒµ×´Ì¬',
-   TYPEID               bigint comment 'ÀàĞÍID',
+   NAME                 varchar(300) comment 'ä¼ä¸šåç§°',
+   SSXQ                 varchar(100) comment 'æ‰€å±è¾–åŒº',
+   QYBM                 varchar(64) comment 'ä¼ä¸šç¼–ç ',
+   STATUS               int comment 'ä¼ä¸šçŠ¶æ€',
+   TYPEID               bigint comment 'ç±»å‹ID',
    primary key (ID)
 );
 
-alter table DS_EP_ENTERPRISE comment 'ÆóÒµ';
+alter table DS_EP_ENTERPRISE comment 'ä¼ä¸š';
 
 /*==============================================================*/
 /* Table: DS_EP_TYPE                                            */
@@ -80,38 +80,38 @@ alter table DS_EP_ENTERPRISE comment 'ÆóÒµ';
 create table DS_EP_TYPE
 (
    ID                   bigint not null auto_increment comment 'ID',
-   NAME                 varchar(300) comment 'ÀàĞÍÃû',
-   MEMO                 varchar(3000) comment '±¸×¢',
+   NAME                 varchar(300) comment 'ç±»å‹å',
+   MEMO                 varchar(3000) comment 'å¤‡æ³¨',
    primary key (ID)
 );
 
-alter table DS_EP_TYPE comment 'ÆóÒµÀàĞÍ';
+alter table DS_EP_TYPE comment 'ä¼ä¸šç±»å‹';
 
 /*==============================================================*/
 /* Table: DS_EP_USER                                            */
 /*==============================================================*/
 create table DS_EP_USER
 (
-   ID                   bigint not null comment 'Ö÷¼ü',
-   QYBM                 varchar(64) comment 'ÆóÒµ±àÂë',
-   ACCOUNT              varchar(64) comment 'ÕËºÅ',
-   PASSWORD             varchar(256) comment 'ÃÜÂë',
-   NAME                 varchar(30) comment 'ĞÕÃû',
-   IDCARD               varchar(64) comment 'Éí·İÖ¤ºÅ',
-   STATUS               int comment '×´Ì¬',
-   EMAIL                varchar(300) comment 'µç×ÓÓÊ¼ş',
-   MOBILE               varchar(30) comment 'ÊÖ»ú',
-   PHONE                varchar(30) comment 'µç»°',
-   WORKCARD             varchar(64) comment '¹¤×÷Ö¤ºÅ',
-   CAKEY                varchar(1024) comment 'CAÖ¤ÊéµÄKEY',
-   CREATETIME           varchar(19) comment '´´½¨Ê±¼ä',
-   SSDW                 varchar(300) comment 'ËùÊôµ¥Î»',
-   SSBM                 varchar(300) comment 'ËùÊô²¿ÃÅ',
-   FAX                  varchar(30) comment '´«Õæ',
+   ID                   bigint not null comment 'ä¸»é”®',
+   QYBM                 varchar(64) comment 'ä¼ä¸šç¼–ç ',
+   ACCOUNT              varchar(64) comment 'è´¦å·',
+   PASSWORD             varchar(256) comment 'å¯†ç ',
+   NAME                 varchar(30) comment 'å§“å',
+   IDCARD               varchar(64) comment 'èº«ä»½è¯å·',
+   STATUS               int comment 'çŠ¶æ€',
+   EMAIL                varchar(300) comment 'ç”µå­é‚®ä»¶',
+   MOBILE               varchar(30) comment 'æ‰‹æœº',
+   PHONE                varchar(30) comment 'ç”µè¯',
+   WORKCARD             varchar(64) comment 'å·¥ä½œè¯å·',
+   CAKEY                varchar(1024) comment 'CAè¯ä¹¦çš„KEY',
+   CREATETIME           varchar(19) comment 'åˆ›å»ºæ—¶é—´',
+   SSDW                 varchar(300) comment 'æ‰€å±å•ä½',
+   SSBM                 varchar(300) comment 'æ‰€å±éƒ¨é—¨',
+   FAX                  varchar(30) comment 'ä¼ çœŸ',
    primary key (ID)
 );
 
-alter table DS_EP_USER comment 'ÆóÒµÓÃ»§';
+alter table DS_EP_USER comment 'ä¼ä¸šç”¨æˆ·';
 
 alter table DS_CMS_CATEGORY add constraint FK_DS_CMS_CATEGORY foreign key (PID)
       references DS_CMS_CATEGORY (ID) on delete cascade on update cascade;
