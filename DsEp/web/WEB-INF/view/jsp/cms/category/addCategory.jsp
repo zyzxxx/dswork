@@ -10,6 +10,19 @@
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getCategory.htm";
 }};
+$(function(){
+	$("#status").bind("click", function(){
+		if($("#status").val() == 2){
+			$("#mylink").show();
+			$("#url").attr("require", "true");
+		}
+		else{
+			$("#mylink").hide();
+			$("#url").attr("require", "false");
+		}
+	});
+	$("#status").click();
+});
 </script>
 </head>
 <body>
@@ -26,44 +39,42 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <form id="dataForm" method="post" action="addCategory2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">父ID</td>
-		<td class="form_input"><input type="text" name="pid" maxlength="100" value="" /></td>
-	</tr>
-	<tr>
-		<td class="form_title">企业编码</td>
-		<td class="form_input"><input type="text" name="qybm" maxlength="100" value="" /></td>
+		<td class="form_title">上级栏目</td>
+		<td class="form_input"><select name="pid"><option value="0">≡顶级栏目≡</option>
+		<c:forEach items="${list}" var="d">
+			<option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option>
+		</c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">栏目名称</td>
-		<td class="form_input"><input type="text" name="name" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">目录名称</td>
-		<td class="form_input"><input type="text" name="folder" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="folder" maxlength="50" dataType="Char" value="" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">状态(0列表，1单页，2外链)</td>
-		<td class="form_input"><input type="text" name="status" maxlength="100" value="" /></td>
+		<td class="form_title">类型</td>
+		<td class="form_input"><select id="status" name="status"><option value="0">列表</option><option value="1">单页</option><option value="2">外链</option></select></td>
 	</tr>
+	<tbody id="mylink">
 	<tr>
 		<td class="form_title">链接</td>
-		<td class="form_input"><input type="text" name="url" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" id="url" name="url" maxlength="100" style="width:400px;" dataType="Require" require="false" value="" /></td>
 	</tr>
+	</tbody>
 	<tr>
 		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">网站模板</td>
-		<td class="form_input"><input type="text" name="viewsite" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="viewsite" maxlength="100" style="width:400px;" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">APP模板</td>
-		<td class="form_input"><input type="text" name="viewapp" maxlength="100" value="" /></td>
-	</tr>
-	<tr>
-		<td class="form_title">排序</td>
-		<td class="form_input"><input type="text" name="seq" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="viewapp" maxlength="100" style="width:400px;" value="" /></td>
 	</tr>
 </table>
 </form>

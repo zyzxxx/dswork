@@ -35,7 +35,7 @@
 		<td class="form_input">${fn:escapeXml(po.folder)}</td>
 	</tr>
 	<tr>
-		<td class="form_title">状态(0列表，1单页，2外链)</td>
+		<td class="form_title">类型(0列表，1单页，2外链)</td>
 		<td class="form_input">${fn:escapeXml(po.status)}</td>
 	</tr>
 	<tr>

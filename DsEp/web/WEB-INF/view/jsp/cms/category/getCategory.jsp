@@ -24,7 +24,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 .k{padding:0px;margin:0px;}
 .k input{border:none;background-color:transparent;text-align:center;}
 </style>
-</head> 
+</head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>

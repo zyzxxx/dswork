@@ -33,6 +33,7 @@ public class DsCmsCategoryController extends BaseController
 	@RequestMapping("/addCategory1")
 	public String addDsCmsCategory1()
 	{
+		put("list", queryCategory(false, 0));
 		return "/cms/category/addCategory.jsp";
 	}
 	
@@ -41,6 +42,7 @@ public class DsCmsCategoryController extends BaseController
 	{
 		try
 		{
+			po.setQybm(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
 			service.save(po);
 			print(1);
 		}
@@ -73,7 +75,7 @@ public class DsCmsCategoryController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		put("page", req.getInt("page", 1));
+		put("list", queryCategory(false, id));
 		return "/cms/category/updCategory.jsp";
 	}
 	
@@ -91,12 +93,35 @@ public class DsCmsCategoryController extends BaseController
 			print("0:" + e.getMessage());
 		}
 	}
+	@RequestMapping("/updCategorySeq")
+	public void updCategorySeq()
+	{
+		long[] idArr = req.getLongArray("keyIndex", 0);
+		int[] seqArr = req.getIntArray("seq", 0);
+		try
+		{
+			if(idArr.length == seqArr.length)
+			{
+				service.updateSeq(idArr, seqArr);
+				print(1);
+			}
+			else
+			{
+				print("0:没有需要排序的节点");
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
 
 	//获得分页
 	@RequestMapping("/getCategory")
 	public String getCategory()
 	{
-		put("list", queryCategory());
+		put("list", queryCategory(true, 0));
 		return "/cms/category/getCategory.jsp";
 	}
 
@@ -109,7 +134,13 @@ public class DsCmsCategoryController extends BaseController
 		return "/cms/category/getCategoryById.jsp";
 	}
 	
-	private List<DsCmsCategory> queryCategory()
+	/**
+	 * 取出当前登录用户的栏目
+	 * @param exclude 是否包括非List的栏目
+	 * @param excludeId 需要丢弃指定id
+	 * @return List
+	 */
+	private List<DsCmsCategory> queryCategory(boolean exclude, long excludeId)
 	{
 		PageRequest rq = getPageRequest();
 		rq.getFilters().put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
@@ -122,20 +153,40 @@ public class DsCmsCategoryController extends BaseController
 		List<DsCmsCategory> tlist = new ArrayList<DsCmsCategory>();
 		for(DsCmsCategory m : clist)
 		{
-			if(m.getPid() > 0)
+			if(m.getId() != excludeId)
 			{
-				try
+				if(m.getPid() > 0)
 				{
-					map.get(m.getPid()).add(m);//放入其余节点对应的父节点
+					try
+					{
+						if(m.getStatus() == 0 || exclude)
+						{
+							map.get(m.getPid()).add(m);//放入其余节点对应的父节点
+						}
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();// 找不到对应的父栏目
+					}
 				}
-				catch(Exception ex)
+				else if(m.getPid() == 0)
 				{
-					ex.printStackTrace();// 找不到对应的父栏目
+					if(m.getStatus() == 0 || exclude)
+					{
+						tlist.add(m);// 只把根节点放入list
+					}
 				}
 			}
-			else if(m.getPid() == 0)
+		}
+		if(excludeId > 0)
+		{
+			try
 			{
-				tlist.add(m);// 只把根节点放入list
+				map.get(excludeId).clearList();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();// 找不到对应的栏目
 			}
 		}
 		List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();//按顺序放入

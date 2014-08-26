@@ -3,7 +3,11 @@
  */
 package dswork.ep.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
+
 import dswork.core.db.BaseDao;
 import dswork.ep.model.DsCmsCategory;
 
@@ -15,5 +19,18 @@ public class DsCmsCategoryDao extends BaseDao<DsCmsCategory, Long>
 	public Class getEntityClass()
 	{
 		return DsCmsCategory.class;
+	}
+
+	/**
+	 * 排序节点
+	 * @param id 主键
+	 * @param seq 排序位置
+	 */
+	public void updateSeq(long id, int seq)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("seq", seq);
+		executeUpdate("updateSeq", map);
 	}
 }
