@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>功能模块化系统，仅使用临时菜单，详细框架页面不在此包含</title>
-<style type="text/css">html, body {height:100%;width:100%;padding:0;margin:0;}a{color:#000000;line-height:25px;}</style>
+<style type="text/css">html, body {height:100%;width:100%;padding:0;margin:0;font-size:16px;}a{color:#000000;line-height:25px;font-size:12px;}</style>
 <script type="text/javascript">
 var treedata = [
 {id:100, name:'扩展功能', img:"", imgOpen:"", url:"", items:[
