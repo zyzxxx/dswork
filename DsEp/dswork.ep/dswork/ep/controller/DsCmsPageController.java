@@ -26,14 +26,14 @@ public class DsCmsPageController extends BaseController
 	private DsCmsPageService service;
 
 	//添加
-	@RequestMapping("/addDsCmsPage1")
-	public String addDsCmsPage1()
+	@RequestMapping("/addPage1")
+	public String addPage1()
 	{
-		return "/cms/page/addDsCmsPage.jsp";
+		return "/cms/page/addPage.jsp";
 	}
 	
-	@RequestMapping("/addDsCmsPage2")
-	public void addDsCmsPage2(DsCmsPage po)
+	@RequestMapping("/addPage2")
+	public void addPage2(DsCmsPage po)
 	{
 		try
 		{
@@ -48,8 +48,8 @@ public class DsCmsPageController extends BaseController
 	}
 
 	//删除
-	@RequestMapping("/delDsCmsPage")
-	public void delDsCmsPage()
+	@RequestMapping("/delPage")
+	public void delPage()
 	{
 		try
 		{
@@ -64,17 +64,17 @@ public class DsCmsPageController extends BaseController
 	}
 
 	//修改
-	@RequestMapping("/updDsCmsPage1")
-	public String updDsCmsPage1()
+	@RequestMapping("/updPage1")
+	public String updPage1()
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
 		put("page", req.getInt("page", 1));
-		return "/cms/page/updDsCmsPage.jsp";
+		return "/cms/page/updPage.jsp";
 	}
 	
-	@RequestMapping("/updDsCmsPage2")
-	public void updDsCmsPage2(DsCmsPage po)
+	@RequestMapping("/updPage2")
+	public void updPage2(DsCmsPage po)
 	{
 		try
 		{
@@ -89,21 +89,21 @@ public class DsCmsPageController extends BaseController
 	}
 
 	//获得分页
-	@RequestMapping("/getDsCmsPage")
-	public String getDsCmsPage()
+	@RequestMapping("/getPage")
+	public String getPage()
 	{
 		Page<DsCmsPage> pageModel = service.queryPage(getPageRequest());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsCmsPage>(request, pageModel));
-		return "/cms/page/getDsCmsPage.jsp";
+		return "/cms/page/getPage.jsp";
 	}
 
 	//明细
-	@RequestMapping("/getDsCmsPageById")
-	public String getDsCmsPageById()
+	@RequestMapping("/getPageById")
+	public String getPageById()
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/cms/page/getDsCmsPageById.jsp";
+		return "/cms/page/getPageById.jsp";
 	}
 }

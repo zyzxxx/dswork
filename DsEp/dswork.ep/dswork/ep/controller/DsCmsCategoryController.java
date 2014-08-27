@@ -19,6 +19,7 @@ import dswork.mvc.BaseController;
 import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
 import dswork.ep.model.DsCmsCategory;
+import dswork.ep.model.DsCmsSite;
 import dswork.ep.service.DsCmsCategoryService;
 
 @Scope("prototype")
@@ -31,9 +32,10 @@ public class DsCmsCategoryController extends BaseController
 
 	//添加
 	@RequestMapping("/addCategory1")
-	public String addDsCmsCategory1()
+	public String addCategory1()
 	{
-		put("list", queryCategory(false, 0));
+		Long siteid = req.getLong("siteid");
+		put("list", queryCategory(siteid, false, 0));
 		return "/cms/category/addCategory.jsp";
 	}
 	
@@ -42,7 +44,6 @@ public class DsCmsCategoryController extends BaseController
 	{
 		try
 		{
-			po.setQybm(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
 			service.save(po);
 			print(1);
 		}
@@ -74,8 +75,9 @@ public class DsCmsCategoryController extends BaseController
 	public String updCategory1()
 	{
 		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		put("list", queryCategory(false, id));
+		DsCmsCategory po = service.get(id);
+		put("po", po);
+		put("list", queryCategory(po.getSiteid(), false, id));
 		return "/cms/category/updCategory.jsp";
 	}
 	
@@ -121,7 +123,33 @@ public class DsCmsCategoryController extends BaseController
 	@RequestMapping("/getCategory")
 	public String getCategory()
 	{
-		put("list", queryCategory(true, 0));
+		Long id = req.getLong("siteid"), siteid = 0L;
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+		PageRequest rq = new PageRequest(map);
+		List<DsCmsSite> siteList = service.queryListSite(rq);
+		if(siteList != null && siteList.size() > 0)
+		{
+			put("siteList", siteList);
+			if(id > 0)
+			{
+				for(DsCmsSite m : siteList)
+				{
+					if(m.getId().longValue() == id)
+					{
+						siteid = m.getId();
+						put("list", queryCategory(siteid, true, 0));
+						break;
+					}
+				}
+			}
+			if(siteid == 0)
+			{
+				siteid = siteList.get(0).getId();
+				put("list", queryCategory(siteid, true, 0));
+			}
+		}
+		put("siteid", siteid);
 		return "/cms/category/getCategory.jsp";
 	}
 
@@ -140,10 +168,10 @@ public class DsCmsCategoryController extends BaseController
 	 * @param excludeId 需要丢弃指定id
 	 * @return List
 	 */
-	private List<DsCmsCategory> queryCategory(boolean exclude, long excludeId)
+	private List<DsCmsCategory> queryCategory(long siteid, boolean exclude, long excludeId)
 	{
 		PageRequest rq = getPageRequest();
-		rq.getFilters().put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+		rq.getFilters().put("siteid", siteid);
 		List<DsCmsCategory> clist = service.queryList(rq);
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		for(DsCmsCategory m : clist)
