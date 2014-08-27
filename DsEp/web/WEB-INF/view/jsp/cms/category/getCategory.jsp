@@ -8,14 +8,19 @@
 <%@include file="/commons/include/page.jsp" %>
 <script type="text/javascript">
 $(function(){
-	$dswork.page.menu("delCategory.htm", "updCategory1.htm", "", "");
+	$dswork.page.menu("delCategory.htm?siteid=${siteid}", "updCategory1.htm?siteid=${siteid}", "", "");
 	$("#listFormSave").click(function(){if(confirm("确定保存排序吗？")){
 		$("#listForm").ajaxSubmit($dswork.doAjaxOption);
 	}});
+	$("#site").bind("click", function(){
+		if($(this).val()!="${siteid}"){
+			location.href = "getCategory.htm?siteid="+$(this).val();
+		}
+	});
 });
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getCategory.htm";
+	location.href = "getCategory.htm?siteid=${siteid}";
 }};
 </script>
 <style type="text/css">
@@ -30,6 +35,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr>
 		<td class="title">栏目列表</td>
 		<td class="menuTool">
+			切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id=siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
+			&nbsp;
 			<a class="insert" href="addCategory1.htm?page=${pageModel.currentPage}">添加</a>
 			<a class="save" id="listFormSave" href="#">保存排序</a>
 		</td>
