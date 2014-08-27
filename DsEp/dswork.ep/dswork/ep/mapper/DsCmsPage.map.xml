@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(ID, QYBM, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, CREATETIME, IMG, IMGTOP, PAGETOP, VIEWSITE, VIEWAPP)
+	(ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, CREATETIME, IMG, IMGTOP, PAGETOP, VIEWSITE, VIEWAPP)
 	values
-	(null, #{qybm}, #{categoryid}, #{title}, #{keywords}, #{summary}, #{content}, #{createtime}, #{img}, #{imgtop}, #{pagetop}, #{viewsite}, #{viewapp})
+	(null, #{siteid}, #{categoryid}, #{title}, #{keywords}, #{summary}, #{content}, #{createtime}, #{img}, #{imgtop}, #{pagetop}, #{viewsite}, #{viewapp})
 </insert>
 
 <delete id="delete">
@@ -36,7 +36,7 @@
 
 <resultMap id="result" type="dswork.ep.model.DsCmsPage">
 	<id property="id" column="ID" />
-	<result property="qybm" column="QYBM" />
+	<result property="siteid" column="SITEID" />
 	<result property="categoryid" column="CATEGORYID" />
 	<result property="title" column="TITLE" />
 	<result property="keywords" column="KEYWORDS" />
@@ -51,12 +51,12 @@
 </resultMap>
 
 <sql id="columns">
-	ID, QYBM, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, CREATETIME, IMG, IMGTOP, PAGETOP, VIEWSITE, VIEWAPP
+	ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, CREATETIME, IMG, IMGTOP, PAGETOP, VIEWSITE, VIEWAPP
 </sql>
 
 <sql id="dynamicWhere">
 	<where>
-		QYBM=#{qybm}
+		SITEID=#{siteid}
 		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
 		<if test="@Ognl@isNotEmpty(title)"> and TITLE like concat('%',#{title},'%') </if>
 		<if test="@Ognl@isNotEmpty(keywords)"> and KEYWORDS like concat('%',#{keywords},'%') </if>

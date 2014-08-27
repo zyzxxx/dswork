@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.ep.model.DsCmsSite">
+
+<insert id="insert" parameterType="dswork.ep.model.DsCmsSite">
+	<selectKey resultType="Long" order="AFTER" keyProperty="id">
+		select LAST_INSERT_ID()
+	</selectKey>
+	insert into DS_CMS_SITE
+	(ID, QYBM, NAME, FOLDER, URL, IMG, VIEWSITE, VIEWAPP)
+	values
+	(null, #{qybm}, #{name}, #{folder}, #{url}, #{img}, #{viewsite}, #{viewapp})
+</insert>
+
+<delete id="delete">
+	delete from DS_CMS_SITE where ID=#{id}
+</delete>
+
+<update id="update" parameterType="dswork.ep.model.DsCmsSite">
+	update DS_CMS_SITE set
+		NAME=#{name},
+		FOLDER=#{folder},
+		URL=#{url},
+		IMG=#{img},
+		VIEWSITE=#{viewsite},
+		VIEWAPP=#{viewapp}
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="dswork.ep.model.DsCmsSite">
+	<id property="id" column="ID" />
+	<result property="qybm" column="QYBM" />
+	<result property="name" column="NAME" />
+	<result property="folder" column="FOLDER" />
+	<result property="url" column="URL" />
+	<result property="img" column="IMG" />
+	<result property="viewsite" column="VIEWSITE" />
+	<result property="viewapp" column="VIEWAPP" />
+</resultMap>
+
+<sql id="columns">
+	ID, QYBM, NAME, FOLDER, URL, IMG, VIEWSITE, VIEWAPP
+</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(qybm)"> QYBM=#{qybm} </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
+		<if test="@Ognl@isNotEmpty(folder)"> and FOLDER=#{folder} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from DS_CMS_SITE where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="columns" /> from DS_CMS_SITE
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from DS_CMS_SITE
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>

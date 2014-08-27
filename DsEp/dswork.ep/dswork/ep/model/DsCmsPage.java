@@ -1,13 +1,13 @@
 /**
- * 网页文章Model
+ * 文章Model
  */
 package dswork.ep.model;
 public class DsCmsPage
 {
 	//主键
 	private Long id = 0L;
-	//企业编码
-	private String qybm = "";
+	// 站点ID
+	private Long siteid = 0L;
 	//栏目ID
 	private Long categoryid = 0L;
 	//标题
@@ -41,14 +41,14 @@ public class DsCmsPage
 		this.id = id;
 	}
 
-	public String getQybm()
+	public Long getSiteid()
 	{
-		return qybm;
+		return siteid;
 	}
 
-	public void setQybm(String qybm)
+	public void setSiteid(Long siteid)
 	{
-		this.qybm = qybm;
+		this.siteid = siteid;
 	}
 
 	public Long getCategoryid()

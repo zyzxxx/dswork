@@ -12,8 +12,8 @@ public class DsCmsCategory
 	private Long id = 0L;
 	// 父ID
 	private Long pid = 0L;
-	// 企业编码
-	private String qybm = "";
+	// 站点ID
+	private Long siteid = 0L;
 	// 栏目名称
 	private String name = "";
 	// 目录名称
@@ -30,8 +30,6 @@ public class DsCmsCategory
 	private String viewapp = "";
 	// 排序
 	private Integer seq = 0;
-	
-	
 	// 级别
 	private int level = 0;
 	// 树形标识
@@ -59,14 +57,14 @@ public class DsCmsCategory
 		this.pid = (pid == null || pid <= 0) ? 0 : pid;
 	}
 
-	public String getQybm()
+	public Long getSiteid()
 	{
-		return qybm;
+		return siteid;
 	}
 
-	public void setQybm(String qybm)
+	public void setSiteid(Long siteid)
 	{
-		this.qybm = qybm;
+		this.siteid = siteid;
 	}
 
 	public String getName()

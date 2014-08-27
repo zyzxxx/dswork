@@ -1,19 +1,19 @@
 /**
- * 文章Dao
+ * 站点Dao
  */
 package dswork.ep.dao;
 
 import org.springframework.stereotype.Repository;
 import dswork.core.db.BaseDao;
-import dswork.ep.model.DsCmsPage;
+import dswork.ep.model.DsCmsSite;
 
 @Repository
 @SuppressWarnings("all")
-public class DsCmsPageDao extends BaseDao<DsCmsPage, Long>
+public class DsCmsSiteDao extends BaseDao<DsCmsSite, Long>
 {
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCmsPage.class;
+		return DsCmsSite.class;
 	}
 }
