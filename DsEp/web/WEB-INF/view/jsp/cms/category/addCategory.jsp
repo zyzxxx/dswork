@@ -56,7 +56,11 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">类型</td>
-		<td class="form_input"><select id="status" name="status"><option value="0">列表</option><option value="1">单页</option><option value="2">外链</option></select></td>
+		<td class="form_input"><select id="status" name="status" style="width:200px;">
+			<option value="0">列表</option>
+			<option value="1">单页</option>
+			<option value="2">外链</option>
+		</select> <span style="font-weight:bold;">添加后不可修改</span></td>
 	</tr>
 	<tbody id="mylink">
 	<tr>
