@@ -62,6 +62,12 @@ public class DsCmsCategoryController extends BaseController
 		try
 		{
 			Long categoryid = req.getLong("keyIndex", 0);
+			int count = service.getCountByPid(categoryid);
+			if(0 < count)
+			{
+				print("0:下级节点不为空");
+				return;
+			}
 			service.delete(categoryid);
 			print(1);
 		}

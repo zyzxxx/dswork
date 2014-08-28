@@ -3,7 +3,9 @@
  */
 package dswork.ep.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,18 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 		{
 			catDao.updateSeq(idArr[i], seqArr[i]);
 		}
+	}
+
+	/**
+	 * 获得节点的子节点个数
+	 * @param pid 上级栏目主键
+	 * @return int
+	 */
+	public int getCountByPid(long pid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pid", pid);
+		return catDao.queryCount(new PageRequest(map));
 	}
 
 	public DsCmsSite getSite(Long siteid)
