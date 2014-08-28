@@ -1,8 +1,3 @@
-/**
- * 功能:栏目Controller
- * 开发人员:无名
- * 创建时间:2014-8-24 15:27:31
- */
 package dswork.ep.controller;
 
 import java.util.ArrayList;
@@ -17,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
 import dswork.core.page.PageRequest;
-import dswork.core.util.CollectionUtil;
 import dswork.ep.model.DsCmsCategory;
 import dswork.ep.model.DsCmsSite;
 import dswork.ep.service.DsCmsCategoryService;
@@ -30,7 +24,7 @@ public class DsCmsCategoryController extends BaseController
 	@Autowired
 	private DsCmsCategoryService service;
 
-	//添加
+	// 添加
 	@RequestMapping("/addCategory1")
 	public String addCategory1()
 	{
@@ -38,49 +32,65 @@ public class DsCmsCategoryController extends BaseController
 		put("list", queryCategory(siteid, false, 0));
 		return "/cms/category/addCategory.jsp";
 	}
-	
+
 	@RequestMapping("/addCategory2")
 	public void addCategory2(DsCmsCategory po)
 	{
 		try
 		{
-			service.save(po);
-			print(1);
+			if(po.getSiteid() > 0)
+			{
+				service.save(po);
+				print(1);
+			}
+			else
+			{
+				print("0:站点不存在");
+			}
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
 	}
 
-	//删除
+	// 删除
 	@RequestMapping("/delCategory")
 	public void delCategory()
 	{
 		try
 		{
-			service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+			Long categoryid = req.getLong("keyIndex", 0);
+			service.delete(categoryid);
 			print(1);
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
 	}
 
-	//修改
+	// 修改
 	@RequestMapping("/updCategory1")
 	public String updCategory1()
 	{
+		Long siteid = req.getLong("siteid");
 		Long id = req.getLong("keyIndex");
 		DsCmsCategory po = service.get(id);
-		put("po", po);
-		put("list", queryCategory(po.getSiteid(), false, id));
-		return "/cms/category/updCategory.jsp";
+		if(siteid == po.getSiteid())
+		{
+			put("po", po);
+			put("list", queryCategory(po.getSiteid(), false, id));
+			return "/cms/category/updCategory.jsp";
+		}
+		else
+		{
+			return null;
+		}
 	}
-	
+
 	@RequestMapping("/updCategory2")
 	public void updCategory2(DsCmsCategory po)
 	{
@@ -89,12 +99,13 @@ public class DsCmsCategoryController extends BaseController
 			service.update(po);
 			print(1);
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
 	}
+
 	@RequestMapping("/updCategorySeq")
 	public void updCategorySeq()
 	{
@@ -119,7 +130,7 @@ public class DsCmsCategoryController extends BaseController
 		}
 	}
 
-	//获得分页
+	// 获得分页
 	@RequestMapping("/getCategory")
 	public String getCategory()
 	{
@@ -153,15 +164,6 @@ public class DsCmsCategoryController extends BaseController
 		return "/cms/category/getCategory.jsp";
 	}
 
-	//明细
-	@RequestMapping("/getCategoryById")
-	public String getCategoryById()
-	{
-		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		return "/cms/category/getCategoryById.jsp";
-	}
-	
 	/**
 	 * 取出当前登录用户的栏目
 	 * @param exclude 是否包括非List的栏目
@@ -189,7 +191,7 @@ public class DsCmsCategoryController extends BaseController
 					{
 						if(m.getStatus() == 0 || exclude)
 						{
-							map.get(m.getPid()).add(m);//放入其余节点对应的父节点
+							map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
 						}
 					}
 					catch(Exception ex)
@@ -217,7 +219,7 @@ public class DsCmsCategoryController extends BaseController
 				e.printStackTrace();// 找不到对应的栏目
 			}
 		}
-		List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();//按顺序放入
+		List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();// 按顺序放入
 		for(int i = 0; i < tlist.size(); i++)
 		{
 			DsCmsCategory m = tlist.get(i);
@@ -228,6 +230,7 @@ public class DsCmsCategoryController extends BaseController
 		}
 		return list;
 	}
+
 	private void categorySettingList(DsCmsCategory m, List<DsCmsCategory> list)
 	{
 		int size = m.getList().size();
@@ -245,7 +248,7 @@ public class DsCmsCategoryController extends BaseController
 				n.setLabel(m.getLabel().substring(0, m.getLabel().length() - 2) + "　");
 			}
 			n.setLabel(n.getLabel() + "&nbsp;&nbsp;");
-			n.setLabel(n.getLabel() + (i==size-1?"└":"├"));
+			n.setLabel(n.getLabel() + (i == size - 1 ? "└" : "├"));
 			list.add(n);
 			categorySettingList(n, list);
 		}

@@ -1,8 +1,3 @@
-/**
- * 功能:网页文章Controller
- * 开发人员:无名
- * 创建时间:2014-8-24 15:27:31
- */
 package dswork.ep.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
