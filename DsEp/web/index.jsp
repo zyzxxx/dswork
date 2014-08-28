@@ -41,7 +41,7 @@ for(var i = 0; i < treedata.length; i++){
 }
 </script>
 </div>
-<div style="float:right;width:800px;height:100%;">
+<div style="float:right;height:100%;width:80%;min-width:800px;">
 	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="no" frameborder="0" src="#"></iframe>
 </div>
 </div>
