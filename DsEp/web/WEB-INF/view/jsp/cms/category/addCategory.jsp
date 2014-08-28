@@ -56,7 +56,7 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">类型</td>
-		<td class="form_input"><select id="status" name="status" style="width:200px;">
+		<td class="form_input"><select id="status" name="status" style="width:100px;">
 			<option value="0">列表</option>
 			<option value="1">单页</option>
 			<option value="2">外链</option>
