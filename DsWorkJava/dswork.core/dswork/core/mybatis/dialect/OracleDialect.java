@@ -33,10 +33,10 @@ public class OracleDialect extends Dialect
 		StringBuilder sb = new StringBuilder(sql.length() + 90);
 //		if(offset > 0)
 //		{
-			sb.append("select * from ( select t.*, rownum rn from ( ")
+			sb.append("select * from ( select rownum rn, _t.* from ( ")
 			.append(sql)
-			.append(" ) t where rownum <= ").append(offset + limit)
-			.append(" ) where rn > ").append(offset);
+			.append(" ) _t where rownum <= ").append(offset + limit)
+			.append(" ) _n where _n.rn > ").append(offset);
 //		}
 //		else
 //		{
