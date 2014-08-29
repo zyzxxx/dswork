@@ -46,31 +46,31 @@
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<c:if test="${0 < parent.id}">
 	<tr>
-		<td class="form_title">上级名称：</td>
+		<td class="form_title">上级名称</td>
 		<td class="form_input">${fn:escapeXml(parent.name)}</td>
 	</tr>
 	</c:if>
 	<tr>
-		<td class="form_title">名称：</td>
+		<td class="form_title">名称</td>
 		<td class="form_input"><input type="text" id="name" name="name" style="width:200px;" dataType="RequireTrim" maxlength="100" value="${fn:escapeXml(po.name)}" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">标识：</td>
+		<td class="form_title">标识</td>
 		<td class="form_input"><input type="text" id="alias" name="alias" style="width:400px;" require="false" dataType="Char" maxlength="100" value="" value="${fn:escapeXml(po.alias)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">地址：</td>
+		<td class="form_title">地址</td>
 		<td class="form_input"><input type="text" id="uri" name="uri" style="width:400px;" maxlength="200" value="${fn:escapeXml(po.uri)}" /></td>
 	</tr>
 	<%--<tr>
-		<td class="form_title">图标：</td>
+		<td class="form_title">图标</td>
 		<td class="form_input">
 			<img id="img_show" />
 			<a id="a_scan" href="#" onclick="return false;">浏览</a>
 		</td>
 	</tr>--%>
 	<tr>
-		<td class="form_title">显示到菜单：</td>
+		<td class="form_title">显示到菜单</td>
 		<td class="form_input">
 			<c:if test="${0 < count}">
 			是，下级节点不为空<input type="radio" id="status1" name="status" value="1" checked="checked" style="display:none;" />
@@ -82,7 +82,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td class="form_title">扩展信息：</td>
+		<td class="form_title">扩展信息</td>
 		<td class="form_input"><textarea id="memo" name="memo" style="width:400px;height:60px;">${fn:escapeXml(po.memo)}</textarea></td>
 	</tr>
 </table>

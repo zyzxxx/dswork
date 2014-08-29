@@ -47,7 +47,7 @@
 <form id="dataForm" method="post" action="updUserOrg2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">帐号：</td>
+		<td class="form_title">帐号</td>
 		<td class="form_input">${fn:escapeXml(po.account)}</td>
 	</tr>
 	<tr>

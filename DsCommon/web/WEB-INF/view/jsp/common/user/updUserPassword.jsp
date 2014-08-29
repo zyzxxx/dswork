@@ -26,15 +26,15 @@
 <form id="dataForm" method="post" action="updUserPassword2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">帐号：</td>
+		<td class="form_title">帐号</td>
 		<td class="form_input">${fn:escapeXml(po.account)}</td>
 	</tr>
 	<tr>
-		<td class="form_title">密码：</td>
+		<td class="form_title">密码</td>
 		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" dataType="Require" maxlength="32" value="000000" /> <span class="imp">*</span> <span style="font-weight:bold;">默认密码为：000000</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">确认密码：</td>
+		<td class="form_title">确认密码</td>
 		<td class="form_input"><input type="password" id="password2" name="password2" style="width:130px;" dataType="Repeat" to="password" msg="两次输入的密码不一致" value="000000" /> <span class="imp">*</span></td>
 	</tr>
 </table>

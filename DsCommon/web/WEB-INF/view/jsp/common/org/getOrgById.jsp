@@ -21,24 +21,24 @@
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<c:if test="${0 < parent.id}">
 	<tr> 
-		<td class="form_title">上级名称：</td>
+		<td class="form_title">上级名称</td>
 		<td class="form_input">${fn:escapeXml(parent.name)}</td>
 	</tr>
 	</c:if>
 	<tr>
-		<td class="form_title">名称：</td>
+		<td class="form_title">名称</td>
 		<td class="form_input">${fn:escapeXml(po.name)}</td>
 	</tr>
 	<tr>
-		<td class="form_title">类型：</td>
+		<td class="form_title">类型</td>
 		<td class="form_input" id="status">${po.status}</td>
 	</tr>
 	<tr>
-		<td class="form_title">职责范围：</td>
+		<td class="form_title">职责范围</td>
 		<td class="form_input"><textarea style="width:400px;height:60px;" class="readonlytext" readonly="readonly">${fn:escapeXml(po.dutyscope)}</textarea></td>
 	</tr>
 	<tr>
-		<td class="form_title">备注：</td>
+		<td class="form_title">备注</td>
 		<td class="form_input"><textarea style="width:400px;height:40px;" class="readonlytext" readonly="readonly">${fn:escapeXml(po.memo)}</textarea></td>
 	</tr>
 </table>

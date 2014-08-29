@@ -77,20 +77,20 @@ $(function(){
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<c:if test="${0 < parent.id}">
 	<tr>
-		<td class="form_title">上级名称：</td>
+		<td class="form_title">上级名称</td>
 		<td class="form_input">${fn:escapeXml(parent.name)}</td>
 	</tr>
 	</c:if>
 	<tr>
-		<td class="form_title">名称：</td>
+		<td class="form_title">名称</td>
 		<td class="form_input"><input type="text" name="name" style="width:200px;" dataType="RequireTrim" maxlength="100" value="" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">备注：</td>
+		<td class="form_title">备注</td>
 		<td class="form_input"><textarea name="memo" style="width:400px;height:60px;">${fn:escapeXml(po.memo)}</textarea></td>
 	</tr>
 	<tr>
-		<td class="form_title">功能分配：</td>
+		<td class="form_title">功能分配</td>
 		<td class="form_input"><input type="checkbox" id="refresh" name="refresh" value="1" /></td>
 	</tr>
 </table>

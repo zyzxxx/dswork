@@ -80,15 +80,15 @@ $dswork.ztree.beforeCheck = function(treeId, treeNode){return false;};
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">名称：</td>
+		<td class="form_title">名称</td>
 		<td class="form_input">${fn:escapeXml(po.name)}</td>
 	</tr>
 	<tr>
-		<td class="form_title">备注：</td>
+		<td class="form_title">备注</td>
 		<td class="form_input"><textarea id="memo" name="memo" style="width:400px;height:60px;" class="readonlytext" readonly="readonly">${fn:escapeXml(po.memo)}</textarea></td>
 	</tr>
 	<tr>
-		<td class="form_title">功能分配：</td>
+		<td class="form_title">功能分配</td>
 		<td class="form_input"><input type="checkbox" id="refresh" name="refresh" value="1" /></td>
 	</tr>
 </table>

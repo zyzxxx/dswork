@@ -26,31 +26,31 @@
 <form id="dataForm" method="post" action="updSystem2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">标识：</td>
+		<td class="form_title">标识</td>
 		<td class="form_input">${fn:escapeXml(po.alias)}</td>
 	</tr>
 	<tr>
-		<td class="form_title">名称：</td>
+		<td class="form_title">名称</td>
 		<td class="form_input"><input type="text" id="name" name="name" style="width:200px;" dataType="RequireTrim" maxlength="100" value="${fn:escapeXml(po.name)}" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">访问密码：</td>
+		<td class="form_title">访问密码</td>
 		<td class="form_input"><input type="text" id="password" name="password" style="width:100px;" dataType="Char" maxlength="32" value="${fn:escapeXml(po.password)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">网络地址：</td>
+		<td class="form_title">网络地址</td>
 		<td class="form_input"><input type="text" id="domainurl" name="domainurl" style="width:300px;" require="false" dataType="Url" maxlength="100" value="${fn:escapeXml(po.domainurl)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">根路径：</td>
+		<td class="form_title">根路径</td>
 		<td class="form_input"><input type="text" id="rooturl" name="rooturl" style="width:200px;" maxlength="100" value="${fn:escapeXml(po.rooturl)}" /> <span style="font-weight:bold;">如：/root</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">菜单地址：</td>
+		<td class="form_title">菜单地址</td>
 		<td class="form_input"><input type="text" id="menuurl" name="menuurl" style="width:200px;" maxlength="100" value="${fn:escapeXml(po.menuurl)}" /> <span style="font-weight:bold;">如：/root/menu.jsp</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">备注：</td>
+		<td class="form_title">备注</td>
 		<td class="form_input"><textarea id="memo" name="memo" style="width:99%;height:100px;">${fn:escapeXml(po.memo)}</textarea></td>
 	</tr>
 </table>
