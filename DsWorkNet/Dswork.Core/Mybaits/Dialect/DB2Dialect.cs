@@ -5,9 +5,9 @@ using System.Text;
 namespace Dswork.Core.Mybaits.Dialect
 {
 	/// <summary>
-	/// Dialect for Oracle
+    /// Dialect for DB2
 	/// </summary>
-	public class OracleDialect : Dialect
+    public class DB2Dialect : Dialect
 	{
 		/// <summary>
 		/// 是否支持分页，limit和offset
@@ -27,12 +27,13 @@ namespace Dswork.Core.Mybaits.Dialect
 		/// <returns>String</returns>
 		public override String GetLimitString(String sql, int offset, int limit)
 		{
-			StringBuilder sb = new StringBuilder(sql.Length + 90);
-            sb.Append("select * from ( select rownum rn, _t.* from ( ")
-			.Append(sql)
-			.Append(" ) _t where rownum <= ").Append(offset + limit)
-			.Append(" ) _n where _n.rn > ").Append(offset);
-			return sb.ToString();
+
+            StringBuilder sb = new StringBuilder(sql.Length + 110);
+            sb.Append("select * from ( select ROW_NUMBER() over() rn, _t.* from (")
+            .Append(sql)
+            .Append(") _t ")
+            .Append(") _n where _n.rn > ").Append(offset).Append(" and _n.rn <=").Append(offset + limit);
+            return sb.ToString();
 		}
 	}
 }
