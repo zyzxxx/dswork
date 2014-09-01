@@ -1,4 +1,4 @@
-package dswork.android.demo.framework.app.web;
+package dswork.android.demo.framework.app.web.view;
 
 import android.content.Context;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package dswork.android.demo.framework.app.single;
+package dswork.android.demo.framework.app.single.view;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import dswork.android.R;
-import dswork.android.controller.PersonController;
+import dswork.android.demo.framework.app.single.controller.PersonController;
 import dswork.android.lib.util.InjectUtil;
 import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.util.MyStrictMode;

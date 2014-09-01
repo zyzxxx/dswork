@@ -1,4 +1,4 @@
-package dswork.android.demo.framework.app.web;
+package dswork.android.demo.framework.app.web.view;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -9,11 +9,11 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import dswork.android.R;
-import dswork.android.controller.DemoController;
+import dswork.android.demo.framework.app.web.controller.DemoController;
+import dswork.android.demo.framework.app.web.model.Demo;
 import dswork.android.lib.util.InjectUtil;
 import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.view.base.upd.BaseUpdOleActivity;
-import dswork.android.model.Demo;
 
 public class DemoUpd_A extends BaseUpdOleActivity<Demo>
 {

@@ -1,35 +1,34 @@
-package dswork.android.demo.framework.app.web;
+package dswork.android.demo.framework.app.single.view;
 
 import android.view.Menu;
-import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import dswork.android.R;
-import dswork.android.controller.DemoController;
+import dswork.android.demo.framework.app.single.controller.PersonController;
+import dswork.android.demo.framework.app.single.model.Person;
 import dswork.android.lib.util.InjectUtil;
 import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.view.base.getbyid.BaseGetByIdOleActivity;
-import dswork.android.model.Demo;
 
-public class DemoGetById_A extends BaseGetByIdOleActivity<Demo>
+public class PersonGetById_A extends BaseGetByIdOleActivity<Person>
 {
 	@InjectView(id=R.id.rootLayout) FrameLayout rootLayout;//根布局
 	@InjectView(id=R.id.id) TextView id_v;//id
-	@InjectView(id=R.id.title) TextView title_v;//姓名
-	@InjectView(id=R.id.content) TextView content_v;//拼音
-	@InjectView(id=R.id.foundtime) TextView foundtime_v;//电话
-	private DemoController controller;
+	@InjectView(id=R.id.name) TextView name_v;//姓名
+	@InjectView(id=R.id.sortkey) TextView sortkey_v;//拼音
+	@InjectView(id=R.id.phone) TextView phone_v;//电话
+	@InjectView(id=R.id.amount) TextView amount_v;//存款
+	private PersonController controller;
 	private Long id;
 
 	@Override
 	public void initMainView() 
 	{
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);//允许标题栏显示圆形进度条
-		setContentView(R.layout.demo_getbyid_a);
+		setContentView(R.layout.person_getbyid_a);
 		getActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getActionBar().setDisplayHomeAsUpEnabled(true);//显示向左的图标
 		InjectUtil.injectView(this);//注入控件
-		controller = new DemoController(this);
+		controller = new PersonController(this);
 		id = getIntent().getLongExtra("id", 0);//获取id主键
 		new BaseGetDataTask().execute();//异步获取后台数据，并更新UI
 	}
@@ -37,7 +36,7 @@ public class DemoGetById_A extends BaseGetByIdOleActivity<Demo>
 	@Override
 	public void initMenu(Menu menu)
 	{
-//		getMenuInflater().inflate(R.menu.demo_detail, menu);		
+//		getMenuInflater().inflate(R.menu.person_detail, menu);		
 	}
 
 	@Override
@@ -45,19 +44,20 @@ public class DemoGetById_A extends BaseGetByIdOleActivity<Demo>
 	{
 		return rootLayout;
 	}
-	
+
 	@Override
-	public Demo getDataInBackground() 
+	public Person getDataInBackground() 
 	{
 		return controller.getById(id);
 	}
-	
+
 	@Override
-	public void executeUI(Demo po)
+	public void executeUI(Person po)
 	{
-		id_v.setText(String.valueOf(po.getId()));
-		title_v.setText(po.getTitle());
-		content_v.setText(po.getContent());
-		foundtime_v.setText(po.getFoundtime());
-	} 
+		id_v.setText(po.getId().toString());
+		name_v.setText(po.getName());
+		sortkey_v.setText(po.getSortkey());
+		phone_v.setText(po.getPhone());
+		amount_v.setText(po.getAmount());
+	}
 }

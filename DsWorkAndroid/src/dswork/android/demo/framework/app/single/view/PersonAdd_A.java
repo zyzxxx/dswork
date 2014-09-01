@@ -1,4 +1,4 @@
-package dswork.android.demo.framework.app.single;
+package dswork.android.demo.framework.app.single.view;
 
 import android.content.Intent;
 import android.view.Menu;
@@ -8,11 +8,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import dswork.android.R;
-import dswork.android.controller.PersonController;
+import dswork.android.demo.framework.app.single.controller.PersonController;
+import dswork.android.demo.framework.app.single.model.Person;
 import dswork.android.lib.util.InjectUtil;
 import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.view.OleActivity;
-import dswork.android.model.Person;
 
 public class PersonAdd_A extends OleActivity 
 {
