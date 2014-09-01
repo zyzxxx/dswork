@@ -65,23 +65,23 @@
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.PersonGet_A"
+            android:name="dswork.android.demo.framework.app.single.view.PersonGet_A"
             android:label="@string/title_activity_person" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.PersonAdd_A"
+            android:name="dswork.android.demo.framework.app.single.view.PersonAdd_A"
             android:label="@string/title_activity_person_add" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.PersonUpd_A"
+            android:name="dswork.android.demo.framework.app.single.view.PersonUpd_A"
             android:label="@string/title_activity_person_edit" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.PersonGetById_A"
+            android:name="dswork.android.demo.framework.app.single.view.PersonGetById_A"
             android:label="@string/title_activity_person_detail" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.single.PersonSearch_A"
+            android:name="dswork.android.demo.framework.app.single.view.PersonSearch_A"
             android:label="@string/title_activity_person_search" >
         </activity>
         <activity
@@ -94,28 +94,28 @@
         </activity>
         <!-- android:configChanges 防止横竖屏切换时重刷Activity -->
         <activity
-            android:name="dswork.android.demo.framework.app.web.Main_A"
+            android:name="dswork.android.demo.framework.app.web.view.Main_A"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_demo_main"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoAdd_A"
+            android:name="dswork.android.demo.framework.app.web.view.DemoAdd_A"
             android:label="@string/title_activity_demo_add"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoUpd_A"
+            android:name="dswork.android.demo.framework.app.web.view.DemoUpd_A"
             android:label="@string/title_activity_demo_upd"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoGetById_A"
+            android:name="dswork.android.demo.framework.app.web.view.DemoGetById_A"
             android:label="@string/title_activity_demo_detail"
             android:parentActivityName=".IndexActivity" >
         </activity>
         <activity
-            android:name="dswork.android.demo.framework.app.web.DemoSearch_A"
+            android:name="dswork.android.demo.framework.app.web.view.DemoSearch_A"
             android:label="@string/title_activity_demo_search"
             android:parentActivityName=".IndexActivity" >
         </activity>
