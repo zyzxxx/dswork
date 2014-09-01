@@ -3,19 +3,21 @@ package dswork.android.demo.component;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.view.Menu;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import dswork.android.R;
+import dswork.android.demo.framework.app.single.model.Person;
+import dswork.android.demo.framework.app.single.service.PersonService;
 import dswork.android.lib.ui.AlphaBar;
 import dswork.android.lib.ui.AlphaBar.OnAlphaBarListener;
 import dswork.android.lib.util.InjectUtil;
 import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.view.OleFragmentActivity;
-import dswork.android.model.Person;
-import dswork.android.service.PersonService;
 
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class AlphabetActivity extends OleFragmentActivity 
 {
 	@InjectView(id=R.id.listView) ListView listView;

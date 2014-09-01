@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.text.format.DateUtils;
@@ -11,17 +12,19 @@ import android.view.Menu;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
+
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnLastItemVisibleListener;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+
 import dswork.android.R;
+import dswork.android.demo.framework.app.single.model.Person;
+import dswork.android.demo.framework.app.single.service.PersonService;
 import dswork.android.lib.util.InjectUtil;
 import dswork.android.lib.util.InjectUtil.InjectView;
 import dswork.android.lib.view.OleFragmentActivity;
-import dswork.android.model.Person;
-import dswork.android.service.PersonService;
 
 public class PullToRefreshActivity extends OleFragmentActivity
 {
