@@ -29,7 +29,7 @@ var treedata = [
 </head>
 <body>
 <div style="height:100%;width:100%;">
-<div style="float:left;height:100%;">
+<div style="float:left;height:100%;padding-left:3px;">
 <script type="text/javascript">
 for(var i = 0; i < treedata.length; i++){
 	var item = treedata[i];
