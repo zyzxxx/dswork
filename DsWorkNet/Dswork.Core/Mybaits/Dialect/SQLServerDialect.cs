@@ -28,12 +28,12 @@ namespace Dswork.Core.Mybaits.Dialect
 		public override String GetLimitString(String sql, int offset, int limit)
         {
             StringBuilder sb = new StringBuilder(sql.Length + 170);
-            sb.Append("select * from ( select ROW_NUMBER() over(order by _m.__temp__) rn, _m.* from (")
-            .Append("select 0 as __temp__, _t.* from (")
+            sb.Append("select * from ( select ROW_NUMBER() over(order by m_.temp__) rn, m_.* from (")
+            .Append("select 0 as temp__, t_.* from (")
             .Append(sql)
-            .Append(") _t ")
-            .Append(") _m ")
-            .Append(") _n where _n.rn > ").Append(offset).Append(" and _n.rn <= ").Append(offset + limit);
+            .Append(") t_ ")
+            .Append(") m_ ")
+            .Append(") n_ where n_.rn>").Append(offset).Append(" and n_.rn<=").Append(offset + limit);
             return sb.ToString();
 		}
 	}

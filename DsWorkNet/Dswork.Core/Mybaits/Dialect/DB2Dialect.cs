@@ -29,10 +29,10 @@ namespace Dswork.Core.Mybaits.Dialect
 		{
 
             StringBuilder sb = new StringBuilder(sql.Length + 110);
-            sb.Append("select * from ( select ROW_NUMBER() over() rn, _t.* from (")
+            sb.Append("select * from ( select ROW_NUMBER() over() rn, t_.* from (")
             .Append(sql)
-            .Append(") _t ")
-            .Append(") _n where _n.rn > ").Append(offset).Append(" and _n.rn <=").Append(offset + limit);
+            .Append(") t_ ")
+            .Append(") n_ where n_.rn>").Append(offset).Append(" and n_.rn<=").Append(offset + limit);
             return sb.ToString();
 		}
 	}
