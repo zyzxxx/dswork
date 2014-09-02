@@ -28,7 +28,7 @@ public class DB2Dialect extends Dialect
 		sb.append("select * from ( select ROW_NUMBER() over() rn,  t_.* from (")
 		.append(sql)
 		.append(") t_ ")
-		.append(") n_ where n_.rn > ").append(offset).append(" and n_.rn <=").append(offset + limit);
+		.append(") n_ where n_.rn>").append(offset).append(" and n_.rn<=").append(offset + limit);
 		return sb.toString();
 	}
 }
