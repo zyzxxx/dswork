@@ -25,10 +25,10 @@ public class DB2Dialect extends Dialect
 	public String getLimitString(String sql, int offset, int limit)
 	{
 		StringBuilder sb = new StringBuilder(sql.length() + 110);
-		sb.append("select * from ( select ROW_NUMBER() over() rn,  _t.* from (")
+		sb.append("select * from ( select ROW_NUMBER() over() rn,  t_.* from (")
 		.append(sql)
-		.append(") _t ")
-		.append(") _n where _n.rn > ").append(offset).append(" and _n.rn <=").append(offset + limit);
+		.append(") t_ ")
+		.append(") n_ where n_.rn > ").append(offset).append(" and n_.rn <=").append(offset + limit);
 		return sb.toString();
 	}
 }

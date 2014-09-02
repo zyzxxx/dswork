@@ -25,12 +25,12 @@ public class SQLServerDialect extends Dialect
 	public String getLimitString(String sql, int offset, int limit)
 	{
 		StringBuilder sb = new StringBuilder(sql.length() + 170);
-		sb.append("select * from ( select ROW_NUMBER() over(order by _m.__temp__) rn, _m.* from (")
-		.append("select 0 as __temp__, _t.* from (")
+		sb.append("select * from ( select ROW_NUMBER() over(order by _m.temp__) rn, m_.* from (")
+		.append("select 0 as temp__, t_.* from (")
 		.append(sql)
-		.append(") _t ")
-		.append(") _m ")
-		.append(") _n where _n.rn > ").append(offset).append(" and _n.rn <= ").append(offset + limit);
+		.append(") t_ ")
+		.append(") m_ ")
+		.append(") n_ where n_.rn > ").append(offset).append(" and n_.rn <= ").append(offset + limit);
 		return sb.toString();
 	}
 }
