@@ -181,11 +181,10 @@ public class DsCmsPageController extends BaseController
 		DsCmsCategory m = service.getCategory(categoryid);
 		if(m.getStatus() == 0 && checkSite(m.getSiteid()))// 列表
 		{
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("siteid", m.getSiteid());
-			map.put("categoryid", m.getId());
-			map.put("keyvalue", req.getString("keyvalue"));
-			PageRequest rq = new PageRequest(map);
+			PageRequest rq = getPageRequest();
+			rq.getFilters().put("siteid", m.getSiteid());
+			rq.getFilters().put("categoryid", m.getId());
+			rq.getFilters().put("keyvalue", req.getString("keyvalue"));
 			Page<DsCmsPage> pageModel = service.queryPage(rq);
 			put("pageModel", pageModel);
 			put("pageNav", new PageNav<DsCmsPage>(request, pageModel));

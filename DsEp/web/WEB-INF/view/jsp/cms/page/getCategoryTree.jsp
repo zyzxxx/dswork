@@ -11,15 +11,18 @@
 $dswork.callback = null;
 $dswork.ztree.click = function(){
 	var node = $dswork.ztree.getSelectedNode();
-	if(node.status == 0){
-		attachUrl("getPage.htm?id=" + node.id);
+	if(!node.isParent)
+	{
+		if(node.status == 0){
+			attachUrl("getPage.htm?id=" + node.id);
+			return false;
+		}
+		else if(node.status == 1){
+			attachUrl("updCategory1.htm?id=" + node.id);
+			return false;
+		}
 	}
-	else if(node.status == 1){
-		attachUrl("updCategory1.htm?id=" + node.id);
-	}
-	else{
-		attachUrl("");
-	}
+	attachUrl("");
 	return false;
 };
 $(function(){
