@@ -6,6 +6,7 @@
 <head>
 <title></title>
 <%@include file="/commons/include/updAjax.jsp" %>
+<%@include file="/commons/include/editor.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
 }};
@@ -34,7 +35,7 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">内容</td>
-		<td class="form_input"><textarea id="content" name="content" style="width:99%;height:300px;">${po.content}</textarea></td>
+		<td class="form_input"><textarea id="content" name="content" class="xheditor" style="width:99%;height:300px;">${po.content}</textarea></td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />
