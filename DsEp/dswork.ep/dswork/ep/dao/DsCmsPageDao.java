@@ -1,5 +1,5 @@
 /**
- * 文章Dao
+ * 内容Dao
  */
 package dswork.ep.dao;
 

@@ -58,13 +58,12 @@
 	<where>
 		SITEID=#{siteid}
 		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
-		<if test="@Ognl@isNotEmpty(title)"> and TITLE like concat('%',#{title},'%') </if>
-		<if test="@Ognl@isNotEmpty(keywords)"> and KEYWORDS like concat('%',#{keywords},'%') </if>
-		<if test="@Ognl@isNotEmpty(summary)"> and SUMMARY like concat('%',#{summary},'%') </if>
-		<if test="@Ognl@isNotEmpty(content)"> and CONTENT like concat('%',#{content},'%') </if>
-		<if test="@Ognl@isNotEmpty(createtime)"> and CREATETIME like concat('%',#{createtime},'%') </if>
-		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=#{imgtop} </if>
-		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=#{pagetop} </if>
+		<if test="@Ognl@isNotEmpty(keyvalue)">
+			 and TITLE like concat('%',#{keyvalue},'%') 
+			 and KEYWORDS like concat('%',#{keyvalue},'%') 
+			 and SUMMARY like concat('%',#{keyvalue},'%') 
+			 and CONTENT like concat('%',#{keyvalue},'%') 
+		</if>
 	</where>
 </sql>
 

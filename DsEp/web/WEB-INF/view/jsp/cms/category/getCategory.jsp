@@ -43,7 +43,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 </table>
 <div class="line"></div>
-<form id="listForm" method="post" action="updCategorySeq.htm">
+<form id="listForm" method="post" action="updCategorySeq.htm?siteid=${siteid}">
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td style="width:5%">操作</td>
@@ -51,8 +51,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td style="width:8%">栏目ID</td>
 		<td style="width:50%">名称</td>
 		<td>目录</td>
-		<td>网站模板</td>
-		<td>APP模板</td>
+		<td>栏目模板</td>
+		<td>内容模板</td>
 	</tr>
 <c:forEach items="${list}" var="d">
 	<tr>
@@ -62,7 +62,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="v" style="text-align:left;">${d.label}${fn:escapeXml(d.name)}<c:if test="${d.status>0}"><img src="${ctx}/themes/cms/${d.status}.png"<c:if test="${d.status>0}"> title="${fn:escapeXml(d.url)}"</c:if> /></c:if></td>
 		<td>${fn:escapeXml(d.folder)}</td>
 		<td>${fn:escapeXml(d.viewsite)}</td>
-		<td>${fn:escapeXml(d.viewapp)}</td>
+		<td>${fn:escapeXml(d.pageviewsite)}</td>
 	</tr>
 </c:forEach>
 </table>

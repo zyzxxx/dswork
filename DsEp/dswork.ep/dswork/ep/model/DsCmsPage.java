@@ -1,5 +1,5 @@
 /**
- * 文章Model
+ * 内容Model
  */
 package dswork.ep.model;
 public class DsCmsPage
@@ -26,10 +26,6 @@ public class DsCmsPage
 	private Integer imgtop = 0;
 	//首页推荐(0否，1是)
 	private Integer pagetop = 0;
-	//网站模板
-	private String viewsite = "";
-	//APP模板
-	private String viewapp = "";
 
 	public Long getId()
 	{
@@ -139,25 +135,5 @@ public class DsCmsPage
 	public void setPagetop(Integer pagetop)
 	{
 		this.pagetop = pagetop;
-	}
-
-	public String getViewsite()
-	{
-		return viewsite;
-	}
-
-	public void setViewsite(String viewsite)
-	{
-		this.viewsite = viewsite;
-	}
-
-	public String getViewapp()
-	{
-		return viewapp;
-	}
-
-	public void setViewapp(String viewapp)
-	{
-		this.viewapp = viewapp;
 	}
 }

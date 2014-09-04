@@ -40,13 +40,14 @@ public class DsCmsCategoryController extends BaseController
 		{
 			if(po.getSiteid() > 0)
 			{
-				service.save(po);
-				print(1);
+				if(checkSite(po.getSiteid()))
+				{
+					service.save(po);
+					print(1);
+					return;
+				}
 			}
-			else
-			{
-				print("0:站点不存在");
-			}
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -68,8 +69,14 @@ public class DsCmsCategoryController extends BaseController
 				print("0:下级节点不为空");
 				return;
 			}
-			service.delete(categoryid);
-			print(1);
+			DsCmsCategory po = service.get(categoryid);
+			if(checkSite(po.getSiteid()))
+			{
+				service.delete(categoryid);
+				print(1);
+				return;
+			}
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -102,8 +109,13 @@ public class DsCmsCategoryController extends BaseController
 	{
 		try
 		{
-			service.update(po);
-			print(1);
+			if(checkSite(po.getSiteid()))
+			{
+				service.update(po);
+				print(1);
+				return;
+			}
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -115,14 +127,20 @@ public class DsCmsCategoryController extends BaseController
 	@RequestMapping("/updCategorySeq")
 	public void updCategorySeq()
 	{
+		Long siteid = req.getLong("siteid");
 		long[] idArr = req.getLongArray("keyIndex", 0);
 		int[] seqArr = req.getIntArray("seq", 0);
 		try
 		{
 			if(idArr.length == seqArr.length)
 			{
-				service.updateSeq(idArr, seqArr);
-				print(1);
+				if(checkSite(siteid))
+				{
+					service.updateSeq(idArr, seqArr);
+					print(1);
+					return;
+				}
+				print("0:站点不存在");
 			}
 			else
 			{
@@ -136,7 +154,7 @@ public class DsCmsCategoryController extends BaseController
 		}
 	}
 
-	// 获得分页
+	// 获得栏目列表
 	@RequestMapping("/getCategory")
 	public String getCategory()
 	{
@@ -173,7 +191,7 @@ public class DsCmsCategoryController extends BaseController
 	/**
 	 * 取出当前登录用户的栏目
 	 * @param exclude 是否包括非List的栏目
-	 * @param excludeId 需要丢弃指定id
+	 * @param excludeId 需要清空指定id的子栏目
 	 * @return List
 	 */
 	private List<DsCmsCategory> queryCategory(long siteid, boolean exclude, long excludeId)
@@ -258,5 +276,16 @@ public class DsCmsCategoryController extends BaseController
 			list.add(n);
 			categorySettingList(n, list);
 		}
+	}
+	private boolean checkSite(Long siteid)
+	{
+		try
+		{
+			return service.getSite(siteid).getQybm().equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+		}
+		catch(Exception ex)
+		{
+		}
+		return false;
 	}
 }

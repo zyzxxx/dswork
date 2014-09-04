@@ -33,4 +33,19 @@ public class DsCmsCategoryDao extends BaseDao<DsCmsCategory, Long>
 		map.put("seq", seq);
 		executeUpdate("updateSeq", map);
 	}
+
+	/**
+	 * 更新单页栏目内容
+	 * @param id 主键
+	 * @param keywords 关键词
+	 * @param content 内容
+	 */
+	public void updateContent(long id, String keywords, String content)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("keywords", keywords);
+		map.put("content", content);
+		executeUpdate("updateContent", map);
+	}
 }

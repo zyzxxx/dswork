@@ -59,12 +59,20 @@ $(function(){
 		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">网站模板</td>
+		<td class="form_title">栏目模板</td>
 		<td class="form_input"><input type="text" name="viewsite" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.viewsite)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">APP模板</td>
+		<td class="form_title">栏目APP模板</td>
 		<td class="form_input"><input type="text" name="viewapp" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.viewapp)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">内容模板</td>
+		<td class="form_input"><input type="text" name="pageviewsite" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.pageviewsite)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">内容APP模板</td>
+		<td class="form_input"><input type="text" name="pageviewapp" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.pageviewapp)}" /></td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />

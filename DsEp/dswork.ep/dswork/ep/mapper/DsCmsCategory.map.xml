@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_CMS_CATEGORY
-	(ID, PID, SITEID, NAME, FOLDER, STATUS, URL, IMG, VIEWSITE, VIEWAPP, SEQ)
+	(ID, PID, SITEID, NAME, FOLDER, STATUS, URL, IMG, KEYWORDS, CONTENT, SEQ, VIEWSITE, VIEWAPP, PAGEVIEWSITE, PAGEVIEWAPP)
 	values
-	(null, <if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{folder}, #{status}, #{url}, #{img}, #{viewsite}, #{viewapp}, #{seq})
+	(null, <if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{folder}, #{status}, #{url}, #{img}, #{keywords}, #{content}, #{seq}, #{viewsite}, #{viewapp}, #{pageviewsite}, #{pageviewapp})
 </insert>
 
 <delete id="delete">
@@ -27,11 +27,16 @@
 		URL=#{url},
 		IMG=#{img},
 		VIEWSITE=#{viewsite},
-		VIEWAPP=#{viewapp}
+		VIEWAPP=#{viewapp},
+		PAGEVIEWSITE=#{pageviewsite},
+		PAGEVIEWAPP=#{pageviewapp}
 	where ID=#{id}
 </update>
 <update id="updateSeq">
 	update DS_CMS_CATEGORY set SEQ=#{seq} where ID=#{id}
+</update>
+<update id="updateContent">
+	update DS_CMS_CATEGORY set KEYWORDS=#{keywords}, CONTENT=#{content} where ID=#{id}
 </update>
 
 <resultMap id="result" type="dswork.ep.model.DsCmsCategory">
@@ -43,13 +48,17 @@
 	<result property="status" column="STATUS" />
 	<result property="url" column="URL" />
 	<result property="img" column="IMG" />
+	<result property="keywords" column="KEYWORDS" />
+	<result property="content" column="CONTENT" />
+	<result property="seq" column="SEQ" />
 	<result property="viewsite" column="VIEWSITE" />
 	<result property="viewapp" column="VIEWAPP" />
-	<result property="seq" column="SEQ" />
+	<result property="pageviewsite" column="PAGEVIEWSITE" />
+	<result property="pageviewapp" column="PAGEVIEWAPP" />
 </resultMap>
 
 <sql id="columns">
-	ID, PID, SITEID, NAME, FOLDER, STATUS, URL, IMG, VIEWSITE, VIEWAPP, SEQ
+	ID, PID, SITEID, NAME, FOLDER, STATUS, URL, IMG, KEYWORDS, CONTENT, SEQ, VIEWSITE, VIEWAPP, PAGEVIEWSITE, PAGEVIEWAPP
 </sql>
 
 <sql id="dynamicWhere">

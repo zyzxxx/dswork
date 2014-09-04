@@ -24,10 +24,18 @@ public class DsCmsCategory
 	private String url = "";
 	// 图片
 	private String img = "";
-	// 网站模板
+	// 关键词
+	private String keywords = "";
+	// 内容
+	private String content = "";
+	// 栏目网站模板
 	private String viewsite = "";
-	// APP模板
+	// 栏目APP模板
 	private String viewapp = "";
+	// 内容网站模板
+	private String pageviewsite = "";
+	// 内容APP模板
+	private String pageviewapp = "";
 	// 排序
 	private Integer seq = 0;
 	// 级别
@@ -117,6 +125,26 @@ public class DsCmsCategory
 		this.img = img;
 	}
 
+	public String getKeywords()
+	{
+		return keywords;
+	}
+
+	public void setKeywords(String keywords)
+	{
+		this.keywords = keywords;
+	}
+
+	public String getContent()
+	{
+		return content;
+	}
+
+	public void setContent(String content)
+	{
+		this.content = content;
+	}
+
 	public String getViewsite()
 	{
 		return viewsite;
@@ -135,6 +163,26 @@ public class DsCmsCategory
 	public void setViewapp(String viewapp)
 	{
 		this.viewapp = viewapp;
+	}
+
+	public String getPageviewsite()
+	{
+		return pageviewsite;
+	}
+
+	public void setPageviewsite(String pageviewsite)
+	{
+		this.pageviewsite = pageviewsite;
+	}
+
+	public String getPageviewapp()
+	{
+		return pageviewapp;
+	}
+
+	public void setPageviewapp(String pageviewapp)
+	{
+		this.pageviewapp = pageviewapp;
 	}
 
 	public Integer getSeq()
