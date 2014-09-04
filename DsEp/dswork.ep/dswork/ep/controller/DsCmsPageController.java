@@ -40,9 +40,17 @@ public class DsCmsPageController extends BaseController
 	{
 		try
 		{
-			
-			service.save(po);
-			print(1);
+			Long categoryid = req.getLong("categoryid");
+			DsCmsCategory m = service.getCategory(categoryid);
+			if(m.getStatus() == 1 && checkSite(m.getSiteid()))
+			{
+				po.setSiteid(m.getSiteid());
+				po.setCategoryid(m.getId());
+				service.save(po);
+				print(1);
+				return;
+			}
+			print("0:站点不存在");
 		}
 		catch (Exception e)
 		{

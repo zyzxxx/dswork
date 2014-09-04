@@ -18,7 +18,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getPage.htm?page=${param.page}">返回</a>
+			<a class="back" href="getPage.htm?id=${param.categoryid}&page=${param.page}">返回</a>
 		</td>
 	</tr>
 </table>
