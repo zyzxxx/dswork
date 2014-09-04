@@ -51,7 +51,7 @@ $(function(){
 	</tr>
 </table>
 </div>
-<div region="west" split="true" style="width:250px;">
+<div region="west" split="true" style="width:200px;">
 	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />
 	</div>
