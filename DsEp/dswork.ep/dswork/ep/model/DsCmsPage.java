@@ -19,7 +19,7 @@ public class DsCmsPage
 	//内容
 	private String content = "";
 	//创建时间
-	private String createtime = "";
+	private String releasetime = "";
 	//图片
 	private String img = "";
 	//焦点图(0否，1是)
@@ -97,14 +97,14 @@ public class DsCmsPage
 		this.content = content;
 	}
 
-	public String getCreatetime()
+	public String getReleasetime()
 	{
-		return createtime;
+		return releasetime;
 	}
 
-	public void setCreatetime(String createtime)
+	public void setReleasetime(String releasetime)
 	{
-		this.createtime = createtime;
+		this.releasetime = releasetime;
 	}
 
 	public String getImg()

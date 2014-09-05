@@ -11,6 +11,9 @@
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getPage.htm?id=${po.categoryid}&page=${page}";
 }};
+$(function(){
+	try{$(".form_title").css("width", "8%");}catch(e){}
+});
 </script>
 </head>
 <body>
@@ -44,13 +47,13 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" /></td>
+		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.img)}" /><label><input type="checkbox" name="imgtop" value="1" ${po.imgtop == 1?' checked="checked"':''}/>焦点图</label></td>
 	</tr>
 	<tr>
-		<td class="form_title">推荐位</td>
+		<td class="form_title">发布</td>
 		<td class="form_input">
-			<label><input type="checkbox" name="imgtop" value="1" ${po.imgtop == 1?' checked="checked"':''}/> 焦点图</label>
-			<label><input type="checkbox" name="pagetop" value="1" ${po.pagetop == 1?' checked="checked"':''}/> 首页推荐</label>
+			<label><input type="checkbox" name="pagetop" value="1" ${po.pagetop == 1?' checked="checked"':''}/>首页推荐</label>
+			&nbsp;&nbsp;发布时间：<input type="text" name="releasetime" class="WebDate" format="yyyy-MM-dd HH:mm:ss" value="${fn:escapeXml(po.releasetime)}" />
 		</td>
 	</tr>
 </table>

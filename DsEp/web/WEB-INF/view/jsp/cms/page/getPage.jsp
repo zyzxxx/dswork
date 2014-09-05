@@ -44,7 +44,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
 		<td style="width:60%">标题</td>
-		<td style="width:20%">创建时间</td>
+		<td style="width:22%">发布时间</td>
 		<td>首页推荐</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
@@ -52,8 +52,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.title)}</td>
-		<td>${fn:escapeXml(d.createtime)}</td>
-		<td>${fn:escapeXml(d.pagetop)}</td>
+		<td>${fn:escapeXml(d.releasetime)}</td>
+		<td>${d.pagetop == 1 ? "是" : "否"}</td>
 	</tr>
 </c:forEach>
 </table>

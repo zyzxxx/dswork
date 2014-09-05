@@ -11,6 +11,9 @@
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getPage.htm?id=${param.categoryid}";
 }};
+$(function(){
+	try{$(".form_title").css("width", "8%");}catch(e){}
+});
 </script>
 </head>
 <body>
@@ -44,12 +47,11 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="" /></td>
+		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:300px;" value="" /><label><input type="checkbox" name="imgtop" value="1" /> 焦点图</label></td>
 	</tr>
 	<tr>
-		<td class="form_title">推荐位</td>
+		<td class="form_title">发布</td>
 		<td class="form_input">
-			<label><input type="checkbox" name="imgtop" value="1" /> 焦点图</label>
 			<label><input type="checkbox" name="pagetop" value="1" /> 首页推荐</label>
 		</td>
 	</tr>

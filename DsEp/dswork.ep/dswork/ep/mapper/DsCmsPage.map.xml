@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, CREATETIME, IMG, IMGTOP, PAGETOP)
+	(ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, RELEASETIME, IMG, IMGTOP, PAGETOP)
 	values
-	(null, #{siteid}, #{categoryid}, #{title}, #{keywords}, #{summary}, #{content}, #{createtime}, #{img}, #{imgtop}, #{pagetop})
+	(null, #{siteid}, #{categoryid}, #{title}, #{keywords}, #{summary}, #{content}, #{releasetime}, #{img}, #{imgtop}, #{pagetop})
 </insert>
 
 <delete id="delete">
@@ -25,7 +25,7 @@
 		KEYWORDS=#{keywords},
 		SUMMARY=#{summary},
 		CONTENT=#{content},
-		CREATETIME=#{createtime},
+		RELEASETIME=#{releasetime},
 		IMG=#{img},
 		IMGTOP=#{imgtop},
 		PAGETOP=#{pagetop}
@@ -40,14 +40,14 @@
 	<result property="keywords" column="KEYWORDS" />
 	<result property="summary" column="SUMMARY" />
 	<result property="content" column="CONTENT" />
-	<result property="createtime" column="CREATETIME" />
+	<result property="releasetime" column="RELEASETIME" />
 	<result property="img" column="IMG" />
 	<result property="imgtop" column="IMGTOP" />
 	<result property="pagetop" column="PAGETOP" />
 </resultMap>
 
 <sql id="columns">
-	ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, CREATETIME, IMG, IMGTOP, PAGETOP
+	ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, RELEASETIME, IMG, IMGTOP, PAGETOP
 </sql>
 
 <sql id="dynamicWhere">

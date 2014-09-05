@@ -15,6 +15,7 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
+import dswork.core.util.TimeUtil;
 import dswork.ep.model.DsCmsCategory;
 import dswork.ep.model.DsCmsPage;
 import dswork.ep.model.DsCmsSite;
@@ -42,10 +43,11 @@ public class DsCmsPageController extends BaseController
 		{
 			Long categoryid = req.getLong("categoryid");
 			DsCmsCategory m = service.getCategory(categoryid);
-			if(m.getStatus() == 1 && checkSite(m.getSiteid()))
+			if(m.getStatus() == 0 && checkSite(m.getSiteid()))
 			{
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
+				po.setReleasetime(TimeUtil.getCurrentTime());
 				service.save(po);
 				print(1);
 				return;
