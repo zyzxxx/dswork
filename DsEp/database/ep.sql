@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014-8-26 18:43:02                           */
+/* Created on:     2014/9/5 14:31:37                            */
 /*==============================================================*/
 
 
@@ -30,6 +30,8 @@ create table DS_CMS_CATEGORY
    VIEWSITE             varchar(300) comment '网站模板',
    VIEWAPP              varchar(300) comment 'APP模板',
    SEQ                  varchar(300) comment '排序',
+   PAGEVIEWSITE         varchar(300) comment '内容网站模板',
+   PAGEVIEWAPP          varchar(300) comment '内容APP模板',
    primary key (ID)
 );
 
@@ -43,20 +45,18 @@ create table DS_CMS_PAGE
    ID                   bigint not null auto_increment comment '主键',
    SITEID               bigint comment '站点ID',
    CATEGORYID           bigint comment '栏目ID',
-   TITLE                VARCHAR(300) comment '标题',
-   KEYWORDS             VARCHAR(300) comment '关键词',
-   SUMMARY              VARCHAR(300) comment '摘要',
+   TITLE                varchar(300) comment '标题',
+   KEYWORDS             varchar(300) comment '关键词',
+   SUMMARY              varchar(300) comment '摘要',
    CONTENT              text comment '内容',
-   CREATETIME           VARCHAR(19) comment '创建时间',
-   IMG                  VARCHAR(300) comment '图片',
+   RELEASETIME          varchar(19) comment '发布时间',
+   IMG                  varchar(300) comment '图片',
    IMGTOP               int comment '焦点图(0否，1是)',
    PAGETOP              int comment '首页推荐(0否，1是)',
-   VIEWSITE             varchar(300) comment '网站模板',
-   VIEWAPP              varchar(300) comment 'APP模板',
    primary key (ID)
 );
 
-alter table DS_CMS_PAGE comment '网页文章';
+alter table DS_CMS_PAGE comment '内容';
 
 /*==============================================================*/
 /* Table: DS_CMS_SITE                                           */
@@ -71,6 +71,8 @@ create table DS_CMS_SITE
    IMG                  varchar(300) comment '图片',
    VIEWSITE             varchar(300) comment '网站模板',
    VIEWAPP              varchar(300) comment 'APP模板',
+   KEYWORDS             varchar(300) comment '关键词',
+   CONTENT              text comment '内容',
    primary key (ID)
 );
 

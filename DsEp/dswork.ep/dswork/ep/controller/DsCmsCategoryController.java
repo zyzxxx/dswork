@@ -1,5 +1,6 @@
 package dswork.ep.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,12 +24,37 @@ public class DsCmsCategoryController extends BaseController
 {
 	@Autowired
 	private DsCmsCategoryService service;
+	private String getCmsRoot()
+	{
+		return request.getSession().getServletContext().getRealPath(request.getContextPath()) + "/html/";
+	}
+	private List<String> getTemplateName(String sitename)
+	{
+		List<String> list = new ArrayList<String>();
+		try
+		{
+			File file = new File(getCmsRoot() + sitename + "/templates");
+			for(File f : file.listFiles())
+			{
+				if(f.isFile())
+				{
+					
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+		}
+		return list;
+	}
 
 	// 添加
 	@RequestMapping("/addCategory1")
 	public String addCategory1()
 	{
 		Long siteid = req.getLong("siteid");
+		DsCmsSite site = service.getSite(siteid);
+		put("templates", getTemplateName(site.getName()));
 		put("list", queryCategory(siteid, false, 0));
 		return "/cms/category/addCategory.jsp";
 	}
