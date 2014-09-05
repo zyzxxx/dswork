@@ -74,19 +74,27 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">栏目模板</td>
-		<td class="form_input"><input type="text" name="viewsite" maxlength="100" style="width:400px;" value="" /></td>
+		<td class="form_input"><select name="viewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">栏目APP模板</td>
-		<td class="form_input"><input type="text" name="viewapp" maxlength="100" style="width:400px;" value="" /></td>
+		<td class="form_input"><select name="viewapp" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">内容模板</td>
-		<td class="form_input"><input type="text" name="pageviewsite" maxlength="100" style="width:400px;" value="" /></td>
+		<td class="form_input"><select name="pageviewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">内容APP模板</td>
-		<td class="form_input"><input type="text" name="pageviewapp" maxlength="100" style="width:400px;" value="" /></td>
+		<td class="form_input"><select name="pageviewapp" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
 	</tr>
 </table>
 <input type="hidden" name="siteid" value="${param.siteid}" />

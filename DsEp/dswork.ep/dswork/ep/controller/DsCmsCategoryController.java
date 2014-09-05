@@ -24,21 +24,24 @@ public class DsCmsCategoryController extends BaseController
 {
 	@Autowired
 	private DsCmsCategoryService service;
+
 	private String getCmsRoot()
 	{
-		return request.getSession().getServletContext().getRealPath(request.getContextPath()) + "/html/";
+		return request.getSession().getServletContext().getRealPath("/html") + "/";
 	}
+
 	private List<String> getTemplateName(String sitename)
 	{
 		List<String> list = new ArrayList<String>();
 		try
 		{
 			File file = new File(getCmsRoot() + sitename + "/templates");
+			System.out.println(file.getPath());
 			for(File f : file.listFiles())
 			{
-				if(f.isFile())
+				if(f.isFile() && !f.isHidden())
 				{
-					
+					list.add(f.getName());
 				}
 			}
 		}
@@ -54,7 +57,7 @@ public class DsCmsCategoryController extends BaseController
 	{
 		Long siteid = req.getLong("siteid");
 		DsCmsSite site = service.getSite(siteid);
-		put("templates", getTemplateName(site.getName()));
+		put("templates", getTemplateName(site.getFolder()));
 		put("list", queryCategory(siteid, false, 0));
 		return "/cms/category/addCategory.jsp";
 	}
@@ -122,6 +125,8 @@ public class DsCmsCategoryController extends BaseController
 		{
 			put("po", po);
 			put("list", queryCategory(po.getSiteid(), false, id));
+			DsCmsSite site = service.getSite(siteid);
+			put("templates", getTemplateName(site.getFolder()));
 			return "/cms/category/updCategory.jsp";
 		}
 		else
@@ -304,6 +309,7 @@ public class DsCmsCategoryController extends BaseController
 			categorySettingList(n, list);
 		}
 	}
+
 	private boolean checkSite(Long siteid)
 	{
 		try

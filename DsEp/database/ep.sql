@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/9/5 14:31:37                            */
+/* Created on:     2014/9/5 14:54:38                            */
 /*==============================================================*/
 
 
@@ -85,10 +85,10 @@ create table DS_EP_ENTERPRISE
 (
    ID                   bigint not null comment 'ID',
    NAME                 varchar(300) comment '企业名称',
-   SSXQ                 varchar(100) comment '所属辖区',
+   SSXQ                 varchar(30) comment '所属辖区',
    QYBM                 varchar(64) comment '编码',
    STATUS               int comment '状态',
-   TYPE                 bigint comment '类型',
+   TYPE                 varchar(300) comment '类型',
    primary key (ID)
 );
 

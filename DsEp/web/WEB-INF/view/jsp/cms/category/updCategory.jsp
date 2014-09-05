@@ -11,7 +11,13 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getCategory.htm?siteid=${param.siteid}";
 }};
 $(function(){
-	try{$("#pid").val("${po.pid}");}catch(e){}
+	try{
+		$("#pid").val("${po.pid}");
+		$("#viewsite").val("${po.viewsite}");
+		$("#viewapp").val("${po.viewapp}");
+		$("#pageviewsite").val("${po.pageviewsite}");
+		$("#pageviewapp").val("${po.pageviewapp}");
+	}catch(e){}
 });
 </script>
 </head>
@@ -60,19 +66,27 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">栏目模板</td>
-		<td class="form_input"><input type="text" name="viewsite" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.viewsite)}" /></td>
+		<td class="form_input"><select id="viewsite" name="viewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">栏目APP模板</td>
-		<td class="form_input"><input type="text" name="viewapp" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.viewapp)}" /></td>
+		<td class="form_input"><select id="viewapp" name="viewapp" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">内容模板</td>
-		<td class="form_input"><input type="text" name="pageviewsite" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.pageviewsite)}" /></td>
+		<td class="form_input"><select id="pageviewsite" name="pageviewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">内容APP模板</td>
-		<td class="form_input"><input type="text" name="pageviewapp" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.pageviewapp)}" /></td>
+		<td class="form_input"><select id="pageviewapp" name="pageviewapp" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />
