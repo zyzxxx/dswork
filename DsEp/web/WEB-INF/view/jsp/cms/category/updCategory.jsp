@@ -64,6 +64,7 @@ $(function(){
 		<td class="form_title">图片</td>
 		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" /></td>
 	</tr>
+	<c:if test="${po.status!=2}">
 	<tr>
 		<td class="form_title">栏目模板</td>
 		<td class="form_input"><select id="viewsite" name="viewsite" style="width:400px;"><option value=""></option>
@@ -88,6 +89,7 @@ $(function(){
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
+	</c:if>
 </table>
 <input type="hidden" name="id" value="${po.id}" />
 </form>

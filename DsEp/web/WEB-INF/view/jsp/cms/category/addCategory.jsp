@@ -14,10 +14,16 @@ $(function(){
 	$("#status").bind("click", function(){
 		if($("#status").val() == 2){
 			$("#mylink").show();
+			$("#mytemplate").hide();
+			$("#viewsite").val("");
+			$("#viewapp").val("");
+			$("#pageviewsite").val("");
+			$("#pageviewapp").val("");
 			$("#url").attr("require", "true");
 		}
 		else{
 			$("#mylink").hide();
+			$("#mytemplate").show();
 			$("#url").attr("require", "false");
 		}
 	});
@@ -72,30 +78,32 @@ $(function(){
 		<td class="form_title">图片</td>
 		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="" /></td>
 	</tr>
+	<tbody id="mytemplate">
 	<tr>
 		<td class="form_title">栏目模板</td>
-		<td class="form_input"><select name="viewsite" style="width:400px;"><option value=""></option>
+		<td class="form_input"><select id="viewsite" name="viewsite" style="width:400px;"><option value=""></option>
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">栏目APP模板</td>
-		<td class="form_input"><select name="viewapp" style="width:400px;"><option value=""></option>
+		<td class="form_input"><select id="viewapp" name="viewapp" style="width:400px;"><option value=""></option>
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">内容模板</td>
-		<td class="form_input"><select name="pageviewsite" style="width:400px;"><option value=""></option>
+		<td class="form_input"><select id="pageviewsite" name="pageviewsite" style="width:400px;"><option value=""></option>
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
 	<tr>
 		<td class="form_title">内容APP模板</td>
-		<td class="form_input"><select name="pageviewapp" style="width:400px;"><option value=""></option>
+		<td class="form_input"><select id="pageviewapp" name="pageviewapp" style="width:400px;"><option value=""></option>
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
+	</tbody>
 </table>
 <input type="hidden" name="siteid" value="${param.siteid}" />
 </form>
