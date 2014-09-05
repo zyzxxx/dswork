@@ -109,7 +109,8 @@ public class DsCmsCategoryController extends BaseController
 	{
 		try
 		{
-			if(checkSite(po.getSiteid()))
+			DsCmsCategory m = service.get(po.getId());
+			if(checkSite(m.getSiteid()))
 			{
 				service.update(po);
 				print(1);
