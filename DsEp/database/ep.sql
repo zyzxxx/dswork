@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2014/9/5 14:54:38                            */
+/* Created on:     2014/9/9 10:27:43                            */
 /*==============================================================*/
 
 
@@ -45,6 +45,7 @@ create table DS_CMS_PAGE
    ID                   bigint not null auto_increment comment '主键',
    SITEID               bigint comment '站点ID',
    CATEGORYID           bigint comment '栏目ID',
+   FOLDER               varchar(300),
    TITLE                varchar(300) comment '标题',
    KEYWORDS             varchar(300) comment '关键词',
    SUMMARY              varchar(300) comment '摘要',
