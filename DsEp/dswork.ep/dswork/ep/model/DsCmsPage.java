@@ -2,29 +2,32 @@
  * 内容Model
  */
 package dswork.ep.model;
+
 public class DsCmsPage
 {
-	//主键
+	// 主键
 	private Long id = 0L;
 	// 站点ID
 	private Long siteid = 0L;
-	//栏目ID
+	// 栏目ID
 	private Long categoryid = 0L;
-	//标题
+	// 目录名称
+	private String folder = "";
+	// 标题
 	private String title = "";
-	//关键词
+	// 关键词
 	private String keywords = "";
-	//摘要
+	// 摘要
 	private String summary = "";
-	//内容
+	// 内容
 	private String content = "";
-	//创建时间
+	// 创建时间
 	private String releasetime = "";
-	//图片
+	// 图片
 	private String img = "";
-	//焦点图(0否，1是)
+	// 焦点图(0否，1是)
 	private Integer imgtop = 0;
-	//首页推荐(0否，1是)
+	// 首页推荐(0否，1是)
 	private Integer pagetop = 0;
 
 	public Long getId()
@@ -55,6 +58,16 @@ public class DsCmsPage
 	public void setCategoryid(Long categoryid)
 	{
 		this.categoryid = categoryid;
+	}
+
+	public String getFolder()
+	{
+		return folder;
+	}
+
+	public void setFolder(String folder)
+	{
+		this.folder = folder;
 	}
 
 	public String getTitle()

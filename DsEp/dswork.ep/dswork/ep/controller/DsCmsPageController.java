@@ -48,6 +48,7 @@ public class DsCmsPageController extends BaseController
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
 				po.setReleasetime(TimeUtil.getCurrentTime());
+				po.setFolder(TimeUtil.getCurrentTime("yyyyMM"));
 				service.save(po);
 				print(1);
 				return;
