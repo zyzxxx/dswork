@@ -30,7 +30,7 @@
         <archive path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
         <archive path="/Lib/hibernate/antlr-2.7.6.jar"/>
         <archive path="/Lib/hibernate/antlr-runtime.jar"/>
-        <archive path="/Lib/hibernate/hibernate3.5.6.jar"/>
+        <archive path="/Lib/hibernate/hibernate3.jar"/>
         <archive path="/Lib/hibernate/javassist-3.15.0-GA.jar"/>
         <archive path="/Lib/hibernate/javax.persistence.jar"/>
         <archive path="/Lib/hibernate/jta-1.1.jar"/>
