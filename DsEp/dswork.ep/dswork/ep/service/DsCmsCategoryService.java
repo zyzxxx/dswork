@@ -32,7 +32,7 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	{
 		return catDao;
 	}
-	
+
 	@Override
 	@Deprecated
 	public void deleteBatch(Long[] primaryKeys)

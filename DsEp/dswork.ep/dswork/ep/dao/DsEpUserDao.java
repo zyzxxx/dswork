@@ -20,20 +20,25 @@ public class DsEpUserDao extends BaseDao<DsEpUser, Long>
 	{
 		return DsEpUser.class;
 	}
+
 	public DsEpUser getUserByAccount(String account)
 	{
 		return (DsEpUser) this.executeSelect("getUserByAccount", account);
 	}
+
 	public boolean isExists(String account)
 	{
 		DsEpUser user = getUserByAccount(account);
-		if(user != null && user.getAccount().length()>0 && user.getAccount()!=null){
+		if(user != null && user.getAccount().length() > 0 && user.getAccount() != null)
+		{
 			return true;
 		}
-		else{
+		else
+		{
 			return false;
 		}
 	}
+
 	public void updatePassword(long userId, int status, String password)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -42,5 +47,4 @@ public class DsEpUserDao extends BaseDao<DsEpUser, Long>
 		map.put("password", password);
 		executeUpdate("updatePassword", map);
 	}
-
 }

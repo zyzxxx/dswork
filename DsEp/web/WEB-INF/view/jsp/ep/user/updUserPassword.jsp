@@ -31,7 +31,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">密码：</td>
-		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" dataType="Password" msg="字母和数字组合，6位或以上" maxlength="32" value="" /> <span class="imp">*</span> <span style="font-weight:bold;">不少于6位，且为字母和数字的组合</span></td>
+		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" dataType="Password" msg="不少于6位，且为字母和数字的组合" maxlength="32" value="" /> <span class="imp">*</span> <span style="font-weight:bold;">不少于6位，且为字母和数字的组合</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">确认密码：</td>

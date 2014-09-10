@@ -28,7 +28,7 @@ public class DsEpUserController extends BaseController
 	@Autowired
 	private DsEpUserService service;
 
-	//添加
+	// 添加
 	@RequestMapping("/addUser1")
 	public String addUser1()
 	{
@@ -36,7 +36,7 @@ public class DsEpUserController extends BaseController
 		put("qybm", qybm);
 		return "/ep/user/addUser.jsp";
 	}
-	
+
 	@RequestMapping("/addUser2")
 	public void addUser2(DsEpUser po)
 	{
@@ -63,14 +63,14 @@ public class DsEpUserController extends BaseController
 				}
 			}
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
 	}
 
-	//删除
+	// 删除
 	@RequestMapping("/delUser")
 	public void delUser()
 	{
@@ -79,14 +79,14 @@ public class DsEpUserController extends BaseController
 			service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
 			print(1);
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
 	}
 
-	//修改
+	// 修改
 	@RequestMapping("/updUser1")
 	public String updUser1()
 	{
@@ -95,7 +95,7 @@ public class DsEpUserController extends BaseController
 		put("page", req.getInt("page", 1));
 		return "/ep/user/updUser.jsp";
 	}
-	
+
 	@RequestMapping("/updUser2")
 	public void updUser2(DsEpUser po)
 	{
@@ -113,16 +113,15 @@ public class DsEpUserController extends BaseController
 				service.update(po);
 				print(1);
 			}
-			
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
 	}
 
-	//获得分页
+	// 获得分页
 	@RequestMapping("/getUser")
 	public String getUser()
 	{
@@ -144,7 +143,7 @@ public class DsEpUserController extends BaseController
 		return "/ep/user/getUser.jsp";
 	}
 
-	//明细
+	// 明细
 	@RequestMapping("/getUserById")
 	public String getUserById()
 	{
@@ -152,16 +151,16 @@ public class DsEpUserController extends BaseController
 		put("po", service.get(id));
 		return "/ep/user/getUserById.jsp";
 	}
-	
+
 	@RequestMapping("/updUserPassword1")
 	public String updUserPwd1()
 	{
-	    Long id = req.getLong("keyIndex");
+		Long id = req.getLong("keyIndex");
 		DsEpUser user = service.get(id);
 		put("po", user);
 		return "/ep/user/updUserPassword.jsp";
 	}
-	
+
 	@RequestMapping("/updUserPassword2")
 	public void updUserPwd2(DsEpUser po)
 	{
@@ -171,16 +170,17 @@ public class DsEpUserController extends BaseController
 			String account = req.getString("account");
 			String oldpassword = req.getString("oldpassword");
 			DsEpUser user = service.get(po.getId());
-			if(oldpassword.equals(user.getPassword())&&qybm.equals(user.getQybm())&&account.equals(user.getAccount()))
+			if(oldpassword.equals(user.getPassword()) && qybm.equals(user.getQybm()) && account.equals(user.getAccount()))
 			{
 				service.updatePassword(user.getId(), user.getStatus(), po.getPassword());
 				print(1);
-			}else
+			}
+			else
 			{
 				print("0:信息不符！");
 			}
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());

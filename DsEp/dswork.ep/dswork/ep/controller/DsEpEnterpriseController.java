@@ -147,44 +147,43 @@ public class DsEpEnterpriseController extends BaseController
 		}
 		return null;
 	}
-	
-	@RequestMapping("/updEpPassword1")
-	public String updEpPassword1()
+
+	@RequestMapping("/updPassword1")
+	public String updPassword1()
 	{
-	    Long id = req.getLong("keyIndex");
+		Long id = req.getLong("keyIndex");
 		String qybm = service.get(id).getQybm();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("status", 1);
 		map.put("qybm", qybm);
 		List<DsEpUser> userlist = service.queryListUser(map);
-		if(userlist.size() > 0){
+		if(userlist.size() > 0)
+		{
 			put("po", userlist.get(0));
-			return "/ep/enterprise/updEpPassword.jsp";
-		}else
+			return "/ep/enterprise/updPassword.jsp";
+		}
+		else
 		{
 			return null;
 		}
-		
 	}
-	
-	@RequestMapping("/updEpPassword2")
-	public void updEpPwd2(DsEpUser po)
+
+	@RequestMapping("/updPassword2")
+	public void updPassword2(DsEpUser po)
 	{
 		try
 		{
-			String qybm = req.getString("qybm");
-			String account = req.getString("account");
-			DsEpUser user = service.getUser(po.getId());
-			if(qybm.equals(user.getQybm())&&account.equals(user.getAccount()))
+			if(checkUser(po.getId()))
 			{
-				service.updatePassword(user.getId(), user.getStatus(), po.getPassword());
+				service.updatePassword(po.getId(), 1, po.getPassword());
 				print(1);
-			}else
+			}
+			else
 			{
 				print("0:信息不符！");
 			}
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());

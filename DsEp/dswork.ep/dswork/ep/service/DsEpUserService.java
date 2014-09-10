@@ -20,7 +20,6 @@ public class DsEpUserService extends BaseService<DsEpUser, Long>
 {
 	@Autowired
 	private DsEpUserDao userDao;
-	
 	@Autowired
 	private DsEpEnterpriseDao epDao;
 
@@ -29,17 +28,18 @@ public class DsEpUserService extends BaseService<DsEpUser, Long>
 	{
 		return userDao;
 	}
+
 	public boolean isExists(String account)
 	{
 		return userDao.isExists(account);
 	}
-	
+
 	public void updatePassword(long userId, int status, String password) throws Exception
 	{
 		password = EncryptUtil.encryptMd5(password);
 		userDao.updatePassword(userId, status, password);
 	}
-	
+
 	public DsEpEnterprise getEp(Long id)
 	{
 		return (DsEpEnterprise) epDao.get(id);

@@ -12,7 +12,7 @@
 <script type="text/javascript">
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-user">重置密码</div>').bind("click", function(){
-		location.href = "updEpPassword1.htm?keyIndex=" + id;
+		location.href = "updPassword1.htm?keyIndex=" + id;
 	}));
 	$(menu).append($('<div iconCls="menuTool-user">修改</div>').bind("click", function(){
 		location.href = "updEnterprise1.htm?keyIndex=" + id;

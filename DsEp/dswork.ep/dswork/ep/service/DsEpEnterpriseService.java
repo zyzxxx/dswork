@@ -65,7 +65,7 @@ public class DsEpEnterpriseService extends BaseService<DsEpEnterprise, Long>
 	{
 		return (DsEpUser) userDao.get(id);
 	}
-	
+
 	public void updatePassword(long userId, int status, String password) throws Exception
 	{
 		password = EncryptUtil.encryptMd5(password);
