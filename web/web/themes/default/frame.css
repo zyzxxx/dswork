@@ -158,8 +158,9 @@ div.line{display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hidd
 
 
 .topTable, .bottomTable, .listTable{width:100%;border:#c2c2c2 solid 1px;background-color:#c2c2c2;}
-.topTable, .bottomTable, .listTable tr{height:25px;}
-.topTable, .bottomTable, .listTable td{vertical-align:middle;text-align:center;}
+.listTable tr{height:25px;}
+.listTable tr tr{height:auto;}
+.listTable td{vertical-align:middle;text-align:center;}
 .topTable{border-bottom:none;}/*表格上面*/
 .bottomTable{border-top:none;}/*表格下面*/
 .bottomTable td{background-color:#d9e5fd;}
