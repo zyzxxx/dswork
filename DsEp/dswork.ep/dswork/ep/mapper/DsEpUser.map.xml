@@ -16,16 +16,13 @@
 	</insert>
 
 	<delete id="delete">
-		delete from DS_EP_USER where ID=#{id}
+		delete from DS_EP_USER where ID=#{id} and STATUS&lt;&gt;1
 	</delete>
 
 	<update id="update" parameterType="dswork.ep.model.DsEpUser">
 		update DS_EP_USER set
-			ACCOUNT=#{account},
-			PASSWORD=#{password},
 			NAME=#{name},
 			IDCARD=#{idcard},
-			STATUS=#{status},
 			EMAIL=#{email},
 			MOBILE=#{mobile},
 			PHONE=#{phone},
@@ -36,6 +33,10 @@
 			SSBM=#{ssbm},
 			FAX=#{fax}
 		where ID=#{id}
+	</update>
+
+	<update id="updatePassword">
+		update DS_EP_USER set PASSWORD=#{password} where ID=#{id} and STATUS=#{status}
 	</update>
 
 	<resultMap id="result" type="dswork.ep.model.DsEpUser">
@@ -66,17 +67,8 @@
 			<if test="@Ognl@isNotEmpty(qybm)"> and QYBM=#{qybm} </if>
 			<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT=#{account} </if>
 			<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
-			<if test="@Ognl@isNotEmpty(idcard)"> and IDCARD like concat('%',#{idcard},'%') </if>
-			<if test="@Ognl@isNotEmpty(status)"> and STATUS like concat('%',#{status},'%') </if>
-			<if test="@Ognl@isNotEmpty(email)"> and EMAIL like concat('%',#{email},'%') </if>
-			<if test="@Ognl@isNotEmpty(mobile)"> and MOBILE like concat('%',#{mobile},'%') </if>
-			<if test="@Ognl@isNotEmpty(phone)"> and PHONE like concat('%',#{phone},'%') </if>
-			<if test="@Ognl@isNotEmpty(workcard)"> and WORKCARD like concat('%',#{workcard},'%') </if>
-			<if test="@Ognl@isNotEmpty(cakey)"> and CAKEY like concat('%',#{cakey},'%') </if>
-			<if test="@Ognl@isNotEmpty(createtime)"> and CREATETIME like concat('%',#{createtime},'%') </if>
-			<if test="@Ognl@isNotEmpty(ssdw)"> and SSDW like concat('%',#{ssdw},'%') </if>
-			<if test="@Ognl@isNotEmpty(ssbm)"> and SSBM like concat('%',#{ssbm},'%') </if>
-			<if test="@Ognl@isNotEmpty(fax)"> and FAX like concat('%',#{fax},'%') </if>
+			<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
+			<if test="@Ognl@isNotEmpty(key)"> and (QYBM=#{key} or SSDW like concat('%',#{key},'%') or WORKCARD like concat('%',#{key},'%') or IDCARD like concat('%',#{key},'%')) </if>
 		</where>
 	</sql>
 

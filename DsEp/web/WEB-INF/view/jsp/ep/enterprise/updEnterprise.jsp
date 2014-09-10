@@ -30,29 +30,87 @@ $(function(){
 <form id="dataForm" method="post" action="updEnterprise2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">企业名称</td>
+		<td class="form_title">企业名称：</td>
 		<td class="form_input"><input type="text" name="name" maxlength="100" value="${fn:escapeXml(po.name)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">企业编码</td>
-		<td class="form_input"><input type="text" name="qybm" maxlength="100" value="${fn:escapeXml(po.qybm)}" /></td>
-	</tr>
-	<tr>
-		<td class="form_title">状态</td>
+		<td class="form_title">状态：</td>
 		<td class="form_input"><select id="status" name="status" style="width:135px;">
-			<option value="1">正在运营</option>
-			<option value="2">暂停运营</option>
+			<option value="1">正常运营</option>
+			<option value="2">禁用</option>
 			<option value="3">已注销</option>
 		</select></td>
 	</tr>
 	<tr>
-		<td class="form_title">类型</td>
+		<td class="form_title">类型：</td>
 		<td class="form_input"><select id="type" name="type" style="width:135px;">
-			<option value="1">国营企业</option>
-			<option value="2">有限责任公司</option>
+			<option value="有限责任公司">有限责任公司</option>
+				<option value="股份有限公司">股份有限公司</option>
+				<option value="内资企业">内资企业</option>
+				<option value="国有企业">国有企业</option>
+				<option value="集体企业">集体企业</option>
+				<option value="股份合作企业">股份合作企业</option>
+				<option value="联营企业">联营企业</option>
+				<option value="私营企业">私营企业</option>
+				<option value="其他企业">其他企业</option>
+				<option value="港、澳、台商投资企业">港、澳、台商投资企业</option>
+				<option value="合资经营企业（港或澳、台资）">合资经营企业（港或澳、台资）</option>
+				<option value="合作经营企业（港或澳、台资）">合作经营企业（港或澳、台资）</option>
+				<option value="港、澳、台商独资经营企业">港、澳、台商独资经营企业</option>
+				<option value="港、澳、台商投资股份有限公司">港、澳、台商投资股份有限公司</option>
+				<option value="其他港、澳、台商投资企业">其他港、澳、台商投资企业</option>
+				<option value="外商投资企业">外商投资企业</option>
+				<option value="中外合资经营企业">中外合资经营企业</option>
+				<option value="中外合作经营企业">中外合作经营企业</option>
+				<option value="外资企业">外资企业</option>
+				<option value="外商投资股份有限公司">外商投资股份有限公司</option>
+				<option value="其他外商投资企业">其他外商投资企业</option>
 		</select></td>
 	</tr>
+	<tr>
+		<td class="form_title">账号：</td>
+		<td class="form_input">${fn:escapeXml(admin.account)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">姓名：</td>
+		<td class="form_input"><input type="text" id="name" name="name1" dataType="Chinese" maxlength="25" value="${fn:escapeXml(admin.name)}" /> <span class="imp">*</span></td>
+	</tr>
+	<tr>
+		<td class="form_title">手机：</td>
+		<td class="form_input"><input type="text" id="mobile" name="mobile" require="false" dataType="Mobile" maxlength="50" value="${fn:escapeXml(admin.mobile)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">电话：</td>
+		<td class="form_input"><input type="text" id="phone" name="phone" require="false" dataType="Phone" maxlength="50" value="${fn:escapeXml(admin.phone)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">邮箱：</td>
+		<td class="form_input"><input type="text" id="email" name="email" style="width:200px;" require="false" dataType="Email" maxlength="250" value="${fn:escapeXml(admin.email)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">身份证号：</td>
+		<td class="form_input"><input type="text" id="idcard" name="idcard" style="width:200px;" require="false" dataType="IdCard" maxlength="18" value="${fn:escapeXml(admin.idcard)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">工作证号：</td>
+		<td class="form_input"><input type="text" id="workcard" name="workcard" style="width:200px;" require="false" dataType="Require" maxlength="64" value="${fn:escapeXml(admin.workcard)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">CA证书的KEY：</td>
+		<td class="form_input"><input type="text" name="cakey" maxlength="100" style="width:200px;" value="${fn:escapeXml(admin.cakey)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">所属单位：</td>
+		<td class="form_input"><input type="text" name="ssdw" maxlength="100" style="width:200px;" value="${fn:escapeXml(admin.ssdw)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">所属部门：</td>
+		<td class="form_input"><input type="text" name="ssbm" maxlength="100" style="width:200px;" value="${fn:escapeXml(admin.ssbm)}" /></td>
+	</tr>
 </table>
+<input type="hidden" name="account" value="${admin.account}" />
+<input type="hidden" name="account" value="${admin.password}" />
+<input type="hidden" name="id2" value="${admin.id}" />
 <input type="hidden" name="id" value="${po.id}" />
 </form>
 </body>

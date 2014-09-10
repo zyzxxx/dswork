@@ -11,13 +11,20 @@
 <script src="../jskey_core.js" type="text/javascript"></script>
 <script type="text/javascript">
 $dswork.page.join = function(td, menu, id){
-	var qybm = td.attr("qybm");
-	$(menu).append($('<div iconCls="menuTool-user">用户列表</div>').bind("click", function(){
-		$jskey.dialog.showDialog({title:'用户管理', url:'../user/getUser.htm?qybm='+qybm,width:700,height:500});
+	$(menu).append($('<div iconCls="menuTool-user">重置密码</div>').bind("click", function(){
+		location.href = "updEpPassword1.htm?keyIndex=" + id;
+	}));
+	$(menu).append($('<div iconCls="menuTool-user">修改</div>').bind("click", function(){
+		location.href = "updEnterprise1.htm?keyIndex=" + id;
 	}));
 };
 $(function(){
-	$dswork.page.menu("", "updEnterprise1.htm", "", "${pageModel.currentPage}");
+	$dswork.page.menu("", "", "getEnterpriseById.htm", "${pageModel.currentPage}");
+	$("#status").val("${param.status}");
+	$("#type").val("${param.type}");
+	$("#dataTable>tbody>tr>td.status").each(function(){
+		$(this).text($(this).text()=="1"?"正常运营":$(this).text()=="2"?"禁用":"已注销");
+	});
 });
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
@@ -39,9 +46,37 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
-			&nbsp;企业名称：<input type="text" class="text" name="name" value="${fn:escapeXml(param.name)}" />
-			&nbsp;状态：<input type="text" class="text" name="status" value="${fn:escapeXml(param.status)}" />
-			&nbsp;类型：<input type="text" class="text" name="type" value="${fn:escapeXml(param.type)}" />
+			&nbsp;关键字查询：<input type="text" title="输入请企业编码或企业名称" class="text" name="key" style="width:135px;" value="${fn:escapeXml(param.key)}" />
+			&nbsp;状态：<select id="status" name="status" style="width:100px;">
+				<option value="">全部</option>
+				<option value="1">正常运营</option>
+				<option value="2">禁用</option>
+				<option value="3">已注销</option>
+			</select>
+			&nbsp;类型：<select id="type" name="type" style="width:150px;">
+				<option value="">全部</option>
+				<option value="有限责任公司">有限责任公司</option>
+				<option value="股份有限公司">股份有限公司</option>
+				<option value="内资企业">内资企业</option>
+				<option value="国有企业">国有企业</option>
+				<option value="集体企业">集体企业</option>
+				<option value="股份合作企业">股份合作企业</option>
+				<option value="联营企业">联营企业</option>
+				<option value="私营企业">私营企业</option>
+				<option value="其他企业">其他企业</option>
+				<option value="港、澳、台商投资企业">港、澳、台商投资企业</option>
+				<option value="合资经营企业（港或澳、台资）">合资经营企业（港或澳、台资）</option>
+				<option value="合作经营企业（港或澳、台资）">合作经营企业（港或澳、台资）</option>
+				<option value="港、澳、台商独资经营企业">港、澳、台商独资经营企业</option>
+				<option value="港、澳、台商投资股份有限公司">港、澳、台商投资股份有限公司</option>
+				<option value="其他港、澳、台商投资企业">其他港、澳、台商投资企业</option>
+				<option value="外商投资企业">外商投资企业</option>
+				<option value="中外合资经营企业">中外合资经营企业</option>
+				<option value="中外合作经营企业">中外合作经营企业</option>
+				<option value="外资企业">外资企业</option>
+				<option value="外商投资股份有限公司">外商投资股份有限公司</option>
+				<option value="其他外商投资企业">其他外商投资企业</option>
+			</select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>
@@ -63,7 +98,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="menuTool" keyIndex="${d.id}" qybm="${fn:escapeXml(d.qybm)}">&nbsp;</td>
 		<td>${fn:escapeXml(d.qybm)}</td>
 		<td>${fn:escapeXml(d.name)}</td>
-		<td>${fn:escapeXml(d.status)}</td>
+		<td class="status">${fn:escapeXml(d.status)}</td>
 		<td>${fn:escapeXml(d.type)}</td>
 	</tr>
 </c:forEach>

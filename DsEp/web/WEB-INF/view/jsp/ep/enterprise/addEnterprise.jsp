@@ -27,15 +27,15 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <form id="dataForm" method="post" action="addEnterprise2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">企业名称</td>
+		<td class="form_title">企业名称：</td>
 		<td class="form_input"><input type="text" name="name" maxlength="100" style="width:400px;" dataType="Require" value="" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">企业编码</td>
+		<td class="form_title">企业编码：</td>
 		<td class="form_input"><input type="text" name="qybm" maxlength="100" style="width:100px;" dataType="Require" value="" /> <span class="imp">*</span> <span style="font-weight:bold;">添加后不可修改</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">状态</td>
+		<td class="form_title">状态：</td>
 		<td class="form_input"><select name="status" style="width:300px;">
 			<option value="1">正常运营</option>
 			<option value="2">禁用</option>
@@ -43,7 +43,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		</select></td>
 	</tr>
 	<tr>
-		<td class="form_title">类型</td>
+		<td class="form_title">类型：</td>
 		<td class="form_input"><select name="type" style="width:300px;">
 			<option value="有限责任公司">有限责任公司</option>
 			<option value="股份有限公司">股份有限公司</option>
@@ -69,36 +69,40 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		</select></td>
 	</tr>
 	<tr>
-		<td class="form_title">帐号</td>
+		<td class="form_title">帐号：</td>
 		<td class="form_input"><input type="text" id="account" name="account" dataType="Char" maxlength="50" value="" /> <span class="imp">*</span> <span style="font-weight:bold;">添加后不可修改</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">姓名</td>
+		<td class="form_title">姓名：</td>
 		<td class="form_input"><input type="text" id="username" name="username" dataType="Require" maxlength="25" value="" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">密码</td>
+		<td class="form_title">密码：</td>
 		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" dataType="Require" maxlength="32" value="000000" /> <span class="imp">*</span> <span style="font-weight:bold;">默认密码为：000000</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">确认密码</td>
+		<td class="form_title">确认密码：</td>
 		<td class="form_input"><input type="password" id="password2" name="password2" style="width:130px;" dataType="Repeat" to="password" msg="两次输入的密码不一致" value="000000" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">身份证号</td>
+		<td class="form_title">身份证号：</td>
 		<td class="form_input"><input type="text" id="idcard" name="idcard" style="width:200px;" require="false" dataType="IdCard" maxlength="18" value="" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">邮箱</td>
+		<td class="form_title">邮箱：</td>
 		<td class="form_input"><input type="text" id="email" name="email" readonly="readonly" style="width:200px;" require="false" dataType="Email" maxlength="250" value="" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">手机</td>
+		<td class="form_title">手机：</td>
 		<td class="form_input"><input type="text" id="mobile" name="mobile" require="false" dataType="Mobile" maxlength="50" value="" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">电话</td>
+		<td class="form_title">电话：</td>
 		<td class="form_input"><input type="text" id="phone" name="phone" require="false" dataType="Phone" maxlength="50" value="" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">传真：</td>
+		<td class="form_input"><input type="text" id="fax" name="fax" require="false" dataType="Fax" maxlength="50" value="" /></td>
 	</tr>
 </table>
 </form>

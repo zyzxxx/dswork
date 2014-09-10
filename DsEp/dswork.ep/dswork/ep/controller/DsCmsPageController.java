@@ -15,11 +15,15 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
+import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
 import dswork.ep.model.DsCmsCategory;
 import dswork.ep.model.DsCmsPage;
 import dswork.ep.model.DsCmsSite;
 import dswork.ep.service.DsCmsPageService;
+
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Scope("prototype")
 @Controller
@@ -29,13 +33,18 @@ public class DsCmsPageController extends BaseController
 	@Autowired
 	private DsCmsPageService service;
 
-	//添加
+	private String getCmsRoot()
+	{
+		return request.getSession().getServletContext().getRealPath("/") + "/";
+	}
+
+	// 添加
 	@RequestMapping("/addPage1")
 	public String addPage1()
 	{
 		return "/cms/page/addPage.jsp";
 	}
-	
+
 	@RequestMapping("/addPage2")
 	public void addPage2(DsCmsPage po)
 	{
@@ -55,14 +64,14 @@ public class DsCmsPageController extends BaseController
 			}
 			print("0:站点不存在");
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
 	}
 
-	//删除
+	// 删除
 	@RequestMapping("/delPage")
 	public void delPage()
 	{
@@ -78,14 +87,14 @@ public class DsCmsPageController extends BaseController
 			}
 			print("0:站点不存在");
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
 	}
 
-	//修改
+	// 修改
 	@RequestMapping("/updPage1")
 	public String updPage1()
 	{
@@ -94,7 +103,7 @@ public class DsCmsPageController extends BaseController
 		put("page", req.getInt("page", 1));
 		return "/cms/page/updPage.jsp";
 	}
-	
+
 	@RequestMapping("/updPage2")
 	public void updPage2(DsCmsPage po)
 	{
@@ -103,7 +112,7 @@ public class DsCmsPageController extends BaseController
 			service.update(po);
 			print(1);
 		}
-		catch (Exception e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 			print("0:" + e.getMessage());
@@ -184,7 +193,7 @@ public class DsCmsPageController extends BaseController
 		return "/cms/page/getCategoryTree.jsp";
 	}
 
-	//获得分页
+	// 获得分页
 	@RequestMapping("/getPage")
 	public String getPage()
 	{
@@ -276,6 +285,7 @@ public class DsCmsPageController extends BaseController
 			categorySettingList(n, list);
 		}
 	}
+
 	private boolean checkSite(Long siteid)
 	{
 		try
@@ -286,5 +296,85 @@ public class DsCmsPageController extends BaseController
 		{
 		}
 		return false;
+	}
+
+	private boolean checkSite(String qybm)
+	{
+		try
+		{
+			return qybm.equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+		}
+		catch(Exception ex)
+		{
+		}
+		return false;
+	}
+
+	@RequestMapping("/uploadImage")
+	public void uploadImage()
+	{
+		try
+		{
+			Long categoryid = req.getLong("categoryid");
+			DsCmsCategory m = service.getCategory(categoryid);
+			DsCmsSite site = service.getSite(m.getSiteid());
+			if(checkSite(site.getQybm()))
+			{
+				String ext = "";
+				boolean isHTML5 = "application/octet-stream".equals(request.getContentType());
+				byte[] byteArray = null;
+				if(isHTML5)
+				{
+					String header = request.getHeader("Content-Disposition");
+					int iStart = header.indexOf("filename=\"") + 10;
+					int iEnd = header.indexOf("\"", iStart);
+					String fileName = header.substring(iStart, iEnd);
+					int len = fileName.lastIndexOf(".");
+					ext = (len != -1) ? fileName.substring(len + 1) : "";
+					int i = request.getContentLength();
+					byteArray = new byte[i];
+					int j = 0;
+					while(j < i)// 获取表单的上传文件
+					{
+						int k = request.getInputStream().read(byteArray, j, i - j);
+						j += k;
+					}
+				}
+				else
+				{
+					MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+					MultipartFile file = multipartRequest.getFile("filedata");
+					String fileName = file.getOriginalFilename();
+					int len = fileName.lastIndexOf(".");
+					ext = (len != -1) ? fileName.substring(len + 1) : "";
+					byteArray = file.getBytes();
+				}
+				if(!ext.equals("") && "jpg,jpeg,gif,png".indexOf(ext) != -1)
+				{
+					String root = getCmsRoot();
+					String path = "/html/" + site.getFolder() + "/themes/" + TimeUtil.getCurrentTime("yyyyMM") + "/";
+					FileUtil.createFolder(root + path);
+					String webpath = request.getContextPath() + path;
+					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
+					try
+					{
+						FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(byteArray), true);
+						print("{\"err\":\"\",\"msg\":\"!" + webpath + v + "\"}");
+						return;
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+						print("{\"err\":\"上传失败\",\"msg\":\"\"}");
+						return;
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
 	}
 }

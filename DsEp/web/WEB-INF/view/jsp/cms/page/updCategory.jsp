@@ -13,6 +13,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 $(function(){
 	try{$("#pid").val("${po.pid}");}catch(e){}
 	try{$(".form_title").css("width", "8%");}catch(e){}
+	$('#content').xheditor({upMultiple:1,upImgUrl:"uploadImage.htm?categoryid=${po.id}"});
 });
 </script>
 </head>
@@ -35,7 +36,7 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">内容</td>
-		<td class="form_input"><textarea id="content" name="content" class="xheditor" style="width:99%;height:300px;">${po.content}</textarea></td>
+		<td class="form_input"><textarea id="content" name="content" style="width:99%;height:300px;">${po.content}</textarea></td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />

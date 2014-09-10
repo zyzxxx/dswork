@@ -7,7 +7,7 @@ auth.setAccount("100000");
 auth.setName("管理员");
 auth.setQybm("100000");
 auth.setStatus(1);
-auth.setSsdw("责任有限公司");
+auth.setSsdw("银江股份");
 auth.setSsbm("技术部");
 request.getSession().setAttribute(common.auth.AuthLogin.SessionName_LoginUser, auth);
 response.sendRedirect(path + "/index.jsp");

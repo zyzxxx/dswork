@@ -6,6 +6,11 @@
 <head>
 <title></title>
 <%@include file="/commons/include/getById.jsp" %>
+<script type="text/javascript">
+$(function(){
+	$("#status").text($("#status").text()=="1"?"正常运营":$("#status").text()=="2"?"禁用":"已注销");
+});
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
@@ -28,11 +33,51 @@
 	</tr>
 	<tr>
 		<td class="form_title">状态</td>
-		<td class="form_input">${fn:escapeXml(po.status)}</td>
+		<td id="status" class="form_input">${fn:escapeXml(po.status)}</td>
 	</tr>
 	<tr>
 		<td class="form_title">类型</td>
 		<td class="form_input">${fn:escapeXml(po.type)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">账号</td>
+		<td class="form_input">${fn:escapeXml(admin.account)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">姓名</td>
+		<td class="form_input">${fn:escapeXml(admin.name)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">身份证号</td>
+		<td class="form_input">${fn:escapeXml(admin.idcard)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">电子邮件</td>
+		<td class="form_input">${fn:escapeXml(admin.email)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">手机</td>
+		<td class="form_input">${fn:escapeXml(admin.mobile)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">电话</td>
+		<td class="form_input">${fn:escapeXml(admin.phone)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">传真</td>
+		<td class="form_input">${fn:escapeXml(admin.fax)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">创建时间</td>
+		<td class="form_input">${fn:escapeXml(admin.createtime)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">所属单位</td>
+		<td class="form_input">${fn:escapeXml(admin.ssdw)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">所属部门</td>
+		<td class="form_input">${fn:escapeXml(admin.ssbm)}</td>
 	</tr>
 </table>
 </body>

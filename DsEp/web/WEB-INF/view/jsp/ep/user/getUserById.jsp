@@ -7,7 +7,7 @@
 <title></title>
 <%@include file="/commons/include/getById.jsp" %>
 <script type="text/javascript">
-$(function(){$("#status").text($("#status").text()=="0"?"管理员":"企业用户");});
+$(function(){$("#status").text($("#status").text()=="1"?"管理员":"普通用户");});
 </script>
 </head>
 <body>

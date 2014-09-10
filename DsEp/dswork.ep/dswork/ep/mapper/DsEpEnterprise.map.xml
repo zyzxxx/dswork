@@ -44,9 +44,10 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name} </if>
+			<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name} ,'%') </if>
 			<if test="@Ognl@isNotEmpty(ssxq)"> and SSXQ=#{ssxq} </if>
 			<if test="@Ognl@isNotEmpty(qybm)"> and QYBM=#{qybm} </if>
+			<if test="@Ognl@isNotEmpty(key)"> and (QYBM=#{key} or NAME like concat('%',#{key} ,'%')) </if>
 			<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 			<if test="@Ognl@isNotEmpty(type)"> and TYPE=#{type} </if>
 		</where>

@@ -6,22 +6,40 @@
 <head>
 <title></title>
 <%@include file="/commons/include/get.jsp" %>
+<script src="../../jquery/jquery.js" type="text/javascript"></script>
+<script src="../../easyui/jquery.easyui.js" type="text/javascript"></script>
+<script src="../jskey_core.js" type="text/javascript"></script>
 <script type="text/javascript">
-$(function(){
-	$dswork.page.menu("delUser.htm", "updUser1.htm", "getUserById.htm", "${pageModel.currentPage}");
-});
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getUser.htm?page=${pageModel.currentPage}&qybm=${qybm}";
 }};
+$dswork.page.join = function(td, menu, id){
+	var status  = $(td).attr("status");
+	if(status == null || typeof(status)=="undefined"){return true;}
+	if(status != "1"){
+		$(menu).append($('<div iconCls="menuTool-user">删除</div>').bind("click", function(event){
+			if(confirm("确认删除吗？")){$dswork.page.del(event, "delUser.htm", id, "${pageModel.currentPage}", td);}
+		}));
+	}
+	$(menu).append($('<div iconCls="menuTool-user">修改密码</div>').bind("click", function(event){
+		location.href = "updUserPassword1.htm?keyIndex=" + id;
+	}));
+};
+$(function(){
+	$dswork.page.menu("", "updUser1.htm", "getUserById.htm", "${pageModel.currentPage}");
+	$("#dataTable>tbody>tr>td.status").each(function(){
+		$(this).text($(this).text()==1?"管理员":"普通用户");
+	});
+});
 </script>
 </head> 
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">企业用户列表</td>
+		<td class="title">${ssdw}用户列表</td>
 		<td class="menuTool">
-			<a class="insert" href="addUser1.htm?page=${pageModel.currentPage}&qybm=${qybm}">添加</a>
+			<a class="insert" href="addUser1.htm?page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
@@ -31,9 +49,9 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
-			&nbsp;企业编码：<input type="text" class="text" name="qybm" value="${fn:escapeXml(param.qybm)}" />
+			&nbsp;关键字查询：<input type="text" class="text" name="key" style="width:135px;" value="${fn:escapeXml(param.key)}" />
+			&nbsp;账号：<input type="text" class="text" name="account" value="${fn:escapeXml(param.account)}" />
 			&nbsp;姓名：<input type="text" class="text" name="name" value="${fn:escapeXml(param.name)}" />
-			&nbsp;所属单位：<input type="text" class="text" name="ssdw" value="${fn:escapeXml(param.ssdw)}" />
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>
@@ -45,21 +63,25 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
-		<td style="width:15%">企业编码</td>
-		<td>账号</td>
+		<td style="width:15%;">账号</td>
 		<td>姓名</td>
-		<td style="width:20%">工作证号</td>
 		<td style="width:20%">所属单位</td>
+		<td style="width:15%">用户类型</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
-		<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
-		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
-		<td>${fn:escapeXml(d.qybm)}</td>
+		<c:if test="${d.status != 1}">
+			<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
+		</c:if>
+		<c:if test="${d.status == 1}">
+			<td></td>
+		</c:if>
+		<td class="menuTool" status="${d.status}" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.account)}</td>
 		<td>${fn:escapeXml(d.name)}</td>
-		<td>${fn:escapeXml(d.workcard)}</td>
 		<td>${fn:escapeXml(d.ssdw)}</td>
+		<td class="status" <c:if test="${d.status == 1}">style="color:red;"</c:if>>${fn:escapeXml(d.status)}</td>
+		
 	</tr>
 </c:forEach>
 </table>

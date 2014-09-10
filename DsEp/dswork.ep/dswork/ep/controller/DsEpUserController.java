@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.mvc.BaseController;
+import common.auth.Auth;
+import common.auth.AuthLogin;
+
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
@@ -16,6 +18,7 @@ import dswork.core.util.CollectionUtil;
 import dswork.core.util.TimeUtil;
 import dswork.ep.model.DsEpUser;
 import dswork.ep.service.DsEpUserService;
+import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
@@ -47,6 +50,8 @@ public class DsEpUserController extends BaseController
 			{
 				if(!service.isExists(po.getAccount()))
 				{
+					Auth user = AuthLogin.getLoginUser(request, response);
+					po.setQybm(user.getQybm());
 					po.setStatus(0);
 					po.setCreatetime(TimeUtil.getCurrentTime("yyyy-MM-dd HH:mm:ss"));
 					service.save(po);
@@ -71,9 +76,7 @@ public class DsEpUserController extends BaseController
 	{
 		try
 		{
-			String qybm = req.getString("qybm");
 			service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
-			print(qybm);
 			print(1);
 		}
 		catch (Exception e)
@@ -98,8 +101,19 @@ public class DsEpUserController extends BaseController
 	{
 		try
 		{
-			service.update(po);
-			print(1);
+			String account = req.getString("account");
+			Long id = req.getLong("id");
+			DsEpUser user = service.get(id);
+			if(user != null && account.equals(user.getAccount()))
+			{
+				po.setCreatetime(user.getCreatetime());
+				po.setStatus(user.getStatus());
+				po.setPassword(user.getPassword());
+				po.setQybm(user.getQybm());
+				service.update(po);
+				print(1);
+			}
+			
 		}
 		catch (Exception e)
 		{
@@ -112,15 +126,21 @@ public class DsEpUserController extends BaseController
 	@RequestMapping("/getUser")
 	public String getUser()
 	{
-		String qybm = req.getString("qybm");
+		String key = req.getString("key");
+		String account = req.getString("account");
+		String name = req.getString("name");
+		Auth user = AuthLogin.getLoginUser(request, response);
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("qybm", qybm);
+		map.put("qybm", user.getQybm());
+		map.put("key", key);
+		map.put("account", account);
+		map.put("name", name);
 		PageRequest rq = getPageRequest();
 		rq.setFilters(map);
-		Page<DsEpUser> pageModel = service.queryPage(getPageRequest());
+		Page<DsEpUser> pageModel = service.queryPage(rq);
+		put("ssdw", user.getSsdw());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsEpUser>(request, pageModel));
-		put("qybm", qybm);
 		return "/ep/user/getUser.jsp";
 	}
 
@@ -131,5 +151,39 @@ public class DsEpUserController extends BaseController
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
 		return "/ep/user/getUserById.jsp";
+	}
+	
+	@RequestMapping("/updUserPassword1")
+	public String updUserPwd1()
+	{
+	    Long id = req.getLong("keyIndex");
+		DsEpUser user = service.get(id);
+		put("po", user);
+		return "/ep/user/updUserPassword.jsp";
+	}
+	
+	@RequestMapping("/updUserPassword2")
+	public void updUserPwd2(DsEpUser po)
+	{
+		try
+		{
+			String qybm = req.getString("qybm");
+			String account = req.getString("account");
+			String oldpassword = req.getString("oldpassword");
+			DsEpUser user = service.get(po.getId());
+			if(oldpassword.equals(user.getPassword())&&qybm.equals(user.getQybm())&&account.equals(user.getAccount()))
+			{
+				service.updatePassword(user.getId(), user.getStatus(), po.getPassword());
+				print(1);
+			}else
+			{
+				print("0:信息不符！");
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
 	}
 }

@@ -3,7 +3,11 @@
  */
 package dswork.ep.dao;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
+
 import dswork.core.db.BaseDao;
 import dswork.ep.model.DsEpUser;
 
@@ -23,11 +27,20 @@ public class DsEpUserDao extends BaseDao<DsEpUser, Long>
 	public boolean isExists(String account)
 	{
 		DsEpUser user = getUserByAccount(account);
-		if(user.getAccount().length()>0 && user.getAccount()!=null){
+		if(user != null && user.getAccount().length()>0 && user.getAccount()!=null){
 			return true;
 		}
 		else{
 			return false;
 		}
 	}
+	public void updatePassword(long userId, int status, String password)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", userId);
+		map.put("status", status);
+		map.put("password", password);
+		executeUpdate("updatePassword", map);
+	}
+
 }
