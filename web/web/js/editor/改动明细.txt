@@ -1,7 +1,6 @@
 v1.1.14 Change (2012-7-1)
 xheditor.js修改明细：
-1、simple和full对调
-2、full值：
+1、simple值：
 "Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,|,Align,List,Outdent,Indent,|,Link,Img,Emot"
 改为
 "Cut,Copy,Paste,Pastetext,|,Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,|,Align,List,Outdent,Indent,|,Link,Unlink,Hr,Emot,Table,|,Source,Fullscreen"
