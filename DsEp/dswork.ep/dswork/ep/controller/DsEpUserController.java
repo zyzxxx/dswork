@@ -1,8 +1,5 @@
 package dswork.ep.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,6 +11,7 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
+import dswork.core.util.EncryptUtil;
 import dswork.core.util.TimeUtil;
 import dswork.ep.model.DsEpUser;
 import dswork.ep.service.DsEpUserService;
@@ -151,18 +149,16 @@ public class DsEpUserController extends BaseController
 	{
 		try
 		{
-			String qybm = req.getString("qybm");
-			String account = req.getString("account");
 			String oldpassword = req.getString("oldpassword");
 			DsEpUser user = service.get(po.getId());
-			if(oldpassword.equals(user.getPassword()) && qybm.equals(user.getQybm()) && account.equals(user.getAccount()))
+			if(user != null && EncryptUtil.encryptMd5(oldpassword).equals(user.getPassword()) && checkUser(user.getId()))
 			{
 				service.updatePassword(user.getId(), user.getStatus(), po.getPassword());
 				print(1);
 			}
 			else
 			{
-				print("0:信息不符！");
+				print("0");
 			}
 		}
 		catch(Exception e)

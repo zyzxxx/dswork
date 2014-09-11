@@ -18,7 +18,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="title">重置密码</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="${ctx}/ep/enterprise/getEnterprise.htm?page=${page}">返回</a>
+			<a class="back" href="getUser.htm?page=${page}">返回</a>
 		</td>
 	</tr>
 </table>
@@ -38,8 +38,6 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="form_input"><input type="password" id="password2" name="password2" style="width:130px;" dataType="Repeat" to="password" msg="两次输入的密码不一致" value="" /> <span class="imp">*</span></td>
 	</tr>
 </table>
-<input type="hidden" name="account" value="${po.account}" />
-<input type="hidden" name="qybm" value="${po.qybm}" />
 <input type="hidden" name="id" value="${po.id}" />
 </form>
 </body>

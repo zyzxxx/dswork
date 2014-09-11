@@ -9,7 +9,7 @@
 <%@include file="/commons/include/addAjax.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getUser.htm?qybm=${qybm}";
+	location.href = "getUser.htm";
 }};
 </script>
 </head>
