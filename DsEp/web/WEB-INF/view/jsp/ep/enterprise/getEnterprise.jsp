@@ -46,7 +46,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
-			&nbsp;关键字查询：<input type="text" title="输入请企业编码或企业名称" class="text" name="key" style="width:135px;" value="${fn:escapeXml(param.key)}" />
+			&nbsp;关键字查询：<input type="text" name="keyvalue" style="width:200px;" title="企业编码或企业名称" value="${fn:escapeXml(param.keyvalue)}" />
 			&nbsp;状态：<select id="status" name="status" style="width:100px;">
 				<option value="">全部</option>
 				<option value="1">正常运营</option>
@@ -89,8 +89,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td style="width:5%">操作</td>
 		<td style="width:15%">企业编码</td>
 		<td>企业名称</td>
-		<td>状态</td>
-		<td>类型</td>
+		<td style="width:20%">类型</td>
+		<td style="width:10%">状态</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
@@ -98,8 +98,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="menuTool" keyIndex="${d.id}" qybm="${fn:escapeXml(d.qybm)}">&nbsp;</td>
 		<td>${fn:escapeXml(d.qybm)}</td>
 		<td>${fn:escapeXml(d.name)}</td>
-		<td class="status">${fn:escapeXml(d.status)}</td>
 		<td>${fn:escapeXml(d.type)}</td>
+		<td class="status">${fn:escapeXml(d.status)}</td>
 	</tr>
 </c:forEach>
 </table>

@@ -11,8 +11,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getEnterprise.htm?page=${page}";
 }};
 $(function(){
-	try{$("#status").val("${status}");}catch(e){}
-	try{$("#type").val("${type}");}catch(e){}
+	try{$("#status").val("${po.status}");}catch(e){}
+	try{$("#type").val("${po.type}");}catch(e){}
 });
 </script>
 </head>
@@ -73,45 +73,32 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">姓名：</td>
-		<td class="form_input"><input type="text" id="name" name="name1" dataType="Chinese" maxlength="25" value="${fn:escapeXml(admin.name)}" /> <span class="imp">*</span></td>
-	</tr>
-	<tr>
-		<td class="form_title">手机：</td>
-		<td class="form_input"><input type="text" id="mobile" name="mobile" require="false" dataType="Mobile" maxlength="50" value="${fn:escapeXml(admin.mobile)}" /></td>
-	</tr>
-	<tr>
-		<td class="form_title">电话：</td>
-		<td class="form_input"><input type="text" id="phone" name="phone" require="false" dataType="Phone" maxlength="50" value="${fn:escapeXml(admin.phone)}" /></td>
-	</tr>
-	<tr>
-		<td class="form_title">邮箱：</td>
-		<td class="form_input"><input type="text" id="email" name="email" style="width:200px;" require="false" dataType="Email" maxlength="250" value="${fn:escapeXml(admin.email)}" /></td>
+		<td class="form_input"><input type="text" name="username" dataType="Require" maxlength="25" value="${fn:escapeXml(admin.name)}" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">身份证号：</td>
 		<td class="form_input"><input type="text" id="idcard" name="idcard" style="width:200px;" require="false" dataType="IdCard" maxlength="18" value="${fn:escapeXml(admin.idcard)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">工作证号：</td>
-		<td class="form_input"><input type="text" id="workcard" name="workcard" style="width:200px;" require="false" dataType="Require" maxlength="64" value="${fn:escapeXml(admin.workcard)}" /></td>
+		<td class="form_title">邮箱：</td>
+		<td class="form_input"><input type="text" name="email" readonly="readonly" style="width:200px;" require="false" dataType="Email" maxlength="250" value="${fn:escapeXml(admin.email)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">CA证书的KEY：</td>
-		<td class="form_input"><input type="text" name="cakey" maxlength="100" style="width:200px;" value="${fn:escapeXml(admin.cakey)}" /></td>
+		<td class="form_title">手机：</td>
+		<td class="form_input"><input type="text" name="mobile" require="false" dataType="Mobile" maxlength="50" value="${fn:escapeXml(admin.mobile)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">所属单位：</td>
-		<td class="form_input"><input type="text" name="ssdw" maxlength="100" style="width:200px;" value="${fn:escapeXml(admin.ssdw)}" /></td>
+		<td class="form_title">电话：</td>
+		<td class="form_input"><input type="text" id="phone" name="phone" require="false" dataType="Phone" maxlength="50" value="${fn:escapeXml(admin.phone)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">所属部门：</td>
-		<td class="form_input"><input type="text" name="ssbm" maxlength="100" style="width:200px;" value="${fn:escapeXml(admin.ssbm)}" /></td>
+		<td class="form_title">传真：</td>
+		<td class="form_input"><input type="text" id="fax" name="fax" require="false" dataType="Fax" maxlength="50" value="${fn:escapeXml(admin.fax)}" /></td>
 	</tr>
 </table>
-<input type="hidden" name="account" value="${admin.account}" />
-<input type="hidden" name="account" value="${admin.password}" />
-<input type="hidden" name="id2" value="${admin.id}" />
+<input type="hidden" name="userid" value="${admin.id}" />
 <input type="hidden" name="id" value="${po.id}" />
+<input type="hidden" name="ssxq" value="" />
 </form>
 </body>
 </html>

@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.auth.Auth;
 import common.auth.AuthLogin;
-
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
@@ -42,25 +41,18 @@ public class DsEpUserController extends BaseController
 	{
 		try
 		{
-			if(po.getAccount().length() <= 0)
+			if(po.getAccount().length() == 0 || service.isExists(po.getAccount()))
 			{
-				print("0:添加失败，账号不能为空");
+				print("0:添加失败，账号已存在");
 			}
 			else
 			{
-				if(!service.isExists(po.getAccount()))
-				{
-					Auth user = AuthLogin.getLoginUser(request, response);
-					po.setQybm(user.getQybm());
-					po.setStatus(0);
-					po.setCreatetime(TimeUtil.getCurrentTime("yyyy-MM-dd HH:mm:ss"));
-					service.save(po);
-					print(1);
-				}
-				else
-				{
-					print("0:添加失败，账号已存在");
-				}
+				Auth user = AuthLogin.getLoginUser(request, response);
+				po.setQybm(user.getQybm());
+				po.setStatus(0);
+				po.setCreatetime(TimeUtil.getCurrentTime());
+				service.save(po);
+				print(1);
 			}
 		}
 		catch(Exception e)
@@ -101,17 +93,19 @@ public class DsEpUserController extends BaseController
 	{
 		try
 		{
-			String account = req.getString("account");
 			Long id = req.getLong("id");
 			DsEpUser user = service.get(id);
-			if(user != null && account.equals(user.getAccount()))
+			if(user != null && checkUser(user.getId()))
 			{
-				po.setCreatetime(user.getCreatetime());
 				po.setStatus(user.getStatus());
 				po.setPassword(user.getPassword());
 				po.setQybm(user.getQybm());
 				service.update(po);
 				print(1);
+			}
+			else
+			{
+				print("0");
 			}
 		}
 		catch(Exception e)
@@ -125,19 +119,10 @@ public class DsEpUserController extends BaseController
 	@RequestMapping("/getUser")
 	public String getUser()
 	{
-		String key = req.getString("key");
-		String account = req.getString("account");
-		String name = req.getString("name");
 		Auth user = AuthLogin.getLoginUser(request, response);
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("qybm", user.getQybm());
-		map.put("key", key);
-		map.put("account", account);
-		map.put("name", name);
 		PageRequest rq = getPageRequest();
-		rq.setFilters(map);
+		rq.getFilters().put("qybm", user.getQybm());
 		Page<DsEpUser> pageModel = service.queryPage(rq);
-		put("ssdw", user.getSsdw());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsEpUser>(request, pageModel));
 		return "/ep/user/getUser.jsp";
@@ -185,5 +170,17 @@ public class DsEpUserController extends BaseController
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
+	}
+
+	private boolean checkUser(Long userid)
+	{
+		try
+		{
+			return service.get(userid).getQybm().equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+		}
+		catch(Exception ex)
+		{
+		}
+		return false;
 	}
 }

@@ -12,7 +12,7 @@
 		insert into DS_EP_USER
 		(ID, QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, WORKCARD, CAKEY, CREATETIME, SSDW, SSBM, FAX)
 		values
-		(null, #{qybm}, #{account}, #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{workcard}, #{cakey}, #{createtime}, #{ssdw}, #{ssbm}, #{fax})
+		(null, lower(#{qybm}), lower(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{workcard}, #{cakey}, #{createtime}, #{ssdw}, #{ssbm}, #{fax})
 	</insert>
 
 	<delete id="delete">
@@ -28,7 +28,6 @@
 			PHONE=#{phone},
 			WORKCARD=#{workcard},
 			CAKEY=#{cakey},
-			CREATETIME=#{createtime},
 			SSDW=#{ssdw},
 			SSBM=#{ssbm},
 			FAX=#{fax}
@@ -64,11 +63,11 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="@Ognl@isNotEmpty(qybm)"> and QYBM=#{qybm} </if>
+			<if test="@Ognl@isNotEmpty(qybm)"> and QYBM=lower(#{qybm}) </if>
 			<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT=#{account} </if>
 			<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
 			<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-			<if test="@Ognl@isNotEmpty(key)"> and (QYBM=#{key} or SSDW like concat('%',#{key},'%') or WORKCARD like concat('%',#{key},'%') or IDCARD like concat('%',#{key},'%')) </if>
+			<if test="@Ognl@isNotEmpty(keyvalue)"> and (QYBM like concat('%', #{keyvalue}, '%') or MOBILE like concat('%',#{keyvalue},'%') or PHONE like concat('%',#{key},'%')) </if>
 		</where>
 	</sql>
 

@@ -70,7 +70,6 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="form_input"><input type="text" name="ssbm" maxlength="100" style="width:200px;" value="${fn:escapeXml(po.ssbm)}" /></td>
 	</tr>
 </table>
-<input type="hidden" name="account" maxlength="100" value="${fn:escapeXml(po.account)}" />
 <input type="hidden" name="id" value="${po.id}" />
 </form>
 </body>

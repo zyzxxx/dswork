@@ -12,7 +12,7 @@
 		insert into DS_EP_ENTERPRISE
 		(ID, NAME, SSXQ, QYBM, STATUS, TYPE)
 		values
-		(null, #{name}, #{ssxq}, #{qybm}, #{status}, #{type})
+		(null, #{name}, #{ssxq}, lower(#{qybm}), #{status}, #{type})
 	</insert>
 
 	<delete id="delete">
@@ -23,7 +23,6 @@
 		update DS_EP_ENTERPRISE set
 			NAME=#{name},
 			SSXQ=#{ssxq},
-			QYBM=#{qybm},
 			STATUS=#{status},
 			TYPE=#{type}
 		where ID=#{id}
@@ -46,8 +45,8 @@
 		<where>
 			<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name} ,'%') </if>
 			<if test="@Ognl@isNotEmpty(ssxq)"> and SSXQ=#{ssxq} </if>
-			<if test="@Ognl@isNotEmpty(qybm)"> and QYBM=#{qybm} </if>
-			<if test="@Ognl@isNotEmpty(key)"> and (QYBM=#{key} or NAME like concat('%',#{key} ,'%')) </if>
+			<if test="@Ognl@isNotEmpty(qybm)"> and QYBM=lower(#{qybm}) </if>
+			<if test="@Ognl@isNotEmpty(keyvalue)"> and (QYBM=lower(#{keyvalue}) or NAME like concat('%',#{keyvalue} ,'%')) </if>
 			<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 			<if test="@Ognl@isNotEmpty(type)"> and TYPE=#{type} </if>
 		</where>
@@ -60,6 +59,10 @@
 	<select id="query" resultMap="result">
 		select <include refid="columns" /> from DS_EP_ENTERPRISE
 		<include refid="dynamicWhere" />
+	</select>
+
+	<select id="getByQybm" resultMap="result">
+		select <include refid="columns" /> from DS_EP_ENTERPRISE where QYBM=lower(#{qybm})
 	</select>
 
 	<select id="queryCount" resultType="int">

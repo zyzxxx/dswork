@@ -71,4 +71,13 @@ public class DsEpEnterpriseService extends BaseService<DsEpEnterprise, Long>
 		password = EncryptUtil.encryptMd5(password);
 		userDao.updatePassword(userId, status, password);
 	}
+	
+	public boolean isExists(String qybm)
+	{
+		return entDao.isExists(qybm);
+	}
+	public boolean isExistsUser(String account)
+	{
+		return userDao.isExists(account);
+	}
 }

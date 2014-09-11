@@ -49,9 +49,9 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
-			&nbsp;关键字查询：<input type="text" class="text" name="key" style="width:135px;" value="${fn:escapeXml(param.key)}" />
-			&nbsp;账号：<input type="text" class="text" name="account" value="${fn:escapeXml(param.account)}" />
-			&nbsp;姓名：<input type="text" class="text" name="name" value="${fn:escapeXml(param.name)}" />
+			&nbsp;关键字查询：<input type="text" name="keyvalue" style="width:200px;" title="企业编码、手机或电话" value="${fn:escapeXml(param.keyvalue)}" />
+			&nbsp;账号：<input type="text" name="account" style="width:100px;" value="${fn:escapeXml(param.account)}" />
+			&nbsp;姓名：<input type="text" name="name" style="width:100px;" value="${fn:escapeXml(param.name)}" />
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>
@@ -63,10 +63,10 @@ $(function(){
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
-		<td style="width:15%;">账号</td>
-		<td>姓名</td>
-		<td style="width:20%">所属单位</td>
+		<td style="width:15%;">工作证号</td>
+		<td>姓名(帐号)</td>
 		<td style="width:15%">用户类型</td>
+		<td style="width:20%">创建时间</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
@@ -77,11 +77,10 @@ $(function(){
 			<td></td>
 		</c:if>
 		<td class="menuTool" status="${d.status}" keyIndex="${d.id}">&nbsp;</td>
-		<td>${fn:escapeXml(d.account)}</td>
-		<td>${fn:escapeXml(d.name)}</td>
-		<td>${fn:escapeXml(d.ssdw)}</td>
-		<td class="status" <c:if test="${d.status == 1}">style="color:red;"</c:if>>${fn:escapeXml(d.status)}</td>
-		
+		<td>${fn:escapeXml(d.workcard)}</td>
+		<td>${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
+		<td class="status" style="${d.status == 1?'color:red;':''}">${fn:escapeXml(d.status)}</td>
+		<td>${fn:escapeXml(d.createtime)}</td>
 	</tr>
 </c:forEach>
 </table>
