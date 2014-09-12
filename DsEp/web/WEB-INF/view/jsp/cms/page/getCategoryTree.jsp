@@ -40,6 +40,25 @@ $(function(){
 			location.href = "getCategoryTree.htm?siteid="+$(this).val();
 		}
 	});
+	$("#btn_site").bind("click", function(){
+		if(confirm("是否生成首页")){
+			
+		}
+	});
+	$("#btn_category").bind("click", function(){
+		var s = $("#category").find("option:selected").text();
+		if(confirm("是否生成栏目\"" + s + "\"")){
+			
+		}
+		
+	});
+	$("#btn_page").bind("click", function(){
+		var s = $("#category").find("option:selected").text();
+		if(confirm("是否生成栏目\"" + s + "\"内容")){
+			
+		}
+	});
+	
 });
 </script>
 </head>
@@ -47,7 +66,12 @@ $(function(){
 <div region="north" style="overflow:hidden;border:0px;height:25px;">
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select></td>
+		<td class="title">切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
+			<input id="btn_site" type="button" class="button" value="生成首页" /> 
+			&nbsp;&nbsp;
+			选择需要生成的栏目：<select id="category"><option value="">全部栏目</option><c:forEach items="${list}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
+			<input id="btn_category" type="button" class="button" value="生成栏目" /> <input id="btn_page" type="button" class="button" value="生成内容" />
+		</td>
 	</tr>
 </table>
 </div>
