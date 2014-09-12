@@ -36,10 +36,9 @@ public class DsCmsCategoryController extends BaseController
 		try
 		{
 			File file = new File(getCmsRoot() + sitename + "/templates");
-			System.out.println(file.getPath());
 			for(File f : file.listFiles())
 			{
-				if(f.isFile() && !f.isHidden())
+				if(f.isFile() && !f.isHidden() && f.getPath().endsWith(".html"))
 				{
 					list.add(f.getName());
 				}
