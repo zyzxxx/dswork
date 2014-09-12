@@ -61,8 +61,8 @@ $(function(){
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
 		<td>姓名(帐号)</td>
-		<td style="width:10%">手机</td>
-		<td style="width:10%">Email</td>
+		<td style="width:15%">手机</td>
+		<td style="width:20%">Email</td>
 		<td style="width:10%">用户类型</td>
 		<td style="width:20%">创建时间</td>
 	</tr>
