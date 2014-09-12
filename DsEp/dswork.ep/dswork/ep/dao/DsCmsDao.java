@@ -23,34 +23,36 @@ public class DsCmsDao extends MyBatisDao
 		return DsCmsDao.class;
 	}
 
-	public Map getSite(Long siteid)
+	public Map<String, Object> getSite(Long siteid)
 	{
 		return (Map)executeSelect("getSite", siteid);
 	}
 
-	public Map getCategory(Long categoryid)
+	public Map<String, Object> getCategory(Long categoryid)
 	{
 		return (Map)executeSelect("getCategory", categoryid);
 	}
 
-	public Map get(Long pageid)
+	public Map<String, Object> get(Long pageid)
 	{
 		return (Map)executeSelect("get", pageid);
 	}
 
-	public Page queryPage(int currentPage, int pageSize, String idArray, boolean isAsc)
+	public Page<Map<String, Object>> queryPage(int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImage, boolean onlyPage)
 	{
 		PageRequest rq = new PageRequest(currentPage, pageSize);
 		rq.getFilters().put("idArray", idArray);
-		rq.getFilters().put("order", isAsc?"":" desc ");
+		rq.getFilters().put("order", isDesc==null||isDesc?" desc ":"");
+		rq.getFilters().put("imgtop", onlyImage?"1":"");
+		rq.getFilters().put("pagetop", onlyPage?"1":"");
 		return queryPage("query", rq, "queryCount", rq);
 	}
 
-	public List queryCategory(Long siteid, Long pid)
+	public List<Map<String, Object>> queryCategory(Long siteid, Long pid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		map.put("pid", pid);
+		map.put("pid", pid==null?0:pid);
 		return (List)executeSelectList("queryCategory", map);
 	}
 }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.ep.dao.DsCmsDao">
+
+<select id="getSite" resultType="java.util.Map">
+	select id, qybm, name, folder, url, img, viewsite, viewapp
+	from DS_CMS_SITE where ID=#{id}
+</select>
+<select id="getCategory" resultType="java.util.Map">
+	select id, pid, siteid, name, folder, status, url, img, keywords, content, seq, viewsite, viewapp, pageviewsite, pageviewapp
+	from DS_CMS_CATEGORY where ID=#{id}
+</select>
+<select id="get" resultType="java.util.Map">
+	select id, siteid, categoryid, folder, title, keywords, summary, content, releasetime, img, imgtop, pagetop
+	from DS_CMS_PAGE where ID=#{id}
+</select>
+
+
+<select id="query" resultType="java.util.Map">
+	select id, siteid, categoryid, folder, title, keywords, summary, content, releasetime, img, imgtop, pagetop
+	from DS_CMS_PAGE
+	where CATEGORYID in (${idArray})
+		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
+		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=1 </if>
+	order by RELEASETIME ${order}
+</select>
+<select id="queryCount" resultType="int">
+	select count(1) from DS_CMS_PAGE
+	where CATEGORYID in (${idArray})
+		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
+		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=1 </if>
+</select>
+<select id="queryCategory" resultType="java.util.Map">
+	select id, pid, siteid, name, folder, status, url, img, keywords, content, viewsite, viewapp, pageviewsite, pageviewapp
+	from DS_CMS_CATEGORY
+	where SITEID=#{siteid}
+		<if test="0 &lt; pid"> and PID=#{pid} </if>
+		<if test="0 &gt;= pid"> and PID is null </if>
+	order by seq
+</select>
+
+</mapper>
