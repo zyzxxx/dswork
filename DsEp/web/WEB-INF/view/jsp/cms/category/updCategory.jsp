@@ -77,6 +77,7 @@ $(function(){
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
+	<c:if test="${po.status==0}">
 	<tr>
 		<td class="form_title">内容模板</td>
 		<td class="form_input"><select id="pageviewsite" name="pageviewsite" style="width:400px;"><option value=""></option>
@@ -89,6 +90,7 @@ $(function(){
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
+	</c:if>
 	</c:if>
 </table>
 <input type="hidden" name="id" value="${po.id}" />

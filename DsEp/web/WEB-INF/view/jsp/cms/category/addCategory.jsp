@@ -14,16 +14,26 @@ $(function(){
 	$("#status").bind("click", function(){
 		if($("#status").val() == 2){
 			$("#mylink").show();
-			$("#mytemplate").hide();
+			$("#template_category").hide();
+			$("#template_page").hide();
 			$("#viewsite").val("");
 			$("#viewapp").val("");
 			$("#pageviewsite").val("");
 			$("#pageviewapp").val("");
 			$("#url").attr("require", "true");
 		}
+		if($("#status").val() == 1){
+			$("#mylink").hide();
+			$("#template_category").show();
+			$("#template_page").hide();
+			$("#pageviewsite").val("");
+			$("#pageviewapp").val("");
+			$("#url").attr("require", "false");
+		}
 		else{
 			$("#mylink").hide();
-			$("#mytemplate").show();
+			$("#template_category").show();
+			$("#template_page").show();
 			$("#url").attr("require", "false");
 		}
 	});
@@ -78,7 +88,7 @@ $(function(){
 		<td class="form_title">图片</td>
 		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="" /></td>
 	</tr>
-	<tbody id="mytemplate">
+	<tbody id="template_category">
 	<tr>
 		<td class="form_title">栏目模板</td>
 		<td class="form_input"><select id="viewsite" name="viewsite" style="width:400px;"><option value=""></option>
@@ -91,6 +101,8 @@ $(function(){
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
+	</tbody>
+	<tbody id="template_page">
 	<tr>
 		<td class="form_title">内容模板</td>
 		<td class="form_input"><select id="pageviewsite" name="pageviewsite" style="width:400px;"><option value=""></option>
