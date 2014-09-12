@@ -47,7 +47,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr>
 		<td class="input">
 			&nbsp;关键字查询：<input type="text" name="keyvalue" style="width:200px;" title="企业编码或企业名称" value="${fn:escapeXml(param.keyvalue)}" />
-			&nbsp;状态：<select id="status" name="status" style="width:100px;">
+			&nbsp;状态：<select id="status" name="status" style="width:150px;">
 				<option value="">全部</option>
 				<option value="1">正常运营</option>
 				<option value="2">禁用</option>
@@ -85,7 +85,6 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <div class="line"></div>
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
 		<td style="width:15%">企业编码</td>
 		<td>企业名称</td>
@@ -94,7 +93,6 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
-		<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
 		<td class="menuTool" keyIndex="${d.id}" qybm="${fn:escapeXml(d.qybm)}">&nbsp;</td>
 		<td>${fn:escapeXml(d.qybm)}</td>
 		<td>${fn:escapeXml(d.name)}</td>

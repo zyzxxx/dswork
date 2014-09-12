@@ -28,9 +28,6 @@ $dswork.page.join = function(td, menu, id){
 };
 $(function(){
 	$dswork.page.menu("", "updUser1.htm", "getUserById.htm", "${pageModel.currentPage}");
-	$("#dataTable>tbody>tr>td.status").each(function(){
-		$(this).text($(this).text()==1?"管理员":"普通用户");
-	});
 });
 </script>
 </head> 
@@ -63,23 +60,20 @@ $(function(){
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
-		<td style="width:15%;">工作证号</td>
 		<td>姓名(帐号)</td>
-		<td style="width:15%">用户类型</td>
+		<td style="width:10%">手机</td>
+		<td style="width:10%">Email</td>
+		<td style="width:10%">用户类型</td>
 		<td style="width:20%">创建时间</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
-		<c:if test="${d.status != 1}">
-			<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
-		</c:if>
-		<c:if test="${d.status == 1}">
-			<td></td>
-		</c:if>
+		<td><c:if test="${d.status != 1}"><input name="keyIndex" type="checkbox" value="${d.id}" /></c:if></td>
 		<td class="menuTool" status="${d.status}" keyIndex="${d.id}">&nbsp;</td>
-		<td>${fn:escapeXml(d.workcard)}</td>
 		<td>${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
-		<td class="status" style="${d.status == 1?'color:red;':''}">${fn:escapeXml(d.status)}</td>
+		<td>${fn:escapeXml(d.mobile)}</td>
+		<td>${fn:escapeXml(d.email)}</td>
+		<td class="status" style="${d.status == 1?'color:red;':''}">${d.status==1?"管理员":"用户"}</td>
 		<td>${fn:escapeXml(d.createtime)}</td>
 	</tr>
 </c:forEach>

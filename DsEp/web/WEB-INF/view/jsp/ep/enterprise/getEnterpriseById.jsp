@@ -71,14 +71,6 @@ $(function(){
 		<td class="form_title">创建时间</td>
 		<td class="form_input">${fn:escapeXml(admin.createtime)}</td>
 	</tr>
-	<tr>
-		<td class="form_title">所属单位</td>
-		<td class="form_input">${fn:escapeXml(admin.ssdw)}</td>
-	</tr>
-	<tr>
-		<td class="form_title">所属部门</td>
-		<td class="form_input">${fn:escapeXml(admin.ssbm)}</td>
-	</tr>
 </table>
 </body>
 </html>

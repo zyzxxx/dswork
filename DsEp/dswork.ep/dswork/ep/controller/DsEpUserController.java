@@ -145,7 +145,7 @@ public class DsEpUserController extends BaseController
 	}
 
 	@RequestMapping("/updUserPassword2")
-	public void updUserPwd2(DsEpUser po)
+	public void updUserPassword2(DsEpUser po)
 	{
 		try
 		{

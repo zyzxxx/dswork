@@ -35,6 +35,7 @@ public class DsCmsPageController extends BaseController
 
 	private String getCmsRoot()
 	{
+		System.out.println(request.getSession().getServletContext().getRealPath("/html/"));
 		return request.getSession().getServletContext().getRealPath("/html/") + "/";
 	}
 

@@ -32,7 +32,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">姓名：</td>
-		<td class="form_input"><input type="text" id="name" name="name" dataType="Chinese" maxlength="25" value="" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="text" id="name" name="name" dataType="Char" maxlength="25" value="" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">密码：</td>
