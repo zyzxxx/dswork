@@ -35,7 +35,7 @@ public class DsCmsPageController extends BaseController
 
 	private String getCmsRoot()
 	{
-		return request.getSession().getServletContext().getRealPath("/") + "/";
+		return request.getSession().getServletContext().getRealPath("/html/") + "/";
 	}
 
 	// 添加
@@ -352,9 +352,9 @@ public class DsCmsPageController extends BaseController
 				if(!ext.equals("") && "jpg,jpeg,gif,png".indexOf(ext) != -1)
 				{
 					String root = getCmsRoot();
-					String path = "/html/" + site.getFolder() + "/themes/" + TimeUtil.getCurrentTime("yyyyMM") + "/";
+					String path = site.getFolder() + "/themes/" + TimeUtil.getCurrentTime("yyyyMM") + "/";
 					FileUtil.createFolder(root + path);
-					String webpath = request.getContextPath() + path;
+					String webpath = request.getContextPath() + "/html/" + path;
 					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
 					try
 					{
