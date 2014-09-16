@@ -68,8 +68,13 @@ public class DsCmsCategoryController extends BaseController
 		{
 			if(po.getSiteid() > 0)
 			{
-				if(checkSite(po.getSiteid()))
+				DsCmsSite s = service.getSite(po.getSiteid());
+				if(checkSite(s.getQybm()))
 				{
+					if(po.getStatus() != 2)
+					{
+						po.setUrl(request.getContextPath() + "/html/" + s.getFolder() + "/html/" + po.getFolder() + "/index.html");
+					}
 					service.save(po);
 					print(1);
 					return;
@@ -140,8 +145,21 @@ public class DsCmsCategoryController extends BaseController
 		try
 		{
 			DsCmsCategory m = service.get(po.getId());
-			if(checkSite(m.getSiteid()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkSite(s.getQybm()))
 			{
+				if(m.getStatus() == 0 && !po.getFolder().equals(m.getFolder()))//列表栏目存在内容时，不可修改目录名称
+				{
+					if(service.getCountByCategoryid(m.getSiteid(), m.getId()) > 0)
+					{
+						print("0:存在内容时目录名称不可修改");
+						return;
+					}
+				}
+				if(po.getStatus() != 2)
+				{
+					po.setUrl(request.getContextPath() + "/html/" + s.getFolder() + "/html/" + po.getFolder() + "/index.html");
+				}
 				service.update(po);
 				print(1);
 				return;
@@ -189,34 +207,41 @@ public class DsCmsCategoryController extends BaseController
 	@RequestMapping("/getCategory")
 	public String getCategory()
 	{
-		Long id = req.getLong("siteid"), siteid = 0L;
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
-		PageRequest rq = new PageRequest(map);
-		List<DsCmsSite> siteList = service.queryListSite(rq);
-		if(siteList != null && siteList.size() > 0)
+		try
 		{
-			put("siteList", siteList);
-			if(id > 0)
+			Long id = req.getLong("siteid"), siteid = 0L;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+			PageRequest rq = new PageRequest(map);
+			List<DsCmsSite> siteList = service.queryListSite(rq);
+			if(siteList != null && siteList.size() > 0)
 			{
-				for(DsCmsSite m : siteList)
+				put("siteList", siteList);
+				if(id > 0)
 				{
-					if(m.getId().longValue() == id)
+					for(DsCmsSite m : siteList)
 					{
-						siteid = m.getId();
-						put("list", queryCategory(siteid, true, 0));
-						break;
+						if(m.getId().longValue() == id)
+						{
+							siteid = m.getId();
+							put("list", queryCategory(siteid, true, 0));
+							break;
+						}
 					}
 				}
+				if(siteid == 0)
+				{
+					siteid = siteList.get(0).getId();
+					put("list", queryCategory(siteid, true, 0));
+				}
 			}
-			if(siteid == 0)
-			{
-				siteid = siteList.get(0).getId();
-				put("list", queryCategory(siteid, true, 0));
-			}
+			put("siteid", siteid);
+			return "/cms/category/getCategory.jsp";
 		}
-		put("siteid", siteid);
-		return "/cms/category/getCategory.jsp";
+		catch(Exception ex)
+		{
+		}
+		return null;
 	}
 
 	/**
@@ -314,6 +339,18 @@ public class DsCmsCategoryController extends BaseController
 		try
 		{
 			return service.getSite(siteid).getQybm().equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+		}
+		catch(Exception ex)
+		{
+		}
+		return false;
+	}
+
+	private boolean checkSite(String qybm)
+	{
+		try
+		{
+			return qybm.equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
 		}
 		catch(Exception ex)
 		{

@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(ID, SITEID, CATEGORYID, FOLDER, TITLE, KEYWORDS, SUMMARY, CONTENT, RELEASETIME, IMG, IMGTOP, PAGETOP)
+	(ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, RELEASETIME, IMG, IMGTOP, PAGETOP)
 	values
-	(null, #{siteid}, #{categoryid}, #{folder}, #{title}, #{keywords}, #{summary}, #{content}, #{releasetime}, #{img}, #{imgtop}, #{pagetop})
+	(null, #{siteid}, #{categoryid}, #{title}, #{keywords}, #{summary}, #{content}, #{releasetime}, #{img}, #{imgtop}, #{pagetop})
 </insert>
 
 <delete id="delete">
@@ -32,11 +32,14 @@
 	where ID=#{id}
 </update>
 
+<update id="updateURL">
+	update DS_CMS_PAGE set URL=#{url} where ID=#{id}
+</update>
+
 <resultMap id="result" type="dswork.ep.model.DsCmsPage">
 	<id property="id" column="ID" />
 	<result property="siteid" column="SITEID" />
 	<result property="categoryid" column="CATEGORYID" />
-	<result property="folder" column="FOLDER" />
 	<result property="title" column="TITLE" />
 	<result property="keywords" column="KEYWORDS" />
 	<result property="summary" column="SUMMARY" />
@@ -45,10 +48,11 @@
 	<result property="img" column="IMG" />
 	<result property="imgtop" column="IMGTOP" />
 	<result property="pagetop" column="PAGETOP" />
+	<result property="url" column="URL" />
 </resultMap>
 
 <sql id="columns">
-	ID, SITEID, CATEGORYID, FOLDER, TITLE, KEYWORDS, SUMMARY, CONTENT, RELEASETIME, IMG, IMGTOP, PAGETOP
+	ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, RELEASETIME, IMG, IMGTOP, PAGETOP, URL
 </sql>
 
 <sql id="dynamicWhere">
@@ -61,6 +65,7 @@
 			 and SUMMARY like concat('%',#{keyvalue},'%') 
 			 and CONTENT like concat('%',#{keyvalue},'%') 
 		</if>
+		<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME&lt;=#{releasetime} </if>
 	</where>
 </sql>
 

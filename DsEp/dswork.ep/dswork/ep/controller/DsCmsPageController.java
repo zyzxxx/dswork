@@ -52,13 +52,14 @@ public class DsCmsPageController extends BaseController
 		{
 			Long categoryid = req.getLong("categoryid");
 			DsCmsCategory m = service.getCategory(categoryid);
-			if(m.getStatus() == 0 && checkSite(m.getSiteid()))
+			DsCmsSite s = service.getSite(m.getSiteid());
+			if(m.getStatus() == 0 && checkSite(s.getQybm()))
 			{
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
 				po.setReleasetime(TimeUtil.getCurrentTime());
-				po.setFolder(TimeUtil.getCurrentTime("yyyyMM"));
-				service.save(po);
+				po.setUrl(request.getContextPath() + "/html/" + s.getFolder() + "/html/" + m.getFolder());
+				service.save(po);// url拼接/id.html
 				print(1);
 				return;
 			}
@@ -164,33 +165,43 @@ public class DsCmsPageController extends BaseController
 	@RequestMapping("/getCategoryTree")
 	public String getCategoryTree()
 	{
-		Long id = req.getLong("siteid"), siteid = 0L;
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
-		PageRequest rq = new PageRequest(map);
-		List<DsCmsSite> siteList = service.queryListSite(rq);
-		if(siteList != null && siteList.size() > 0)
+		try
 		{
-			put("siteList", siteList);
-			if(id > 0)
+			Long id = req.getLong("siteid"), siteid = 0L;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+			PageRequest rq = new PageRequest(map);
+			List<DsCmsSite> siteList = service.queryListSite(rq);
+			if(siteList != null && siteList.size() > 0)
 			{
-				for(DsCmsSite m : siteList)
+				put("siteList", siteList);
+				if(id > 0)
 				{
-					if(m.getId().longValue() == id)
+					for(DsCmsSite m : siteList)
 					{
-						siteid = m.getId();
-						break;
+						if(m.getId().longValue() == id)
+						{
+							siteid = m.getId();
+							break;
+						}
 					}
 				}
+				if(siteid == 0)
+				{
+					siteid = siteList.get(0).getId();
+				}
 			}
-			if(siteid == 0)
+			if(siteid > 0)
 			{
-				siteid = siteList.get(0).getId();
+				put("siteid", siteid);
+				put("list", queryCategory(siteid));
+				return "/cms/page/getCategoryTree.jsp";
 			}
 		}
-		put("siteid", siteid);
-		put("list", queryCategory(siteid));
-		return "/cms/page/getCategoryTree.jsp";
+		catch(Exception ex)
+		{
+		}
+		return null;
 	}
 
 	// 获得分页
@@ -214,10 +225,229 @@ public class DsCmsPageController extends BaseController
 		return null;
 	}
 
-	/**
-	 * 取出可处理数据的栏目
-	 * @return List
-	 */
+	@RequestMapping("/uploadImage")
+	public void uploadImage()
+	{
+		try
+		{
+			Long categoryid = req.getLong("categoryid");
+			DsCmsCategory m = service.getCategory(categoryid);
+			DsCmsSite site = service.getSite(m.getSiteid());
+			if(checkSite(site.getQybm()))
+			{
+				String ext = "";
+				boolean isHTML5 = "application/octet-stream".equals(request.getContentType());
+				byte[] byteArray = null;
+				if(isHTML5)
+				{
+					String header = request.getHeader("Content-Disposition");
+					int iStart = header.indexOf("filename=\"") + 10;
+					int iEnd = header.indexOf("\"", iStart);
+					String fileName = header.substring(iStart, iEnd);
+					int len = fileName.lastIndexOf(".");
+					ext = (len != -1) ? fileName.substring(len + 1) : "";
+					int i = request.getContentLength();
+					byteArray = new byte[i];
+					int j = 0;
+					while(j < i)// 获取表单的上传文件
+					{
+						int k = request.getInputStream().read(byteArray, j, i - j);
+						j += k;
+					}
+				}
+				else
+				{
+					MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+					MultipartFile file = multipartRequest.getFile("filedata");
+					String fileName = file.getOriginalFilename();
+					int len = fileName.lastIndexOf(".");
+					ext = (len != -1) ? fileName.substring(len + 1) : "";
+					byteArray = file.getBytes();
+				}
+				if(!ext.equals("") && "jpg,jpeg,gif,png".indexOf(ext) != -1)
+				{
+					String root = getCmsRoot();
+					String path = "/html/" + site.getFolder() + "/themes/" + TimeUtil.getCurrentTime("yyyyMM") + "/";
+					FileUtil.createFolder(root + path);
+					String webpath = request.getContextPath() + path;
+					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
+					try
+					{
+						FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(byteArray), true);
+						print("{\"err\":\"\",\"msg\":\"!" + webpath + v + "\"}");
+						return;
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+						print("{\"err\":\"上传失败\",\"msg\":\"\"}");
+						return;
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
+	}
+
+	@RequestMapping("/build")
+	public void build()
+	{
+		Long siteid = req.getLong("siteid");
+		Long categoryid = req.getLong("categoryid", -1);
+		Long pageid = req.getLong("pageid", -1);
+		try
+		{
+			DsCmsSite site = service.getSite(siteid);
+			if(checkSite(site.getQybm()))
+			{
+				String path = "http://" + request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
+				if(pageid > 0)// 生成内容页
+				{
+					DsCmsPage p = service.get(pageid);
+					if(p.getSiteid() == siteid)
+					{
+						buildFile(path + "&pageid=" + p.getId(), p.getUrl());
+					}
+				}
+				else if(pageid == -1)
+				{
+					List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
+					if(categoryid == 0)// 生成全部栏目页
+					{
+						list = service.queryListCategory(siteid);
+					}
+					else if(categoryid > 0)// 生成指定栏目页
+					{
+						DsCmsCategory c = service.getCategory(categoryid);
+						list.add(c);
+					}
+					if(categoryid >= 0)// 生成栏目页
+					{
+						for(DsCmsCategory c : list)
+						{
+							if(c.getSiteid() == siteid && c.getStatus() != 2)
+							{
+								buildFile(path + "&categoryid=" + c.getId() + "&page=1", c.getUrl());
+								if(true)
+								{
+									Map<String, Object> _m = new HashMap<String, Object>();
+									_m.put("siteid", site.getId());
+									_m.put("categoryid", c.getId());
+									_m.put("releasetime", TimeUtil.getCurrentTime());
+									PageRequest rq = new PageRequest(_m);
+									rq.setPageSize(50);
+									rq.setCurrentPage(1);
+									Page<DsCmsPage> pageModel = service.queryPage(rq);
+									for(int i = 2; i < pageModel.getLastPage(); i++)
+									{
+										buildFile(path + "&categoryid=" + c.getId() + "&page=" + i, c.getUrl().replaceAll("\\.html", "_" + i + ".html"));
+									}
+								}
+							}
+						}
+					}
+					else
+					// 生成首页
+					{
+						buildFile(path, site.getUrl());
+					}
+				}
+				else if(pageid == 0)
+				{
+					List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
+					if(categoryid == 0)// 生成全部内容页
+					{
+						list = service.queryListCategory(siteid);
+					}
+					else if(categoryid > 0)// 生成指定栏目内容
+					{
+						DsCmsCategory c = service.getCategory(categoryid);
+						list.add(c);
+					}
+					if(list != null && list.size() > 0)
+					{
+						for(DsCmsCategory c : list)
+						{
+							java.io.File file = new java.io.File(getCmsRoot() + "/html/" + site.getFolder() + "/" + c.getFolder());
+							if(file != null && file.exists())
+							{
+								for(java.io.File f : file.listFiles())
+								{
+									if(f.isDirectory())
+									{
+										FileUtil.delete(f.getPath());// 清空目录
+									}
+								}
+							}
+							if(c.getStatus() == 2)
+							{
+								continue;
+							}
+							Map<String, Object> map = new HashMap<String, Object>();
+							map.put("siteid", site.getId());
+							map.put("releasetime", TimeUtil.getCurrentTime());
+							map.put("categoryid", c.getId());
+							PageRequest rq = new PageRequest(map);
+							rq.setPageSize(20);
+							rq.setCurrentPage(1);
+							Page<DsCmsPage> pageModel = service.queryPage(rq);
+							for(DsCmsPage p : pageModel.getResult())
+							{
+								buildFile(path + "&pageid=" + p.getId(), p.getUrl());
+							}
+							for(int i = 2; i < pageModel.getLastPage(); i++)
+							{
+								map.clear();
+								map.put("siteid", site.getId());
+								map.put("releasetime", TimeUtil.getCurrentTime());
+								map.put("categoryid", c.getId());
+								rq.setFilters(map);
+								;
+								rq.setPageSize(20);
+								rq.setCurrentPage(i);
+								Page<DsCmsPage> n = service.queryPage(rq);
+								for(DsCmsPage p : n.getResult())
+								{
+									buildFile(path + "&pageid=" + p.getId(), p.getUrl());
+								}
+							}
+						}
+					}
+				}
+				print("1");
+			}
+			else
+			{
+				print("0");
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			print("0:生成失败");
+		}
+	}
+
+	private void buildFile(String getpath, String savepath)
+	{
+		try
+		{
+			java.net.URL url = new java.net.URL(getpath);
+			// java.net.URLConnection conn = url.openConnection();
+			// conn.setRequestProperty("Cookie", cookie);
+			// conn.connect();
+			FileUtil.writeFile(getCmsRoot() + savepath.replaceFirst(request.getContextPath(), ""), url.openStream(), true);
+		}
+		catch(Exception ex)
+		{
+		}
+	}
+
+	// 取出可处理数据的栏目
 	private List<DsCmsCategory> queryCategory(Long siteid)
 	{
 		List<DsCmsCategory> clist = service.queryListCategory(siteid);
@@ -308,73 +538,5 @@ public class DsCmsPageController extends BaseController
 		{
 		}
 		return false;
-	}
-
-	@RequestMapping("/uploadImage")
-	public void uploadImage()
-	{
-		try
-		{
-			Long categoryid = req.getLong("categoryid");
-			DsCmsCategory m = service.getCategory(categoryid);
-			DsCmsSite site = service.getSite(m.getSiteid());
-			if(checkSite(site.getQybm()))
-			{
-				String ext = "";
-				boolean isHTML5 = "application/octet-stream".equals(request.getContentType());
-				byte[] byteArray = null;
-				if(isHTML5)
-				{
-					String header = request.getHeader("Content-Disposition");
-					int iStart = header.indexOf("filename=\"") + 10;
-					int iEnd = header.indexOf("\"", iStart);
-					String fileName = header.substring(iStart, iEnd);
-					int len = fileName.lastIndexOf(".");
-					ext = (len != -1) ? fileName.substring(len + 1) : "";
-					int i = request.getContentLength();
-					byteArray = new byte[i];
-					int j = 0;
-					while(j < i)// 获取表单的上传文件
-					{
-						int k = request.getInputStream().read(byteArray, j, i - j);
-						j += k;
-					}
-				}
-				else
-				{
-					MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-					MultipartFile file = multipartRequest.getFile("filedata");
-					String fileName = file.getOriginalFilename();
-					int len = fileName.lastIndexOf(".");
-					ext = (len != -1) ? fileName.substring(len + 1) : "";
-					byteArray = file.getBytes();
-				}
-				if(!ext.equals("") && "jpg,jpeg,gif,png".indexOf(ext) != -1)
-				{
-					String root = getCmsRoot();
-					String path = "/html/" + site.getFolder() + "/themes/" + TimeUtil.getCurrentTime("yyyyMM") + "/";
-					FileUtil.createFolder(root + path);
-					String webpath = request.getContextPath() + path;
-					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
-					try
-					{
-						FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(byteArray), true);
-						print("{\"err\":\"\",\"msg\":\"!" + webpath + v + "\"}");
-						return;
-					}
-					catch(Exception e)
-					{
-						e.printStackTrace();
-						print("{\"err\":\"上传失败\",\"msg\":\"\"}");
-						return;
-					}
-				}
-			}
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-		}
-		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
 	}
 }

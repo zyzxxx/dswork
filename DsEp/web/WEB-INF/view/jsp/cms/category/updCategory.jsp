@@ -60,6 +60,12 @@ $(function(){
 		<td class="form_input"><input type="text" name="url" maxlength="100" style="width:400px;" dataType="Require" require="false" value="${fn:escapeXml(po.url)}" /></td>
 	</tr>
 	</c:if>
+	<c:if test="${po.status!=2}">
+	<tr>
+		<td class="form_title">链接</td>
+		<td class="form_input">${fn:escapeXml(po.url)}</td>
+	</tr>
+	</c:if>
 	<tr>
 		<td class="form_title">图片</td>
 		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" /></td>

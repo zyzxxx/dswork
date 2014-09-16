@@ -11,8 +11,6 @@ public class DsCmsPage
 	private Long siteid = 0L;
 	// 栏目ID
 	private Long categoryid = 0L;
-	// 目录名称
-	private String folder = "";
 	// 标题
 	private String title = "";
 	// 关键词
@@ -29,6 +27,8 @@ public class DsCmsPage
 	private Integer imgtop = 0;
 	// 首页推荐(0否，1是)
 	private Integer pagetop = 0;
+	// 链接
+	private String url = "";
 
 	public Long getId()
 	{
@@ -58,16 +58,6 @@ public class DsCmsPage
 	public void setCategoryid(Long categoryid)
 	{
 		this.categoryid = categoryid;
-	}
-
-	public String getFolder()
-	{
-		return folder;
-	}
-
-	public void setFolder(String folder)
-	{
-		this.folder = folder;
 	}
 
 	public String getTitle()
@@ -148,5 +138,15 @@ public class DsCmsPage
 	public void setPagetop(Integer pagetop)
 	{
 		this.pagetop = pagetop;
+	}
+
+	public String getUrl()
+	{
+		return url;
+	}
+
+	public void setUrl(String url)
+	{
+		this.url = url;
 	}
 }

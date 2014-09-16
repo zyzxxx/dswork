@@ -16,6 +16,7 @@ import dswork.core.page.PageRequest;
 import dswork.ep.model.DsCmsCategory;
 import dswork.ep.model.DsCmsSite;
 import dswork.ep.dao.DsCmsCategoryDao;
+import dswork.ep.dao.DsCmsPageDao;
 import dswork.ep.dao.DsCmsSiteDao;
 
 @Service
@@ -26,6 +27,8 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	private DsCmsCategoryDao catDao;
 	@Autowired
 	private DsCmsSiteDao siteDao;
+	@Autowired
+	private DsCmsPageDao pageDao;
 
 	@Override
 	protected EntityDao getEntityDao()
@@ -61,6 +64,20 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pid", pid);
 		return catDao.queryCount(new PageRequest(map));
+	}
+
+	/**
+	 * 获得栏目节点的内容数量
+	 * @param siteid 站点主键
+	 * @param categoryid 栏目主键
+	 * @return int
+	 */
+	public int getCountByCategoryid(long siteid, long categoryid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		map.put("categoryid", categoryid);
+		return pageDao.queryCount(new PageRequest(map));
 	}
 
 	public DsCmsSite getSite(Long siteid)

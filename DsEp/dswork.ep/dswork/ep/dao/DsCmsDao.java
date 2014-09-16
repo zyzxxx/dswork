@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import dswork.core.db.MyBatisDao;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
+import dswork.core.util.TimeUtil;
 
 @Repository
 @SuppressWarnings("all")
@@ -25,26 +26,36 @@ public class DsCmsDao extends MyBatisDao
 
 	public Map<String, Object> getSite(Long siteid)
 	{
+		
 		return (Map)executeSelect("getSite", siteid);
 	}
 
-	public Map<String, Object> getCategory(Long categoryid)
+	public Map<String, Object> getCategory(Long siteid, Long categoryid)
 	{
-		return (Map)executeSelect("getCategory", categoryid);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		map.put("id", categoryid);
+		return (Map)executeSelect("getCategory", map);
 	}
 
-	public Map<String, Object> get(Long pageid)
+	public Map<String, Object> get(Long siteid, Long pageid)
 	{
-		return (Map)executeSelect("get", pageid);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		map.put("id", pageid);
+		return (Map)executeSelect("get", map);
 	}
 
-	public Page<Map<String, Object>> queryPage(int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImage, boolean onlyPage)
+	public Page<Map<String, Object>> queryPage(Long siteid, int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImage, boolean onlyPage)
 	{
-		PageRequest rq = new PageRequest(currentPage, pageSize);
+		Map<String, Object> map = new HashMap<String, Object>();
+		PageRequest rq = new PageRequest(currentPage, pageSize, map);
+		rq.getFilters().put("siteid", siteid);
 		rq.getFilters().put("idArray", idArray);
 		rq.getFilters().put("order", isDesc==null||isDesc?" desc ":"");
 		rq.getFilters().put("imgtop", onlyImage?"1":"");
 		rq.getFilters().put("pagetop", onlyPage?"1":"");
+		rq.getFilters().put("releasetime", TimeUtil.getCurrentTime());
 		return queryPage("query", rq, "queryCount", rq);
 	}
 

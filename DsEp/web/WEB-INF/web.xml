@@ -83,6 +83,16 @@
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>*.htm</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>springmvc-cms</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>springmvc-cms</servlet-name>
+		<url-pattern>*.chtml</url-pattern>
+	</servlet-mapping>
 
 	<error-page>
 		<error-code>403</error-code>

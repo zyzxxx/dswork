@@ -42,20 +42,33 @@ $(function(){
 	});
 	$("#btn_site").bind("click", function(){
 		if(confirm("是否生成首页")){
-			
+			$.post("build.htm",{"siteid":"${siteid}"},function(data){
+				$dswork.doAjaxShow(data, function(){
+					
+				});
+			});
 		}
 	});
 	$("#btn_category").bind("click", function(){
-		var s = $("#category").find("option:selected").text();
-		if(confirm("是否生成栏目\"" + s + "\"")){
-			
+		var m = $("#category").find("option:selected");
+		if(confirm("是否生成栏目\"" + m.text() + "\"")){
+			$.post("build.htm",{"siteid":"${siteid}", "categoryid":m.val()},function(data){
+				$dswork.doAjaxShow(data, function(){
+					
+				});
+			});
 		}
 		
 	});
 	$("#btn_page").bind("click", function(){
-		var s = $("#category").find("option:selected").text();
-		if(confirm("是否生成栏目\"" + s + "\"内容")){
-			
+		var m = $("#category").find("option:selected");
+		alert(m.val());
+		if(confirm("是否生成栏目\"" + m.text() + "\"内容")){
+			$.post("build.htm",{"siteid":"${siteid}", "categoryid":m.val(), "pageid":"0"},function(data){
+				$dswork.doAjaxShow(data, function(){
+					
+				});
+			});
 		}
 	});
 	
@@ -69,7 +82,7 @@ $(function(){
 		<td class="title">切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
 			<input id="btn_site" type="button" class="button" value="生成首页" /> 
 			&nbsp;&nbsp;
-			选择需要生成的栏目：<select id="category"><option value="">全部栏目</option><c:forEach items="${list}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
+			选择需要生成的栏目：<select id="category"><option value="0">全部栏目</option><c:forEach items="${list}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
 			<input id="btn_category" type="button" class="button" value="生成栏目" /> <input id="btn_page" type="button" class="button" value="生成内容" />
 		</td>
 	</tr>
