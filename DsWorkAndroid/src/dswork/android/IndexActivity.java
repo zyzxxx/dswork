@@ -165,6 +165,7 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 			View rootView = inflater.inflate(R.layout.fragment_index_3, container, false);
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.webapp, R.drawable.ic_launcher, "webApp", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.framework.app.web.view.Main_A", false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.singleapp, R.drawable.ic_launcher, "singleApp", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.framework.app.single.view.PersonGet_A",false, null, null, null));
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.greendao, R.drawable.ic_launcher, "greendaoApp", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.framework.app.greendao.view.PersonGet_A",false, null, null, null));
 			return rootView;
 		}
 	}
