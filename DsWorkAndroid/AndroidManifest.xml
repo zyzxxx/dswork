@@ -64,6 +64,7 @@
             android:label="@string/title_activity_html_tab"
             android:parentActivityName=".IndexActivity" >
         </activity>
+        <!-- singleAppDemo -->
         <activity
             android:name="dswork.android.demo.framework.app.single.view.PersonGet_A"
             android:label="@string/title_activity_person" >
@@ -92,6 +93,11 @@
             android:name="dswork.android.demo.component.PullToRefreshActivity"
             android:label="@string/title_activity_pulltorefresh" >
         </activity>
+        <activity
+            android:name="dswork.android.demo.component.SwipeRefreshActivity"
+            android:label="@string/title_activity_swipe_refresh" >
+        </activity>
+        <!-- webAppDemo -->
         <!-- android:configChanges 防止横竖屏切换时重刷Activity -->
         <activity
             android:name="dswork.android.demo.framework.app.web.view.Main_A"
@@ -119,14 +125,31 @@
             android:label="@string/title_activity_demo_search"
             android:parentActivityName=".IndexActivity" >
         </activity>
-
+		<!-- greenDaoDemo -->
+        <activity
+            android:name="dswork.android.demo.framework.app.greendao.view.PersonGet_A"
+            android:label="@string/title_activity_person" >
+        </activity>
+        <activity
+            android:name="dswork.android.demo.framework.app.greendao.view.PersonAdd_A"
+            android:label="@string/title_activity_person_add" >
+        </activity>
+        <activity
+            android:name="dswork.android.demo.framework.app.greendao.view.PersonUpd_A"
+            android:label="@string/title_activity_person_edit" >
+        </activity>
+        <activity
+            android:name="dswork.android.demo.framework.app.greendao.view.PersonGetById_A"
+            android:label="@string/title_activity_person_detail" >
+        </activity>
+        <activity
+            android:name="dswork.android.demo.framework.app.greendao.view.PersonSearch_A"
+            android:label="@string/title_activity_person_search" >
+        </activity>
+		
         <!-- 测试 -->
         <uses-library android:name="android.test.runner" />
 
-        <activity
-            android:name="dswork.android.demo.component.SwipeRefreshActivity"
-            android:label="@string/title_activity_swipe_refresh" >
-        </activity>
     </application>
 
 </manifest>
