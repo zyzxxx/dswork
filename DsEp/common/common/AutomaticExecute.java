@@ -25,7 +25,7 @@ public class AutomaticExecute extends Thread
 	{
 		try
 		{
-			//toStart();
+			//toStart();//马上执行
 		}
 		catch(Exception ex)
 		{
