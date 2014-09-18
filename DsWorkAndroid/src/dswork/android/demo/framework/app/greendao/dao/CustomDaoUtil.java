@@ -63,12 +63,12 @@ public class CustomDaoUtil
 		return getDaoSession(context).getPersonDao();
 	}
 	/**
-	 * 取得包含查询调价的QueryBuilder
-	 * @param context
-	 * @param map
+	 * 取得包含查询参数的QueryBuilder
+	 * @param context 上下文
+	 * @param map 查询参数
 	 * @return
 	 */
-	public static QueryBuilder<Person> getQueryBuilder(Context context, Map map)
+	public static QueryBuilder<Person> getPersonQueryBuilder(Context context, Map map)
 	{
 		QueryBuilder<Person> qb = getDao(context).queryBuilder();
 		if(map != null)

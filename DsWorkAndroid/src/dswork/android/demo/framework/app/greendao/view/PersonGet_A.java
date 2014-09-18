@@ -205,8 +205,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	{
 		listView.setMaxDataNum(Integer.parseInt(String.valueOf(personDao.count())));//设置数据最大值
 		//获取下一页数据
-		List<Person> list = CustomDaoUtil.getQueryBuilder(this, m).offset(offset).limit(maxResult).list();
-//		List<Person> list = personDao.queryBuilder().offset(offset).limit(maxResult).list();
+		List<Person> list = CustomDaoUtil.getPersonQueryBuilder(this, m).offset(offset).limit(maxResult).list();
 		for(Person po : list) listView.addDataItem(po);
 		return list;
 	}
