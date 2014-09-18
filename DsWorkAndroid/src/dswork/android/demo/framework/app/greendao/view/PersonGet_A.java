@@ -203,9 +203,11 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	//分页查询
 	public List<Person> queryPage(Map m, int offset, int maxResult)
 	{
-		listView.setMaxDataNum(Integer.parseInt(String.valueOf(personDao.count())));//设置数据最大值
+		//设置数据最大值
+		listView.setMaxDataNum(Integer.parseInt(String.valueOf(personDao.count())));
 		//获取下一页数据
 		List<Person> list = CustomDaoUtil.getPersonQueryBuilder(this, m).offset(offset).limit(maxResult).list();
+		//往ListView末尾添加数据
 		for(Person po : list) listView.addDataItem(po);
 		return list;
 	}
