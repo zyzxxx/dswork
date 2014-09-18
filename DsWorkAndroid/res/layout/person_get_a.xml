@@ -19,21 +19,25 @@
 			    android:layout_height="wrap_content"
 			    android:text="@string/id"/>
 			<TextView 
-			    android:layout_width="wrap_content"
+			    android:layout_width="60dp"
 			    android:layout_height="wrap_content"
 	   			android:layout_marginLeft="35dp"
 			    android:text="@string/name"/>
 			<TextView 
-			    android:layout_width="wrap_content"
+			    android:layout_width="40dp"
 			    android:layout_height="wrap_content"
 			    android:text="@string/sortkey"/>
 		</LinearLayout>
 	    <dswork.android.lib.ui.MultiCheck.MultiCheckListView
 	        android:id="@+id/listView" 
 	        android:layout_width="match_parent"
-	        android:layout_height="match_parent" 
+	        android:layout_height="match_parent"
+	        android:layout_marginTop="10dip"
 	        android:layout_marginLeft="10dip"
 	   		android:scrollbarStyle="outsideInset"
-	        android:fastScrollEnabled="true"/>
+	        android:fastScrollEnabled="true"
+	        android:footerDividersEnabled="false"
+	        android:divider="@color/abs__background_holo_light"
+	        android:dividerHeight="10dip"/>
 	</LinearLayout>
 </FrameLayout>
