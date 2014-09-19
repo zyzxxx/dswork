@@ -9,6 +9,7 @@
 	<classpathentry kind="src" path="dswork.common.org.role"/>
 	<classpathentry kind="src" path="dswork.common.user"/>
 	<classpathentry kind="src" path="dswork.common.user.org"/>
+	<classpathentry kind="src" path="dswork.common.flow"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
