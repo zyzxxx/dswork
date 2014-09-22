@@ -1,15 +1,15 @@
 package common.automatic;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+//import java.util.ArrayList;
+//import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
+//import java.util.List;
 import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import dswork.core.util.TimeUtil;
-import dswork.spring.BeanFactory;
+//import dswork.core.util.TimeUtil;
+//import dswork.spring.BeanFactory;
 
 public class AutomaticExecute extends Thread
 {
