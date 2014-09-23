@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceGroup>
+<!--
+	<service name="HelloWorld">
+		<description>HelloWorldService</description>
+		<parameter name="ServiceClass">com.ws.HelloWorld</parameter>
+		<operation name="getMessage">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+		</operation>
+		<operation name="getStringArray">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+		</operation>
+		<operation name="getMessageArray">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+		</operation>
+	</service>
+-->
+</serviceGroup>
+<!--
+	<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+	<messageReceiver class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver"/>
+-->
