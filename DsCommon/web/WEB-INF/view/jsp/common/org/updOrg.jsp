@@ -43,7 +43,9 @@
 			<c:if test="${1 != parent.status}">
 			<input type="radio" id="status2" name="status" value="2" ${po.status==2?'checked="checked"':''} /><label for="status2">单位</label>
 			</c:if>
+			<c:if test="${0 != po.pid}">
 			<input type="radio" id="status1" name="status" value="1" ${po.status!=2?'checked="checked"':''} /><label for="status1">部门</label>
+			</c:if>
 			</c:if>
 			<c:if test="${0 >= po.status}">
 			<input type="radio" id="status0" name="status" value="0" checked="checked" /><label for="status0">岗位</label>
