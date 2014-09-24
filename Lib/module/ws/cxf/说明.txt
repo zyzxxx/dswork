@@ -1,3 +1,2 @@
 还需要以下jar包
 neethi-3.0.2
-xmlschema-core-2.0.2
