@@ -21,13 +21,12 @@ function updStatus(objid, id){
 	return false;
 }
 $dswork.page.join = function(td, menu, id){
-	if(id > 0){
-		$(menu).append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(){
-			location.href = "updUser1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
-		})).append($('<div iconCls="menuTool-user">调动</div>').bind("click", function(){
-			location.href = "updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
-		}));
-	}
+	if(td.attr("v") == 'true'){return true;}
+	$(menu).append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(){
+		location.href = "updUser1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
+	})).append($('<div iconCls="menuTool-user">调动</div>').bind("click", function(){
+		location.href = "updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
+	}));
 };
 $(function(){
 	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
@@ -77,7 +76,7 @@ $(function(){
 <c:forEach items="${pageModel.result}" var="d" varStatus="status">
 	<tr>
 		<td><input name="keyIndex" type="checkbox" value="${d.id}" ${'admin'==d.account?'style="display:none;"':''}/></td>
-		<td class="menuTool" keyIndex="${'admin'==d.account?'0':d.id}">&nbsp;</td>
+		<td class="menuTool" keyIndex="${d.id}" v="${'admin'==d.account?'true':''}">&nbsp;</td>
 		<td style="text-align:left;">&nbsp;${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
 		<td>${fn:escapeXml(d.orgpname)}</td>
 		<td>${fn:escapeXml(d.orgname)}</td>
