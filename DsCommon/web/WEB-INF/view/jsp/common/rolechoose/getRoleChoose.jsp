@@ -4,14 +4,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/page.jsp"%>
-	<script type="text/javascript">
-	function appGO(id){
-		document.getElementById("rightFrame").src = "getRoleTree.htm?systemid="+id;
-		return false;
-	}
-	</script>
+<title></title>
+<%@include file="/commons/include/page.jsp"%>
+<script type="text/javascript">
+function appGO(id){
+	document.getElementById("rightFrame").src = "getRoleTree.htm?systemid="+id;
+	return false;
+}
+</script>
 </head>
 <body class="easyui-layout" fit="true">
 <div region="north" style="overflow:hidden;border:0px;height:25px;">

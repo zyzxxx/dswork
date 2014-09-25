@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/page.jsp"%>
+<title></title>
+<%@include file="/commons/include/page.jsp"%>
 <c:if test="${po.status==1}">
-	<%@include file="/commons/include/ztree.jsp"%>
+<%@include file="/commons/include/ztree.jsp"%>
 </c:if>
 <script type="text/javascript">
 $dswork.callback = null;

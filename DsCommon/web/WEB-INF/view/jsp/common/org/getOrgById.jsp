@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/getById.jsp" %>
-	<script type="text/javascript">$(function(){$("#status").text($("#status").text()=="2"?"单位":($("#status").text()=="1"?"部门":"岗位"));});</script>
+<title></title>
+<%@include file="/commons/include/getById.jsp"%>
+<script type="text/javascript">$(function(){$("#status").text($("#status").text()=="2"?"单位":($("#status").text()=="1"?"部门":"岗位"));});</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

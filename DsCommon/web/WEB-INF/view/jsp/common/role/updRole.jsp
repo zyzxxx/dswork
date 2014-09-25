@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html> 
 <head>  
-	<title></title>
-	<%@include file="/commons/include/updAjax.jsp" %>
-	<%@include file="/commons/include/ztree.jsp"%>
-	<script type="text/javascript">
+<title></title>
+<%@include file="/commons/include/updAjax.jsp"%>
+<%@include file="/commons/include/ztree.jsp"%>
+<script type="text/javascript">
 var map = new $jskey.Map();
 $(function(){
 	$("#mytree").css("display", "none");
@@ -62,20 +62,20 @@ $(function(){
 		}
 	});
 });
-	$dswork.validCallBack = function(){
-		if(document.getElementById("refresh").checked){
-			var _nodes = $dswork.ztree.getCheckedNodes();
-			var _ids = [];
-			$(_nodes).each(function(){if(this.id > 0){_ids.push(this.id);}});
-			$("#funcids").val(_ids);
-		}
-		else{$("#funcids").val("");}
-		return true;
-	};
-	$dswork.callback = function(){
-		try{if($dswork.result.type == 1){parent.refreshNode(true);}}catch(e){}
-	};
-	</script>
+$dswork.validCallBack = function(){
+	if(document.getElementById("refresh").checked){
+		var _nodes = $dswork.ztree.getCheckedNodes();
+		var _ids = [];
+		$(_nodes).each(function(){if(this.id > 0){_ids.push(this.id);}});
+		$("#funcids").val(_ids);
+	}
+	else{$("#funcids").val("");}
+	return true;
+};
+$dswork.callback = function(){
+	try{if($dswork.result.type == 1){parent.refreshNode(true);}}catch(e){}
+};
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

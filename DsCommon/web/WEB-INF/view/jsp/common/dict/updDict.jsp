@@ -4,26 +4,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/updAjax.jsp" %>
-	<script type="text/javascript">
-	$dswork.callback = function(){if($dswork.result.type == 1){
-		location.href = "getDict.htm?status=${param.status}&page=${param.page}";
-	}};
-	<%--
-	$dswork.validCallBack = function(){
-		$("#changeName").val("0");// 还原
-		if($("#v1").val() != $("#v2").val()){if(confirm("您修改了引用名，是否同步更新字典项？")){$("#changeName").val("1");}}
-		return true;
-	};--%>
-	$(function(){
-		var v = $("#status").text();
-		if(v == "1"){v = "树形集合";}
-		else if(v == "0"){v = "列表集合";}
-		else {v = "未知";}
-		$("#status").text(v);
-	});
-	</script>
+<title></title>
+<%@include file="/commons/include/updAjax.jsp"%>
+<script type="text/javascript">
+$dswork.callback = function(){if($dswork.result.type == 1){
+	location.href = "getDict.htm?status=${param.status}&page=${param.page}";
+}};
+<%--
+$dswork.validCallBack = function(){
+	$("#changeName").val("0");// 还原
+	if($("#v1").val() != $("#v2").val()){if(confirm("您修改了引用名，是否同步更新字典项？")){$("#changeName").val("1");}}
+	return true;
+};--%>
+$(function(){
+	var v = $("#status").text();
+	if(v == "1"){v = "树形集合";}
+	else if(v == "0"){v = "列表集合";}
+	else {v = "未知";}
+	$("#status").text(v);
+});
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

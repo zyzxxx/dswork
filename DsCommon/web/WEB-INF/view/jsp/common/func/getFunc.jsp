@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/page.jsp" %>
+<title></title>
+<%@include file="/commons/include/page.jsp"%>
 <script type="text/javascript">
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){parent.refreshNode(true);}};

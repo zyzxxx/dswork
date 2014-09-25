@@ -4,13 +4,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/updAjax.jsp" %>
-	<script type="text/javascript">
-	$dswork.callback = function(){if($dswork.result.type == 1){
-		location.href = "getUser.htm?page=${param.page}";
-	}};
-	</script>
+<title></title>
+<%@include file="/commons/include/updAjax.jsp"%>
+<script type="text/javascript">
+$dswork.callback = function(){if($dswork.result.type == 1){
+	location.href = "getUser.htm?page=${param.page}";
+}};
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

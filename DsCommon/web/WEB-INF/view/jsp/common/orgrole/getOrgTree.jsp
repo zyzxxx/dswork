@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/page.jsp"%>
-	<%@include file="/commons/include/ztree.jsp"%>
+<title></title>
+<%@include file="/commons/include/page.jsp"%>
+<%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 $dswork.callback = null;
 function refreshNode(re){$dswork.ztree.refreshNode(re);}

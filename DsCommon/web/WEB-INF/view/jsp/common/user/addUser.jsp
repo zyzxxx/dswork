@@ -3,34 +3,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/addAjax.jsp" %>
-	<%@include file="/commons/include/ztree.jsp" %>
-	<script type="text/javascript">
-	$dswork.callback = function(){if($dswork.result.type == 1){
-		if(!confirm("是否继续添加用户？")){location.href = "getUser.htm";}
-	}};
-	$(function(){
-		$("#orgpname").bind("click", function(e){
-			$dswork.showTree({id:"treeid1",width:400,height:200,root:{name:"选择单位"}
-				,left:$(this).offset().left, top:$(this).offset().top+20
-				,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
-				,check:function(id, node){if(node.id==0){return false;}else{$("#orgpname").val(node.name);$("#orgpid").val(node.id);$("#orgname").val();$("#orgid").val();}}
-				,dataFilter:function(id, pnode, data){var d=[];for(var i =0; i < data.length; i++){if(data[i].status == 2){d.push(data[i]);}}return d;}
-			});
-		});
-		$("#orgname").bind("click", function(e){
-			var rootid = $("#orgpid").val();
-			if(rootid == ""){alert("请先选择单位");return false;}
-			$dswork.showTree({id:"treeid2",width:400,height:200,root:{id:rootid, name:"选择部门-"+$("#orgpname").val()}
-				,left:$(this).offset().left, top:$(this).offset().top+20
-				,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
-				,check:function(id, node){if(node.id==0 || node.status != 1){return false;}else{$("#orgname").val(node.name);$("#orgid").val(node.id);}}
-				,dataFilter:function(id, pnode, data){var d=[];for(var i =0; i < data.length; i++){if(data[i].status == 1){d.push(data[i]);}}return d;}
-			});
+<title></title>
+<%@include file="/commons/include/addAjax.jsp"%>
+<%@include file="/commons/include/ztree.jsp"%>
+<script type="text/javascript">
+$dswork.callback = function(){if($dswork.result.type == 1){
+	if(!confirm("是否继续添加用户？")){location.href = "getUser.htm";}
+}};
+$(function(){
+	$("#orgpname").bind("click", function(e){
+		$dswork.showTree({id:"treeid1",width:400,height:200,root:{name:"选择单位"}
+			,left:$(this).offset().left, top:$(this).offset().top+20
+			,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
+			,check:function(id, node){if(node.id==0){return false;}else{$("#orgpname").val(node.name);$("#orgpid").val(node.id);$("#orgname").val();$("#orgid").val();}}
+			,dataFilter:function(id, pnode, data){var d=[];for(var i =0; i < data.length; i++){if(data[i].status == 2){d.push(data[i]);}}return d;}
 		});
 	});
-	</script>
+	$("#orgname").bind("click", function(e){
+		var rootid = $("#orgpid").val();
+		if(rootid == ""){alert("请先选择单位");return false;}
+		$dswork.showTree({id:"treeid2",width:400,height:200,root:{id:rootid, name:"选择部门-"+$("#orgpname").val()}
+			,left:$(this).offset().left, top:$(this).offset().top+20
+			,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
+			,check:function(id, node){if(node.id==0 || node.status != 1){return false;}else{$("#orgname").val(node.name);$("#orgid").val(node.id);}}
+			,dataFilter:function(id, pnode, data){var d=[];for(var i =0; i < data.length; i++){if(data[i].status == 1){d.push(data[i]);}}return d;}
+		});
+	});
+});
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

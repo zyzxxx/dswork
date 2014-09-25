@@ -5,7 +5,7 @@
 <html>
 <head>
 <title></title>
-<%@include file="/commons/include/page.jsp" %>
+<%@include file="/commons/include/page.jsp"%>
 <script type="text/javascript">
 var uList = [], oList = [];
 <c:forEach items="${userList}" var="d">

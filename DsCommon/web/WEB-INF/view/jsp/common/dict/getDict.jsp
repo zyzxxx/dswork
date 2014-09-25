@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/get.jsp" %>
+<title></title>
+<%@include file="/commons/include/get.jsp"%>
 <script type="text/javascript">
 $(function(){
 	$dswork.page.menu("delDict.htm?status=${param.status}", "updDict1.htm?status=${param.status}", "getDictDataTree.htm?status=${param.status}", "${pageModel.currentPage}");

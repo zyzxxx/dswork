@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/page.jsp" %>
-	<style type="text/css">.menuTool-save {background-position:center left;}</style>
+<title></title>
+<%@include file="/commons/include/page.jsp"%>
+<style type="text/css">.menuTool-save {background-position:center left;}</style>
 <script type="text/javascript">
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){parent.refreshNode(true);}};

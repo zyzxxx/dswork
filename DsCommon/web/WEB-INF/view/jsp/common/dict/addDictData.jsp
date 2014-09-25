@@ -3,14 +3,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/addAjax.jsp" %>
-	<script type="text/javascript">
-	$dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
-	$dswork.callback = function(){
-		try{if($dswork.result.type == 1){parent.refreshNode(true);}}catch(e){}
-	};
-	</script>
+<title></title>
+<%@include file="/commons/include/addAjax.jsp"%>
+<script type="text/javascript">
+$dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
+$dswork.callback = function(){
+	try{if($dswork.result.type == 1){parent.refreshNode(true);}}catch(e){}
+};
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

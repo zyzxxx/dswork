@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/getById.jsp" %>
-	<%@include file="/commons/include/ztree.jsp"%>
-	<script type="text/javascript">
+<title></title>
+<%@include file="/commons/include/getById.jsp"%>
+<%@include file="/commons/include/ztree.jsp"%>
+<script type="text/javascript">
 var map = new $jskey.Map();
 var isload = false;
 $(function(){
@@ -66,7 +66,7 @@ $(function(){
 	});
 });
 $dswork.ztree.beforeCheck = function(treeId, treeNode){return false;};
-	</script>
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

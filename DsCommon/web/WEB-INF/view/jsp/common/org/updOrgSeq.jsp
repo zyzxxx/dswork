@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/upd.jsp" %>
+<title></title>
+<%@include file="/commons/include/upd.jsp"%>
 <script type="text/javascript">
 $(function(){
 	$("#dataForm").submit(function(event){

@@ -5,7 +5,7 @@
 <html>
 <head>
 <title></title> 
-<%@include file="/commons/include/upd.jsp" %>
+<%@include file="/commons/include/upd.jsp"%>
 <script type="text/javascript">
 var map = new $jskey.Map();
 function init(){

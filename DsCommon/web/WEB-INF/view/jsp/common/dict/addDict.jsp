@@ -4,16 +4,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/addAjax.jsp" %>
-	<script type="text/javascript">
-	$dswork.callback = function(){if($dswork.result.type == 1){
-		location.href = "getDict.htm?status=${param.status}&page=${parem.page}";
-	}};
-	$(function(){
-		if("${param.status}" == "0"){document.getElementById("status0").checked = true;}
-	});
-	</script>
+<title></title>
+<%@include file="/commons/include/addAjax.jsp"%>
+<script type="text/javascript">
+$dswork.callback = function(){if($dswork.result.type == 1){
+	location.href = "getDict.htm?status=${param.status}&page=${parem.page}";
+}};
+$(function(){
+	if("${param.status}" == "0"){document.getElementById("status0").checked = true;}
+});
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

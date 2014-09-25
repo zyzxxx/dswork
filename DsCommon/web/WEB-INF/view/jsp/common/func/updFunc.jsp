@@ -4,32 +4,32 @@
 <!DOCTYPE html>
 <html> 
 <head>  
-	<title></title>
-	<%@include file="/commons/include/updAjax.jsp" %>
-	<script type="text/javascript">
-	$dswork.validCallBack = function(){
-		var rulist = document.getElementsByName("rurl");
-		var rplist = document.getElementsByName("rparam");
-		if($jskey.radio.getValue("status", "0") == "0"){//判断不是菜单
-			if(rulist.length <= 1){// 一个是隐藏的
-				alert("不作为菜单时，权限资源不能为空");return false;
-			}
+<title></title>
+<%@include file="/commons/include/updAjax.jsp"%>
+<script type="text/javascript">
+$dswork.validCallBack = function(){
+	var rulist = document.getElementsByName("rurl");
+	var rplist = document.getElementsByName("rparam");
+	if($jskey.radio.getValue("status", "0") == "0"){//判断不是菜单
+		if(rulist.length <= 1){// 一个是隐藏的
+			alert("不作为菜单时，权限资源不能为空");return false;
 		}
-		else{
-			var _o = document.getElementById("uri");
-			_o.value = _o.value.trim();
-			if(_o.value == ""){
-				alert("作为菜单时，地址不能为空");
-				try{_o.focus();}catch(e){}return false;
-			}
+	}
+	else{
+		var _o = document.getElementById("uri");
+		_o.value = _o.value.trim();
+		if(_o.value == ""){
+			alert("作为菜单时，地址不能为空");
+			try{_o.focus();}catch(e){}return false;
 		}
-		return true;
-	};
-	$dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
-	$dswork.callback = function(){
-		try{if($dswork.result.type == 1){parent.refreshNode(true);}}catch(e){}
-	};
-	</script>
+	}
+	return true;
+};
+$dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
+$dswork.callback = function(){
+	try{if($dswork.result.type == 1){parent.refreshNode(true);}}catch(e){}
+};
+</script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">

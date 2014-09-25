@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/page.jsp"%>
-	<%@include file="/commons/include/ztree.jsp"%>
+<title></title>
+<%@include file="/commons/include/page.jsp"%>
+<%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 $dswork.callback = null;
 function refreshNode(re){$dswork.ztree.refreshNode(re);}
@@ -58,7 +58,6 @@ $(function(){
 	});
 	$z.expandRoot();
 });
-
 $dswork.ztree.root.iconSkin = "groups";
 $dswork.ztree.dataFilter = function (treeId, parentNode, data){
 	if(data){for(var i = 0;i < data.length;i++){

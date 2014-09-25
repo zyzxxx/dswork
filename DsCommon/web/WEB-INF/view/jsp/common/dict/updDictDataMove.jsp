@@ -4,9 +4,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/upd.jsp" %>
-	<%@include file="/commons/include/ztree.jsp"%>
+<title></title>
+<%@include file="/commons/include/upd.jsp"%>
+<%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 <c:if test="${po.status!=1}">parent.$jskey.dialog.close();</c:if>
 <c:if test="${po.status==1}">

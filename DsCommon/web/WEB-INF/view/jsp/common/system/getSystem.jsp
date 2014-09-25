@@ -4,8 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
-	<%@include file="/commons/include/get.jsp" %>
+<title></title>
+<%@include file="/commons/include/get.jsp"%>
 <script type="text/javascript">
 function updSystemStatus(objid, id){
 	var obj = $("#" + objid);
