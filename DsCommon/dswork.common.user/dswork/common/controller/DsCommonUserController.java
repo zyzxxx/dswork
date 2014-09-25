@@ -130,7 +130,7 @@ public class DsCommonUserController extends BaseController
 			{
 				if(id <= 0)
 				{
-					print("此用户无法更改类型");
+					print("0:此用户无法更改类型");
 				}
 				else
 				{
@@ -140,13 +140,13 @@ public class DsCommonUserController extends BaseController
 			}
 			else
 			{
-				print("参数错误");
+				print("0:参数错误");
 			}
 		}
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			print(e.getMessage());
+			print("0:" + e.getMessage());
 		}
 	}
 
