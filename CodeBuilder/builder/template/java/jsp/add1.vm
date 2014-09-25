@@ -10,7 +10,7 @@ MyRequest req = new MyRequest(request);
 request.setAttribute("param", req.getParameterValueMap(false, false));
 %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
