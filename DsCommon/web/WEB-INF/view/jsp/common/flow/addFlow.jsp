@@ -68,8 +68,8 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 			<input type="hidden" style="width:80%;" maxlength="4000" name="tnodenext" value="" />
 		</td>
 		<td>		
-			<div>用户 <input type="text" style="width:70%;" name="tusers" maxlength="4000" dataType="Require" value="" /></div>
-			<div>参数 <input type="text" style="width:70%;" name="tmemo" maxlength="4000" dataType="Require" value="" /></div>
+			<div>用户 <input type="text" style="width:70%;" name="tusers" maxlength="4000" value="" /></div>
+			<div>参数 <input type="text" style="width:70%;" name="tmemo" maxlength="4000" value="" /></div>
 		</td>
 		<td></td>
 	</tr>
@@ -85,8 +85,8 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 			<div>下级 <input type="text" style="width:80%;" maxlength="4000" dataType="Require" name="tnodenext" value="" /></div>
 		</td>
 		<td>			
-			<div>用户 <input type="text" style="width:70%;" name="tusers" maxlength="4000" dataType="Require" value="" /></div>
-			<div>参数 <input type="text" style="width:70%;" name="tmemo" maxlength="4000" dataType="Require" value="" /></div>
+			<div>用户 <input type="text" style="width:70%;" name="tusers" maxlength="4000" value="" /></div>
+			<div>参数 <input type="text" style="width:70%;" name="tmemo" maxlength="4000" value="" /></div>
 		</td>
 		<td><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
 	</tr>

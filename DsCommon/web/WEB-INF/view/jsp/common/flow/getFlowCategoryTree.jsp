@@ -22,8 +22,8 @@ $dswork.ztree.click = function(){
 };
 $dswork.ztree.showMenu = function(type, x, y){
 	var _node = $dswork.ztree.getSelectedNode();
-	$("#menu_del").hide();$("#menu_upd").hide();
-	$("#menu_refresh").show();$("#menu_add").show();$("#menu_sort").show();$("#menu_select").show();
+	$("#menu_del").hide();$("#menu_upd").hide();$("#menu_select").show();
+	$("#menu_refresh").show();$("#menu_add").show();$("#menu_sort").show();
 	if(0 < _node.id){$("#menu_del").show();$("#menu_upd").show();}
 	$("#" + $dswork.ztree.menuName).menu('show', {left:x,top:y});
 };
@@ -56,7 +56,7 @@ $(function(){
 		attachUrl("updFlowCategorySeq1.htm?pid=" + $z.getSelectedNode().id);$z.hideMenu();
 	});
 	$("#menu_select").click(function(){
-		attachUrl("getFlow.htm?categoryid=${po.id}");
+		attachUrl("getFlowCategory.htm?rootid=${po.id}&pid=" + $z.getSelectedNode().id);
 	});
 	$z.expandRoot();
 });
@@ -73,7 +73,7 @@ $(function(){
 		<div id="menu_del" iconCls="menuTool-delete">删除分类</div>
 		<div id="menu_upd" iconCls="menuTool-update">修改分类</div>
 		<div id="menu_sort" iconCls="menuTool-sort">排序</div>
-		<div id="menu_select" iconCls="menuTool-select">流程管理</div>
+		<div id="menu_select" iconCls="menuTool-select">分类管理</div>
 	</div>
 </div>
 <div region="center" style="overflow:hidden;">

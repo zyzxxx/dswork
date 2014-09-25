@@ -49,8 +49,8 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 			<div>${'start'==d.talias?'':'上级 '}<input type="${'start'==d.talias?'hidden':'text'}" name="tnodeprev" style="width:80%;" maxlength="4000" value="${fn:escapeXml(d.tnodeprev)}" /></div>
 			<div>${'end'==d.talias?'':'下级 '}<input type="${'end'==d.talias?'hidden':'text'}" name="tnodenext" style="width:80%;" maxlength="4000" value="${fn:escapeXml(d.tnodenext)}" /></div>
 		</td>
-		<td><div>用户 <input type="text" name="tusers" style="width:70%;" maxlength="4000" dataType="Require" value="${fn:escapeXml(d.tusers)}" /></div>
-			<div>参数 <input type="text" name="tmemo" style="width:70%;" maxlength="4000" dataType="Require" value="${fn:escapeXml(d.tmemo)}" /></div>
+		<td><div>用户 <input type="text" name="tusers" style="width:70%;" maxlength="4000" value="${fn:escapeXml(d.tusers)}" /></div>
+			<div>参数 <input type="text" name="tmemo" style="width:70%;" maxlength="4000" value="${fn:escapeXml(d.tmemo)}" /></div>
 		</td>
 		<td><input type="${('start'==d.talias or 'end'==d.talias)?'hidden':'button'}" class="delete" onclick="$dswork.deleteRow(this)" /></td>
 	</tr>
@@ -65,8 +65,8 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 		<td><div>上级 <input type="text" name="tnodeprev" style="width:80%;" maxlength="4000" value="" /></div>
 			<div>下级 <input type="text" name="tnodenext" style="width:80%;" maxlength="4000" value="" /></div>
 		</td>
-		<td><div>用户 <input type="text" name="tusers" style="width:70%;" maxlength="4000" dataType="Require" value="" /></div>
-			<div>参数 <input type="text" name="tmemo" style="width:70%;" maxlength="4000" dataType="Require" value="" /></div>
+		<td><div>用户 <input type="text" name="tusers" style="width:70%;" maxlength="4000" value="" /></div>
+			<div>参数 <input type="text" name="tmemo" style="width:70%;" maxlength="4000" value="" /></div>
 		</td>
 		<td><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
 	</tr>
