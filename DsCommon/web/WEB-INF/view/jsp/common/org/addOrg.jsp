@@ -24,7 +24,6 @@
 </table>
 <div class="line"></div>
 <form id="dataForm" method="post" action="addOrg2.htm">
-<input type="hidden" name="id" value="0" />
 <input type="hidden" name="pid" value="${(0 < parent.id)?parent.id:0}" />
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<c:if test="${0 < parent.id}">
