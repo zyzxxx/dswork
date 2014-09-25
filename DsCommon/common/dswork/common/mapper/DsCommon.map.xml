@@ -40,4 +40,8 @@
 	</where>
 	order by STATUS desc, SEQ asc
 </select>
+
+
+
+
 </mapper>
