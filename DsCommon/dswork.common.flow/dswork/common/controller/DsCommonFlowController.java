@@ -41,31 +41,39 @@ public class DsCommonFlowController extends BaseController
 			}
 			else
 			{
-				if(!service.isExistsByAlias(po.getAlias()))
+				DsCommonFlowCategory fc = service.get(po.getCategoryid());
+				if(fc != null)
 				{
-					String[] taliasArr = req.getStringArray("talias");
-					String[] tnameArr = req.getStringArray("tname");
-					String[] tnodeprevArr = req.getStringArray("tnodeprev");
-					String[] tnodenextArr = req.getStringArray("tnodenext");
-					String[] tusersArr = req.getStringArray("tusers");
-					String[] tmemoArr = req.getStringArray("tmemo");
-					List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
-					for(int i = 0; i < taliasArr.length; i++)
+					if(!service.isExistsByAlias(po.getAlias()))
 					{
-						DsCommonFlowTask m = new DsCommonFlowTask();
-						m.setTname(tnameArr[i]);
-						m.setTalias(taliasArr[i]);
-						m.setTnodeprev(tnodeprevArr[i]);
-						m.setTnodenext(tnodenextArr[i]);
-						m.setTusers(tusersArr[i]);
-						m.setTmemo(tmemoArr[i]);
-						taskList.add(m);
+						String[] taliasArr = req.getStringArray("talias");
+						String[] tnameArr = req.getStringArray("tname");
+						String[] tnodeprevArr = req.getStringArray("tnodeprev");
+						String[] tnodenextArr = req.getStringArray("tnodenext");
+						String[] tusersArr = req.getStringArray("tusers");
+						String[] tmemoArr = req.getStringArray("tmemo");
+						List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
+						for(int i = 0; i < taliasArr.length; i++)
+						{
+							DsCommonFlowTask m = new DsCommonFlowTask();
+							m.setTname(tnameArr[i]);
+							m.setTalias(taliasArr[i]);
+							m.setTnodeprev(tnodeprevArr[i]);
+							m.setTnodenext(tnodenextArr[i]);
+							m.setTusers(tusersArr[i]);
+							m.setTmemo(tmemoArr[i]);
+							taskList.add(m);
+						}
+						print(service.saveFlow(po, taskList));
 					}
-					print(service.saveFlow(po, taskList));
+					else
+					{
+						print("0:添加失败，该标识已存在");
+					}
 				}
 				else
 				{
-					print("0:添加失败，该标识已存在");
+					print("0:添加失败，该分类不存在");
 				}
 			}
 		}
@@ -142,10 +150,19 @@ public class DsCommonFlowController extends BaseController
 	@RequestMapping("/getFlow")
 	public String getFlow()
 	{
-		PageRequest rq = getPageRequest();
-		rq.getFilters().put("vnum", 0);
-		put("list", service.queryListFlow(rq));
-		return "/common/flow/getFlow.jsp";
+		Long categoryid = req.getLong("categoryid");
+		if(categoryid > 0)
+		{
+			DsCommonFlowCategory po = service.get(categoryid);
+			if(po != null)
+			{
+				PageRequest rq = getPageRequest();
+				rq.getFilters().put("vnum", 0);
+				put("list", service.queryListFlow(rq));
+				return "/common/flow/getFlow.jsp";
+			}
+		}
+		return null;
 	}
 
 	// 明细
