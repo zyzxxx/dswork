@@ -9,15 +9,17 @@
 <script type="text/javascript">
 function updStatus(objid, id){
 	var obj = $("#" + objid), o = document.getElementById(objid);
-	$.post("updUserStatus.htm",{"keyIndex":id,"status":obj.attr("v")==0?1:0},function(data){if(1 == data){
+	$.post("updUserStatus.htm",{"keyIndex":id,"status":obj.attr("v")==0?1:0},function(data){
+		$dswork.checkResult(data);
+		if($dswork.result.type == 1){
 		obj.removeClass("pause").removeClass("start");
 		if(1 == obj.attr("v")){
 			obj.text("启用").attr("v", 0).addClass("start");$("#td_" + objid).text("禁用").css("color", "red");
 		}
 		else{
 			obj.text("禁用").attr("v", 1).addClass("pause");$("#td_" + objid).text("启用").css("color", "");
-		}}
-	else{alert("失败!"+data);}});
+		}}else{alert($dswork.result.msg);}
+	});
 	return false;
 }
 $dswork.page.join = function(td, menu, id){
