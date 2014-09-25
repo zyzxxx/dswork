@@ -19,7 +19,7 @@ public class DsCommonOrgController extends BaseController
 {
 	@Autowired
 	private DsCommonOrgService service;
-	
+
 	// 添加
 	@RequestMapping("/addOrg1")
 	public String addOrg1()
@@ -42,6 +42,7 @@ public class DsCommonOrgController extends BaseController
 		put("pid", pid);
 		return "/common/org/addOrg.jsp";
 	}
+
 	@RequestMapping("/addOrg2")
 	public void addOrg2(DsCommonOrg po)
 	{
@@ -150,6 +151,7 @@ public class DsCommonOrgController extends BaseController
 		put("parent", parent);
 		return "/common/org/updOrg.jsp";
 	}
+
 	@RequestMapping("/updOrg2")
 	public void updOrg2(DsCommonOrg po)
 	{
@@ -174,7 +176,8 @@ public class DsCommonOrgController extends BaseController
 			{
 				po.setStatus(2);// 没有上级则为单位
 			}
-			else// 存在上级节点时
+			else
+			// 存在上级节点时
 			{
 				DsCommonOrg parent = service.get(old.getPid());
 				if(null == parent)
@@ -225,6 +228,7 @@ public class DsCommonOrgController extends BaseController
 		put("list", list);
 		return "/common/org/updOrgSeq.jsp";
 	}
+
 	@RequestMapping("/updOrgSeq2")
 	public void updOrgSeq2()
 	{
@@ -252,11 +256,12 @@ public class DsCommonOrgController extends BaseController
 	@RequestMapping("/updOrgMove1")
 	public String updOrgMove1()
 	{
-		Long rootid = req.getLong("rootid");//作为限制根节点显示
-		put("po", (rootid > 0)?service.get(rootid):null);
+		Long rootid = req.getLong("rootid");// 作为限制根节点显示
+		put("po", (rootid > 0) ? service.get(rootid) : null);
 		put("rootid", rootid);
 		return "/common/org/updOrgMove.jsp";
 	}
+
 	@RequestMapping("/updOrgMove2")
 	public void updOrgMove2()
 	{
@@ -303,7 +308,7 @@ public class DsCommonOrgController extends BaseController
 	@RequestMapping("/getOrgTree")
 	public String getOrgTree()
 	{
-		Long rootid = req.getLong("rootid");//作为限制根节点显示
+		Long rootid = req.getLong("rootid");// 作为限制根节点显示
 		DsCommonOrg po = null;
 		if(rootid > 0)
 		{
@@ -320,16 +325,16 @@ public class DsCommonOrgController extends BaseController
 		else
 		{
 			po = new DsCommonOrg();
-			po.setName("组织机构");
 		}
 		put("po", po);
 		return "/common/org/getOrgTree.jsp";
 	}
+
 	// 获得列表
 	@RequestMapping("/getOrg")
 	public String getOrg()
 	{
-		Long rootid = req.getLong("rootid");//作为限制根节点显示
+		Long rootid = req.getLong("rootid");// 作为限制根节点显示
 		Long pid = req.getLong("pid");
 		List<DsCommonOrg> list = service.queryList(pid);
 		put("list", list);
@@ -337,8 +342,10 @@ public class DsCommonOrgController extends BaseController
 		put("pid", pid);
 		return "/common/org/getOrg.jsp";
 	}
+
 	// 获得树形管理时的json数据
-	@RequestMapping("/getOrgJson")// ByPid
+	@RequestMapping("/getOrgJson")
+	// ByPid
 	public void getOrgJson()
 	{
 		long pid = req.getLong("pid");

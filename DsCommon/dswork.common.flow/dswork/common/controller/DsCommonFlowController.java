@@ -199,16 +199,6 @@ public class DsCommonFlowController extends BaseController
 		}
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	// 添加
 	@RequestMapping("/addFlowCategory1")
 	public String addFlowCategory1()
@@ -450,7 +440,6 @@ public class DsCommonFlowController extends BaseController
 		else
 		{
 			po = new DsCommonFlowCategory();
-			po.setName("流程管理");
 		}
 		put("po", po);
 		return "/common/flow/getFlowCategoryTree.jsp";
