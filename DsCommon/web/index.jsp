@@ -18,6 +18,7 @@ var treedata = [
 	,{id:100002,name:'系统管理', img:"", imgOpen:"", url:'/common/system/getSystem.htm', items:[]}
 	,{id:100003,name:'组织管理', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm', items:[]}
 	,{id:100004,name:'岗位授权管理', img:"", imgOpen:"", url:'/common/orgrole/getOrgTree.htm', items:[]}
+	,{id:100005,name:'流程管理', img:"", imgOpen:"", url:'/common/flow/getFlowCategoryTree.htm', items:[]}
 ]}
 ];
 </script>

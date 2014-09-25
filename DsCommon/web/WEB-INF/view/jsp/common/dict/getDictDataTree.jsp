@@ -1,6 +1,6 @@
 <%@page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +15,6 @@ function refreshNode(re){
 	<c:if test="${po.status==1}">$dswork.ztree.refreshNode(re);</c:if>
 	<c:if test="${po.status!=1}">attachUrl("getDictData.htm?dictid=${po.id}&pid=0");</c:if>
 }
-<%--var name = encodeURI(encodeURI("${fn:escapeXml(po.name)}"));--%>
 <c:if test="${po.status==1}">
 $dswork.ztree.click = function(){
 	var _id = $dswork.ztree.getSelectedNode().id;

@@ -1,6 +1,6 @@
 <%@page language="java" pageEncoding="utf-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@ $dswork.ztree.showMenu = function(type, x, y){
 	if(_node.status == 0){$("#menu_refresh").hide();$("#menu_add").hide();$("#menu_sort").hide();$("#menu_select").hide();}
 	$("#" + $dswork.ztree.menuName).menu('show', {left:x,top:y});
 };
-$dswork.ztree.root.name = "${po.id > 0?fn:escapeXml(po.name):"组织机构"}";
+$dswork.ztree.root.name = "${po.id > 0?fn:escapeXml(po.name):'组织机构'}";
 $dswork.ztree.root.id = ${po.id};
 $dswork.ztree.root.status = ${po.status};
 $dswork.ztree.url = function(treeNode){return "getOrgJson.htm?pid=" + treeNode.id;};
