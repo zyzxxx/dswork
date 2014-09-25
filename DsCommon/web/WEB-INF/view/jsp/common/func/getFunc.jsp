@@ -20,7 +20,7 @@ $("#listFormMoveAll").click(function(){
 		var obj = {"title":"移动到选中节点","args":{"data":v}, "url":"updFuncMove1.htm?systemid=${systemid}"};
 		obj.buttons = [{text:"移动",iconCls:"menuTool-save",handler:function(){
 			if($jskey.dialog.returnValue != null){
-				if($jskey.dialog.returnValue == "${pid}"){$jskey.dialog.close();return false;}
+				if($jskey.dialog.returnValue == "${pid}"){alert("目标节点与当前节点相同");return false;}
 				$("#movepid").val($jskey.dialog.returnValue);
 				$("#moveForm").ajaxSubmit({
 					beforeSubmit:$dswork.showRequest,
