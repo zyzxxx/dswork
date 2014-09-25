@@ -26,7 +26,7 @@ $dswork.callback = function(){
 		<td class="title">排序</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" onclick="parent.refreshNode(false);return false;" href="#">返回</a>
+			<a class="back" onclick="parent.refreshNode(null);return false;" href="#">返回</a>
 		</td>
 	</tr>
 </table>

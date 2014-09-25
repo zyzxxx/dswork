@@ -9,7 +9,9 @@
 <%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 $dswork.callback = null;
-function refreshNode(re){$dswork.ztree.refreshNode(re);if(re){$("#menu_select").click();}}
+function refreshNode(re){
+	if(re == null){$("#menu_select").click();return false;}$dswork.ztree.refreshNode(re);
+}
 $dswork.ztree.click = function(){
 	treeNode = $dswork.ztree.getSelectedNode();
 	if(treeNode.id == 0){

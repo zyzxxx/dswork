@@ -8,7 +8,7 @@
 <%@include file="/commons/include/updAjax.jsp"%>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getFlow.htm";
+	location.href = "getFlow.htm?categoryid=${po.categoryid}";
 }};
 $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 </script>
@@ -19,7 +19,7 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 		<td class="title">修改</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getFlow.htm?page=${page}">返回</a>
+			<a class="back" href="getFlow.htm?categoryid=${po.categoryid}">返回</a>
 		</td>
 	</tr>
 </table>

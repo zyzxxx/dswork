@@ -158,6 +158,7 @@ public class DsCommonFlowController extends BaseController
 			{
 				PageRequest rq = getPageRequest();
 				rq.getFilters().put("vnum", 0);
+				put("po", po);
 				put("list", service.queryListFlow(rq));
 				return "/common/flow/getFlow.jsp";
 			}

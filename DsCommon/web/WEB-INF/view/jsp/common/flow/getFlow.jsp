@@ -33,7 +33,7 @@ $dswork.page.join = function(td, menu, id){
 	}));
 };
 $(function(){
-	$dswork.page.menu("", "updFlow1.htm", "getFlowById.htm", "${pageModel.currentPage}");
+	$dswork.page.menu("", "updFlow1.htm", "getFlowById.htm", "1");
 });
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
@@ -50,7 +50,7 @@ $(function(){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">流程列表</td>
+		<td class="title">${fn:escapeXml(po.name)}流程列表</td>
 		<td class="menuTool">
 			<a class="insert" href="addFlow1.htm?categoryid=${param.categoryid}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
