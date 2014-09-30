@@ -27,9 +27,10 @@ public class DsCommonDao extends MyBatisDao
 	{
 		return DsCommonDao.class;
 	}
-	///////////////////////////////////////////////////////////////////////////
+
+	// /////////////////////////////////////////////////////////////////////////
 	// 字典
-	///////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////
 	/**
 	 * 获取指定节点的列表数据
 	 * @param name 字典分类名
@@ -51,9 +52,10 @@ public class DsCommonDao extends MyBatisDao
 		}
 		return list;
 	}
-	///////////////////////////////////////////////////////////////////////////
+
+	// /////////////////////////////////////////////////////////////////////////
 	// 组织机构
-	///////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////
 	/**
 	 * 根据上级组织机构主键取得列表数据
 	 * @param pid 上级组织机构主键
@@ -78,98 +80,98 @@ public class DsCommonDao extends MyBatisDao
 		}
 		return list;
 	}
-	///////////////////////////////////////////////////////////////////////////
+
+	// /////////////////////////////////////////////////////////////////////////
 	// 流程
-	///////////////////////////////////////////////////////////////////////////
+	// /////////////////////////////////////////////////////////////////////////
 	public String queryDeployid(String alias)
 	{
-		
 		return (String) executeSelect("queryFlowByAlias", alias);
 	}
-	
+
 	public Long queryFlowid(String deployid)
 	{
 		return (Long) executeSelect("queryFlowByDeployid", deployid);
 	}
-	
-	public IFlowTask queryTask(Long flowid,String talias)
+
+	public IFlowTask queryTask(Long flowid, String talias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("flowid", flowid);
 		map.put("talias", talias);
 		return (IFlowTask) executeSelect("queryFlowTask", map);
 	}
-	
-	public IFlowTask getTask(String deployid,String talias)
+
+	public IFlowTask getTask(String deployid, String talias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("deployid", deployid);
 		map.put("talias", talias);
 		return (IFlowTask) executeSelect("queryTask", map);
 	}
-	
+
 	public void saveFlowPi(IFlowPi flowpi)
 	{
 		executeInsert("insertPi", flowpi);
 	}
-	
+
 	public void updateStatus(Long id)
 	{
 		executeUpdate("updateStatus", id);
 	}
-	
-	public void updatePialias(Long id,String pialias)
+
+	public void updatePialias(Long id, String pialias)
 	{
-		Map<String, Object> map=new HashMap<String, Object>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("pialias", pialias);
 		executeUpdate("updatePialias", map);
 	}
-	
+
 	public IFlowPiDoing queryByid(Long id)
 	{
 		return (IFlowPiDoing) executeSelect("selectById", id);
 	}
-	
+
 	public List<IFlowPiDoing> queryBypiid(Long piid)
 	{
 		return executeSelectList("getByPiid", piid);
 	}
-	
+
 	public List<IFlowPiDoing> getDoingList(String account)
 	{
 		return executeSelectList("getDoingList", account);
 	}
-	
+
 	public void saveFlowPiDoing(IFlowPiDoing flowpidoing)
 	{
 		executeInsert("insertPiDoing", flowpidoing);
-	}	
-	
-	public IFlowPiDoing getByTalias(Long piid,String alias)
+	}
+
+	public IFlowPiDoing getByTalias(Long piid, String alias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("alias", alias);
 		map.put("piid", piid);
 		return (IFlowPiDoing) executeSelect("getByAlias", map);
 	}
-	
-	public boolean isExistsByTalias(Long piid,String alias)
+
+	public boolean isExistsByTalias(Long piid, String alias)
 	{
-		IFlowPiDoing pidoing = getByTalias(piid,alias);
+		IFlowPiDoing pidoing = getByTalias(piid, alias);
 		if(pidoing != null && pidoing.getId().longValue() != 0)
 		{
 			return true;
 		}
 		return false;
 	}
-	
+
 	public void deletePiDoing(Long id)
 	{
-		executeDelete("deletePiDoing", id);		
+		executeDelete("deletePiDoing", id);
 	}
-	
-	public void updateTcount(int tcount,Long piid,String alias)
+
+	public void updateTcount(int tcount, Long piid, String alias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("tcount", tcount);
@@ -177,14 +179,9 @@ public class DsCommonDao extends MyBatisDao
 		map.put("piid", piid);
 		executeUpdate("updateTcount", map);
 	}
-	
+
 	public void saveFlowPiData(IFlowPiData pidata)
 	{
 		executeInsert("insertPiData", pidata);
-	}	
-	
-	
-	
-	
-	
+	}
 }

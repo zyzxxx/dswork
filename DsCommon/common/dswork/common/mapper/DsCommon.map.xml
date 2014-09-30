@@ -13,11 +13,11 @@
 <select id="queryDict" resultMap="resultDict">
 	select a.LABEL, a.ALIAS, a.STATUS from DS_COMMON_DICT_DATA a
 	<if test="@Ognl@isNotEmpty(alias)">
-	 left join DS_COMMON_DICT_DATA b on a.PID=b.ID
-	 where a.NAME=#{name} and b.ALIAS=#{alias} 
+		left join DS_COMMON_DICT_DATA b on a.PID=b.ID
+		where a.NAME=#{name} and b.ALIAS=#{alias} 
 	</if>
 	<if test="@Ognl@isEmpty(alias)"> 
-	 where a.NAME=#{name} <if test="alias!=null"> and a.PID is null </if>
+		where a.NAME=#{name} <if test="alias!=null"> and a.PID is null </if>
 	</if>
 	order by a.SEQ, a.ALIAS
 </select>
