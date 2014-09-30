@@ -1,21 +1,26 @@
-package dswork.common;
+package dswork.common.service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import dswork.common.dao.DsCommonDao;
 import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowPiDoing;
 import dswork.common.model.IFlowTask;
-import dswork.common.service.DsCommoService;
-import dswork.spring.BeanFactory;
 
-public class DsCommonFlowFactory
-{	
-	private static DsCommoService getServcie(){return (DsCommoService) BeanFactory.getBean("dsCommoService");}
-	private static DsCommoService service = getServcie();
+@Service
+@SuppressWarnings("all")
+public class DsCommoService
+{
+	@Autowired
+	private DsCommonDao dao;
+	
+
 	public static String start(String alias, String ywlsh, String caccount, String cname, String piDay, boolean isWorkDay, String taskInterface, String userInterface)
 	{	
 		int pidaytype=0; 
@@ -133,4 +138,75 @@ public class DsCommonFlowFactory
 		DsCommoService service = new DsCommoService();
 		return service.getTask(deployid, talias);
 	}
+	
+//	public String queryDeployid(String alias)
+//	{
+//		return dao.queryDeployid(alias);
+//	}
+//	
+//	public Long queryFlowid(String deployid)
+//	{
+//		return dao.queryFlowid(deployid);
+//	}
+//	
+//	public IFlowTask queryTask(Long flowid,String talias)
+//	{
+//		return dao.queryTask(flowid, talias);
+//	}
+//	
+//	public IFlowTask getTask(String deployid,String talias)
+//	{
+//		return dao.getTask(deployid, talias);
+//	}
+//	
+//	public Long saveFlowPi(IFlowPi flowpi)
+//	{
+//		dao.saveFlowPi(flowpi);
+//		return flowpi.getId();
+//	}
+//	
+//	public void updateStatus(Long id)
+//	{
+//		dao.updateStatus(id);
+//	}
+//	
+//	public void updatePialias(Long id,String pialias)
+//	{
+//		dao.updatePialias(id, pialias);
+//	}
+//	
+//	public IFlowPiDoing queryByid(Long id)
+//	{
+//		return dao.queryByid(id);
+//	}
+//	
+//	public List<IFlowPiDoing> queryBypiid(Long piid)
+//	{
+//		return dao.queryBypiid(piid);
+//	}
+//	
+//	public void saveFlowPiDoing(IFlowPiDoing flowpidoing)
+//	{
+//		dao.saveFlowPiDoing(flowpidoing);
+//	}
+//	
+//	public boolean isExistsByTalias(Long piid,String alias)
+//	{
+//		return dao.isExistsByTalias(piid,alias);
+//	}
+//	public void updateTcount(int tcount,Long piid,String alias)
+//	{
+//		dao.updateTcount(tcount, piid, alias);
+//	}
+//	
+//	public void saveFlowPiData(IFlowPiData pidata,Long id)
+//	{
+//		dao.saveFlowPiData(pidata);
+//		dao.deletePiDoing(id);
+//	}
+//
+//	public List<IFlowPiDoing> getDoingList(String account)
+//	{
+//		return dao.getDoingList(account);
+//	}
 }
