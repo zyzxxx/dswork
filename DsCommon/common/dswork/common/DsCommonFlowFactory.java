@@ -4,21 +4,26 @@ import java.util.List;
 
 import dswork.common.model.IFlowPiDoing;
 import dswork.common.model.IFlowTask;
-import dswork.common.service.DsCommoService;
+import dswork.common.service.DsCommonService;
 import dswork.spring.BeanFactory;
 
 public class DsCommonFlowFactory
 {
-	private static DsCommoService getServcie()
-	{
-		return (DsCommoService) BeanFactory.getBean("DsCommoService");
-	}
-	private static DsCommoService service = getServcie();
+	private static DsCommonService service = null;
 
-	public static String start(String alias, String ywlsh, String caccount, String cname, String piDay, boolean isWorkDay, String taskInterface, String userInterface)
+	private static void init()
+	{
+		if(service == null)
+		{
+			service = (DsCommonService) BeanFactory.getBean("DsCommonService");
+		}
+	}
+
+	public static String start(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface, String userInterface)
 	{
 		try
 		{
+			init();
 			return service.start(alias, ywlsh, caccount, cname, piDay, isWorkDay, taskInterface, userInterface);
 		}
 		catch(Exception e)
@@ -31,6 +36,7 @@ public class DsCommonFlowFactory
 	{
 		try
 		{
+			init();
 			return service.process(doingid, nextTalias, paccount, pname, resultType, resultMsg);
 		}
 		catch(Exception e)
@@ -39,11 +45,12 @@ public class DsCommonFlowFactory
 		}
 	}
 
-	public static List<IFlowPiDoing> getDoingList(String account)
+	public static List<IFlowPiDoing> queryWaiting(String account)
 	{
 		try
 		{
-			return service.getDoingList("," + account + ",");
+			init();
+			return service.queryFlowPiDoing(account);
 		}
 		catch(Exception e)
 		{
@@ -55,7 +62,8 @@ public class DsCommonFlowFactory
 	{
 		try
 		{
-			return service.getTask(deployid, talias);
+			init();
+			return service.getFlowTask(deployid, talias);
 		}
 		catch(Exception e)
 		{

@@ -59,8 +59,12 @@ public class IDict
 	{
 		try
 		{
-			return new StringBuilder().append("{id:\"").append(alias).append("\",pid:\"").append(String.valueOf(pid)).append("\",status:").append(status).append(",isParent:").append((1 == status) ? "true" : "false").append(",name:\"").append(
-				String.valueOf(label).replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
+			return new StringBuilder().append("{id:\"").append(alias)
+					.append("\",pid:\"").append(String.valueOf(pid))
+					.append("\",status:").append(status)
+					.append(",isParent:").append((1 == status) ? "true" : "false")
+					.append(",name:\"").append(String.valueOf(label).replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\""))
+					.append("\"}").toString();
 		}
 		catch(Exception e)
 		{

@@ -84,104 +84,95 @@ public class DsCommonDao extends MyBatisDao
 	// /////////////////////////////////////////////////////////////////////////
 	// 流程
 	// /////////////////////////////////////////////////////////////////////////
-	public String queryDeployid(String alias)
+	
+	// ////////////////////////
+	// 流程配置
+	public String getFlowDeployid(String alias)
 	{
-		return (String) executeSelect("queryFlowByAlias", alias);
+		return (String) executeSelect("selectFlowDeployid", alias);
 	}
-
-	public Long queryFlowid(String deployid)
-	{
-		return (Long) executeSelect("queryFlowByDeployid", deployid);
-	}
-
-	public IFlowTask queryTask(Long flowid, String talias)
-	{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("flowid", flowid);
-		map.put("talias", talias);
-		return (IFlowTask) executeSelect("queryFlowTask", map);
-	}
-
-	public IFlowTask getTask(String deployid, String talias)
-	{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("deployid", deployid);
-		map.put("talias", talias);
-		return (IFlowTask) executeSelect("queryTask", map);
-	}
-
+	
+	// ////////////////////////
+	// 流程实例
 	public void saveFlowPi(IFlowPi flowpi)
 	{
-		executeInsert("insertPi", flowpi);
+		executeInsert("insertFlowPi", flowpi);
 	}
-
-	public void updateStatus(Long id)
+	public void updateFlowPiStatus(Long id)
 	{
-		executeUpdate("updateStatus", id);
+		executeUpdate("updateFlowPiStatus", id);
 	}
-
-	public void updatePialias(Long id, String pialias)
+	public void updateFlowPiPialias(Long id, String pialias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("pialias", pialias);
-		executeUpdate("updatePialias", map);
+		executeUpdate("updateFlowPiPialias", map);
 	}
-
-	public IFlowPiDoing queryByid(Long id)
-	{
-		return (IFlowPiDoing) executeSelect("selectById", id);
-	}
-
-	public List<IFlowPiDoing> queryBypiid(Long piid)
-	{
-		return executeSelectList("getByPiid", piid);
-	}
-
-	public List<IFlowPiDoing> getDoingList(String account)
-	{
-		return executeSelectList("getDoingList", account);
-	}
-
-	public void saveFlowPiDoing(IFlowPiDoing flowpidoing)
-	{
-		executeInsert("insertPiDoing", flowpidoing);
-	}
-
-	public IFlowPiDoing getByTalias(Long piid, String alias)
+	
+	// ////////////////////////
+	// 流程任务配置
+	public IFlowTask getFlowTask(Long flowid, String talias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("alias", alias);
-		map.put("piid", piid);
-		return (IFlowPiDoing) executeSelect("getByAlias", map);
+		map.put("flowid", flowid);
+		map.put("talias", talias);
+		return (IFlowTask) executeSelect("selectFlowTask", map);
 	}
-
-	public boolean isExistsByTalias(Long piid, String alias)
+	
+	// ////////////////////////
+	// 流程实例明细
+	public void saveFlowPiData(IFlowPiData pidata)
 	{
-		IFlowPiDoing pidoing = getByTalias(piid, alias);
+		executeInsert("insertFlowPiData", pidata);
+	}
+	
+	// ////////////////////////
+	// 流程实例待办
+	public void saveFlowPiDoing(IFlowPiDoing flowpidoing)
+	{
+		executeInsert("insertFlowPiDoing", flowpidoing);
+	}
+	public void deleteFlowPiDoing(Long id)
+	{
+		executeDelete("deleteFlowPiDoing", id);
+	}
+	public void updateFlowPiDoing(Long piid, String alias, String tstart)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("piid", piid);
+		map.put("alias", alias);
+		map.put("tstart", tstart);
+		executeUpdate("updateFlowPiDoing", map);
+	}
+	public IFlowPiDoing getFlowPiDoing(Long id)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		return (IFlowPiDoing) executeSelect("selectFlowPiDoing", map);
+	}
+	public boolean isExistsFlowPiDoing(Long piid, String alias)
+	{
+		IFlowPiDoing pidoing = getFlowPiDoingByPiid(piid, alias);
 		if(pidoing != null && pidoing.getId().longValue() != 0)
 		{
 			return true;
 		}
 		return false;
 	}
-
-	public void deletePiDoing(Long id)
-	{
-		executeDelete("deletePiDoing", id);
-	}
-
-	public void updateTcount(int tcount, Long piid, String alias)
+	public IFlowPiDoing getFlowPiDoingByPiid(Long piid, String alias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("tcount", tcount);
-		map.put("alias", alias);
 		map.put("piid", piid);
-		executeUpdate("updateTcount", map);
+		map.put("alias", alias);
+		return (IFlowPiDoing) executeSelect("getFlowPiDoingByPiid", map);
 	}
-
-	public void saveFlowPiData(IFlowPiData pidata)
+	public List<String> queryFlowPiDoingTalias(Long piid)
 	{
-		executeInsert("insertPiData", pidata);
+		return executeSelectList("queryFlowPiDoingTalias", piid);
+	}
+	public List<IFlowPiDoing> queryFlowPiDoing(String account)
+	{
+		return executeSelectList("queryFlowPiDoing", account);
 	}
 }

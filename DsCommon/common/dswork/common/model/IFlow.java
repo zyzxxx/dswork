@@ -57,7 +57,7 @@ public class IFlow
 	{
 		this.name = name;
 	}
-	
+
 	public List<IFlowTask> getTaskList()
 	{
 		if(taskList == null)

@@ -2,27 +2,28 @@
  * 流程执行明细Model
  */
 package dswork.common.model;
+
 public class IFlowPiData
 {
-	//主键ID
+	// 主键ID
 	private Long id = 0L;
-	//流程实例ID
+	// 流程实例ID
 	private Long piid = 0L;
-	//任务标识
+	// 任务标识
 	private String talias = "";
-	//任务名称
+	// 任务名称
 	private String tname = "";
-	//状态(0已处理,1代办,2挂起,3取消挂起)
+	// 状态(0已处理,1代办,2挂起,3取消挂起)
 	private Integer status = 0;
-	//经办人ID
+	// 经办人ID
 	private String paccount = "";
-	//经办人姓名
+	// 经办人姓名
 	private String pname = "";
-	//经办时间
+	// 经办时间
 	private String ptime = "";
-	//经办类型(0拒绝,1同意等等)
+	// 经办类型(0拒绝,1同意等等)
 	private String ptype = "";
-	//意见
+	// 意见
 	private String memo = "";
 
 	public Long getId()

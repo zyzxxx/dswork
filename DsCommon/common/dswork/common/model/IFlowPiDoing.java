@@ -2,29 +2,32 @@
  * 流程待办事项Model
  */
 package dswork.common.model;
+
 public class IFlowPiDoing
 {
-	//主键ID
+	// 主键ID
 	private Long id = 0L;
-	//实例ID
+	// 实例ID
 	private Long piid = 0L;
-	//业务流水号
+	// 业务流水号
 	private String ywlsh = "";
-	//流程ID
+	// 流程ID
 	private Long flowid = 0L;
-	//任务标识
+	// 任务标识
 	private String talias = "";
-	//任务开始时间
+	// 任务名称
+	private String tname = "";
+	// 任务开始时间
 	private String tstart = "";
-	//任务经办人
+	// 任务经办人
 	private String taccount = "";
-	//候选经办人
+	// 候选经办人
 	private String thaccount = "";
-	//等待任务数
+	// 等待任务数
 	private Integer tcount = 0;
-	//处理任务接口类
+	// 处理任务接口类
 	private String tinterface = "";
-	//获取用户接口类
+	// 获取用户接口类
 	private String uinterface = "";
 
 	public Long getId()
@@ -75,6 +78,16 @@ public class IFlowPiDoing
 	public void setTalias(String talias)
 	{
 		this.talias = talias;
+	}
+
+	public String getTname()
+	{
+		return tname;
+	}
+
+	public void setTname(String tname)
+	{
+		this.tname = tname;
 	}
 
 	public String getTstart()

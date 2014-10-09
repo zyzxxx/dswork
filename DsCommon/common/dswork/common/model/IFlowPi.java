@@ -5,35 +5,35 @@ package dswork.common.model;
 
 public class IFlowPi
 {
-	//主键ID（流程实例ID）
+	// 主键ID（流程实例ID）
 	private Long id = 0L;
-	//业务流水号
+	// 业务流水号
 	private String ywlsh = "";
-	//流程标识
+	// 流程标识
 	private String alias = "";
-	//流程ID（对应deployid）
+	// 流程ID（对应deployid）
 	private Long flowid = 0L;
-	//流程发布ID
+	// 流程发布ID
 	private String deployid = "";
-	//时限天数
+	// 时限天数
 	private Integer piday = 0;
-	//时限天数类型(0日历日,1工作日)
+	// 时限天数类型(0日历日,1工作日)
 	private Integer pidaytype = 0;
-	//开始时间
+	// 开始时间
 	private String pistart = "";
-	//结束时间
+	// 结束时间
 	private String piend = "";
-	//挂起开始时间
+	// 挂起开始时间
 	private String piupstart = "";
-	//挂起结束时间
+	// 挂起结束时间
 	private String piupend = "";
-	//流程状态(1,申请,2,运行,3挂起,0结束)
+	// 流程状态(1,申请,2,运行,3挂起,0结束)
 	private Integer status = 0;
-	//承办人账号
+	// 承办人账号
 	private String caccount = "";
-	//承办人
+	// 承办人
 	private String cname = "";
-	//当前任务标识，以逗号分隔
+	// 当前任务标识，以逗号分隔
 	private String pialias = "";
 
 	public Long getId()
