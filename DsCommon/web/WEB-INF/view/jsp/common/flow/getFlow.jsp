@@ -22,9 +22,11 @@ function updStatus(objid, id){
 	return false;
 };
 function deployFlow(id){
-	$.post("deployFlow.htm",{"keyIndex":id},function(data){$dswork.checkResult(data);if($dswork.result.type == 1){
-		$("#queryForm").submit();
-	}});
+	if(confirm("确认将当前流程配置发布成为正式版本吗？")){
+		$.post("deployFlow.htm",{"keyIndex":id},function(data){$dswork.checkResult(data);if($dswork.result.type == 1){
+			$("#queryForm").submit();
+		}});
+	}
 	return false;
 };
 $dswork.page.join = function(td, menu, id){
