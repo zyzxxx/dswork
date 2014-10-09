@@ -12,7 +12,7 @@
 .ctask{width:75%;margin:1px 0 0 1px;}
 .ccount{width:30px;margin:1px 0 0 1px;}
 .cparam{width:65%;margin:1px 0 0 1px;}
-tr.list td {text-align:left;}
+tr.list td {text-align:left;padding-left:1px;}
 </style>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
@@ -58,7 +58,7 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 	<tr class="list">
 		<td style="text-align:center;"><input type="hidden" name="talias" value="start" />start</td>
 		<td><input type="text" name="tname" class="cname" maxlength="100" dataType="Require" value="开始" /></td>
-		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
+		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="end" /></div>
 			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
 		</td>
 		<td><input type="hidden" name="tcount" value="0" />
@@ -69,12 +69,8 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 	<tr class="list" id="end">
 		<td style="text-align:center;"><input type="hidden" name="talias" value="end" />end</td>
 		<td><input type="text" name="tname" class="cname" maxlength="100" dataType="Require" value="结束" /></td>
-		<td><input type="hidden" name="tnext" value="" />
-			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
-		</td>
-		<td><div>等待<input type="text" name="tcount" class="ccount" maxlength="10" dataType="IntegerPlus" value="0" />个任务</div>
-			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="" /></div>
-		</td>
+		<td>&nbsp;<input type="hidden" name="tnext" value="" /><input type="hidden" name="tusers" value="" /></td>
+		<td>&nbsp;<input type="hidden" name="tcount" value="0" /><input type="hidden" name="tmemo" value="" /></td>
 		<td>&nbsp;</td>
 	</tr>
 </table>
