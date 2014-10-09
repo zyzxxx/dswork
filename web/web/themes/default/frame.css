@@ -139,10 +139,9 @@ a:active{color:#182a2d;}
 span.menuTool-save{background:url(img/menu/save.gif) no-repeat;}
 
 
-input.button, input.delete, input.insert{padding:2px 3px 0px 3px;cursor:pointer;color:#000000;border:#000000 solid 1px;}
+input.button, input.delete{padding:2px 3px 0px 3px;cursor:pointer;color:#000000;border:#000000 solid 1px;}
 input.button{background:url(img/button/button.gif) 0px 0px repeat-x;}
 input.delete{border:none;width:18px;height:18px;background:url(img/button/delete.gif) 0px 0px no-repeat;}
-input.insert{border:none;width:18px;height:18px;background:url(img/button/insert.gif) 0px 0px no-repeat;}
 input.text{width:200px;}
 input.readonlytext{width:200px;background-color:#e1e1e1;color:#000000;}
 textarea.readonlytext{width:100%;background-color:#e1e1e1;color:#000000;}
