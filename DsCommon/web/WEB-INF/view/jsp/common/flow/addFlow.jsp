@@ -6,6 +6,14 @@
 <head>
 <title></title>
 <%@include file="/commons/include/addAjax.jsp"%>
+<style type="text/css">
+.calias{width:80%;}
+.cname{width:80%;}
+.ctask{width:75%;margin:1px 0 0 1px;}
+.ccount{width:30px;margin:1px 0 0 1px;}
+.cparam{width:65%;margin:1px 0 0 1px;}
+tr.list td {text-align:left;}
+</style>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getFlow.htm?categoryid=${param.categoryid}";
@@ -31,11 +39,11 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 	<input type="hidden" name="deployid" value="" />
 	<tr>
 		<td class="form_title">流程标识</td>
-		<td class="form_input"><input type="text" name="alias" maxlength="300" dataType="Require" value="" /></td>
+		<td class="form_input"><input type="text" name="alias" style="width:200px;" maxlength="300" dataType="Char" value="" /> <span style="font-weight:bold;">保存后不可修改</span></td>
 	</tr>
 	<tr>
-		<td class="form_title">名字</td>
-		<td class="form_input"><input type="text" name="name" maxlength="300" dataType="Require" value="" /></td>
+		<td class="form_title">流程名字</td>
+		<td class="form_input"><input type="text" name="name" style="width:200px;" maxlength="300" dataType="Require" value="" /></td>
 	</tr>
 </table>
 <div class="line"></div>
@@ -44,51 +52,45 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 		<td style="width:18%">标识</td>
 		<td style="width:18%">名称</td>
 		<td style="width:35%">任务</td>
-		<td style="width:24%">用户</td>
-		<td class="menuTool"><a class="add" onclick="$('#end').before($('#cloneTable>tbody>tr:eq(0)').clone());" href="#">添加项</a></td>
+		<td style="width:24%">参数</td>
+		<td class="menuTool"><a class="add" onclick="$('#end').before($('#cloneTable>tbody>tr:eq(0)').clone());" href="#"></a></td>
 	</tr>
-	<tr class="list" id="start">
-		<td><input type="hidden" style="width:90%;" name="talias" value="start" />start</td>
-		<td><input type="text" style="width:90%;" name="tname" maxlength="300" dataType="Require" value="" /></td>
-		<td>
-			<input type="hidden" style="width:80%;" maxlength="4000" name="tnodeprev" value="" />
-			<div>下级 <input type="text" style="width:80%;" maxlength="4000" dataType="Require" name="tnodenext" value="" /></div>
+	<tr class="list">
+		<td style="text-align:center;"><input type="hidden" name="talias" value="start" />start</td>
+		<td><input type="text" name="tname" class="cname" maxlength="100" dataType="Require" value="开始" /></td>
+		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
+			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
 		</td>
-		<td>
-			<div>用户 <input type="text" style="width:70%;" name="tusers" maxlength="4000" dataType="Require" value="" /></div>
-			<div>参数 <input type="text" style="width:70%;" name="tmemo" maxlength="4000" dataType="Require" value="" /></div>
+		<td><input type="hidden" name="tcount" value="0" />
+			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="" /></div>
 		</td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 	<tr class="list" id="end">
-		<td><input type="hidden" style="width:90%;" name="talias" value="end" />end</td>
-		<td><input type="text" style="width:90%;" name="tname" maxlength="300" dataType="Require" value="" /></td>
-		<td>
-			<div>上级 <input type="text" style="width:80%;" maxlength="4000" dataType="Require" name="tnodeprev" value="" /></div>
-			<input type="hidden" style="width:80%;" maxlength="4000" name="tnodenext" value="" />
+		<td style="text-align:center;"><input type="hidden" name="talias" value="end" />end</td>
+		<td><input type="text" name="tname" class="cname" maxlength="100" dataType="Require" value="结束" /></td>
+		<td><input type="hidden" name="tnext" value="" />
+			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
 		</td>
-		<td>		
-			<div>用户 <input type="text" style="width:70%;" name="tusers" maxlength="4000" value="" /></div>
-			<div>参数 <input type="text" style="width:70%;" name="tmemo" maxlength="4000" value="" /></div>
+		<td><div>等待<input type="text" name="tcount" class="ccount" maxlength="10" dataType="IntegerPlus" value="0" />个任务</div>
+			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="" /></div>
 		</td>
-		<td></td>
+		<td>&nbsp;</td>
 	</tr>
 </table>
 </form>
 <div style="display:none;">
 <table id="cloneTable">
 	<tr class="list">
-		<td><input type="text" style="width:90%;" name="talias" maxlength="300" dataType="Require" value="" /></td>
-		<td><input type="text" style="width:90%;" name="tname" maxlength="300" dataType="Require" value="" /></td>
-		<td>
-			<div>上级 <input type="text" style="width:80%;" maxlength="4000" dataType="Require" name="tnodeprev" value="" /></div>
-			<div>下级 <input type="text" style="width:80%;" maxlength="4000" dataType="Require" name="tnodenext" value="" /></div>
+		<td><input type="text" name="talias" class="calias" maxlength="300" dataType="Char" value="" /></td>
+		<td><input type="text" name="tname" class="cname" maxlength="300" dataType="Require" value="" /></td>
+		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
+			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
 		</td>
-		<td>			
-			<div>用户 <input type="text" style="width:70%;" name="tusers" maxlength="4000" value="" /></div>
-			<div>参数 <input type="text" style="width:70%;" name="tmemo" maxlength="4000" value="" /></div>
+		<td><div>等待<input type="text" name="tcount" class="ccount" maxlength="10" dataType="IntegerPlus" value="0" />个任务</div>
+			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="" /></div>
 		</td>
-		<td><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
+		<td style="text-align:center;"><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
 	</tr>
 </table>
 </div>

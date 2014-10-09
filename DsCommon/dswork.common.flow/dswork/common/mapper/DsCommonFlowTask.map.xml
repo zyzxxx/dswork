@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_FLOW_TASK
-	(ID, FLOWID, DEPLOYID, TALIAS, TNAME, TNODEPREV, TNODENEXT, TUSERS, TMEMO)
+	(ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO)
 	values
-	(null, #{flowid}, null, #{talias}, #{tname}, #{tnodeprev}, #{tnodenext}, #{tusers}, #{tmemo})
+	(null, #{flowid}, null, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tusers}, #{tmemo})
 </insert>
 
 <delete id="deleteByFlowid">
@@ -25,14 +25,14 @@
 	<result property="deployid" column="DEPLOYID" />
 	<result property="talias" column="TALIAS" />
 	<result property="tname" column="TNAME" />
-	<result property="tnodeprev" column="TNODEPREV" />
-	<result property="tnodenext" column="TNODENEXT" />
+	<result property="tcount" column="TCOUNT" />
+	<result property="tnext" column="TNEXT" />
 	<result property="tusers" column="TUSERS" />
 	<result property="tmemo" column="TMEMO" />
 </resultMap>
 
 <sql id="columns">
-	ID, FLOWID, DEPLOYID, TALIAS, TNAME, TNODEPREV, TNODENEXT,TUSERS, TMEMO
+	ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT,TUSERS, TMEMO
 </sql>
 
 <select id="query" resultMap="result">

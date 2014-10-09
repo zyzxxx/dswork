@@ -48,8 +48,8 @@ public class DsCommonFlowController extends BaseController
 					{
 						String[] taliasArr = req.getStringArray("talias");
 						String[] tnameArr = req.getStringArray("tname");
-						String[] tnodeprevArr = req.getStringArray("tnodeprev");
-						String[] tnodenextArr = req.getStringArray("tnodenext");
+						int[] tcountArr = req.getIntArray("tcount", 0);
+						String[] tnextArr = req.getStringArray("tnext");
 						String[] tusersArr = req.getStringArray("tusers");
 						String[] tmemoArr = req.getStringArray("tmemo");
 						List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
@@ -58,8 +58,8 @@ public class DsCommonFlowController extends BaseController
 							DsCommonFlowTask m = new DsCommonFlowTask();
 							m.setTname(tnameArr[i]);
 							m.setTalias(taliasArr[i]);
-							m.setTnodeprev(tnodeprevArr[i]);
-							m.setTnodenext(tnodenextArr[i]);
+							m.setTcount(tcountArr[i]);
+							m.setTnext(tnextArr[i]);
 							m.setTusers(tusersArr[i]);
 							m.setTmemo(tmemoArr[i]);
 							taskList.add(m);
@@ -120,8 +120,8 @@ public class DsCommonFlowController extends BaseController
 		{
 			String[] taliasArr = req.getStringArray("talias");
 			String[] tnameArr = req.getStringArray("tname");
-			String[] tnodeprevArr = req.getStringArray("tnodeprev");
-			String[] tnodenextArr = req.getStringArray("tnodenext");
+			int[] tcountArr = req.getIntArray("tcount", 0);
+			String[] tnextArr = req.getStringArray("tnext");
 			String[] tusersArr = req.getStringArray("tusers");
 			String[] tmemoArr = req.getStringArray("tmemo");
 			List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
@@ -130,8 +130,8 @@ public class DsCommonFlowController extends BaseController
 				DsCommonFlowTask m = new DsCommonFlowTask();
 				m.setTname(tnameArr[i]);
 				m.setTalias(taliasArr[i]);
-				m.setTnodeprev(tnodeprevArr[i]);
-				m.setTnodenext(tnodenextArr[i]);
+				m.setTcount(tcountArr[i]);
+				m.setTnext(tnextArr[i]);
 				m.setTusers(tusersArr[i]);
 				m.setTmemo(tmemoArr[i]);
 				taskList.add(m);

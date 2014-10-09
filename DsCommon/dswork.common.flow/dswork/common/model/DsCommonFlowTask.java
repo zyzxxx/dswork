@@ -15,13 +15,13 @@ public class DsCommonFlowTask
 	private String talias = "";
 	// 节点名称
 	private String tname = "";
-	// 上级任务（合并分支时， 以逗号分隔节点标识， 以|线分隔分支任务）
-	private String tnodeprev = "";
+	// 等待任务个数（合并任务时大于0）
+	private Integer tcount = 0;
 	// 下级任务（以逗号分隔节点标识， 以|线分隔分支任务）
-	private String tnodenext = "";
-	// 用户ID（以逗号分隔节点标识， 以|线分隔分支任务）
+	private String tnext = "";
+	// 当前任务的用户ID（以逗号分隔节点标识）
 	private String tusers = "";
-	// 用户参数
+	// 参数
 	private String tmemo = "";
 
 	public Long getId()
@@ -74,24 +74,24 @@ public class DsCommonFlowTask
 		this.tname = tname;
 	}
 
-	public String getTnodeprev()
+	public Integer getTcount()
 	{
-		return tnodeprev;
+		return tcount;
 	}
 
-	public void setTnodeprev(String tnodeprev)
+	public void setTcount(Integer tcount)
 	{
-		this.tnodeprev = tnodeprev;
+		this.tcount = tcount == null || tcount <= 0 ? 0 : tcount;
 	}
 
-	public String getTnodenext()
+	public String getTnext()
 	{
-		return tnodenext;
+		return tnext;
 	}
 
-	public void setTnodenext(String tnodenext)
+	public void setTnext(String tnext)
 	{
-		this.tnodenext = tnodenext;
+		this.tnext = tnext;
 	}
 
 	public String getTusers()

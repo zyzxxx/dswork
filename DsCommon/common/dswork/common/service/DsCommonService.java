@@ -116,8 +116,7 @@ public class DsCommonService
 						newm.setTaccount("," + t.getTusers() + ",");
 					}
 					
-					String[] v = t.getTnodeprev().split("|", -1);
-					newm.setTcount(v.length - 1);
+					newm.setTcount(t.getTcount());
 					
 					newm.setTinterface(m.getTinterface());
 					newm.setUinterface(m.getUinterface());

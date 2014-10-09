@@ -6,6 +6,14 @@
 <head>
 <title></title>
 <%@include file="/commons/include/updAjax.jsp"%>
+<style type="text/css">
+.calias{width:80%;}
+.cname{width:80%;}
+.ctask{width:75%;margin:1px 0 0 1px;}
+.ccount{width:30px;margin:1px 0 0 1px;}
+.cparam{width:65%;margin:1px 0 0 1px;}
+tr.list td {text-align:left;}
+</style>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getFlow.htm?categoryid=${po.categoryid}";
@@ -25,13 +33,17 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 </table>
 <div class="line"></div>
 <form id="dataForm" method="post" action="updFlow2.htm">
+<input type="hidden" name="id" value="${po.id}" />
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">名字</td>
-		<td class="form_input"><input type="text" name="name" maxlength="300" dataType="Require" value="${fn:escapeXml(po.name)}" /></td>
+		<td class="form_title">流程标识</td>
+		<td class="form_input">${fn:escapeXml(po.alias)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">流程名字</td>
+		<td class="form_input"><input type="text" name="name" style="width:200px;" maxlength="300" dataType="Require" value="${fn:escapeXml(po.name)}" /></td>
 	</tr>
 </table>
-<input type="hidden" name="id" value="${po.id}" />
 <div class="line"></div>
 <table id="contactTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
@@ -42,33 +54,60 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 		<td class="menuTool"><a class="add" onclick="$('#end').before($('#cloneTable>tbody>tr:eq(0)').clone());" href="#"></a></td>
 	</tr>
 	<c:forEach items="${po.taskList}" var="d">
-	<tr id="${'end'==d.talias?'end':''}">
-		<td><input type="text" name="talias" style="width:90%;" maxlength="300" ${('start'==d.talias or 'end'==d.talias)?' readonly="readonly"':''} dataType="Require" value="${fn:escapeXml(d.talias)}" /></td>
-		<td><input type="text" name="tname" style="width:90%;" maxlength="300" dataType="Require" value="${fn:escapeXml(d.tname)}" /></td>
-		<td>
-			<div>${'start'==d.talias?'':'上级 '}<input type="${'start'==d.talias?'hidden':'text'}" name="tnodeprev" style="width:80%;" maxlength="4000" value="${fn:escapeXml(d.tnodeprev)}" /></div>
-			<div>${'end'==d.talias?'':'下级 '}<input type="${'end'==d.talias?'hidden':'text'}" name="tnodenext" style="width:80%;" maxlength="4000" value="${fn:escapeXml(d.tnodenext)}" /></div>
+	<c:if test="'start'==d.talias">
+	<tr class="list">
+		<td style="text-align:center;"><input type="hidden" name="talias" value="start" />start</td>
+		<td><input type="text" name="tname" class="cname" maxlength="100" dataType="Require" value="${fn:escapeXml(d.tname)}" /></td>
+		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="${fn:escapeXml(d.tnext)}" /></div>
+			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="${fn:escapeXml(d.tusers)}" /></div>
 		</td>
-		<td><div>用户 <input type="text" name="tusers" style="width:70%;" maxlength="4000" value="${fn:escapeXml(d.tusers)}" /></div>
-			<div>参数 <input type="text" name="tmemo" style="width:70%;" maxlength="4000" value="${fn:escapeXml(d.tmemo)}" /></div>
+		<td><input type="hidden" name="tcount" value="0" />
+			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="${fn:escapeXml(d.tmemo)}" /></div>
 		</td>
-		<td><input type="${('start'==d.talias or 'end'==d.talias)?'hidden':'button'}" class="delete" onclick="$dswork.deleteRow(this)" /></td>
+		<td>&nbsp;</td>
 	</tr>
-</c:forEach>
+	</c:if>
+	<c:if test="'start'!=d.talias and 'end'!=d.talias">
+	<tr class="list">
+		<td><input type="text" name="talias" class="calias" maxlength="300" dataType="Char" value="${fn:escapeXml(d.talias)}" /></td>
+		<td><input type="text" name="tname" class="cname" maxlength="300" dataType="Require" value="${fn:escapeXml(d.tname)}" /></td>
+		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="${fn:escapeXml(d.tnext)}" /></div>
+			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="${fn:escapeXml(d.tusers)}" /></div>
+		</td>
+		<td><div>等待<input type="text" name="tcount" class="ccount" maxlength="10" dataType="IntegerPlus" value="${d.tcount}" />个任务</div>
+			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="${fn:escapeXml(d.tmemo)}" /></div>
+		</td>
+		<td style="text-align:center;"><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
+	</tr>
+	</c:if>
+	<c:if test="'end'==d.talias">
+	<tr class="list" id="end">
+		<td style="text-align:center;"><input type="hidden" name="talias" value="end" />end</td>
+		<td><input type="text" name="tname" class="cname" maxlength="100" dataType="Require" dataType="Require" value="${fn:escapeXml(d.tname)}" /></td>
+		<td><input type="hidden" name="tnext" value="" />
+			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" value="${fn:escapeXml(d.tusers)}" /></div>
+		</td>
+		<td><div>等待<input type="text" name="tcount" class="ccount" maxlength="10" dataType="IntegerPlus" value="${d.tcount}" />个任务</div>
+			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="${fn:escapeXml(d.tmemo)}" /></div>
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+	</c:if>
+	</c:forEach>
 </table>
 </form>
 <div style="display:none;">
 <table id="cloneTable">
-<tr class="list">
-		<td><input type="text" name="talias" style="width:90%;" maxlength="300" dataType="Require" value="" /></td>
-		<td><input type="text" name="tname" style="width:90%;" maxlength="300" dataType="Require" value="" /></td>
-		<td><div>上级 <input type="text" name="tnodeprev" style="width:80%;" maxlength="4000" value="" /></div>
-			<div>下级 <input type="text" name="tnodenext" style="width:80%;" maxlength="4000" value="" /></div>
+	<tr class="list">
+		<td><input type="text" name="talias" class="calias" maxlength="300" dataType="Char" value="" /></td>
+		<td><input type="text" name="tname" class="cname" maxlength="300" dataType="Require" value="" /></td>
+		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
+			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
 		</td>
-		<td><div>用户 <input type="text" name="tusers" style="width:70%;" maxlength="4000" value="" /></div>
-			<div>参数 <input type="text" name="tmemo" style="width:70%;" maxlength="4000" value="" /></div>
+		<td><div>等待<input type="text" name="tcount" class="ccount" maxlength="10" dataType="IntegerPlus" value="0" />个任务</div>
+			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="" /></div>
 		</td>
-		<td><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
+		<td style="text-align:center;"><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>
 	</tr>
 </table>
 </div>

@@ -62,7 +62,7 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
-			&nbsp;关键字：<input type="text" class="text" name="keyvalue" value="${fn:escapeXml(param.keyvalue)}" />
+			&nbsp;关键字：<input type="text" name="keyvalue" style="width:200px;" value="${fn:escapeXml(param.keyvalue)}" />
 			&nbsp;状态:<select id="status" name="status" style="width:50px;"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
