@@ -83,7 +83,7 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 		<td><div>任务<input type="text" name="tnext" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
 			<div>用户<input type="text" name="tusers" class="ctask" maxlength="4000" dataType="Require" value="" /></div>
 		</td>
-		<td><div>等待<input type="text" name="tcount" class="ccount" maxlength="10" dataType="IntegerPlus" value="0" />个任务</div>
+		<td><div>合并<input type="text" name="tcount" class="ccount" maxlength="10" dataType="IntegerPlus" value="0" />分支任务</div>
 			<div>参数<input type="text" name="tmemo" class="cparam" maxlength="4000" value="" /></div>
 		</td>
 		<td style="text-align:center;"><input type="button" class="delete" onclick="$dswork.deleteRow(this)" /></td>

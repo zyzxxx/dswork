@@ -23,7 +23,7 @@
 		<td class="form_input">${fn:escapeXml(po.alias)}</td>
 	</tr>
 	<tr>
-		<td class="form_title">流程发布ID</td>
+		<td class="form_title">当前发布ID</td>
 		<td class="form_input">${fn:escapeXml(po.deployid)}</td>
 	</tr>
 	<tr>
@@ -34,19 +34,19 @@
 <div class="line"></div>
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td>节点标识</td>
-		<td>节点名称</td>
-		<td>上级任务</td>
-		<td>下级任务</td>
-		<td>用户ID</td>
-		<td>用户参数</td>
+		<td style="width:15%">标识</td>
+		<td style="width:15%">名称</td>
+		<td style="width:15%">合并任务</td>
+		<td style="width:30%">下级任务</td>
+		<td style="width:25%">用户</td>
+		<td>参数</td>
 	</tr>
 <c:forEach items="${po.taskList}" var="d">
 	<tr>
 		<td>${fn:escapeXml(d.talias)}</td>
 		<td>${fn:escapeXml(d.tname)}</td>
-		<td>${fn:escapeXml(d.tnodeprev)}</td>
-		<td>${fn:escapeXml(d.tnodenext)}</td>
+		<td>${d.tcount}</td>
+		<td>${fn:escapeXml(d.tnext)}</td>
 		<td>${fn:escapeXml(d.tusers)}</td>
 		<td>${fn:escapeXml(d.tmemo)}</td>
 	</tr>
