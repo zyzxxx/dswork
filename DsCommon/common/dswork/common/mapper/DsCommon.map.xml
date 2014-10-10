@@ -131,7 +131,7 @@
 </delete>
 <update id="updateFlowPiDoing">
 	update DS_FLOW_PI_DOING set TCOUNT=TCOUNT-1, TSTART=#{tstart}
-	where PIID=#{piid} and TALIAS=#{talias} and TCOUNT&gt;0
+	where PIID=#{piid} and TALIAS=#{talias} and TCOUNT&gt;1
 </update>
 <resultMap id="resultFlowPiDoing" type="dswork.common.model.IFlowPiDoing">
 	<id property="id" column="ID" />

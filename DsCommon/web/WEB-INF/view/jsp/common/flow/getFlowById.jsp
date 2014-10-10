@@ -45,7 +45,7 @@
 	<tr>
 		<td>${fn:escapeXml(d.talias)}</td>
 		<td>${fn:escapeXml(d.tname)}</td>
-		<td>${d.tcount}</td>
+		<td>${d.tcount}个</td>
 		<td>${fn:escapeXml(d.tnext)}</td>
 		<td>${fn:escapeXml(d.tusers)}</td>
 		<td>${fn:escapeXml(d.tmemo)}</td>

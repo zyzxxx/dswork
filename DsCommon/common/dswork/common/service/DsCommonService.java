@@ -51,7 +51,7 @@ public class DsCommonService
 			m.setTstart(time);
 			m.setTinterface(taskInterface);
 			m.setUinterface(userInterface);
-			m.setTcount(0);// start没有上级节点，不需要等待
+			m.setTcount(1);// start没有上级节点，不需要等待
 			
 			if(task.getTusers().split(",", -1).length > 1)
 			{
@@ -72,7 +72,7 @@ public class DsCommonService
 	public boolean process(Long doingid, String[] nextTalias, String account, String name, String resultType, String resultMsg)
 	{
 		IFlowPiDoing m = dao.getFlowPiDoing(doingid);
-		if(m != null && m.getTcount() == 0)
+		if(m != null && m.getTcount() <= 1)
 		{
 			String time = TimeUtil.getCurrentTime();
 			IFlowPiData pd = new IFlowPiData();

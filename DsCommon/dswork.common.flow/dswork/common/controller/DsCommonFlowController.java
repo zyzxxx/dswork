@@ -120,7 +120,7 @@ public class DsCommonFlowController extends BaseController
 		{
 			String[] taliasArr = req.getStringArray("talias");
 			String[] tnameArr = req.getStringArray("tname");
-			int[] tcountArr = req.getIntArray("tcount", 0);
+			int[] tcountArr = req.getIntArray("tcount", 1);
 			String[] tnextArr = req.getStringArray("tnext");
 			String[] tusersArr = req.getStringArray("tusers");
 			String[] tmemoArr = req.getStringArray("tmemo");

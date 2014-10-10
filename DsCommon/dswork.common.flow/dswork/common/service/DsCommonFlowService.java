@@ -62,6 +62,7 @@ public class DsCommonFlowService
 		taskDao.deleteByFlowid(flow.getId());
 		for(DsCommonFlowTask task : list)
 		{
+			task.setFlowid(flow.getId());
 			taskDao.save(task);
 		}
 		return 1;

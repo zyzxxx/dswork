@@ -16,7 +16,7 @@
 </insert>
 
 <delete id="delete">
-	delete from DS_FLOW where ID=#{id} and DEPLOYID is null
+	delete from DS_FLOW where ID=#{id} and (DEPLOYID is null or DEPLOYID='')
 </delete>
 
 <update id="updateDeployid">
