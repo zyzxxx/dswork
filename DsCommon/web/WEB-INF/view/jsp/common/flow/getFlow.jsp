@@ -78,8 +78,8 @@ $(function(){
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
 		<td>流程标识</td>
-		<td>流程发布ID</td>
 		<td>名字</td>
+		<td>流程发布ID</td>
 		<td>状态</td>
 		<td>操作</td>
 	</tr>
@@ -88,8 +88,8 @@ $(function(){
 		<td><input name="keyIndex" type="checkbox" value="${d.id}"${''==d.deployid?'':' style="display:none;"'} /></td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.alias)}</td>
-		<td>${fn:escapeXml(d.deployid)}</td>
 		<td>${fn:escapeXml(d.name)}</td>
+		<td>${fn:escapeXml(d.deployid)}</td>
 		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
 		<td class="menuTool">
 			<a id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}"${''==d.deployid?' style="display:none;"':''} href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
