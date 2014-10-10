@@ -149,6 +149,13 @@ public class DsCommonDao extends MyBatisDao
 		map.put("tstart", tstart);
 		executeUpdate("updateFlowWaiting", map);
 	}
+	public void updateFlowWaitingUser(Long id, String tuser)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("tuser", tuser);
+		executeUpdate("updateFlowWaitingUser", map);
+	}
 	public IFlowWaiting getFlowWaiting(Long id)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -154,15 +154,21 @@ public class DsCommonService
 		}
 	}
 	
-	
-	
-	
-	
-	
 	public List<IFlowWaiting> queryFlowWaiting(String account)
 	{
 		return dao.queryFlowWaiting("," + account + ",");
 	}
+
+	public IFlowWaiting getFlowWaiting(Long waitid)
+	{
+		return dao.getFlowWaiting(waitid);
+	}
+	
+	public void updateFlowWaitingUser(Long waitid, String tuser)
+	{
+		dao.updateFlowWaitingUser(waitid, "," + tuser + ",");
+	}
+	
 
 //	private long deployidToFlowid(String deployid)
 //	{

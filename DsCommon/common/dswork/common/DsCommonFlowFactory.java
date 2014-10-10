@@ -27,21 +27,23 @@ public class DsCommonFlowFactory
 		}
 		catch(Exception e)
 		{
-			return "";
+			e.printStackTrace();
 		}
+		return "";
 	}
 
-	public static boolean process(Long doingid, String[] nextTalias, String paccount, String pname, String resultType, String resultMsg)
+	public static boolean process(long waitid, String[] nextTalias, String paccount, String pname, String resultType, String resultMsg)
 	{
 		try
 		{
 			init();
-			return service.saveProcess(doingid, nextTalias, paccount, pname, resultType, resultMsg);
+			return service.saveProcess(waitid, nextTalias, paccount, pname, resultType, resultMsg);
 		}
 		catch(Exception e)
 		{
-			return false;
+			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public static List<IFlowWaiting> queryWaiting(String account)
@@ -53,7 +55,39 @@ public class DsCommonFlowFactory
 		}
 		catch(Exception e)
 		{
-			return null;
+			e.printStackTrace();
 		}
+		return null;
+	}
+
+	public static boolean takeWaiting(long waitid, String user)
+	{
+		try
+		{
+			if(user != null && user.trim().length() > 0)
+			{
+				service.updateFlowWaitingUser(waitid, user);
+				return true;
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static IFlowWaiting getWaiting(long waitid)
+	{
+		try
+		{
+			init();
+			return service.getFlowWaiting(waitid);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

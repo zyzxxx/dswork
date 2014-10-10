@@ -12,31 +12,20 @@
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">测试</td>
-		<td class="menuTool">
-			<a class="save" id="dataFormSave" href="#">保存2</a>
-		</td>
+		<td class="title">流程测试</td>
 	</tr>
 </table>
-<%--
-<%=DsFactory.getFlow().start("tech_duty", "1000", "admin", "管理员", 0, true, "1", "2")%>
---%>
-
-<%--
---%>
-
-<%--
---%>
-
-<%--
---%>
 <%request.setAttribute("list", DsFactory.getFlow().queryWaiting("admin"));%>
 <ul>
 <c:forEach items="${list}" var="d" varStatus="status">
 	<li>
-		<td>${fn:escapeXml(d.alias)}</td>
-		<td>${fn:escapeXml(d.name)}</td>
-		&nbsp;<a class="update" href="updFlow1.htm?keyIndex=${d.id}">修改</a>
+		${fn:escapeXml(d.flowname)}[${fn:escapeXml(d.talias)}]
+		<c:if test="${d.tuser!=''}">
+		&nbsp;<a class="update" href="do.jsp?wid=${d.id}">办理</a>
+		</c:if>
+		<c:if test="${d.tusers!=''}">
+		&nbsp;<a class="update" href="take.jsp?wid=${d.id}">取得任务</a>
+		</c:if>
 	</li>
 </c:forEach>
 </ul>

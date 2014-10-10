@@ -146,6 +146,9 @@
 	update DS_FLOW_PI_WAITING set TCOUNT=TCOUNT-1, TSTART=#{tstart}
 	where PIID=#{piid} and TALIAS=#{talias} and TCOUNT&gt;1
 </update>
+<update id="updateFlowWaitingUser">
+	update DS_FLOW_PI_WAITING set TUSER=#{tuser}, TUSERS=null where ID=#{id}
+</update>
 <resultMap id="resultFlowWaiting" type="dswork.common.model.IFlowWaiting">
 	<id property="id" column="ID" />
 	<result property="piid" column="PIID" />
