@@ -18,7 +18,28 @@
 		</td>
 	</tr>
 </table>
+<%--
 <%=DsFactory.getFlow().start("tech_duty", "1000", "admin", "管理员", 0, true, "1", "2")%>
+--%>
+
+<%--
+--%>
+
+<%--
+--%>
+
+<%--
+--%>
+<%request.setAttribute("list", DsFactory.getFlow().queryWaiting("admin"));%>
+<ul>
+<c:forEach items="${list}" var="d" varStatus="status">
+	<li>
+		<td>${fn:escapeXml(d.alias)}</td>
+		<td>${fn:escapeXml(d.name)}</td>
+		&nbsp;<a class="update" href="updFlow1.htm?keyIndex=${d.id}">修改</a>
+	</li>
+</c:forEach>
+</ul>
 <br />
 </body>
 </html>

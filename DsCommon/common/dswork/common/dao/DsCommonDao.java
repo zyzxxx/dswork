@@ -15,6 +15,7 @@ import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowPiDoing;
 import dswork.common.model.IFlowTask;
+import dswork.common.model.IFlowWaiting;
 import dswork.common.model.IOrg;
 import dswork.core.db.MyBatisDao;
 
@@ -171,8 +172,9 @@ public class DsCommonDao extends MyBatisDao
 	{
 		return executeSelectList("queryFlowPiDoingTalias", piid);
 	}
-	public List<IFlowPiDoing> queryFlowPiDoing(String account)
+	
+	public List<IFlowWaiting> queryFlowWaiting(String account)
 	{
-		return executeSelectList("queryFlowPiDoing", account);
+		return executeSelectList("queryFlowWaiting", account);
 	}
 }

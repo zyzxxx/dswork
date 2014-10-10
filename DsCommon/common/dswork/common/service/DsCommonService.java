@@ -10,6 +10,7 @@ import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowPiDoing;
 import dswork.common.model.IFlowTask;
+import dswork.common.model.IFlowWaiting;
 import dswork.core.util.TimeUtil;
 
 @Service
@@ -151,9 +152,9 @@ public class DsCommonService
 		}
 	}
 
-	public List<IFlowPiDoing> queryFlowPiDoing(String account)
+	public List<IFlowWaiting> queryFlowWaiting(String account)
 	{
-		return dao.queryFlowPiDoing("," + account + ",");
+		return dao.queryFlowWaiting("," + account + ",");
 	}
 
 	public IFlowTask getFlowTask(String deployid, String talias)

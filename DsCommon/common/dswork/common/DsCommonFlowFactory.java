@@ -2,8 +2,8 @@ package dswork.common;
 
 import java.util.List;
 
-import dswork.common.model.IFlowPiDoing;
 import dswork.common.model.IFlowTask;
+import dswork.common.model.IFlowWaiting;
 import dswork.common.service.DsCommonService;
 import dswork.spring.BeanFactory;
 
@@ -45,12 +45,12 @@ public class DsCommonFlowFactory
 		}
 	}
 
-	public static List<IFlowPiDoing> queryWaiting(String account)
+	public static List<IFlowWaiting> queryWaiting(String account)
 	{
 		try
 		{
 			init();
-			return service.queryFlowPiDoing(account);
+			return service.queryFlowWaiting(account);
 		}
 		catch(Exception e)
 		{
