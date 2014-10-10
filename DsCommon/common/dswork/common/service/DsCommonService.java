@@ -19,11 +19,15 @@ public class DsCommonService
 	@Autowired
 	private DsCommonDao dao;
 
-	public String start(String alias, String ywlsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface, String userInterface)
+	public String saveStart(String alias, String ywlsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface, String userInterface)
 	{
 		String time = TimeUtil.getCurrentTime();
 		String deployid = dao.getFlowDeployid(alias);
-		Long flowid = deployidToFlowid(deployid);
+		Long flowid = 0L;
+		if(deployid != null)
+		{
+			flowid = deployidToFlowid(deployid);
+		}
 		if(flowid > 0)
 		{
 			IFlowTask task = dao.getFlowTask(flowid, "start");
@@ -69,7 +73,7 @@ public class DsCommonService
 		return "";
 	}
 
-	public boolean process(Long doingid, String[] nextTalias, String account, String name, String resultType, String resultMsg)
+	public boolean saveProcess(Long doingid, String[] nextTalias, String account, String name, String resultType, String resultMsg)
 	{
 		IFlowPiDoing m = dao.getFlowPiDoing(doingid);
 		if(m != null && m.getTcount() <= 1)

@@ -15,7 +15,7 @@ public class DsCommonFlowFactory
 	{
 		if(service == null)
 		{
-			service = (DsCommonService) BeanFactory.getBean("DsCommonService");
+			service = (DsCommonService) BeanFactory.getBean("dsCommonService");
 		}
 	}
 
@@ -24,7 +24,7 @@ public class DsCommonFlowFactory
 		try
 		{
 			init();
-			return service.start(alias, ywlsh, caccount, cname, piDay, isWorkDay, taskInterface, userInterface);
+			return service.saveStart(alias, ywlsh, caccount, cname, piDay, isWorkDay, taskInterface, userInterface);
 		}
 		catch(Exception e)
 		{
@@ -37,7 +37,7 @@ public class DsCommonFlowFactory
 		try
 		{
 			init();
-			return service.process(doingid, nextTalias, paccount, pname, resultType, resultMsg);
+			return service.saveProcess(doingid, nextTalias, paccount, pname, resultType, resultMsg);
 		}
 		catch(Exception e)
 		{

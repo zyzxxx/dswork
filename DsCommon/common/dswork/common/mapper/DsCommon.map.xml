@@ -63,7 +63,7 @@
 
 
 <select id="selectFlowDeployid" resultType="java.lang.String">
-	select DEPLOYID from DS_FLOW where ALIAS=#{alias} and VNUM=0
+	select DEPLOYID from DS_FLOW where ALIAS=#{alias} and VNUM=0 and STATUS=1
 </select>
 
 
