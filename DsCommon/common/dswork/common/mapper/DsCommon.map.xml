@@ -174,7 +174,7 @@
 </select>
 <select id="queryFlowWaiting" resultMap="resultFlowWaiting">
 	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
-	where TUSER=#{account} or USERS like concat('%', #{account}, '%') and TCOUNT=1
+	where TUSER=#{account} or TUSERS like concat('%', #{account}, '%') and TCOUNT=1
 </select>
 
 </mapper>
