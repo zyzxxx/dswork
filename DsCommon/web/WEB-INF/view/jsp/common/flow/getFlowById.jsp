@@ -36,8 +36,8 @@
 	<tr class="list_title">
 		<td style="width:15%">标识</td>
 		<td style="width:15%">名称</td>
-		<td style="width:15%">合并任务</td>
-		<td style="width:30%">下级任务</td>
+		<td style="width:8%">合并任务</td>
+		<td style="width:25%">下级任务</td>
 		<td style="width:25%">用户</td>
 		<td>参数</td>
 	</tr>
