@@ -6,28 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.common.dao.DsCommonDao;
+import dswork.common.model.IFlow;
 import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
-import dswork.common.model.IFlowPiDoing;
 import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
 import dswork.core.util.TimeUtil;
 
 @Service
-//@SuppressWarnings("all")
+// @SuppressWarnings("all")
 public class DsCommonService
 {
 	@Autowired
 	private DsCommonDao dao;
 
-	public String saveStart(String alias, String ywlsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface, String userInterface)
+	public String saveStart(String alias, String ywlsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		String time = TimeUtil.getCurrentTime();
-		String deployid = dao.getFlowDeployid(alias);
-		Long flowid = 0L;
-		if(deployid != null)
+		IFlow flow = dao.getFlow(alias);
+		long flowid = 0L;
+		if(flow != null)
 		{
-			flowid = deployidToFlowid(deployid);
+			flowid = flow.getId();// deployidToFlowid(flow.getDeployid());//flow.getId();
 		}
 		if(flowid > 0)
 		{
@@ -36,7 +36,7 @@ public class DsCommonService
 			pi.setYwlsh(ywlsh);
 			pi.setAlias(alias);
 			pi.setFlowid(flowid);
-			pi.setDeployid(deployid);
+			pi.setDeployid(flow.getDeployid());
 			pi.setPiday(piDay);
 			pi.setPidaytype(isWorkDay ? 1 : 0);
 			pi.setPistart(time);
@@ -47,36 +47,37 @@ public class DsCommonService
 			pi.setPialias("start");
 			dao.saveFlowPi(pi);
 			Long piid = pi.getId();
-			IFlowPiDoing m = new IFlowPiDoing();
+			IFlowWaiting m = new IFlowWaiting();
 			m.setPiid(piid);
 			m.setYwlsh(ywlsh);
 			m.setFlowid(flowid);
+			m.setFlowname(flow.getName());
 			m.setTalias(task.getTalias());// "start"
 			m.setTname(task.getTname());
+			m.setTcount(1);// task.getTcount()，start没有上级节点，不需要等待
+			m.setTnext(task.getTnext());
 			m.setTstart(time);
+			m.setTmemo(task.getTmemo());
 			m.setTinterface(taskInterface);
-			m.setUinterface(userInterface);
-			m.setTcount(1);// start没有上级节点，不需要等待
-			
 			if(task.getTusers().split(",", -1).length > 1)
 			{
-				m.setThaccount("," + task.getTusers() + ",");// 多人，候选人
-				m.setTaccount("");
+				m.setTusers("," + task.getTusers() + ",");// 多人，候选人
+				m.setTuser("");
 			}
 			else
 			{
-				m.setThaccount("");// 候选人
-				m.setTaccount("," + task.getTusers() + ",");// 单人
+				m.setTusers("");// 候选人
+				m.setTuser("," + task.getTusers() + ",");// 单人
 			}
-			dao.saveFlowPiDoing(m);
+			dao.saveFlowWaiting(m);
 			return String.valueOf(piid);
 		}
 		return "";
 	}
 
-	public boolean saveProcess(Long doingid, String[] nextTalias, String account, String name, String resultType, String resultMsg)
+	public boolean saveProcess(Long waitid, String[] nextTalias, String account, String name, String resultType, String resultMsg)
 	{
-		IFlowPiDoing m = dao.getFlowPiDoing(doingid);
+		IFlowWaiting m = dao.getFlowWaiting(waitid);
 		if(m != null && m.getTcount() <= 1)
 		{
 			String time = TimeUtil.getCurrentTime();
@@ -91,45 +92,46 @@ public class DsCommonService
 			pd.setPtype(resultType);
 			pd.setMemo(resultMsg);
 			dao.saveFlowPiData(pd);
-			dao.deleteFlowPiDoing(doingid);// 该待办事项已经处理
+			dao.deleteFlowWaiting(waitid);// 该待办事项已经处理
 			
 			for(int i = 0; i < nextTalias.length; i++)
 			{
 				String alias = nextTalias[i];
-				if(dao.isExistsFlowPiDoing(m.getPiid(), alias))
+				if(dao.isExistsFlowWaiting(m.getPiid(), alias))
 				{
-					dao.updateFlowPiDoing(m.getFlowid(), m.getTalias(), time);// 等待数减1
+					dao.updateFlowWaiting(m.getFlowid(), m.getTalias(), time);// 等待数减1
 				}
 				else
 				{
-					IFlowTask t = dao.getFlowTask(m.getFlowid(), alias);
-					IFlowPiDoing newm = new IFlowPiDoing();
+					IFlowWaiting newm = new IFlowWaiting();
 					newm.setPiid(m.getPiid());
 					newm.setYwlsh(m.getYwlsh());
 					newm.setFlowid(m.getFlowid());
-					newm.setTalias(alias);
-					newm.setTname(t.getTname());
+					newm.setFlowname(m.getFlowname());
 					newm.setTstart(time);
+					newm.setTinterface(m.getTinterface());
 					
+					IFlowTask t = dao.getFlowTask(m.getFlowid(), alias);
+					newm.setTalias(t.getTalias());
+					newm.setTname(t.getTname());
+					newm.setTcount(t.getTcount());
+					newm.setTnext(t.getTnext());
 					String[] s = t.getTusers().split(",", -1);
 					if(s.length > 1)
 					{
-						newm.setThaccount("," + t.getTusers() + ",");// 候选人
+						newm.setTusers("," + t.getTusers() + ",");// 多人，候选人
+						newm.setTuser("");
 					}
 					else
 					{
-						newm.setTaccount("," + t.getTusers() + ",");
+						newm.setTusers("");// 候选人
+						newm.setTuser("," + t.getTusers() + ",");// 单人
 					}
-					
-					newm.setTcount(t.getTcount());
-					
-					newm.setTinterface(m.getTinterface());
-					newm.setUinterface(m.getUinterface());
-					dao.saveFlowPiDoing(newm);
+					newm.setTmemo(t.getTmemo());
+					dao.saveFlowWaiting(newm);
 				}
 			}
-			
-			List<String> list = dao.queryFlowPiDoingTalias(m.getPiid());
+			List<String> list = dao.queryFlowWaitingTalias(m.getPiid());
 			if(list == null || list.size() == 0)
 			{
 				dao.updateFlowPiStatus(m.getPiid());
@@ -151,29 +153,28 @@ public class DsCommonService
 			return false;
 		}
 	}
-
+	
+	
+	
+	
+	
+	
 	public List<IFlowWaiting> queryFlowWaiting(String account)
 	{
 		return dao.queryFlowWaiting("," + account + ",");
 	}
 
-	public IFlowTask getFlowTask(String deployid, String talias)
-	{
-		Long flowid = deployidToFlowid(deployid);
-		return dao.getFlowTask(flowid, talias);
-	}
-
-	private Long deployidToFlowid(String deployid)
-	{
-		Long flowid = 0L;
-		if(deployid != null && deployid.indexOf("-") > 0)
-		{
-			String[] arr = deployid.split("-");
-			if(arr.length > 1)
-			{
-				flowid = Long.parseLong(arr[arr.length - 1]);
-			}
-		}
-		return flowid;
-	}
+//	private long deployidToFlowid(String deployid)
+//	{
+//		long flowid = 0L;
+//		if(deployid != null && deployid.indexOf("-") > 0)
+//		{
+//			String[] arr = deployid.split("-");
+//			if(arr.length > 1)
+//			{
+//				flowid = Long.parseLong(arr[arr.length - 1]);
+//			}
+//		}
+//		return flowid;
+//	}
 }

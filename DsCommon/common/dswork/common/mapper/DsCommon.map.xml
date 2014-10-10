@@ -62,8 +62,15 @@
 
 
 
-<select id="selectFlowDeployid" resultType="java.lang.String">
-	select DEPLOYID from DS_FLOW where ALIAS=#{alias} and VNUM=0 and STATUS=1
+<resultMap id="resultFlow" type="dswork.common.model.IFlow">
+	<id property="id" column="ID" />
+	<result property="deployid" column="DEPLOYID" />
+	<result property="name" column="NAME" />
+</resultMap>
+<select id="selectFlow" resultMap="resultFlow">
+	select f2.ID, f2.DEPLOYID, f2.NAME from DS_FLOW f1
+	left join DS_FLOW f2 on f2.ALIAS=f1.ALIAS and f2.VNUM&gt;0
+	where f1.STATUS=1 and f1.VNUM=0 and f1.ALIAS=#{alias}
 </select>
 
 
@@ -114,77 +121,60 @@
 </insert>
 
 
-<insert id="insertFlowPiDoing" parameterType="dswork.common.model.IFlowPiDoing">
+<sql id="sqlFlowWaiting">
+	ID, PIID, YWLSH, FLOWID, FLOWNAME, TALIAS, TNAME, TCOUNT, TNEXT, TSTART, TUSER, TUSERS, TMEMO, TINTERFACE
+</sql>
+<insert id="insertFlowWaiting" parameterType="dswork.common.model.IFlowWaiting">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
 		select LAST_INSERT_ID()
 	</selectKey>
-	insert into DS_FLOW_PI_DOING
-	(ID, PIID, YWLSH, FLOWID, TALIAS, TSTART, TACCOUNT, THACCOUNT, TCOUNT, TINTERFACE, UINTERFACE)
+	insert into DS_FLOW_PI_WAITING
+	(<include refid="sqlFlowWaiting" />)
 	values
-	(null, #{piid}, #{ywlsh}, #{flowid}, #{talias}, #{tstart}, #{taccount}, 
-		<if test="@Ognl@isEmpty(thaccount)">null</if><if test="@Ognl@isNotEmpty(thaccount)">#{thaccount}</if>,
-		<if test="@Ognl@isEmpty(tcount)">null</if><if test="@Ognl@isNotEmpty(tcount)">#{tcount}</if>,
-		#{tinterface}, #{uinterface})
+	(null, #{piid}, #{ywlsh}, #{flowid}, #{flowname}, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tstart},
+		<if test="@Ognl@isEmpty(tuser)">null</if><if test="@Ognl@isNotEmpty(tuser)">#{tuser}</if>,
+		<if test="@Ognl@isEmpty(tusers)">null</if><if test="@Ognl@isNotEmpty(tusers)">#{tusers}</if>,
+		#{tmemo}, #{tinterface})
 </insert>
-<delete id="deleteFlowPiDoing">
-	delete from DS_FLOW_PI_DOING where ID=#{id}
+<delete id="deleteFlowWaiting">
+	delete from DS_FLOW_PI_WAITING where ID=#{id}
 </delete>
-<update id="updateFlowPiDoing">
-	update DS_FLOW_PI_DOING set TCOUNT=TCOUNT-1, TSTART=#{tstart}
+<delete id="deleteFlowWaitingByPiid">
+	delete from DS_FLOW_PI_WAITING where PIID=#{piid}
+</delete>
+<update id="updateFlowWaiting">
+	update DS_FLOW_PI_WAITING set TCOUNT=TCOUNT-1, TSTART=#{tstart}
 	where PIID=#{piid} and TALIAS=#{talias} and TCOUNT&gt;1
 </update>
-<resultMap id="resultFlowPiDoing" type="dswork.common.model.IFlowPiDoing">
-	<id property="id" column="ID" />
-	<result property="piid" column="PIID" />
-	<result property="ywlsh" column="YWLSH" />
-	<result property="flowid" column="FLOWID" />
-	<result property="talias" column="TALIAS" />
-	<result property="talias" column="TALIAS" />
-	<result property="tname" column="TNAME" />
-	<result property="tstart" column="TSTART" />
-	<result property="taccount" column="TACCOUNT" />
-	<result property="thaccount" column="THACCOUNT" />
-	<result property="tcount" column="TCOUNT" />
-	<result property="tinterface" column="TINTERFACE" />
-	<result property="uinterface" column="UINTERFACE" />
-</resultMap>
-<select id="selectFlowPiDoing" resultMap="resultFlowPiDoing">
-	select ID, PIID, YWLSH, FLOWID, TALIAS, TNAME, TSTART, TACCOUNT, THACCOUNT, TCOUNT, TINTERFACE, UINTERFACE
-	from DS_FLOW_PI_DOING where ID=#{id}
-</select>
-<select id="selectFlowPiDoingByPiid" resultMap="resultFlowPiDoing">
-	select ID, PIID, YWLSH, FLOWID, TALIAS, TNAME, TSTART, TACCOUNT, THACCOUNT, TCOUNT, TINTERFACE, UINTERFACE
-	from DS_FLOW_PI_DOING
-	where PIID=#{piid} <if test="@Ognl@isNotEmpty(talias)"> and TALIAS=#{talias}</if>
-</select>
-<select id="queryFlowPiDoingTalias" resultType="java.lang.String">
-	select TALIAS from DS_FLOW_PI_DOING where PIID=#{piid}
-</select>
-
-
 <resultMap id="resultFlowWaiting" type="dswork.common.model.IFlowWaiting">
 	<id property="id" column="ID" />
 	<result property="piid" column="PIID" />
 	<result property="ywlsh" column="YWLSH" />
 	<result property="flowid" column="FLOWID" />
-	<result property="talias" column="TALIAS" />
+	<result property="flowname" column="FLOWNAME" />
 	<result property="talias" column="TALIAS" />
 	<result property="tname" column="TNAME" />
-	<result property="tstart" column="TSTART" />
-	<result property="taccount" column="TACCOUNT" />
-	<result property="thaccount" column="THACCOUNT" />
 	<result property="tcount" column="TCOUNT" />
+	<result property="tnext" column="TNEXT" />
+	<result property="tstart" column="TSTART" />
+	<result property="tuser" column="TUSER" />
+	<result property="tusers" column="TUSERS" />
+	<result property="tmemo" column="TMEMO" />
 	<result property="tinterface" column="TINTERFACE" />
-	<result property="uinterface" column="UINTERFACE" />
-	<result property="flowname" column="FLOWNAME" />
 </resultMap>
+<select id="selectFlowWaiting" resultMap="resultFlowWaiting">
+	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING where ID=#{id}
+</select>
+<select id="selectFlowWaitingByPiid" resultMap="resultFlowWaiting">
+	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
+	where PIID=#{piid} <if test="@Ognl@isNotEmpty(talias)"> and TALIAS=#{talias}</if>
+</select>
+<select id="queryFlowWaitingTalias" resultType="java.lang.String">
+	select TALIAS from DS_FLOW_PI_WAITING where PIID=#{piid}
+</select>
 <select id="queryFlowWaiting" resultMap="resultFlowWaiting">
-	select p.ID, p.PIID, p.YWLSH, p.FLOWID, p.TALIAS, p.TSTART, 
-	       p.TACCOUNT, p.THACCOUNT, p.TCOUNT, p.TINTERFACE, p.UINTERFACE, 
-	       f.NAME as FLOWNAME
-	from DS_FLOW_PI_DOING p
-	left join DS_FLOW f on p.FLOWID=f.ID
-	where p.TACCOUNT=#{account} or p.THACCOUNT like concat('%', #{account}, '%') and p.TCOUNT=1
+	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
+	where TUSER=#{account} or USERS like concat('%', #{account}, '%') and TCOUNT=1
 </select>
 
 </mapper>

@@ -3,39 +3,21 @@
  */
 package dswork.common.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class IFlow
 {
-	// 流程标识
-	private String alias = "";
-	// 内部版本0为编辑版本
-	private Integer vnum = 0;
-	// 流程发布ID，VNUM为0的放最新版本
+	// 主键
+	private Long id = 0L;
 	private String deployid = "";
-	// 名字
 	private String name = "";
-	private List<IFlowTask> taskList = null;
 
-	public String getAlias()
+	public Long getId()
 	{
-		return alias;
+		return id;
 	}
 
-	public void setAlias(String alias)
+	public void setId(Long id)
 	{
-		this.alias = alias;
-	}
-
-	public Integer getVnum()
-	{
-		return vnum;
-	}
-
-	public void setVnum(Integer vnum)
-	{
-		this.vnum = vnum;
+		this.id = id;
 	}
 
 	public String getDeployid()
@@ -45,7 +27,7 @@ public class IFlow
 
 	public void setDeployid(String deployid)
 	{
-		this.deployid = deployid;
+		this.deployid = deployid == null ? "" : deployid;
 	}
 
 	public String getName()
@@ -56,19 +38,5 @@ public class IFlow
 	public void setName(String name)
 	{
 		this.name = name;
-	}
-
-	public List<IFlowTask> getTaskList()
-	{
-		if(taskList == null)
-		{
-			return new ArrayList<IFlowTask>();
-		}
-		return taskList;
-	}
-
-	public void setTaskList(List<IFlowTask> taskList)
-	{
-		this.taskList = taskList;
 	}
 }

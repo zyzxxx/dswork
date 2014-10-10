@@ -12,7 +12,7 @@
 	insert into DS_FLOW_TASK
 	(ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO)
 	values
-	(null, #{flowid}, null, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tusers}, #{tmemo})
+	(null, #{flowid}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tusers}, #{tmemo})
 </insert>
 
 <delete id="deleteByFlowid">

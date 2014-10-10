@@ -2,7 +2,6 @@ package dswork.common;
 
 import java.util.List;
 
-import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
 import dswork.common.service.DsCommonService;
 import dswork.spring.BeanFactory;
@@ -19,12 +18,12 @@ public class DsCommonFlowFactory
 		}
 	}
 
-	public static String start(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface, String userInterface)
+	public static String start(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		try
 		{
 			init();
-			return service.saveStart(alias, ywlsh, caccount, cname, piDay, isWorkDay, taskInterface, userInterface);
+			return service.saveStart(alias, ywlsh, caccount, cname, piDay, isWorkDay, taskInterface);
 		}
 		catch(Exception e)
 		{
@@ -51,19 +50,6 @@ public class DsCommonFlowFactory
 		{
 			init();
 			return service.queryFlowWaiting(account);
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
-	public static IFlowTask getTask(String deployid, String talias)
-	{
-		try
-		{
-			init();
-			return service.getFlowTask(deployid, talias);
 		}
 		catch(Exception e)
 		{

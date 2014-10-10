@@ -19,18 +19,20 @@ public class IFlowWaiting
 	private String talias = "";
 	// 任务名称
 	private String tname = "";
-	// 任务开始时间
-	private String tstart = "";
-	// 任务经办人
-	private String taccount = "";
-	// 候选经办人
-	private String thaccount = "";
 	// 等待任务数
 	private Integer tcount = 0;
-	// 处理任务接口类
+	// 下级任务（以逗号分隔节点标识， 以|线分隔分支任务）
+	private String tnext = "";
+	// 任务开始时间
+	private String tstart = "";
+	// 经办人
+	private String tuser = "";
+	// 候选经办人
+	private String tusers = "";
+	// 参数
+	private String tmemo = "";
+	// 处理接口类
 	private String tinterface = "";
-	// 获取用户接口类
-	private String uinterface = "";
 
 	public Long getId()
 	{
@@ -102,36 +104,6 @@ public class IFlowWaiting
 		this.tname = tname;
 	}
 
-	public String getTstart()
-	{
-		return tstart;
-	}
-
-	public void setTstart(String tstart)
-	{
-		this.tstart = tstart;
-	}
-
-	public String getTaccount()
-	{
-		return taccount;
-	}
-
-	public void setTaccount(String taccount)
-	{
-		this.taccount = taccount;
-	}
-
-	public String getThaccount()
-	{
-		return thaccount;
-	}
-
-	public void setThaccount(String thaccount)
-	{
-		this.thaccount = thaccount;
-	}
-
 	public Integer getTcount()
 	{
 		return tcount;
@@ -142,6 +114,56 @@ public class IFlowWaiting
 		this.tcount = tcount;
 	}
 
+	public String getTnext()
+	{
+		return tnext;
+	}
+
+	public void setTnext(String tnext)
+	{
+		this.tnext = tnext;
+	}
+
+	public String getTstart()
+	{
+		return tstart;
+	}
+
+	public void setTstart(String tstart)
+	{
+		this.tstart = tstart;
+	}
+
+	public String getTuser()
+	{
+		return tuser;
+	}
+
+	public void setTuser(String tuser)
+	{
+		this.tuser = tuser;
+	}
+
+	public String getTusers()
+	{
+		return tusers;
+	}
+
+	public void setTusers(String tusers)
+	{
+		this.tusers = tusers;
+	}
+
+	public String getTmemo()
+	{
+		return tmemo;
+	}
+
+	public void setTmemo(String tmemo)
+	{
+		this.tmemo = tmemo;
+	}
+
 	public String getTinterface()
 	{
 		return tinterface;
@@ -150,15 +172,5 @@ public class IFlowWaiting
 	public void setTinterface(String tinterface)
 	{
 		this.tinterface = tinterface;
-	}
-
-	public String getUinterface()
-	{
-		return uinterface;
-	}
-
-	public void setUinterface(String uinterface)
-	{
-		this.uinterface = uinterface;
 	}
 }

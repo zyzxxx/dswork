@@ -13,7 +13,6 @@ import dswork.common.model.IDict;
 import dswork.common.model.IFlow;
 import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
-import dswork.common.model.IFlowPiDoing;
 import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
 import dswork.common.model.IOrg;
@@ -87,10 +86,10 @@ public class DsCommonDao extends MyBatisDao
 	// /////////////////////////////////////////////////////////////////////////
 	
 	// ////////////////////////
-	// 流程配置
-	public String getFlowDeployid(String alias)
+	// 发布的流程配置
+	public IFlow getFlow(String alias)
 	{
-		return (String) executeSelect("selectFlowDeployid", alias);
+		return (IFlow) executeSelect("selectFlow", alias);
 	}
 	
 	// ////////////////////////
@@ -130,49 +129,52 @@ public class DsCommonDao extends MyBatisDao
 	
 	// ////////////////////////
 	// 流程实例待办
-	public void saveFlowPiDoing(IFlowPiDoing flowpidoing)
+	public void saveFlowWaiting(IFlowWaiting m)
 	{
-		executeInsert("insertFlowPiDoing", flowpidoing);
+		executeInsert("insertFlowWaiting", m);
 	}
-	public void deleteFlowPiDoing(Long id)
+	public void deleteFlowWaiting(Long id)
 	{
-		executeDelete("deleteFlowPiDoing", id);
+		executeDelete("deleteFlowWaiting", id);
 	}
-	public void updateFlowPiDoing(Long piid, String alias, String tstart)
+	public void deleteFlowWaitingByPiid(Long piid)
+	{
+		executeDelete("deleteFlowWaitingByPiid", piid);
+	}
+	public void updateFlowWaiting(Long piid, String alias, String tstart)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("piid", piid);
 		map.put("alias", alias);
 		map.put("tstart", tstart);
-		executeUpdate("updateFlowPiDoing", map);
+		executeUpdate("updateFlowWaiting", map);
 	}
-	public IFlowPiDoing getFlowPiDoing(Long id)
+	public IFlowWaiting getFlowWaiting(Long id)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
-		return (IFlowPiDoing) executeSelect("selectFlowPiDoing", map);
+		return (IFlowWaiting) executeSelect("selectFlowWaiting", map);
 	}
-	public boolean isExistsFlowPiDoing(Long piid, String alias)
+	public IFlowWaiting getFlowWaitingByPiid(Long piid, String alias)
 	{
-		IFlowPiDoing pidoing = getFlowPiDoingByPiid(piid, alias);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("piid", piid);
+		map.put("alias", alias);
+		return (IFlowWaiting) executeSelect("selectFlowWaitingByPiid", map);
+	}
+	public boolean isExistsFlowWaiting(Long piid, String alias)
+	{
+		IFlowWaiting pidoing = getFlowWaitingByPiid(piid, alias);
 		if(pidoing != null && pidoing.getId().longValue() != 0)
 		{
 			return true;
 		}
 		return false;
 	}
-	public IFlowPiDoing getFlowPiDoingByPiid(Long piid, String alias)
+	public List<String> queryFlowWaitingTalias(Long piid)
 	{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("piid", piid);
-		map.put("alias", alias);
-		return (IFlowPiDoing) executeSelect("getFlowPiDoingByPiid", map);
+		return executeSelectList("queryFlowWaitingTalias", piid);
 	}
-	public List<String> queryFlowPiDoingTalias(Long piid)
-	{
-		return executeSelectList("queryFlowPiDoingTalias", piid);
-	}
-	
 	public List<IFlowWaiting> queryFlowWaiting(String account)
 	{
 		return executeSelectList("queryFlowWaiting", account);
