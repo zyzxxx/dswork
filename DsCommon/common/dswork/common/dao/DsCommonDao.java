@@ -98,16 +98,13 @@ public class DsCommonDao extends MyBatisDao
 	{
 		executeInsert("insertFlowPi", flowpi);
 	}
-	public void updateFlowPiStatus(Long id)
-	{
-		executeUpdate("updateFlowPiStatus", id);
-	}
-	public void updateFlowPiPialias(Long id, String pialias)
+	public void updateFlowPi(Long id, int status, String pialias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
+		map.put("status", status);
 		map.put("pialias", pialias);
-		executeUpdate("updateFlowPiPialias", map);
+		executeUpdate("updateFlowPi", map);
 	}
 	
 	// ////////////////////////
@@ -141,11 +138,10 @@ public class DsCommonDao extends MyBatisDao
 	{
 		executeDelete("deleteFlowWaitingByPiid", piid);
 	}
-	public void updateFlowWaiting(Long piid, String alias, String tstart)
+	public void updateFlowWaiting(Long id, String tstart)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("piid", piid);
-		map.put("alias", alias);
+		map.put("id", id);
 		map.put("tstart", tstart);
 		executeUpdate("updateFlowWaiting", map);
 	}
@@ -162,21 +158,12 @@ public class DsCommonDao extends MyBatisDao
 		map.put("id", id);
 		return (IFlowWaiting) executeSelect("selectFlowWaiting", map);
 	}
-	public IFlowWaiting getFlowWaitingByPiid(Long piid, String alias)
+	public IFlowWaiting getFlowWaitingByPiid(Long piid, String talias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("piid", piid);
-		map.put("alias", alias);
+		map.put("talias", talias);
 		return (IFlowWaiting) executeSelect("selectFlowWaitingByPiid", map);
-	}
-	public boolean isExistsFlowWaiting(Long piid, String alias)
-	{
-		IFlowWaiting pidoing = getFlowWaitingByPiid(piid, alias);
-		if(pidoing != null && pidoing.getId().longValue() != 0)
-		{
-			return true;
-		}
-		return false;
 	}
 	public List<String> queryFlowWaitingTalias(Long piid)
 	{

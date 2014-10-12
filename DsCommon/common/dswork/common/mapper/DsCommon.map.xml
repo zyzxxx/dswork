@@ -85,11 +85,8 @@
 		<if test="@Ognl@isEmpty(piend)">null</if><if test="@Ognl@isNotEmpty(piend)">#{piend}</if>,
 		#{piupstart}, #{piupend}, #{status}, #{caccount}, #{cname}, #{pialias})
 </insert>
-<update id="updateFlowPiPialias">
-	update DS_FLOW_PI set PIALIAS=#{pialias} where ID=#{id}
-</update>
-<update id="updateFlowPiStatus">
-	update DS_FLOW_PI set STATUS=0 where ID=#{id}
+<update id="updateFlowPi">
+	update DS_FLOW_PI set STATUS=#{status}, PIALIAS=#{pialias} where ID=#{id}
 </update>
 
 
@@ -144,7 +141,7 @@
 </delete>
 <update id="updateFlowWaiting">
 	update DS_FLOW_PI_WAITING set TCOUNT=TCOUNT-1, TSTART=#{tstart}
-	where PIID=#{piid} and TALIAS=#{talias} and TCOUNT&gt;1
+	where ID=#{id} and TCOUNT&gt;1
 </update>
 <update id="updateFlowWaitingUser">
 	update DS_FLOW_PI_WAITING set TUSER=#{tuser}, TUSERS=null where ID=#{id}
@@ -177,7 +174,7 @@
 </select>
 <select id="queryFlowWaiting" resultMap="resultFlowWaiting">
 	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
-	where TUSER=#{account} or TUSERS like concat('%', #{account}, '%') and TCOUNT=1
+	where (TUSER=#{account} or TUSERS like concat('%', #{account}, '%')) and TCOUNT=1
 </select>
 
 </mapper>

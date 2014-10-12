@@ -6,7 +6,10 @@
 <html>
 <head>
 <title></title>
-<%@include file="/commons/include/page.jsp"%>
+<%@include file="/commons/include/upd.jsp"%>
+<style type="text/css">
+body {line-height:2em;}
+</style>
 </script>
 </head>
 <body>
@@ -14,22 +17,25 @@
 	<tr>
 		<td class="title">流程测试</td>
 		<td class="menuTool">
-			<a class="save" id="dataFormSave" href="#">保存2</a>
+			<a class="save" id="dataFormSave" href="#">保存</a>
+			<a class="back" href="wait.jsp">返回待办列表</a>
 		</td>
 	</tr>
 </table>
+<form id="dataForm" method="post" action="doAction.jsp">
 <%
+String msg = "";
 MyRequest req = new MyRequest(request);
 long wid = req.getLong("wid");
-if(wid > 0)
+try
 {
+  if(wid > 0){
 	IFlowWaiting po = DsFactory.getFlow().getWaiting(wid);
 	request.setAttribute("po", po);
 	String[] arr = po.getTnext().split("\\|", -1);
 %>
-	${po.flowname}<br />
-	当前任务：
-	${po.talias}&nbsp;${po.tname}<br />
+	流程名称：${po.flowname}<br />
+	当前任务：${po.talias}&nbsp;${po.tname}<br />
 	下级任务：
 	<%
 	for(String s : arr)
@@ -44,9 +50,19 @@ if(wid > 0)
 	}
 	%>
 	<br />
+	状态：<label><input type="radio"  name="resultType" value="1" checked="checked" />拟同意</label>
+		&nbsp;<label><input type="radio"  name="resultType" value="0" />拟拒绝</label>
+		&nbsp;<label><input type="radio"  name="resultType" value="-1" />拟作废</label>
+	<br />
+	意见：<textarea name="resultMsg" style="width:400px;">无</textarea><br />
+<input type="hidden" name="wid" value="<%=wid%>" />
+</form>
 <%
-}
-%>
+  }else{msg = "处理失败";}
+}catch(Exception ex){
+	msg = "处理失败";
+}%>
+<%=msg%>
 <br />
 </body>
 </html>

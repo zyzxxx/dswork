@@ -13,6 +13,9 @@
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
 		<td class="title">流程测试</td>
+		<td class="menuTool">
+			<a class="back" href="wait.jsp">返回待办任务</a>
+		</td>
 	</tr>
 </table>
 <%

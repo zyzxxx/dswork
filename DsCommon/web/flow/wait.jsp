@@ -7,12 +7,18 @@
 <head>
 <title></title>
 <%@include file="/commons/include/page.jsp"%>
+<style type="text/css">
+li,a {line-height:2em;}
+</style>
 </script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
 		<td class="title">流程测试</td>
+		<td class="menuTool">
+			<a class="start" href="start.jsp">启动新流程</a>
+		</td>
 	</tr>
 </table>
 <%request.setAttribute("list", DsFactory.getFlow().queryWaiting("admin"));%>

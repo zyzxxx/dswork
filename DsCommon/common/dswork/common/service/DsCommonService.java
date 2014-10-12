@@ -93,13 +93,15 @@ public class DsCommonService
 			pd.setMemo(resultMsg);
 			dao.saveFlowPiData(pd);
 			dao.deleteFlowWaiting(waitid);// 该待办事项已经处理
+			boolean isEnd = false;
 			
 			for(int i = 0; i < nextTalias.length; i++)
 			{
-				String alias = nextTalias[i];
-				if(dao.isExistsFlowWaiting(m.getPiid(), alias))
+				String talias = nextTalias[i];
+				IFlowWaiting w = dao.getFlowWaitingByPiid(m.getPiid(), talias);
+				if(w != null && w.getId().longValue() != 0)
 				{
-					dao.updateFlowWaiting(m.getFlowid(), m.getTalias(), time);// 等待数减1
+					dao.updateFlowWaiting(w.getId(), time);// 等待数减1
 				}
 				else
 				{
@@ -111,7 +113,7 @@ public class DsCommonService
 					newm.setTstart(time);
 					newm.setTinterface(m.getTinterface());
 					
-					IFlowTask t = dao.getFlowTask(m.getFlowid(), alias);
+					IFlowTask t = dao.getFlowTask(m.getFlowid(), talias);
 					newm.setTalias(t.getTalias());
 					newm.setTname(t.getTname());
 					newm.setTcount(t.getTcount());
@@ -130,21 +132,33 @@ public class DsCommonService
 					newm.setTmemo(t.getTmemo());
 					dao.saveFlowWaiting(newm);
 				}
+				if(talias.equals("end"))
+				{
+					isEnd = true;
+				}
 			}
-			List<String> list = dao.queryFlowWaitingTalias(m.getPiid());
-			if(list == null || list.size() == 0)
+			if(isEnd)
 			{
-				dao.updateFlowPiStatus(m.getPiid());
+				dao.deleteFlowWaitingByPiid(m.getPiid());// 已经结束，清空所有待办事项
+				dao.updateFlowPi(m.getPiid(), 0, "");// 结束
 			}
 			else
 			{
-				StringBuilder sb = new StringBuilder(100);
-				sb.append(list.get(0));
-				for(int i = 1; i < list.size(); i++)
+				List<String> list = dao.queryFlowWaitingTalias(m.getPiid());
+				if(list == null || list.size() == 0)
 				{
-					sb.append(",").append(list.get(i));
+					dao.updateFlowPi(m.getPiid(), 0, "");// 结束
 				}
-				dao.updateFlowPiPialias(m.getPiid(), sb.toString());
+				else
+				{
+					StringBuilder sb = new StringBuilder(100);
+					sb.append(list.get(0));
+					for(int i = 1; i < list.size(); i++)
+					{
+						sb.append(",").append(list.get(i));
+					}
+					dao.updateFlowPi(m.getPiid(), 2, sb.toString());// 处理中
+				}
 			}
 			return true;
 		}
