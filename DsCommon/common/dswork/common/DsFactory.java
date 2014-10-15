@@ -15,4 +15,20 @@ public class DsFactory
 	{
 		return init();
 	}
+	
+	
+
+	static DsCommonFactory d = null;
+	private static DsCommonFactory initd()
+	{
+		if(d == null)
+		{
+			d = new DsCommonFactory();
+		}
+		return d;
+	}
+	public static DsCommonFactory getDict()
+	{
+		return initd();
+	}
 }
