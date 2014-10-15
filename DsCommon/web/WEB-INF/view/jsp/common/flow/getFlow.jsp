@@ -52,7 +52,7 @@ $(function(){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">${fn:escapeXml(po.name)}流程列表</td>
+		<td class="title">${fn:escapeXml(po.name)}列表</td>
 		<td class="menuTool">
 			<a class="insert" href="addFlow1.htm?categoryid=${param.categoryid}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>

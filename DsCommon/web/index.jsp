@@ -36,6 +36,12 @@ for(var i = 0; i < treedata.length; i++){
 	}
 }
 </script>
+
+<br />
+<br />
+<br />
+<br />测试菜单
+<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='_blank' href='<%=request.getContextPath()%>/flow/wait.jsp'>流程测试</a>
 </div>
 <div style="float:right;height:100%;width:80%;min-width:800px;">
 	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="no" frameborder="0" src="#"></iframe>
