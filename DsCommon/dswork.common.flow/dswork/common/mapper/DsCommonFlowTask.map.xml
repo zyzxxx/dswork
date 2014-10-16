@@ -31,10 +31,6 @@
 	<result property="tmemo" column="TMEMO" />
 </resultMap>
 
-<sql id="columns">
-	
-</sql>
-
 <select id="query" resultMap="result">
 	select ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO
 	from DS_FLOW_TASK where FLOWID=#{flowid} order by ID
