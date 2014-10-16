@@ -116,6 +116,10 @@ public class DsCommonDao extends MyBatisDao
 		map.put("talias", talias);
 		return (IFlowTask) executeSelect("selectFlowTask", map);
 	}
+	public List<IFlowTask> queryFlowTask(Long flowid)
+	{
+		return executeSelectList("queryFlowTask", flowid);
+	}
 	
 	// ////////////////////////
 	// 流程实例明细

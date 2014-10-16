@@ -1,7 +1,10 @@
 package dswork.common;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
 import dswork.common.service.DsCommonService;
 import dswork.spring.BeanFactory;
@@ -89,5 +92,27 @@ public class DsCommonFlowFactory
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public static Map<String, String> getTaskList(Long flowid)
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		try
+		{
+			init();
+			List<IFlowTask> list = service.queryFlowTask(flowid);
+			if(list != null)
+			{
+				for(IFlowTask m : list)
+				{
+					map.put(m.getTalias(), m.getTname());
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return map;
 	}
 }

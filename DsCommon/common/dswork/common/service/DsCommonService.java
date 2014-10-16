@@ -183,6 +183,11 @@ public class DsCommonService
 		dao.updateFlowWaitingUser(waitid, "," + tuser + ",");
 	}
 	
+	public List<IFlowTask> queryFlowTask(Long flowid)
+	{
+		return dao.queryFlowTask(flowid);
+	}
+	
 
 //	private long deployidToFlowid(String deployid)
 //	{

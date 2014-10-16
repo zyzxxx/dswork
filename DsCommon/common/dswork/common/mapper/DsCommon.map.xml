@@ -105,6 +105,10 @@
 	select ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO
 	from DS_FLOW_TASK where FLOWID=#{flowid} and TALIAS=#{talias}
 </select>
+<select id="queryFlowTask" resultMap="resultFlowTask">
+	select ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO
+	from DS_FLOW_TASK where FLOWID=#{flowid}
+</select>
 
 
 <insert id="insertFlowPiData" parameterType="dswork.common.model.IFlowPiData">
