@@ -6,9 +6,6 @@
 <mapper namespace="dswork.common.model.DsCommonFlowTask">
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFlowTask">
-	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
-	</selectKey>
 	insert into DS_FLOW_TASK
 	(ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO)
 	values
