@@ -74,6 +74,11 @@ public class DsCommonService
 		}
 		return "";
 	}
+	
+	public void saveStop(Long piid)
+	{
+		dao.deleteFlowWaitingByPiid(piid);
+	}
 
 	public boolean saveProcess(Long waitid, String[] nextTalias, String account, String name, String resultType, String resultMsg)
 	{

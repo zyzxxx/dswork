@@ -34,6 +34,19 @@ public class DsCommonFlowFactory
 		}
 		return "";
 	}
+	
+	public static void stop(String piid)
+	{
+		try
+		{
+			init();
+			service.saveStop(Long.parseLong(piid));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 
 	public static boolean process(long waitid, String[] nextTalias, String paccount, String pname, String resultType, String resultMsg)
 	{
@@ -94,7 +107,7 @@ public class DsCommonFlowFactory
 		return null;
 	}
 
-	public static Map<String, String> getTaskList(Long flowid)
+	public static Map<String, String> getTaskList(long flowid)
 	{
 		Map<String, String> map = new HashMap<String, String>();
 		try
