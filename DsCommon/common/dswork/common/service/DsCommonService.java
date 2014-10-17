@@ -78,6 +78,7 @@ public class DsCommonService
 	public void saveStop(Long piid)
 	{
 		dao.deleteFlowWaitingByPiid(piid);
+		dao.updateFlowPi(piid, 0, "");// 结束
 	}
 
 	public boolean saveProcess(Long waitid, String[] nextTalias, String account, String name, String resultType, String resultMsg)
@@ -97,49 +98,56 @@ public class DsCommonService
 			pd.setPtype(resultType);
 			pd.setMemo(resultMsg);
 			dao.saveFlowPiData(pd);
-			dao.deleteFlowWaiting(waitid);// 该待办事项已经处理
-			boolean isEnd = false;
 			
-			for(int i = 0; i < nextTalias.length; i++)
+			boolean isEnd = false;
+			if(nextTalias == null)
 			{
-				String talias = nextTalias[i];
-				IFlowWaiting w = dao.getFlowWaitingByPiid(m.getPiid(), talias);
-				if(w != null && w.getId().longValue() != 0)
+				isEnd = true;// 需要结束流程
+			}
+			else
+			{
+				dao.deleteFlowWaiting(waitid);// 该待办事项已经处理
+				for(int i = 0; i < nextTalias.length; i++)
 				{
-					dao.updateFlowWaiting(w.getId(), time);// 等待数减1
-				}
-				else
-				{
-					IFlowWaiting newm = new IFlowWaiting();
-					newm.setPiid(m.getPiid());
-					newm.setYwlsh(m.getYwlsh());
-					newm.setFlowid(m.getFlowid());
-					newm.setFlowname(m.getFlowname());
-					newm.setTstart(time);
-					newm.setTinterface(m.getTinterface());
-					
-					IFlowTask t = dao.getFlowTask(m.getFlowid(), talias);
-					newm.setTalias(t.getTalias());
-					newm.setTname(t.getTname());
-					newm.setTcount(t.getTcount());
-					newm.setTnext(t.getTnext());
-					String[] s = t.getTusers().split(",", -1);
-					if(s.length > 1)
+					String talias = nextTalias[i];
+					IFlowWaiting w = dao.getFlowWaitingByPiid(m.getPiid(), talias);
+					if(w != null && w.getId().longValue() != 0)
 					{
-						newm.setTusers("," + t.getTusers() + ",");// 多人，候选人
-						newm.setTuser("");
+						dao.updateFlowWaiting(w.getId(), time);// 等待数减1
 					}
 					else
 					{
-						newm.setTusers("");// 候选人
-						newm.setTuser("," + t.getTusers() + ",");// 单人
+						IFlowWaiting newm = new IFlowWaiting();
+						newm.setPiid(m.getPiid());
+						newm.setYwlsh(m.getYwlsh());
+						newm.setFlowid(m.getFlowid());
+						newm.setFlowname(m.getFlowname());
+						newm.setTstart(time);
+						newm.setTinterface(m.getTinterface());
+						
+						IFlowTask t = dao.getFlowTask(m.getFlowid(), talias);
+						newm.setTalias(t.getTalias());
+						newm.setTname(t.getTname());
+						newm.setTcount(t.getTcount());
+						newm.setTnext(t.getTnext());
+						String[] s = t.getTusers().split(",", -1);
+						if(s.length > 1)
+						{
+							newm.setTusers("," + t.getTusers() + ",");// 多人，候选人
+							newm.setTuser("");
+						}
+						else
+						{
+							newm.setTusers("");// 候选人
+							newm.setTuser("," + t.getTusers() + ",");// 单人
+						}
+						newm.setTmemo(t.getTmemo());
+						dao.saveFlowWaiting(newm);
 					}
-					newm.setTmemo(t.getTmemo());
-					dao.saveFlowWaiting(newm);
-				}
-				if(talias.equals("end"))
-				{
-					isEnd = true;
+					if(talias.equals("end"))
+					{
+						isEnd = true;
+					}
 				}
 			}
 			if(isEnd)

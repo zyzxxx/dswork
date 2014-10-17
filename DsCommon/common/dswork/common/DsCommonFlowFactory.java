@@ -21,6 +21,17 @@ public class DsCommonFlowFactory
 		}
 	}
 
+	/**
+	 * 流程启动
+	 * @param alias 启动流程的标识
+	 * @param ywlsh 业务流水号
+	 * @param caccount 提交人账号
+	 * @param cname 提交人姓名
+	 * @param piDay 时限天数
+	 * @param isWorkDay 时限天数类型(false日历日,true工作日)
+	 * @param taskInterface 接口类（暂时无用）
+	 * @return 流程实例ID
+	 */
 	public static String start(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		try
@@ -48,6 +59,16 @@ public class DsCommonFlowFactory
 		}
 	}
 
+	/**
+	 * 流程处理
+	 * @param waitid 待办事项ID
+	 * @param nextTalias 下级任务列表，如果为null，处理当前任务后，会结束流程
+	 * @param paccount 当前处理人账号
+	 * @param pname 当前处理人姓名
+	 * @param resultType 处理类型
+	 * @param resultMsg 处理意见
+	 * @return true|false
+	 */
 	public static boolean process(long waitid, String[] nextTalias, String paccount, String pname, String resultType, String resultMsg)
 	{
 		try
