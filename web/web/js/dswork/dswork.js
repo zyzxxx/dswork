@@ -207,6 +207,9 @@ $dswork.upload.prototype = {
 		}
 		else{
 			var v = myv.val();
+			if(p.uploadone=="true"){
+				v = "";
+			}
 			for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){v += (v != "" ? "|" : "") + o.file + ":" + o.name;}}
 			myv.val(v);
 			myinput.val(v == "" ? _has : p.fileKey);
