@@ -1,8 +1,11 @@
 package common.any;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+
 import dswork.core.db.MyBatisDao;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
@@ -15,6 +18,13 @@ public class AnyDao extends MyBatisDao
 	public Class getEntityClass()
 	{
 		return AnyDao.class;
+	}
+	
+	public Map<String, String> initSql(String sql)
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("sql", sql);
+		return map;
 	}
 
 	public int executeInsert(Object parameter)
