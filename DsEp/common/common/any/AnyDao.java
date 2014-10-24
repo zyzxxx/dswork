@@ -20,7 +20,7 @@ public class AnyDao extends MyBatisDao
 		return AnyDao.class;
 	}
 	
-	public Map<String, String> initSql(String sql)
+	public static Map<String, String> initSql(String sql)
 	{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("sql", sql);
