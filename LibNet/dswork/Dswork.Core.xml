@@ -88,7 +88,14 @@
             <param name="parameter">参数</param>
             <returns>IList</returns>
         </member>
-        <!-- 对于成员“M:Dswork.Core.Db.MyBatisDao.ExecuteSelectList``1(System.String,System.Object)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Dswork.Core.Db.MyBatisDao.ExecuteSelectList``1(System.String,System.Object)">
+            <summary>
+            封装ISqlMapper.QueryForList&lt;T&gt;方法
+            </summary>
+            <param name="statementName">SQL的ID(不包含namespace)</param>
+            <param name="parameter">参数</param>
+            <returns>IList&lt;T&gt;</returns>
+        </member>
         <member name="M:Dswork.Core.Db.MyBatisDao.QueryList(System.String,Dswork.Core.Page.PageRequest)">
             <summary>
             不分页查询数据，封装ISqlMapper.QueryForList方法
@@ -97,7 +104,14 @@
             <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
             <returns>IList</returns>
         </member>
-        <!-- 对于成员“M:Dswork.Core.Db.MyBatisDao.QueryList``1(System.String,Dswork.Core.Page.PageRequest)”忽略有格式错误的 XML 注释 -->
+        <member name="M:Dswork.Core.Db.MyBatisDao.QueryList``1(System.String,Dswork.Core.Page.PageRequest)">
+            <summary>
+            不分页查询数据，封装ISqlMapper.QueryForList&lt;T&gt;方法
+            </summary>
+            <param name="statementName">SQL的ID(不包含namespace)</param>
+            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
+            <returns>IList&lt;T&gt;</returns>
+        </member>
         <member name="M:Dswork.Core.Db.MyBatisDao.QueryPage(System.String,Dswork.Core.Page.PageRequest,System.String,Dswork.Core.Page.PageRequest)">
             <summary>
             分页查询数据
@@ -519,7 +533,15 @@
             <param name="totalCount">数据总条数</param>
             <param name="result">结果集IList</param>
         </member>
-        <!-- 对于成员“M:Dswork.Core.Page.Page`1.#ctor(System.Int32,System.Int32,System.Int32,System.Collections.Generic.IList{`0})”忽略有格式错误的 XML 注释 -->
+        <member name="M:Dswork.Core.Page.Page`1.#ctor(System.Int32,System.Int32,System.Int32,System.Collections.Generic.IList{`0})">
+            <summary>
+            构造函数，使用Result变量&lt;T&gt;
+            </summary>
+            <param name="currentPage">当前页码</param>
+            <param name="pageSize">一页显示的条数</param>
+            <param name="totalCount">数据总条数</param>
+            <param name="result">结果集IList&lt;T&gt;</param>
+        </member>
         <member name="M:Dswork.Core.Page.Page`1.SetResult(System.Collections.IList)">
             <summary>
             设置结果集
@@ -670,7 +692,7 @@
         </member>
         <member name="T:Dswork.Core.Page.PageRequest">
             <summary>
-            分页请求信息，filters的类型Object，默认初始化是System.Collections.Hashtable（用MyBatis时是HashTable）
+            分页请求信息，filters的类型Object，默认初始化是System.Collections.Hashtable
             </summary>
         </member>
         <member name="M:Dswork.Core.Page.PageRequest.#ctor">
@@ -682,7 +704,7 @@
             <summary>
             构造函数
             </summary>
-            <param name="filters">条件，用MyBatis时是使用HashTable</param>
+            <param name="filters">条件，使用HashTable</param>
         </member>
         <member name="M:Dswork.Core.Page.PageRequest.#ctor(System.Int32,System.Int32)">
             <summary>
@@ -697,7 +719,7 @@
             </summary>
             <param name="currentPage">当前页码</param>
             <param name="pageSize">一页显示的条数</param>
-            <param name="filters">条件，用MyBatis时是使用HashTable</param>
+            <param name="filters">条件，使用HashTable</param>
         </member>
         <member name="P:Dswork.Core.Page.PageRequest.CurrentPage">
             取得当前页
@@ -705,7 +727,7 @@
         </member>
         <member name="P:Dswork.Core.Page.PageRequest.Filters">
             <summary>
-            设置参数，用MyBatis时是使用HashTable
+            设置参数，使用HashTable
             </summary>
         </member>
         <member name="P:Dswork.Core.Page.PageRequest.PageName">
@@ -882,10 +904,26 @@
         </member>
         <member name="M:Dswork.Core.Util.EncryptUtil.DecodeBase64(System.String)">
             <summary>
-            将 BASE64 编码的字符串 进行解码
+            将base64编码的字符串进行解码
             </summary>
             <param name="str">base64编码的字符串</param>
             <returns>解码后的字符串，失败返回null</returns>
+        </member>
+        <member name="M:Dswork.Core.Util.EncryptUtil.EncodeDes(System.String,System.String)">
+            <summary>
+            将字符串转化为des编码
+            </summary>
+            <param name="str">需要加密的String</param>
+            <param name="key">密钥</param>
+            <returns>des编码的String</returns>
+        </member>
+        <member name="M:Dswork.Core.Util.EncryptUtil.DecodeDes(System.String,System.String)">
+            <summary>
+            将des编码的字符串进行解码
+            </summary>
+            <param name="str">des编码的字符串</param>
+            <param name="key">密钥</param>
+            <returns>解码后的字符串</returns>
         </member>
         <member name="T:Dswork.Core.Util.EnvironmentUtil">
             <summary>
