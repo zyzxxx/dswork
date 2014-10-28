@@ -19,7 +19,7 @@ namespace Dswork.Core.Util
 		{
 			try
 			{
-				byte[] result = Encoding.Default.GetBytes(str);
+				byte[] result = Encoding.UTF8.GetBytes(str);
 				MD5 md5 = new MD5CryptoServiceProvider();
 				byte[] output = md5.ComputeHash(result);
 				return BitConverter.ToString(output).Replace("-", "");
@@ -40,7 +40,7 @@ namespace Dswork.Core.Util
 		{
 			try
 			{
-				return Convert.ToBase64String(Encoding.Default.GetBytes(str));
+				return Convert.ToBase64String(Encoding.UTF8.GetBytes(str));
 			}
 			catch
 			{
@@ -57,7 +57,7 @@ namespace Dswork.Core.Util
 		{
 			try
 			{
-				return Encoding.Default.GetString(Convert.FromBase64String(str));
+				return Encoding.UTF8.GetString(Convert.FromBase64String(str));
 			}
 			catch
 			{
