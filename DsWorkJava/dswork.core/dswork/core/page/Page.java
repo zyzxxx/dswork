@@ -35,7 +35,7 @@ public class Page<T> implements Serializable
 	 * @param currentPage 当前页码
 	 * @param pageSize 一页显示的条数
 	 * @param totalCount 数据总条数
-	 * @param result 结果集List<T>，其长度不影响计数
+	 * @param result 结果集List&lt;T&gt;，其长度不影响计数
 	 */
 	public Page(int currentPage, int pageSize, int totalCount, List<T> result)
 	{
@@ -169,7 +169,7 @@ public class Page<T> implements Serializable
 
 	/**
 	 * 取得结果集
-	 * @return 结果集List<T>
+	 * @return 结果集List&lt;T&gt;
 	 */
 	public List<T> getResult()
 	{
@@ -178,7 +178,7 @@ public class Page<T> implements Serializable
 
 	/**
 	 * 设置结果集，其值与长度不影响计数
-	 * @param result 结果集List<T>
+	 * @param result 结果集List&lt;T&gt;
 	 */
 	public void setResult(List<T> result)
 	{

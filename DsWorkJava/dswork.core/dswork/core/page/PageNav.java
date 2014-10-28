@@ -20,7 +20,7 @@ public class PageNav<T>
 	/**
 	 * 构造函数
 	 * @param request HttpServletRequest
-	 * @param page Page<T>
+	 * @param page Page&lt;T&gt;
 	 */
 	public PageNav(HttpServletRequest request, Page<T> page)
 	{
