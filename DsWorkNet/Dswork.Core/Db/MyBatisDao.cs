@@ -168,11 +168,11 @@ namespace Dswork.Core.Db
 		}
 
 		/// <summary>
-		/// 封装ISqlMapper.QueryForList<T>方法
+		/// 封装ISqlMapper.QueryForList&lt;T&gt;方法
 		/// </summary>
 		/// <param name="statementName">SQL的ID(不包含namespace)</param>
 		/// <param name="parameter">参数</param>
-		/// <returns>IList<T></returns>
+        /// <returns>IList&lt;T&gt;</returns>
 		protected IList<T> ExecuteSelectList<T>(String statementName, Object parameter)
 		{
 			lock(_lock)
@@ -200,7 +200,7 @@ namespace Dswork.Core.Db
 		/// </summary>
 		/// <param name="statementName">SQL的ID(不包含namespace)</param>
 		/// <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
-		/// <returns>IList<T></returns>
+        /// <returns>IList&lt;T&gt;</returns>
 		protected IList<T> QueryList<T>(String statementName, PageRequest pageRequest)
 		{
 			lock(_lock)

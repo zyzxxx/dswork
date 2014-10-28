@@ -4,7 +4,7 @@ using System.Collections;
 namespace Dswork.Core.Page
 {
 	/// <summary>
-	/// 分页请求信息，filters的类型Object，默认初始化是System.Collections.Hashtable（用MyBatis时是HashTable）
+	/// 分页请求信息，filters的类型Object，默认初始化是System.Collections.Hashtable
 	/// </summary>
 	public class PageRequest
 	{
@@ -24,7 +24,7 @@ namespace Dswork.Core.Page
 		/// <summary>
 		/// 构造函数
 		/// </summary>
-		/// <param name="filters">条件，用MyBatis时是使用HashTable</param>
+		/// <param name="filters">条件，使用HashTable</param>
 		public PageRequest(Object filters) : this(0, 0, filters)
 		{
 		}
@@ -44,7 +44,7 @@ namespace Dswork.Core.Page
 		/// </summary>
 		/// <param name="currentPage">当前页码</param>
 		/// <param name="pageSize">一页显示的条数</param>
-		/// <param name="filters">条件，用MyBatis时是使用HashTable</param>
+		/// <param name="filters">条件，使用HashTable</param>
 		public PageRequest(int currentPage, int pageSize, Object filters)
 		{
 			this.CurrentPage = currentPage;
@@ -69,7 +69,7 @@ namespace Dswork.Core.Page
 		}
 
 		/// <summary>
-		/// 设置参数，用MyBatis时是使用HashTable
+		/// 设置参数，使用HashTable
 		/// </summary>
 		public Object Filters
 		{

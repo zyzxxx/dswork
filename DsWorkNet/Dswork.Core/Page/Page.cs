@@ -77,7 +77,7 @@ namespace Dswork.Core.Page
 		/// <param name="currentPage">当前页码</param>
 		/// <param name="pageSize">一页显示的条数</param>
 		/// <param name="totalCount">数据总条数</param>
-		/// <param name="iresult">结果集IList<T></param>
+        /// <param name="result">结果集IList&lt;T&gt;</param>
 		public Page(int currentPage, int pageSize, int totalCount, IList<T> result)
 		{
 			PageSetting(currentPage, pageSize, totalCount);
