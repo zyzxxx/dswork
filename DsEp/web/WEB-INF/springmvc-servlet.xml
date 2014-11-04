@@ -15,7 +15,7 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
-		<context:component-scan base-package="dswork.ep">
+	<context:component-scan base-package="dswork.ep">
 	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Service" />
