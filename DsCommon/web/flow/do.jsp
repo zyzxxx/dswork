@@ -18,7 +18,7 @@ body {line-height:2em;}
 		<td class="title">流程测试</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="wait.jsp">返回待办列表</a>
+			<a class="back" href="waiting.jsp">返回待办列表</a>
 		</td>
 	</tr>
 </table>

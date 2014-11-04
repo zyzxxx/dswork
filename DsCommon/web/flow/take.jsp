@@ -4,6 +4,6 @@ long waitid = req.getLong("wid");
 if(waitid > 0)
 {
 	DsFactory.getFlow().takeWaiting(waitid, "admin");
-	response.sendRedirect("wait.jsp");
+	response.sendRedirect("waiting.jsp");
 }
 %>

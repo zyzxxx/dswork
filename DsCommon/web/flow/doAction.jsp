@@ -17,7 +17,7 @@ body {line-height:2em;}
 	<tr>
 		<td class="title">流程测试</td>
 		<td class="menuTool">
-			<a class="back" href="wait.jsp">返回待办任务</a>
+			<a class="back" href="waiting.jsp">返回待办任务</a>
 		</td>
 	</tr>
 </table>

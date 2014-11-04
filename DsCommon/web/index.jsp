@@ -1,4 +1,7 @@
 <%@page contentType="text/html;charset=UTF-8"%>
+<%
+String path = request.getContextPath();
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,7 +35,7 @@ for(var i = 0; i < treedata.length; i++){
 	document.write("<br />" + item.name);
 	for(var j = 0; j < item.items.length; j++){
 		var m = item.items[j];
-		document.write("<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='main' href='<%=request.getContextPath()%>" + m.url + "'>" + m.name + "</a>");
+		document.write("<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='main' href='<%=path%>" + m.url + "'>" + m.name + "</a>");
 	}
 }
 </script>
@@ -41,7 +44,7 @@ for(var i = 0; i < treedata.length; i++){
 <br />
 <br />
 <br />测试菜单
-<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='_blank' href='<%=request.getContextPath()%>/flow/wait.jsp'>流程测试</a>
+<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='_blank' href='<%=path%>/flow/wait.jsp'>流程测试</a>
 </div>
 <div style="float:right;height:100%;width:80%;min-width:800px;">
 	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="no" frameborder="0" src="#"></iframe>
