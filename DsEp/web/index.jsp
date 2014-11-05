@@ -36,7 +36,7 @@ for(var i = 0; i < treedata.length; i++){
 	document.write("<br />" + item.name);
 	for(var j = 0; j < item.items.length; j++){
 		var m = item.items[j];
-		document.write("<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='main' href='<%=request.getContextPath()%>" + m.url + "'>" + m.name + "</a>");
+		document.write("<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='main' href='<%=path%>" + m.url + "'>" + m.name + "</a>");
 	}
 }
 </script>

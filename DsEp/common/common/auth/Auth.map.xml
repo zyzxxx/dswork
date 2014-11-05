@@ -10,6 +10,7 @@
 		<result property="account" column="ACCOUNT" />
 		<result property="password" column="PASSWORD" />
 		<result property="name" column="NAME" />
+		<result property="email" column="EMAIL" />
 		<result property="status" column="STATUS" />
 		<result property="qybm" column="QYBM" />
 		<result property="ssdw" column="SSDW" />
@@ -17,8 +18,15 @@
 	</resultMap>
 
 	<select id="getByAccount" resultMap="result">
-		select ID, ACCOUNT, NAME, STATUS, QYBM, SSDW, SSBM
+		select ID, ACCOUNT, NAME, EMAIL, STATUS, QYBM, SSDW, SSBM
 		from DS_EP_USER where ACCOUNT=#{account}
+	</select>
+
+	<select id="queryListAuth" resultMap="result">
+		select ID, ACCOUNT, NAME, EMAIL, STATUS, QYBM, SSDW, SSBM
+		from DS_EP_USER where 1=1
+		<if test="account == null"> and EMAIL=#{email} </if>
+		<if test="email == null"> and ACCOUNT=#{account} </if>
 	</select>
 
 </mapper>

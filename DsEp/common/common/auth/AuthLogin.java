@@ -1,5 +1,7 @@
 package common.auth;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.jsp.PageContext;
@@ -18,7 +20,7 @@ public class AuthLogin
 	public static final String SessionName_LoginUser = "COMMON_LOGIN_USER";
 	private HttpServletRequest request;
 	//private HttpServletResponse response;
-	private String errorMsg = "";
+	private String msg = "";
 	
 	/**
 	 * 构造方法
@@ -40,12 +42,12 @@ public class AuthLogin
 		String randcode = (String) this.request.getSession().getAttribute(MyAuthCodeServlet.SessionName_Randcode);
 		if(randcode == null || randcode.equals(""))
 		{
-			this.errorMsg = "验证码已过期!";
+			this.msg = "验证码已过期!";
 			re = false;
 		}
 		else if(!randcode.toLowerCase().equals(validCode.toLowerCase()))
 		{
-			this.errorMsg = "验证码输入错误,请重新输入!";
+			this.msg = "验证码输入错误,请重新输入!";
 			re = false;
 		}
 		this.request.getSession().setAttribute(MyAuthCodeServlet.SessionName_Randcode, "");
@@ -53,12 +55,11 @@ public class AuthLogin
 	}
 
 	/**
-	 * 登录
+	 * 登入
 	 * @param account 用户帐号
 	 * @param password 密码
-	 * @param type 用户类型
-	 * @param validCode 验证密码
-	 * @return
+	 * @param validCode 验证码
+	 * @return boolean
 	 */
 	public boolean login(String account, String password, String validCode)
 	{
@@ -68,14 +69,19 @@ public class AuthLogin
 		}
 		try
 		{
-			Auth loginUser = loadAuth(account, password);// 这个方法随便改
-			this.errorMsg = "用户名或者密码错误，请检查输入！";
-			if(loginUser == null)
+			Auth loginUser = ((AuthService)BeanFactory.getBean("authService")).getByAccount(account);
+			if(loginUser != null)
 			{
-				return false;
+				password = EncryptUtil.decodeDes(password, "dswork");
+				password = EncryptUtil.encryptMd5(password).toLowerCase();
+				if(password.equalsIgnoreCase(loginUser.getPassword().toLowerCase()))
+				{
+					setLoginUserInfo(loginUser);
+					return true;
+				}
 			}
-			setLoginUserInfo(loginUser);
-			return true;
+			this.msg = "用户名或者密码错误，请检查输入！";
+			return false;
 		}
 		catch(Exception ex)
 		{
@@ -83,9 +89,53 @@ public class AuthLogin
 		}
 	}
 
+	/**
+	 * 登出
+	 * @param request HttpServletRequest
+	 */
 	public static void loginOut(HttpServletRequest request)
 	{
 		request.getSession().setAttribute(SessionName_LoginUser, null);
+	}
+
+	/**
+	 * 找回密码
+	 * @param keyvalue 用户/邮箱
+	 * @param validCode 验证码
+	 * @return boolean
+	 */
+	public boolean logpwd(String account, String email, String validCode)
+	{
+		if(!this.isValidCode(validCode))
+		{
+			return false;
+		}
+		try
+		{
+			List<Auth> authList = ((AuthService)BeanFactory.getBean("authService")).queryListAuth(account, email);
+			if(authList.size() == 0)
+			{
+				this.msg = "找不到相关的用户！";
+				return false;
+			}
+			// 一般一个邮箱很少用超过100次
+			if(authList.size() < 100)
+			{
+				for(Auth m : authList)
+				{
+					System.out.println(m.getAccount() + " : " + m.getEmail());
+					
+					
+					
+					
+				}
+			}
+			return true;
+		}
+		catch(Exception ex)
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -98,11 +148,11 @@ public class AuthLogin
 
 	/**
 	 * 得到登录出错的信息
-	 * @return
+	 * @return String
 	 */
-	public String getErrorMssage()
+	public String getMsg()
 	{
-		return this.errorMsg;
+		return this.msg;
 	}
 
 	/**
@@ -114,21 +164,6 @@ public class AuthLogin
 		if(user != null)
 		{
 			return user;
-		}
-		return null;
-	}
-	
-	// 以下为扩展方法
-	private static Auth loadAuth(String account, String password)
-	{
-		Auth user = ((AuthService)BeanFactory.getBean("authService")).getByAccount(account);
-		if(user != null)
-		{
-			password = EncryptUtil.encryptMd5(password).toLowerCase();
-			if(password.equals(user.getPassword().toLowerCase()))
-			{
-				return user;
-			}
 		}
 		return null;
 	}

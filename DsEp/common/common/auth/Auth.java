@@ -7,6 +7,7 @@ public class Auth
 	private String account;
 	private String password;
 	private String name;
+	private String email;
 	private Integer status;// -1后台用户，0企业管理员，1企业普通用户
 	private String qybm;
 	private String ssdw;
@@ -50,6 +51,16 @@ public class Auth
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public String getEmail()
+	{
+		return email;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email = email;
 	}
 
 	public Integer getStatus()

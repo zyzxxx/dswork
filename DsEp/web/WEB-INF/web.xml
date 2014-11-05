@@ -93,6 +93,16 @@
 		<servlet-name>springmvc-cms</servlet-name>
 		<url-pattern>*.chtml</url-pattern>
 	</servlet-mapping>
+	
+	<!-- 验证码servlet-->
+	<servlet>
+		<servlet-name>xxx</servlet-name>
+		<servlet-class>dswork.web.MyAuthCodeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>xxx</servlet-name>
+		<url-pattern>/ValidCode</url-pattern>
+	</servlet-mapping>
 
 	<error-page>
 		<error-code>403</error-code>
