@@ -18,7 +18,7 @@ else
 {
 	account = keyvalue;
 }
-if(login.logpwd(account, email, authcode))
+if(login.logpassword(account, email, authcode))
 {
 	%>alert("确认邮件已发送到您的邮箱");location.href="login.html";<%
 }
