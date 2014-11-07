@@ -1,7 +1,6 @@
 <%@page language="java" contentType="text/html;charset=UTF-8" import="dswork.web.*,
 common.auth.*"%><%
 String path = request.getContextPath();
-AuthLogin login = new AuthLogin(pageContext);
-login.loginOut(request);
+AuthLogin.logout(request);
 response.sendRedirect("login.html");
 %>
