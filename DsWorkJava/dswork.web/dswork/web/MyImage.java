@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Random;
 
-import javax.imageio.ImageIO;
-
 /**
  * 生成验证码图片类
  */
@@ -45,7 +43,10 @@ public class MyImage
 	 */
 	public void setWidth(int width)
 	{
-		this.width = width;
+		if(width > 0 && width < 1000)
+		{
+			this.width = width;
+		}
 	}
 
 	/**
@@ -63,7 +64,10 @@ public class MyImage
 	 */
 	public void setHeight(int height)
 	{
-		this.height = height;
+		if(height > 0 && height < 1000)
+		{
+			this.height = height;
+		}
 	}
 
 	/**
@@ -74,7 +78,7 @@ public class MyImage
 	{
 		if(this.font == null)
 		{
-			this.font = new Font("Arial", Font.ITALIC, this.height - 2);
+			this.font = new Font("Arial", Font.PLAIN, this.height - 4);
 		}
 		return font;
 	}
@@ -103,7 +107,10 @@ public class MyImage
 	 */
 	public void setLength(int length)
 	{
-		this.length = length;
+		if(length > 0 && length < 101)
+		{
+			this.length = length;
+		}
 	}
 
 	/**
@@ -151,7 +158,7 @@ public class MyImage
 		// 画边框
 		g.drawRect(0, 0, width - 1, height - 1);
 		// 随机产生height*2条干扰线，使图象中的认证码不易被其它程序探测到
-		for(int i = 0; i < height*2; i++)
+		for(int i = 0; i < height * 2; i++)
 		{
 			g.setColor(getRandColor(160, 200));
 			int x = random.nextInt(width);
@@ -176,9 +183,9 @@ public class MyImage
 		{
 			g.setColor(getRandColor(0, 180));
 			String arg = String.valueOf(this.code[i]);
-			g.drawString(arg, w * i + 2, height - 4);
+			g.drawString(arg, w * i + 2, height * 3 / 4);
 		}
-		ImageIO.write(image, "jpeg", stream);
+		javax.imageio.ImageIO.write(image, "jpeg", stream);
 	}
 
 	private Color getRandColor(int lower, int upper)
