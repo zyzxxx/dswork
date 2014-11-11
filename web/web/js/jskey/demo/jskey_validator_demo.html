@@ -138,10 +138,10 @@ td {text-align:left;}
 	<tr>
 		<td>所在省份：</td>
 		<td>
-			广东<input name="Province" value="1" type="radio" />
-			陕西<input name="Province" value="2" type="radio" />
-			浙江<input name="Province" value="3" type="radio" />
-			江西<input name="Province" value="4" type="radio" dataType="Group"  msg="必须选定一个省份" />
+			广东<input name="Province" value="1" type="checkbox" />
+			陕西<input name="Province" value="2" type="checkbox" />
+			浙江<input name="Province" value="3" type="checkbox" />
+			江西<input name="Province" value="4" type="checkbox" dataType="Group"  msg="必须选定一个省份" />
 		</td>
 	</tr>
 	<tr>
@@ -189,6 +189,6 @@ td {text-align:left;}
 </center>
 </body>
 <script type="text/javascript">
-$jskey.validator.Init("dataForm", 3);//初始化验证
+//$jskey.validator.Init("dataForm", 3);//一开始就要即时验证的话，调用此方法
 </script>
 </html>
