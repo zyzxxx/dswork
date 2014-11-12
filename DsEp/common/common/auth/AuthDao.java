@@ -33,4 +33,12 @@ public class AuthDao extends MyBatisDao
 		map.put("email", email);
 		return executeSelectList("queryListAuth", map);
 	}
+	
+	public int updateAuthPassword(String account, String password)
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("account", account);
+		map.put("password", password);
+		return executeUpdate("updateAuthPassword", map);
+	}
 }

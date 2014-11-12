@@ -18,15 +18,19 @@
 	</resultMap>
 
 	<select id="getByAccount" resultMap="result">
-		select ID, ACCOUNT, NAME, EMAIL, STATUS, QYBM, SSDW, SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, STATUS, QYBM, SSDW, SSBM
 		from DS_EP_USER where ACCOUNT=#{account}
 	</select>
 
 	<select id="queryListAuth" resultMap="result">
-		select ID, ACCOUNT, NAME, EMAIL, STATUS, QYBM, SSDW, SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, STATUS, QYBM, SSDW, SSBM
 		from DS_EP_USER where 1=1
 		<if test="account == null"> and EMAIL=#{email} </if>
 		<if test="email == null"> and ACCOUNT=#{account} </if>
 	</select>
+	
+	<update id="updateAuthPassword">
+		update DS_EP_USER set PASSWORD=#{password} where ACCOUNT=#{account}
+	</update>
 
 </mapper>

@@ -14,12 +14,12 @@ public class AuthService
 {
 	@Autowired
 	private AuthDao dao;
-	
+
 	public Auth getByAccount(String account)
 	{
 		return dao.getByAccount(account);
 	}
-	
+
 	public List<Auth> queryListAuth(String account, String email)
 	{
 		account = (account == null || account.length() == 0) ? null : account;
@@ -29,5 +29,10 @@ public class AuthService
 			return new ArrayList<Auth>();
 		}
 		return dao.queryListAuth(account, email);
+	}
+
+	public int updateAuthPassword(String account, String password)
+	{
+		return dao.updateAuthPassword(account, password);
 	}
 }

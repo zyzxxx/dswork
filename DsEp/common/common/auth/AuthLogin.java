@@ -36,7 +36,7 @@ public class AuthLogin
 		//this.response = response;
 	}
 
-	private boolean isValidCode(String validCode)
+	private boolean isCode(String authcode)
 	{
 		boolean re = true;
 		String randcode = (String) this.request.getSession().getAttribute(MyAuthCodeServlet.SessionName_Randcode);
@@ -45,7 +45,7 @@ public class AuthLogin
 			this.msg = "验证码已过期!";
 			re = false;
 		}
-		else if(!randcode.toLowerCase().equals(validCode.toLowerCase()))
+		else if(!randcode.toLowerCase().equals(authcode.toLowerCase()))
 		{
 			this.msg = "验证码输入错误,请重新输入!";
 			re = false;
@@ -63,7 +63,7 @@ public class AuthLogin
 	 */
 	public boolean login(String account, String password, String validCode)
 	{
-		if(!this.isValidCode(validCode))
+		if(!this.isCode(validCode))
 		{
 			return false;
 		}
@@ -93,20 +93,21 @@ public class AuthLogin
 	 * 登出
 	 * @param request HttpServletRequest
 	 */
-	public static void loginOut(HttpServletRequest request)
+	public static void logout(HttpServletRequest request)
 	{
 		request.getSession().setAttribute(SessionName_LoginUser, null);
 	}
 
 	/**
 	 * 找回密码
-	 * @param keyvalue 用户/邮箱
+	 * @param account 账号
+	 * @param email 邮箱
 	 * @param validCode 验证码
 	 * @return boolean
 	 */
 	public boolean logpwd(String account, String email, String validCode)
 	{
-		if(!this.isValidCode(validCode))
+		if(!this.isCode(validCode))
 		{
 			return false;
 		}
@@ -118,18 +119,43 @@ public class AuthLogin
 				this.msg = "找不到相关的用户！";
 				return false;
 			}
-			// 一般一个邮箱很少用超过100次
-			if(authList.size() < 100)
+			// 邮箱查询如果超出5次
+			if(authList.size() < 5)
 			{
 				for(Auth m : authList)
 				{
 					System.out.println(m.getAccount() + " : " + m.getEmail());
-					
-					
-					
-					
+					String code = String.valueOf(AuthPassport.addAccount(m.getAccount()));
+					String msg = "此验证码有限期为30分钟<br />您需要找回密码的账号是：" + m.getAccount() + "<br />" + "你的账号验证码是：" + code;
+					common.email.EmailUtil.send(null, null, null, m.getEmail(), "", "", "找回密码", common.email.EmailUtil.createMimeMultipart(msg));
 				}
 			}
+			return true;
+		}
+		catch(Exception ex)
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * 重置密码
+	 * @param keyvalue 账号
+	 * @param password 密码
+	 * @param code 账号验证码
+	 * @return boolean
+	 */
+	public boolean logpassword(String account, String password, String code)
+	{
+		String check = AuthPassport.getAccount(code);
+		if(!check.equals(account.toLowerCase()))
+		{
+			return false;
+		}
+		try
+		{
+			password = EncryptUtil.encryptMd5(password).toLowerCase();
+			((AuthService)BeanFactory.getBean("authService")).updateAuthPassword(account, password);
 			return true;
 		}
 		catch(Exception ex)
