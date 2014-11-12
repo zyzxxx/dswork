@@ -1,0 +1,24 @@
+html,body{height:100%;border:0;padding:0px;margin:0px;}
+body{font-family:"Microsoft Yahei", "微软雅黑", "宋体", Arial, STHeiti, Tahoma, Helvetica;}
+body,div,p,select,span,tr,td,a,input,textarea{font-size:14px;font-family:"Microsoft Yahei", "微软雅黑", "宋体", Arial, STHeiti, Tahoma, Helvetica;}
+.ds {display:block;border:none;padding:0;margin:0;
+	width:100%;height:45px;line-height:45px;
+	background-color:#1e1d27;
+	text-align:center;
+	color:#ffffff;font-size:14px;
+}
+.ds a{text-decoration:none;font-size:14px;}
+.ds a:link{color:#ffffff;}
+.ds a:visited{color:#ffffff;}
+.ds a:hover{color:#2aa8e2;}
+.ds a:active{color:#ffffff;}
+
+.ds_top {position:fixed;left:0;top:0;}
+.ds_bottom {position:fixed;left:0;bottom:0;}
+
+.ds_copyright {color:#8f97a6;font-size:12px;}
+.ds_copyright a{text-decoration:none;font-size:12px;}
+.ds_copyright a:link{color:#8f97a6;}
+.ds_copyright a:visited{color:#8f97a6;}
+.ds_copyright a:hover{color:#fff;}
+.ds_copyright a:active{color:#8f97a6;}

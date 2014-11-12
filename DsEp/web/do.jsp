@@ -9,7 +9,6 @@ if(v.equals("1"))
 	auth.setName("系统管理");
 	auth.setQybm("100000");
 	auth.setStatus(-1);
-	auth.setSex(1);
 }
 else if(v.equals("2"))
 {
@@ -18,7 +17,6 @@ else if(v.equals("2"))
 	auth.setName("企业管理");
 	auth.setQybm("100000");
 	auth.setStatus(0);
-	auth.setSex(1);
 }
 else
 {
@@ -27,7 +25,6 @@ else
 	auth.setName("普通用户");
 	auth.setQybm("111111");
 	auth.setStatus(1);
-	auth.setSex(0);
 }
 auth.setSsdw("银江股份有限公司");
 auth.setSsbm("技术部");

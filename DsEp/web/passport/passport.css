@@ -1,0 +1,17 @@
+html,body{height:100%;margin:0px auto;}*{padding:0px;}
+div, input, label, span {font-size:18px;font-family:"Microsoft Yahei", "微软雅黑", "宋体", Arial, STHeiti, Tahoma, Helvetica;}
+a {color:#0000ff;font-size:12px;font-weight:normal;line-height:40px;font-family:Arial;}
+div{line-height:30px;}
+label{float:left;overflow:hidden;padding:0px 5px 0px 0px;text-align:right;width:100px;}
+span {color:#ff0000;font-size:14px;}
+input{width:250px;font-size:16px;height:30px;line-height:30px;border:#bac7d2 solid 1px;vertical-align:middle;background-color:#f9f9f9;}
+
+.content{margin:0px auto;position:relative;width:1000px;height:473px;overflow:hidden;}
+.title{color:#184760;width:100%;font-size:30px;text-align:center;padding:50px 0px;}
+.login{margin:0px auto;width:600px;height:300px;overflow:hidden;}
+.loginborder {border:#ccc solid 1px;border-radius:20px 0px;}
+
+.box {overflow:hidden;padding:0px 0px 15px 50px;text-align:left;color:#666;}
+.boxc{overflow:hidden;padding:0px 0px 15px 0px;text-align:center;color:#666;width:100%;}
+.code{width:120px;height:35px;line-height:35px;}
+.button{margin:0px auto;width:120px;height:40px;line-height:40px;cursor:pointer;}

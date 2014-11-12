@@ -8,10 +8,10 @@ public class Auth
 	private String password;
 	private String name;
 	private String email;
-	private Integer status;// -1后台用户，0企业管理员，1企业普通用户
-	private String qybm;
-	private String ssdw;
-	private String ssbm;
+	private Integer usertype;// -1后台用户，0企业管理员，1企业普通用户
+	private String qybm;//企业编码，后台用户为空
+	private String ssdw;//所属单位
+	private String ssbm;//所属部门
 
 	public Long getId()
 	{
@@ -63,14 +63,14 @@ public class Auth
 		this.email = email;
 	}
 
-	public Integer getStatus()
+	public Integer getUsertype()
 	{
-		return status;
+		return usertype;
 	}
 
-	public void setStatus(Integer status)
+	public void setUsertype(Integer usertype)
 	{
-		this.status = status;
+		this.usertype = usertype;
 	}
 
 	public String getQybm()
@@ -105,11 +105,11 @@ public class Auth
 
 	public boolean isUser()
 	{
-		return getStatus().intValue() != 1;
+		return getUsertype().intValue() != 1;
 	}
 
 	public boolean isAdmin()
 	{
-		return getStatus().intValue() == 1;
+		return getUsertype().intValue() == 1;
 	}
 }

@@ -5,8 +5,9 @@
 <%
 String path = request.getContextPath();
 MyRequest req = new MyRequest(request);
-String keyvalue = req.getString("keyvalue");
-String authcode = req.getString("authcode");
+String account = req.getString("account");
+String code = req.getString("code");
+String password = req.getString("password");
 AuthLogin login = new AuthLogin(pageContext);
 String account = null;
 String email = null; 
@@ -18,7 +19,7 @@ else
 {
 	account = keyvalue;
 }
-if(login.logpassword(account, email, authcode))
+if(login.logpassword(account, password, code))
 {
 	%>alert("确认邮件已发送到您的邮箱");location.href="login.html";<%
 }

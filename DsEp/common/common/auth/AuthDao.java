@@ -3,6 +3,7 @@
  */
 package common.auth;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,25 +21,56 @@ public class AuthDao extends MyBatisDao
 	{
 		return Auth.class;
 	}
-	
+
+	////////////////////////////
+	//管理相关
+	////////////////////////////
 	public Auth getByAccount(String account)
 	{
 		return (Auth)executeSelect("getByAccount", account);
 	}
-	
-	public List<Auth> queryListAuth(String account, String email)
+
+	////////////////////////////
+	//企业相关
+	////////////////////////////
+	public Auth getEpByAccount(String account)
+	{
+		return (Auth)executeSelect("getEpByAccount", account);
+	}
+	public List<Auth> queryEpList(String account, String email)
 	{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("account", account);
 		map.put("email", email);
-		return executeSelectList("queryListAuth", map);
+		return executeSelectList("queryEpList", map);
 	}
-	
-	public int updateAuthPassword(String account, String password)
+	public int updateEpPassword(String account, String password)
 	{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("account", account);
 		map.put("password", password);
-		return executeUpdate("updateAuthPassword", map);
+		return executeUpdate("updateEpPassword", map);
+	}
+
+	////////////////////////////
+	//个人相关
+	////////////////////////////
+	public Auth getPersonByAccount(String account)
+	{
+		return (Auth)executeSelect("getPersonByAccount", account);
+	}
+	public List<Auth> queryPersonList(String account, String email)
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("account", account);
+		map.put("email", email);
+		return executeSelectList("queryPersonList", map);
+	}
+	public int updatePersonPassword(String account, String password)
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("account", account);
+		map.put("password", password);
+		return executeUpdate("updatePersonPassword", map);
 	}
 }

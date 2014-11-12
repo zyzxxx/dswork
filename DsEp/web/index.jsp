@@ -4,7 +4,7 @@ String path = request.getContextPath();
 Auth model = AuthLogin.getLoginUser(request, response);
 if(model == null)
 {
-	out.println("<script>top.location.href='" + path + "/login.jsp';</script>");
+	out.println("<script>top.location.href='" + path + "/login.html';</script>");
 	return;
 }
 %>

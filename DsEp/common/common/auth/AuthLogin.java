@@ -113,7 +113,7 @@ public class AuthLogin
 		}
 		try
 		{
-			List<Auth> authList = ((AuthService)BeanFactory.getBean("authService")).queryListAuth(account, email);
+			List<Auth> authList = ((AuthService)BeanFactory.getBean("authService")).queryEpList(account, email);
 			if(authList.size() == 0)
 			{
 				this.msg = "找不到相关的用户！";
@@ -155,7 +155,7 @@ public class AuthLogin
 		try
 		{
 			password = EncryptUtil.encryptMd5(password).toLowerCase();
-			((AuthService)BeanFactory.getBean("authService")).updateAuthPassword(account, password);
+			((AuthService)BeanFactory.getBean("authService")).updateEpPassword(account, password);
 			return true;
 		}
 		catch(Exception ex)
