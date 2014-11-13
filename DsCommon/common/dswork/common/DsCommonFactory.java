@@ -8,8 +8,14 @@ import dswork.spring.BeanFactory;
 
 public class DsCommonFactory
 {
-	private static DsCommonDao getDao(){return (DsCommonDao) BeanFactory.getBean("dsCommonDao");}
-	private static DsCommonDao dao = getDao();
+	private static DsCommonDao dao;
+	private static void init()
+	{
+		if(dao == null)
+		{
+			dao = (DsCommonDao) BeanFactory.getBean("dsCommonDao");
+		}
+	}
 
 	public static String getSelect(String name, String selectName)
 	{
@@ -25,6 +31,7 @@ public class DsCommonFactory
 	}
 	public static String getOption(String name, String parentAlias)
 	{
+		init();
 		List<IDict> list = dao.queryListDict(name, parentAlias);
 		StringBuilder sb = new StringBuilder();
 		for(IDict dict : list)
@@ -35,6 +42,7 @@ public class DsCommonFactory
 	}
 	public static String getCheckbox(String name, String checkboxName)
 	{
+		init();
 		List<IDict> list = dao.queryListDict(name, "");
 		StringBuilder sb = new StringBuilder();
 		IDict dict;
@@ -48,6 +56,7 @@ public class DsCommonFactory
 	}
 	public static String getRadio(String name, String radioName)
 	{
+		init();
 		List<IDict> list = dao.queryListDict(name, "");
 		StringBuilder sb = new StringBuilder();
 		IDict dict;
@@ -68,6 +77,7 @@ public class DsCommonFactory
 	 */
 	public static String getDictJson(String name, String parentAlias)
 	{
+		init();
 		return dao.queryListDict(name, parentAlias).toString();
 	}
 	
@@ -79,6 +89,7 @@ public class DsCommonFactory
 	 */
 	public static String getOrgJson(Long pid, Integer status)
 	{
+		init();
 		return dao.queryListOrg(pid, status).toString();
 	}
 }
