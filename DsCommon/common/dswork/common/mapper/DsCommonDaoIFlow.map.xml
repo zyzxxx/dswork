@@ -5,63 +5,6 @@
 
 <mapper namespace="dswork.common.dao.DsCommonDao">
 
-<resultMap id="resultDict" type="dswork.common.model.IDict">
-	<result property="label" column="LABEL" />
-	<result property="alias" column="ALIAS" />
-	<result property="status" column="STATUS" />
-</resultMap>
-<select id="queryDict" resultMap="resultDict">
-	select a.LABEL, a.ALIAS, a.STATUS from DS_COMMON_DICT_DATA a
-	<if test="@Ognl@isNotEmpty(alias)">
-		left join DS_COMMON_DICT_DATA b on a.PID=b.ID
-		where a.NAME=#{name} and b.ALIAS=#{alias} 
-	</if>
-	<if test="@Ognl@isEmpty(alias)"> 
-		where a.NAME=#{name} <if test="alias!=null"> and a.PID is null </if>
-	</if>
-	order by a.SEQ, a.ALIAS
-</select>
-
-
-<resultMap id="resultOrg" type="dswork.common.model.IOrg">
-	<id property="id" column="ID" />
-	<result property="pid" column="PID" />
-	<result property="name" column="NAME" />
-	<result property="status" column="STATUS" />
-</resultMap>
-<select id="queryOrg" resultMap="resultOrg">
-	select ID, PID, NAME, STATUS from DS_COMMON_ORG
-	<where>
-		<if test="@Ognl@isNotEmpty(pid)">
-			<if test="0 &lt; pid"> and PID=#{pid} </if>
-			<if test="0 &gt;= pid"> and PID is null </if>
-		</if>
-		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-	</where>
-	order by STATUS desc, SEQ asc
-</select>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <resultMap id="resultFlow" type="dswork.common.model.IFlow">
 	<id property="id" column="ID" />
 	<result property="deployid" column="DEPLOYID" />
