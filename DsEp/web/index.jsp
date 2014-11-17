@@ -22,7 +22,7 @@ var treedata = [
 ]}
 ,{id:200, name:'基础数据', img:"", imgOpen:"", url:"", items:[
 	 {id:201,name:'企业管理', img:"", imgOpen:"", url:'/ep/enterprise/getEnterprise.htm', items:[]}
-	,{id:202,name:'用户管理', img:"", imgOpen:"", url:'/ep/user/getUser.htm', items:[]}
+	,{id:202,name:'企业用户管理', img:"", imgOpen:"", url:'/ep/user/getUser.htm', items:[]}
 ]}
 ];
 </script>
