@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page import="dswork.common.DsCommonFactory"%>
+<%@page import="dswork.common.DsFactory"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,15 +72,15 @@ $(function(){
 &nbsp;<span><select id="v2"></select></span>
 &nbsp;<span><select id="v3"></select></span> 
 <br />******************************<br />
-<span><%=DsCommonFactory.getCheckbox("SSXQ", "chk_hello") %></span>
+<span><%=DsFactory.getDict().getCheckbox("SSXQ", "chk_hello") %></span>
 <br />******************************<br />
-<span><%=DsCommonFactory.getRadio("SSXQ", "rdo_hello") %></span>
+<span><%=DsFactory.getDict().getRadio("SSXQ", "rdo_hello") %></span>
 <br />******************************<br />
-<span><%=DsCommonFactory.getSelect("SSXQ", "sel_hello") %></span>
+<span><%=DsFactory.getDict().getSelect("SSXQ", "sel_hello") %></span>
 <br />******************************<br />
-<span><select id="news" name="news"><option value="">其他</option><%=DsCommonFactory.getOption("SSXQ", "440100") %></select></span>
+<span><select id="news" name="news"><option value="">其他</option><%=DsFactory.getDict().getOption("SSXQ", "440100") %></select></span>
 <br />******************************<br />
-<%=DsCommonFactory.getDictJson("SSXQ", "") %>
+<%=DsFactory.getDict().getDictJson("SSXQ", "") %>
 <br />******************************<br />
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
