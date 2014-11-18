@@ -7,7 +7,8 @@ import java.util.TimerTask;
 
 public class AuthPassport
 {
-	private static Map<Long, String> map = new HashMap<Long, String>();
+	private static Map<Long, String> mapEp = new HashMap<Long, String>();
+	private static Map<Long, String> mapPerson = new HashMap<Long, String>();
 	private static Timer _timer = null;
 	
 	static
@@ -19,15 +20,26 @@ public class AuthPassport
 				System.out.println("--清理找回密码任务启动。--");
 				try
 				{
-					if(map.size() > 0)
+					long now = java.util.Calendar.getInstance().getTimeInMillis();//取得当前时间
+					if(mapEp.size() > 0)
 					{
-						long now = java.util.Calendar.getInstance().getTimeInMillis();//取得当前时间
 						//清空超时的记录
-						for(Map.Entry<Long, String> entry: map.entrySet())
+						for(Map.Entry<Long, String> entry: mapEp.entrySet())
 						{
 							if(entry.getKey() < now)
 							{
-								map.put(entry.getKey(), null);
+								mapEp.put(entry.getKey(), null);
+							}
+						}
+					}
+					if(mapPerson.size() > 0)
+					{
+						//清空超时的记录
+						for(Map.Entry<Long, String> entry: mapPerson.entrySet())
+						{
+							if(entry.getKey() < now)
+							{
+								mapPerson.put(entry.getKey(), null);
 							}
 						}
 					}
@@ -43,21 +55,36 @@ public class AuthPassport
 		System.out.println("--清理找回密码任务执行间隔3600000毫秒。--");
 	}
 	
-	public static Long addAccount(String account)
+	public static String addAccountEp(String account)
 	{
 		Long code = java.util.Calendar.getInstance().getTimeInMillis() + 1800000;
-		map.put(code, account.toLowerCase());
-		return code;
+		mapEp.put(code, account.toLowerCase());
+		return "ep" + code;
 	}
-	
-	public static String getAccount(String code)
+	public static String getAccountEp(String code)
 	{
-		String account = map.get(code);
+		String account = mapEp.get(code);
 		return account == null ? "" : account;
 	}
-	public static void clearAccount(Long code)
+	public static void clearAccountEp(Long code)
 	{
-		map.put(code, null);
+		mapEp.put(code, null);
+	}
+	
+	public static String addAccountPerson(String account)
+	{
+		Long code = java.util.Calendar.getInstance().getTimeInMillis() + 1800000;
+		mapPerson.put(code, account.toLowerCase());
+		return "" + code;
+	}
+	public static String getAccountPerson(String code)
+	{
+		String account = mapPerson.get(code);
+		return account == null ? "" : account;
+	}
+	public static void clearAccountPerson(Long code)
+	{
+		mapPerson.put(code, null);
 	}
 	
 

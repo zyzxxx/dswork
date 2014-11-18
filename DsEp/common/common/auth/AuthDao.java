@@ -62,11 +62,12 @@ public class AuthDao extends MyBatisDao
 		map.put("idcard", account==null?String.valueOf(idcard):null);
 		return (Auth)executeSelect("getPersonByAccount", account);
 	}
-	public List<Auth> queryPersonList(String account, String email)
+	public List<Auth> queryPersonList(String account, String idcard, String email)
 	{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("account", account!=null?account:null);
-		map.put("email", account==null?String.valueOf(email):null);
+		map.put("idcard", idcard!=null?idcard:null);
+		map.put("email", account==null && idcard == null?String.valueOf(email):null);
 		return executeSelectList("queryPersonList", map);
 	}
 	public int updatePersonPassword(String account, String password)

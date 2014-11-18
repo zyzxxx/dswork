@@ -76,7 +76,23 @@ public class AuthService
 		{
 			return new ArrayList<Auth>();
 		}
-		return dao.queryPersonList(account, email);
+		String idcard = null;
+		if(account != null && account.length() == 18)
+		{
+			try
+			{
+				int i = Integer.parseInt(account.charAt(0) + "");
+				if(i > 0 )
+				{
+					idcard = account;
+					account = null;
+				}
+			}
+			catch(Exception e)
+			{
+			}
+		}
+		return dao.queryPersonList(account, idcard, email);
 	}
 
 	public int updatePersonPassword(String account, String password)

@@ -8,7 +8,7 @@ public class Auth
 	private String password;
 	private String name;
 	private String email;
-	private Integer usertype;// -1后台用户，0企业管理员，1企业普通用户
+	private Integer logintype;// -1后台用户，0企业管理员，1个人用户
 	private String qybm;//企业编码，后台用户为空
 	private String ssdw;//所属单位
 	private String ssbm;//所属部门
@@ -63,14 +63,14 @@ public class Auth
 		this.email = email;
 	}
 
-	public Integer getUsertype()
+	public Integer getLogintype()
 	{
-		return usertype;
+		return logintype;
 	}
 
-	public void setUsertype(Integer usertype)
+	public void setLogintype(Integer logintype)
 	{
-		this.usertype = usertype;
+		this.logintype = logintype;
 	}
 
 	public String getQybm()
@@ -105,11 +105,16 @@ public class Auth
 
 	public boolean isUser()
 	{
-		return getUsertype().intValue() != 1;
+		return getLogintype().intValue() == 1;
+	}
+
+	public boolean isEnterprise()
+	{
+		return getLogintype().intValue() == 0;
 	}
 
 	public boolean isAdmin()
 	{
-		return getUsertype().intValue() == 1;
+		return getLogintype().intValue() == -1;
 	}
 }

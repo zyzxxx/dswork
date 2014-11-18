@@ -102,10 +102,11 @@ public class AuthLogin
 	 * 找回密码
 	 * @param account 账号
 	 * @param email 邮箱
+	 * @param usertype 用户类型
 	 * @param validCode 验证码
 	 * @return boolean
 	 */
-	public boolean logpwd(String account, String email, String validCode)
+	public boolean logpwd(String account, String email, int usertype, String validCode)
 	{
 		if(!this.isCode(validCode))
 		{
@@ -125,7 +126,7 @@ public class AuthLogin
 				for(Auth m : authList)
 				{
 					System.out.println(m.getAccount() + " : " + m.getEmail());
-					String code = String.valueOf(AuthPassport.addAccount(m.getAccount()));
+					String code = (usertype == 0)?AuthPassport.addAccountEp(m.getAccount()):AuthPassport.addAccountPerson(m.getAccount());
 					String msg = "此验证码有限期为30分钟<br />您需要找回密码的账号是：" + m.getAccount() + "<br />" + "你的账号验证码是：" + code;
 					common.email.EmailUtil.send(null, null, null, m.getEmail(), "", "", "找回密码", common.email.EmailUtil.createMimeMultipart(msg));
 				}
@@ -147,20 +148,42 @@ public class AuthLogin
 	 */
 	public boolean logpassword(String account, String password, String code)
 	{
-		String check = AuthPassport.getAccount(code);
-		if(!check.equals(account.toLowerCase()))
+		boolean isEp = String.valueOf(code).startsWith("ep");
+		if(isEp)
 		{
-			return false;
+			String check = AuthPassport.getAccountEp(code.substring(2));
+			if(!check.equals(account.toLowerCase()))
+			{
+				return false;
+			}
+			try
+			{
+				password = EncryptUtil.encryptMd5(password).toLowerCase();
+				((AuthService)BeanFactory.getBean("authService")).updateEpPassword(account, password);
+				return true;
+			}
+			catch(Exception ex)
+			{
+				return false;
+			}
 		}
-		try
+		else
 		{
-			password = EncryptUtil.encryptMd5(password).toLowerCase();
-			((AuthService)BeanFactory.getBean("authService")).updateEpPassword(account, password);
-			return true;
-		}
-		catch(Exception ex)
-		{
-			return false;
+			String check = AuthPassport.getAccountPerson(code);
+			if(!check.equals(account.toLowerCase()))
+			{
+				return false;
+			}
+			try
+			{
+				password = EncryptUtil.encryptMd5(password).toLowerCase();
+				((AuthService)BeanFactory.getBean("authService")).updatePersonPassword(account, password);
+				return true;
+			}
+			catch(Exception ex)
+			{
+				return false;
+			}
 		}
 	}
 
