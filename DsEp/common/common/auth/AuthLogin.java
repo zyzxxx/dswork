@@ -58,10 +58,11 @@ public class AuthLogin
 	 * 登入
 	 * @param account 用户帐号
 	 * @param password 密码
+	 * @param logintype 用户类型
 	 * @param validCode 验证码
 	 * @return boolean
 	 */
-	public boolean login(String account, String password, String validCode)
+	public boolean login(String account, String password, int logintype, String validCode)
 	{
 		if(!this.isCode(validCode))
 		{
@@ -69,7 +70,19 @@ public class AuthLogin
 		}
 		try
 		{
-			Auth loginUser = ((AuthService)BeanFactory.getBean("authService")).getByAccount(account);
+			Auth loginUser = null;
+			if(logintype == -1)
+			{
+				loginUser = ((AuthService)BeanFactory.getBean("authService")).getByAccount(account);
+			}
+			else if(logintype == 0)
+			{
+				loginUser = ((AuthService)BeanFactory.getBean("authService")).getEpByAccount(account);
+			}
+			else if(logintype == 1)
+			{
+				loginUser = ((AuthService)BeanFactory.getBean("authService")).getPersonByAccount(account);
+			}
 			if(loginUser != null)
 			{
 				password = EncryptUtil.decodeDes(password, "dswork");

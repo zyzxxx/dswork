@@ -4,14 +4,36 @@ MyRequest req = new MyRequest(request);
 String account = req.getString("account");
 String password = req.getString("password");
 String authcode = req.getString("authcode");
+int logintype = req.getInt("logintype", -1);
 AuthLogin login = new AuthLogin(pageContext);
-if(login.login(account, password, authcode))
+String s = "about:blank", m = "";
+if(logintype > -2 && logintype < 2)
 {
-	response.sendRedirect("manage/frame/index.html");
+	if(login.login(account, password, logintype, authcode))
+	{
+		response.sendRedirect("manage/frame/index.html");
+	}
+	if(logintype == 0)
+	{
+		s = "loginEp.html";
+	}
+	else if(logintype == 1)
+	{
+		s = "loginPerson.html";
+	}
+	else// if(logintype == -1)
+	{
+		s = "login.html";
+	}
+	m = login.getMsg();
+}
+else
+{
+	m = "非法访问";
 }
 %>
 <!DOCTYPE html>
 <html>
-<head><script type="text/javascript">alert("<%=login.getMsg() %>");location.href="login.html";</script></head>
+<head><script type="text/javascript">alert("<%=m %>");location.href="<%=s%>";</script></head>
 <body></body>
 </html>

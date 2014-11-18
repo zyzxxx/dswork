@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<link rel="stylesheet" href="passport.css" />
+<script type="text/javascript" src="passport.js"></script>
+<script type="text/javascript">
+var m = [
+	{id:"account",s:"v1",v:"账号\/身份证\/邮箱不能为空",c:/\S+/}
+	,{id:"authcode",s:"v2",v:"验证码输入错误",c:/[^\s]{4}/}
+];
+</script>
+</head>
+<body onload="$('account').focus();">
+<div class="content">
+  <div class="title">找回密码</div>
+  <form id="v" action="pwdAction.jsp" method="post">
+  <div class="login">
+	<div class="box">
+		<label>&nbsp;</label>请输入您的账号/身份证/邮箱<br />
+		<label>&nbsp;</label><input type="text" placeholder="账号/身份证/邮箱" title="账号/身份证/邮箱" id="account" name="account" value="" />
+		<span id="v1"></span>
+	</div>
+	<div class="box">
+		<label>&nbsp;</label><input type="text" placeholder="验证码" id="authcode" name="authcode" maxlength="4" class="code" value="" />
+		<img src='../ValidCode?width=90&height=38' style="cursor:pointer;vertical-align:middle;" onclick="this.src='./ValidCode?width=90&height=38&id=' + Math.random();" />
+		<span id="v2"></span>
+	</div>
+	<div class="boxc">
+		<input type="button" class="button" style="background-color:#00a0f0;color:#fff;" value="提交" onclick="doclick()" />
+	</div>
+  </div>
+  </form>
+</div>
+<div style="margin:0px auto;border-top:solid #ccc 1px;width:1000px;color:#333;text-align:center;font-size:12px;font-weight:normal;line-height:40px;font-family:Arial;">
+	Copyright &copy; 2014 skey_chen@163.com
+	&nbsp;&nbsp;<a href="../loginPerson.html">登录</a>
+	&nbsp;&nbsp;<a target="_blank" href="password.html">重置密码</a>
+</div>
+</body>
+<script type="text/javascript">init();</script>
+</html>

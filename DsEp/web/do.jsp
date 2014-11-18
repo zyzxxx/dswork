@@ -4,11 +4,11 @@ String v = String.valueOf(request.getParameter("v"));
 common.auth.Auth auth = new common.auth.Auth();
 if(v.equals("-1"))
 {
-	auth.setId(1L);
+	auth.setId(100000000L);
 	auth.setAccount("admin");
 	auth.setName("系统管理");
-	auth.setQybm("100000");
-	auth.setUsertype(-1);
+	auth.setQybm("000000");
+	auth.setLogintype(-1);
 }
 else if(v.equals("0"))
 {
@@ -16,7 +16,7 @@ else if(v.equals("0"))
 	auth.setAccount("useradmin");
 	auth.setName("企业管理");
 	auth.setQybm("100000");
-	auth.setUsertype(0);
+	auth.setLogintype(0);
 }
 else
 {
@@ -24,7 +24,7 @@ else
 	auth.setAccount("user");
 	auth.setName("个人用户");
 	auth.setQybm("111111");
-	auth.setUsertype(1);
+	auth.setLogintype(1);
 }
 auth.setSsdw("银江股份有限公司");
 auth.setSsbm("技术部");

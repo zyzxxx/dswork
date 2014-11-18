@@ -21,11 +21,25 @@ else
 }
 if(login.logpassword(account, password, code))
 {
-	%>alert("确认邮件已发送到您的邮箱");location.href="login.html";<%
+	if(code.startsWith("ep"))
+	{
+		%>alert("确认邮件已发送到您的邮箱");location.href="../loginEp.html";<%
+	}
+	else
+	{
+		%>alert("确认邮件已发送到您的邮箱");location.href="../loginPerson.html";<%
+	}
 }
 else
 {
-	%>alert("<%=login.getMsg() %>");location.href="logpwd.html";<%
+	if(code.startsWith("ep"))
+	{
+		%>alert("<%=login.getMsg() %>");location.href="pwdEp.html";<%
+	}
+	else
+	{
+		%>alert("<%=login.getMsg() %>");location.href="pwdPerson.html";<%
+	}
 }
 %>
 </script></head>
