@@ -5,7 +5,7 @@
 <%
 String path = request.getContextPath();
 MyRequest req = new MyRequest(request);
-String account = req.getString("account");
+String keyvalue = req.getString("account");
 String code = req.getString("code");
 String password = req.getString("password");
 AuthLogin login = new AuthLogin(pageContext);
