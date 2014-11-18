@@ -1,4 +1,4 @@
-package dswork.android.lib.util;
+package dswork.android.lib.core.util;
 
 import dswork.android.lib.core.R;
 import android.content.Context;

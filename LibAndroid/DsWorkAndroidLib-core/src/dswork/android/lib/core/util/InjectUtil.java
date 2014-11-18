@@ -1,4 +1,4 @@
-package dswork.android.lib.util;
+package dswork.android.lib.core.util;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

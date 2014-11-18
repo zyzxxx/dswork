@@ -1,4 +1,4 @@
-package dswork.android.lib.util;
+package dswork.android.lib.core.util;
 
 import android.annotation.SuppressLint;
 import android.os.StrictMode;

@@ -1,10 +1,10 @@
-package dswork.android.lib.ui.MultiCheck;
+package dswork.android.lib.core.ui.MultiCheck;
 
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import dswork.android.lib.ui.MultiCheck.MultiCheckListView.MultiCheckActionModeListener;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.MultiCheckActionModeListener;
 
 public class MultiCheckActionMode implements ActionMode.Callback 
 {

@@ -1,4 +1,4 @@
-package dswork.android.lib.util.webutil;
+package dswork.android.lib.core.util.webutil;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package dswork.android.lib.util;
+package dswork.android.lib.core.util;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

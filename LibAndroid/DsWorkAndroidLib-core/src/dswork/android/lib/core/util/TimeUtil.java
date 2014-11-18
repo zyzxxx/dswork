@@ -1,4 +1,4 @@
-package dswork.android.lib.util;
+package dswork.android.lib.core.util;
 
 import java.text.DateFormat;
 import java.text.ParsePosition;

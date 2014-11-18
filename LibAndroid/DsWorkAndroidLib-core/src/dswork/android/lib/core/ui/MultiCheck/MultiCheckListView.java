@@ -1,4 +1,4 @@
-package dswork.android.lib.ui.MultiCheck;
+package dswork.android.lib.core.ui.MultiCheck;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import dswork.android.lib.core.R;
-import dswork.android.lib.db.BaseModel;
+import dswork.android.lib.core.db.BaseModel;
 
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class MultiCheckListView extends ListView 

@@ -1,4 +1,4 @@
-package dswork.android.lib.db;
+package dswork.android.lib.core.db;
 
 public abstract class BaseModel 
 {

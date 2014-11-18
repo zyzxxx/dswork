@@ -1,4 +1,4 @@
-package dswork.android.lib.ui;
+package dswork.android.lib.core.ui;
 
 import android.content.Context;
 import android.graphics.Color;

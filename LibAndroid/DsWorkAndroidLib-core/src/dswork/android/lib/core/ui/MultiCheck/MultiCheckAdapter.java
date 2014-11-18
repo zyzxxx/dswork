@@ -1,4 +1,4 @@
-package dswork.android.lib.ui.MultiCheck;
+package dswork.android.lib.core.ui.MultiCheck;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -15,8 +15,8 @@ import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import dswork.android.lib.core.R;
-import dswork.android.lib.db.BaseModel;
-import dswork.android.lib.ui.MultiCheck.MultiCheckListView.ViewCache;
+import dswork.android.lib.core.db.BaseModel;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.ViewCache;
 
 public class MultiCheckAdapter extends BaseAdapter 
 {

@@ -1,4 +1,4 @@
-package dswork.android.lib.db;
+package dswork.android.lib.core.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

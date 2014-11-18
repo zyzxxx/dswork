@@ -1,4 +1,4 @@
-package dswork.android.lib.db;
+package dswork.android.lib.core.db;
 
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
@@ -12,7 +12,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import dswork.android.lib.util.SqlUtil;
+import dswork.android.lib.core.util.SqlUtil;
 
 public abstract class BaseDao<T, PK extends Serializable>
 {

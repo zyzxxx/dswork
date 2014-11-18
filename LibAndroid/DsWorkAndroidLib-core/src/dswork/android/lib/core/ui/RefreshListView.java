@@ -1,4 +1,4 @@
-package dswork.android.lib.ui;
+package dswork.android.lib.core.ui;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

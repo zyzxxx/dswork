@@ -1,4 +1,4 @@
-package dswork.android.lib.util.webutil;
+package dswork.android.lib.core.util.webutil;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
