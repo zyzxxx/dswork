@@ -108,30 +108,51 @@ public class AuthLogin
 	 */
 	public boolean logpwd(String account, String email, int usertype, String validCode)
 	{
-		if(!this.isCode(validCode))
+		if(!this.isCode(validCode) && usertype < 0)
 		{
 			return false;
 		}
 		try
 		{
-			List<Auth> authList = ((AuthService)BeanFactory.getBean("authService")).queryEpList(account, email);
-			if(authList.size() == 0)
+			if(usertype == 0)
 			{
-				this.msg = "找不到相关的用户！";
-				return false;
-			}
-			// 邮箱查询如果超出5次
-			if(authList.size() < 5)
-			{
-				for(Auth m : authList)
+				List<Auth> authList = ((AuthService)BeanFactory.getBean("authService")).queryEpList(account, email);
+				if(authList.size() == 0)
 				{
-					System.out.println(m.getAccount() + " : " + m.getEmail());
-					String code = (usertype == 0)?AuthPassport.addAccountEp(m.getAccount()):AuthPassport.addAccountPerson(m.getAccount());
-					String msg = "此验证码有限期为30分钟<br />您需要找回密码的账号是：" + m.getAccount() + "<br />" + "你的账号验证码是：" + code;
-					common.email.EmailUtil.send(null, null, null, m.getEmail(), "", "", "找回密码", common.email.EmailUtil.createMimeMultipart(msg));
+					this.msg = "找不到相关的用户！";
+				}
+				else if(authList.size() < 11)// 邮箱查询如果超出10条数据
+				{
+					for(Auth m : authList)
+					{
+						System.out.println(m.getAccount() + " : " + m.getEmail());
+						String code = AuthPassport.addAccountEp(m.getAccount());
+						String msg = "此验证码有限期为30分钟<br />您需要找回密码的账号是：" + m.getAccount() + "<br />" + "你的账号验证码是：" + code;
+						common.email.EmailUtil.send(null, null, null, m.getEmail(), "", "", "找回密码", common.email.EmailUtil.createMimeMultipart(msg));
+					}
+					return true;
 				}
 			}
-			return true;
+			else if(usertype == 1)
+			{
+				List<Auth> authList = ((AuthService)BeanFactory.getBean("authService")).queryPersonList(account, email);
+				if(authList.size() == 0)
+				{
+					this.msg = "找不到相关的用户！";
+				}
+				else if(authList.size() < 11)// 邮箱查询如果超出10条数据
+				{
+					for(Auth m : authList)
+					{
+						System.out.println(m.getAccount() + " : " + m.getEmail());
+						String code = AuthPassport.addAccountPerson(m.getAccount());
+						String msg = "此验证码有限期为30分钟<br />您需要找回密码的账号是：" + m.getAccount() + "<br />" + "你的账号验证码是：" + code;
+						common.email.EmailUtil.send(null, null, null, m.getEmail(), "", "", "找回密码", common.email.EmailUtil.createMimeMultipart(msg));
+					}
+					return true;
+				}
+			}
+			return false;
 		}
 		catch(Exception ex)
 		{
