@@ -24,6 +24,7 @@ public class AuthService
 	{
 		return dao.getEpByAccount(account);
 	}
+
 	public List<Auth> queryEpList(String account, String email)
 	{
 		account = (account == null || account.length() == 0) ? null : account;
@@ -34,15 +35,39 @@ public class AuthService
 		}
 		return dao.queryEpList(account, email);
 	}
+
 	public int updateEpPassword(String account, String password)
 	{
 		return dao.updateEpPassword(account, password);
 	}
 
-	public Auth getPersonByAccount(String account)
+	public Auth getPersonByAccount(String key)
 	{
-		return dao.getPersonByAccount(account);
+		if(key == null || key.trim().length() == 0)
+		{
+			return null;
+		}
+		key = key.trim();
+		String account = null, idcard = null;
+		try
+		{
+			int i = Integer.parseInt(key.charAt(0) + "");
+			if(i > 0 && key.length() == 18)
+			{
+				idcard = key;
+			}
+			else
+			{
+				account = key;
+			}
+		}
+		catch(Exception e)
+		{
+			account = key;
+		}
+		return dao.getPersonByAccount(account, idcard);
 	}
+
 	public List<Auth> queryPersonList(String account, String email)
 	{
 		account = (account == null || account.length() == 0) ? null : account;
@@ -53,6 +78,7 @@ public class AuthService
 		}
 		return dao.queryPersonList(account, email);
 	}
+
 	public int updatePersonPassword(String account, String password)
 	{
 		return dao.updatePersonPassword(account, password);

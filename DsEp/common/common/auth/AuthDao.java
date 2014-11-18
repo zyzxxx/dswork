@@ -40,8 +40,8 @@ public class AuthDao extends MyBatisDao
 	public List<Auth> queryEpList(String account, String email)
 	{
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("account", account);
-		map.put("email", email);
+		map.put("account", account!=null?account:null);
+		map.put("email", account==null?String.valueOf(email):null);
 		return executeSelectList("queryEpList", map);
 	}
 	public int updateEpPassword(String account, String password)
@@ -55,15 +55,18 @@ public class AuthDao extends MyBatisDao
 	////////////////////////////
 	//个人相关
 	////////////////////////////
-	public Auth getPersonByAccount(String account)
+	public Auth getPersonByAccount(String account, String idcard)
 	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("account", account!=null?account:null);
+		map.put("idcard", account==null?String.valueOf(idcard):null);
 		return (Auth)executeSelect("getPersonByAccount", account);
 	}
 	public List<Auth> queryPersonList(String account, String email)
 	{
 		Map<String, String> map = new HashMap<String, String>();
-		map.put("account", account);
-		map.put("email", email);
+		map.put("account", account!=null?account:null);
+		map.put("email", account==null?String.valueOf(email):null);
 		return executeSelectList("queryPersonList", map);
 	}
 	public int updatePersonPassword(String account, String password)

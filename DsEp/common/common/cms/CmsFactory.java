@@ -16,12 +16,16 @@ import dswork.ep.dao.DsCmsDao;
 //@SuppressWarnings("all")
 public class CmsFactory
 {
-	private static DsCmsDao dao;
-	static
+	private static DsCmsDao dao = null;
+
+	private static void init()
 	{
-		dao = (DsCmsDao)dswork.spring.BeanFactory.getBean("dsCmsDao");
+		if(dao == null)
+		{
+			dao = (DsCmsDao)dswork.spring.BeanFactory.getBean("dsCmsDao");
+		}
 	}
-	private Long toLong(Object v)
+	private static Long toLong(Object v)
 	{
 		try
 		{
@@ -38,6 +42,7 @@ public class CmsFactory
 	{
 		try
 		{
+			init();
 			String tmp = String.valueOf(request.getParameter("siteid"));
 			siteid = toLong(tmp);
 			site = dao.getSite(siteid);
@@ -54,16 +59,19 @@ public class CmsFactory
 
 	public Map<String, Object> getCategory(Object categoryid)
 	{
+		init();
 		return dao.getCategory(siteid, toLong(categoryid));
 	}
 
 	public Map<String, Object> get(String pageid)
 	{
+		init();
 		return dao.get(siteid, toLong(pageid));
 	}
 
 	public List<Map<String, Object>> queryList(int currentPage, int size, boolean onlyImage, boolean onlyPage, boolean isDesc, Object... categoryids)
 	{
+		init();
 		StringBuilder idArray = new StringBuilder();
 		idArray.append("0");
 		for(int i = 0; i < categoryids.length; i++)
@@ -76,6 +84,7 @@ public class CmsFactory
 
 	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean onlyImage, boolean onlyPage, boolean isDesc, String url, Object categoryid)
 	{
+		init();
 		StringBuilder idArray = new StringBuilder();
 		idArray.append(toLong(categoryid));
 		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage);
@@ -93,6 +102,7 @@ public class CmsFactory
 
 	public List<Map<String, Object>> queryCategory(String categoryid)
 	{
+		init();
 		return dao.queryCategory(siteid, toLong(categoryid));
 	}
 }
