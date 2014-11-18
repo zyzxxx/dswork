@@ -9,7 +9,7 @@ import dswork.common.model.IFlowWaiting;
 import dswork.common.service.DsCommonService;
 import dswork.spring.BeanFactory;
 
-public class DsCommonFlowFactory
+public class DsCommonFactoryFlow
 {
 	private static DsCommonService service = null;
 
@@ -32,7 +32,7 @@ public class DsCommonFlowFactory
 	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例ID
 	 */
-	public static String start(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public String start(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		try
 		{
@@ -46,7 +46,7 @@ public class DsCommonFlowFactory
 		return "";
 	}
 	
-	public static void stop(String piid)
+	public void stop(String piid)
 	{
 		try
 		{
@@ -69,7 +69,7 @@ public class DsCommonFlowFactory
 	 * @param resultMsg 处理意见
 	 * @return true|false
 	 */
-	public static boolean process(long waitid, String[] nextTalias, String paccount, String pname, String resultType, String resultMsg)
+	public boolean process(long waitid, String[] nextTalias, String paccount, String pname, String resultType, String resultMsg)
 	{
 		try
 		{
@@ -83,7 +83,7 @@ public class DsCommonFlowFactory
 		return false;
 	}
 
-	public static List<IFlowWaiting> queryWaiting(String account)
+	public List<IFlowWaiting> queryWaiting(String account)
 	{
 		try
 		{
@@ -97,7 +97,7 @@ public class DsCommonFlowFactory
 		return null;
 	}
 
-	public static boolean takeWaiting(long waitid, String user)
+	public boolean takeWaiting(long waitid, String user)
 	{
 		try
 		{
@@ -114,7 +114,7 @@ public class DsCommonFlowFactory
 		return false;
 	}
 
-	public static IFlowWaiting getWaiting(long waitid)
+	public IFlowWaiting getWaiting(long waitid)
 	{
 		try
 		{
@@ -128,7 +128,7 @@ public class DsCommonFlowFactory
 		return null;
 	}
 
-	public static Map<String, String> getTaskList(long flowid)
+	public Map<String, String> getTaskList(long flowid)
 	{
 		Map<String, String> map = new HashMap<String, String>();
 		try

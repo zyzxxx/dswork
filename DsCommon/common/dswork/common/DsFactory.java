@@ -2,23 +2,21 @@ package dswork.common;
 
 public class DsFactory
 {
-	static DsCommonFlowFactory f = null;
-	public static DsCommonFlowFactory getFlow()
+	private static DsCommonFactoryFlow f = new DsCommonFactoryFlow();
+	public static DsCommonFactoryFlow getFlow()
 	{
-		if(f == null)
-		{
-			f = new DsCommonFlowFactory();
-		}
 		return f;
 	}
 	
-	static DsCommonFactory d = null;
-	public static DsCommonFactory getDict()
+	private static DsCommonFactoryDict d = new DsCommonFactoryDict();
+	public static DsCommonFactoryDict getDict()
 	{
-		if(d == null)
-		{
-			d = new DsCommonFactory();
-		}
 		return d;
+	}
+	
+	private static DsCommonFactoryOrg o = new DsCommonFactoryOrg();
+	public static DsCommonFactoryOrg getOrg()
+	{
+		return o;
 	}
 }

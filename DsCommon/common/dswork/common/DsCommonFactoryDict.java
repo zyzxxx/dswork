@@ -6,7 +6,7 @@ import dswork.common.dao.DsCommonDao;
 import dswork.common.model.IDict;
 import dswork.spring.BeanFactory;
 
-public class DsCommonFactory
+public class DsCommonFactoryDict
 {
 	private static DsCommonDao dao;
 	private static void init()
@@ -17,11 +17,11 @@ public class DsCommonFactory
 		}
 	}
 
-	public static String getSelect(String name, String selectName)
+	public String getSelect(String name, String selectName)
 	{
 		return getSelect(name, selectName, "");
 	}
-	public static String getSelect(String name, String selectName, String parentAlias)
+	public String getSelect(String name, String selectName, String parentAlias)
 	{
 		StringBuilder sb = new StringBuilder();
 		sb.append("<select id=\"").append(selectName).append("\" name=\"").append(selectName).append("\">");
@@ -29,7 +29,7 @@ public class DsCommonFactory
 		sb.append("</select>");
 		return sb.toString();
 	}
-	public static String getOption(String name, String parentAlias)
+	public String getOption(String name, String parentAlias)
 	{
 		init();
 		List<IDict> list = dao.queryListDict(name, parentAlias);
@@ -40,7 +40,7 @@ public class DsCommonFactory
 		}
 		return sb.toString();
 	}
-	public static String getCheckbox(String name, String checkboxName)
+	public String getCheckbox(String name, String checkboxName)
 	{
 		init();
 		List<IDict> list = dao.queryListDict(name, "");
@@ -54,7 +54,7 @@ public class DsCommonFactory
 		sb.append("<input name=\"").append(checkboxName).append("\" type=\"checkbox\" dataType=\"Group\" msg=\"必选\" style=\"display:none;\" />");
 		return sb.toString();
 	}
-	public static String getRadio(String name, String radioName)
+	public String getRadio(String name, String radioName)
 	{
 		init();
 		List<IDict> list = dao.queryListDict(name, "");
@@ -75,21 +75,9 @@ public class DsCommonFactory
 	 * @param parentAlias 上级标识，当alias为null时获取全部节点数据，当alias为""时获取根节点数据
 	 * @return String
 	 */
-	public static String getDictJson(String name, String parentAlias)
+	public String getDictJson(String name, String parentAlias)
 	{
 		init();
 		return dao.queryListDict(name, parentAlias).toString();
-	}
-	
-	/**
-	 * 根据上级组织机构主键取得列表数据
-	 * @param pid 上级组织机构主键
-	 * @param status 0-2为指定分类（2单位，1部门，0岗位），超出0-2范围则不过滤
-	 * @return String
-	 */
-	public static String getOrgJson(Long pid, Integer status)
-	{
-		init();
-		return dao.queryListOrg(pid, status).toString();
 	}
 }

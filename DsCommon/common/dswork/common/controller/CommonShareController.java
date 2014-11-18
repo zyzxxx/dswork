@@ -8,7 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
-import dswork.common.DsCommonFactory;
+import dswork.common.DsFactory;
 
 @Scope("prototype")
 @Controller
@@ -20,7 +20,7 @@ public class CommonShareController extends BaseController
 	{
 		String name = req.getString("name", "0");
 		String parentAlias = req.getString("value", null);//null时全部节点数据，""时根节点数据
-		print(DsCommonFactory.getDictJson(name, parentAlias));
+		print(DsFactory.getDict().getDictJson(name, parentAlias));
 	}
 
 	@RequestMapping("/getJsonOrg")
@@ -28,6 +28,6 @@ public class CommonShareController extends BaseController
 	{
 		long pid = req.getLong("pid");
 		int status = req.getInt("status", -1);
-		print(DsCommonFactory.getOrgJson(pid, (status > -1 && status < 3)?status:null));
+		print(DsFactory.getOrg().getOrgJson(pid, (status > -1 && status < 3)?status:null));
 	}
 }
