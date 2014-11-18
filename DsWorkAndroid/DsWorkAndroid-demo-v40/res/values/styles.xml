@@ -1,0 +1,52 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+    <style name="pressed">
+        <item name="android:background">#000000</item>
+    </style>
+    
+    <!-- 我的主题 -->
+    <style name="MyTheme" parent="AppTheme">  
+        <!-- 我的actionbar样式 -->  
+        <item name="android:actionBarStyle">@style/MyActionBarStyle</item>
+        <item name="android:actionBarTabStyle">@style/MyActionBarTabStyle</item> 
+        <item name="android:actionBarTabBarStyle">@style/MyActionBarTabBarStyle</item>
+        <item name="android:actionBarTabTextStyle">@style/MyActionBarTabText</item>
+    </style>  
+    <!-- 自定义 tabs style-->  
+    <style name="MyActionBarStyle" parent="@android:style/Widget.ActionBar">
+        <item name="android:background">@color/gray</item>
+    </style>
+    <style name="MyActionBarTabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">  
+        <item name="android:background">@drawable/actionbar_tab_bg</item>  
+        <item name="android:paddingLeft">32dp</item>  
+        <item name="android:paddingRight">32dp</item>  
+    </style>  
+    <style name="MyActionBarTabBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabBar">  
+        <item name="android:background">@color/blue_light</item>
+        <item name="android:divider">?android:attr/actionBarDivider</item>
+        <item name="android:showDividers">middle</item>
+        <item name="android:dividerPadding">12dip</item>
+    </style>
+    <style name="MyActionBarTabText" parent="@android:style/Widget.ActionBar.TabText">
+        <item name="android:textAppearance">@android:style/TextAppearance.Holo.Medium</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:maxLines">2</item>
+    </style>
+      
+</resources>

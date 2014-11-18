@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/listview_item_bg"
+  	android:descendantFocusability="blocksDescendants">
+  	<include 
+  	    layout="@layout/item_id" 
+  	    android:layout_width="wrap_content" 
+  	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"/>
+  	<LinearLayout 
+  	    android:orientation="horizontal"
+  	    android:layout_width="wrap_content"
+  	    android:layout_height="70dp"
+  	    android:layout_toRightOf="@id/itemId"
+   		android:layout_marginLeft="50dp">
+		<TextView 
+		    android:layout_width="60dp"
+		    android:layout_height="wrap_content"
+		    android:textSize="22sp"
+		    android:id="@+id/name"/>
+		<TextView 
+		    android:layout_width="40dp"
+		    android:layout_height="wrap_content"
+		    android:textSize="22sp"
+		    android:id="@+id/sortkey"/>
+  	</LinearLayout>
+  	<!-- 使用ItemMenuDialog，不用时删掉-->
+	<include 
+	    layout="@layout/item_menu" 
+	    android:layout_width="wrap_content" 
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"/>
+  	<include 
+  	    layout="@layout/item_chk" 
+  	    android:layout_width="wrap_content" 
+  	    android:layout_height="wrap_content"
+	    android:layout_alignParentRight="true"/>
+</RelativeLayout>
