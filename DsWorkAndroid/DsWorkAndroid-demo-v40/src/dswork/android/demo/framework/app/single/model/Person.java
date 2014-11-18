@@ -1,7 +1,7 @@
 package dswork.android.demo.framework.app.single.model;
 
 import net.sourceforge.pinyin4j.PinyinHelper;
-import dswork.android.lib.db.BaseModel;
+import dswork.android.lib.core.db.BaseModel;
 
 public class Person extends BaseModel
 {

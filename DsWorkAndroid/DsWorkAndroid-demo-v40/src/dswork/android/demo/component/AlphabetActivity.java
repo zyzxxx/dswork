@@ -12,10 +12,10 @@ import android.widget.SimpleAdapter;
 import dswork.android.R;
 import dswork.android.demo.framework.app.single.model.Person;
 import dswork.android.demo.framework.app.single.service.PersonService;
-import dswork.android.lib.ui.AlphaBar;
-import dswork.android.lib.ui.AlphaBar.OnAlphaBarListener;
-import dswork.android.lib.util.InjectUtil;
-import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.core.ui.AlphaBar;
+import dswork.android.lib.core.ui.AlphaBar.OnAlphaBarListener;
+import dswork.android.lib.core.util.InjectUtil;
+import dswork.android.lib.core.util.InjectUtil.InjectView;
 import dswork.android.lib.view.v40.OleFragmentActivity;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)

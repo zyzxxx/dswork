@@ -28,7 +28,7 @@
 			    android:layout_height="wrap_content"
 			    android:text="@string/sortkey"/>
 		</LinearLayout>
-	    <dswork.android.lib.ui.MultiCheck.MultiCheckListView
+	    <dswork.android.lib.core.ui.MultiCheck.MultiCheckListView
 	        android:id="@+id/listView" 
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"

@@ -13,8 +13,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import dswork.android.R;
-import dswork.android.lib.util.InjectUtil;
-import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.core.util.InjectUtil;
+import dswork.android.lib.core.util.InjectUtil.InjectView;
 import dswork.android.lib.view.v40.OleActivity;
 
 public class PersonSearch_A extends OleActivity

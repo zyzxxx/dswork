@@ -21,17 +21,17 @@ import com.actionbarsherlock.view.MenuItem;
 import dswork.android.R;
 import dswork.android.demo.framework.app.web.controller.DemoController;
 import dswork.android.demo.framework.app.web.model.Demo;
-import dswork.android.lib.ui.MultiCheck.MultiCheckActionMode;
-import dswork.android.lib.ui.MultiCheck.MultiCheckAdapter;
-import dswork.android.lib.ui.MultiCheck.MultiCheckAdapter.ItemMenuDialog;
-import dswork.android.lib.ui.MultiCheck.MultiCheckListView;
-import dswork.android.lib.ui.MultiCheck.MultiCheckListView.MultiCheckActionModeListener;
-import dswork.android.lib.ui.MultiCheck.MultiCheckListView.OnItemClickNotMultiListener;
-import dswork.android.lib.ui.MultiCheck.MultiCheckListView.PullUpToRefreshListener;
-import dswork.android.lib.ui.MultiCheck.MultiCheckListView.ViewCache;
-import dswork.android.lib.util.InjectUtil;
-import dswork.android.lib.util.InjectUtil.InjectView;
-import dswork.android.lib.util.MyStrictMode;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckActionMode;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckAdapter;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckAdapter.ItemMenuDialog;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.MultiCheckActionModeListener;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.OnItemClickNotMultiListener;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.PullUpToRefreshListener;
+import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.ViewCache;
+import dswork.android.lib.core.util.InjectUtil;
+import dswork.android.lib.core.util.InjectUtil.InjectView;
+import dswork.android.lib.core.util.MyStrictMode;
 import dswork.android.lib.view.v40.base.get.BaseGetOleSherlockFragment;
 
 public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>

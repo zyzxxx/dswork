@@ -16,8 +16,8 @@ import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import dswork.android.lib.ui.PosPoint;
-import dswork.android.lib.util.WorkUtil;
+import dswork.android.lib.core.ui.PosPoint;
+import dswork.android.lib.core.util.WorkUtil;
 
 public class IndexActivity extends FragmentActivity implements ActionBar.TabListener 
 {

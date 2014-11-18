@@ -6,8 +6,8 @@ import java.util.Map;
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
 import dswork.android.demo.framework.app.single.model.Person;
-import dswork.android.lib.db.BaseDao;
-import dswork.android.lib.db.QueryParams;
+import dswork.android.lib.core.db.BaseDao;
+import dswork.android.lib.core.db.QueryParams;
 
 public class PersonDao extends BaseDao<Person, Long>
 {

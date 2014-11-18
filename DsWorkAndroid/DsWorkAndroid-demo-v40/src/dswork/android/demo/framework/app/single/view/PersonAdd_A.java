@@ -10,8 +10,8 @@ import android.widget.Toast;
 import dswork.android.R;
 import dswork.android.demo.framework.app.single.controller.PersonController;
 import dswork.android.demo.framework.app.single.model.Person;
-import dswork.android.lib.util.InjectUtil;
-import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.core.util.InjectUtil;
+import dswork.android.lib.core.util.InjectUtil.InjectView;
 import dswork.android.lib.view.v40.OleActivity;
 
 public class PersonAdd_A extends OleActivity 

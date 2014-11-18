@@ -10,8 +10,8 @@ import com.google.gson.reflect.TypeToken;
 
 import dswork.android.R;
 import dswork.android.demo.framework.app.web.model.Demo;
-import dswork.android.lib.controller.BaseWebController;
-import dswork.android.lib.util.webutil.HttpUtil;
+import dswork.android.lib.core.controller.BaseWebController;
+import dswork.android.lib.core.util.webutil.HttpUtil;
 
 public class DemoController extends BaseWebController
 {

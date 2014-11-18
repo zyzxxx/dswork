@@ -22,8 +22,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import dswork.android.R;
 import dswork.android.demo.framework.app.single.model.Person;
 import dswork.android.demo.framework.app.single.service.PersonService;
-import dswork.android.lib.util.InjectUtil;
-import dswork.android.lib.util.InjectUtil.InjectView;
+import dswork.android.lib.core.util.InjectUtil;
+import dswork.android.lib.core.util.InjectUtil.InjectView;
 import dswork.android.lib.view.v40.OleFragmentActivity;
 
 public class PullToRefreshActivity extends OleFragmentActivity

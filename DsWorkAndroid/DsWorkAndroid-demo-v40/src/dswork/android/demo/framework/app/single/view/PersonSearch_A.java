@@ -14,9 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import dswork.android.R;
 import dswork.android.demo.framework.app.single.controller.PersonController;
-import dswork.android.lib.util.InjectUtil;
-import dswork.android.lib.util.InjectUtil.InjectView;
-import dswork.android.lib.util.MyStrictMode;
+import dswork.android.lib.core.util.InjectUtil;
+import dswork.android.lib.core.util.InjectUtil.InjectView;
+import dswork.android.lib.core.util.MyStrictMode;
 import dswork.android.lib.view.v40.OleActivity;
 
 public class PersonSearch_A extends OleActivity

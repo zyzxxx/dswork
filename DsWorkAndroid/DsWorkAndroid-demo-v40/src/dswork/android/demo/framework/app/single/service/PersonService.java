@@ -8,9 +8,9 @@ import android.content.Context;
 import android.database.Cursor;
 import dswork.android.demo.framework.app.single.dao.PersonDao;
 import dswork.android.demo.framework.app.single.model.Person;
-import dswork.android.lib.db.BaseDao;
-import dswork.android.lib.db.BaseService;
-import dswork.android.lib.db.QueryParams;
+import dswork.android.lib.core.db.BaseDao;
+import dswork.android.lib.core.db.BaseService;
+import dswork.android.lib.core.db.QueryParams;
 
 public class PersonService extends BaseService<Person, Long>
 {

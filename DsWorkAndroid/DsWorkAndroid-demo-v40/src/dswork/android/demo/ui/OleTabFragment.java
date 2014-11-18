@@ -13,8 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import dswork.android.R;
-import dswork.android.lib.ui.OleTab;
-import dswork.android.lib.ui.OleTab.OnOleTabListener;
+import dswork.android.lib.core.ui.OleTab;
+import dswork.android.lib.core.ui.OleTab.OnOleTabListener;
 
 public class OleTabFragment extends Fragment
 {

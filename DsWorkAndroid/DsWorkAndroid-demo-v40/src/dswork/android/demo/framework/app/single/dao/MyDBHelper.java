@@ -3,8 +3,8 @@ package dswork.android.demo.framework.app.single.dao;
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
 import dswork.android.R;
-import dswork.android.lib.db.BaseDBHelper;
-import dswork.android.lib.db.DBOpenHelper;
+import dswork.android.lib.core.db.BaseDBHelper;
+import dswork.android.lib.core.db.DBOpenHelper;
 
 public class MyDBHelper extends BaseDBHelper
 {

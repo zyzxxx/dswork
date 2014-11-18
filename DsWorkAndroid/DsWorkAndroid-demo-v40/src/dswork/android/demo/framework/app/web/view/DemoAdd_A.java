@@ -10,9 +10,9 @@ import android.widget.Toast;
 import dswork.android.R;
 import dswork.android.demo.framework.app.web.controller.DemoController;
 import dswork.android.demo.framework.app.web.model.Demo;
-import dswork.android.lib.util.InjectUtil;
-import dswork.android.lib.util.InjectUtil.InjectView;
-import dswork.android.lib.util.MyStrictMode;
+import dswork.android.lib.core.util.InjectUtil;
+import dswork.android.lib.core.util.InjectUtil.InjectView;
+import dswork.android.lib.core.util.MyStrictMode;
 import dswork.android.lib.view.v40.OleActivity;
 
 public class DemoAdd_A extends OleActivity 
