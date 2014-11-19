@@ -24,6 +24,7 @@ public class XzspFactory
 	{
 		mqapi = MQFun.Create("D:\\DC_CLIENT");
 	}
+
 	/**
 	 * 申办
 	 * @param SBLSH 申办流水号
@@ -61,40 +62,40 @@ public class XzspFactory
 	public static void applicationOB(String SBLSH, String SXBM, String SXMC, String FSXBM, String FSXMC, String SQRLX, String SQRMC, String SQRZJLX, String SQRZJHM, String LXRXM, String LXRZJLX, String LXRSFZJHM, String LXRSJ, String LXRYX, String SBXMMC, String SBCLQD, String TJFS, String SBHZH,
 			Date SBSJ, String SBJTWD, String XZQHDM, String YSBLSH, int SJBBH, String SQRDH, String XMHGCBH, String LXWH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
+		ApplicationOB entity = new ApplicationOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setSXMC(SXMC);
+		entity.setFSXBM(FSXBM);
+		entity.setFSXMC(FSXMC);
+		entity.setSQRLX(SQRLX);
+		entity.setSQRMC(SQRMC);
+		entity.setSQRZJLX(SQRZJLX);
+		entity.setSQRZJHM(SQRZJHM);
+		entity.setLXRXM(LXRXM);
+		entity.setLXRZJLX(LXRZJLX);
+		entity.setLXRSFZJHM(LXRSFZJHM);
+		entity.setLXRSJ(LXRSJ);
+		entity.setLXRYX(LXRYX);
+		entity.setSBXMMC(SBXMMC);
+		entity.setSBCLQD(SBCLQD);
+		entity.setTJFS(TJFS);
+		entity.setSBHZH(SBHZH);
+		entity.setSBSJ(SBSJ);
+		entity.setSBJTWD(SBJTWD);
+		entity.setXZQHDM(XZQHDM);
+		entity.setYSBLSH(YSBLSH);
+		entity.setSJBBH(SJBBH);
+		entity.setSQRDH(SQRDH);
+		entity.setXMHGCBH(XMHGCBH);
+		entity.setLXWH(LXWH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			ApplicationOB entity = new ApplicationOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setSXMC(SXMC);
-			entity.setFSXBM(FSXBM);
-			entity.setFSXMC(FSXMC);
-			entity.setSQRLX(SQRLX);
-			entity.setSQRMC(SQRMC);
-			entity.setSQRZJLX(SQRZJLX);
-			entity.setSQRZJHM(SQRZJHM);
-			entity.setLXRXM(LXRXM);
-			entity.setLXRZJLX(LXRZJLX);
-			entity.setLXRSFZJHM(LXRSFZJHM);
-			entity.setLXRSJ(LXRSJ);
-			entity.setLXRYX(LXRYX);
-			entity.setSBXMMC(SBXMMC);
-			entity.setSBCLQD(SBCLQD);
-			entity.setTJFS(TJFS);
-			entity.setSBHZH(SBHZH);
-			entity.setSBSJ(SBSJ);
-			entity.setSBJTWD(SBJTWD);
-			entity.setXZQHDM(XZQHDM);
-			entity.setYSBLSH(YSBLSH);
-			entity.setSJBBH(SJBBH);
-			entity.setSQRDH(SQRDH);
-			entity.setXMHGCBH(XMHGCBH);
-			entity.setLXWH(LXWH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -102,6 +103,7 @@ public class XzspFactory
 			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * 预受理
 	 * @param SBLSH 申办流水号
@@ -124,33 +126,31 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void preAcceptOB(String SBLSH, String SXBM, String YWLSH, String YSLBMMC, String YSLBMZZJGDM,
-			 String XZQHDM, String BLRXM, String BLRGH, String YSLZTDM, String BSLYY, String BJBZSM, Date YSLSJ,
-			 String YSLJTDD, int SJBBH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD
-			)
+	public static void preAcceptOB(String SBLSH, String SXBM, String YWLSH, String YSLBMMC, String YSLBMZZJGDM, String XZQHDM, String BLRXM, String BLRGH, String YSLZTDM, String BSLYY, String BJBZSM, Date YSLSJ, String YSLJTDD, int SJBBH, String BZ, String BYZDA, String BYZDB, String BYZDC,
+			Date BYZDD)
 	{
+		PreAcceptOB entity = new PreAcceptOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setYWLSH(YWLSH);
+		entity.setYSLBMMC(YSLBMMC);
+		entity.setYSLBMZZJGDM(YSLBMZZJGDM);
+		entity.setXZQHDM(XZQHDM);
+		entity.setBLRXM(BLRXM);
+		entity.setBLRGH(BLRGH);
+		entity.setYSLZTDM(YSLZTDM);
+		entity.setBSLYY(BSLYY);
+		entity.setBJBZSM(BJBZSM);
+		entity.setYSLSJ(YSLSJ);
+		entity.setYSLJTDD(YSLJTDD);
+		entity.setSJBBH(SJBBH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			PreAcceptOB entity = new PreAcceptOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setYWLSH(YWLSH);
-			entity.setYSLBMMC(YSLBMMC);
-			entity.setYSLBMZZJGDM(YSLBMZZJGDM);
-			entity.setXZQHDM(XZQHDM);
-			entity.setBLRXM(BLRXM);
-			entity.setBLRGH(BLRGH);
-			entity.setYSLZTDM(YSLZTDM);
-			entity.setBSLYY(BSLYY);
-			entity.setBJBZSM(BJBZSM);
-			entity.setYSLSJ(YSLSJ);
-			entity.setYSLJTDD(YSLJTDD);
-			entity.setSJBBH(SJBBH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -158,12 +158,13 @@ public class XzspFactory
 			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * 受理
 	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
 	 * @param YWLSH 业务流水号
-	 * @param SLBMMC 受理部门名称 
+	 * @param SLBMMC 受理部门名称
 	 * @param SLBMZZJDDM 受理部门组织机构代码
 	 * @param XZQHDM 受理部门所在行政区划代码
 	 * @param BLRXM 办理人姓名
@@ -186,7 +187,7 @@ public class XzspFactory
 	 * @param SQDWJBRSJ 申请单位经办人手机
 	 * @param SQDWJBRYJ 申请单位经办人邮件
 	 * @param SLJTDD 受理具体地点
-	 * @param SLZLQD 受理资料清单 
+	 * @param SLZLQD 受理资料清单
 	 * @param TJFS 提交方式
 	 * @param PDH 排队号
 	 * @param XMHGCBH 项目/工程编号
@@ -197,53 +198,48 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void aceeptOB(String SBLSH, String SXBM, String YWLSH, String SLBMMC, String SLBMZZJDDM
-			, String XZQHDM, String BLRXM, String BLRGH, String SLZTDM, String BSLYY, String SLHZH
-			, Date SLSJ, String GXDXZQHDM, String CXMM, int SJBBH, String SPSXMC, int GDBLSX
-			, String GDBLSXDDW, String GDSF, String XMMC, String SQDWHSQRXM, String SQDWJBRXM, String SQDWLXDH
-			, String SQDWJBRSJ, String SQDWJBRYJ, String SLJTDD, String SLZLQD, String TJFS, String PDH
-			, String XMHGCBH, String LXWH, String BZ, String BYZDA, String BYZDB, String BYZDC
-			, Date BYZDD)
+	public static void aceeptOB(String SBLSH, String SXBM, String YWLSH, String SLBMMC, String SLBMZZJDDM, String XZQHDM, String BLRXM, String BLRGH, String SLZTDM, String BSLYY, String SLHZH, Date SLSJ, String GXDXZQHDM, String CXMM, int SJBBH, String SPSXMC, int GDBLSX, String GDBLSXDDW,
+			String GDSF, String XMMC, String SQDWHSQRXM, String SQDWJBRXM, String SQDWLXDH, String SQDWJBRSJ, String SQDWJBRYJ, String SLJTDD, String SLZLQD, String TJFS, String PDH, String XMHGCBH, String LXWH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
+		AcceptOB entity = new AcceptOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setYWLSH(YWLSH);
+		entity.setSLBMMC(SLBMMC);
+		entity.setSLBMZZJDDM(SLBMZZJDDM);
+		entity.setXZQHDM(XZQHDM);
+		entity.setBLRXM(BLRXM);
+		entity.setBLRGH(BLRGH);
+		entity.setSLZTDM(SLZTDM);
+		entity.setBSLYY(BSLYY);
+		entity.setSLHZH(SLHZH);
+		entity.setSLSJ(SLSJ);
+		entity.setGXDXZQHDM(GXDXZQHDM);
+		entity.setCXMM(CXMM);
+		entity.setSJBBH(SJBBH);
+		entity.setSPSXMC(SPSXMC);
+		entity.setGDBLSX(GDBLSX);
+		entity.setGDBLSXDDW(GDBLSXDDW);
+		entity.setGDSF(GDSF);
+		entity.setXMMC(XMMC);
+		entity.setSQDWHSQRXM(SQDWHSQRXM);
+		entity.setSQDWJBRXM(SQDWJBRXM);
+		entity.setSQDWLXDH(SQDWLXDH);
+		entity.setSQDWJBRSJ(SQDWJBRSJ);
+		entity.setSQDWJBRYJ(SQDWJBRYJ);
+		entity.setSLJTDD(SLJTDD);
+		entity.setSLZLQD(SLZLQD);
+		entity.setTJFS(TJFS);
+		entity.setPDH(PDH);
+		entity.setXMHGCBH(XMHGCBH);
+		entity.setLXWH(LXWH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			AcceptOB entity = new AcceptOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setYWLSH(YWLSH);
-			entity.setSLBMMC(SLBMMC);
-			entity.setSLBMZZJDDM(SLBMZZJDDM);
-			entity.setXZQHDM(XZQHDM);
-			entity.setBLRXM(BLRXM);
-			entity.setBLRGH(BLRGH);
-			entity.setSLZTDM(SLZTDM);
-			entity.setBSLYY(BSLYY);
-			entity.setSLHZH(SLHZH);
-			entity.setSLSJ(SLSJ);
-			entity.setGXDXZQHDM(GXDXZQHDM);
-			entity.setCXMM(CXMM);
-			entity.setSJBBH(SJBBH);
-			entity.setSPSXMC(SPSXMC);
-			entity.setGDBLSX(GDBLSX);
-			entity.setGDBLSXDDW(GDBLSXDDW);
-			entity.setGDSF(GDSF);
-			entity.setXMMC(XMMC);
-			entity.setSQDWHSQRXM(SQDWHSQRXM);
-			entity.setSQDWJBRXM(SQDWJBRXM);
-			entity.setSQDWLXDH(SQDWLXDH);
-			entity.setSQDWJBRSJ(SQDWJBRSJ);
-			entity.setSQDWJBRYJ(SQDWJBRYJ);
-			entity.setSLJTDD(SLJTDD);
-			entity.setSLZLQD(SLZLQD);
-			entity.setTJFS(TJFS);
-			entity.setPDH(PDH);
-			entity.setXMHGCBH(XMHGCBH);
-			entity.setLXWH(LXWH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -251,12 +247,13 @@ public class XzspFactory
 			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * 审批
 	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
 	 * @param SPHJDM 审批环节代码
-	 * @param SPHJMC 审批环节名称 
+	 * @param SPHJMC 审批环节名称
 	 * @param SPBMMC 审批部门名称
 	 * @param SPBMZZJDMD 审批部门组织机构代码
 	 * @param XZQHDM 审批部门所在地行政区域代码
@@ -276,36 +273,34 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void submitOB(String SBLSH, String SXBM, String SPHJDM, String SPHJMC, String SPBMMC
-			, String SPBMZZJDMD, String XZQHDM, String SPRXM, String SPRZWDM, String SPRZWMC, String SPYJ
-			, Date SPSJ, String SPHJZTDM, int SJBBH, String YWLSH, int SPBZH, String PDH
-			, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static void submitOB(String SBLSH, String SXBM, String SPHJDM, String SPHJMC, String SPBMMC, String SPBMZZJDMD, String XZQHDM, String SPRXM, String SPRZWDM, String SPRZWMC, String SPYJ, Date SPSJ, String SPHJZTDM, int SJBBH, String YWLSH, int SPBZH, String PDH, String BZ, String BYZDA,
+			String BYZDB, String BYZDC, Date BYZDD)
 	{
+		SubmitOB entity = new SubmitOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setSPHJDM(SPHJDM);
+		entity.setSPHJMC(SPHJMC);
+		entity.setSPBMMC(SPBMMC);
+		entity.setSPBMZZJDMD(SPBMZZJDMD);
+		entity.setXZQHDM(XZQHDM);
+		entity.setSPRXM(SPRXM);
+		entity.setSPRZWDM(SPRZWDM);
+		entity.setSPRZWMC(SPRZWMC);
+		entity.setSPYJ(SPYJ);
+		entity.setSPSJ(SPSJ);
+		entity.setSPHJZTDM(SPHJZTDM);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setSPBZH(SPBZH);
+		entity.setPDH(PDH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			SubmitOB entity = new SubmitOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setSPHJDM(SPHJDM);
-			entity.setSPHJMC(SPHJMC);
-			entity.setSPBMMC(SPBMMC);
-			entity.setSPBMZZJDMD(SPBMZZJDMD);
-			entity.setXZQHDM(XZQHDM);
-			entity.setSPRXM(SPRXM);
-			entity.setSPRZWDM(SPRZWDM);
-			entity.setSPRZWMC(SPRZWMC);
-			entity.setSPYJ(SPYJ);
-			entity.setSPSJ(SPSJ);
-			entity.setSPHJZTDM(SPHJZTDM);
-			entity.setSJBBH(SJBBH);
-			entity.setYWLSH(YWLSH);
-			entity.setSPBZH(SPBZH);
-			entity.setPDH(PDH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -313,12 +308,13 @@ public class XzspFactory
 			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * 补交告知
-	 * @param SBLSH 申办流水号 
+	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
 	 * @param BZGZFCRXM 补正告知发出人姓名
-	 * @param BZGZYY  补正告知原因
+	 * @param BZGZYY 补正告知原因
 	 * @param BZCLQD 补正材料清单
 	 * @param BZGZSJ 补正告知时间
 	 * @param XZQHDM 补正告知部门所在地行政区划代码
@@ -331,28 +327,26 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void supplyOB(String SBLSH, String SXBM, String BZGZFCRXM, String BZGZYY, String BZCLQD
-			, Date BZGZSJ, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ
-			, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static void supplyOB(String SBLSH, String SXBM, String BZGZFCRXM, String BZGZYY, String BZCLQD, Date BZGZSJ, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
+		SupplyOB entity = new SupplyOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setBZGZFCRXM(BZGZFCRXM);
+		entity.setBZGZYY(BZGZYY);
+		entity.setBZCLQD(BZCLQD);
+		entity.setBZGZSJ(BZGZSJ);
+		entity.setXZQHDM(XZQHDM);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setPDH(PDH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			SupplyOB entity = new SupplyOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setBZGZFCRXM(BZGZFCRXM);
-			entity.setBZGZYY(BZGZYY);
-			entity.setBZCLQD(BZCLQD);
-			entity.setBZGZSJ(BZGZSJ);
-			entity.setXZQHDM(XZQHDM);
-			entity.setSJBBH(SJBBH);
-			entity.setYWLSH(YWLSH);
-			entity.setPDH(PDH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -360,11 +354,12 @@ public class XzspFactory
 			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * 补交受理
 	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
-	 * @param BZSLBLRXM  补正受理办理人姓名
+	 * @param BZSLBLRXM 补正受理办理人姓名
 	 * @param BZCLQD 补正材料清单
 	 * @param BZSJ 补正时间
 	 * @param XZQHDM 补正受理部门所在地行政区划代码
@@ -378,28 +373,26 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void supplyAcceptOB(String SBLSH, String SXBM, String BZSLBLRXM, String BZCLQD, Date BZSJ
-			, String XZQHDM, String BZSLJTDD, int SJBBH, String YWLSH, String PDH, String BZ
-			, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static void supplyAcceptOB(String SBLSH, String SXBM, String BZSLBLRXM, String BZCLQD, Date BZSJ, String XZQHDM, String BZSLJTDD, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
+		SupplyAcceptOB entity = new SupplyAcceptOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setBZSLBLRXM(BZSLBLRXM);
+		entity.setBZCLQD(BZCLQD);
+		entity.setBZSJ(BZSJ);
+		entity.setXZQHDM(XZQHDM);
+		entity.setBZSLJTDD(BZSLJTDD);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setPDH(PDH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			SupplyAcceptOB entity = new SupplyAcceptOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setBZSLBLRXM(BZSLBLRXM);
-			entity.setBZCLQD(BZCLQD);
-			entity.setBZSJ(BZSJ);
-			entity.setXZQHDM(XZQHDM);
-			entity.setBZSLJTDD(BZSLJTDD);
-			entity.setSJBBH(SJBBH);
-			entity.setYWLSH(YWLSH);
-			entity.setPDH(PDH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -407,6 +400,7 @@ public class XzspFactory
 			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * 特别程序申请
 	 * @param SBLSH 申办流水号
@@ -432,36 +426,34 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void blockOB(String SBLSH, String SXBM, String XH, String TBCXZL, Date TBCXKSRQ
-			, String TBCXPZR, String TBCXQDLY, String SQNR, int TBCXSX, String TBCXSXDW, String XZQHDM
-			, int SJBBH, String YWLSH, String TBCXZLMC, String TBCXPZRDH, String TBCXPZRSJ, String PDH
-			, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static void blockOB(String SBLSH, String SXBM, String XH, String TBCXZL, Date TBCXKSRQ, String TBCXPZR, String TBCXQDLY, String SQNR, int TBCXSX, String TBCXSXDW, String XZQHDM, int SJBBH, String YWLSH, String TBCXZLMC, String TBCXPZRDH, String TBCXPZRSJ, String PDH, String BZ,
+			String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
+		BlockOB entity = new BlockOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setXH(XH);
+		entity.setTBCXZL(TBCXZLMC);
+		entity.setTBCXKSRQ(TBCXKSRQ);
+		entity.setTBCXPZR(TBCXPZRSJ);
+		entity.setTBCXQDLYHYJ(TBCXQDLY);
+		entity.setSQNR(SQNR);
+		entity.setTBCXSX(TBCXSX);
+		entity.setTBCXSXDW(TBCXSXDW);
+		entity.setXZQHDM(XZQHDM);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setTBCXZLMC(TBCXZLMC);
+		entity.setTBCXPZRDH(TBCXPZRDH);
+		entity.setTBCXPZRSJ(TBCXPZRSJ);
+		entity.setPDH(PDH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			BlockOB entity = new BlockOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setXH(XH);
-			entity.setTBCXZL(TBCXZLMC);
-			entity.setTBCXKSRQ(TBCXKSRQ);
-			entity.setTBCXPZR(TBCXPZRSJ);
-			entity.setTBCXQDLYHYJ(TBCXQDLY);
-			entity.setSQNR(SQNR);
-			entity.setTBCXSX(TBCXSX);
-			entity.setTBCXSXDW(TBCXSXDW);
-			entity.setXZQHDM(XZQHDM);
-			entity.setSJBBH(SJBBH);
-			entity.setYWLSH(YWLSH);
-			entity.setTBCXZLMC(TBCXZLMC);
-			entity.setTBCXPZRDH(TBCXPZRDH);
-			entity.setTBCXPZRSJ(TBCXPZRSJ);
-			entity.setPDH(PDH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -469,6 +461,7 @@ public class XzspFactory
 			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * 特别程序结果
 	 * @param SBLSH 申办流水号
@@ -489,29 +482,27 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void resumeOB(String SBLSH, String SXBM, String XH, String TBCXJG, Date JGCSRQ
-			, Date TBCXJSRQ, String TBCXSFJE, String JEDWDM, String XZQHDM, int SJBBH, String YWLSH
-			, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static void resumeOB(String SBLSH, String SXBM, String XH, String TBCXJG, Date JGCSRQ, Date TBCXJSRQ, String TBCXSFJE, String JEDWDM, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
+		ResumeOB entity = new ResumeOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setXH(XH);
+		entity.setTBCXJG(TBCXJG);
+		entity.setJGCSRQ(JGCSRQ);
+		entity.setTBCXJSRQ(TBCXJSRQ);
+		entity.setTBCXSFJE(TBCXSFJE);
+		entity.setJEDWDM(JEDWDM);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setPDH(PDH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			ResumeOB entity = new ResumeOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setXH(XH);
-			entity.setTBCXJG(TBCXJG);
-			entity.setJGCSRQ(JGCSRQ);
-			entity.setTBCXJSRQ(TBCXJSRQ);
-			entity.setTBCXSFJE(TBCXSFJE);
-			entity.setJEDWDM(JEDWDM);
-			entity.setSJBBH(SJBBH);
-			entity.setYWLSH(YWLSH);
-			entity.setPDH(PDH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -519,7 +510,7 @@ public class XzspFactory
 			ex.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * 办结
 	 * @param SBLSH 申办流水号
@@ -546,38 +537,36 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void completeOB(String SBLSH, String SXBM, String BJBMMC, String BJBMZZJDDM, String XZQHDM
-			, String BJJGDM, String BJJGMS, String ZFHTHYY, String ZJGZMC, String ZJBH, String ZJYXQX
-			, String FZGZDW, int SFJE, String JEDWDM, Date BJSJ, int SJBBH, String YWLSH
-			, String PDH, String LXWH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static void completeOB(String SBLSH, String SXBM, String BJBMMC, String BJBMZZJDDM, String XZQHDM, String BJJGDM, String BJJGMS, String ZFHTHYY, String ZJGZMC, String ZJBH, String ZJYXQX, String FZGZDW, int SFJE, String JEDWDM, Date BJSJ, int SJBBH, String YWLSH, String PDH, String LXWH,
+			String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
+		CompleteOB entity = new CompleteOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setBJBMMC(BJBMMC);
+		entity.setBJBMZZJDDM(BJBMZZJDDM);
+		entity.setXZQHDM(XZQHDM);
+		entity.setBJJGDM(BJJGDM);
+		entity.setBJJGMS(BJJGMS);
+		entity.setZFHTHYY(ZFHTHYY);
+		entity.setZJGZMC(ZJGZMC);
+		entity.setZJBH(ZJBH);
+		entity.setZJYXQX(ZJYXQX);
+		entity.setFZGZDW(FZGZDW);
+		entity.setSFJE(SFJE);
+		entity.setJEDWDM(JEDWDM);
+		entity.setBJSJ(BJSJ);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setPDH(PDH);
+		entity.setLXWH(LXWH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			CompleteOB entity = new CompleteOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setBJBMMC(BJBMMC);
-			entity.setBJBMZZJDDM(BJBMZZJDDM);
-			entity.setXZQHDM(XZQHDM);
-			entity.setBJJGDM(BJJGDM);
-			entity.setBJJGMS(BJJGMS);
-			entity.setZFHTHYY(ZFHTHYY);
-			entity.setZJGZMC(ZJGZMC);
-			entity.setZJBH(ZJBH);
-			entity.setZJYXQX(ZJYXQX);
-			entity.setFZGZDW(FZGZDW);
-			entity.setSFJE(SFJE);
-			entity.setJEDWDM(JEDWDM);
-			entity.setBJSJ(BJSJ);
-			entity.setSJBBH(SJBBH);
-			entity.setYWLSH(YWLSH);
-			entity.setPDH(PDH);
-			entity.setLXWH(LXWH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -585,6 +574,7 @@ public class XzspFactory
 			ex.printStackTrace();
 		}
 	}
+
 	/**
 	 * 领取登记
 	 * @param SBLSH 申办流水号
@@ -602,27 +592,25 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void receiveRegOB(String SBLSH, String SXBM, String LQRXM, String LQRZJLX, String LQRSFZJHM
-			, String LQFS, Date LQSJ, String XZQHDM, int SJBBH, String BZ, String BYZDA
-			, String BYZDB, String BYZDC, Date BYZDD)
+	public static void receiveRegOB(String SBLSH, String SXBM, String LQRXM, String LQRZJLX, String LQRSFZJHM, String LQFS, Date LQSJ, String XZQHDM, int SJBBH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
+		ReceiveRegOB entity = new ReceiveRegOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setLQRXM(LQRXM);
+		entity.setLQRZJLX(LQRZJLX);
+		entity.setLQRSFZJHM(LQRSFZJHM);
+		entity.setLQFS(LQFS);
+		entity.setLQSJ(LQSJ);
+		entity.setXZQHDM(XZQHDM);
+		entity.setSJBBH(SJBBH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
 		try
 		{
-			ReceiveRegOB entity = new ReceiveRegOB();
-			entity.setSBLSH(SBLSH);
-			entity.setSXBM(SXBM);
-			entity.setLQRXM(LQRXM);
-			entity.setLQRZJLX(LQRZJLX);
-			entity.setLQRSFZJHM(LQRSFZJHM);
-			entity.setLQFS(LQFS);
-			entity.setLQSJ(LQSJ);
-			entity.setXZQHDM(XZQHDM);
-			entity.setSJBBH(SJBBH);
-			entity.setBZ(BZ);
-			entity.setBYZDA(BYZDA);
-			entity.setBYZDB(BYZDB);
-			entity.setBYZDC(BYZDC);
-			entity.setBYZDD(BYZDD);
 			mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
@@ -631,33 +619,3 @@ public class XzspFactory
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
