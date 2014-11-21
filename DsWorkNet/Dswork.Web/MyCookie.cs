@@ -36,6 +36,16 @@ namespace Dswork.Web
 		/// <summary>
 		/// 初始化cookie
 		/// </summary>
+		/// <param name="context">HttpContextWrapper</param>
+		public MyCookie(HttpContextWrapper context)
+		{
+			this.request = context.Request;
+			this.response = context.Response;
+		}
+
+		/// <summary>
+		/// 初始化cookie
+		/// </summary>
 		/// <param name="request">HttpRequest</param>
 		/// <param name="response">HttpResponse</param>
 		public MyCookie(HttpRequest request, HttpResponse response)
@@ -50,6 +60,17 @@ namespace Dswork.Web
 		/// <param name="request">HttpRequestBase</param>
 		/// <param name="response">HttpResponseBase</param>
 		public MyCookie(HttpRequestBase request, HttpResponseBase response)
+		{
+			this.request = request;
+			this.response = response;
+		}
+
+		/// <summary>
+		/// 初始化cookie
+		/// </summary>
+		/// <param name="request">HttpRequestWrapper</param>
+		/// <param name="response">HttpResponseWrapper</param>
+		public MyCookie(HttpRequestWrapper request, HttpResponseWrapper response)
 		{
 			this.request = request;
 			this.response = response;
@@ -147,11 +168,18 @@ namespace Dswork.Web
 			HttpCookie cookie;
 			try
 			{
-				cookie = ((HttpRequestBase)request).Cookies[name];
+				cookie = ((HttpRequest)request).Cookies[name];
 			}
 			catch
 			{
-				cookie = ((HttpRequest)request).Cookies[name];
+				try
+				{
+					cookie = ((HttpRequestBase)request).Cookies[name];
+				}
+				catch
+				{
+					cookie = ((HttpResponseWrapper)request).Cookies[name];
+				}
 			}
 			if(cookie != null)
 			{
@@ -174,11 +202,18 @@ namespace Dswork.Web
 		{
 			try
 			{
-				((HttpResponseBase)response).Cookies.Add(cookie);
+				((HttpResponse)response).Cookies.Add(cookie);
 			}
 			catch
 			{
-				((HttpResponse)response).Cookies.Add(cookie);
+				try
+				{
+					((HttpResponseBase)response).Cookies.Add(cookie);
+				}
+				catch
+				{
+					((HttpResponseWrapper)response).Cookies.Add(cookie);
+				}
 			}
 		}
 	}
