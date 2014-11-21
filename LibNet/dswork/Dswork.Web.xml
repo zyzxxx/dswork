@@ -21,6 +21,12 @@
             </summary>
             <param name="context">HttpContextBase</param>
         </member>
+        <member name="M:Dswork.Web.MyCookie.#ctor(System.Web.HttpContextWrapper)">
+            <summary>
+            初始化cookie
+            </summary>
+            <param name="context">HttpContextWrapper</param>
+        </member>
         <member name="M:Dswork.Web.MyCookie.#ctor(System.Web.HttpRequest,System.Web.HttpResponse)">
             <summary>
             初始化cookie
@@ -34,6 +40,13 @@
             </summary>
             <param name="request">HttpRequestBase</param>
             <param name="response">HttpResponseBase</param>
+        </member>
+        <member name="M:Dswork.Web.MyCookie.#ctor(System.Web.HttpRequestWrapper,System.Web.HttpResponseWrapper)">
+            <summary>
+            初始化cookie
+            </summary>
+            <param name="request">HttpRequestWrapper</param>
+            <param name="response">HttpResponseWrapper</param>
         </member>
         <member name="M:Dswork.Web.MyCookie.AddCookie(System.String,System.String)">
             <summary>
