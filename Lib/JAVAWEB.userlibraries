@@ -2,7 +2,7 @@
 <eclipse-userlibraries version="2">
     <library name="JAVAWEB" systemlibrary="false">
         <archive path="/Lib/common/aopalliance.jar"/>
-        <archive path="/Lib/common/cglib-nodep-2.2.jar"/>
+        <archive path="/Lib/common/cglib-2.2.2.jar"/>
         <archive path="/Lib/common/jimi.jar"/>
         <archive path="/Lib/common/jstl-1.2.jar"/>
         <archive path="/Lib/common/ognl-2.7.3.jar"/>
