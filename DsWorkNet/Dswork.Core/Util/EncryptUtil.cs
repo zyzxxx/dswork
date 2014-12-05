@@ -65,6 +65,41 @@ namespace Dswork.Core.Util
 			}
 		}
 
+
+		/// <summary>
+		/// 将byte[]转化为base64编码
+		/// </summary>
+		/// <param name="byteArray">需要加密的字符串</param>
+		/// <returns>base64编码的byte[]，失败返回null</returns>
+		public static String EncodeByteBase64(byte[] byteArray)
+		{
+			try
+			{
+				return Convert.ToBase64String(byteArray);
+			}
+			catch
+			{
+				return null;
+			}
+		}
+
+		/// <summary>
+		/// 将base64编码的字符串进行解码
+		/// </summary>
+		/// <param name="str">base64编码的字符串</param>
+		/// <returns>解码后的byte[]，失败返回null</returns>
+		public static byte[] DecodeByteBase64(String str)
+		{
+			try
+			{
+				return Convert.FromBase64String(str);
+			}
+			catch
+			{
+				return null;
+			}
+		}
+
 		/// <summary>
 		/// 将字符串转化为des编码
 		/// </summary>
