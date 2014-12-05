@@ -6,7 +6,6 @@ import MQAPI.AcceptOB;
 import MQAPI.ApplicationOB;
 import MQAPI.BlockOB;
 import MQAPI.CompleteOB;
-import MQAPI.MQFun;
 import MQAPI.PreAcceptOB;
 import MQAPI.ReceiveRegOB;
 import MQAPI.ResumeOB;
@@ -16,27 +15,6 @@ import MQAPI.SupplyOB;
 
 public class XzspFactory
 {
-	/**
-	 * 初始化接口对象
-	 */
-	private static MQFun mqapi;
-	static
-	{
-		try
-		{
-			mqapi = MQFun.Create(dswork.core.util.EnvironmentUtil.getToString("gov.xzsp.path", "C:/DC_CLIENT"));
-			if(mqapi == null)
-			{
-				System.out.println("DC_CLIENT初始化失败");
-			}
-		}
-		catch(Exception ex)
-		{
-			System.out.println("DC_CLIENT初始化失败");
-			ex.printStackTrace();
-		}
-	}
-
 	/**
 	 * 申办
 	 * @param SBLSH 申办流水号
@@ -106,15 +84,7 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.applicationOB(entity);// 发送对象
 	}
 
 	/**
@@ -162,15 +132,7 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.preAcceptOB(entity);// 发送对象
 	}
 
 	/**
@@ -252,15 +214,7 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.aceeptOB(entity);// 发送对象
 	}
 
 	/**
@@ -314,15 +268,7 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.submitOB(entity);// 发送对象
 	}
 
 	/**
@@ -361,15 +307,7 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.supplyOB(entity);// 发送对象
 	}
 
 	/**
@@ -408,15 +346,7 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.supplyAcceptOB(entity);// 发送对象
 	}
 
 	/**
@@ -470,15 +400,7 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.blockOB(entity);// 发送对象
 	}
 
 	/**
@@ -520,15 +442,7 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.resumeOB(entity);// 发送对象
 	}
 
 	/**
@@ -585,15 +499,7 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.completeOB(entity);// 发送对象
 	}
 
 	/**
@@ -630,14 +536,6 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
+		return XzspUtil.receiveRegOB(entity);// 发送对象
 	}
 }
