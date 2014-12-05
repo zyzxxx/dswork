@@ -909,6 +909,20 @@
             <param name="str">base64编码的字符串</param>
             <returns>解码后的字符串，失败返回null</returns>
         </member>
+        <member name="M:Dswork.Core.Util.EncryptUtil.EncodeByteBase64(System.Byte[])">
+            <summary>
+            将byte[]转化为base64编码
+            </summary>
+            <param name="byteArray">需要加密的字符串</param>
+            <returns>base64编码的byte[]，失败返回null</returns>
+        </member>
+        <member name="M:Dswork.Core.Util.EncryptUtil.DecodeByteBase64(System.String)">
+            <summary>
+            将base64编码的字符串进行解码
+            </summary>
+            <param name="str">base64编码的字符串</param>
+            <returns>解码后的byte[]，失败返回null</returns>
+        </member>
         <member name="M:Dswork.Core.Util.EncryptUtil.EncodeDes(System.String,System.String)">
             <summary>
             将字符串转化为des编码
