@@ -22,7 +22,19 @@ public class XzspFactory
 	private static MQFun mqapi;
 	static
 	{
-		mqapi = MQFun.Create("D:\\DC_CLIENT");
+		try
+		{
+			mqapi = MQFun.Create(dswork.core.util.EnvironmentUtil.getToString("gov.xzsp.path", "C:/DC_CLIENT"));
+			if(mqapi == null)
+			{
+				System.out.println("DC_CLIENT初始化失败");
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println("DC_CLIENT初始化失败");
+			ex.printStackTrace();
+		}
 	}
 
 	/**
@@ -59,7 +71,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void applicationOB(String SBLSH, String SXBM, String SXMC, String FSXBM, String FSXMC, String SQRLX, String SQRMC, String SQRZJLX, String SQRZJHM, String LXRXM, String LXRZJLX, String LXRSFZJHM, String LXRSJ, String LXRYX, String SBXMMC, String SBCLQD, String TJFS, String SBHZH,
+	public static int applicationOB(String SBLSH, String SXBM, String SXMC, String FSXBM, String FSXMC, String SQRLX, String SQRMC, String SQRZJLX, String SQRZJHM, String LXRXM, String LXRZJLX, String LXRSFZJHM, String LXRSJ, String LXRYX, String SBXMMC, String SBCLQD, String TJFS, String SBHZH,
 			Date SBSJ, String SBJTWD, String XZQHDM, String YSBLSH, int SJBBH, String SQRDH, String XMHGCBH, String LXWH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
 		ApplicationOB entity = new ApplicationOB();
@@ -96,11 +108,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -126,7 +139,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void preAcceptOB(String SBLSH, String SXBM, String YWLSH, String YSLBMMC, String YSLBMZZJGDM, String XZQHDM, String BLRXM, String BLRGH, String YSLZTDM, String BSLYY, String BJBZSM, Date YSLSJ, String YSLJTDD, int SJBBH, String BZ, String BYZDA, String BYZDB, String BYZDC,
+	public static int preAcceptOB(String SBLSH, String SXBM, String YWLSH, String YSLBMMC, String YSLBMZZJGDM, String XZQHDM, String BLRXM, String BLRGH, String YSLZTDM, String BSLYY, String BJBZSM, Date YSLSJ, String YSLJTDD, int SJBBH, String BZ, String BYZDA, String BYZDB, String BYZDC,
 			Date BYZDD)
 	{
 		PreAcceptOB entity = new PreAcceptOB();
@@ -151,11 +164,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -198,7 +212,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void aceeptOB(String SBLSH, String SXBM, String YWLSH, String SLBMMC, String SLBMZZJDDM, String XZQHDM, String BLRXM, String BLRGH, String SLZTDM, String BSLYY, String SLHZH, Date SLSJ, String GXDXZQHDM, String CXMM, int SJBBH, String SPSXMC, int GDBLSX, String GDBLSXDDW,
+	public static int aceeptOB(String SBLSH, String SXBM, String YWLSH, String SLBMMC, String SLBMZZJDDM, String XZQHDM, String BLRXM, String BLRGH, String SLZTDM, String BSLYY, String SLHZH, Date SLSJ, String GXDXZQHDM, String CXMM, int SJBBH, String SPSXMC, int GDBLSX, String GDBLSXDDW,
 			String GDSF, String XMMC, String SQDWHSQRXM, String SQDWJBRXM, String SQDWLXDH, String SQDWJBRSJ, String SQDWJBRYJ, String SLJTDD, String SLZLQD, String TJFS, String PDH, String XMHGCBH, String LXWH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
 		AcceptOB entity = new AcceptOB();
@@ -240,11 +254,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -273,7 +288,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void submitOB(String SBLSH, String SXBM, String SPHJDM, String SPHJMC, String SPBMMC, String SPBMZZJDMD, String XZQHDM, String SPRXM, String SPRZWDM, String SPRZWMC, String SPYJ, Date SPSJ, String SPHJZTDM, int SJBBH, String YWLSH, int SPBZH, String PDH, String BZ, String BYZDA,
+	public static int submitOB(String SBLSH, String SXBM, String SPHJDM, String SPHJMC, String SPBMMC, String SPBMZZJDMD, String XZQHDM, String SPRXM, String SPRZWDM, String SPRZWMC, String SPYJ, Date SPSJ, String SPHJZTDM, int SJBBH, String YWLSH, int SPBZH, String PDH, String BZ, String BYZDA,
 			String BYZDB, String BYZDC, Date BYZDD)
 	{
 		SubmitOB entity = new SubmitOB();
@@ -301,11 +316,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -327,7 +343,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void supplyOB(String SBLSH, String SXBM, String BZGZFCRXM, String BZGZYY, String BZCLQD, Date BZGZSJ, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static int supplyOB(String SBLSH, String SXBM, String BZGZFCRXM, String BZGZYY, String BZCLQD, Date BZGZSJ, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
 		SupplyOB entity = new SupplyOB();
 		entity.setSBLSH(SBLSH);
@@ -347,11 +363,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -373,7 +390,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void supplyAcceptOB(String SBLSH, String SXBM, String BZSLBLRXM, String BZCLQD, Date BZSJ, String XZQHDM, String BZSLJTDD, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static int supplyAcceptOB(String SBLSH, String SXBM, String BZSLBLRXM, String BZCLQD, Date BZSJ, String XZQHDM, String BZSLJTDD, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
 		SupplyAcceptOB entity = new SupplyAcceptOB();
 		entity.setSBLSH(SBLSH);
@@ -393,11 +410,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -426,7 +444,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void blockOB(String SBLSH, String SXBM, String XH, String TBCXZL, Date TBCXKSRQ, String TBCXPZR, String TBCXQDLY, String SQNR, int TBCXSX, String TBCXSXDW, String XZQHDM, int SJBBH, String YWLSH, String TBCXZLMC, String TBCXPZRDH, String TBCXPZRSJ, String PDH, String BZ,
+	public static int blockOB(String SBLSH, String SXBM, String XH, String TBCXZL, Date TBCXKSRQ, String TBCXPZR, String TBCXQDLY, String SQNR, int TBCXSX, String TBCXSXDW, String XZQHDM, int SJBBH, String YWLSH, String TBCXZLMC, String TBCXPZRDH, String TBCXPZRSJ, String PDH, String BZ,
 			String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
 		BlockOB entity = new BlockOB();
@@ -454,11 +472,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -482,7 +501,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void resumeOB(String SBLSH, String SXBM, String XH, String TBCXJG, Date JGCSRQ, Date TBCXJSRQ, String TBCXSFJE, String JEDWDM, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static int resumeOB(String SBLSH, String SXBM, String XH, String TBCXJG, Date JGCSRQ, Date TBCXJSRQ, String TBCXSFJE, String JEDWDM, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
 		ResumeOB entity = new ResumeOB();
 		entity.setSBLSH(SBLSH);
@@ -503,11 +522,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -537,7 +557,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void completeOB(String SBLSH, String SXBM, String BJBMMC, String BJBMZZJDDM, String XZQHDM, String BJJGDM, String BJJGMS, String ZFHTHYY, String ZJGZMC, String ZJBH, String ZJYXQX, String FZGZDW, int SFJE, String JEDWDM, Date BJSJ, int SJBBH, String YWLSH, String PDH, String LXWH,
+	public static int completeOB(String SBLSH, String SXBM, String BJBMMC, String BJBMZZJDDM, String XZQHDM, String BJJGDM, String BJJGMS, String ZFHTHYY, String ZJGZMC, String ZJBH, String ZJYXQX, String FZGZDW, int SFJE, String JEDWDM, Date BJSJ, int SJBBH, String YWLSH, String PDH, String LXWH,
 			String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
 		CompleteOB entity = new CompleteOB();
@@ -567,11 +587,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 
@@ -592,7 +613,7 @@ public class XzspFactory
 	 * @param BYZDC 备用字段C
 	 * @param BYZDD 备用字段D
 	 */
-	public static void receiveRegOB(String SBLSH, String SXBM, String LQRXM, String LQRZJLX, String LQRSFZJHM, String LQFS, Date LQSJ, String XZQHDM, int SJBBH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	public static int receiveRegOB(String SBLSH, String SXBM, String LQRXM, String LQRZJLX, String LQRSFZJHM, String LQFS, Date LQSJ, String XZQHDM, int SJBBH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
 	{
 		ReceiveRegOB entity = new ReceiveRegOB();
 		entity.setSBLSH(SBLSH);
@@ -611,11 +632,12 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		try
 		{
-			mqapi.Send(entity);// 发送对象
+			return mqapi.Send(entity);// 发送对象
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
+			return 0;
 		}
 	}
 }
