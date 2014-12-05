@@ -82,6 +82,43 @@ public class EncryptUtil
 	}
 
 	/**
+	 * 将byte[]转化为base64编码
+	 * @param byteArray 需要加密的byte[]
+	 * @return base64编码的byte[]，失败返回null
+	 */
+	public static String encodeByteBase64(byte[] byteArray)
+	{
+		try
+		{
+			return (new sun.misc.BASE64Encoder()).encode(byteArray);
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+	}
+
+	/**
+	 * 将base64编码的字符串进行解码
+	 * @param str base64编码的字符串
+	 * @return 解码后的byte[]，失败返回null
+	 */
+	public static byte[] decodeByteBase64(String str)
+	{
+		try
+		{
+			if(str != null)
+			{
+				return (new sun.misc.BASE64Decoder()).decodeBuffer(str);
+			}
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
+	}
+
+	/**
 	 * 将字符串转化为des编码
 	 * @param str 需要加密的String
 	 * @param key 密钥
