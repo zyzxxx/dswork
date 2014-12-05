@@ -5,9 +5,9 @@ using System.Text;
 namespace Dswork.Core.Mybaits.Dialect
 {
 	/// <summary>
-	/// Dialect for SQLServer2012
+	/// Dialect for SQLServer2000，查询的sql必须存在ID列，且翻页以ID顺序排序
 	/// </summary>
-	public class SQLServer2012Dialect:Dialect
+	public class SQLServer2000Dialect:Dialect
 	{
 		/// <summary>
 		/// 是否支持分页，limit和offset
@@ -27,13 +27,14 @@ namespace Dswork.Core.Mybaits.Dialect
 		/// <returns>String</returns>
 		public override String GetLimitString(String sql, int offset, int limit)
 		{
-			StringBuilder sb = new StringBuilder(sql.Length + 40);
-			sb.Append(sql)
-			.Append(" offset ")
-			.Append(offset)
-			.Append(" rows fetch next ")
-			.Append(limit)
-			.Append(" rows only");
+			StringBuilder sb = new StringBuilder(sql.Length + 150);
+			sb.Append("select top ").Append(limit).Append(" n_.* from (")
+				.Append("select top ").Append(limit).Append(" m_.* from (")
+					.Append("select top ").Append(offset + limit).Append(" t_.* from (")
+					.Append(sql)
+					.Append(") t_ order by t_.ID")
+				.Append(") m_ order by m_.ID desc")
+			.Append(") n_ order by n_.ID");
 			return sb.ToString();
 		}
 	}

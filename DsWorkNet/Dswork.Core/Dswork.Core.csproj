@@ -81,6 +81,7 @@
     <Compile Include="Mybaits\Dialect\SQLServer2012Dialect.cs" />
     <Compile Include="Mybaits\Dialect\DB2Dialect.cs" />
     <Compile Include="Mybaits\Dialect\SQLServerDialect.cs" />
+    <Compile Include="Mybaits\Dialect\SQLServer2000Dialect.cs" />
     <Compile Include="Mybaits\OffsetLimitInterceptor.cs" />
     <Compile Include="Page\Page.cs" />
     <Compile Include="Page\PageNav.cs" />

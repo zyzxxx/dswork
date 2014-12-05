@@ -29,10 +29,10 @@ namespace Dswork.Core.Mybaits.Dialect
 		{
 			StringBuilder sb = new StringBuilder(sql.Length + 21).Append(sql).Append(" limit ");
 			sb.Append(limit);
-			if(offset > 0)
-			{
+			//if(offset > 0)
+			//{
 				sb.Append(" offset ").Append(offset);
-			}
+			//}
 			return sb.ToString();
 		}
 	}
