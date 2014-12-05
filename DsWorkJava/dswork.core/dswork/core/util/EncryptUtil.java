@@ -23,7 +23,7 @@ public class EncryptUtil
 			try
 			{
 				MessageDigest md = MessageDigest.getInstance("MD5");
-				byte[] digest = md.digest(str.getBytes());
+				byte[] digest = md.digest(str.getBytes("UTF-8"));
 				String stmp = "";
 				for(int n = 0; n < digest.length; n++)
 				{
@@ -53,7 +53,7 @@ public class EncryptUtil
 	{
 		try
 		{
-			return (new sun.misc.BASE64Encoder()).encode(str.getBytes());
+			return (new sun.misc.BASE64Encoder()).encode(str.getBytes("UTF-8"));
 		}
 		catch(Exception e)
 		{
@@ -72,7 +72,7 @@ public class EncryptUtil
 		{
 			if(str != null)
 			{
-				return new String((new sun.misc.BASE64Decoder()).decodeBuffer(str));
+				return new String((new sun.misc.BASE64Decoder()).decodeBuffer(str), "UTF-8");
 			}
 		}
 		catch(Exception e)
