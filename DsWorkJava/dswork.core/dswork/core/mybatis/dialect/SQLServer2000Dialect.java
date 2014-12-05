@@ -1,7 +1,7 @@
 package dswork.core.mybatis.dialect;
 
 /**
- * Dialect for SQLServer2012
+ * Dialect for SQLServer2000，查询的sql必须存在ID列，且翻页以ID顺序排序
  * @author skey
  */
 public class SQLServer2000Dialect extends Dialect
@@ -24,7 +24,7 @@ public class SQLServer2000Dialect extends Dialect
 	 */
 	public String getLimitString(String sql, int offset, int limit)
 	{
-		StringBuilder sb = new StringBuilder(sql.length() * 2 + 170);
+		StringBuilder sb = new StringBuilder(sql.length() + 150);
 		sb.append("select top ").append(limit).append(" n_.* from (")
 			.append("select top ").append(limit).append(" m_.* from (")
 				.append("select top ").append(offset + limit).append(" t_.* from (")

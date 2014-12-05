@@ -24,8 +24,8 @@ public class SQLServer2012Dialect extends Dialect
 	 */
 	public String getLimitString(String sql, int offset, int limit)
 	{
-		StringBuilder sb = new StringBuilder(sql.length() + 36)
-		.append(sql)
+		StringBuilder sb = new StringBuilder(sql.length() + 36);
+		sb.append(sql)
 		.append(" offset ")
 		.append(offset)
 		.append(" fetch next ")
