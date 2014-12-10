@@ -28,7 +28,7 @@ public class SQLServer2012Dialect extends Dialect
 		sb.append(sql)
 		.append(" offset ")
 		.append(offset)
-		.append(" fetch next ")
+		.append(" rows fetch next ")
 		.append(limit)
 		.append(" rows only");
 		return sb.toString();
