@@ -458,6 +458,7 @@ public class MultiCheckListView extends ListView
 			footerView.setOnClickListener(new OnClickListener(){
 				@Override
 				public void onClick(View v){
+					pullUpDelalyLoad();
 					return;
 				}
 			});
@@ -479,6 +480,10 @@ public class MultiCheckListView extends ListView
 			public void run() 
 			{
 				uListener.pullUpToRefresh();
+				if(MaxDataNum == CurDataNum){
+					TextView _tips = (TextView)moretipsView.findViewById(R.id.tips);
+					_tips.setText(R.string.footer_clickToRefresh);
+				}
 				moretipsView.setVisibility(VISIBLE);
 				loadingView.setVisibility(GONE);
 				adapter.notifyDataSetChanged();

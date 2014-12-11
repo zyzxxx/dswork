@@ -19,5 +19,6 @@
     <string name="app_list_header_refresh_last_update">刷新</string>
     
     <string name="footer_more">↑  更多</string>
+    <string name="footer_clickToRefresh">数据全部加载完毕，点击此处刷新</string>
     <string name="footer_loading">加载中...</string>
 </resources>
