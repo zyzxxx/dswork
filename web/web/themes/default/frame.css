@@ -209,7 +209,7 @@ table.listLogo td,
 .pageview a.last{width:38px;padding-right:14px;background:url(img/pageview/last.gif ) no-repeat;background-position:right center;}/**/
 .pageview input     {line-height:16px;height:16px;text-align:center;}
 .pageview input.input{width:25px;border:#7998c6 solid 1px;font-size:12px;}
-.pageview input.go  {width:22px;cursor:pointer;border:none;background:url(img/pageview/go.gif) 0px 0px no-repeat;font-size:10px;font-weight:bold;}
+.pageview input.go  {width:30px;cursor:pointer;border:#7998C6 solid 1px;height:18px;background:none;font-size:10px;font-weight:bold;}
 .pageview select{line-height:18px;height:18px;width:40px;text-align:center;cursor:pointer;border:none;border:#7998c6 solid 1px;}
 
 
