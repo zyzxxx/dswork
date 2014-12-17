@@ -165,6 +165,21 @@
             <typeparam name="T">Object</typeparam>
             <param name="o">T</param>
         </member>
+        <member name="M:Dswork.Web.MyRequest.GetFillObject(System.Object,System.String)">
+            <summary>
+            从Request中获取值并自动填充到Object
+            </summary>
+            <param name="o">Object</param>
+            <param name="clazzName">request中获取类的属性key为clazzName加上属性名，即clazzName为key的前缀</param>
+        </member>
+        <member name="M:Dswork.Web.MyRequest.GetFillObject``1(``0,System.String)">
+            <summary>
+            从Request中获取值并自动填充到Object
+            </summary>
+            <typeparam name="T">Object</typeparam>
+            <param name="o">T</param>
+            <param name="clazzName">request中获取类的属性key为clazzName加上属性名，即clazzName为key的前缀</param>
+        </member>
         <member name="M:Dswork.Web.MyRequest.GetDouble(System.String)">
             <summary>
             从Request中取得double值，如果取得的值为null，则返回0D
