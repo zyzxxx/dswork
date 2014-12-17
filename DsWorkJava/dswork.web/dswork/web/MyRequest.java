@@ -629,7 +629,7 @@ public class MyRequest
 	 * @param clazzName request中子类值的值的key的前缀带“.”，父类则使用空字符串
 	 * @param o Object
 	 */
-	private void getFillObject(Object o, String clazzName)
+	public void getFillObject(Object o, String clazzName)
 	{
 		try
 		{
