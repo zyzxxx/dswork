@@ -166,6 +166,78 @@ public class MyRequest
 	}
 
 	/**
+	 * 从request中获取值并自动填充到Object
+	 * @param o Object
+	 * @param clazzName request中获取类的属性key为clazzName加上属性名，即clazzName为key的前缀
+	 */
+	public void getFillObject(Object o, String clazzName)
+	{
+		try
+		{
+			BeanInfo info = Introspector.getBeanInfo(o.getClass());
+			PropertyDescriptor[] descritors = info.getPropertyDescriptors();
+			String name = "", typeName = "", _tmp, pre_name;
+			for(int i = 0; i < descritors.length; i++)
+			{
+				try
+				{
+					name = descritors[i].getName();
+					pre_name = clazzName + name;
+					typeName = descritors[i].getReadMethod().getReturnType().getName();
+					_tmp = String.valueOf(request.getParameter(pre_name)); 
+					if(name.equals("class") || _tmp.equals("null"))
+					{
+						continue;
+					}
+					if(typeName.equals(String.class.getName()))
+					{
+						descritors[i].getWriteMethod().invoke(o, new Object[]{_tmp});
+					}
+					else if(typeName.equals(Long.class.getName()) || typeName.equals("long"))
+					{
+						descritors[i].getWriteMethod().invoke(o, new Object[]{Long.parseLong(_tmp)});
+					}
+					else if(typeName.equals(Integer.class.getName()) || typeName.equals("int"))
+					{
+						descritors[i].getWriteMethod().invoke(o, new Object[]{Integer.parseInt(_tmp)});
+					}
+					else if(typeName.equals(Float.class.getName()) || typeName.equals("float"))
+					{
+						descritors[i].getWriteMethod().invoke(o, new Object[]{Float.parseFloat(_tmp)});
+					}
+					else if(typeName.equals(Double.class.getName()) || typeName.equals("double"))
+					{
+						descritors[i].getWriteMethod().invoke(o, new Object[]{Double.parseDouble(_tmp)});
+					}
+					else if(typeName.equals(Date.class.getName()))
+					{
+						descritors[i].getWriteMethod().invoke(o, new Object[]{MyRequest.toDate(_tmp)});
+					}
+					else
+					{
+						Object obj = descritors[i].getReadMethod().invoke(o);
+						if(obj == null)
+						{
+							obj = (Class.forName(descritors[i].getReadMethod().getReturnType().getName())).newInstance();
+							descritors[i].getWriteMethod().invoke(o, obj);
+						}
+						this.getFillObject(obj, pre_name+".");
+						//descritors[i].getWriteMethod().invoke(o, new Object[]{request.getParameter(pre_name)});
+					}
+				}
+				catch(Exception ex)
+				{
+					System.out.println(typeName + ":" + clazzName + name + ":" + ex);
+				}
+			}
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+
+	/**
 	 * 从Request中取得float值，如果取得的值为null，则返回0F
 	 * @param key request参数名
 	 * @return float
@@ -622,78 +694,6 @@ public class MyRequest
 		str = str.replace(")", "）");
 		str = str.replace("%", "％");
 		return str;
-	}
-
-	/**
-	 * 从request中获取值并自动填充到Object
-	 * @param clazzName request中子类值的值的key的前缀带“.”，父类则使用空字符串
-	 * @param o Object
-	 */
-	public void getFillObject(Object o, String clazzName)
-	{
-		try
-		{
-			BeanInfo info = Introspector.getBeanInfo(o.getClass());
-			PropertyDescriptor[] descritors = info.getPropertyDescriptors();
-			String name = "", typeName = "", _tmp, pre_name;
-			for(int i = 0; i < descritors.length; i++)
-			{
-				try
-				{
-					name = descritors[i].getName();
-					pre_name = clazzName + name;
-					typeName = descritors[i].getReadMethod().getReturnType().getName();
-					_tmp = String.valueOf(request.getParameter(pre_name)); 
-					if(name.equals("class") || _tmp.equals("null"))
-					{
-						continue;
-					}
-					if(typeName.equals(String.class.getName()))
-					{
-						descritors[i].getWriteMethod().invoke(o, new Object[]{_tmp});
-					}
-					else if(typeName.equals(Long.class.getName()) || typeName.equals("long"))
-					{
-						descritors[i].getWriteMethod().invoke(o, new Object[]{Long.parseLong(_tmp)});
-					}
-					else if(typeName.equals(Integer.class.getName()) || typeName.equals("int"))
-					{
-						descritors[i].getWriteMethod().invoke(o, new Object[]{Integer.parseInt(_tmp)});
-					}
-					else if(typeName.equals(Float.class.getName()) || typeName.equals("float"))
-					{
-						descritors[i].getWriteMethod().invoke(o, new Object[]{Float.parseFloat(_tmp)});
-					}
-					else if(typeName.equals(Double.class.getName()) || typeName.equals("double"))
-					{
-						descritors[i].getWriteMethod().invoke(o, new Object[]{Double.parseDouble(_tmp)});
-					}
-					else if(typeName.equals(Date.class.getName()))
-					{
-						descritors[i].getWriteMethod().invoke(o, new Object[]{MyRequest.toDate(_tmp)});
-					}
-					else
-					{
-						Object obj = descritors[i].getReadMethod().invoke(o);
-						if(obj == null)
-						{
-							obj = (Class.forName(descritors[i].getReadMethod().getReturnType().getName())).newInstance();
-							descritors[i].getWriteMethod().invoke(o, obj);
-						}
-						this.getFillObject(obj, pre_name+".");
-						//descritors[i].getWriteMethod().invoke(o, new Object[]{request.getParameter(pre_name)});
-					}
-				}
-				catch(Exception ex)
-				{
-					System.out.println(typeName + ":" + clazzName + name + ":" + ex);
-				}
-			}
-		}
-		catch(Exception e)
-		{
-			System.out.println(e);
-		}
 	}
 	
 	private static Date toDate(String value) throws Exception 
