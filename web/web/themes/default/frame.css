@@ -25,14 +25,14 @@ a:active{color:#182a2d;}
 .menuTool{white-space:nowrap;}
 .menuTool a{padding:2px 0px 2px 18px;}
 
-.menuTool a.excel{background:url(img/file/excel.gif) no-repeat 0px 0px;}
-.menuTool a.exe{background:url(img/file/exe.gif) no-repeat 0px 0px;}
-.menuTool a.file{background:url(img/file/file.gif) no-repeat 0px 0px;}
-.menuTool a.flash{background:url(img/file/flash.gif) no-repeat 0px 0px;}
-.menuTool a.mp3{background:url(img/file/mp3.gif) no-repeat 0px 0px;}
-.menuTool a.pdf{background:url(img/file/pdf.gif) no-repeat 0px 0px;}
-.menuTool a.psd{background:url(img/file/psd.gif) no-repeat 0px 0px;}
-.menuTool a.word{background:url(img/file/word.gif) no-repeat 0px 0px;}
+.menuTool a.excel{background:url(img/file/excel.png) no-repeat 0px 0px;}
+.menuTool a.exe{background:url(img/file/exe.png) no-repeat 0px 0px;}
+.menuTool a.file{background:url(img/file/file.png) no-repeat 0px 0px;}
+.menuTool a.flash{background:url(img/file/flash.png) no-repeat 0px 0px;}
+.menuTool a.mp3{background:url(img/file/mp3.png) no-repeat 0px 0px;}
+.menuTool a.pdf{background:url(img/file/pdf.png) no-repeat 0px 0px;}
+.menuTool a.psd{background:url(img/file/psd.png) no-repeat 0px 0px;}
+.menuTool a.word{background:url(img/file/word.png) no-repeat 0px 0px;}
 
 .menuTool a.add     {background:url(img/menu.png) no-repeat 0px    0px;}
 .menuTool a.del     {background:url(img/menu.png) no-repeat 0px  -25px;}
@@ -74,13 +74,13 @@ a:active{color:#182a2d;}
 .menuTool a.save    {background:url(img/menu.png) no-repeat 0px -700px;}
 .menuTool a.printer {background:url(img/menu.png) no-repeat 0px -725px;}
 
-.menuTool .back {background:url(img/menu/back.gif) no-repeat 0px 0px;}
-.menuTool .close {background:url(img/menu/close.gif) no-repeat 0px 0px;}
+.menuTool .back {background:url(img/menu/back.png) no-repeat 0px 0px;}
+.menuTool .close {background:url(img/menu/close.png) no-repeat 0px 0px;}
 
 .menuTool .vline {background-color:silver;padding-left:1px;padding-right:0px;margin:0px 2px 0px 2px;}
 
-.menuTool-back {background:url(img/menu/back.gif) no-repeat;}
-.menuTool-close {background:url(img/menu/close.gif) no-repeat;}
+.menuTool-back {background:url(img/menu/back.png) no-repeat;}
+.menuTool-close {background:url(img/menu/close.png) no-repeat;}
 
 .menuTool-leftarrow {background:url(img/menu/leftarrow.png) no-repeat;}
 .menuTool-rightarrow {background:url('img/menu/rightarrow.png') no-repeat;}
@@ -88,14 +88,14 @@ a:active{color:#182a2d;}
 .menuTool-downarrow {background:url('img/menu/downarrow.png') no-repeat;}
 
 
-.menuTool-excel {background:url(img/file/excel.gif) no-repeat 0px 0px;}
-.menuTool-exe {background:url(img/file/exe.gif) no-repeat 0px 0px;}
-.menuTool-file {background:url(img/file/file.gif) no-repeat 0px 0px;}
-.menuTool-flash {background:url(img/file/flash.gif) no-repeat 0px 0px;}
-.menuTool-mp3 {background:url(img/file/mp3.gif) no-repeat 0px 0px;}
-.menuTool-pdf {background:url(img/file/pdf.gif) no-repeat 0px 0px;}
-.menuTool-psd {background:url(img/file/psd.gif) no-repeat 0px 0px;}
-.menuTool-word {background:url(img/file/word.gif) no-repeat 0px 0px;}
+.menuTool-excel {background:url(img/file/excel.png) no-repeat 0px 0px;}
+.menuTool-exe {background:url(img/file/exe.png) no-repeat 0px 0px;}
+.menuTool-file {background:url(img/file/file.png) no-repeat 0px 0px;}
+.menuTool-flash {background:url(img/file/flash.png) no-repeat 0px 0px;}
+.menuTool-mp3 {background:url(img/file/mp3.png) no-repeat 0px 0px;}
+.menuTool-pdf {background:url(img/file/pdf.png) no-repeat 0px 0px;}
+.menuTool-psd {background:url(img/file/psd.png) no-repeat 0px 0px;}
+.menuTool-word {background:url(img/file/word.png) no-repeat 0px 0px;}
 
 .menuTool-add     {background:url(img/menu.png) no-repeat 0px   0px;}
 .menuTool-del     {background:url(img/menu.png) no-repeat 0px  -25px;}
@@ -136,7 +136,7 @@ a:active{color:#182a2d;}
 .menuTool-commit  {background:url(img/menu.png) no-repeat 0px -700px;}
 .menuTool-save    {background:url(img/menu.png) no-repeat 0px -700px;}
 .menuTool-printer {background:url(img/menu.png) no-repeat 0px -725px;}
-span.menuTool-save{background:url(img/menu/save.gif) no-repeat;}
+span.menuTool-save{background:url(img/menu/save.png) no-repeat;}
 
 
 input.button, input.delete{padding:2px 3px 0px 3px;cursor:pointer;color:#000000;border:#000000 solid 1px;}

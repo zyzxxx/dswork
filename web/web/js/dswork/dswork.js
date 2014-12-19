@@ -164,7 +164,7 @@ $dswork.upload = function(o){
 	this.ext = o.ext || "file";
 	this.count = 1;
 	this.limit = o.limit || 10240;
-	this.show  = o.show||null;
+	this.show  = o.show;
 	if(this.show == null){this.show = true;}
 	this.show == this.show ? true : false;
 	this.image = "jpg,jpeg,gif,png";

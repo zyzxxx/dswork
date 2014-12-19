@@ -13,7 +13,14 @@ function check(type)
 {
 	if(type < 1)type = 1;
 	if(type > 4)type = 4;
-	if(!$jskey.validator.Validate("dataForm", type))
+	if(type == 3.5)
+	{
+		if(!$jskey.validator.Validate("dataForm", 3, null, null, false))
+		{
+			return false;
+		}
+	}
+	else if(!$jskey.validator.Validate("dataForm", type, null, null))
 	{
 		return false;
 	}
@@ -29,6 +36,7 @@ td {text-align:left;}
 <input type="button" value="验证模式一" onclick="check(1);" />&nbsp;
 <input type="button" value="验证模式二" onclick="check(2);" />&nbsp;
 <input type="button" value="验证模式三" onclick="check(3);" />&nbsp;
+<input type="button" value="验证模式三(默认隐藏显示)" onclick="check(3.5);" />&nbsp;
 <input type="button" value="验证模式四" onclick="check(4);" />
 <br />
 需要可以为空的，增加属性：require=&quot;false&quot;
@@ -151,7 +159,7 @@ td {text-align:left;}
 			运动<input name="Favorite" value="1" type="checkbox" />
 			上网<input name="Favorite" value="2" type="checkbox" />
 			音乐<input name="Favorite" value="3" type="checkbox" />
-			看书<input name="Favorite" value="4" type="checkbox"" dataType="Group" min="2" max="3"  msg="必须选择2~3种爱好" />
+			看书<input name="Favorite" value="4" type="checkbox" dataType="Group" min="2" max="3"  msg="必须选择2~3种爱好" />
 		</td>
 	</tr>
 	<tr>
@@ -190,6 +198,7 @@ td {text-align:left;}
 </center>
 </body>
 <script type="text/javascript">
-//$jskey.validator.Init("dataForm", 3);//一开始就要即时验证的话，调用此方法
+//$jskey.validator.Init("dataForm", 3, null, null, true);//一开始就要即时验证的话，调用此方法(默认离开显示提示内容)
+//$jskey.validator.Init("dataForm", 3, null, null, false);//一开始就要即时验证的话，调用此方法(默认离开隐藏提示内容)
 </script>
 </html>
