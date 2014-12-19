@@ -20,11 +20,13 @@ $(function() {
 	$('#south-west').tipx({show: 'sw'});
 	$('#south').tipx({show: 's'});
 	$('#south-east').tipx({show: 'se'});
-	
-	$('#xsouth-west').tipx({title:mymsg});
-	$('#xsouth').tipx();
-	$('#xsouth-east').tipx();
-	$('#xsouth-east').tipx("show");
+    
+    
+    $('#xsouth-west').tipx({title:mymsg});
+    $('#xsouth').tipx();
+    $('#xeast-west').tipx();
+    $('#xeast-west2').tipx();
+    $('#xeast-west2').tipx("show");
 });
 </script>
 </head>
@@ -72,7 +74,9 @@ $(function() {
 			<a id='xsouth' href='#' msg="这个是msg属性的喔，这才是正统的" title='默认东西位置适应'>南方</a>
 		</td>
 		<td id="ss">
-			<a id='xsouth-east' rel='tipsy' href='#' title='默认东西位置适应'>东南</a>
+			<a id='xeast-west' rel='tipsy' href='#' title='默认东西位置适应'>东西</a>
+			&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+			<a id='xeast-west2' rel='tipsy' href='#' title='默认东西位置适应'>东西</a>
 		</td>
 	</tr>
 </table>
