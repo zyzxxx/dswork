@@ -1,0 +1,4 @@
+For DB2 UDB V8 for Linux, UNIX, and Windows servers:
+	db2jcc_license_su.jar
+For DB2 UDB for iSeries® and z/OS servers (provided with DB2 Connect and DB2 Enterprise Server Edition): 
+	db2jcc_license_cisuz.jar
