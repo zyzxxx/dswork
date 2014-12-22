@@ -1,0 +1,2 @@
+连接microsoft sqlserver 2000时，使用：mssql-2000jdbc.jar
+2005及以上的，使用：mssql-jdbc4.jar
