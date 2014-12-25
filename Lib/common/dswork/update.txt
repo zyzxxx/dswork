@@ -1,0 +1,2 @@
+2014-12-25
+	更新了EncryptUtil的encodeBase64方法，去掉了RFC2045协议中定义的每76个Characters就回车换行的做法，即去掉回车即换行符号
