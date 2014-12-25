@@ -53,7 +53,7 @@ public class EncryptUtil
 	{
 		try
 		{
-			return (new sun.misc.BASE64Encoder()).encode(str.getBytes("UTF-8"));
+			return (new sun.misc.BASE64Encoder()).encode(str.getBytes("UTF-8")).replaceAll("\r", "").replaceAll("\n", "");
 		}
 		catch(Exception e)
 		{
