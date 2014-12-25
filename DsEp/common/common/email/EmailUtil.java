@@ -71,13 +71,13 @@ public class EmailUtil
 		return new MimeMultipart();
 	}
 	
-	public static MimeMultipart createMimeMultipart(String msg)
+	public static MimeMultipart createMimeMultipart(String body)
 	{
 		MimeMultipart mm = new MimeMultipart();
 		try
 		{
 			BodyPart bp = new MimeBodyPart();// 新建一个存放信件内容的BodyPart对象
-			bp.setContent("<html><body><pre>" + msg + "</pre></body></html>", "text/html;charset=utf-8");// 给BodyPart对象设置内容和格式/编码方式
+			bp.setContent("<html><body><pre>" + body + "</pre></body></html>", "text/html;charset=utf-8");// 给BodyPart对象设置内容和格式/编码方式
 			mm.addBodyPart(bp);
 		}
 		catch(Exception ex)
@@ -85,6 +85,20 @@ public class EmailUtil
 			ex.printStackTrace();
 		}
 		return mm;
+	}
+	
+	public static void addBody(MimeMultipart mm, String body)
+	{
+		try
+		{
+			BodyPart bp = new MimeBodyPart();// 新建一个存放信件内容的BodyPart对象
+			bp.setContent("<html><body><pre>" + body + "</pre></body></html>", "text/html;charset=utf-8");// 给BodyPart对象设置内容和格式/编码方式
+			mm.addBodyPart(bp);
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 
 	
