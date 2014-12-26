@@ -10,19 +10,20 @@
 			select LAST_INSERT_ID()
 		</selectKey>
 		insert into DS_EP_USER
-		(ID, QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, WORKCARD, CAKEY, CREATETIME, SSDW, SSBM, FAX)
+		(ID, QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, WORKCARD, CAKEY, CREATETIME, SSDW, SSBM, FAX)
 		values
-		(null, lower(#{qybm}), lower(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{workcard}, #{cakey}, #{createtime}, #{ssdw}, #{ssbm}, #{fax})
+		(null, lower(#{qybm}), lower(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{usertype}, #{email}, #{mobile}, #{phone}, #{workcard}, #{cakey}, #{createtime}, #{ssdw}, #{ssbm}, #{fax})
 	</insert>
 
 	<delete id="delete">
-		delete from DS_EP_USER where ID=#{id} and STATUS&lt;&gt;1
+		delete from DS_EP_USER where ID=#{id} and USERTYPE&lt;&gt;1
 	</delete>
 
 	<update id="update" parameterType="dswork.ep.model.DsEpUser">
 		update DS_EP_USER set
 			NAME=#{name},
 			IDCARD=#{idcard},
+			STATUS=#{status},
 			EMAIL=#{email},
 			MOBILE=#{mobile},
 			PHONE=#{phone},
@@ -35,7 +36,7 @@
 	</update>
 
 	<update id="updatePassword">
-		update DS_EP_USER set PASSWORD=#{password} where ID=#{id} and STATUS=#{status}
+		update DS_EP_USER set PASSWORD=#{password} where ID=#{id} and USERTYPE=#{usertype}
 	</update>
 
 	<resultMap id="result" type="dswork.ep.model.DsEpUser">
@@ -46,6 +47,7 @@
 		<result property="name" column="NAME" />
 		<result property="idcard" column="IDCARD" />
 		<result property="status" column="STATUS" />
+		<result property="usertype" column="USERTYPE" />
 		<result property="email" column="EMAIL" />
 		<result property="mobile" column="MOBILE" />
 		<result property="phone" column="PHONE" />
@@ -58,7 +60,7 @@
 	</resultMap>
 
 	<sql id="columns">
-		ID, QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, WORKCARD, CAKEY, CREATETIME, SSDW, SSBM, FAX
+		ID, QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, WORKCARD, CAKEY, CREATETIME, SSDW, SSBM, FAX
 	</sql>
 	
 	<sql id="dynamicWhere">
@@ -67,6 +69,7 @@
 			<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT=#{account} </if>
 			<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
 			<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
+			<if test="@Ognl@isNotEmpty(usertype)"> and USERTYPE=#{usertype} </if>
 			<if test="@Ognl@isNotEmpty(keyvalue)"> and (QYBM like concat('%', #{keyvalue}, '%') or MOBILE like concat('%',#{keyvalue},'%') or PHONE like concat('%',#{key},'%')) </if>
 		</where>
 	</sql>

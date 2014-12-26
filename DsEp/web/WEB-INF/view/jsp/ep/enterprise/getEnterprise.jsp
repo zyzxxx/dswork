@@ -20,7 +20,7 @@ $(function(){
 	$("#status").val("${param.status}");
 	$("#type").val("${param.type}");
 	$("#dataTable>tbody>tr>td.status").each(function(){
-		$(this).text($(this).text()=="1"?"正常运营":$(this).text()=="2"?"禁用":"已注销");
+		$(this).text($(this).text()=="1"?"正常运营":$(this).text()=="0"?"禁用":$(this).text()=="2"?"待审":"已注销");
 	});
 });
 $dswork.doAjax = true;
@@ -46,8 +46,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 			&nbsp;关键字查询：<input type="text" name="keyvalue" style="width:200px;" title="企业编码或企业名称" value="${fn:escapeXml(param.keyvalue)}" />
 			&nbsp;状态：<select id="status" name="status" style="width:150px;">
 				<option value="">全部</option>
-				<option value="1">正常运营</option>
-				<option value="2">禁用</option>
+				<option value="0">禁用</option>
+				<option value="2">待审</option>
 				<option value="3">已注销</option>
 			</select>
 			&nbsp;类型：<select id="type" name="type" style="width:150px;">

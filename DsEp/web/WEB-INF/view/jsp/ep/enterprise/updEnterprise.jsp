@@ -37,7 +37,8 @@ $(function(){
 		<td class="form_title">状态：</td>
 		<td class="form_input"><select id="status" name="status" style="width:135px;">
 			<option value="1">正常运营</option>
-			<option value="2">禁用</option>
+			<option value="0">禁用</option>
+			<option value="2">待审</option>
 			<option value="3">已注销</option>
 		</select></td>
 	</tr>

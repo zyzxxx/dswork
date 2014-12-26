@@ -38,7 +38,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="form_title">状态：</td>
 		<td class="form_input"><select name="status" style="width:300px;">
 			<option value="1">正常运营</option>
-			<option value="2">禁用</option>
+			<option value="0">禁用</option>
+			<option value="2">待审</option>
 			<option value="3">已注销</option>
 		</select></td>
 	</tr>

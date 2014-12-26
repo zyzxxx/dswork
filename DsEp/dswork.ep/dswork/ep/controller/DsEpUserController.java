@@ -47,7 +47,8 @@ public class DsEpUserController extends BaseController
 			{
 				Auth user = AuthLogin.getLoginUser(request, response);
 				po.setQybm(user.getQybm());
-				po.setStatus(0);
+				po.setUsertype(0);// 非企业管理员
+				po.setStatus(1);// 正常状态
 				po.setCreatetime(TimeUtil.getCurrentTime());
 				service.save(po);
 				print(1);
@@ -95,7 +96,7 @@ public class DsEpUserController extends BaseController
 			DsEpUser user = service.get(id);
 			if(user != null && checkUser(user.getId()))
 			{
-				po.setStatus(user.getStatus());
+				po.setUsertype(user.getUsertype());// 用户类型不可改，虽然xml没有配置sql也照写
 				po.setPassword(user.getPassword());
 				po.setQybm(user.getQybm());
 				service.update(po);
@@ -153,7 +154,7 @@ public class DsEpUserController extends BaseController
 			DsEpUser user = service.get(po.getId());
 			if(user != null && EncryptUtil.encryptMd5(oldpassword).equals(user.getPassword()) && checkUser(user.getId()))
 			{
-				service.updatePassword(user.getId(), user.getStatus(), po.getPassword());
+				service.updatePassword(user.getId(), 0, po.getPassword());// 此模块只能改非企业管理员
 				print(1);
 			}
 			else

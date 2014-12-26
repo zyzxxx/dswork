@@ -8,10 +8,12 @@ public class Auth
 	private String password;
 	private String name;
 	private String email;
-	private Integer logintype;// -1后台用户，0企业管理员，1个人用户
-	private String qybm;//企业编码，后台用户为空
-	private String ssdw;//所属单位
-	private String ssbm;//所属部门
+	private Integer logintype;// -1系统用户，0企业用户，1个人用户
+	private Integer loginstatus;// 1正常，0禁用
+	private Integer usertype;// 系统（），企业（1管理员,0普通用户），个人（）
+	private String qybm;// 企业编码，后台用户为空
+	private String ssdw;// 所属单位
+	private String ssbm;// 所属部门
 
 	public Long getId()
 	{
@@ -71,6 +73,26 @@ public class Auth
 	public void setLogintype(Integer logintype)
 	{
 		this.logintype = logintype;
+	}
+
+	public Integer getLoginstatus()
+	{
+		return loginstatus;
+	}
+
+	public void setLoginstatus(Integer loginstatus)
+	{
+		this.loginstatus = loginstatus;
+	}
+
+	public Integer getUsertype()
+	{
+		return usertype;
+	}
+
+	public void setUsertype(Integer usertype)
+	{
+		this.usertype = usertype;
 	}
 
 	public String getQybm()

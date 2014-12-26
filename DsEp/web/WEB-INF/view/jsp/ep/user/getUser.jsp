@@ -12,16 +12,16 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getUser.htm?page=${pageModel.currentPage}&qybm=${qybm}";
 }};
 $dswork.page.join = function(td, menu, id){
-	var status  = $(td).attr("status");
-	if(status == null || typeof(status)=="undefined"){return true;}
-	if(status != "1"){
+	var usertype  = $(td).attr("usertype");
+	if(usertype == null || typeof(usertype)=="undefined"){return true;}
+	if(usertype != "1"){
 		$(menu).append($('<div iconCls="menuTool-user">删除</div>').bind("click", function(event){
 			if(confirm("确认删除吗？")){$dswork.page.del(event, "delUser.htm", id, "${pageModel.currentPage}", td);}
 		}));
+		$(menu).append($('<div iconCls="menuTool-user">修改密码</div>').bind("click", function(event){
+			location.href = "updUserPassword1.htm?keyIndex=" + id;
+		}));
 	}
-	$(menu).append($('<div iconCls="menuTool-user">修改密码</div>').bind("click", function(event){
-		location.href = "updUserPassword1.htm?keyIndex=" + id;
-	}));
 };
 $(function(){
 	$dswork.page.menu("", "updUser1.htm", "getUserById.htm", "${pageModel.currentPage}");
@@ -65,12 +65,12 @@ $(function(){
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
-		<td><c:if test="${d.status != 1}"><input name="keyIndex" type="checkbox" value="${d.id}" /></c:if></td>
-		<td class="menuTool" status="${d.status}" keyIndex="${d.id}">&nbsp;</td>
+		<td><c:if test="${d.usertype != 1}"><input name="keyIndex" type="checkbox" value="${d.id}" /></c:if></td>
+		<td class="menuTool" usertype="${d.usertype}" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
 		<td>${fn:escapeXml(d.mobile)}</td>
 		<td>${fn:escapeXml(d.email)}</td>
-		<td class="status" style="${d.status == 1?'color:red;':''}">${d.status==1?"管理员":"用户"}</td>
+		<td class="usertype" style="${d.usertype == 1?'color:red;':''}">${d.usertype==1?"管理员":"用户"}</td>
 		<td>${fn:escapeXml(d.createtime)}</td>
 	</tr>
 </c:forEach>

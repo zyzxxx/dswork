@@ -8,7 +8,7 @@
 <%@include file="/commons/include/getById.jsp" %>
 <script type="text/javascript">
 $(function(){
-	$("#status").text($("#status").text()=="1"?"正常运营":$("#status").text()=="2"?"禁用":"已注销");
+	$("#status").text($("#status").text()=="1"?"正常运营":$("#status").text()=="0"?"禁用":$("#status").text()=="2"?"待审":"已注销");
 });
 </script>
 </head>

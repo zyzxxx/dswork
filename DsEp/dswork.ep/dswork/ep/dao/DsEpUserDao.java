@@ -39,11 +39,11 @@ public class DsEpUserDao extends BaseDao<DsEpUser, Long>
 		}
 	}
 
-	public void updatePassword(long userId, int status, String password)
+	public void updatePassword(long userId, int usertype, String password)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", userId);
-		map.put("status", status);
+		map.put("usertype", usertype);
 		map.put("password", password);
 		executeUpdate("updatePassword", map);
 	}

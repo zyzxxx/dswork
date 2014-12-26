@@ -85,21 +85,30 @@ public class AuthLogin
 			}
 			if(loginUser != null)
 			{
-				password = EncryptUtil.decodeDes(password, "dswork");
-				password = EncryptUtil.encryptMd5(password).toLowerCase();
-				if(password.equalsIgnoreCase(loginUser.getPassword().toLowerCase()))
+				if(loginUser.getLoginstatus() == 1)// 正常
 				{
-					setLoginUserInfo(loginUser);
-					return true;
+					password = EncryptUtil.decodeDes(password, "dswork");
+					password = EncryptUtil.encryptMd5(password).toLowerCase();
+					if(password.equalsIgnoreCase(loginUser.getPassword().toLowerCase()))
+					{
+						setLoginUserInfo(loginUser);
+						return true;
+					}
+				}
+				else
+				{
+					this.msg = "用户已禁用！";
 				}
 			}
-			this.msg = "用户名或者密码错误，请检查输入！";
-			return false;
+			else
+			{
+				this.msg = "用户名或者密码错误，请检查输入！";
+			}
 		}
 		catch(Exception ex)
 		{
-			return false;
 		}
+		return false;
 	}
 
 	/**

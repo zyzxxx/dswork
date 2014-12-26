@@ -7,7 +7,7 @@
 <title></title>
 <%@include file="/commons/include/getById.jsp" %>
 <script type="text/javascript">
-$(function(){$("#status").text($("#status").text()=="1"?"管理员":"普通用户");});
+$(function(){$("#usertype").text($("#usertype").text()=="1"?"管理员":"普通用户");});
 </script>
 </head>
 <body>
@@ -43,7 +43,11 @@ $(function(){$("#status").text($("#status").text()=="1"?"管理员":"普通用�
 	</tr>
 	<tr>
 		<td class="form_title">状态</td>
-		<td class="form_input" id="status">${fn:escapeXml(po.status)}</td>
+		<td class="form_input">${po.status == 1?"启用":"禁用"}</td>
+	</tr>
+	<tr>
+		<td class="form_title">用户类型</td>
+		<td class="form_input" id="usertype">${po.usertype}</td>
 	</tr>
 	<tr>
 		<td class="form_title">电子邮件</td>

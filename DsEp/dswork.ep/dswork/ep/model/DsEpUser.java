@@ -19,6 +19,8 @@ public class DsEpUser
 	private String idcard = "";
 	// 状态
 	private Integer status = 0;
+	// 用户类型（1企业管理员，0普通用户）
+	private Integer usertype = 0;
 	// 电子邮件
 	private String email = "";
 	// 手机
@@ -106,6 +108,16 @@ public class DsEpUser
 	public void setStatus(Integer status)
 	{
 		this.status = status;
+	}
+
+	public Integer getUsertype()
+	{
+		return usertype;
+	}
+
+	public void setUsertype(Integer usertype)
+	{
+		this.usertype = usertype;
 	}
 
 	public String getEmail()

@@ -34,10 +34,10 @@ public class DsEpUserService extends BaseService<DsEpUser, Long>
 		return userDao.isExists(account);
 	}
 
-	public void updatePassword(long userId, int status, String password) throws Exception
+	public void updatePassword(long userId, int usertype, String password) throws Exception
 	{
 		password = EncryptUtil.encryptMd5(password);
-		userDao.updatePassword(userId, status, password);
+		userDao.updatePassword(userId, usertype, password);
 	}
 
 	public DsEpEnterprise getEp(Long id)

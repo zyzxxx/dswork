@@ -49,7 +49,8 @@ public class DsEpEnterpriseController extends BaseController
 			{
 				user.setName(req.getString("username"));
 				user.setQybm(ent.getQybm());
-				user.setStatus(1);// 企业管理员
+				user.setUsertype(1);// 企业管理员
+				user.setStatus(1);// 正常状态
 				user.setCreatetime(TimeUtil.getCurrentTime());
 				service.save(ent, user);
 				print(1);
@@ -70,7 +71,7 @@ public class DsEpEnterpriseController extends BaseController
 		DsEpEnterprise po = service.get(id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("qybm", po.getQybm());
-		map.put("status", 1); // 1代表管理员
+		map.put("usertype", 1); // 1代表管理员
 		List<DsEpUser> userlist = service.queryListUser(map);
 		if(userlist.size() > 0)
 		{
@@ -117,7 +118,7 @@ public class DsEpEnterpriseController extends BaseController
 		DsEpEnterprise po = service.get(id);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("qybm", po.getQybm());
-		map.put("status", 1); // 1代表管理员
+		map.put("usertype", 1); // 1代表管理员
 		List<DsEpUser> userlist = service.queryListUser(map);
 		if(userlist.size() > 0)
 		{
@@ -134,7 +135,7 @@ public class DsEpEnterpriseController extends BaseController
 		Long id = req.getLong("keyIndex");
 		String qybm = service.get(id).getQybm();
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("status", 1);
+		map.put("usertype", 1); // 1代表管理员
 		map.put("qybm", qybm);
 		List<DsEpUser> userlist = service.queryListUser(map);
 		if(userlist.size() > 0)
