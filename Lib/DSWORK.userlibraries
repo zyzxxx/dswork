@@ -5,7 +5,6 @@
         <archive path="/Lib/common/cglib-2.2.2.jar"/>
         <archive path="/Lib/common/jimi.jar"/>
         <archive path="/Lib/common/jstl-1.2.jar"/>
-        <archive path="/Lib/common/ognl-2.7.3.jar"/>
         <archive path="/Lib/common/commons/commons-collections-3.2.1.jar"/>
         <archive path="/Lib/common/commons/commons-dbcp-1.4.jar"/>
         <archive path="/Lib/common/commons/commons-io-2.3.jar"/>
@@ -34,6 +33,7 @@
         <archive path="/Lib/hibernate/javassist-3.15.0-GA.jar"/>
         <archive path="/Lib/hibernate/javax.persistence.jar"/>
         <archive path="/Lib/hibernate/jta-1.1.jar"/>
+        <archive path="/Lib/hibernate/ognl-2.7.3.jar"/>
         <archive path="/Lib/hibernate/spring-orm.jar"/>
         <archive path="/Lib/module/xml/dom4j-1.6.1.jar"/>
     </library>

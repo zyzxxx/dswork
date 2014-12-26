@@ -5,7 +5,6 @@
         <archive path="/Lib/common/cglib-2.2.2.jar"/>
         <archive path="/Lib/common/jimi.jar"/>
         <archive path="/Lib/common/jstl-1.2.jar"/>
-        <archive path="/Lib/common/ognl-2.7.3.jar"/>
         <archive path="/Lib/common/commons/commons-collections-3.2.1.jar"/>
         <archive path="/Lib/common/commons/commons-dbcp-1.4.jar"/>
         <archive path="/Lib/common/commons/commons-io-2.3.jar"/>
