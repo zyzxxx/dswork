@@ -34,6 +34,10 @@ else
 %>
 <!DOCTYPE html>
 <html>
-<head><script type="text/javascript">alert("<%=m %>");location.href="<%=s%>";</script></head>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<script type="text/javascript">alert("<%=m %>");location.href="<%=s%>";</script>
+</head>
 <body></body>
 </html>
