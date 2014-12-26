@@ -6,9 +6,6 @@
 <head>
 <title></title>
 <%@include file="/commons/include/get.jsp" %>
-<script src="../../jquery/jquery.js" type="text/javascript"></script>
-<script src="../../easyui/jquery.easyui.js" type="text/javascript"></script>
-<script src="../jskey_core.js" type="text/javascript"></script>
 <script type="text/javascript">
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
