@@ -41,7 +41,6 @@
 		</property>
 	</bean>
 	
-    <context:annotation-config />
 	<context:component-scan base-package="dswork.common">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
