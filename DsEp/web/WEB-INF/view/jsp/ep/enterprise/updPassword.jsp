@@ -8,7 +8,7 @@
 <%@include file="/commons/include/updAjax.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "${ctx}/ep/enterprise/getEnterprise.htm?page=${page}";
+	location.href = "getEnterprise.htm?page=${page}";
 }};
 </script>
 </head>
