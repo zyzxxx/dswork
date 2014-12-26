@@ -6,9 +6,6 @@
 <head>
 <title></title>
 <%@include file="/commons/include/get.jsp" %>
-<script src="../../jquery/jquery.js" type="text/javascript"></script>
-<script src="../../easyui/jquery.easyui.js" type="text/javascript"></script>
-<script src="../jskey_core.js" type="text/javascript"></script>
 <script type="text/javascript">
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-user">重置密码</div>').bind("click", function(){
