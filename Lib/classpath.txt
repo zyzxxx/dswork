@@ -28,6 +28,5 @@
 	<classpathentry kind="lib" path="/Lib/common/cglib-nodep-2.2.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/jimi.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/jstl-1.2.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/ognl-2.7.3.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.7.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
