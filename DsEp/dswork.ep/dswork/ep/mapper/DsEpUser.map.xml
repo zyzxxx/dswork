@@ -23,7 +23,6 @@
 	update DS_EP_USER set
 		NAME=#{name},
 		IDCARD=#{idcard},
-		STATUS=#{status},
 		EMAIL=#{email},
 		MOBILE=#{mobile},
 		PHONE=#{phone},
