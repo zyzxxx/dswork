@@ -24,6 +24,7 @@ $dswork.page.join = function(td, menu, id){
 	}
 };
 $(function(){
+	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
 	$dswork.page.menu("", "updUser1.htm", "getUserById.htm", "${pageModel.currentPage}");
 });
 function updStatus(objid, id){
@@ -61,6 +62,7 @@ function updStatus(objid, id){
 			&nbsp;关键字查询：<input type="text" name="keyvalue" style="width:200px;" title="企业编码、手机或电话" value="${fn:escapeXml(param.keyvalue)}" />
 			&nbsp;账号：<input type="text" name="account" style="width:100px;" value="${fn:escapeXml(param.account)}" />
 			&nbsp;姓名：<input type="text" name="name" style="width:100px;" value="${fn:escapeXml(param.name)}" />
+			&nbsp;状态：<select id="status" name="status" style="width:50px;"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>
@@ -74,13 +76,13 @@ function updStatus(objid, id){
 		<td style="width:5%">操作</td>
 		<td>姓名(帐号)</td>
 		<td style="width:12%">手机</td>
-		<td style="width:15%">Email</td>
+		<td style="width:20%">Email</td>
 		<td style="width:9%">用户类型</td>
-		<td style="width:15%">创建时间</td>
-		<td style="width:7%;">状态</td>
+		<td style="width:17%">创建时间</td>
+		<td style="width:5%;">状态</td>
 		<td style="width:7%;">操作</td>
 	</tr>
-<c:forEach items="${pageModel.result}" var="d">
+<c:forEach items="${pageModel.result}" var="d" varStatus="status">
 	<tr>
 		<td><c:if test="${d.usertype != 1}"><input name="keyIndex" type="checkbox" value="${d.id}" /></c:if></td>
 		<td class="menuTool" usertype="${d.usertype}" keyIndex="${d.id}">&nbsp;</td>
@@ -91,7 +93,7 @@ function updStatus(objid, id){
 		<td>${fn:escapeXml(d.createtime)}</td>
 		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
 		<td class="menuTool">
-			<a ${1==d.status?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
+			<a ${1==d.usertype?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
 		</td>
 	</tr>
 </c:forEach>

@@ -31,7 +31,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">姓名：</td>
-		<td class="form_input"><input type="text" id="name" name="name" dataType="Chinese" maxlength="25" value="${fn:escapeXml(po.name)}" /></td>
+		<td class="form_input"><input type="text" id="name" name="name" dataType="Require" maxlength="25" value="${fn:escapeXml(po.name)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">身份证号：</td>
