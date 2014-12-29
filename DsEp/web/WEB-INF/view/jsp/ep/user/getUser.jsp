@@ -26,6 +26,21 @@ $dswork.page.join = function(td, menu, id){
 $(function(){
 	$dswork.page.menu("", "updUser1.htm", "getUserById.htm", "${pageModel.currentPage}");
 });
+function updStatus(objid, id){
+	var obj = $("#" + objid), o = document.getElementById(objid);
+	$.post("updUserStatus.htm",{"keyIndex":id,"status":obj.attr("v")==0?1:0},function(data){
+		$dswork.checkResult(data);
+		if($dswork.result.type == 1){
+		obj.removeClass("pause").removeClass("start");
+		if(1 == obj.attr("v")){
+			obj.text("启用").attr("v", 0).addClass("start");$("#td_" + objid).text("禁用").css("color", "red");
+		}
+		else{
+			obj.text("禁用").attr("v", 1).addClass("pause");$("#td_" + objid).text("启用").css("color", "");
+		}}else{alert($dswork.result.msg);}
+	});
+	return false;
+}
 </script>
 </head> 
 <body>
@@ -58,10 +73,12 @@ $(function(){
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
 		<td>姓名(帐号)</td>
-		<td style="width:15%">手机</td>
-		<td style="width:20%">Email</td>
-		<td style="width:10%">用户类型</td>
-		<td style="width:20%">创建时间</td>
+		<td style="width:12%">手机</td>
+		<td style="width:15%">Email</td>
+		<td style="width:9%">用户类型</td>
+		<td style="width:15%">创建时间</td>
+		<td style="width:7%;">状态</td>
+		<td style="width:7%;">操作</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
@@ -72,6 +89,10 @@ $(function(){
 		<td>${fn:escapeXml(d.email)}</td>
 		<td class="usertype" style="${d.usertype == 1?'color:red;':''}">${d.usertype==1?"管理员":"用户"}</td>
 		<td>${fn:escapeXml(d.createtime)}</td>
+		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
+		<td class="menuTool">
+			<a ${1==d.status?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
+		</td>
 	</tr>
 </c:forEach>
 </table>

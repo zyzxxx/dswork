@@ -114,6 +114,38 @@ public class DsEpUserController extends BaseController
 		}
 	}
 
+	// 修改用户状态
+	@RequestMapping("/updUserStatus")
+	public void updUserStatus()
+	{
+		long id = req.getLong("keyIndex");
+		int status = req.getInt("status", -1);
+		try
+		{
+			if(status == 0 || status == 1)
+			{
+				if(id <= 0)
+				{
+					print("0:此用户无法更改状态");
+				}
+				else
+				{
+					service.updateStatus(id, status);
+					print(1);
+				}
+			}
+			else
+			{
+				print("0:参数错误");
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
+
 	// 获得分页
 	@RequestMapping("/getUser")
 	public String getUser()

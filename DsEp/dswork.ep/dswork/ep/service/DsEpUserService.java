@@ -40,6 +40,11 @@ public class DsEpUserService extends BaseService<DsEpUser, Long>
 		userDao.updatePassword(userId, usertype, password);
 	}
 
+	public void updateStatus(long id, int status)
+	{
+		userDao.updateStatus(id, status);
+	}
+
 	public DsEpEnterprise getEp(Long id)
 	{
 		return (DsEpEnterprise) epDao.get(id);

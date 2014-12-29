@@ -130,7 +130,7 @@ public class DsCommonUserController extends BaseController
 			{
 				if(id <= 0)
 				{
-					print("0:此用户无法更改类型");
+					print("0:此用户无法更改状态");
 				}
 				else
 				{

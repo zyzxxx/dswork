@@ -28,11 +28,11 @@
 <update id="updateCakey">
 	update DS_COMMON_USER set CAKEY=#{cakey} where ID=#{id}
 </update>
-<update id="updateStatus">
-	update DS_COMMON_USER set STATUS=#{status} where ID=#{id}
-</update>
 <update id="updatePassword">
 	update DS_COMMON_USER set PASSWORD=#{password} where ID=#{id}
+</update>
+<update id="updateStatus">
+	update DS_COMMON_USER set STATUS=#{status} where ID=#{id}
 </update>
 <update id="updateOrg">
 	update DS_COMMON_USER set ORGPID=#{orgpid}, ORGID=#{orgid} where ID=#{id}
