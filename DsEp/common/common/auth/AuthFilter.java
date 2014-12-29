@@ -39,7 +39,7 @@ public class AuthFilter implements Filter
 			// 没有登录
 			if(model == null || model.getAccount() == null)
 			{
-				if(String.valueOf(req.getHeader("X-Requested-With")).equals("XMLHttpRequest"))
+				if("XMLHttpRequest".equals(String.valueOf(req.getHeader("X-Requested-With"))))
 				{
 					res.getWriter().print("0:登录超时！");
 					return;
