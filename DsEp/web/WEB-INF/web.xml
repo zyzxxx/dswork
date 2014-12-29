@@ -72,6 +72,15 @@
 		<servlet-name>xxx</servlet-name>
 		<url-pattern>/ValidCode</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+		<filter-name>authFilter</filter-name>
+		<filter-class>common.auth.AuthFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>authFilter</filter-name>
+		<url-pattern>/ep/*</url-pattern>
+	</filter-mapping>
 
 	<error-page>
 		<error-code>403</error-code>

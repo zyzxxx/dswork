@@ -22,7 +22,7 @@ $(function(){
 			$("#pageviewapp").val("");
 			$("#url").attr("require", "true");
 		}
-		if($("#status").val() == 1){
+		else if($("#status").val() == 1){
 			$("#mylink").hide();
 			$("#template_category").show();
 			$("#template_page").hide();
@@ -36,6 +36,8 @@ $(function(){
 			$("#template_page").show();
 			$("#url").attr("require", "false");
 		}
+	}).bind("change", function(){
+		$("#status").click();
 	});
 	$("#status").click();
 });
@@ -71,6 +73,10 @@ $(function(){
 		<td class="form_input"><input type="text" name="folder" maxlength="50" dataType="Char" value="" /> <span style="font-weight:bold;">添加后不可修改</span></td>
 	</tr>
 	<tr>
+		<td class="form_title">图片</td>
+		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="" /></td>
+	</tr>
+	<tr>
 		<td class="form_title">类型</td>
 		<td class="form_input"><select id="status" name="status" style="width:100px;">
 			<option value="0">列表</option>
@@ -84,10 +90,6 @@ $(function(){
 		<td class="form_input"><input type="text" id="url" name="url" maxlength="100" style="width:400px;" dataType="Require" require="false" value="" /></td>
 	</tr>
 	</tbody>
-	<tr>
-		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="" /></td>
-	</tr>
 	<tbody id="template_category">
 	<tr>
 		<td class="form_title">栏目模板</td>
