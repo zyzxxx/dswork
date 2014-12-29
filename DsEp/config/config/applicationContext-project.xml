@@ -41,19 +41,12 @@
 		</property>
 	</bean>
 	
-	<context:component-scan base-package="dswork.common">
+	<context:component-scan base-package="dswork" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
-	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
-	<context:component-scan base-package="dswork.ep">
+	<context:component-scan base-package="common" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
-	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
-	<context:component-scan base-package="common">
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
-		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
-	    <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 </beans>

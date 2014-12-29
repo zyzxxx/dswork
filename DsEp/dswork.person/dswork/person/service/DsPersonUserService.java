@@ -35,9 +35,14 @@ public class DsPersonUserService extends BaseService<DsPersonUser, Long>
 		return userDao.isExistsIdcard(idcard);
 	}
 
-	public void updatePassword(long userId, int status, String password) throws Exception
+	public void updatePassword(long userId, String password) throws Exception
 	{
 		password = EncryptUtil.encryptMd5(password);
-		userDao.updatePassword(userId, status, password);
+		userDao.updatePassword(userId, password);
+	}
+
+	public void updateStatus(long id, int status)
+	{
+		userDao.updateStatus(id, status);
 	}
 }

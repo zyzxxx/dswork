@@ -39,12 +39,6 @@ public class DsEpUserDao extends BaseDao<DsEpUser, Long>
 		}
 	}
 
-	/**
-	 * 修改密码
-	 * @param id 用户对象ID
-	 * @param usertype 用户类型
-	 * @param password 加密后的密码
-	 */
 	public void updatePassword(long userId, int usertype, String password)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -54,11 +48,6 @@ public class DsEpUserDao extends BaseDao<DsEpUser, Long>
 		executeUpdate("updatePassword", map);
 	}
 
-	/**
-	 * 修改状态
-	 * @param id 用户对象ID
-	 * @param status 状态
-	 */
 	public void updateStatus(long id, int status)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();

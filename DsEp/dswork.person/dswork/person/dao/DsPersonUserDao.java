@@ -56,13 +56,20 @@ public class DsPersonUserDao extends BaseDao<DsPersonUser, Long>
 			return false;
 		}
 	}
-	
-	public void updatePassword(long userId, int status, String password)
+
+	public void updatePassword(long userId, String password)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", userId);
-		map.put("status", status);
 		map.put("password", password);
 		executeUpdate("updatePassword", map);
+	}
+
+	public void updateStatus(long id, int status)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("status", status);
+		executeUpdate("updateStatus", map);
 	}
 }

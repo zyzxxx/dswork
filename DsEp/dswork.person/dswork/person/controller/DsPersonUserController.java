@@ -107,24 +107,36 @@ public class DsPersonUserController extends BaseController
 		}
 	}
 
-	// 获得分页
-	@RequestMapping("/getUser")
-	public String getUser()
+	// 修改用户状态
+	@RequestMapping("/updUserStatus")
+	public void updUserStatus()
 	{
-		PageRequest rq = getPageRequest();
-		Page<DsPersonUser> pageModel = service.queryPage(rq);
-		put("pageModel", pageModel);
-		put("pageNav", new PageNav<DsPersonUser>(request, pageModel));
-		return "/person/user/getUser.jsp";
-	}
-
-	// 明细
-	@RequestMapping("/getUserById")
-	public String getUserById()
-	{
-		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		return "/person/user/getUserById.jsp";
+		long id = req.getLong("keyIndex");
+		int status = req.getInt("status", -1);
+		try
+		{
+			if(status == 0 || status == 1)
+			{
+				if(id <= 0)
+				{
+					print("0:此用户无法更改状态");
+				}
+				else
+				{
+					service.updateStatus(id, status);
+					print(1);
+				}
+			}
+			else
+			{
+				print("0:参数错误");
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
 	}
 
 	@RequestMapping("/updUserPassword1")
@@ -145,7 +157,7 @@ public class DsPersonUserController extends BaseController
 			DsPersonUser user = service.get(po.getId());
 			if(user != null && EncryptUtil.encryptMd5(oldpassword).equals(user.getPassword()))
 			{
-				service.updatePassword(user.getId(), user.getStatus(), po.getPassword());
+				service.updatePassword(user.getId(), po.getPassword());
 				print(1);
 			}
 			else
@@ -158,5 +170,25 @@ public class DsPersonUserController extends BaseController
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
+	}
+
+	// 获得分页
+	@RequestMapping("/getUser")
+	public String getUser()
+	{
+		PageRequest rq = getPageRequest();
+		Page<DsPersonUser> pageModel = service.queryPage(rq);
+		put("pageModel", pageModel);
+		put("pageNav", new PageNav<DsPersonUser>(request, pageModel));
+		return "/person/user/getUser.jsp";
+	}
+
+	// 明细
+	@RequestMapping("/getUserById")
+	public String getUserById()
+	{
+		Long id = req.getLong("keyIndex");
+		put("po", service.get(id));
+		return "/person/user/getUserById.jsp";
 	}
 }

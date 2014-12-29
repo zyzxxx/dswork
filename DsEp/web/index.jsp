@@ -15,19 +15,31 @@ if(model == null)
 <title>功能模块化系统，仅使用临时菜单，详细框架页面不在此包含</title>
 <style type="text/css">html, body {height:100%;width:100%;overflow:hidden;padding:0;margin:0;font-size:16px;}a{color:#000000;line-height:25px;font-size:12px;}</style>
 <script type="text/javascript">
+<%if(model.isEnterprise()){%>
 var treedata = [
-	{id:100, name:'CMS管理', img:"", imgOpen:"", url:"", items:[
-		 {id:101,name:'栏目管理', img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
-		,{id:102,name:'信息发布', img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
-	]}
-	,{id:200, name:'企业数据', img:"", imgOpen:"", url:"", items:[
-		 {id:201,name:'企业管理', img:"", imgOpen:"", url:'/ep/enterprise/getEnterprise.htm', items:[]}
+	{id:100, name:'企业管理', img:"", imgOpen:"", url:"", items:[
+		 {id:101,name:'CMS栏目管理', img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
+		,{id:102,name:'CMS信息发布', img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
 		,{id:202,name:'企业用户管理', img:"", imgOpen:"", url:'/ep/user/getUser.htm', items:[]}
+	]}
+];
+<%}%>
+<%if(model.isAdmin()){%>
+var treedata = [
+	{id:200, name:'企业数据', img:"", imgOpen:"", url:"", items:[
+		 {id:201,name:'企业管理', img:"", imgOpen:"", url:'/ep/enterprise/getEnterprise.htm', items:[]}
 	]}
 	,{id:300, name:'个人数据', img:"", imgOpen:"", url:"", items:[
 		{id:301,name:'个人用户管理', img:"", imgOpen:"", url:'/person/user/getUser.htm', items:[]}
 	]}
 ];
+<%}%>
+<%if(model.isUser()){%>
+var treedata = [
+	{id:300, name:'个人管理', img:"", imgOpen:"", url:"", items:[
+	]}
+];
+<%}%>
 </script>
 </head>
 <body>
@@ -43,6 +55,11 @@ for(var i = 0; i < treedata.length; i++){
 	}
 }
 </script>
+<br />
+<br />
+<br />
+<br />菜单
+<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='top' href='<%=path%>/logout.jsp'>退出</a>
 </div>
 <div style="float:right;height:100%;width:80%;min-width:800px;">
 	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="auto" frameborder="0" src="#"></iframe>

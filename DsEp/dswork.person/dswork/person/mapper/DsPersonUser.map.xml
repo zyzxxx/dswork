@@ -30,7 +30,7 @@
 </update>
 
 <update id="updatePassword">
-	update DS_PERSON_USER set PASSWORD=#{password} where ID=#{id} and STATUS=#{status}
+	update DS_PERSON_USER set PASSWORD=#{password} where ID=#{id}
 </update>
 
 <update id="updateStatus">

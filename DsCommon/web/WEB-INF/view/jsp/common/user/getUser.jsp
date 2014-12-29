@@ -7,6 +7,10 @@
 <title></title>
 <%@include file="/commons/include/get.jsp"%>
 <script type="text/javascript">
+$dswork.doAjax = true;
+$dswork.callback = function(){if($dswork.result.type == 1){
+	location.href = "getUser.htm?page=${pageModel.currentPage}";
+}};
 function updStatus(objid, id){
 	var obj = $("#" + objid), o = document.getElementById(objid);
 	$.post("updUserStatus.htm",{"keyIndex":id,"status":obj.attr("v")==0?1:0},function(data){
@@ -56,8 +60,8 @@ $(function(){
 	<tr>
 		<td class="input">
 			&nbsp;姓名：<input id="name" name="name" value="${fn:escapeXml(param.name)}" style="width:75px;" />
-			手机：<input id="mobile" name="mobile" value="${fn:escapeXml(param.mobile)}" style="width:75px;" />
-			状态：<select id="status" name="status" style="width:50px;"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
+			&nbsp;手机：<input id="mobile" name="mobile" value="${fn:escapeXml(param.mobile)}" style="width:75px;" />
+			&nbsp;状态：<select id="status" name="status" style="width:50px;"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
 	</tr>

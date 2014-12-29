@@ -146,28 +146,6 @@ public class DsEpUserController extends BaseController
 		}
 	}
 
-	// 获得分页
-	@RequestMapping("/getUser")
-	public String getUser()
-	{
-		Auth user = AuthLogin.getLoginUser(request, response);
-		PageRequest rq = getPageRequest();
-		rq.getFilters().put("qybm", user.getQybm());
-		Page<DsEpUser> pageModel = service.queryPage(rq);
-		put("pageModel", pageModel);
-		put("pageNav", new PageNav<DsEpUser>(request, pageModel));
-		return "/ep/user/getUser.jsp";
-	}
-
-	// 明细
-	@RequestMapping("/getUserById")
-	public String getUserById()
-	{
-		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		return "/ep/user/getUserById.jsp";
-	}
-
 	@RequestMapping("/updUserPassword1")
 	public String updUserPwd1()
 	{
@@ -199,6 +177,28 @@ public class DsEpUserController extends BaseController
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
+	}
+
+	// 获得分页
+	@RequestMapping("/getUser")
+	public String getUser()
+	{
+		Auth user = AuthLogin.getLoginUser(request, response);
+		PageRequest rq = getPageRequest();
+		rq.getFilters().put("qybm", user.getQybm());
+		Page<DsEpUser> pageModel = service.queryPage(rq);
+		put("pageModel", pageModel);
+		put("pageNav", new PageNav<DsEpUser>(request, pageModel));
+		return "/ep/user/getUser.jsp";
+	}
+
+	// 明细
+	@RequestMapping("/getUserById")
+	public String getUserById()
+	{
+		Long id = req.getLong("keyIndex");
+		put("po", service.get(id));
+		return "/ep/user/getUserById.jsp";
 	}
 
 	private boolean checkUser(Long userid)

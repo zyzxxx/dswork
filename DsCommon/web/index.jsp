@@ -14,7 +14,6 @@ var treedata = [
 	 {id:901,name:'组织管理指定', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm?rootid=1', items:[]}
 	,{id:902,name:'用户授权管理', img:"", imgOpen:"", url:'/common/userorg/getOrgTree.htm?rootid=1', items:[]}
 	,{id:201,name:'用户管理', img:"", imgOpen:"", url:'/common/user/getUser.htm', items:[]}
-	,{id:105,name:'样例', img:"", imgOpen:"", url:'/x.jsp', items:[]}
 ]}
 ,{id:100000, name:'基础数据', img:"", imgOpen:"", url:"", items:[
 	 {id:100001,name:'字典管理', img:"", imgOpen:"", url:'/common/dict/getDict.htm', items:[]}
@@ -45,6 +44,7 @@ for(var i = 0; i < treedata.length; i++){
 <br />
 <br />测试菜单
 <br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='_blank' href='<%=path%>/flow/waiting.jsp'>流程测试</a>
+<br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='main' href='<%=path%>/x.jsp'>字典样例</a>
 </div>
 <div style="float:right;height:100%;width:80%;min-width:800px;">
 	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="auto" frameborder="0" src="#"></iframe>
