@@ -2,6 +2,7 @@
 String path = request.getContextPath();
 String v = String.valueOf(request.getParameter("v"));
 common.auth.Auth auth = new common.auth.Auth();
+auth.setLoginstatus(1);
 if(v.equals("-1"))
 {
 	auth.setId(100000000L);
@@ -12,15 +13,17 @@ if(v.equals("-1"))
 }
 else if(v.equals("0"))
 {
-	auth.setId(1L);
+	auth.setId(100000L);
 	auth.setAccount("useradmin");
 	auth.setName("企业管理");
 	auth.setQybm("100000");
 	auth.setLogintype(0);
+	
+	auth.setUsertype(1);//企业管理员
 }
 else
 {
-	auth.setId(2L);
+	auth.setId(1L);
 	auth.setAccount("user");
 	auth.setName("个人用户");
 	auth.setQybm("111111");

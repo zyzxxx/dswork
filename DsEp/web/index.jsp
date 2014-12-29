@@ -16,14 +16,17 @@ if(model == null)
 <style type="text/css">html, body {height:100%;width:100%;overflow:hidden;padding:0;margin:0;font-size:16px;}a{color:#000000;line-height:25px;font-size:12px;}</style>
 <script type="text/javascript">
 var treedata = [
-{id:100, name:'CMS管理', img:"", imgOpen:"", url:"", items:[
-	 {id:101,name:'栏目管理', img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
-	,{id:102,name:'信息发布', img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
-]}
-,{id:200, name:'基础数据', img:"", imgOpen:"", url:"", items:[
-	 {id:201,name:'企业管理', img:"", imgOpen:"", url:'/ep/enterprise/getEnterprise.htm', items:[]}
-	,{id:202,name:'企业用户管理', img:"", imgOpen:"", url:'/ep/user/getUser.htm', items:[]}
-]}
+	{id:100, name:'CMS管理', img:"", imgOpen:"", url:"", items:[
+		 {id:101,name:'栏目管理', img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
+		,{id:102,name:'信息发布', img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
+	]}
+	,{id:200, name:'企业数据', img:"", imgOpen:"", url:"", items:[
+		 {id:201,name:'企业管理', img:"", imgOpen:"", url:'/ep/enterprise/getEnterprise.htm', items:[]}
+		,{id:202,name:'企业用户管理', img:"", imgOpen:"", url:'/ep/user/getUser.htm', items:[]}
+	]}
+	,{id:300, name:'个人数据', img:"", imgOpen:"", url:"", items:[
+		{id:301,name:'个人用户管理', img:"", imgOpen:"", url:'/person/user/getUser.htm', items:[]}
+	]}
 ];
 </script>
 </head>
