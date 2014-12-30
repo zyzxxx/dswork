@@ -12,7 +12,7 @@
 	<classpathentry kind="src" path="dswork.ognl"/>
 	<classpathentry kind="src" path="dswork.spring"/>
 	<classpathentry kind="src" path="dswork.web"/>
-	<classpathentry kind="src" path="log4jdbc"/>
+	<classpathentry kind="src" path="log4jdbc_spy"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
