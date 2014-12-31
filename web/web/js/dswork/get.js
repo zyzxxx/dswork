@@ -40,8 +40,8 @@
 	});
 	$("#_querySubmit_[type=button]").click(function(event){$("#queryForm").submit();});
 	$("#queryForm").keydown(function(e){
-		var e = e || event;
-		var keycode = e.which || e.keyCode;
+		var v = e || event;
+		var keycode = v.which || v.keyCode;
 		if (keycode==13) {$("#_querySubmit_[type=button]").click();}
 	});
 });
