@@ -9,7 +9,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/org.hibernate.dialect"/>
         <wb-resource deploy-path="/" source-path="/web"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/log4jdbc_spy"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.jdbc3"/>
         <property name="context-root" value="DsWorkJava"/>
         <property name="java-output-path" value="/DsWorkJava/web/WEB-INF/classes"/>
     </wb-module>

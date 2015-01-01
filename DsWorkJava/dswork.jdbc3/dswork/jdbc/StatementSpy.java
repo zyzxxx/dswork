@@ -268,23 +268,23 @@ public class StatementSpy implements Statement, Spy
 		return realStatement.getResultSetHoldability();
 	}
 
-	// jdbc4
-	public boolean isClosed() throws SQLException
-	{
-		return realStatement.isClosed();
-	}
 
-	// jdbc4
-	public void setPoolable(boolean poolable) throws SQLException
-	{
-		realStatement.setPoolable(poolable);
-	}
+//	public boolean isClosed() throws SQLException
+//	{
+//		return realStatement.isClosed();
+//	}
 
-	// jdbc4
-	public boolean isPoolable() throws SQLException
-	{
-		return realStatement.isPoolable();
-	}
+
+//	public void setPoolable(boolean poolable) throws SQLException
+//	{
+//		realStatement.setPoolable(poolable);
+//	}
+
+
+//	public boolean isPoolable() throws SQLException
+//	{
+//		return realStatement.isPoolable();
+//	}
 
 	public void setMaxFieldSize(int max) throws SQLException
 	{
@@ -396,17 +396,15 @@ public class StatementSpy implements Statement, Spy
 		return realStatement.getUpdateCount();
 	}
 
-	// jdbc4
-	public <T> T unwrap(Class<T> iface) throws SQLException
-	{
-		return (iface != null && (iface == Connection.class || iface == Spy.class)) ? (T) this : realStatement.unwrap(iface);
-	}
+//	public <T> T unwrap(Class<T> iface) throws SQLException
+//	{
+//		return (iface != null && (iface == Connection.class || iface == Spy.class)) ? (T) this : realStatement.unwrap(iface);
+//	}
 
-	// jdbc4
-	public boolean isWrapperFor(Class<?> iface) throws SQLException
-	{
-		return (iface != null && (iface == Statement.class || iface == Spy.class)) || realStatement.isWrapperFor(iface);
-	}
+//	public boolean isWrapperFor(Class<?> iface) throws SQLException
+//	{
+//		return (iface != null && (iface == Statement.class || iface == Spy.class)) || realStatement.isWrapperFor(iface);
+//	}
 
 	protected static String rightJustify(int fieldSize, String field)
 	{
