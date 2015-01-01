@@ -1,2 +1,9 @@
 2014-12-25
 	更新了EncryptUtil的encodeBase64方法，去掉了RFC2045协议中定义的每76个Characters就回车换行的做法，即去掉回车即换行符号
+2014-12-31
+	去掉了log4jdbc包，简化代码，并改为dswork.jdbc.jar，增加多个默认驱动，修改配置文件为：/config/config.properties
+	jdbc连接的jdbc.driverClassName的值使用：dswork.jdbc.DriverSpy，其余不变
+	properties如果使用键值：dswork.jdbc.drivers，则不使用默认驱动，多个驱动使用“,”分隔，不能有空格
+	如：dswork.jdbc.drivers=com.mysql.jdbc.Driver,org.sqlite.JDBC
+	log4j.properties的日志输出使用“log4j.logger.jdbc.sqlonly”进行日志输出控制，兼容回log4jdbc的写法（只有jdbc.sqlonly一个）
+	最后，可以去掉spring数据源配置文件中的两个bean：log4jdbcInterceptor和dataSourceLog4jdbcAutoProxyCreator
