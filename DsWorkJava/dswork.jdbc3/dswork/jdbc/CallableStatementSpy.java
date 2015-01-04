@@ -21,7 +21,6 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
 
-@SuppressWarnings("all")
 public class CallableStatementSpy extends PreparedStatementSpy implements CallableStatement
 {
 	private CallableStatement realCallableStatement;
@@ -398,7 +397,7 @@ public class CallableStatementSpy extends PreparedStatementSpy implements Callab
 		return realCallableStatement.getBigDecimal(parameterName);
 	}
 
-	public Object getObject(String parameterName, Map<String, Class<?>> map) throws SQLException
+	public Object getObject(String parameterName, Map map) throws SQLException
 	{
 		return realCallableStatement.getObject(parameterName, map);
 	}

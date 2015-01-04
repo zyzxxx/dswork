@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.List;
 import java.util.ArrayList;
 
-@SuppressWarnings("all")
 public class StatementSpy implements Statement, Spy
 {
 	protected final SpyLogDelegator log;

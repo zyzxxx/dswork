@@ -16,12 +16,12 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 
-@SuppressWarnings("all")
 public class DriverSpy implements Driver
 {
 	private Driver lastUnderlyingDriverRequested;
 	private static Map rdbmsSpecifics;
 	static final SpyLogDelegator log = SpyLogFactory.getSpyLogDelegator();
+	private static boolean hasSql2000 = false;
 
 	private static String getStringOption(Properties props, String propName)
 	{
@@ -66,10 +66,10 @@ public class DriverSpy implements Driver
 		String moreDrivers = getStringOption(props, "dswork.jdbc.drivers");
 		if(moreDrivers != null)
 		{
-			String[] moreDriversArr = moreDrivers.split(",");
-			for(int i = 0; i < moreDriversArr.length; i++)
+			String[] arr = moreDrivers.split(",");
+			for(int i = 0; i < arr.length; i++)
 			{
-				subDrivers.add(moreDriversArr[i]);
+				subDrivers.add(arr[i]);
 			}
 		}
 		else
@@ -106,6 +106,10 @@ public class DriverSpy implements Driver
 			try
 			{
 				Class.forName(driverClass);
+				if("com.microsoft.jdbc.sqlserver.SQLServerDriver".equals(driverClass))
+				{
+					hasSql2000 = true;
+				}
 				log.debug("  FOUND DRIVER " + driverClass);
 			}
 			catch(Throwable c)
@@ -113,6 +117,7 @@ public class DriverSpy implements Driver
 				i.remove();
 			}
 		}
+		
 		if(subDrivers.size() == 0)
 		{
 			log.debug("WARNING! couldn't find any underlying jdbc drivers.");
@@ -212,11 +217,14 @@ public class DriverSpy implements Driver
 			}
 			if(d.acceptsURL(url))
 			{
-				if(url.startsWith("jdbc:sqlserver") && i == 0)// 兼容2000以上时，跳过2000的驱动
+				if(hasSql2000)// 兼容2000以上时，跳过2000的驱动
 				{
-					d2 = d;
-					i++;
-					continue;
+					if(i == 0 && url.startsWith("jdbc:sqlserver"))
+					{
+						d2 = d;
+						i++;
+						continue;
+					}
 				}
 				return d;
 			}

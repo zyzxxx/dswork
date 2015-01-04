@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-@SuppressWarnings("all")
 public class PreparedStatementSpy extends StatementSpy implements PreparedStatement
 {
 	protected final List argTrace = new ArrayList();

@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-@SuppressWarnings("all")
 public class ConnectionSpy implements Connection, Spy
 {
 	private Connection realConnection;
@@ -603,7 +602,7 @@ public class ConnectionSpy implements Connection, Spy
 		}
 	}
 
-	public Map<String, Class<?>> getTypeMap() throws SQLException
+	public Map getTypeMap() throws SQLException
 	{
 		try
 		{
@@ -645,7 +644,7 @@ public class ConnectionSpy implements Connection, Spy
 		}
 	}
 
-	public void setTypeMap(java.util.Map<String, Class<?>> map) throws SQLException
+	public void setTypeMap(java.util.Map map) throws SQLException
 	{
 		try
 		{
