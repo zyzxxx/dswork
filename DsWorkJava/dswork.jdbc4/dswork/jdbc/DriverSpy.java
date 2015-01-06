@@ -91,6 +91,8 @@ public class DriverSpy implements Driver
 			subDrivers.add("org.apache.derby.jdbc.EmbeddedDriver");
 			subDrivers.add("org.hsqldb.jdbcDriver");
 			subDrivers.add("org.h2.Driver");
+			subDrivers.add("dm.jdbc.driver.DmDriver");//达梦
+			subDrivers.add("com.gbase.jdbc.Driver");//gbase
 		}
 		try
 		{
@@ -128,6 +130,8 @@ public class DriverSpy implements Driver
 		rdbmsSpecifics.put("oracle.jdbc.driver.OracleDriver", oracle);
 		rdbmsSpecifics.put("oracle.jdbc.OracleDriver", oracle);
 		rdbmsSpecifics.put("com.mysql.jdbc.Driver", mySql);
+		//rdbmsSpecifics.put("dm.jdbc.driver.DmDriver", mySql);
+		//rdbmsSpecifics.put("com.gbase.jdbc.Driver", mySql);
 		log.debug("... dswork jdbc initialized! ...");
 	}
 	static RdbmsSpecifics defaultRdbmsSpecifics = new RdbmsSpecifics();

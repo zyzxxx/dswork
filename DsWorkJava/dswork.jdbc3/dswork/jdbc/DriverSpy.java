@@ -90,6 +90,8 @@ public class DriverSpy implements Driver
 			subDrivers.add("org.apache.derby.jdbc.EmbeddedDriver");
 			subDrivers.add("org.hsqldb.jdbcDriver");
 			subDrivers.add("org.h2.Driver");
+			subDrivers.add("dm.jdbc.driver.DmDriver");//达梦
+			subDrivers.add("com.gbase.jdbc.Driver");//gbase
 		}
 		try
 		{
