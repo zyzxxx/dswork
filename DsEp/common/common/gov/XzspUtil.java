@@ -35,6 +35,9 @@ public class XzspUtil
 		}
 	}
 
+	/**
+	 * 申办
+	 */
 	public static int applicationOB(ApplicationOB entity)
 	{
 		try
