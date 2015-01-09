@@ -76,7 +76,7 @@ $(function(){
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
-<div region="north" style="overflow:hidden;border:0px;height:25px;">
+<div region="north" style="overflow:hidden;border:0px;height:30px;">
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
 		<td class="title">切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
