@@ -15,6 +15,9 @@
 	<context:component-scan base-package="dswork.ep" use-default-filters="false">
 	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
+	<context:component-scan base-package="dswork.person" use-default-filters="false">
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
 	
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />  
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />

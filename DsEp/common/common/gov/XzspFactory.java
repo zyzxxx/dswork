@@ -1,7 +1,13 @@
 package common.gov;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Date;
 
+import common.CommonUtil;
+import dswork.core.util.EnvironmentUtil;
 import MQAPI.AcceptOB;
 import MQAPI.ApplicationOB;
 import MQAPI.BlockOB;
@@ -15,8 +21,19 @@ import MQAPI.SupplyOB;
 
 public class XzspFactory
 {
+	private static final String GovXzspLxhURL = EnvironmentUtil.getToString("gov.xzsp.lxhurl", "");
+
 	/**
-	 * 申办
+	 * 取得当前最新的申办流水号
+	 * @return
+	 */
+	public static String getLsh() throws Exception
+	{
+		return CommonUtil.getHtml(GovXzspLxhURL);
+	}
+
+	/**
+	 * 申办0
 	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
 	 * @param SXMC 事项名称
@@ -84,11 +101,11 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		return XzspUtil.applicationOB(entity);// 发送对象
+		return saveObject(entity, SBLSH);// 发送对象
 	}
 
 	/**
-	 * 预受理
+	 * 预受理1
 	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
 	 * @param YWLSH 业务流水号
@@ -132,11 +149,11 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		return XzspUtil.preAcceptOB(entity);// 发送对象
+		return saveObject(entity, SBLSH);// 发送对象
 	}
 
 	/**
-	 * 受理
+	 * 受理2
 	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
 	 * @param YWLSH 业务流水号
@@ -214,11 +231,11 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		return XzspUtil.aceeptOB(entity);// 发送对象
+		return saveObject(entity, SBLSH);// 发送对象
 	}
 
 	/**
-	 * 审批
+	 * 审批3
 	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
 	 * @param SPHJDM 审批环节代码
@@ -268,185 +285,11 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		return XzspUtil.submitOB(entity);// 发送对象
+		return saveObject(entity, SBLSH);// 发送对象
 	}
 
 	/**
-	 * 补交告知
-	 * @param SBLSH 申办流水号
-	 * @param SXBM 事项编码
-	 * @param BZGZFCRXM 补正告知发出人姓名
-	 * @param BZGZYY 补正告知原因
-	 * @param BZCLQD 补正材料清单
-	 * @param BZGZSJ 补正告知时间
-	 * @param XZQHDM 补正告知部门所在地行政区划代码
-	 * @param SJBBH 数据版本号
-	 * @param YWLSH 业务流水号
-	 * @param PDH 排队号
-	 * @param BZ 备注
-	 * @param BYZDA 备用字段A
-	 * @param BYZDB 备用字段B
-	 * @param BYZDC 备用字段C
-	 * @param BYZDD 备用字段D
-	 */
-	public static int supplyOB(String SBLSH, String SXBM, String BZGZFCRXM, String BZGZYY, String BZCLQD, Date BZGZSJ, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
-	{
-		SupplyOB entity = new SupplyOB();
-		entity.setSBLSH(SBLSH);
-		entity.setSXBM(SXBM);
-		entity.setBZGZFCRXM(BZGZFCRXM);
-		entity.setBZGZYY(BZGZYY);
-		entity.setBZCLQD(BZCLQD);
-		entity.setBZGZSJ(BZGZSJ);
-		entity.setXZQHDM(XZQHDM);
-		entity.setSJBBH(SJBBH);
-		entity.setYWLSH(YWLSH);
-		entity.setPDH(PDH);
-		entity.setBZ(BZ);
-		entity.setBYZDA(BYZDA);
-		entity.setBYZDB(BYZDB);
-		entity.setBYZDC(BYZDC);
-		entity.setBYZDD(BYZDD);
-		return XzspUtil.supplyOB(entity);// 发送对象
-	}
-
-	/**
-	 * 补交受理
-	 * @param SBLSH 申办流水号
-	 * @param SXBM 事项编码
-	 * @param BZSLBLRXM 补正受理办理人姓名
-	 * @param BZCLQD 补正材料清单
-	 * @param BZSJ 补正时间
-	 * @param XZQHDM 补正受理部门所在地行政区划代码
-	 * @param BZSLJTDD 补正受理具体地点
-	 * @param SJBBH 数据版本号
-	 * @param YYWLSH 业务流水号
-	 * @param PDH 排队号
-	 * @param BZ 备注
-	 * @param BYZDA 备用字段A
-	 * @param BYZDB 备用字段B
-	 * @param BYZDC 备用字段C
-	 * @param BYZDD 备用字段D
-	 */
-	public static int supplyAcceptOB(String SBLSH, String SXBM, String BZSLBLRXM, String BZCLQD, Date BZSJ, String XZQHDM, String BZSLJTDD, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
-	{
-		SupplyAcceptOB entity = new SupplyAcceptOB();
-		entity.setSBLSH(SBLSH);
-		entity.setSXBM(SXBM);
-		entity.setBZSLBLRXM(BZSLBLRXM);
-		entity.setBZCLQD(BZCLQD);
-		entity.setBZSJ(BZSJ);
-		entity.setXZQHDM(XZQHDM);
-		entity.setBZSLJTDD(BZSLJTDD);
-		entity.setSJBBH(SJBBH);
-		entity.setYWLSH(YWLSH);
-		entity.setPDH(PDH);
-		entity.setBZ(BZ);
-		entity.setBYZDA(BYZDA);
-		entity.setBYZDB(BYZDB);
-		entity.setBYZDC(BYZDC);
-		entity.setBYZDD(BYZDD);
-		return XzspUtil.supplyAcceptOB(entity);// 发送对象
-	}
-
-	/**
-	 * 特别程序申请
-	 * @param SBLSH 申办流水号
-	 * @param SXBM 事项编码
-	 * @param XH 序号
-	 * @param TBCXZL 特别程序种类
-	 * @param TBCXKSRQ 特别程序开始日期
-	 * @param TBCXPZR 特别程序批准人
-	 * @param TBCXQDLY 特别程序启动理由或依据
-	 * @param SQNR 申请内容
-	 * @param TBCXSX 特别程序时限
-	 * @param TBCXSXDW 特别程序时限单位
-	 * @param XZQHDM 特别程序申请部门所在地行政区划代码
-	 * @param SJBBH 数据版本号
-	 * @param YWLSH 业务流水号
-	 * @param TBCXZLMC 特别程序种类名称
-	 * @param TBCXPZRDH 特别程序批准人电话
-	 * @param TBCXPZRSJ 特别程序批准人手机
-	 * @param PDH 排队号
-	 * @param BZ 备注
-	 * @param BYZDA 备用字段A
-	 * @param BYZDB 备用字段B
-	 * @param BYZDC 备用字段C
-	 * @param BYZDD 备用字段D
-	 */
-	public static int blockOB(String SBLSH, String SXBM, String XH, String TBCXZL, Date TBCXKSRQ, String TBCXPZR, String TBCXQDLY, String SQNR, int TBCXSX, String TBCXSXDW, String XZQHDM, int SJBBH, String YWLSH, String TBCXZLMC, String TBCXPZRDH, String TBCXPZRSJ, String PDH, String BZ,
-			String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
-	{
-		BlockOB entity = new BlockOB();
-		entity.setSBLSH(SBLSH);
-		entity.setSXBM(SXBM);
-		entity.setXH(XH);
-		entity.setTBCXZL(TBCXZLMC);
-		entity.setTBCXKSRQ(TBCXKSRQ);
-		entity.setTBCXPZR(TBCXPZRSJ);
-		entity.setTBCXQDLYHYJ(TBCXQDLY);
-		entity.setSQNR(SQNR);
-		entity.setTBCXSX(TBCXSX);
-		entity.setTBCXSXDW(TBCXSXDW);
-		entity.setXZQHDM(XZQHDM);
-		entity.setSJBBH(SJBBH);
-		entity.setYWLSH(YWLSH);
-		entity.setTBCXZLMC(TBCXZLMC);
-		entity.setTBCXPZRDH(TBCXPZRDH);
-		entity.setTBCXPZRSJ(TBCXPZRSJ);
-		entity.setPDH(PDH);
-		entity.setBZ(BZ);
-		entity.setBYZDA(BYZDA);
-		entity.setBYZDB(BYZDB);
-		entity.setBYZDC(BYZDC);
-		entity.setBYZDD(BYZDD);
-		return XzspUtil.blockOB(entity);// 发送对象
-	}
-
-	/**
-	 * 特别程序结果
-	 * @param SBLSH 申办流水号
-	 * @param SXBM 事项编码
-	 * @param XH 序号
-	 * @param TBCXJG 特别程序结果
-	 * @param JGCSRQ 结果产生日期
-	 * @param TBCXJSRQ 特别程序结束日期
-	 * @param TBCXSFJE 特别程序收费金额
-	 * @param JEDWDM 金额单位代码
-	 * @param XZQHDM 特别程序结果部门所在地行政区划代码
-	 * @param SJBBH 数据版本号
-	 * @param YWLSH 业务流水号
-	 * @param PDH 排队号
-	 * @param BZ 备注
-	 * @param BYZDA 备用字段A
-	 * @param BYZDB 备用字段B
-	 * @param BYZDC 备用字段C
-	 * @param BYZDD 备用字段D
-	 */
-	public static int resumeOB(String SBLSH, String SXBM, String XH, String TBCXJG, Date JGCSRQ, Date TBCXJSRQ, String TBCXSFJE, String JEDWDM, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
-	{
-		ResumeOB entity = new ResumeOB();
-		entity.setSBLSH(SBLSH);
-		entity.setSXBM(SXBM);
-		entity.setXH(XH);
-		entity.setTBCXJG(TBCXJG);
-		entity.setJGCSRQ(JGCSRQ);
-		entity.setTBCXJSRQ(TBCXJSRQ);
-		entity.setTBCXSFJE(TBCXSFJE);
-		entity.setJEDWDM(JEDWDM);
-		entity.setSJBBH(SJBBH);
-		entity.setYWLSH(YWLSH);
-		entity.setPDH(PDH);
-		entity.setBZ(BZ);
-		entity.setBYZDA(BYZDA);
-		entity.setBYZDB(BYZDB);
-		entity.setBYZDC(BYZDC);
-		entity.setBYZDD(BYZDD);
-		return XzspUtil.resumeOB(entity);// 发送对象
-	}
-
-	/**
-	 * 办结
+	 * 办结4
 	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
 	 * @param BJBMMC 办结部门名称
@@ -499,11 +342,185 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		return XzspUtil.completeOB(entity);// 发送对象
+		return saveObject(entity, SBLSH);// 发送对象
 	}
 
 	/**
-	 * 领取登记
+	 * 特别程序申请5
+	 * @param SBLSH 申办流水号
+	 * @param SXBM 事项编码
+	 * @param XH 序号
+	 * @param TBCXZL 特别程序种类
+	 * @param TBCXKSRQ 特别程序开始日期
+	 * @param TBCXPZR 特别程序批准人
+	 * @param TBCXQDLY 特别程序启动理由或依据
+	 * @param SQNR 申请内容
+	 * @param TBCXSX 特别程序时限
+	 * @param TBCXSXDW 特别程序时限单位
+	 * @param XZQHDM 特别程序申请部门所在地行政区划代码
+	 * @param SJBBH 数据版本号
+	 * @param YWLSH 业务流水号
+	 * @param TBCXZLMC 特别程序种类名称
+	 * @param TBCXPZRDH 特别程序批准人电话
+	 * @param TBCXPZRSJ 特别程序批准人手机
+	 * @param PDH 排队号
+	 * @param BZ 备注
+	 * @param BYZDA 备用字段A
+	 * @param BYZDB 备用字段B
+	 * @param BYZDC 备用字段C
+	 * @param BYZDD 备用字段D
+	 */
+	public static int blockOB(String SBLSH, String SXBM, String XH, String TBCXZL, Date TBCXKSRQ, String TBCXPZR, String TBCXQDLY, String SQNR, int TBCXSX, String TBCXSXDW, String XZQHDM, int SJBBH, String YWLSH, String TBCXZLMC, String TBCXPZRDH, String TBCXPZRSJ, String PDH, String BZ,
+			String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	{
+		BlockOB entity = new BlockOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setXH(XH);
+		entity.setTBCXZL(TBCXZLMC);
+		entity.setTBCXKSRQ(TBCXKSRQ);
+		entity.setTBCXPZR(TBCXPZRSJ);
+		entity.setTBCXQDLYHYJ(TBCXQDLY);
+		entity.setSQNR(SQNR);
+		entity.setTBCXSX(TBCXSX);
+		entity.setTBCXSXDW(TBCXSXDW);
+		entity.setXZQHDM(XZQHDM);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setTBCXZLMC(TBCXZLMC);
+		entity.setTBCXPZRDH(TBCXPZRDH);
+		entity.setTBCXPZRSJ(TBCXPZRSJ);
+		entity.setPDH(PDH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
+		return saveObject(entity, SBLSH);// 发送对象
+	}
+
+	/**
+	 * 特别程序结果6
+	 * @param SBLSH 申办流水号
+	 * @param SXBM 事项编码
+	 * @param XH 序号
+	 * @param TBCXJG 特别程序结果
+	 * @param JGCSRQ 结果产生日期
+	 * @param TBCXJSRQ 特别程序结束日期
+	 * @param TBCXSFJE 特别程序收费金额
+	 * @param JEDWDM 金额单位代码
+	 * @param XZQHDM 特别程序结果部门所在地行政区划代码
+	 * @param SJBBH 数据版本号
+	 * @param YWLSH 业务流水号
+	 * @param PDH 排队号
+	 * @param BZ 备注
+	 * @param BYZDA 备用字段A
+	 * @param BYZDB 备用字段B
+	 * @param BYZDC 备用字段C
+	 * @param BYZDD 备用字段D
+	 */
+	public static int resumeOB(String SBLSH, String SXBM, String XH, String TBCXJG, Date JGCSRQ, Date TBCXJSRQ, String TBCXSFJE, String JEDWDM, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	{
+		ResumeOB entity = new ResumeOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setXH(XH);
+		entity.setTBCXJG(TBCXJG);
+		entity.setJGCSRQ(JGCSRQ);
+		entity.setTBCXJSRQ(TBCXJSRQ);
+		entity.setTBCXSFJE(TBCXSFJE);
+		entity.setJEDWDM(JEDWDM);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setPDH(PDH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
+		return saveObject(entity, SBLSH);// 发送对象
+	}
+
+	/**
+	 * 补交告知7
+	 * @param SBLSH 申办流水号
+	 * @param SXBM 事项编码
+	 * @param BZGZFCRXM 补正告知发出人姓名
+	 * @param BZGZYY 补正告知原因
+	 * @param BZCLQD 补正材料清单
+	 * @param BZGZSJ 补正告知时间
+	 * @param XZQHDM 补正告知部门所在地行政区划代码
+	 * @param SJBBH 数据版本号
+	 * @param YWLSH 业务流水号
+	 * @param PDH 排队号
+	 * @param BZ 备注
+	 * @param BYZDA 备用字段A
+	 * @param BYZDB 备用字段B
+	 * @param BYZDC 备用字段C
+	 * @param BYZDD 备用字段D
+	 */
+	public static int supplyOB(String SBLSH, String SXBM, String BZGZFCRXM, String BZGZYY, String BZCLQD, Date BZGZSJ, String XZQHDM, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	{
+		SupplyOB entity = new SupplyOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setBZGZFCRXM(BZGZFCRXM);
+		entity.setBZGZYY(BZGZYY);
+		entity.setBZCLQD(BZCLQD);
+		entity.setBZGZSJ(BZGZSJ);
+		entity.setXZQHDM(XZQHDM);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setPDH(PDH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
+		return saveObject(entity, SBLSH);// 发送对象
+	}
+
+	/**
+	 * 补交受理8
+	 * @param SBLSH 申办流水号
+	 * @param SXBM 事项编码
+	 * @param BZSLBLRXM 补正受理办理人姓名
+	 * @param BZCLQD 补正材料清单
+	 * @param BZSJ 补正时间
+	 * @param XZQHDM 补正受理部门所在地行政区划代码
+	 * @param BZSLJTDD 补正受理具体地点
+	 * @param SJBBH 数据版本号
+	 * @param YYWLSH 业务流水号
+	 * @param PDH 排队号
+	 * @param BZ 备注
+	 * @param BYZDA 备用字段A
+	 * @param BYZDB 备用字段B
+	 * @param BYZDC 备用字段C
+	 * @param BYZDD 备用字段D
+	 */
+	public static int supplyAcceptOB(String SBLSH, String SXBM, String BZSLBLRXM, String BZCLQD, Date BZSJ, String XZQHDM, String BZSLJTDD, int SJBBH, String YWLSH, String PDH, String BZ, String BYZDA, String BYZDB, String BYZDC, Date BYZDD)
+	{
+		SupplyAcceptOB entity = new SupplyAcceptOB();
+		entity.setSBLSH(SBLSH);
+		entity.setSXBM(SXBM);
+		entity.setBZSLBLRXM(BZSLBLRXM);
+		entity.setBZCLQD(BZCLQD);
+		entity.setBZSJ(BZSJ);
+		entity.setXZQHDM(XZQHDM);
+		entity.setBZSLJTDD(BZSLJTDD);
+		entity.setSJBBH(SJBBH);
+		entity.setYWLSH(YWLSH);
+		entity.setPDH(PDH);
+		entity.setBZ(BZ);
+		entity.setBYZDA(BYZDA);
+		entity.setBYZDB(BYZDB);
+		entity.setBYZDC(BYZDC);
+		entity.setBYZDD(BYZDD);
+		return saveObject(entity, SBLSH);// 发送对象
+	}
+
+	/**
+	 * 领取登记9
 	 * @param SBLSH 申办流水号
 	 * @param SXBM 事项编码
 	 * @param LQRXM 领取人姓名
@@ -536,6 +553,70 @@ public class XzspFactory
 		entity.setBYZDB(BYZDB);
 		entity.setBYZDC(BYZDC);
 		entity.setBYZDD(BYZDD);
-		return XzspUtil.receiveRegOB(entity);// 发送对象
+		return saveObject(entity, SBLSH);// 发送对象
+	}
+	private static CommonGovXzspDao dao;
+
+	private static void init()
+	{
+		if(dao == null)
+		{
+			dao = (CommonGovXzspDao) dswork.spring.BeanFactory.getBean("commonGovXzspDao");
+		}
+	}
+
+	@SuppressWarnings("all")
+	private static int saveObject(Object obj, String SBLSH)
+	{
+		try
+		{
+			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+			objectOutputStream.writeObject(obj);
+			String v = byteArrayOutputStream.toString("ISO-8859-1");
+			objectOutputStream.close();
+			byteArrayOutputStream.close();
+			int i = 0;
+			if(obj instanceof ApplicationOB){i = 0;}// ShenBan
+			else if(obj instanceof PreAcceptOB){i = 1;}// YuShouLi
+			else if(obj instanceof AcceptOB){i = 2;}// ShouLi
+			else if(obj instanceof SubmitOB){i = 3;}// ShenPi
+			else if(obj instanceof CompleteOB){i = 4;}// BanJie
+			else if(obj instanceof BlockOB){i = 5;}// TeBieChengXuQiDong
+			else if(obj instanceof ResumeOB){i = 6;}// TeBieChengXuBanJie
+			else if(obj instanceof SupplyOB){i = 7;}// BuJiaoGaoZhi
+			else if(obj instanceof SupplyAcceptOB){i = 8;}// BuJiaoShouLi
+			else if(obj instanceof ReceiveRegOB){i = 9;}// LingQuDengJi
+			java.util.Map map = new java.util.HashMap();
+			map.put("sblsh", SBLSH);
+			map.put("sptype", i);
+			map.put("spobject", v);
+			init();
+			dao.executeInsert(map);
+			return 1;
+		}
+		catch(Exception e)
+		{
+			return 0;
+		}
+	}
+
+	public static Object outputObject(String v)
+	{
+		try
+		{
+			Object o = null;
+			ByteArrayInputStream bais = new ByteArrayInputStream(v.getBytes("ISO-8859-1"));
+			java.io.ObjectInputStream ois = new ObjectInputStream(bais);
+			o = ois.readObject();
+			ois.close();
+			bais.close();
+			return o;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
