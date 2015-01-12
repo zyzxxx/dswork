@@ -9,13 +9,7 @@
         http://www.springframework.org/schema/context/spring-context-3.0.xsd"
 	default-autowire="byName" default-lazy-init="false">
 
-	<context:component-scan base-package="dswork.common" use-default-filters="false">
-	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
-	<context:component-scan base-package="dswork.ep" use-default-filters="false">
-	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-	</context:component-scan>
-	<context:component-scan base-package="dswork.person" use-default-filters="false">
+	<context:component-scan base-package="dswork" use-default-filters="false">
 	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	
