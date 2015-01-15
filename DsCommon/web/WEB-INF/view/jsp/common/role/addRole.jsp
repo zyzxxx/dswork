@@ -16,7 +16,7 @@ $(function(){
 		if(_show == "none"){
 			$("#mytree").css("display", "");
 			$("#mytree").html("");
-			$.post("getRoleFuncJson.htm",{systemid:"${po.systemid}", roleid:"${po.id}"},function(data){
+			$.post("getRoleFuncJson.htm",{systemid:"${systemid}", roleid:""},function(data){
 				if(data == "[]"){
 					alert("操作失败，请刷新重试");
 					$("#mytree").html("").css("display", "none");

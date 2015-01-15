@@ -27,10 +27,12 @@ function updStatus(objid, id){
 	return false;
 }
 $dswork.page.join = function(td, menu, id){
-	if(td.attr("v") == 'true'){return true;}
+	if(td.attr("v") != 'true'){
 	$(menu).append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(){
 		location.href = "updUser1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
-	})).append($('<div iconCls="menuTool-user">调动</div>').bind("click", function(){
+	}));
+	}
+	$(menu).append($('<div iconCls="menuTool-user">调动</div>').bind("click", function(){
 		location.href = "updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 };
@@ -91,8 +93,8 @@ $(function(){
 			<a ${'admin'==d.account?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
 			<c:if test="${'admin'!=d.account}">
 				<a class="update" href="updUser1.htm?page=${pageModel.currentPage}&keyIndex=${d.id}">修改</a>
-				<a class="user" href="updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
 			</c:if>
+			<a class="user" href="updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
 			<c:if test="${'admin'==d.account}"><a class="get" href="getUserById.htm?keyIndex=${d.id}">明细</a></c:if>
 		</td>
 	</tr>

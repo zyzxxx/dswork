@@ -154,7 +154,7 @@ public class DsCommonUserController extends BaseController
 	public String updUserOrg1()
 	{
 		Long id = req.getLong("keyIndex");
-		if(id > 0)
+		if(id > 0 || id == -1)
 		{
 			DsCommonUser po = service.get(id);
 			put("po", po);
