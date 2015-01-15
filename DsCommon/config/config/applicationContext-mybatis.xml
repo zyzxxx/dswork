@@ -9,7 +9,7 @@
 				<bean class="dswork.core.mybatis.OffsetLimitInterceptor">
        				<property name="properties">
        					<props>
-		        			<prop key="1">${mybatis.dialect}</prop>
+		        			<prop key="1">${jdbc.dialect.mybatis}</prop>
 		        		</props>
 					</property>
 				</bean>
@@ -18,7 +18,7 @@
         <property name="mapperLocations">
         	<list>
         		<value>classpath*:/dswork/*/mapper/**/*.map.xml</value>
-        		<value>classpath*:/common/*/*.map.xml</value>
+        		<value>classpath*:/common/**/*.map.xml</value>
         	</list>
         </property>
         <property name="dataSource" ref="dataSource"/>

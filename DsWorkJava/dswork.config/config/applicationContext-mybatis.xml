@@ -11,7 +11,7 @@
 				<bean class="dswork.core.mybatis.OffsetLimitInterceptor">
        				<property name="properties">
        					<props>
-		        			<prop key="1">${mybatis.dialect}</prop>
+		        			<prop key="1">${jdbc.dialect.mybatis}</prop>
 		        		</props>
 					</property>
 				</bean>
