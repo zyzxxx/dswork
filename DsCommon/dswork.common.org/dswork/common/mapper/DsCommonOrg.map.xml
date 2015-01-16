@@ -61,7 +61,7 @@
 
 <select id="query" resultMap="result">
 	select <include refid="columns" /> from DS_COMMON_ORG
-	<include refid="dynamicWhere" /> order by STATUS desc, SEQ asc
+	<include refid="dynamicWhere" /> order by STATUS desc, SEQ, ID
 </select>
 
 <select id="queryCount" resultType="int">

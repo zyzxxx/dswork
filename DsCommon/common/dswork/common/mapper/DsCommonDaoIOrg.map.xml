@@ -20,7 +20,7 @@
 		</if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 	</where>
-	order by STATUS desc, SEQ asc
+	order by STATUS desc, SEQ, ID
 </select>
 
 </mapper>
