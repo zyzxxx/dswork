@@ -70,24 +70,17 @@ public class DsCommonUserOrgController extends BaseController
 		try
 		{
 			Long userid = req.getLong("userid");
-			if(userid > 0)
+			String ids = req.getString("orgids", "");
+			List<Long> list = new ArrayList<Long>();
+			if(ids.length() > 0)
 			{
-				String ids = req.getString("orgids", "");
-				List<Long> list = new ArrayList<Long>();
-				if(ids.length() > 0)
+				for(String tmp : ids.split(","))
 				{
-					for(String tmp : ids.split(","))
-					{
-						list.add(new Long(tmp));
-					}
+					list.add(new Long(tmp));
 				}
-				service.saveByUser(userid, list);
-				print(1);
 			}
-			else
-			{
-				print(0);
-			}
+			service.saveByUser(userid, list);
+			print(1);
 		}
 		catch(Exception e)
 		{
