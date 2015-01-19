@@ -41,7 +41,7 @@ public class DsCommonUserController extends BaseController
 	{
 		try
 		{
-			if(po.getAccount().length() <= 0)
+			if(po.getAccount().length() <= 0 || po.getAccount().equals("null"))
 			{
 				print("0:添加失败，账号不能为空");
 			}
