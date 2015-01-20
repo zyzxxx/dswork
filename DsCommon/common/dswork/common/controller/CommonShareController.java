@@ -3,31 +3,50 @@
  */
 package dswork.common.controller;
 
-import org.springframework.context.annotation.Scope;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.mvc.BaseController;
+import dswork.web.MyRequest;
 import dswork.common.DsFactory;
 
-@Scope("prototype")
 @Controller
 @RequestMapping("/common/share")
-public class CommonShareController extends BaseController
+public class CommonShareController
 {
 	@RequestMapping("/getJsonDict")
-	public void getJsonDict()
+	public void getJsonDict(HttpServletRequest request, HttpServletResponse response)
 	{
+		response.setCharacterEncoding("UTF-8");
+		MyRequest req = new MyRequest(request);
 		String name = req.getString("name", "0");
-		String parentAlias = req.getString("value", null);//null时全部节点数据，""时根节点数据
-		print(DsFactory.getDict().getDictJson(name, parentAlias));
+		String parentAlias = req.getString("value", null);// null时全部节点数据，""时根节点数据
+		try
+		{
+			response.getWriter().print(DsFactory.getDict().getDictJson(name, parentAlias));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@RequestMapping("/getJsonOrg")
-	public void getJsonOrg()
+	public void getJsonOrg(HttpServletRequest request, HttpServletResponse response)
 	{
+		response.setCharacterEncoding("UTF-8");
+		MyRequest req = new MyRequest(request);
 		long pid = req.getLong("pid");
 		int status = req.getInt("status", -1);
-		print(DsFactory.getOrg().getOrgJson(pid, (status > -1 && status < 3)?status:null));
+		try
+		{
+			response.getWriter().print(DsFactory.getOrg().getOrgJson(pid, (status > -1 && status < 3) ? status : null));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
