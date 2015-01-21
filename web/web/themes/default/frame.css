@@ -1,15 +1,21 @@
-html,body{height:100%;border:0;padding:0em;margin:0em;}
-body{font-family:"宋体"}
-body, div, p, select, span, tr, td, a, input, textarea{font-size:12px;color:#182a2d;}
-form{margin:0em;padding:0em;}
-body, table, tr{background-color:#ffffff;}
+@charset "utf-8";
+*{word-wrap:break-word;}
+html,body,hr,p,iframe,dl,dt,dd,ul,ol,li,pre,form,button,input,textarea,th,td,fieldset{margin:0;padding:0;}
+ul,ol,dl{list-style-type:none;}
+html,body{*position:static;height:100%;border:0;line-height:1.6;}
+html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
+input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}
+input,button{overflow:visible;vertical-align:middle;outline:none;}
+body,th,td,button,input,select,textarea,a,span,p,div{font-family:"\5B8B\4F53","Microsoft Yahei","Hiragino Sans GB","Helvetica Neue",Helvetica,tahoma,arial,Verdana,sans-serif,"WenQuanYi Micro Hei";font-size:12px;color:#182a2d;-webkit-font-smoothing:antialiased;-moz-font-smoothing:antialiased;}
+sub,sup{vertical-align:baseline;}
+html{overflow:-moz-scrollbars-vertical;zoom:expression(function(ele){ele.style.zoom = "1";document.execCommand("BackgroundImageCache",false,true)}(this))}
+body,table,tr{background-color:#ffffff;}
 table.normal{width:100%;}
 
-a{text-decoration:none;}
-a:link{color:#182a2d;}
-a:visited{color:#182a2d;}
-a:hover{color:#205e92;}
-a:active{color:#182a2d;}
+a{text-decoration:none;outline:none;}
+a:link,a:visited,a:active{color:#182a2d;outline:none;}
+a:hover{color:#205e92;color:#182a2d;text-decoration:underline;}
+img{border:0;vertical-align:middle;}
 
 .menuTool{white-space:nowrap;}
 .menuTool a{padding:2px 0px 2px 18px;}
