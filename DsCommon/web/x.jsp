@@ -30,7 +30,6 @@ $(function(){
 		});
 	});
 	
-	
 	function loaddata(value, selectid){
 		$.post("${ctx}/common/share/getJsonDict.htm",{name:"SSXQ", value:value},function(data){
 			var s = $("#" + selectid);
@@ -39,6 +38,7 @@ $(function(){
 				var o = $("<option></option>");
 				o.text(a[i].name);
 				o.attr("value", a[i].id);
+				if(i == 0){o.prop("selected", true);}// 当下拉框size大于1时，默认不会有选中的值
 				s.append(o);
 			}
 			s.change();
@@ -49,21 +49,10 @@ $(function(){
 		document.getElementById("v3").options.length = 0;
 		loaddata($(this).val(), "v2");
 	});
-	$("#v1").bind("click", function(e){
-		if(document.getElementById("v2").options.length == 0){
-			document.getElementById("v3").options.length = 0;
-			loaddata($(this).val(), "v2");
-		}
-	});
 	$("#v2").bind("change", function(e){
 		document.getElementById("v3").options.length = 0;
 		loaddata($(this).val(), "v3");
-	});
-	$("#v2").bind("click", function(e){
-		if(document.getElementById("v3").options.length == 0){
-			document.getElementById("v3").options.length = 0;
-			loaddata($(this).val(), "v3");
-		}
+		e.stopPropagation();
 	});
 	loaddata("", "v1");
 });
@@ -80,9 +69,9 @@ $(function(){
 </table>
 <br />******************************<br />
 <form id="dataForm" method="post" action="#">
-<span><select id="v1"></select></span>
-&nbsp;<span><select id="v2"></select></span>
-&nbsp;<span><select id="v3"></select></span> 
+<span><select id="v1" size="15"></select></span>
+&nbsp;<span><select id="v2" size="15"></select></span>
+&nbsp;<span><select id="v3" size="15"></select></span> 
 <br />******************************<br />
 <span><%=DsFactory.getDict().getCheckbox("SSXQ", "chk_hello") %></span>
 <br />******************************<br />
