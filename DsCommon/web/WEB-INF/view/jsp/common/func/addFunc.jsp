@@ -94,7 +94,7 @@ $dswork.callback = function(){
 	<tr>
 		<td class="title">权限资源[参数]列表</td>
 		<td class="menuTool">
-			<a class="add" onclick="$('#contactTable>tbody').append($('#cloneTable>tbody>tr:eq(0)').clone());" href="#">添加</a>
+			<a class="insert" onclick="$('#contactTable>tbody').append($('#cloneTable>tbody>tr:eq(0)').clone());" href="#">添加</a>
 		</td>
 	</tr>
 </table>

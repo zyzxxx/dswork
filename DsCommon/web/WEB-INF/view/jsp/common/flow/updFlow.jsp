@@ -51,7 +51,7 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 		<td style="width:18%">名称</td>
 		<td style="width:35%">任务</td>
 		<td style="width:24%">用户</td>
-		<td class="menuTool"><a class="add" onclick="$('#end').before($('#cloneTable>tbody>tr:eq(0)').clone());" href="#"></a></td>
+		<td class="menuTool"><a class="insert" onclick="$('#end').before($('#cloneTable>tbody>tr:eq(0)').clone());" href="#"></a></td>
 	</tr>
 <c:forEach items="${po.taskList}" var="d">
 	<c:if test="${'start'==d.talias}">

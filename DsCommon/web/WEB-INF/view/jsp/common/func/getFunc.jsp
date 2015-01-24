@@ -48,10 +48,10 @@ $("#listFormMoveAll").click(function(){
 	<tr>
 		<td class="title">功能列表</td>
 		<td class="menuTool">
-			<a class="add" href="addFunc1.htm?systemid=${systemid}&pid=${pid}">添加</a>
+			<a class="insert" href="addFunc1.htm?systemid=${systemid}&pid=${pid}">添加</a>
 			<a class="sort" href="updFuncSeq1.htm?systemid=${systemid}&pid=${pid}">排序</a>
 			<a class="move" id="listFormMoveAll" href="#">移动所选</a>
-			<a class="del" id="listFormDelAll" href="#">删除所选</a>
+			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
 </table>

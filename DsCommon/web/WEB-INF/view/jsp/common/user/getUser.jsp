@@ -51,8 +51,8 @@ $(function(){
 	<tr>
 		<td class="title">用户账号列表</td>
 		<td class="menuTool">
-			<a class="add" href="addUser1.htm">添加</a>
-			<a class="del" id="listFormDelAll" href="#">删除所选</a>
+			<a class="insert" href="addUser1.htm">添加</a>
+			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
 </table>
@@ -95,7 +95,7 @@ $(function(){
 				<a class="update" href="updUser1.htm?page=${pageModel.currentPage}&keyIndex=${d.id}">修改</a>
 			</c:if>
 			<a class="user" href="updUserOrg1.htm?page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
-			<c:if test="${'admin'==d.account}"><a class="get" href="getUserById.htm?keyIndex=${d.id}">明细</a></c:if>
+			<c:if test="${'admin'==d.account}"><a class="select" href="getUserById.htm?keyIndex=${d.id}">明细</a></c:if>
 		</td>
 	</tr>
 </c:forEach>

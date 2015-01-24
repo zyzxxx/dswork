@@ -64,10 +64,10 @@ $("#dataTable>tbody>tr>td.v").each(function(){try{$(this).text($(this).text()=="
 	<tr>
 		<td class="title">组织机构列表</td>
 		<td class="menuTool">
-			<a class="add" href="addOrg1.htm?pid=${pid}">添加</a>
+			<a class="insert" href="addOrg1.htm?pid=${pid}">添加</a>
 			<a class="sort" href="updOrgSeq1.htm?pid=${pid}">排序</a>
 			<a class="move" id="listFormMoveAll" href="#">移动所选</a>
-			<a class="del" id="listFormDelAll" href="#">删除所选</a>
+			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
 </table>
