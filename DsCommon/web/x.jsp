@@ -41,17 +41,29 @@ $(function(){
 				o.attr("value", a[i].id);
 				s.append(o);
 			}
-			s.click();
+			s.change();
 		});
 	}
-	$("#v1").bind("click", function(e){
+	$("#v1").bind("change", function(e){
 		document.getElementById("v2").options.length = 0;
 		document.getElementById("v3").options.length = 0;
 		loaddata($(this).val(), "v2");
 	});
-	$("#v2").bind("click", function(e){
+	$("#v1").bind("click", function(e){
+		if(document.getElementById("v2").options.length == 0){
+			document.getElementById("v3").options.length = 0;
+			loaddata($(this).val(), "v2");
+		}
+	});
+	$("#v2").bind("change", function(e){
 		document.getElementById("v3").options.length = 0;
 		loaddata($(this).val(), "v3");
+	});
+	$("#v2").bind("click", function(e){
+		if(document.getElementById("v3").options.length == 0){
+			document.getElementById("v3").options.length = 0;
+			loaddata($(this).val(), "v3");
+		}
 	});
 	loaddata("", "v1");
 });
