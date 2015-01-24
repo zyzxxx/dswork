@@ -120,8 +120,10 @@
 	select TALIAS from DS_FLOW_PI_WAITING where PIID=#{piid}
 </select>
 <select id="queryFlowWaiting" resultMap="resultFlowWaiting">
-	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
-	where (TUSER=#{account} or TUSERS like concat('%', #{account}, '%')) and TCOUNT=1
+	<include refid="sqlQueryFlowWaiting" />
 </select>
-
+<sql id="sqlQueryFlowWaiting">
+	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
+	where (TUSER=#{account} or TUSERS like concat('%', #{account}, '%')) and TCOUNT=1 and 1=1
+</sql>
 </mapper>
