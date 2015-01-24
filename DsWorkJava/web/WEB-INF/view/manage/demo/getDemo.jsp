@@ -25,8 +25,8 @@ $(function()
 	<tr>
 		<td class="title">DEMO列表</td>
 		<td class="menuTool">
-			<a class="add" href="addDemo1.htm">添加</a>
-			<a class="del" id="listFormDelAll" href="#">删除所选</a>
+			<a class="insert" href="addDemo1.htm">添加</a>
+			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
 </table>
@@ -69,8 +69,8 @@ $(function()
 		<td>${d.content}</td>
 		<td>${d.foundtime}</td>
 		<td class="menuTool">
-			<a class="upd" href="updDemo1.htm?keyIndex=${d.id}">修改</a>
-			<a class="del" href="delDemo.htm?keyIndex=${d.id}">删除</a>
+			<a class="update" href="updDemo1.htm?keyIndex=${d.id}">修改</a>
+			<a class="delete" href="delDemo.htm?keyIndex=${d.id}">删除</a>
 		</td>
 	</tr>
 </c:forEach>
