@@ -1,5 +1,6 @@
 package dswork.android.lib.core.util.webutil;
 
+import java.io.InputStream;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -8,7 +9,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 public class HttpUtil 
@@ -40,6 +42,34 @@ public class HttpUtil
 			Log.i("Http请求异常", result);
 		}
 		Log.i("Http result", result);
+		return result;
+	}
+	
+	public static Bitmap getBitmapFromServer(HttpPostObj postObj)
+	{ 
+		Bitmap result = null;
+		try{
+			//发送HTTP request
+			HttpPost req = new HttpPost(postObj.getUrl());
+			System.out.println("【action url】:"+postObj.getUrl());
+			req.setEntity(new UrlEncodedFormEntity(postObj.getParams(), HTTP.UTF_8));
+			//设置网络超时
+			HttpClient client =  new DefaultHttpClient();
+			HttpConnectionParams.setConnectionTimeout(client.getParams(), 6000);//连接建立的超时时间
+			HttpConnectionParams.setSoTimeout(client.getParams(), 15000);//连接建立后，没有收到response的超时时间
+			//取得HTTP response
+			HttpResponse resp = client.execute(req);
+			//若状态码为200 ok
+			if(resp.getStatusLine().getStatusCode() == 200){
+				InputStream is = resp.getEntity().getContent();
+				result = BitmapFactory.decodeStream(is);
+			}else {
+				Log.i("HttpResponse状态码", resp.getStatusLine().getStatusCode()+"");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			Log.i("Http请求异常", e.getMessage());
+		}
 		return result;
 	}
 	

@@ -5,6 +5,8 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.graphics.Bitmap;
+
 import dswork.android.lib.core.util.webutil.HttpPostObj;
 import dswork.android.lib.core.util.webutil.HttpUtil;
 
@@ -26,6 +28,18 @@ public abstract class BaseWebController
 	{
 		HttpPostObj postObj = new HttpPostObj(getModulePath()+action, m);
 		return HttpUtil.sendHttpPost(postObj);
+	}
+	
+	/**
+	 * 获取服务器图片
+	 * @param action
+	 * @param m
+	 * @return
+	 */
+	public Bitmap getBitmapFromServer(String action, Map m)
+	{
+		HttpPostObj postObj = new HttpPostObj(getModulePath()+action, m);
+		return HttpUtil.getBitmapFromServer(postObj);
 	}
 	
 	/**
