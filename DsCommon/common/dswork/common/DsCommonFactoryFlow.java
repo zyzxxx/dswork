@@ -57,7 +57,7 @@ public class DsCommonFactoryFlow
 	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例的start待办信息或null
 	 */
-	public IFlowWaiting startWaiting(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting startFlow(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		try
 		{
