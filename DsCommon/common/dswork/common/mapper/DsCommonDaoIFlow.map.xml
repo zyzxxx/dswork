@@ -29,7 +29,7 @@
 		#{piupstart}, #{piupend}, #{status}, #{caccount}, #{cname}, #{pialias})
 </insert>
 <update id="updateFlowPi">
-	update DS_FLOW_PI set STATUS=#{status}, PIALIAS=#{pialias} where ID=#{id}
+	update DS_FLOW_PI set STATUS=#{status}<if test="status==0">, PIEND=#{piend}</if>, PIALIAS=#{pialias} where ID=#{id}
 </update>
 
 

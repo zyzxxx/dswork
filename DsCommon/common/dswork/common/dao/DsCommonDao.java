@@ -17,6 +17,7 @@ import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
 import dswork.common.model.IOrg;
 import dswork.core.db.MyBatisDao;
+import dswork.core.util.TimeUtil;
 
 @Repository
 @SuppressWarnings("all")
@@ -104,6 +105,10 @@ public class DsCommonDao extends MyBatisDao
 		map.put("id", id);
 		map.put("status", status);
 		map.put("pialias", pialias);
+		if(status == 0)
+		{
+			map.put("piend", TimeUtil.getCurrentTime());
+		}
 		executeUpdate("updateFlowPi", map);
 	}
 	
