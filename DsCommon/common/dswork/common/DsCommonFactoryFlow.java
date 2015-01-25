@@ -45,6 +45,31 @@ public class DsCommonFactoryFlow
 		}
 		return "";
 	}
+
+	/**
+	 * 流程启动并返回开始节点待办信息
+	 * @param alias 启动流程的标识
+	 * @param ywlsh 业务流水号
+	 * @param caccount 提交人账号
+	 * @param cname 提交人姓名
+	 * @param piDay 时限天数
+	 * @param isWorkDay 时限天数类型(false日历日,true工作日)
+	 * @param taskInterface 接口类（暂时无用）
+	 * @return 流程实例的start待办信息或null
+	 */
+	public IFlowWaiting startWaiting(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	{
+		try
+		{
+			init();
+			return service.saveFlowStart(alias, ywlsh, caccount, cname, piDay, isWorkDay, taskInterface);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	public void stop(String piid)
 	{

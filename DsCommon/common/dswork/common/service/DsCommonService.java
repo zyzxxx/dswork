@@ -20,7 +20,7 @@ public class DsCommonService
 	@Autowired
 	private DsCommonDao dao;
 
-	public String saveStart(String alias, String ywlsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting saveFlowStart(String alias, String ywlsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		String time = TimeUtil.getCurrentTime();
 		IFlow flow = dao.getFlow(alias);
@@ -70,7 +70,17 @@ public class DsCommonService
 				m.setTuser("," + task.getTusers() + ",");// 单人
 			}
 			dao.saveFlowWaiting(m);
-			return String.valueOf(piid);
+			return m;
+		}
+		return null;
+	}
+
+	public String saveStart(String alias, String ywlsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
+	{
+		IFlowWaiting w = saveFlowStart(alias, ywlsh, account, name, piDay, isWorkDay, taskInterface);
+		if(w != null)
+		{
+			return String.valueOf(w.getPiid());
 		}
 		return "";
 	}
