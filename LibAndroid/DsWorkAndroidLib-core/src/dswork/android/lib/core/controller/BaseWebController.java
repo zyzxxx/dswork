@@ -7,7 +7,7 @@ import java.util.Map;
 
 import android.graphics.Bitmap;
 
-import dswork.android.lib.core.util.webutil.HttpPostObj;
+import dswork.android.lib.core.util.webutil.HttpActionObj;
 import dswork.android.lib.core.util.webutil.HttpUtil;
 
 public abstract class BaseWebController
@@ -20,14 +20,14 @@ public abstract class BaseWebController
 	
 	/**
 	 * 发送Http请求
-	 * @param action 请求路径
+	 * @param actionPath 请求路径
 	 * @param m 查询参数
 	 * @return String
 	 */
-	public String sendRequest(String action, Map m)
+	public String sendHttpAction(String actionPath, Map m)
 	{
-		HttpPostObj postObj = new HttpPostObj(getModulePath()+action, m);
-		return HttpUtil.sendHttpPost(postObj);
+		HttpActionObj actionObj = new HttpActionObj(getModulePath()+actionPath, m);
+		return HttpUtil.sendHttpAction(actionObj);
 	}
 	
 	/**
@@ -36,21 +36,21 @@ public abstract class BaseWebController
 	 * @param m
 	 * @return
 	 */
-	public Bitmap getBitmapFromServer(String action, Map m)
+	public Bitmap sendHttpActionBitmap(String action, Map m)
 	{
-		HttpPostObj postObj = new HttpPostObj(getModulePath()+action, m);
-		return HttpUtil.getBitmapFromServer(postObj);
+		HttpActionObj actionObj = new HttpActionObj(getModulePath()+action, m);
+		return HttpUtil.sendHttpActionBitmap(actionObj);
 	}
 	
 	/**
 	 * 获取model转换成的Map
 	 * @param o
 	 * @param isNeedPk 是否需要获取主键
-	 * @return
+	 * @return Map<String, String>
 	 */
-	public Map<String, Object> getModelMap(Object o, Boolean isNeedPk)
+	public Map<String, String> getModelMap(Object o, Boolean isNeedPk)
 	{
-		Map<String, Object> m = new HashMap<String, Object>();
+		Map<String, String> m = new HashMap<String, String>();
 		if(isNeedPk)
 		{
 			try{
@@ -78,11 +78,11 @@ public abstract class BaseWebController
 	/**
 	 * 获取keyIndex的map
 	 * @param keyIndex
-	 * @return
+	 * @return Map<String, String>
 	 */
-	public Map<String, Object> getKeyIndexMap(Object keyIndex)
+	public Map<String, String> getKeyIndexMap(String keyIndex)
 	{
-		Map<String, Object> m = new HashMap<String, Object>();
+		Map<String, String> m = new HashMap<String, String>();
 		m.put("keyIndex", keyIndex);
 		return m;
 	}
