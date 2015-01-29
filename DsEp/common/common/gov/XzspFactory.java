@@ -600,23 +600,4 @@ public class XzspFactory
 			return 0;
 		}
 	}
-
-	public static Object outputObject(String v)
-	{
-		try
-		{
-			Object o = null;
-			ByteArrayInputStream bais = new ByteArrayInputStream(v.getBytes("ISO-8859-1"));
-			java.io.ObjectInputStream ois = new ObjectInputStream(bais);
-			o = ois.readObject();
-			ois.close();
-			bais.close();
-			return o;
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return null;
-		}
-	}
 }

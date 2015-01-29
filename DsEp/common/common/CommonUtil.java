@@ -1,8 +1,10 @@
 package common;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -41,5 +43,24 @@ public class CommonUtil
 			throw e;
 		}
 		return sb.toString().trim();
+	}
+
+	public static Object outputObject(String v)
+	{
+		try
+		{
+			Object o = null;
+			ByteArrayInputStream bais = new ByteArrayInputStream(v.getBytes("ISO-8859-1"));
+			java.io.ObjectInputStream ois = new ObjectInputStream(bais);
+			o = ois.readObject();
+			ois.close();
+			bais.close();
+			return o;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
 	}
 }
