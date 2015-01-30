@@ -8,7 +8,7 @@
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
 		select LAST_INSERT_ID()
 	</selectKey>
-	insert into DS_XZSP(SBLSH, SPTYPE, FSZT, FSCS, FSSJ, SPOBJECT) 
-	values (#{sblsh}, #{sptype}, 0, 0, '', #{spobject})
+	insert into DS_XZSP(SBLSH, SPTYPE, FSZT, FSCS, FSSJ, SPOBJECT, MEMO) 
+	values (#{sblsh}, #{sptype}, 0, 0, '', #{spobject}, '')
 </insert>
 </mapper>

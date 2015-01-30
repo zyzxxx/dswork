@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="common.gov.DsXzsp">
+
+<update id="update">
+	update DS_XZSP set FSZT=#{fszt}, FSCS=#{fscs}, FSSJ=#{fssj}, MEMO=#{memo} where ID=#{id}
+</update>
+
+<resultMap id="result" type="common.gov.DsXzsp">
+	<id property="id" column="ID" />
+	<result property="sblsh" column="SBLSH" />
+	<result property="sptype" column="SPTYPE" />
+	<result property="fszt" column="FSZT" />
+	<result property="fscs" column="FSCS" />
+	<result property="fssj" column="FSSJ" />
+	<result property="spobject" column="SPOBJECT" />
+	<result property="memo" column="MEMO" />
+</resultMap>
+
+<sql id="columns">SBLSH, SPTYPE, FSZT, FSCS, FSSJ, SPOBJECT, MEMO</sql>
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(fscs_begin)"> and FSCS&gt;=#{fscs_begin} </if>
+		<if test="@Ognl@isNotEmpty(fscs_end)"> and FSCS&lt;=#{fscs_end} </if>
+		<if test="@Ognl@isNotEmpty(fszt)"> and FSZT=#{fszt} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from DS_XZSP where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="columns" /> from DS_XZSP
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from DS_XZSP
+	<include refid="dynamicWhere" />
+</select>
+</mapper>

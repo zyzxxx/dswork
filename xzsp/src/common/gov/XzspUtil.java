@@ -38,7 +38,7 @@ public class XzspUtil
 	/**
 	 * 申办
 	 */
-	public static int applicationOB(ApplicationOB entity)
+	private static int applicationOB(ApplicationOB entity)
 	{
 		try
 		{
@@ -54,7 +54,7 @@ public class XzspUtil
 	/**
 	 * 预受理
 	 */
-	public static int preAcceptOB(PreAcceptOB entity)
+	private static int preAcceptOB(PreAcceptOB entity)
 	{
 		try
 		{
@@ -70,7 +70,7 @@ public class XzspUtil
 	/**
 	 * 受理
 	 */
-	public static int aceeptOB(AcceptOB entity)
+	private static int aceeptOB(AcceptOB entity)
 	{
 		try
 		{
@@ -86,7 +86,7 @@ public class XzspUtil
 	/**
 	 * 审批
 	 */
-	public static int submitOB(SubmitOB entity)
+	private static int submitOB(SubmitOB entity)
 	{
 		try
 		{
@@ -102,7 +102,7 @@ public class XzspUtil
 	/**
 	 * 补交告知
 	 */
-	public static int supplyOB(SupplyOB entity)
+	private static int supplyOB(SupplyOB entity)
 	{
 		try
 		{
@@ -118,7 +118,7 @@ public class XzspUtil
 	/**
 	 * 补交受理
 	 */
-	public static int supplyAcceptOB(SupplyAcceptOB entity)
+	private static int supplyAcceptOB(SupplyAcceptOB entity)
 	{
 		try
 		{
@@ -134,7 +134,7 @@ public class XzspUtil
 	/**
 	 * 特别程序申请
 	 */
-	public static int blockOB(BlockOB entity)
+	private static int blockOB(BlockOB entity)
 	{
 		try
 		{
@@ -150,7 +150,7 @@ public class XzspUtil
 	/**
 	 * 特别程序结果
 	 */
-	public static int resumeOB(ResumeOB entity)
+	private static int resumeOB(ResumeOB entity)
 	{
 		try
 		{
@@ -166,7 +166,7 @@ public class XzspUtil
 	/**
 	 * 办结
 	 */
-	public static int completeOB(CompleteOB entity)
+	private static int completeOB(CompleteOB entity)
 	{
 		try
 		{
@@ -182,11 +182,35 @@ public class XzspUtil
 	/**
 	 * 领取登记
 	 */
-	public static int receiveRegOB(ReceiveRegOB entity)
+	private static int receiveRegOB(ReceiveRegOB entity)
 	{
 		try
 		{
 			return mqapi.Send(entity);// 发送对象
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+			return 0;
+		}
+	}
+	
+	public static int sendObject(Object obj)
+	{
+//		int i = -1;
+//		if(obj instanceof ApplicationOB){i = 0;}// ShenBan
+//		else if(obj instanceof PreAcceptOB){i = 1;}// YuShouLi
+//		else if(obj instanceof AcceptOB){i = 2;}// ShouLi
+//		else if(obj instanceof SubmitOB){i = 3;}// ShenPi
+//		else if(obj instanceof CompleteOB){i = 4;}// BanJie
+//		else if(obj instanceof BlockOB){i = 5;}// TeBieChengXuQiDong
+//		else if(obj instanceof ResumeOB){i = 6;}// TeBieChengXuBanJie
+//		else if(obj instanceof SupplyOB){i = 7;}// BuJiaoGaoZhi
+//		else if(obj instanceof SupplyAcceptOB){i = 8;}// BuJiaoShouLi
+//		else if(obj instanceof ReceiveRegOB){i = 9;}// LingQuDengJi
+		try
+		{
+			return mqapi.Send(obj);// 发送对象
 		}
 		catch(Exception ex)
 		{
