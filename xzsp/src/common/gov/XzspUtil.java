@@ -1,16 +1,16 @@
 package common.gov;
 
-import MQAPI.AcceptOB;
-import MQAPI.ApplicationOB;
-import MQAPI.BlockOB;
-import MQAPI.CompleteOB;
 import MQAPI.MQFun;
-import MQAPI.PreAcceptOB;
-import MQAPI.ReceiveRegOB;
-import MQAPI.ResumeOB;
-import MQAPI.SubmitOB;
-import MQAPI.SupplyAcceptOB;
-import MQAPI.SupplyOB;
+//import MQAPI.AcceptOB;
+//import MQAPI.ApplicationOB;
+//import MQAPI.BlockOB;
+//import MQAPI.CompleteOB;
+//import MQAPI.PreAcceptOB;
+//import MQAPI.ReceiveRegOB;
+//import MQAPI.ResumeOB;
+//import MQAPI.SubmitOB;
+//import MQAPI.SupplyAcceptOB;
+//import MQAPI.SupplyOB;
 
 public class XzspUtil
 {
@@ -34,166 +34,166 @@ public class XzspUtil
 			ex.printStackTrace();
 		}
 	}
-
-	/**
-	 * 申办
-	 */
-	private static int applicationOB(ApplicationOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * 预受理
-	 */
-	private static int preAcceptOB(PreAcceptOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * 受理
-	 */
-	private static int aceeptOB(AcceptOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * 审批
-	 */
-	private static int submitOB(SubmitOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * 补交告知
-	 */
-	private static int supplyOB(SupplyOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * 补交受理
-	 */
-	private static int supplyAcceptOB(SupplyAcceptOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * 特别程序申请
-	 */
-	private static int blockOB(BlockOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * 特别程序结果
-	 */
-	private static int resumeOB(ResumeOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * 办结
-	 */
-	private static int completeOB(CompleteOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
-
-	/**
-	 * 领取登记
-	 */
-	private static int receiveRegOB(ReceiveRegOB entity)
-	{
-		try
-		{
-			return mqapi.Send(entity);// 发送对象
-		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
-			return 0;
-		}
-	}
+//
+//	/**
+//	 * 申办
+//	 */
+//	private static int applicationOB(ApplicationOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
+//
+//	/**
+//	 * 预受理
+//	 */
+//	private static int preAcceptOB(PreAcceptOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
+//
+//	/**
+//	 * 受理
+//	 */
+//	private static int aceeptOB(AcceptOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
+//
+//	/**
+//	 * 审批
+//	 */
+//	private static int submitOB(SubmitOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
+//
+//	/**
+//	 * 补交告知
+//	 */
+//	private static int supplyOB(SupplyOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
+//
+//	/**
+//	 * 补交受理
+//	 */
+//	private static int supplyAcceptOB(SupplyAcceptOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
+//
+//	/**
+//	 * 特别程序申请
+//	 */
+//	private static int blockOB(BlockOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
+//
+//	/**
+//	 * 特别程序结果
+//	 */
+//	private static int resumeOB(ResumeOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
+//
+//	/**
+//	 * 办结
+//	 */
+//	private static int completeOB(CompleteOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
+//
+//	/**
+//	 * 领取登记
+//	 */
+//	private static int receiveRegOB(ReceiveRegOB entity)
+//	{
+//		try
+//		{
+//			return mqapi.Send(entity);// 发送对象
+//		}
+//		catch(Exception ex)
+//		{
+//			ex.printStackTrace();
+//			return 0;
+//		}
+//	}
 	
 	public static int sendObject(Object obj)
 	{

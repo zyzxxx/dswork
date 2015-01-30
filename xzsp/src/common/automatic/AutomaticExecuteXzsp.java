@@ -45,6 +45,7 @@ public class AutomaticExecuteXzsp extends Thread
 	/**
 	 * 启动线程
 	 */
+	@SuppressWarnings("unchecked")
 	public void run()
 	{
 		System.out.println("--发送程序启动。--");
