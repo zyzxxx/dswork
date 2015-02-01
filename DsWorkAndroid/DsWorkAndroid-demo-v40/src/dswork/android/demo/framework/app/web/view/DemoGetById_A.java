@@ -9,7 +9,7 @@ import dswork.android.demo.framework.app.web.controller.DemoController;
 import dswork.android.demo.framework.app.web.model.Demo;
 import dswork.android.lib.core.util.InjectUtil;
 import dswork.android.lib.core.util.InjectUtil.InjectView;
-import dswork.android.lib.view.v40.base.getbyid.BaseGetByIdOleActivity;
+import dswork.android.lib.view.base.template.getbyid.BaseGetByIdOleActivity;
 
 public class DemoGetById_A extends BaseGetByIdOleActivity<Demo>
 {

@@ -21,7 +21,7 @@ import dswork.android.R;
 import dswork.android.demo.ui.Fragment1;
 import dswork.android.demo.ui.Fragment2;
 import dswork.android.demo.ui.Fragment3;
-import dswork.android.lib.view.v40.OleListFragment;
+import dswork.android.lib.view.base.interfaces.OleListFragment;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class Main_A extends SlidingFragmentActivity //OleActivity

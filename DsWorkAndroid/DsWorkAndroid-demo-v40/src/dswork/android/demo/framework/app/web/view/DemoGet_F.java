@@ -32,7 +32,7 @@ import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.ViewCache;
 import dswork.android.lib.core.util.InjectUtil;
 import dswork.android.lib.core.util.InjectUtil.InjectView;
 import dswork.android.lib.core.util.MyStrictMode;
-import dswork.android.lib.view.v40.base.get.BaseGetOleSherlockFragment;
+import dswork.android.lib.view.v40.templates.get.BaseGetOleSherlockFragment;
 
 public class DemoGet_F extends BaseGetOleSherlockFragment<Demo>
 {

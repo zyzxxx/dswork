@@ -27,7 +27,7 @@ import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.PullUpToRefreshL
 import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.ViewCache;
 import dswork.android.lib.core.util.InjectUtil;
 import dswork.android.lib.core.util.InjectUtil.InjectView;
-import dswork.android.lib.view.v40.base.get.BaseGetOleActivity;
+import dswork.android.lib.view.base.template.get.BaseGetOleActivity;
 
 public class PersonGet_A extends BaseGetOleActivity<Person>
 {

@@ -25,7 +25,7 @@ import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.PullUpToRefreshL
 import dswork.android.lib.core.ui.MultiCheck.MultiCheckListView.ViewCache;
 import dswork.android.lib.core.util.InjectUtil;
 import dswork.android.lib.core.util.InjectUtil.InjectView;
-import dswork.android.lib.view.v40.base.get.BaseGetOleActivity;
+import dswork.android.lib.view.base.template.get.BaseGetOleActivity;
 
 public class PersonGet_A extends BaseGetOleActivity<Person>
 {
@@ -88,7 +88,7 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 	@Override
 	public List<Person> getDataInBackground() 
 	{
-		return queryPage(getParams(), 0, 5);
+		return queryPage(getParams(), 0, 100);
 	}
 	@Override
 	public void executeUI(List<Person> list)
@@ -104,8 +104,8 @@ public class PersonGet_A extends BaseGetOleActivity<Person>
 		listView.setMultiCheckActionModeListener(new MyMultiCheckActionModeListener());//实例化ActionMode
 		//设置PullRefresh属性
 		listView.setMaxDataNum(controller.get(getParams()).size());//设置数据最大值
-		listView.setAvgDataNum(5);//平均每次取n条数据
-		listView.setPerDataNum(5);//每秒取n条数据
+		listView.setAvgDataNum(100);//平均每次取n条数据
+		listView.setPerDataNum(50);//每秒取n条数据
 		listView.setPullUpToRefreshListener(new MyPullUpToRefreshListener());//上拉刷新
 	}
 	

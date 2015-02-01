@@ -12,7 +12,7 @@ import dswork.android.demo.framework.app.single.controller.PersonController;
 import dswork.android.demo.framework.app.single.model.Person;
 import dswork.android.lib.core.util.InjectUtil;
 import dswork.android.lib.core.util.InjectUtil.InjectView;
-import dswork.android.lib.view.v40.OleActivity;
+import dswork.android.lib.view.base.interfaces.OleActivity;
 
 public class PersonAdd_A extends OleActivity 
 {

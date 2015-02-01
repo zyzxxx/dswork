@@ -30,24 +30,24 @@ public class DemoController extends BaseWebController
 
 	public String add(Demo po) 
 	{
-		return sendRequest("addDemo.htm", getModelMap(po,false));
+		return sendHttpAction("addDemo.htm", getModelMap(po,false));
 	}
 
 	public String deleteBatch(Long[] ids) 
 	{
-		return sendRequest("delDemo.htm", getKeyIndexMap(HttpUtil.idsConvertToStr(ids)));
+		return sendHttpAction("delDemo.htm", getKeyIndexMap(HttpUtil.idsConvertToStr(ids)));
 	}
 
 	public String upd(Demo po) 
 	{
-		return sendRequest("updDemo.htm", getModelMap(po,true));
+		return sendHttpAction("updDemo.htm", getModelMap(po,true));
 	}
 
 	public List<Demo> get(Map<String, Object> m)
 	{
 		List<Demo> list = null;
 		try{
-			String result = sendRequest("get.htm", m);//发送HttpPost请求
+			String result = sendHttpAction("get.htm", m);//发送HttpPost请求
 			if(!result.equals("error")){
 				list = new Gson().fromJson(result, new TypeToken<List<Demo>>(){}.getType());
 			}
@@ -61,7 +61,7 @@ public class DemoController extends BaseWebController
 	{
 		Demo po = null;
 		try{
-			String result = sendRequest("getDemoById.htm", getKeyIndexMap(id));
+			String result = sendHttpAction("getDemoById.htm", getKeyIndexMap(String.valueOf(id)));
 			if(!result.equals("error")){
 				po = new Gson().fromJson(result, Demo.class);
 			}
@@ -78,7 +78,7 @@ public class DemoController extends BaseWebController
 		m.put("pageSize", maxResult);
 		List<Demo> list = null;
 		try{
-			String result = sendRequest("queryPage.htm", m);
+			String result = sendHttpAction("queryPage.htm", m);
 			if(!result.equals("error")){
 				list = new Gson().fromJson(result, new TypeToken<List<Demo>>(){}.getType());
 			}
@@ -92,7 +92,7 @@ public class DemoController extends BaseWebController
 	{
 		int count = 0;
 		try{
-			count = Integer.valueOf(sendRequest("getCount.htm", m));
+			count = Integer.valueOf(sendHttpAction("getCount.htm", m));
 		}catch(Exception e){
 			count = 0;
 			e.printStackTrace();

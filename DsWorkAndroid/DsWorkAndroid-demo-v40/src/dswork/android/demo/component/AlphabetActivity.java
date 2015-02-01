@@ -16,7 +16,7 @@ import dswork.android.lib.core.ui.AlphaBar;
 import dswork.android.lib.core.ui.AlphaBar.OnAlphaBarListener;
 import dswork.android.lib.core.util.InjectUtil;
 import dswork.android.lib.core.util.InjectUtil.InjectView;
-import dswork.android.lib.view.v40.OleFragmentActivity;
+import dswork.android.lib.view.base.interfaces.OleFragmentActivity;
 
 @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
 public class AlphabetActivity extends OleFragmentActivity 

@@ -24,7 +24,7 @@ import dswork.android.demo.framework.app.single.model.Person;
 import dswork.android.demo.framework.app.single.service.PersonService;
 import dswork.android.lib.core.util.InjectUtil;
 import dswork.android.lib.core.util.InjectUtil.InjectView;
-import dswork.android.lib.view.v40.OleFragmentActivity;
+import dswork.android.lib.view.base.interfaces.OleFragmentActivity;
 
 public class PullToRefreshActivity extends OleFragmentActivity
 {

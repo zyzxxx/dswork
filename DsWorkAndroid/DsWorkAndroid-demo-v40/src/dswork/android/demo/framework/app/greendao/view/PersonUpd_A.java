@@ -13,7 +13,7 @@ import dswork.android.demo.framework.app.greendao.dao.Person;
 import dswork.android.demo.framework.app.greendao.dao.PersonDao;
 import dswork.android.lib.core.util.InjectUtil;
 import dswork.android.lib.core.util.InjectUtil.InjectView;
-import dswork.android.lib.view.v40.base.upd.BaseUpdOleActivity;
+import dswork.android.lib.view.base.template.upd.BaseUpdOleActivity;
 
 public class PersonUpd_A extends BaseUpdOleActivity<Person>
 {

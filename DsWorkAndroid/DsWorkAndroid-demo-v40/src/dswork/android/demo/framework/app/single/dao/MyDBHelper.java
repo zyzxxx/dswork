@@ -18,7 +18,7 @@ public class MyDBHelper extends BaseDBHelper
 	@Override
 	protected SQLiteOpenHelper initDBHelper()
 	{
-		return new DBOpenHelper(context, "demo.db", null, 1, 
+		return new DBOpenHelper(context, "demo.db", null, 2, 
 			context.getResources().getStringArray(R.array.createTableSql), 
 			context.getResources().getStringArray(R.array.updateTableSql));
 	}

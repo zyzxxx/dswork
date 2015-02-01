@@ -48,7 +48,7 @@ public class SwipeRefreshActivity extends Activity implements SwipeRefreshLayout
         mSwipeLayout = (SwipeRefreshLayout) findViewById(R.id.id_swipe_ly);  
   
         mSwipeLayout.setOnRefreshListener(this);  
-        mSwipeLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,  
+        mSwipeLayout.setColorSchemeColors(android.R.color.holo_blue_bright, android.R.color.holo_green_light,  
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);  
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, mDatas);  
         mListView.setAdapter(mAdapter);  
