@@ -1,15 +1,36 @@
 package dswork.android.lib.core.util;
 
-import dswork.android.lib.core.R;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import dswork.android.lib.core.R;
 
 public class WorkUtil
 {
+	/**
+	 * 获取应用程序版本号
+	 * @param context
+	 * @return
+	 */
+	public static int getAppVersion(Context context) 
+	{
+		try 
+		{
+			PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+			return info.versionCode;
+		} 
+		catch (NameNotFoundException e) 
+		{
+			e.printStackTrace();
+		}
+		return 1;
+	}
+	
 	/**
 	 * 添加九宫格快捷方式
 	 * @param ctx
@@ -57,77 +78,4 @@ public class WorkUtil
 		return intent;
 	}
 	
-//	/***
-//	 * 界面布局框架
-//	 * @author ole
-//	 *
-//	 */
-//	public static abstract class WorkActivity extends FragmentActivity
-//	{
-//		///////////////////////////////////////////////////////////////////
-//		///////////////////////布局重载方法/////////////////////////////
-//		/**
-//		 * 初始化主布局
-//		 */
-//		protected abstract void initMainView();
-//		/**
-//		 * 初始化菜单布局
-//		 * @param menu
-//		 */
-//		protected abstract void initMenu(Menu menu);
-//		/**
-//		 * 初始化菜单按钮点击事件
-//		 * @param item
-//		 */
-//		protected void initMenuItemSelected(MenuItem item)
-//		{
-//			switch(item.getItemId())
-//			{
-//				case android.R.id.home://返回
-//					this.finish();
-//					break;
-//			}
-//		}
-//		
-//		///////////////////////////////////////////////////////////////////
-//		///////////////////////官方Activity重载方法////////////////////////
-//		@Override
-//		protected void onCreate(Bundle savedInstanceState) {
-//			super.onCreate(savedInstanceState);
-//			initMainView();
-//		}
-//
-//		@Override
-//		public boolean onCreateOptionsMenu(Menu menu) {
-//			initMenu(menu);
-//			return true;
-//		}
-//		
-//		@Override
-//		public boolean onMenuItemSelected(int featureId, MenuItem item) {
-//			initMenuItemSelected(item);
-//			return super.onOptionsItemSelected(item);
-//		}
-//	}
-//	//列表页
-//	public static abstract class GetActivity extends WorkActivity
-//	{
-//	}
-//	//添加页
-//	public static abstract class AddActivity extends WorkActivity
-//	{
-//	}
-//	//修改页
-//	public static abstract class UpdActivity extends WorkActivity
-//	{
-//	}
-//	//明细页
-//	public static abstract class GetByIdActivity extends WorkActivity
-//	{
-//	}
-//	
-//	public @interface Inject
-//	{
-//		int id();
-//	}
 }
