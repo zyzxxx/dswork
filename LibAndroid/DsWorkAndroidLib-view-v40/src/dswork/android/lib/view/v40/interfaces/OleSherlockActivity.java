@@ -1,4 +1,4 @@
-package dswork.android.lib.view.v40;
+package dswork.android.lib.view.v40.interfaces;
 
 import android.os.Bundle;
 import com.actionbarsherlock.app.SherlockActivity;

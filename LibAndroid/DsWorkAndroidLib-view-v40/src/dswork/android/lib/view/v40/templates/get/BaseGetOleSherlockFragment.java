@@ -1,4 +1,4 @@
-package dswork.android.lib.view.v40.base.get;
+package dswork.android.lib.view.v40.templates.get;
 
 import java.util.HashMap;
 import java.util.List;
@@ -12,8 +12,8 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import dswork.android.lib.view.v40.OleSherlockFragment;
 import dswork.android.lib.view.v40.R;
+import dswork.android.lib.view.v40.interfaces.OleSherlockFragment;
 
 public abstract class BaseGetOleSherlockFragment<T> extends OleSherlockFragment
 {

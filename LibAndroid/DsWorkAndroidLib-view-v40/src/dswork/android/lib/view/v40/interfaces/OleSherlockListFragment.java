@@ -1,15 +1,15 @@
-package dswork.android.lib.view.v40;
+package dswork.android.lib.view.v40.interfaces;
 
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import com.actionbarsherlock.app.SherlockListFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 
-public abstract class OleListFragment extends ListFragment implements InitFragment
+public abstract class OleSherlockListFragment extends SherlockListFragment implements InitSherlockFragment
 {
 	/**
 	 * 重载此方法重新定义MenuItem点击事件

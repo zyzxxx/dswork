@@ -1,4 +1,4 @@
-package dswork.android.lib.view.v40.base.upd;
+package dswork.android.lib.view.v40.templates.upd;
 
 import android.os.AsyncTask;
 import android.view.Gravity;
@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
-import dswork.android.lib.view.v40.OleFragmentActivity;
+import dswork.android.lib.view.v40.interfaces.OleSherlockActivity;
 
-public abstract class BaseUpdOleFragmentActivity<T> extends OleFragmentActivity
+public abstract class BaseUpdOleSherlockActivity<T> extends OleSherlockActivity
 {
 	/**
 	 * 获取列表页根布局FrameLayout对象
