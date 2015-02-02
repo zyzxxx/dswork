@@ -365,7 +365,7 @@ public class DsCommonFuncController extends BaseController
 	public String getFuncTree()
 	{
 		long systemid = req.getLong("systemid");
-		put("po",  service.getSystem(systemid));
+		put("systemid",  systemid);
 		return "/common/func/getFuncTree.jsp";
 	}
 	// 获得列表

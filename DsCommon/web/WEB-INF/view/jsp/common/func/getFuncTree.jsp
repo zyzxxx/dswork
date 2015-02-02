@@ -12,7 +12,7 @@ $dswork.callback = null;
 function refreshNode(re){$dswork.ztree.refreshNode(re);}
 $dswork.ztree.click = function(){
 	treeNode = $dswork.ztree.getSelectedNode();
-	if(treeNode.status == 1){attachUrl("getFunc.htm?systemid=${po.id}&pid=" + treeNode.id);}
+	if(treeNode.status == 1){attachUrl("getFunc.htm?systemid=${systemid}&pid=" + treeNode.id);}
 	else{attachUrl("getFuncById.htm?keyIndex=" + treeNode.id);}
 	return false;
 };
@@ -25,13 +25,13 @@ $dswork.ztree.showMenu = function(type, x, y){
 };
 $dswork.ztree.root.name = "资源管理";
 $dswork.ztree.root.status = 1;
-$dswork.ztree.url = function(treeNode){return "getFuncJson.htm?systemid=${po.id}&pid=" + treeNode.id;};
+$dswork.ztree.url = function(treeNode){return "getFuncJson.htm?systemid=${systemid}&pid=" + treeNode.id;};
 $(function(){
 	var $z = $dswork.ztree;
 	$z.load();
 	$("#menu_refresh").click(function(){$z.refreshNode();$z.hideMenu();});
 	$("#menu_add").click(function(){
-		attachUrl("addFunc1.htm?systemid=${po.id}&pid=" + $z.getSelectedNode().id);$z.hideMenu();
+		attachUrl("addFunc1.htm?systemid=${systemid}&pid=" + $z.getSelectedNode().id);$z.hideMenu();
 	});
 	$("#menu_upd").click(function(){
 		attachUrl("updFunc1.htm?keyIndex=" + $z.getSelectedNode().id);$z.hideMenu();
@@ -53,7 +53,7 @@ $(function(){
 		var _node = $z.getSelectedNode();
 		if(0 == _node.id && confirm("重要操作：确定清空所有功能资源？")){
 			$dswork.showRequest();
-			$.post("delFuncBySystem.htm",{systemid:"${po.id}"},function(data){
+			$.post("delFuncBySystem.htm",{systemid:"${systemid}"},function(data){
 				$dswork.doAjaxShow(data, function(){
 					if($dswork.result.type == 1){attachUrl("");$z.refreshNode(true);}
 				});
@@ -63,7 +63,7 @@ $(function(){
 		return false;
 	});
 	$("#menu_sort").click(function(){
-		attachUrl("updFuncSeq1.htm?systemid=${po.id}&pid=" + $z.getSelectedNode().id);$z.hideMenu();
+		attachUrl("updFuncSeq1.htm?systemid=${systemid}&pid=" + $z.getSelectedNode().id);$z.hideMenu();
 	});
 	$("#menu_select").click(function(){
 		attachUrl("getFuncById.htm?keyIndex=" + $z.getSelectedNode().id);$z.hideMenu();
@@ -73,16 +73,6 @@ $(function(){
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
-<div region="north" style="overflow:hidden;border:0px;height:30px;">
-<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
-	<tr>
-		<td class="title">${fn:escapeXml(po.name)}</td>
-		<td class="menuTool">
-			<a class="back" href="../system/getSystem.htm?page=${param.page}">返回</a>
-		</td>
-	</tr>
-</table>
-</div>
 <div region="west" split="true" title="资源管理" style="width:250px;">
 	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />

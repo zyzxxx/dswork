@@ -12,7 +12,7 @@ $dswork.callback = null;
 function refreshNode(re){$dswork.ztree.refreshNode(re);}
 $dswork.ztree.click = function(){
 	treeNode = $dswork.ztree.getSelectedNode();
-	attachUrl("getRole.htm?systemid=${po.id}&pid=" + treeNode.id);
+	attachUrl("getRole.htm?systemid=${systemid}&pid=" + treeNode.id);
 	return false;
 };
 $dswork.ztree.showMenu = function(type, x, y){
@@ -23,13 +23,13 @@ $dswork.ztree.showMenu = function(type, x, y){
 };
 $dswork.ztree.root.name = "角色管理";
 $dswork.ztree.root.status = 1;
-$dswork.ztree.url = function(treeNode){return "getRoleJson.htm?systemid=${po.id}&pid=" + treeNode.id;};
+$dswork.ztree.url = function(treeNode){return "getRoleJson.htm?systemid=${systemid}&pid=" + treeNode.id;};
 $(function(){
 	var $z = $dswork.ztree;
 	$z.load();
 	$("#menu_refresh").click(function(){$z.refreshNode();$z.hideMenu();});
 	$("#menu_add").click(function(){
-		attachUrl("addRole1.htm?systemid=${po.id}&pid=" + $z.getSelectedNode().id);$z.hideMenu();
+		attachUrl("addRole1.htm?systemid=${systemid}&pid=" + $z.getSelectedNode().id);$z.hideMenu();
 	});
 	$("#menu_upd").click(function(){
 		attachUrl("updRole1.htm?keyIndex=" + $z.getSelectedNode().id);$z.hideMenu();
@@ -48,7 +48,7 @@ $(function(){
 		return false;
 	});
 	$("#menu_sort").click(function(){
-		attachUrl("updRoleSeq1.htm?systemid=${po.id}&pid=" + $z.getSelectedNode().id);$z.hideMenu();
+		attachUrl("updRoleSeq1.htm?systemid=${systemid}&pid=" + $z.getSelectedNode().id);$z.hideMenu();
 	});
 	$("#menu_select").click(function(){
 		attachUrl("getRoleById.htm?keyIndex=" + $z.getSelectedNode().id);$z.hideMenu();
@@ -58,16 +58,6 @@ $(function(){
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
-<div region="north" style="overflow:hidden;border:0px;height:30px;">
-<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
-	<tr>
-		<td class="title">${fn:escapeXml(po.name)}</td>
-		<td class="menuTool">
-			<a class="back" href="../system/getSystem.htm?page=${param.page}">返回</a>
-		</td>
-	</tr>
-</table>
-</div>
 <div region="west" split="true" title="角色管理" style="width:250px;">
 	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />

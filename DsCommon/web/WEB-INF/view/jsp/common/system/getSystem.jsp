@@ -20,15 +20,23 @@ function updSystemStatus(objid, id){
 	});
 	return false;
 }
+function updFunc(id){
+	$jskey.dialog.showDialog({url:"../func/getFuncTree.htm?page=${pageModel.currentPage}&systemid=" + id,title:$("#td_n" + id).text(),fit:true,draggable:false,resizable:false});
+	return false;
+}
+function updRole(id){
+	$jskey.dialog.showDialog({url:"../role/getRoleTree.htm?page=${pageModel.currentPage}&systemid=" + id,title:$("#td_n" + id).text(),fit:true,draggable:false,resizable:false});
+	return false;
+}
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getSystem.htm?page=${pageModel.currentPage}";
 }};
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-graph">资源管理</div>').bind("click", function(){
-		location.href = "../func/getFuncTree.htm?page=${pageModel.currentPage}&systemid=" + id;
+		updFunc(id);
 	})).append($('<div iconCls="menuTool-user">角色管理</div>').bind("click", function(){
-		location.href = "../role/getRoleTree.htm?page=${pageModel.currentPage}&systemid=" + id;
+		updRole(id);
 	}));
 };
 $(function(){
@@ -74,13 +82,13 @@ $(function(){
 <c:forEach items="${pageModel.result}" var="d" varStatus="status">
 	<tr>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
-		<td>${fn:escapeXml(d.name)}</td>
+		<td id="td_n${d.id}">${fn:escapeXml(d.name)}</td>
 		<td>${fn:escapeXml(d.alias)}</td>
 		<td id="td_a_status${status.index}" style="color:${1==d.status?"":"red"}">${1==d.status?"启用":"禁用"}</td>
 		<td class="menuTool">
 			<a id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" onclick="return updSystemStatus('a_status${status.index}', '${d.id}');" href="#">${1==d.status?'禁用':'启用'}</a>
-			<a class="graph" href="../func/getFuncTree.htm?systemid=${d.id}&page=${pageModel.currentPage}">资源管理</a>
-			<a class="user" href="../role/getRoleTree.htm?systemid=${d.id}&page=${pageModel.currentPage}">角色管理</a>
+			<a class="graph" onclick="return updFunc('${d.id}');" href="#">资源管理</a>
+			<a class="user" onclick="return updRole('${d.id}');" href="#">角色管理</a>
 			<a class="update" href="updSystem1.htm?keyIndex=${d.id}&page=${pageModel.currentPage}">修改</a>
 			<a class="delete" href="delSystem.htm?keyIndex=${d.id}&page=${pageModel.currentPage}">删除</a>
 		</td>

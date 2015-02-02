@@ -284,7 +284,7 @@ public class DsCommonRoleController extends BaseController
 	public String getRoleTree()
 	{
 		long systemid = req.getLong("systemid");
-		put("po", service.getSystem(systemid));
+		put("systemid", systemid);
 		return "/common/role/getRoleTree.jsp";
 	}
 	// 获得列表
