@@ -24,7 +24,7 @@ public abstract class BaseWebController
 	 * @param m 查询参数
 	 * @return String
 	 */
-	public String sendHttpAction(String actionPath, Map m)
+	public String sendHttpAction(String actionPath, Map<String,String> m)
 	{
 		HttpActionObj actionObj = new HttpActionObj(getModulePath()+actionPath, m);
 		return HttpUtil.sendHttpAction(actionObj);
@@ -36,7 +36,7 @@ public abstract class BaseWebController
 	 * @param m
 	 * @return
 	 */
-	public Bitmap sendHttpActionBitmap(String action, Map m)
+	public Bitmap sendHttpActionBitmap(String action, Map<String,String> m)
 	{
 		HttpActionObj actionObj = new HttpActionObj(getModulePath()+action, m);
 		return HttpUtil.sendHttpActionBitmap(actionObj);
@@ -53,9 +53,12 @@ public abstract class BaseWebController
 		Map<String, String> m = new HashMap<String, String>();
 		if(isNeedPk)
 		{
-			try{
+			try
+			{
 				m.put("id", String.valueOf(o.getClass().getSuperclass().getMethod("getId").invoke(o)));
-			}catch(Exception e){
+			}
+			catch(Exception e)
+			{
 				e.printStackTrace();
 			}
 		}
@@ -68,7 +71,9 @@ public abstract class BaseWebController
 				Method mth = o.getClass().getMethod("get"+fields[i].getName().substring(0,1).toUpperCase()+fields[i].getName().substring(1));
 				String _value = String.valueOf(mth.invoke(o));
 				m.put(_key, _value);
-			}catch(Exception e){
+			}
+			catch(Exception e)
+			{
 				e.printStackTrace();
 			}
 		}
