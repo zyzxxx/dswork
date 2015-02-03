@@ -1,33 +1,12 @@
-dswork.common.dict目录
-	字典分类和字典项
+dswork.common.dict      目录===字典分类和字典项
+dswork.common.rbac      目录===权限设置：“系统”、“功能（功能资源）”、“角色”、“角色选择”
+dswork.common.org       目录===组织机构：“单位”、“部门”、“岗位”
 
 
-dswork.common.rbac目录
-	权限设置：“系统”、“功能（功能资源）”、“角色”、“角色选择”
+common                  目录===公共功能：“字典调用”、“组织机构调用”@Scope("prototype")
+dswork.common.org.role  目录===岗位授权：需要使用common下“组织机构调用”和dswork.common.rbac下“角色选择”@Scope("prototype")
+dswork.common.user      目录===用户管理：需要使用common下“组织机构调用”@Scope("prototype")
+dswork.common.user.org  目录===用户授权：需要dswork.common.org读取岗位列表，和dswork.common.user读取用户列表@Scope("prototype")
 
-
-dswork.common.org目录
-	组织机构：“单位”、“部门”、“岗位”
-
-
-@Scope("prototype")
-common目录
-	公共功能：“字典调用”、“组织机构调用”
-
-
-@Scope("prototype")
-dswork.common.org.role目录
-	岗位授权：需要使用common下“组织机构调用”和dswork.common.rbac下“角色选择”
-
-
-@Scope("prototype")
-dswork.common.user目录
-	用户管理：需要使用common下“组织机构调用”
-
-
-@Scope("prototype")
-dswork.common.user.org目录
-	用户授权：需要dswork.common.org读取岗位列表，和dswork.common.user读取用户列表
-
-
-
+dswork.common.user.role 目录===用户授权：需要使用common下“组织机构调用”和dswork.common.rbac下“角色选择”@Scope("prototype")
+	此功能模块仅用于单系统时，作为角色与用户的绑定
