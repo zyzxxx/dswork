@@ -70,16 +70,6 @@ $(function(){
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
-<div region="north" style="overflow:hidden;border:0px;height:30px;">
-<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
-	<tr>
-		<td class="title">${fn:escapeXml(po.label)}字典管理：引用名《${fn:escapeXml(po.name)}》</td>
-		<td class="menuTool">
-			<a class="back" href="getDict.htm?status=${param.status}">返回字典列表</a>
-		</td>
-	</tr>
-</table>
-</div>
 <c:if test="${po.status==1}">
 <div region="west" split="true" title="${fn:escapeXml(po.label)}" style="width:250px;">
 	<div class="treediv">

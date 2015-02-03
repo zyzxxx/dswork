@@ -21,11 +21,11 @@ function updSystemStatus(objid, id){
 	return false;
 }
 function updFunc(id){
-	$jskey.dialog.showDialog({url:"../func/getFuncTree.htm?page=${pageModel.currentPage}&systemid=" + id,title:$("#td_n" + id).text(),fit:true,draggable:false,resizable:false});
+	$jskey.dialog.showDialog({url:"../func/getFuncTree.htm?page=${pageModel.currentPage}&systemid=" + id,title:$("#td_n" + id).text(),fit:true,draggable:false});
 	return false;
 }
 function updRole(id){
-	$jskey.dialog.showDialog({url:"../role/getRoleTree.htm?page=${pageModel.currentPage}&systemid=" + id,title:$("#td_n" + id).text(),fit:true,draggable:false,resizable:false});
+	$jskey.dialog.showDialog({url:"../role/getRoleTree.htm?page=${pageModel.currentPage}&systemid=" + id,title:$("#td_n" + id).text(),fit:true,draggable:false});
 	return false;
 }
 $dswork.doAjax = true;

@@ -8,7 +8,7 @@
 <%@include file="/commons/include/get.jsp"%>
 <script type="text/javascript">
 $(function(){
-	$dswork.page.menu("delDict.htm?status=${param.status}", "updDict1.htm?status=${param.status}", "getDictDataTree.htm?status=${param.status}", "${pageModel.currentPage}");
+	$dswork.page.menu("delDict.htm?status=${param.status}", "updDict1.htm?status=${param.status}", "", "${pageModel.currentPage}");
 	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
 	$("#status").bind("change", function(){
 		$("#queryForm").submit();
@@ -21,6 +21,16 @@ $(function(){
 		$(this).text(v);
 	}catch(e){}});
 });
+function getDictDataTree(id){
+	$jskey.dialog.showDialog({url:"getDictDataTree.htm?status=${param.status}&keyIndex=" + id,title:"【" + $("#td_l" + id).text() + "】字典管理：引用名《" + $("#td_n" + id).text() + "》",fit:true,draggable:false});
+	return false;
+}
+$dswork.page.join = function(td, menu, id){
+	$(menu).append($('<div iconCls="menuTool-graph">设置</div>').bind("click", function(){
+		getDictDataTree(id);
+	}));
+	td.parent().css("cursor", "pointer").bind("dblclick", function(event){getDictDataTree(id);});
+};
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getDict.htm?status=${param.status}&page=${pageModel.currentPage}";
@@ -65,10 +75,11 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr>
 		<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
-		<td>${fn:escapeXml(d.name)}</td>
-		<td>${fn:escapeXml(d.label)}</td>
+		<td id="td_n${d.id}">${fn:escapeXml(d.name)}</td>
+		<td id="td_l${d.id}">${fn:escapeXml(d.label)}</td>
 		<td class="v">${d.status}</td>
 		<td class="menuTool">
+			<a class="graph" onclick="return getDictDataTree('${d.id}');" href="#">设置</a>
 			<a class="update" href="updDict1.htm?status=${param.status}&keyIndex=${d.id}&page=${pageModel.currentPage}">修改</a>
 		</td>
 	</tr>
