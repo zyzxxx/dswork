@@ -173,8 +173,8 @@ div.line{display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hidd
 .queryTable input.text{width:80px;}
 .queryTable input.button{background-color:#e0ecff;height:20px;padding:0em;margin:0em;width:38px;}
 
-.pageview, .pageview *{margin:0em;padding:0em;font-family:tahoma;color:#182a2d;font-size:12px;height:30px;line-height:30px;vertical-align:text-middle;}
-.pageview{float:right;font-family:tahoma;text-align:right;padding:0px 10px 0px 0px;width:100%;}
+.pageview, .pageview *{margin:0em;padding:0em;font-family:tahoma;color:#182a2d;font-size:12px;height:30px;line-height:30px;vertical-align:middle;}
+.pageview{float:right;text-align:right;padding:0px 10px 0px 0px;width:100%;}
 .pageview a{text-decoration:none;border:none;}
 .pageview a:link{}
 .pageview a:visited{}
