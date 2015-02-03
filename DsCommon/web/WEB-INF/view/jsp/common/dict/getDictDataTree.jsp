@@ -28,7 +28,7 @@ $dswork.ztree.showMenu = function(type, x, y){
 	else{if(!_node.isParent){$("#menu_refresh").hide();$("#menu_add").hide();$("#menu_sort").hide();}}
 	$("#" + $dswork.ztree.menuName).menu('show', {left:x,top:y});
 };
-$dswork.ztree.root.name = "${fn:escapeXml(po.label)}字典管理";
+$dswork.ztree.root.name = "${fn:escapeXml(po.label)}";
 $dswork.ztree.url = function(treeNode){return "getDictDataJson.htm?dictid=${po.id}&pid=" + treeNode.id;};
 $(function(){
 	var $z = $dswork.ztree;
@@ -71,7 +71,7 @@ $(function(){
 </head>
 <body class="easyui-layout treebody" fit="true">
 <c:if test="${po.status==1}">
-<div region="west" split="true" title="${fn:escapeXml(po.label)}" style="width:250px;">
+<div region="west" split="true" title="字典管理" style="width:250px;">
 	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />
 	</div>
