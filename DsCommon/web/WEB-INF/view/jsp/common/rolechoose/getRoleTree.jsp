@@ -8,9 +8,9 @@
 <%@include file="/commons/include/page.jsp"%>
 <%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
-var _systemid = ${(po.id > 0)?po.id:0};
+var _systemid = ${(po == null)?'-100000000':po.id};
 var _systemname = "${fn:escapeXml(po.name)}";
-if(_systemname.length == 0){
+if(_systemid == -100000000){
 	_systemname = "未选择系统";
 }
 $dswork.ztree.root.name = "角色(" + _systemname + ")";
