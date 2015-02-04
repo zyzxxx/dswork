@@ -46,8 +46,11 @@ public class DsCommonRoleChooseController extends BaseController
 	@RequestMapping("/getRoleTree")
 	public String getRoleTree()
 	{
-		long systemid = req.getLong("systemid");
-		put("po", service.getSystem(systemid));
+		long systemid = req.getLong("systemid", -100000000L);//随便给个不会用的参数
+		if(systemid != -100000000L)
+		{
+			put("po", service.getSystem(systemid));
+		}
 		return "/common/rolechoose/getRoleTree.jsp";
 	}
 	// 获得树形管理时的json数据
