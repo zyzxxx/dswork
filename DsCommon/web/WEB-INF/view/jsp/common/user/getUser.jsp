@@ -39,7 +39,6 @@ $dswork.page.join = function(td, menu, id){
 $(function(){
 	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
 	$dswork.page.menu("", "", "getUserById.htm", "${pageModel.currentPage}");
-	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
 	$("#status").bind("change", function(){
 		$("#queryForm").submit();
 	});
