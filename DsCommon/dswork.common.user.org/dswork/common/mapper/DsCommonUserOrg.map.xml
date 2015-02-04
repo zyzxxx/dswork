@@ -29,7 +29,7 @@
 	select ORGID, USERID from DS_COMMON_USERORG
 	<where> 
 		<if test="@Ognl@isNotEmpty(orgid)"> and ORGID=#{orgid} </if>
-		<if test="@Ognl@isNotEmpty(userid)"> and USERID=#{userid}  </if>
+		<if test="@Ognl@isNotEmpty(userid)"> and USERID=#{userid} </if>
 	</where>
 </select>
 
