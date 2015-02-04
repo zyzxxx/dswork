@@ -6,36 +6,29 @@
 <head>
 <title></title>
 <%@include file="/commons/include/page.jsp"%>
+<c:if test="${systemid == null}">
 <script type="text/javascript">
 function appGO(id){
 	document.getElementById("rightFrame").src = "getRoleTree.htm?systemid="+id;
 	return false;
 }
 </script>
+</c:if>
 </head>
 <body class="easyui-layout" fit="true">
-<div region="north" style="overflow:hidden;border:0px;height:25px;">
-<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
-	<tr>
-		<td class="title"><span style="font-weight:bold;">系统列表</span></td>
-		<td class="menuTool">
-			<a class="save" onclick="parent.$jskey.dialog.close();" href="#">完成选择</a>
-		</td>
-	</tr>
-</table>
-</div>
-<div region="center" style="">
+<c:if test="${systemid == null}">
+<div region="west" split="true" style="width:300px;" title="系统列表">
 	<form id="queryForm" method="post" action="getRoleChoose.htm">
 	<table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 		<tr>
 			<td class="input">
-				&nbsp;名称：<input id="name" name="name" value="${fn:escapeXml(param.name)}" style="width:200px;" />
+				&nbsp;名称：<input id="name" name="name" value="${fn:escapeXml(param.name)}" style="width:150px;" />
 			</td>
 			<td class="query" rowspan="2"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
 		</tr>
 		<tr>
 			<td class="input">
-				&nbsp;标识：<input id="alias" name="alias" value="${fn:escapeXml(param.alias)}" style="width:200px;" />
+				&nbsp;标识：<input id="alias" name="alias" value="${fn:escapeXml(param.alias)}" style="width:150px;" />
 			</td>
 		</tr>
 	</table>
@@ -54,13 +47,19 @@ function appGO(id){
 	</c:forEach>
 	</table>
 </div>
-<div region="east" style="width:250px;">
-	<iframe id="rightFrame" name="rightFrame" frameborder="0" scrolling="auto" style="width:100%;height:100%;" src="getRoleTree.htm"></iframe>
-</div>
 <div region="south" style="overflow:hidden;border:0px;height:25px;">
 <table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
 	<tr><td>${pageNav.page}</td></tr>
 </table>
 </div>
+<div region="center">
+	<iframe id="rightFrame" name="rightFrame" frameborder="0" scrolling="auto" style="width:100%;height:100%;" src="getRoleTree.htm></iframe>
+</div>
+</c:if>
+<c:if test="${systemid != null}">
+<div region="center">
+	<iframe id="rightFrame" name="rightFrame" frameborder="0" scrolling="auto" style="width:100%;height:100%;" src="getRoleTree.htm?systemid=${systemid}"></iframe>
+</div>
+</c:if>
 </body>
 </html>
