@@ -53,7 +53,7 @@ function appGO(id){
 </table>
 </div>
 <div region="center">
-	<iframe id="rightFrame" name="rightFrame" frameborder="0" scrolling="auto" style="width:100%;height:100%;" src="getRoleTree.htm></iframe>
+	<iframe id="rightFrame" name="rightFrame" frameborder="0" scrolling="auto" style="width:100%;height:100%;" src="getRoleTree.htm"></iframe>
 </div>
 </c:if>
 <c:if test="${systemid != null}">
