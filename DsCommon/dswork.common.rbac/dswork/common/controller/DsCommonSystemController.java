@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
-import dswork.common.model.DsCommonDict;
 import dswork.common.model.DsCommonSystem;
 import dswork.common.service.DsCommonSystemService;
 import dswork.core.page.Page;
@@ -96,7 +95,7 @@ public class DsCommonSystemController extends BaseController
 
 	// 修改
 	@RequestMapping("/updSystem1")
-	public String updSystem(DsCommonDict po)
+	public String updSystem()
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
