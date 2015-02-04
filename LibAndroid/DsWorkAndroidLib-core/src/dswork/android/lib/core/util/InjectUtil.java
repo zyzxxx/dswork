@@ -50,7 +50,7 @@ public class InjectUtil
                     } catch (Exception e) { e.printStackTrace();}  
                 }  
                 else  
-                    Log.i("Field", "该字段没有被注解");  
+                    Log.i("Field", "该属性没有被注解");  
             }  
         }  
     }
@@ -85,7 +85,7 @@ public class InjectUtil
 					} catch (Exception e) { e.printStackTrace();}  
 				}  
 				else  
-					Log.i("Field", "该字段没有被注解");  
+					Log.i("Field", "该属性没有被注解");  
 			}  
 		}  
 	}

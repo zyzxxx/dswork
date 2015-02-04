@@ -2,7 +2,6 @@ package dswork.android.lib.core.util.webutil;
 
 import java.io.InputStream;
 import java.util.Map;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -11,14 +10,12 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.widget.ImageView;
-
 import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,107 +24,60 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
-import dswork.android.lib.core.R;
-
-public class HttpUtil 
+public class HttpUtil
 {
 	private static RequestQueue mQueue;
 	
-	public static String sendHttpAction(HttpActionObj actionObj)
+	public static <T> HttpResultObj<T> sendHttpAction(HttpActionObj actionObj, Class<T> clazz)
 	{
-		return sendHttpAction(actionObj, 6000, 15000);
+		return sendHttpAction(actionObj, clazz, 6000, 15000);
 	}
-	public static String sendHttpAction(HttpActionObj actionObj, int connectionTimeout, int soTimeout)
+	@SuppressWarnings("unchecked")
+	public static <T> HttpResultObj<T> sendHttpAction(HttpActionObj actionObj, Class<T> clazz, int connectionTimeout, int soTimeout)
 	{
-		String result = "";
-		try{
-			//发送HTTP request
+		System.out.println("action url ------> "+actionObj.getUrl());
+		HttpResultObj<T> o = new HttpResultObj<T>();
+		try
+		{
+			//初始化HttpPost
 			HttpPost req = new HttpPost(actionObj.getUrl());
-			System.out.println("【action url】:"+actionObj.getUrl());
-			req.setEntity(new UrlEncodedFormEntity(actionObj.getParams(), HTTP.UTF_8));
-			//设置网络超时
-			HttpClient client =  new DefaultHttpClient();
-			HttpConnectionParams.setConnectionTimeout(client.getParams(), 6000);//连接建立的超时时间
-			HttpConnectionParams.setSoTimeout(client.getParams(), 15000);//连接建立后，没有收到response的超时时间
-			//取得HTTP response
-			HttpResponse resp = client.execute(req);
-			//若状态码为200 ok
-			if(resp.getStatusLine().getStatusCode() == 200){
-				result = EntityUtils.toString(resp.getEntity(),"UTF-8");
-			}else {
-				result = "HttpResponse状态码："+resp.getStatusLine().getStatusCode();
-				Log.i("HttpResponse状态码",result);
-			}
-		}catch(Exception e){
-			result = e.getMessage();
-			e.printStackTrace();
-			Log.i("Http请求异常", result);
-		}
-		Log.i("Http result", result);
-		return result;
-	}
-	
-	public static Bitmap sendHttpActionBitmap(HttpActionObj actionObj)
-	{
-		return sendHttpActionBitmap(actionObj, 6000, 15000);
-	}
-	public static Bitmap sendHttpActionBitmap(HttpActionObj actionObj, int connectionTimeout, int soTimeout)
-	{ 
-		Bitmap result = null;
-		try{
-			//发送HTTP request
-			HttpPost req = new HttpPost(actionObj.getUrl());
-			System.out.println("【action url】:"+actionObj.getUrl());
 			req.setEntity(new UrlEncodedFormEntity(actionObj.getParams(), HTTP.UTF_8));
 			//设置网络超时
 			HttpClient client =  new DefaultHttpClient();
 			HttpConnectionParams.setConnectionTimeout(client.getParams(), connectionTimeout);//连接建立的超时时间
 			HttpConnectionParams.setSoTimeout(client.getParams(), soTimeout);//连接建立后，没有收到response的超时时间
-			//取得HTTP response
+			//执行请求
 			HttpResponse resp = client.execute(req);
-			//若状态码为200 ok
-			if(resp.getStatusLine().getStatusCode() == 200){
-				InputStream is = resp.getEntity().getContent();
-				result = BitmapFactory.decodeStream(is);
-			}else {
-				Log.i("HttpResponse状态码", resp.getStatusLine().getStatusCode()+"");
+			if(resp.getStatusLine().getStatusCode() == 200)
+			{
+				if(clazz.isAssignableFrom(String.class))
+				{
+					o.setData((T) EntityUtils.toString(resp.getEntity(),"UTF-8"));
+				}
+				else if(clazz.isAssignableFrom(Bitmap.class))
+				{
+					InputStream is = resp.getEntity().getContent();
+					o.setData((T) BitmapFactory.decodeStream(is));
+				}
+				else if(clazz.isAssignableFrom(InputStream.class))
+				{
+					o.setData((T) resp.getEntity().getContent());
+				}
+				o.setSuc(true);
 			}
-		}catch(Exception e){
-			e.printStackTrace();
-			Log.i("Http请求异常", e.getMessage());
-		}
-		return result;
-	}
-	
-	public static InputStream sendHttpActionInputStream(HttpActionObj actionObj)
-	{
-		return sendHttpActionInputStream(actionObj, 6000, 15000);
-	}
-	public static InputStream sendHttpActionInputStream(HttpActionObj actionObj, int connectionTimeout, int soTimeout)
-	{ 
-		InputStream result = null;
-		try{
-			//发送HTTP request
-			HttpPost req = new HttpPost(actionObj.getUrl());
-			System.out.println("【action url】:"+actionObj.getUrl());
-			req.setEntity(new UrlEncodedFormEntity(actionObj.getParams(), HTTP.UTF_8));
-			//设置网络超时
-			HttpClient client =  new DefaultHttpClient();
-			HttpConnectionParams.setConnectionTimeout(client.getParams(), connectionTimeout);//连接建立的超时时间
-			HttpConnectionParams.setSoTimeout(client.getParams(), soTimeout);//连接建立后，没有收到response的超时时间
-			//取得HTTP response
-			HttpResponse resp = client.execute(req);
-			//若状态码为200 ok
-			if(resp.getStatusLine().getStatusCode() == 200){
-				result = resp.getEntity().getContent();
-			}else {
-				Log.i("HttpResponse状态码", resp.getStatusLine().getStatusCode()+"");
+			else 
+			{
+				o.setSuc(false);
+				o.setErrMsg("请求失败："+resp.getStatusLine().getStatusCode());
 			}
-		}catch(Exception e){
-			e.printStackTrace();
-			Log.i("Http请求异常", e.getMessage());
 		}
-		return result;
+		catch(Exception e)
+		{
+			o.setSuc(false);
+			o.setErrMsg("请求失败："+e.getMessage());
+			e.printStackTrace();
+		}
+		return o;
 	}
 	
 	public static void sendVollyHttpActionBitmap(Context ctx, final HttpActionObj actionObj, final ImageView v)

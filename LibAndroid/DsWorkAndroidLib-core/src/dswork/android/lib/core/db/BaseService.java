@@ -12,7 +12,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	
 	/**
 	 * 新增记录
-	 * @param o model对象
+	 * @param o 实体对象
 	 */
 	public void add(T o)
 	{
@@ -20,6 +20,25 @@ public abstract class BaseService<T, PK extends Serializable>
 		try
 		{
 			getEntityDao().add(o);
+			getEntityDao().setTransactionSuccessful();
+		}
+		finally
+		{
+			getEntityDao().endTransaction();
+		}
+		getEntityDao().close();
+	}
+	/**
+	 * 新增记录
+	 * @param table 表名
+	 * @param o 实体对象
+	 */
+	public void add(String table, T o)
+	{
+		getEntityDao().beginTransaction();
+		try
+		{
+			getEntityDao().add(table, o);
 			getEntityDao().setTransactionSuccessful();
 		}
 		finally
@@ -147,7 +166,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录（批量）
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @param ids 主键值数组
 	 * @param fieldNames 需要修改的属性名
 	 */
@@ -167,7 +186,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @param id 主键
 	 * @param fieldNames 需要修改的属性名
 	 */
@@ -187,7 +206,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @param ids 主键值集合字符串，以逗号隔开
 	 * @param fieldNames 需要修改的属性名
 	 */
@@ -207,7 +226,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录
-	 * @param o Model实例
+	 * @param o 实体对象
 	 */
 	public void update(T o)
 	{
@@ -229,7 +248,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录（批量）
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @param ids 主键值数组
 	 */
 	public void update(T o, long[] ids)
@@ -248,7 +267,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录（批量）
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @param ids 主键值集合字符串，以逗号隔开
 	 */
 	public void update(T o, String ids)
@@ -301,7 +320,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	}
 	/**
 	 * 分页查询
-	 * @param o model对象
+	 * @param o 实体对象
 	 * @param m 查询参数Map
 	 * @param groupBy 分组
 	 * @param having 分组条件

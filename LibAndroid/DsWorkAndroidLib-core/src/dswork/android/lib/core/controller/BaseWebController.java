@@ -4,10 +4,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-
-import android.graphics.Bitmap;
-
 import dswork.android.lib.core.util.webutil.HttpActionObj;
+import dswork.android.lib.core.util.webutil.HttpResultObj;
 import dswork.android.lib.core.util.webutil.HttpUtil;
 
 public abstract class BaseWebController
@@ -21,25 +19,14 @@ public abstract class BaseWebController
 	/**
 	 * 发送Http请求
 	 * @param actionPath 请求路径
-	 * @param m 查询参数
-	 * @return String
+	 * @param clazz 返回结果类型
+	 * @param m 请求参数
+	 * @return HttpResultObj<T>
 	 */
-	public String sendHttpAction(String actionPath, Map<String,String> m)
+	public <T> HttpResultObj<T> sendHttpAction(String actionPath, Class<T> clazz, Map<String,String> m)
 	{
 		HttpActionObj actionObj = new HttpActionObj(getModulePath()+actionPath, m);
-		return HttpUtil.sendHttpAction(actionObj);
-	}
-	
-	/**
-	 * 获取服务器图片
-	 * @param action
-	 * @param m
-	 * @return
-	 */
-	public Bitmap sendHttpActionBitmap(String action, Map<String,String> m)
-	{
-		HttpActionObj actionObj = new HttpActionObj(getModulePath()+action, m);
-		return HttpUtil.sendHttpActionBitmap(actionObj);
+		return HttpUtil.sendHttpAction(actionObj, clazz);
 	}
 	
 	/**

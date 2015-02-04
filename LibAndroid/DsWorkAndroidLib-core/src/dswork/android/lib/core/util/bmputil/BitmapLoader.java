@@ -274,7 +274,8 @@ public class BitmapLoader
 		try 
 		{
 			HttpActionObj o = new HttpActionObj(url, new HashMap());
-			in = new BufferedInputStream(HttpUtil.sendHttpActionInputStream(o), 8 * 1024);
+			in = new BufferedInputStream(HttpUtil.sendHttpAction(o, InputStream.class).getData(), 8 * 1024);
+//			in = new BufferedInputStream(HttpUtil.sendHttpActionInputStream(o), 8 * 1024);
 			out = new BufferedOutputStream(outputStream, 8 * 1024);
 			int b;
 			while ((b = in.read()) != -1) 

@@ -58,11 +58,20 @@ public abstract class BaseDao<T, PK extends Serializable>
 	/*基本CRUD操作*/
 	/**
 	 * 新增记录
-	 * @param o model对象
+	 * @param o 实体对象
 	 */
 	public void add(T o)
 	{
 		getWritableDb().insert(SqlUtil.getTableNameByModel(o), null, SqlUtil.getValues(o));
+	}
+	/**
+	 * 新增记录
+	 * @param table 表名
+	 * @param o 实体对象
+	 */
+	public void add(String table, T o)
+	{
+		getWritableDb().insert(table, null, SqlUtil.getValues(o));
 	}
 	/**
 	 * 新增记录
@@ -152,7 +161,7 @@ public abstract class BaseDao<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录(批量)
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @param ids 主键值数组
 	 * @param fieldNames 需要修改的属性名
 	 */
@@ -170,7 +179,7 @@ public abstract class BaseDao<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @param ids 主键值集合字符串,以逗号隔开
 	 * @param fieldNames 需要修改的属性名
 	 */
@@ -189,7 +198,7 @@ public abstract class BaseDao<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @throws Exception 
 	 */
 	public void update(T o) throws Exception
@@ -199,7 +208,7 @@ public abstract class BaseDao<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录（批量）
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @param ids 主键值数组
 	 */
 	public void update(T o, long[] ids)
@@ -211,7 +220,7 @@ public abstract class BaseDao<T, PK extends Serializable>
 	}
 	/**
 	 * 修改记录
-	 * @param o Model实例
+	 * @param o 实体对象
 	 * @param ids 主键值集合字符串，以逗号隔开
 	 */
 	public void update(T o, String ids)
@@ -250,7 +259,7 @@ public abstract class BaseDao<T, PK extends Serializable>
 	
 	/**
 	 * 分页查询
-	 * @param o model对象
+	 * @param o 实体对象
 	 * @param m 查询参数Map
 	 * @param groupBy 分组
 	 * @param having 分组条件
@@ -274,9 +283,10 @@ public abstract class BaseDao<T, PK extends Serializable>
 	public int getCount(String table)
 	{
 //		Cursor cursor = getReadableDb().rawQuery(sql, (String[]) values);
-		Cursor cursor = getReadableDb().rawQuery("select count(1) from "+table, null);
-		cursor.moveToFirst();
-		int count=cursor.getInt(0);
+		Cursor c = getReadableDb().rawQuery("select count(1) from "+table, null);
+		c.moveToFirst();
+		int count=c.getInt(0);
+		c.close();
 		return count;
 	}
 }
