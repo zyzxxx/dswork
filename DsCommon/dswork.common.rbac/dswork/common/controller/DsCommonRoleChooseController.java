@@ -34,6 +34,11 @@ public class DsCommonRoleChooseController extends BaseController
 		Page<DsCommonSystem> pageModel = service.querySystemPage(getPageRequest());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsCommonSystem>(request, pageModel));
+		long systemid = req.getLong("systemid", -100000000L);//随便给个不会用的参数
+		if(systemid != -100000000L)
+		{
+			put("systemid", systemid);
+		}
 		return "/common/rolechoose/getRoleChoose.jsp";
 	}
 
