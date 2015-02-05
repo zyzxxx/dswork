@@ -38,14 +38,15 @@ $dswork.ztree.dataFilter = function(treeId, parentNode, childNodes){
 			var m = childNodes[i];
 			m.sname = m.name;//保存原有名称
 			m.systemname = _systemname;
-			if(parent.parent.refreshModel(m)){//已选
-				m.name = "<span style='color:#ff0000'>" + m.name + str_yx + "</span>";
-				m.checked = true;
-			}
-			else{
-				m.name = m.name + str_wx;
-				m.checked = false;
-			}
+			try{if(parent.parent.refreshModel(m)){//已选
+					m.name = "<span style='color:#ff0000'>" + m.name + str_yx + "</span>";
+					m.checked = true;
+				}
+				else{
+					m.name = m.name + str_wx;
+					m.checked = false;
+				}
+			}catch(e){}
 			childNodes[i] = m;
 		}
 	}
