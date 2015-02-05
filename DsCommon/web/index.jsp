@@ -24,6 +24,11 @@ var treedata = [
 	 {id:200001,name:'字典管理', img:"", imgOpen:"", url:'/common/dict/getDict.htm', items:[]}
 	,{id:200005,name:'流程管理', img:"", imgOpen:"", url:'/common/flow/getFlowCategoryTree.htm', items:[]}
 ]}
+,{id:300000, name:'单系统管理', img:"", imgOpen:"", url:"", items:[
+	 {id:300001,name:'资源管理', img:"", imgOpen:"", url:'/common/func/getFuncTree.htm?systemid=0', items:[]}
+	,{id:300002,name:'角色管理', img:"", imgOpen:"", url:'/common/role/getRoleTree.htm?systemid=0', items:[]}
+	,{id:300003,name:'权限管理', img:"", imgOpen:"", url:'/common/userrole/getUser.htm?systemid=0', items:[]}
+]}
 ];
 </script>
 </head>
