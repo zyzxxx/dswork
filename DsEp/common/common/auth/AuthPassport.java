@@ -63,7 +63,7 @@ public class AuthPassport
 	}
 	public static String getAccountEp(String code)
 	{
-		String account = mapEp.get(code);
+		String account = mapEp.get(Long.parseLong(code));
 		return account == null ? "" : account;
 	}
 	public static void clearAccountEp(Long code)
@@ -79,7 +79,7 @@ public class AuthPassport
 	}
 	public static String getAccountPerson(String code)
 	{
-		String account = mapPerson.get(code);
+		String account = mapPerson.get(Long.parseLong(code));
 		return account == null ? "" : account;
 	}
 	public static void clearAccountPerson(Long code)
