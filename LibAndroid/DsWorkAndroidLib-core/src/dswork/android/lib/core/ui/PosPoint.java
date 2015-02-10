@@ -1,5 +1,6 @@
 package dswork.android.lib.core.ui;
 
+import dswork.android.lib.core.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;
@@ -14,10 +15,12 @@ public class PosPoint extends LinearLayout
 	private String shape = "●";
 	private String curColor = "#0099cc";
 	private String uncurColor = "#DDDDDD";
+	private int curColorRes = R.color.blue_light;
+	private int uncurColorRes = R.color.gray;
 	private int curAlpha = 255;
 	private int uncurAlpha = 1;
 	private int curpoint = 0;//默认选中第一个指示小圆点
-	
+	private boolean isRes = true;//是否使用资源文件设置颜色
 	
 	public PosPoint(Context ctx, AttributeSet attrs)
 	{
@@ -53,6 +56,26 @@ public class PosPoint extends LinearLayout
 		this.uncurColor = uncurColor;
 		this.curAlpha = curAlpha;
 		this.uncurAlpha = uncurAlpha;
+		this.isRes = false;
+		drawPoints();
+	}
+	/**
+	 * 初始化PosPoint（自定义颜色）
+	 * @param size 圆点个数
+	 * @param shape 圆点形状
+	 * @param curColorRes 当前圆点颜色
+	 * @param uncurColorRes 非当前圆点颜色
+	 * @param curAlpha 当前圆点透明度
+	 * @param uncurAlpha 非当前圆点透明度
+	 */
+	public void initPosPoint(int size, String shape, int curColorRes, int uncurColorRes, int curAlpha, int uncurAlpha) 
+	{
+		this.points = new TextView[size];
+		this.shape = shape;
+		this.curColorRes = curColorRes;
+		this.uncurColorRes = uncurColorRes;
+		this.uncurAlpha = uncurAlpha;
+		this.isRes = true;
 		drawPoints();
 	}
 	
@@ -72,12 +95,12 @@ public class PosPoint extends LinearLayout
 	{
 		if(index == curpoint)
 		{
-			points[index].setTextColor(Color.parseColor(curColor));
+			points[index].setTextColor(isRes?this.getResources().getColor(curColorRes):Color.parseColor(curColor));
 			points[index].setAlpha(255);
 		}
 		else
 		{
-			points[index].setTextColor(Color.parseColor(uncurColor));
+			points[index].setTextColor(isRes?this.getResources().getColor(uncurColorRes):Color.parseColor(uncurColor));
 			points[index].setAlpha(1);
 		}
 	}
