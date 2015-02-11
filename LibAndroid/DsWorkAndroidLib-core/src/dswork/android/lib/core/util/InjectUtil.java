@@ -8,7 +8,6 @@ import java.lang.reflect.Field;
 
 import android.app.Activity;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.View;
 
 public class InjectUtil 
@@ -31,26 +30,17 @@ public class InjectUtil
         {  
             for (Field field : fields)  
             {  
-            	System.out.println("属性名："+field.getName());
                 if (field.isAnnotationPresent(InjectView.class))                    //方法返回true，如果指定类型的注解存在于此元素上  
                 {  
-                    Log.i("Field", field.toString());  
-                      
                     InjectView mInjectView = field.getAnnotation(InjectView.class); //获得该成员的annotation  
                     int viewId = mInjectView.id();                                  //获得该注解的id  
                     View view=activity.findViewById(viewId);                        //获得ID为viewID的组件对象  
                       
-                    Log.i("Field", String.valueOf(viewId));  
-                    Log.i("Field", view.getClass().toString());  
-                      
-                    try  
-                    {  
+                    try {  
                         field.setAccessible(true);  //设置类的私有成员变量可以被访问  
                         field.set(activity, view);  //field.set(object,value)===object.fieldValue = value  
                     } catch (Exception e) { e.printStackTrace();}  
-                }  
-                else  
-                    Log.i("Field", "该属性没有被注解");  
+                }
             }  
         }  
     }
@@ -66,26 +56,17 @@ public class InjectUtil
 		{  
 			for (Field field : fields)  
 			{  
-				System.out.println("属性名："+field.getName());
 				if (field.isAnnotationPresent(InjectView.class))                    //方法返回true，如果指定类型的注解存在于此元素上  
 				{  
-					Log.i("Field", field.toString());  
-					
 					InjectView mInjectView = field.getAnnotation(InjectView.class); //获得该成员的annotation  
 					int viewId = mInjectView.id();                                  //获得该注解的id  
 					View view=v.findViewById(viewId);                        //获得ID为viewID的组件对象  
 					
-					Log.i("Field", String.valueOf(viewId));  
-					Log.i("Field", view.getClass().toString());  
-					
-					try  
-					{  
+					try {  
 						field.setAccessible(true);  //设置类的私有成员变量可以被访问  
 						field.set(fragment, view);  //field.set(object,value)===object.fieldValue = value  
 					} catch (Exception e) { e.printStackTrace();}  
-				}  
-				else  
-					Log.i("Field", "该属性没有被注解");  
+				}
 			}  
 		}  
 	}
