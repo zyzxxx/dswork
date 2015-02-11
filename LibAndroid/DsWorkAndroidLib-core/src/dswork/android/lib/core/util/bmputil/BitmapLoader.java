@@ -32,6 +32,31 @@ public class BitmapLoader
 
 	public static Set<BitmapLoadTask> taskCollection =  new HashSet<BitmapLoadTask>() ;
 	
+	/**
+	 * 创建图片缓存
+	 * @param ctx
+	 * @param divisor 设置图片缓存大小为程序最大可用内存的1/n
+	 */
+	public static void createBitmapCache(Context ctx, int divisor)
+	{
+        // 获取应用程序最大可用内存  
+        int maxMemory = (int) Runtime.getRuntime().maxMemory();
+        System.out.println("app可用内存："+(maxMemory/1024/1024)+" MB");
+        int cacheSize = maxMemory / 8;  
+        System.out.println("可用图片缓存："+(cacheSize/1024/1024)+" MB");
+        // 设置图片缓存大小为程序最大可用内存的1/8  
+        BitmapLoader.mMemoryCache = new LruCache<String, Bitmap>(cacheSize) 
+        {  
+            @Override  
+            protected int sizeOf(String key, Bitmap bitmap) 
+            {  
+                return bitmap.getByteCount();  
+            }  
+        };  
+		// 创建DiskLruCache实例
+		BitmapLoader.openDisCacheDir(ctx);
+	}
+	
 	 /** 
      * 将一张图片存储到LruCache中。 
      *  
@@ -95,6 +120,7 @@ public class BitmapLoader
 	 * @param imageUrl
 	 * @return
 	 */
+	@SuppressWarnings("finally")
 	public static Bitmap readFromDiskLruCache(String imageUrl)
 	{
 		Bitmap bmp = null;
@@ -217,7 +243,8 @@ public class BitmapLoader
 	        // 选择宽和高中最小的比率作为inSampleSize的值，这样可以保证最终图片的宽和高  
 	        // 一定都会大于等于目标的宽和高。  
 	        inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;  
-	    }  
+	    }
+	    System.out.println("inSampleSize is "+inSampleSize);
 	    return inSampleSize;  
 	}
 	
@@ -273,9 +300,8 @@ public class BitmapLoader
 		BufferedInputStream in = null;
 		try 
 		{
-			HttpActionObj o = new HttpActionObj(url, new HashMap());
+			HttpActionObj o = new HttpActionObj(url, new HashMap<String, String>());
 			in = new BufferedInputStream(HttpUtil.sendHttpAction(o, InputStream.class).getData(), 8 * 1024);
-//			in = new BufferedInputStream(HttpUtil.sendHttpActionInputStream(o), 8 * 1024);
 			out = new BufferedOutputStream(outputStream, 8 * 1024);
 			int b;
 			while ((b = in.read()) != -1) 

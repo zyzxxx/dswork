@@ -8,6 +8,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,9 @@ public class BitmapLoadTask extends AsyncTask<String, Integer, Bitmap>
 		this.rootLayout = (FrameLayout)rootView;
 		this.imageView = imageView;
 		this.mCallback = mCallback;
+		
+		float maxMemory = (float) (Runtime.getRuntime().maxMemory() / 1024 / 1024);
+		Log.d("TAG", "Max memory is " + maxMemory + "MB");
 	}
 
 	@Override
@@ -74,10 +78,10 @@ public class BitmapLoadTask extends AsyncTask<String, Integer, Bitmap>
             // 将缓存数据解析成Bitmap对象  
             Bitmap bitmap = null;  
             if (fileDescriptor != null) {
-                bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor);
-            	System.out.println("压缩前----->"+bitmap.getByteCount());
+                bitmap = BitmapFactory.decodeFileDescriptor(fileDescriptor);//1024*768时溢出
+            	System.out.println("压缩前----->"+(float)bitmap.getByteCount()/1024/1024+" MB");
         		bitmap = BitmapLoader.decodeSampledBitmapFromResource(fileDescriptor,reqWidth,reqHeight);
-        		System.out.println("压缩后----->"+bitmap.getByteCount());
+        		System.out.println("压缩后----->"+(float)bitmap.getByteCount()/1024/1024+" MB");
             }  
             if (bitmap != null) {
                 // 将Bitmap对象添加到内存缓存当中  
