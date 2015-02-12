@@ -3,7 +3,7 @@
     android:id="@+id/footer_refresh"
     android:layout_width="match_parent"
     android:layout_height="match_parent" 
-    android:background="@drawable/listview_item_bg">
+    android:background="@drawable/item_selector_bg">
     <LinearLayout 
         android:id="@+id/moretips"
 	    android:layout_width="match_parent"
