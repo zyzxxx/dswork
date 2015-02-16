@@ -53,9 +53,9 @@ public class MultiCheckAdapter extends BaseAdapter
 		this.from = from;
 		this.to = to;
 		this.vc = vc;
-		this.itemIdRes = R.id.itemId;
-		this.itemChkRes = R.id.itemChk;
-		this.itemMenuRes = R.id.itemMenu;
+		this.itemIdRes = R.id.item_id;
+		this.itemChkRes = R.id.item_chk;
+		this.itemMenuRes = R.id.item_menu;
 		this.itemMenuDialogTitleRes = R.string.item_menu_title;
 		this.itemMenuDialogItemsRes = R.array.item_menu;
 		this.inflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

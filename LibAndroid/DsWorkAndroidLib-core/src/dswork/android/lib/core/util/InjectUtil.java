@@ -25,7 +25,7 @@ public class InjectUtil
 	 */
 	public static void injectView(Activity activity)  
     {  
-        Field[] fields = activity.getClass().getDeclaredFields();   //得到Activity中的所有定义的字段  
+        Field[] fields = activity.getClass().getDeclaredFields();   //得到Activity中的所有定义的属性
         if (fields != null && fields.length > 0)  
         {  
             for (Field field : fields)  
@@ -51,7 +51,7 @@ public class InjectUtil
 	 */
 	public static void injectView(Fragment fragment, View v)  
 	{  
-		Field[] fields = fragment.getClass().getDeclaredFields();   //得到Activity中的所有定义的字段  
+		Field[] fields = fragment.getClass().getDeclaredFields();   //得到Fragment中的所有定义的属性
 		if (fields != null && fields.length > 0)  
 		{  
 			for (Field field : fields)  
@@ -65,6 +65,32 @@ public class InjectUtil
 					try {  
 						field.setAccessible(true);  //设置类的私有成员变量可以被访问  
 						field.set(fragment, view);  //field.set(object,value)===object.fieldValue = value  
+					} catch (Exception e) { e.printStackTrace();}  
+				}
+			}  
+		}  
+	}
+	/**
+	 * 根据注解注入视图控件
+	 * @param o
+	 * @param v
+	 */
+	public static void injectView(Object o, View v)  
+	{  
+		Field[] fields = o.getClass().getDeclaredFields();   //得到类中的所有定义的属性
+		if (fields != null && fields.length > 0)  
+		{  
+			for (Field field : fields)  
+			{  
+				if (field.isAnnotationPresent(InjectView.class))                    //方法返回true，如果指定类型的注解存在于此元素上  
+				{  
+					InjectView mInjectView = field.getAnnotation(InjectView.class); //获得该成员的annotation  
+					int viewId = mInjectView.id();                                  //获得该注解的id  
+					View view=v.findViewById(viewId);                        //获得ID为viewID的组件对象  
+					
+					try {  
+						field.setAccessible(true);  //设置类的私有成员变量可以被访问  
+						field.set(o, view);  //field.set(object,value)===object.fieldValue = value  
 					} catch (Exception e) { e.printStackTrace();}  
 				}
 			}  
