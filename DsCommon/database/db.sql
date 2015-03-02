@@ -351,6 +351,7 @@ DROP TABLE IF EXISTS `ds_flow_pi`;
 CREATE TABLE `ds_flow_pi` (
   `ID` bigint(18) NOT NULL AUTO_INCREMENT COMMENT '主键ID（流程实例ID）',
   `YWLSH` varchar(300) DEFAULT NULL COMMENT '业务流水号',
+  `SBLSH` varchar(300) DEFAULT NULL COMMENT '申办流水号',
   `ALIAS` varchar(300) DEFAULT NULL COMMENT '流程标识',
   `FLOWID` bigint(18) DEFAULT NULL COMMENT '流程ID（对应deployid）',
   `DEPLOYID` varchar(300) DEFAULT NULL COMMENT '流程发布ID',
@@ -395,6 +396,7 @@ CREATE TABLE `ds_flow_pi_waiting` (
   `ID` bigint(18) NOT NULL AUTO_INCREMENT COMMENT '主键ID',
   `PIID` bigint(18) DEFAULT NULL COMMENT '实例ID',
   `YWLSH` varchar(300) DEFAULT NULL COMMENT '业务流水号',
+  `SBLSH` varchar(300) DEFAULT NULL COMMENT '申办流水号',
   `FLOWID` bigint(18) DEFAULT NULL COMMENT '流程ID',
   `FLOWNAME` varchar(300) DEFAULT NULL COMMENT '流程名称',
   `TALIAS` varchar(300) DEFAULT NULL COMMENT '任务标识',
