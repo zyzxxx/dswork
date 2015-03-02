@@ -29,15 +29,16 @@ public class DsCommonFactoryFlow
 	 * @param cname 提交人姓名
 	 * @param piDay 时限天数
 	 * @param isWorkDay 时限天数类型(false日历日,true工作日)
+	 * 
 	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例ID
 	 */
-	public String start(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public String start(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		try
 		{
 			init();
-			return service.saveStart(alias, ywlsh, caccount, cname, piDay, isWorkDay, taskInterface);
+			return service.saveStart(alias, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
 		}
 		catch(Exception e)
 		{
@@ -57,12 +58,12 @@ public class DsCommonFactoryFlow
 	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例的start待办信息或null
 	 */
-	public IFlowWaiting startFlow(String alias, String ywlsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting startFlow(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		try
 		{
 			init();
-			return service.saveFlowStart(alias, ywlsh, caccount, cname, piDay, isWorkDay, taskInterface);
+			return service.saveFlowStart(alias, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
 		}
 		catch(Exception e)
 		{

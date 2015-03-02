@@ -20,7 +20,7 @@ public class DsCommonService
 	@Autowired
 	private DsCommonDao dao;
 
-	public IFlowWaiting saveFlowStart(String alias, String ywlsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting saveFlowStart(String alias, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		String time = TimeUtil.getCurrentTime();
 		IFlow flow = dao.getFlow(alias);
@@ -34,6 +34,7 @@ public class DsCommonService
 			IFlowTask task = dao.getFlowTask(flowid, "start");
 			IFlowPi pi = new IFlowPi();
 			pi.setYwlsh(ywlsh);
+			pi.setSblsh(sblsh);
 			pi.setAlias(alias);
 			pi.setFlowid(flowid);
 			pi.setDeployid(flow.getDeployid());
@@ -50,6 +51,7 @@ public class DsCommonService
 			IFlowWaiting m = new IFlowWaiting();
 			m.setPiid(piid);
 			m.setYwlsh(ywlsh);
+			m.setSblsh(sblsh);
 			m.setFlowid(flowid);
 			m.setFlowname(flow.getName());
 			m.setTalias(task.getTalias());// "start"
@@ -75,9 +77,9 @@ public class DsCommonService
 		return null;
 	}
 
-	public String saveStart(String alias, String ywlsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
+	public String saveStart(String alias, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
 	{
-		IFlowWaiting w = saveFlowStart(alias, ywlsh, account, name, piDay, isWorkDay, taskInterface);
+		IFlowWaiting w = saveFlowStart(alias, ywlsh, sblsh, account, name, piDay, isWorkDay, taskInterface);
 		if(w != null)
 		{
 			return String.valueOf(w.getPiid());
@@ -130,6 +132,7 @@ public class DsCommonService
 						IFlowWaiting newm = new IFlowWaiting();
 						newm.setPiid(m.getPiid());
 						newm.setYwlsh(m.getYwlsh());
+						newm.setSblsh(m.getSblsh());
 						newm.setFlowid(m.getFlowid());
 						newm.setFlowname(m.getFlowname());
 						newm.setTstart(time);

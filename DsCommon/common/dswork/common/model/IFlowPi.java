@@ -9,6 +9,8 @@ public class IFlowPi
 	private Long id = 0L;
 	// 业务流水号
 	private String ywlsh = "";
+	// 申办流水号
+	private String sblsh = "";
 	// 流程标识
 	private String alias = "";
 	// 流程ID（对应deployid）
@@ -54,6 +56,16 @@ public class IFlowPi
 	public void setYwlsh(String ywlsh)
 	{
 		this.ywlsh = ywlsh;
+	}
+
+	public String getSblsh()
+	{
+		return sblsh;
+	}
+
+	public void setSblsh(String sblsh)
+	{
+		this.sblsh = sblsh;
 	}
 
 	public String getAlias()

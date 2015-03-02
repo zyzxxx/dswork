@@ -11,6 +11,8 @@ public class IFlowWaiting
 	private Long piid = 0L;
 	// 业务流水号
 	private String ywlsh = "";
+	// 申办流水号
+	private String sblsh = "";
 	// 流程ID
 	private Long flowid = 0L;
 	// 流程名称
@@ -62,6 +64,16 @@ public class IFlowWaiting
 	public void setYwlsh(String ywlsh)
 	{
 		this.ywlsh = ywlsh;
+	}
+
+	public String getSblsh()
+	{
+		return sblsh;
+	}
+
+	public void setSblsh(String sblsh)
+	{
+		this.sblsh = sblsh;
 	}
 
 	public Long getFlowid()
