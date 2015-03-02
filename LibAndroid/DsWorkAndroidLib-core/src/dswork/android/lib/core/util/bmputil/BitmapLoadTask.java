@@ -31,8 +31,8 @@ public class BitmapLoadTask extends AsyncTask<String, Integer, Bitmap>
 	{
 		super();
 		this.context = context;
-		this.pb =  new ProgressBar(context);
-		this.rootLayout = (FrameLayout)rootView;
+		this.pb = (rootView == null ? null : new ProgressBar(context));
+		this.rootLayout = (rootView == null ? null : (FrameLayout)rootView);
 		this.imageView = imageView;
 		this.mCallback = mCallback;
 		
@@ -44,10 +44,13 @@ public class BitmapLoadTask extends AsyncTask<String, Integer, Bitmap>
 	protected void onPreExecute() 
 	{
 		//创建ProgressBar
-		pb.setVisibility(ProgressBar.VISIBLE);
-		FrameLayout.LayoutParams pbViewParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-		pbViewParams.gravity = Gravity.CENTER;
-		rootLayout.addView(pb,pbViewParams);
+		if(rootLayout != null)
+		{
+			pb.setVisibility(ProgressBar.VISIBLE);
+			FrameLayout.LayoutParams pbViewParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+			pbViewParams.gravity = Gravity.CENTER;
+			rootLayout.addView(pb,pbViewParams);
+		}
 	}
 	
 	@Override  
@@ -112,7 +115,7 @@ public class BitmapLoadTask extends AsyncTask<String, Integer, Bitmap>
 		{
 			Toast.makeText(context, "加载失败，网络异常", Toast.LENGTH_SHORT).show();
 		}
-		pb.setVisibility(ProgressBar.GONE);//隐藏圆形进度条
+		if(pb != null) pb.setVisibility(ProgressBar.GONE);//隐藏圆形进度条
 	}
 	
 

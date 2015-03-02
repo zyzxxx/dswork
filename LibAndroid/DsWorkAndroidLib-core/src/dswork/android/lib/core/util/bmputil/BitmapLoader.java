@@ -332,7 +332,7 @@ public class BitmapLoader
 	/**
 	 * 加载图片
 	 * @param ctx
-	 * @param rootView
+	 * @param rootView 为null时，loading时不会显示圆形ProgressBar
 	 * @param imageView
 	 * @param imageUrl
 	 * @param reqWidth 压缩图片的宽度（为null时，默认100）
