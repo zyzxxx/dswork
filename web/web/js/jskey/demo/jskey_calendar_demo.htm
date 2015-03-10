@@ -4,12 +4,11 @@
 <style>
 input {width:205px; cursor:pointer; margin : 1px 0px 1px 0px;}
 </style>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta charset="UTF-8" />
 <script src="../jskey_core.js"type="text/javascript"></script>
 <script src="../jskey_calendar.js"type="text/javascript"></script>
 </head>
 <body style="font-size:12px;">
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <form id="form1" name="form1" method="post" action="">
 <table border="0" width="1000">
@@ -22,13 +21,15 @@ input {width:205px; cursor:pointer; margin : 1px 0px 1px 0px;}
 <input type="text" value="" class="WebDate" id="Text1" onclick="$jskey.calendar.show('Text1', {})" readonly="true" title="" />show('Text1', {})<br />
 <input type="text" value="" class="WebDate" onclick="$jskey.calendar.show('', {object:this})" readonly="true" title="" />show('', {object:this})<br />
 <input type="text" value="" class="WebDate" id="Text2" onclick="$jskey.calendar.show('', {id:'Text2'})" readonly="true" title="" />show('', {id:'Text2'})<br />
+<input type="text" value="1000-06-11 15:58:35" class="WebDate" onclick="$jskey.calendar.show(this, {lang:0,format:'yyyy-MM-dd HH:mm:ss.SSS',show:'yyyy-MM-dd HH:mm.ss'})" readonly="true" title="yyyy-MM-dd HH:mm.ss.SSS" />show(this, {lang:0,format:'yyyy-MM-dd HH:mm:ss.SSS',show:'yyyy-MM-dd HH:mm.ss'})<br />
+<input type="text" value="2014-11-11 11:59:59" class="WebDate" onclick="$jskey.calendar.show(this, {min:'2014-11-12 09:10:11',max:'2015-01-25 15:10:11',lang:0,format:'yyyy-MM-dd HH:mm:ss',show:'yyyy-MM-dd HH:mm.ss'})" readonly="true" title="yyyy-MM-dd HH:mm.ss.SSS" />show(this, {min:'2014-11-12 09:10:11',max:'2015-01-25 15:10:11',lang:0,format:'yyyy-MM-dd HH:mm:ss',show:'yyyy-MM-dd HH:mm.ss'})<br />
 
 <br />
 <input type="text" value="jsjs" class="WebDate" onclick="$jskey.calendar.show(this, {format:'yyyy-MM-dd W',show:'yyyy'})" readonly="true" title="yyyy" />show(this, {format:'yyyy-MM-dd W',show:'yyyy'})<br />
-<input type="text" value="2004-06" class="WebDate" onclick="$jskey.calendar.show(this, {lang:1,beginYear:1970,endYear:2020,format:'yyyy-MM',show:'yyyy-MM'})" readonly="true" title="yyyy-MM" />show(this, {lang:1,beginYear:1970,endYear:2020,format:'yyyy-MM',show:'yyyy-MM'})<br />
+<input type="text" value="2004-06" class="WebDate" onclick="$jskey.calendar.show(this, {lang:1,format:'yyyy-MM',show:'yyyy-MM'})" readonly="true" title="yyyy-MM" />show(this, {lang:1,format:'yyyy-MM',show:'yyyy-MM'})<br />
 <input type="text" value="2007-06-11" class="WebDate" onclick="$jskey.calendar.show(this, {skin:'gray',format:'yyyy/MM/dd 周w 第W周',show:'yyyy-MM-dd',left:5,top:-10})" readonly="true" title="yyyy/MM/dd 周w 第W周" />show(this, {skin:'gray',format:'yyyy/MM/dd 周w 第W周',show:'yyyy-MM-dd',left:5,top:-10})<br />
 
-<input type="text" value="2003-06-11 15:58:35" class="WebDate" onclick="$jskey.calendar.show(this, {skin:'lightGreen',beginYear:1950,endYear:2050,lang:0,format:'yyyy-MM-dd HH:mm:ss.SSS',show:'yyyy-MM-dd HH:mm.ss'})" readonly="true" title="yyyy-MM-dd HH:mm.ss.SSS" />show(this, {skin:'lightGreen',beginYear:1950,endYear:2050,lang:0,format:'yyyy-MM-dd HH:mm:ss.SSS',show:'yyyy-MM-dd HH:mm.ss'})<br />
+<input type="text" value="2003-06-11 15:58:35" class="WebDate" onclick="$jskey.calendar.show(this, {skin:'lightGreen',lang:0,format:'yyyy-MM-dd HH:mm:ss.SSS',show:'yyyy-MM-dd HH:mm.ss'})" readonly="true" title="yyyy-MM-dd HH:mm.ss.SSS" />show(this, {skin:'lightGreen',lang:0,format:'yyyy-MM-dd HH:mm:ss.SSS',show:'yyyy-MM-dd HH:mm.ss'})<br />
 
 <select><option>ddddddddddddddddddddddd</option></select>
 		</td>
@@ -42,23 +43,18 @@ input {width:205px; cursor:pointer; margin : 1px 0px 1px 0px;}
  * 1、参数args1：目前支持参数：input对象 或 'input的ID'
  * 2、参数args2：默认为{}
  * 目前支持参数：
- * 其中日历类中的参数与其默认值：{skin:"default",beginYear:1950,endYear:2050,lang:0,format:"yyyy-MM-dd HH:mm:ss",left:0,top:0,simple:"yyyy-MM-dd HH:mm:ss"}
+ * 其中日历类中的参数与其默认值：{skin:"default",min:"yyyy-MM-dd HH:mm:ss",max:"yyyy-MM-dd HH:mm:ss",lang:0,format:"yyyy-MM-dd HH:mm:ss",left:0,top:0,simple:"yyyy-MM-dd HH:mm:ss"}
  * 日期选择显示格式：yyyy→年，MM→月，dd→天，HH→24小时制，mm→分钟，ss→秒
  * @param object/id args1替代参数：{object:input对象} 或 {id:'input的ID'}上面未列出
  * @param skin String "default" 值为内部变量config的skin中配置的皮肤
  * @param show/sample String 取值 "yyyy-MM-dd HH:mm:ss" 或 "yyyy-MM-dd HH:mm" 或 "yyyy-MM-dd HH" 或 "yyyy-MM-dd" 或 "yyyy-MM" 或 "yyyy"
- * @param beginYear Integer 大于1000小于9999 如1950
- * @param endYear Integer 大于1000小于9999 如2050
+ * @param min String "yyyy-MM-dd HH:mm:ss"，可选最小值，默认"0001-01-01 00:00:00"
+ * @param max String "yyyy-MM-dd HH:mm:ss"，可选最大值，默认"9999-12-31 23:59:59"
  * @param lang Integer 0(中文)|1(英语) 可自由扩充
  * @param left Integer 相对X坐标,相对于文本框的横向偏移量
  * @param top Integer 相对Y坐标,相对于文本框的纵向偏移量
  * @param format String "yyyy-MM-dd HH:mm:ss.SSS w W"
  * 格式（区分大小写）：yyyy→年，MM→月，dd→天，HH→24小时制，mm→分钟，ss→秒，SSS→毫秒，w→周几，W→当年的第几周(第一周不足七天时也当第一周)
- * 例子：
- *    &lt;input type="text" onclick="$jskey.calendar.show(this, {})" /&gt;
- *    &lt;input type="text" onclick="$jskey.calendar.show(this, {lang:1, beginYear:2000, endYear:2050})" /&gt;
- *    &lt;input type="text" onclick="$jskey.calendar.show({object:this})" /&gt;
- *    &lt;input type="text" onclick="$jskey.calendar.show({object:this, skin:'gray', left:10, top:-25})" /&gt;
  */
 </pre>
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
