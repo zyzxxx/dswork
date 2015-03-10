@@ -3,7 +3,7 @@ var $dswork = {};
 $dswork.showDate = function(){
 	var o = arguments[0];
 	var f = arguments[1] || "yyyy-MM-dd";
-	$jskey.calendar.show(o,{skin:'default', lang:0, beginYear:1970, endYear:2070, format:f, sample:f});
+	$jskey.calendar.show(o,{skin:'default', lang:0, format:f, sample:f});
 };
 $dswork.uploadURL = "/web/js/jskey/jskey_multiupload." + ($dswork.dotnet ? "aspx" : "jsp");
 $dswork.getChoose = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose.html";return $jskey.dialog.show(m);};
