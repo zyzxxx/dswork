@@ -21,8 +21,8 @@
 .jskey_cal .dymd .dm {float:right;}
 .jskey_cal .dymd .dp {border-top:none;border-bottom:none;border-left:none;}
 .jskey_cal .dymd .dn {border-top:none;border-bottom:none;border-right:none;}
-.jskey_cal .dymd .Year {width:60px;border:none;background-color:#ffffff;}
-.jskey_cal .dymd .Month {width:59px;border:none;background-color:#ffffff;}
+.jskey_cal .dymd .year {width:60px;border:none;background-color:#ffffff;}
+.jskey_cal .dymd .month {width:59px;border:none;background-color:#ffffff;}
 
 .jskey_cal .dymd:after {content:"";display:block;height:0;visibility:hidden;clear:both;}
 
