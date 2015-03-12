@@ -44,13 +44,6 @@ public class DsCommonDao extends MyBatisDao
 		map.put("name", String.valueOf(name));
 		map.put("alias", parentAlias);
 		List<IDict> list = executeSelectList("queryDict", map);
-//		if(parentAlias != null && parentAlias.length() > 0)
-//		{
-//			for(IDict po : list)
-//			{
-//				po.setPid(parentAlias);
-//			}
-//		}
 		return list;
 	}
 
