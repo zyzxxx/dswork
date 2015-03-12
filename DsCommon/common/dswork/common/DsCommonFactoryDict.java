@@ -80,4 +80,16 @@ public class DsCommonFactoryDict
 		init();
 		return dao.queryListDict(name, parentAlias).toString();
 	}
+	
+	/**
+	 * 获取指定节点的列表数据
+	 * @param name 字典分类名
+	 * @param parentAlias 上级标识，当alias为null时获取全部节点数据，当alias为""时获取根节点数据
+	 * @return List&lt;IDict&gt;
+	 */
+	public List<IDict> getDict(String name, String parentAlias)
+	{
+		init();
+		return dao.queryListDict(name, parentAlias);
+	}
 }
