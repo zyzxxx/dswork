@@ -9,11 +9,12 @@
 	<result property="label" column="LABEL" />
 	<result property="alias" column="ALIAS" />
 	<result property="status" column="STATUS" />
+	<result property="pid" column="PID" />
 </resultMap>
 <select id="queryDict" resultMap="resultDict">
-	select a.LABEL, a.ALIAS, a.STATUS from DS_COMMON_DICT_DATA a
+	select a.LABEL, a.ALIAS, a.STATUS, b.ALIAS as PID from DS_COMMON_DICT_DATA a
+	left join DS_COMMON_DICT_DATA b on a.PID=b.ID
 	<if test="@Ognl@isNotEmpty(alias)">
-		left join DS_COMMON_DICT_DATA b on a.PID=b.ID
 		where a.NAME=#{name} and b.ALIAS=#{alias} 
 	</if>
 	<if test="@Ognl@isEmpty(alias)"> 

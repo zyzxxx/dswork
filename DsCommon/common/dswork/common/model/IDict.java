@@ -39,9 +39,9 @@ public class IDict
 		return pid;
 	}
 
-	public void setPid(String alias)
+	public void setPid(String pid)
 	{
-		this.pid = alias;
+		this.pid = pid;
 	}
 
 	public Integer getStatus()
@@ -60,7 +60,7 @@ public class IDict
 		try
 		{
 			return new StringBuilder().append("{id:\"").append(alias)
-					.append("\",pid:\"").append(String.valueOf(pid))
+					.append("\",pid:\"").append(String.valueOf((pid == null || pid.length() == 0) ? "0" : pid))
 					.append("\",status:").append(status)
 					.append(",isParent:").append((1 == status) ? "true" : "false")
 					.append(",name:\"").append(String.valueOf(label).replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\""))
