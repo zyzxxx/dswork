@@ -12,6 +12,7 @@
      <color name="blue_light_open">#9900dddd</color>
      <color name="red">#ff0000</color>
      <color name="red_open">#99ff0000</color>
+     <color name="yellow">#ffff33</color>
      <color name="green">#00db00</color>
      <color name="green_open">#9900db00</color>
      <color name="open">#99000000</color>
