@@ -17,16 +17,16 @@ public abstract class BaseWebController
 	public abstract String getModulePath();
 	
 	/**
-	 * 发送Http请求
+	 * 提交Http请求
 	 * @param actionPath 请求路径
 	 * @param clazz 返回结果类型
 	 * @param m 请求参数
 	 * @return HttpResultObj<T>
 	 */
-	public <T> HttpResultObj<T> sendHttpAction(String actionPath, Class<T> clazz, Map<String,String> m)
+	public <T> HttpResultObj<T> submitHttpAction(String actionPath, Class<T> clazz, Map<String,String> m)
 	{
 		HttpActionObj actionObj = new HttpActionObj(getModulePath()+actionPath, m);
-		return HttpUtil.sendHttpAction(actionObj, clazz);
+		return HttpUtil.submitHttpAction(actionObj, clazz);
 	}
 	
 	/**

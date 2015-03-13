@@ -1,6 +1,7 @@
 package dswork.android.lib.core.util.webutil;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.Map;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -28,12 +29,12 @@ public class HttpUtil
 {
 	private static RequestQueue mQueue;
 	
-	public static <T> HttpResultObj<T> sendHttpAction(HttpActionObj actionObj, Class<T> clazz)
+	public static <T> HttpResultObj<T> submitHttpAction(HttpActionObj actionObj, Class<T> clazz)
 	{
-		return sendHttpAction(actionObj, clazz, 6000, 15000);
+		return submitHttpAction(actionObj, clazz, 60000, 60000);
 	}
 	@SuppressWarnings("unchecked")
-	public static <T> HttpResultObj<T> sendHttpAction(HttpActionObj actionObj, Class<T> clazz, int connectionTimeout, int soTimeout)
+	public static <T> HttpResultObj<T> submitHttpAction(HttpActionObj actionObj, Class<T> clazz, int connectionTimeout, int soTimeout)
 	{
 		System.out.println("action url ------> "+actionObj.getUrl());
 		HttpResultObj<T> o = new HttpResultObj<T>();
@@ -54,6 +55,18 @@ public class HttpUtil
 				{
 					o.setData((T) EntityUtils.toString(resp.getEntity(),"UTF-8"));
 				}
+				else if(clazz.isAssignableFrom(Map.class))
+				{
+					String rs = EntityUtils.toString(resp.getEntity(),"UTF-8");
+					String[] rsArr = rs.split("&");
+					Map<String,String> m = new HashMap<String,String>();
+					for(String r : rsArr)
+					{
+						String[] mapArr = r.split("=");
+						m.put(mapArr[0], mapArr[1]);
+					}
+					o.setData((T) m);
+				}
 				else if(clazz.isAssignableFrom(Bitmap.class))
 				{
 					InputStream is = resp.getEntity().getContent();
@@ -69,18 +82,20 @@ public class HttpUtil
 			{
 				o.setSuc(false);
 				o.setErrMsg("请求失败："+resp.getStatusLine().getStatusCode());
+				System.out.println("请求失败："+resp.getStatusLine().getStatusCode());
 			}
 		}
 		catch(Exception e)
 		{
 			o.setSuc(false);
-			o.setErrMsg("请求失败："+e.getMessage());
+			o.setErrMsg("请求异常："+e.getMessage());
+			System.out.println("请求异常："+e.getMessage());
 			e.printStackTrace();
 		}
 		return o;
 	}
 	
-	public static void sendVollyHttpActionBitmap(Context ctx, final HttpActionObj actionObj, final ImageView v)
+	public static void submitVollyHttpActionBitmap(Context ctx, final HttpActionObj actionObj, final ImageView v)
 	{
 		mQueue = Volley.newRequestQueue(ctx);
 		Response.Listener<Bitmap> sucListener = new Response.Listener<Bitmap>()
@@ -111,7 +126,7 @@ public class HttpUtil
 		mQueue.add(imageRequest);
 	}
 	
-	public static String sendVollyHttpAction(Context ctx, final HttpActionObj actionObj)
+	public static String submitVollyHttpAction(Context ctx, final HttpActionObj actionObj)
 	{
 		final String[] result = null;
 		mQueue = Volley.newRequestQueue(ctx);
