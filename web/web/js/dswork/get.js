@@ -44,6 +44,12 @@
 		var keycode = v.which || v.keyCode;
 		if (keycode==13) {$("#_querySubmit_[type=button]").click();}
 	});
+	$("table.queryTable select").each(function(){
+		var o = $(this);
+		var v = o.attr("v");
+		if(v == null || typeof(v)=="undefined"){return false;}
+		try{o.val(v);}catch(e){}
+	});
 });
 $dswork.page = {};
 // del,upd,getById在默认时均调用ini方法
