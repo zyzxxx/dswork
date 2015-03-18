@@ -230,4 +230,10 @@ $(function(){
 			o.prop("readonly", true);
 		}
 	});
+	$("select").each(function(){
+		var o = $(this);
+		var v = o.attr("v");
+		if(v == null || typeof(v)=="undefined"){return false;}
+		try{o.val(v);}catch(e){}
+	});
 });
