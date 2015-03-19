@@ -28,6 +28,20 @@ public abstract class BaseWebController
 		HttpActionObj actionObj = new HttpActionObj(getModulePath()+actionPath, m);
 		return HttpUtil.submitHttpAction(actionObj, clazz);
 	}
+	/**
+	 * 提交Http请求
+	 * @param actionPath 请求路径
+	 * @param clazz 返回结果类型
+	 * @param m 请求参数
+	 * @param connTimeout 连接建立的超时时间
+	 * @param soTimeout 连接建立后，没有收到response的超时时间
+	 * @return HttpResultObj<T>
+	 */
+	public <T> HttpResultObj<T> submitHttpAction(String actionPath, Class<T> clazz, Map<String,String> m, int connTimeout, int soTimeout)
+	{
+		HttpActionObj actionObj = new HttpActionObj(getModulePath()+actionPath, m);
+		return HttpUtil.submitHttpAction(actionObj, clazz, connTimeout, soTimeout);
+	}
 	
 	/**
 	 * 获取model转换成的Map

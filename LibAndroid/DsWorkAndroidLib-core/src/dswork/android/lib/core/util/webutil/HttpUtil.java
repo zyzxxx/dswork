@@ -31,7 +31,7 @@ public class HttpUtil
 	
 	public static <T> HttpResultObj<T> submitHttpAction(HttpActionObj actionObj, Class<T> clazz)
 	{
-		return submitHttpAction(actionObj, clazz, 60000, 60000);
+		return submitHttpAction(actionObj, clazz, 30000, 30000);
 	}
 	@SuppressWarnings("unchecked")
 	public static <T> HttpResultObj<T> submitHttpAction(HttpActionObj actionObj, Class<T> clazz, int connectionTimeout, int soTimeout)
@@ -77,6 +77,8 @@ public class HttpUtil
 					o.setData((T) resp.getEntity().getContent());
 				}
 				o.setSuc(true);
+				o.setSucMsg("请求成功："+resp.getStatusLine().getStatusCode());
+				System.out.println("请求成功："+resp.getStatusLine().getStatusCode());
 			}
 			else 
 			{
