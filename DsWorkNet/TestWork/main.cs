@@ -22,7 +22,12 @@ namespace Test
 			Console.WriteLine(EnvironmentUtil.GetToString("jskey.upload.savePath", "sss"));
 			Console.WriteLine(0x40);
 			Console.WriteLine(0x10);
-			Program.doMain(args);
+			//Program.doMain(args);
+
+			string s = "我是明文";
+			Console.WriteLine(s = Dswork.Core.Util.EncryptUtil.EncodeDes(s, "dswork"));
+			Console.WriteLine(Dswork.Core.Util.EncryptUtil.DecodeDes(s, "dswork"));
+
 			/*
 			Hashtable h = new Hashtable();
 			h.Add("aaa", "aaa");
