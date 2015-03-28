@@ -7,6 +7,8 @@
 <head>
 <meta charset="UTF-8" />
 <title>${site.name}</title>
+<meta name="keywords" content="${category.metakeywords}" />
+<meta name="description" content="${category.metadescription}" />
 </head>
 <body>
 ${title}<br />

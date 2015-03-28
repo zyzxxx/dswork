@@ -10,7 +10,6 @@ var m = [
 	,{id:"authcode",s:"v2",v:"验证码输入错误",c:/[^\s]{4}/}
 ];
 </script>
-<!--[if IE 6]><style>.cp{position:absolute;left:0;top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-parseInt(this.currentStyle.marginTop)-parseInt(this.currentStyle.marginBottom)))}</style><![endif]-->
 </head>
 <body onload="$('account').focus();">
 <div class="title">找回密码</div>
@@ -22,7 +21,7 @@ var m = [
 	</div></div>
 	<div class="box"><span id="v2"></span><div class="vbox">
 		验证码<input type="text" placeholder="验证码" id="authcode" name="authcode" maxlength="4" class="code" value="" />
-		<img src='../ValidCode?width=90&height=38' style="cursor:pointer;vertical-align:middle;" onclick="this.src='../ValidCode?width=90&height=38&id=' + Math.random();" />
+		<img src="../ValidCode?width=90&height=38" onclick="this.src='../ValidCode?width=90&height=38&id=' + Math.random();" />
 	</div></div>
 	<div class="box">
 		<input type="button" class="button" value="提交" onclick="doclick()" />
@@ -31,7 +30,7 @@ var m = [
 </form>
 </div>
 <div class="cp">
-	Copyright &copy; 2014 skey_chen@163.com
+	Copyright &copy; 2014-2015 skey_chen@163.com
 	&nbsp;&nbsp;<a href="../loginPerson.html">登录</a>
 	&nbsp;&nbsp;<a target="_blank" href="password.html">重置密码</a>
 </div>

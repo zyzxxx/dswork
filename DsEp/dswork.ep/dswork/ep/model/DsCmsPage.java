@@ -13,8 +13,10 @@ public class DsCmsPage
 	private Long categoryid = 0L;
 	// 标题
 	private String title = "";
-	// 关键词
-	private String keywords = "";
+	// meta关键词
+	private String metakeywords = "";
+	// meta描述
+	private String metadescription = "";
 	// 摘要
 	private String summary = "";
 	// 内容
@@ -70,14 +72,24 @@ public class DsCmsPage
 		this.title = title;
 	}
 
-	public String getKeywords()
+	public String getMetakeywords()
 	{
-		return keywords;
+		return metakeywords;
 	}
 
-	public void setKeywords(String keywords)
+	public void setMetakeywords(String metakeywords)
 	{
-		this.keywords = keywords;
+		this.metakeywords = metakeywords;
+	}
+
+	public String getMetadescription()
+	{
+		return metadescription;
+	}
+
+	public void setMetadescription(String metadescription)
+	{
+		this.metadescription = metadescription;
 	}
 
 	public String getSummary()

@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, RELEASETIME, IMG, IMGTOP, PAGETOP)
+	(ID, SITEID, CATEGORYID, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, IMG, IMGTOP, PAGETOP, CONTENT)
 	values
-	(null, #{siteid}, #{categoryid}, #{title}, #{keywords}, #{summary}, #{content}, #{releasetime}, #{img}, #{imgtop}, #{pagetop})
+	(null, #{siteid}, #{categoryid}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{img}, #{imgtop}, #{pagetop}, #{content})
 </insert>
 
 <delete id="delete">
@@ -22,13 +22,14 @@
 <update id="update" parameterType="dswork.ep.model.DsCmsPage">
 	update DS_CMS_PAGE set
 		TITLE=#{title},
-		KEYWORDS=#{keywords},
+		METAKEYWORDS=#{metakeywords},
+		METADESCRIPTION=#{metadescription},
 		SUMMARY=#{summary},
-		CONTENT=#{content},
 		RELEASETIME=#{releasetime},
 		IMG=#{img},
 		IMGTOP=#{imgtop},
-		PAGETOP=#{pagetop}
+		PAGETOP=#{pagetop},
+		CONTENT=#{content}
 	where ID=#{id}
 </update>
 
@@ -41,18 +42,19 @@
 	<result property="siteid" column="SITEID" />
 	<result property="categoryid" column="CATEGORYID" />
 	<result property="title" column="TITLE" />
-	<result property="keywords" column="KEYWORDS" />
+	<result property="metakeywords" column="METAKEYWORDS" />
+	<result property="metadescription" column="METADESCRIPTION" />
 	<result property="summary" column="SUMMARY" />
-	<result property="content" column="CONTENT" />
 	<result property="releasetime" column="RELEASETIME" />
 	<result property="img" column="IMG" />
 	<result property="imgtop" column="IMGTOP" />
 	<result property="pagetop" column="PAGETOP" />
 	<result property="url" column="URL" />
+	<result property="content" column="CONTENT" />
 </resultMap>
 
 <sql id="columns">
-	ID, SITEID, CATEGORYID, TITLE, KEYWORDS, SUMMARY, CONTENT, RELEASETIME, IMG, IMGTOP, PAGETOP, URL
+	ID, SITEID, CATEGORYID, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, IMG, IMGTOP, PAGETOP, URL, CONTENT
 </sql>
 
 <sql id="dynamicWhere">
@@ -61,7 +63,8 @@
 		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
 		<if test="@Ognl@isNotEmpty(keyvalue)">
 			 and TITLE like concat('%',#{keyvalue},'%') 
-			 and KEYWORDS like concat('%',#{keyvalue},'%') 
+			 and METAKEYWORDS like concat('%',#{keyvalue},'%') 
+			 and METADESCRIPTION like concat('%',#{keyvalue},'%') 
 			 and SUMMARY like concat('%',#{keyvalue},'%') 
 			 and CONTENT like concat('%',#{keyvalue},'%') 
 		</if>

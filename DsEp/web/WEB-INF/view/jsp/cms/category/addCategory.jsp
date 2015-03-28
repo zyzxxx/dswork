@@ -17,9 +17,7 @@ $(function(){
 			$("#template_category").hide();
 			$("#template_page").hide();
 			$("#viewsite").val("");
-			$("#viewapp").val("");
 			$("#pageviewsite").val("");
-			$("#pageviewapp").val("");
 			$("#url").attr("require", "true");
 		}
 		else if($("#status").val() == 1){
@@ -27,7 +25,6 @@ $(function(){
 			$("#template_category").show();
 			$("#template_page").hide();
 			$("#pageviewsite").val("");
-			$("#pageviewapp").val("");
 			$("#url").attr("require", "false");
 		}
 		else{
@@ -97,23 +94,11 @@ $(function(){
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
-	<tr>
-		<td class="form_title">栏目APP模板</td>
-		<td class="form_input"><select id="viewapp" name="viewapp" style="width:400px;"><option value=""></option>
-			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
-		</select></td>
-	</tr>
 	</tbody>
 	<tbody id="template_page">
 	<tr>
 		<td class="form_title">内容模板</td>
 		<td class="form_input"><select id="pageviewsite" name="pageviewsite" style="width:400px;"><option value=""></option>
-			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
-		</select></td>
-	</tr>
-	<tr>
-		<td class="form_title">内容APP模板</td>
-		<td class="form_input"><select id="pageviewapp" name="pageviewapp" style="width:400px;"><option value=""></option>
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>

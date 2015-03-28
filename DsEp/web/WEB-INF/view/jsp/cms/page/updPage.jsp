@@ -35,8 +35,12 @@ $(function(){
 		<td class="form_input"><input type="text" name="title" maxlength="100" style="width:400px;" dataType="Require" value="${fn:escapeXml(po.title)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">关键词</td>
-		<td class="form_input"><input type="text" name="keywords" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.keywords)}" /></td>
+		<td class="form_title">meta关键词</td>
+		<td class="form_input"><input type="text" name="metakeywords" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.metakeywords)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">meta描述</td>
+		<td class="form_input"><input type="text" name="metadescription" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.metadescription)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">摘要</td>

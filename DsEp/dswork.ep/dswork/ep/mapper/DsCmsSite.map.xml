@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_CMS_SITE
-	(ID, QYBM, NAME, FOLDER, URL, IMG, VIEWSITE, VIEWAPP)
+	(ID, QYBM, NAME, FOLDER, URL, IMG, VIEWSITE)
 	values
-	(null, #{qybm}, #{name}, #{folder}, #{url}, #{img}, #{viewsite}, #{viewapp})
+	(null, #{qybm}, #{name}, #{folder}, #{url}, #{img}, #{viewsite})
 </insert>
 
 <delete id="delete">
@@ -25,8 +25,7 @@
 		FOLDER=#{folder},
 		URL=#{url},
 		IMG=#{img},
-		VIEWSITE=#{viewsite},
-		VIEWAPP=#{viewapp}
+		VIEWSITE=#{viewsite}
 	where ID=#{id}
 </update>
 
@@ -38,11 +37,10 @@
 	<result property="url" column="URL" />
 	<result property="img" column="IMG" />
 	<result property="viewsite" column="VIEWSITE" />
-	<result property="viewapp" column="VIEWAPP" />
 </resultMap>
 
 <sql id="columns">
-	ID, QYBM, NAME, FOLDER, URL, IMG, VIEWSITE, VIEWAPP
+	ID, QYBM, NAME, FOLDER, URL, IMG, VIEWSITE
 </sql>
 
 <sql id="dynamicWhere">

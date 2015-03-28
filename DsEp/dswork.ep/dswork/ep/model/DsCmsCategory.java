@@ -24,24 +24,22 @@ public class DsCmsCategory
 	private String url = "";
 	// 图片
 	private String img = "";
-	// 关键词
-	private String keywords = "";
-	// 内容
-	private String content = "";
 	// 栏目网站模板
 	private String viewsite = "";
-	// 栏目APP模板
-	private String viewapp = "";
 	// 内容网站模板
 	private String pageviewsite = "";
-	// 内容APP模板
-	private String pageviewapp = "";
 	// 排序
 	private Integer seq = 0;
 	// 级别
 	private int level = 0;
 	// 树形标识
 	private String label = "";
+	// meta关键词
+	private String metakeywords = "";
+	// meta描述
+	private String metadescription = "";
+	// 内容
+	private String content = "";
 	// 子栏目
 	private List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 
@@ -125,26 +123,6 @@ public class DsCmsCategory
 		this.img = img;
 	}
 
-	public String getKeywords()
-	{
-		return keywords;
-	}
-
-	public void setKeywords(String keywords)
-	{
-		this.keywords = keywords;
-	}
-
-	public String getContent()
-	{
-		return content;
-	}
-
-	public void setContent(String content)
-	{
-		this.content = content;
-	}
-
 	public String getViewsite()
 	{
 		return viewsite;
@@ -155,16 +133,6 @@ public class DsCmsCategory
 		this.viewsite = viewsite;
 	}
 
-	public String getViewapp()
-	{
-		return viewapp;
-	}
-
-	public void setViewapp(String viewapp)
-	{
-		this.viewapp = viewapp;
-	}
-
 	public String getPageviewsite()
 	{
 		return pageviewsite;
@@ -173,16 +141,6 @@ public class DsCmsCategory
 	public void setPageviewsite(String pageviewsite)
 	{
 		this.pageviewsite = pageviewsite;
-	}
-
-	public String getPageviewapp()
-	{
-		return pageviewapp;
-	}
-
-	public void setPageviewapp(String pageviewapp)
-	{
-		this.pageviewapp = pageviewapp;
 	}
 
 	public Integer getSeq()
@@ -213,6 +171,36 @@ public class DsCmsCategory
 	public void setLabel(String label)
 	{
 		this.label = label;
+	}
+
+	public String getMetakeywords()
+	{
+		return metakeywords;
+	}
+
+	public void setMetakeywords(String metakeywords)
+	{
+		this.metakeywords = metakeywords;
+	}
+
+	public String getMetadescription()
+	{
+		return metadescription;
+	}
+
+	public void setMetadescription(String metadescription)
+	{
+		this.metadescription = metadescription;
+	}
+
+	public String getContent()
+	{
+		return content;
+	}
+
+	public void setContent(String content)
+	{
+		this.content = content;
 	}
 
 	public List<DsCmsCategory> getList()

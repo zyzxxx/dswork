@@ -35,12 +35,16 @@ $(function(){
 		<td class="form_input"><input type="text" name="title" maxlength="100" style="width:400px;" dataType="Require" value="" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">关键词</td>
-		<td class="form_input"><input type="text" name="keywords" maxlength="100" style="width:300px;" value="" /></td>
-	</tr>
-	<tr>
 		<td class="form_title">摘要</td>
 		<td class="form_input"><input type="text" name="summary" maxlength="100" style="width:400px;" value="" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">meta关键词</td>
+		<td class="form_input"><input type="text" name="metakeywords" maxlength="100" style="width:300px;" value="" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">meta描述</td>
+		<td class="form_input"><input type="text" name="metadescription" maxlength="100" style="width:300px;" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">内容</td>

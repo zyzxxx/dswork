@@ -143,12 +143,13 @@ public class DsCmsPageController extends BaseController
 		try
 		{
 			Long id = req.getLong("id");
-			String keywords = req.getString("keywords");
+			String metakeywords = req.getString("metakeywords");
+			String metadescription = req.getString("metadescription");
 			String content = req.getString("content");
 			DsCmsCategory m = service.getCategory(id);
 			if(m.getStatus() == 1 && checkSite(m.getSiteid()))
 			{
-				service.updateCategory(m.getId(), keywords, content);
+				service.updateCategory(m.getId(), metakeywords, metadescription, content);
 				print(1);
 				return;
 			}

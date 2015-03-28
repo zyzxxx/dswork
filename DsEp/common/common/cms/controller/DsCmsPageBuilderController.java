@@ -31,7 +31,8 @@ public class DsCmsPageBuilderController extends BaseController
 			put("id", p.get("id"));
 			put("categoryid", p.get("categoryid"));
 			put("title", p.get("title"));
-			put("keywords", p.get("keywords"));
+			put("metakeywords", p.get("metakeywords"));
+			put("metadescription", p.get("metadescription"));
 			put("summary", p.get("summary"));
 			put("content", p.get("content"));
 			put("releasetime", p.get("releasetime"));

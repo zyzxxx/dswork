@@ -19,8 +19,6 @@ public class DsCmsSite
 	private String img = "";
 	// 网站模板
 	private String viewsite = "";
-	// APP模板
-	private String viewapp = "";
 
 	public Long getId()
 	{
@@ -90,15 +88,5 @@ public class DsCmsSite
 	public void setViewsite(String viewsite)
 	{
 		this.viewsite = viewsite;
-	}
-
-	public String getViewapp()
-	{
-		return viewapp;
-	}
-
-	public void setViewapp(String viewapp)
-	{
-		this.viewapp = viewapp;
 	}
 }
