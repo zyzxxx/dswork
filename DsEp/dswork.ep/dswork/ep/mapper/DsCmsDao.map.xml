@@ -5,27 +5,32 @@
 
 <mapper namespace="dswork.ep.dao.DsCmsDao">
 
+<sql id="c_site">
+	id, qybm, name, folder, url, img, viewsite
+</sql>
+<sql id="c_category">
+	id, pid, siteid, name, folder, status, url, img, viewsite, pageviewsite, metakeywords, metadescription, content
+</sql>
+<sql id="c_page">
+	id, siteid, categoryid, title, url, metakeywords, metadescription, summary, releasetime, img, content
+</sql>
+
 <select id="getSite" resultType="java.util.Map">
-	select id, qybm, name, folder, url, img, viewsite, viewapp
-	from DS_CMS_SITE
+	select <include refid="c_site" /> from DS_CMS_SITE
 	where ID=#{id}
 </select>
 <select id="getCategory" resultType="java.util.Map">
-	select id, pid, siteid, name, folder, status, url, img, keywords, content, viewsite, viewapp, pageviewsite, pageviewapp
-	from DS_CMS_CATEGORY
+	select <include refid="c_category" /> from DS_CMS_CATEGORY
 	where ID=#{id} and SITEID=#{siteid}
 	order by SEQ
 </select>
 <select id="get" resultType="java.util.Map">
-	select id, siteid, categoryid, title, url, keywords, summary, content, releasetime, img
-	from DS_CMS_PAGE
+	select <include refid="c_page" /> from DS_CMS_PAGE
 	where ID=#{id} and SITEID=#{siteid}
 </select>
 
-
 <select id="query" resultType="java.util.Map">
-	select id, siteid, categoryid, title, url, keywords, summary, content, releasetime, img
-	from DS_CMS_PAGE
+	select <include refid="c_page" /> from DS_CMS_PAGE
 	where SITEID=#{siteid} and CATEGORYID in (${idArray})
 		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
 		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=1 </if>
@@ -40,8 +45,7 @@
 		<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME&lt;=#{releasetime} </if>
 </select>
 <select id="queryCategory" resultType="java.util.Map">
-	select id, pid, siteid, name, folder, status, url, img, keywords, content, viewsite, viewapp, pageviewsite, pageviewapp
-	from DS_CMS_CATEGORY
+	select <include refid="c_category" /> from DS_CMS_CATEGORY
 	where SITEID=#{siteid}
 		<if test="0 &lt; pid"> and PID=#{pid} </if>
 		<if test="0 &gt;= pid"> and PID is null </if>
