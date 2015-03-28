@@ -28,10 +28,8 @@ create table DS_CMS_CATEGORY
    URL                  varchar(300) comment '链接',
    IMG                  varchar(300) comment '图片',
    VIEWSITE             varchar(300) comment '网站模板',
-   VIEWAPP              varchar(300) comment 'APP模板',
    SEQ                  varchar(300) comment '排序',
    PAGEVIEWSITE         varchar(300) comment '内容网站模板',
-   PAGEVIEWAPP          varchar(300) comment '内容APP模板',
    primary key (ID)
 );
 
@@ -47,13 +45,14 @@ create table DS_CMS_PAGE
    CATEGORYID           bigint comment '栏目ID',
    FOLDER               varchar(300),
    TITLE                varchar(300) comment '标题',
-   KEYWORDS             varchar(300) comment '关键词',
+   METAKEYWORDS         varchar(300) comment 'meta关键词',
+   METADESCRIPTION      varchar(300) comment 'meta描述',
    SUMMARY              varchar(300) comment '摘要',
-   CONTENT              text comment '内容',
    RELEASETIME          varchar(19) comment '发布时间',
    IMG                  varchar(300) comment '图片',
    IMGTOP               int comment '焦点图(0否，1是)',
    PAGETOP              int comment '首页推荐(0否，1是)',
+   CONTENT              text comment '内容',
    primary key (ID)
 );
 
@@ -71,8 +70,8 @@ create table DS_CMS_SITE
    URL                  varchar(300) comment '链接',
    IMG                  varchar(300) comment '图片',
    VIEWSITE             varchar(300) comment '网站模板',
-   VIEWAPP              varchar(300) comment 'APP模板',
-   KEYWORDS             varchar(300) comment '关键词',
+   METAKEYWORDS         varchar(300) comment 'meta关键词',
+   METADESCRIPTION      varchar(300) comment 'meta描述',
    CONTENT              text comment '内容',
    primary key (ID)
 );
