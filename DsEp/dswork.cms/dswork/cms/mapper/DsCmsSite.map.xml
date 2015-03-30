@@ -39,7 +39,7 @@
 </resultMap>
 
 <sql id="columns">
-	ID, QYBM, NAME, FOLDER, URL, IMG, VIEWSITE
+	ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE
 </sql>
 
 <sql id="dynamicWhere">
