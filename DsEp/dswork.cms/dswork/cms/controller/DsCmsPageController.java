@@ -1,4 +1,4 @@
-package dswork.ep.controller;
+package dswork.cms.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -11,16 +11,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
+import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsPage;
+import dswork.cms.model.DsCmsSite;
+import dswork.cms.service.DsCmsPageService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
 import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
-import dswork.ep.model.DsCmsCategory;
-import dswork.ep.model.DsCmsPage;
-import dswork.ep.model.DsCmsSite;
-import dswork.ep.service.DsCmsPageService;
 
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -53,7 +53,7 @@ public class DsCmsPageController extends BaseController
 			Long categoryid = req.getLong("categoryid");
 			DsCmsCategory m = service.getCategory(categoryid);
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getStatus() == 0 && checkSite(s.getQybm()))
+			if(m.getStatus() == 0 && checkOwn(s.getOwn()))
 			{
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
@@ -80,7 +80,7 @@ public class DsCmsPageController extends BaseController
 		{
 			Long categoryid = req.getLong("id");
 			DsCmsCategory po = service.getCategory(categoryid);
-			if(po.getStatus() == 0 && checkSite(po.getSiteid()))
+			if(po.getStatus() == 0 && checkOwn(po.getSiteid()))
 			{
 				service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
 				print(1);
@@ -147,7 +147,7 @@ public class DsCmsPageController extends BaseController
 			String metadescription = req.getString("metadescription");
 			String content = req.getString("content");
 			DsCmsCategory m = service.getCategory(id);
-			if(m.getStatus() == 1 && checkSite(m.getSiteid()))
+			if(m.getStatus() == 1 && checkOwn(m.getSiteid()))
 			{
 				service.updateCategory(m.getId(), metakeywords, metadescription, content);
 				print(1);
@@ -170,7 +170,7 @@ public class DsCmsPageController extends BaseController
 		{
 			Long id = req.getLong("siteid"), siteid = 0L;
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+			map.put("own", common.auth.AuthLogin.getLoginUser(request, response).getOwn());
 			PageRequest rq = new PageRequest(map);
 			List<DsCmsSite> siteList = service.queryListSite(rq);
 			if(siteList != null && siteList.size() > 0)
@@ -211,7 +211,7 @@ public class DsCmsPageController extends BaseController
 	{
 		Long categoryid = req.getLong("id");
 		DsCmsCategory m = service.getCategory(categoryid);
-		if(m.getStatus() == 0 && checkSite(m.getSiteid()))// 列表
+		if(m.getStatus() == 0 && checkOwn(m.getSiteid()))// 列表
 		{
 			PageRequest rq = getPageRequest();
 			rq.getFilters().put("siteid", m.getSiteid());
@@ -234,7 +234,7 @@ public class DsCmsPageController extends BaseController
 			Long categoryid = req.getLong("categoryid");
 			DsCmsCategory m = service.getCategory(categoryid);
 			DsCmsSite site = service.getSite(m.getSiteid());
-			if(checkSite(site.getQybm()))
+			if(checkOwn(site.getOwn()))
 			{
 				String ext = "";
 				boolean isHTML5 = "application/octet-stream".equals(request.getContentType());
@@ -303,7 +303,7 @@ public class DsCmsPageController extends BaseController
 		try
 		{
 			DsCmsSite site = service.getSite(siteid);
-			if(checkSite(site.getQybm()))
+			if(checkOwn(site.getOwn()))
 			{
 				String path = "http://" + request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
 				if(pageid > 0)// 生成内容页
@@ -517,11 +517,11 @@ public class DsCmsPageController extends BaseController
 		}
 	}
 
-	private boolean checkSite(Long siteid)
+	private boolean checkOwn(Long siteid)
 	{
 		try
 		{
-			return service.getSite(siteid).getQybm().equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+			return service.getSite(siteid).getOwn().equals(common.auth.AuthLogin.getLoginUser(request, response).getOwn());
 		}
 		catch(Exception ex)
 		{
@@ -529,11 +529,11 @@ public class DsCmsPageController extends BaseController
 		return false;
 	}
 
-	private boolean checkSite(String qybm)
+	private boolean checkOwn(String own)
 	{
 		try
 		{
-			return qybm.equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+			return own.equals(common.auth.AuthLogin.getLoginUser(request, response).getOwn());
 		}
 		catch(Exception ex)
 		{

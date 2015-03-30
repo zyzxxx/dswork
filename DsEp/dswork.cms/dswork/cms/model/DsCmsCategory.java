@@ -1,7 +1,7 @@
 /**
  * 栏目Model
  */
-package dswork.ep.model;
+package dswork.cms.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,16 +24,12 @@ public class DsCmsCategory
 	private String url = "";
 	// 图片
 	private String img = "";
-	// 栏目网站模板
+	// 栏目模板
 	private String viewsite = "";
-	// 内容网站模板
+	// 内容模板
 	private String pageviewsite = "";
 	// 排序
 	private Integer seq = 0;
-	// 级别
-	private int level = 0;
-	// 树形标识
-	private String label = "";
 	// meta关键词
 	private String metakeywords = "";
 	// meta描述
@@ -42,6 +38,10 @@ public class DsCmsCategory
 	private String content = "";
 	// 子栏目
 	private List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
+	// 级别（管理时扩展显示）
+	private int level = 0;
+	// 树形标识（管理时扩展显示）
+	private String label = "";
 
 	public Long getId()
 	{
@@ -153,26 +153,6 @@ public class DsCmsCategory
 		this.seq = seq;
 	}
 
-	public int getLevel()
-	{
-		return level;
-	}
-
-	public void setLevel(int level)
-	{
-		this.level = level;
-	}
-
-	public String getLabel()
-	{
-		return label;
-	}
-
-	public void setLabel(String label)
-	{
-		this.label = label;
-	}
-
 	public String getMetakeywords()
 	{
 		return metakeywords;
@@ -216,5 +196,25 @@ public class DsCmsCategory
 	public void add(DsCmsCategory item)
 	{
 		this.list.add(item);
+	}
+
+	public int getLevel()
+	{
+		return level;
+	}
+
+	public void setLevel(int level)
+	{
+		this.level = level;
+	}
+
+	public String getLabel()
+	{
+		return label;
+	}
+
+	public void setLabel(String label)
+	{
+		this.label = label;
 	}
 }

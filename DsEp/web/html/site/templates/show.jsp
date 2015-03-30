@@ -11,7 +11,7 @@
 <meta name="description" content="${category.metadescription}" />
 </head>
 <body>
-${title}<br />
-${content}
+${category.name}<br />
+${category.content}
 </body>
 </html>

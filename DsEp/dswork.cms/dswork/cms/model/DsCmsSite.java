@@ -1,14 +1,14 @@
 /**
  * 站点Model
  */
-package dswork.ep.model;
+package dswork.cms.model;
 
 public class DsCmsSite
 {
 	// 主键
 	private Long id = 0L;
-	// 企业编码
-	private String qybm = "";
+	// 拥有者
+	private String own = "";
 	// 栏目名称
 	private String name = "";
 	// 目录名称
@@ -30,14 +30,14 @@ public class DsCmsSite
 		this.id = id;
 	}
 
-	public String getQybm()
+	public String getOwn()
 	{
-		return qybm;
+		return own;
 	}
 
-	public void setQybm(String qybm)
+	public void setOwn(String own)
 	{
-		this.qybm = qybm;
+		this.own = own;
 	}
 
 	public String getName()

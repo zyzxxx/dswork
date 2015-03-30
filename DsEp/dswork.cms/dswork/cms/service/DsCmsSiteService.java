@@ -1,15 +1,15 @@
 /**
  * 站点Service
  */
-package dswork.ep.service;
+package dswork.cms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dswork.cms.dao.DsCmsSiteDao;
+import dswork.cms.model.DsCmsSite;
 import dswork.core.db.EntityDao;
 import dswork.core.db.BaseService;
-import dswork.ep.model.DsCmsSite;
-import dswork.ep.dao.DsCmsSiteDao;
 
 @Service
 @SuppressWarnings("all")

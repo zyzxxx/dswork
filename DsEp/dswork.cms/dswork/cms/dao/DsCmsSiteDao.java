@@ -1,11 +1,12 @@
 /**
  * 站点Dao
  */
-package dswork.ep.dao;
+package dswork.cms.dao;
 
 import org.springframework.stereotype.Repository;
+
+import dswork.cms.model.DsCmsSite;
 import dswork.core.db.BaseDao;
-import dswork.ep.model.DsCmsSite;
 
 @Repository
 @SuppressWarnings("all")

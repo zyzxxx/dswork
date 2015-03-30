@@ -1,4 +1,4 @@
-package dswork.ep.controller;
+package dswork.cms.controller;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
+import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsSite;
+import dswork.cms.service.DsCmsCategoryService;
 import dswork.core.page.PageRequest;
-import dswork.ep.model.DsCmsCategory;
-import dswork.ep.model.DsCmsSite;
-import dswork.ep.service.DsCmsCategoryService;
 
 @Scope("prototype")
 @Controller
@@ -38,7 +38,7 @@ public class DsCmsCategoryController extends BaseController
 			File file = new File(getCmsRoot() + sitename + "/templates");
 			for(File f : file.listFiles())
 			{
-				if(f.isFile() && !f.isHidden() && f.getPath().endsWith(".html"))
+				if(f.isFile() && !f.isHidden() && f.getPath().endsWith(".jsp"))
 				{
 					list.add(f.getName());
 				}
@@ -69,7 +69,7 @@ public class DsCmsCategoryController extends BaseController
 			if(po.getSiteid() > 0)
 			{
 				DsCmsSite s = service.getSite(po.getSiteid());
-				if(checkSite(s.getQybm()))
+				if(checkOwn(s.getOwn()))
 				{
 					if(po.getStatus() != 2)
 					{
@@ -103,7 +103,7 @@ public class DsCmsCategoryController extends BaseController
 				return;
 			}
 			DsCmsCategory po = service.get(categoryid);
-			if(checkSite(po.getSiteid()))
+			if(checkOwn(po.getSiteid()))
 			{
 				service.delete(categoryid);
 				print(1);
@@ -145,8 +145,8 @@ public class DsCmsCategoryController extends BaseController
 		try
 		{
 			DsCmsCategory m = service.get(po.getId());
-			DsCmsSite s = service.getSite(po.getSiteid());
-			if(checkSite(s.getQybm()))
+			DsCmsSite s = service.getSite(m.getSiteid());
+			if(checkOwn(s.getOwn()))
 			{
 				if(m.getStatus() == 0 && !po.getFolder().equals(m.getFolder()))//列表栏目存在内容时，不可修改目录名称
 				{
@@ -183,7 +183,7 @@ public class DsCmsCategoryController extends BaseController
 		{
 			if(idArr.length == seqArr.length)
 			{
-				if(checkSite(siteid))
+				if(checkOwn(siteid))
 				{
 					service.updateSeq(idArr, seqArr);
 					print(1);
@@ -211,7 +211,7 @@ public class DsCmsCategoryController extends BaseController
 		{
 			Long id = req.getLong("siteid"), siteid = 0L;
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("qybm", common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+			map.put("own", common.auth.AuthLogin.getLoginUser(request, response).getOwn());
 			PageRequest rq = new PageRequest(map);
 			List<DsCmsSite> siteList = service.queryListSite(rq);
 			if(siteList != null && siteList.size() > 0)
@@ -334,11 +334,11 @@ public class DsCmsCategoryController extends BaseController
 		}
 	}
 
-	private boolean checkSite(Long siteid)
+	private boolean checkOwn(Long siteid)
 	{
 		try
 		{
-			return service.getSite(siteid).getQybm().equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+			return service.getSite(siteid).getOwn().equals(common.auth.AuthLogin.getLoginUser(request, response).getOwn());
 		}
 		catch(Exception ex)
 		{
@@ -346,11 +346,11 @@ public class DsCmsCategoryController extends BaseController
 		return false;
 	}
 
-	private boolean checkSite(String qybm)
+	private boolean checkOwn(String own)
 	{
 		try
 		{
-			return qybm.equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+			return own.equals(common.auth.AuthLogin.getLoginUser(request, response).getOwn());
 		}
 		catch(Exception ex)
 		{

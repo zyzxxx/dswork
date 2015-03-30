@@ -1,7 +1,7 @@
 /**
  * 内容Model
  */
-package dswork.ep.model;
+package dswork.cms.model;
 
 public class DsCmsPage
 {

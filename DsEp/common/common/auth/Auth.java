@@ -139,4 +139,21 @@ public class Auth
 	{
 		return getLogintype().intValue() == -1;
 	}
+	
+	public String getOwn()
+	{
+		if(isAdmin())
+		{
+			return "admin-" + account;
+		}
+		else if(isEnterprise())
+		{
+			return "ep" + getQybm();
+		}
+		else if(isUser())
+		{
+			return "person" + getQybm();
+		}
+		return "";
+	}
 }

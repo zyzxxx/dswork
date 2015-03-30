@@ -1,7 +1,7 @@
 /**
  * 内容Service
  */
-package dswork.ep.service;
+package dswork.cms.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,15 +10,15 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import dswork.cms.dao.DsCmsCategoryDao;
+import dswork.cms.dao.DsCmsPageDao;
+import dswork.cms.dao.DsCmsSiteDao;
+import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsPage;
+import dswork.cms.model.DsCmsSite;
 import dswork.core.db.EntityDao;
 import dswork.core.db.BaseService;
 import dswork.core.page.PageRequest;
-import dswork.ep.model.DsCmsCategory;
-import dswork.ep.model.DsCmsPage;
-import dswork.ep.model.DsCmsSite;
-import dswork.ep.dao.DsCmsCategoryDao;
-import dswork.ep.dao.DsCmsPageDao;
-import dswork.ep.dao.DsCmsSiteDao;
 
 @Service
 @SuppressWarnings("all")

@@ -1,7 +1,7 @@
 /**
  * CMSDao
  */
-package dswork.ep.dao;
+package dswork.cms.dao;
 
 import java.util.HashMap;
 import java.util.List;

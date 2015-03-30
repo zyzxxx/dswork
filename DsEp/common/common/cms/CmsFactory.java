@@ -10,8 +10,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
 
+
+import dswork.cms.dao.DsCmsDao;
 import dswork.core.page.Page;
-import dswork.ep.dao.DsCmsDao;
 
 //@SuppressWarnings("all")
 public class CmsFactory

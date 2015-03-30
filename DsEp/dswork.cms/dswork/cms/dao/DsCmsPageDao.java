@@ -1,15 +1,15 @@
 /**
  * 内容Dao
  */
-package dswork.ep.dao;
+package dswork.cms.dao;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import dswork.cms.model.DsCmsPage;
 import dswork.core.db.BaseDao;
-import dswork.ep.model.DsCmsPage;
 
 @Repository
 @SuppressWarnings("all")
