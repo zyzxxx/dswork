@@ -21,7 +21,7 @@ public class DsCommonSystem
 	private String rooturl = "";
 	// 菜单路径
 	private String menuurl = "";
-	// 状态(0,停用,1,启用)
+	// 状态(1启用,0禁用)
 	private Integer status = 1;
 
 	public void setId(Long id)
