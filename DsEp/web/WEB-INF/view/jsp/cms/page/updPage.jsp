@@ -52,7 +52,7 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.img)}" /><label><input type="checkbox" name="imgtop" value="1" ${po.imgtop == 1?' checked="checked"':''}/>焦点图</label></td>
+		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.img)}" /><label>&nbsp;<input type="checkbox" name="imgtop" value="1" ${po.imgtop == 1?' checked="checked"':''}/>焦点图</label></td>
 	</tr>
 	<tr>
 		<td class="form_title">发布</td>
