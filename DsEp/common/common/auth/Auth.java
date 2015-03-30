@@ -140,6 +140,7 @@ public class Auth
 		return getLogintype().intValue() == -1;
 	}
 	
+	// 用于判断cms、bbs的拥有者
 	public String getOwn()
 	{
 		if(isAdmin())
