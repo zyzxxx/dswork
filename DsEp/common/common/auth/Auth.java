@@ -144,7 +144,7 @@ public class Auth
 	{
 		if(isAdmin())
 		{
-			return "admin-" + account;
+			return "admin" + getAccount();
 		}
 		else if(isEnterprise())
 		{
@@ -152,7 +152,7 @@ public class Auth
 		}
 		else if(isUser())
 		{
-			return "person" + getQybm();
+			return "person" + getAccount();
 		}
 		return "";
 	}
