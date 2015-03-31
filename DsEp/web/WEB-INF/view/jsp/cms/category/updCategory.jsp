@@ -44,10 +44,12 @@ $(function(){
 		<td class="form_title">栏目名称</td>
 		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="${fn:escapeXml(po.name)}" /></td>
 	</tr>
+	<c:if test="${po.status!=2}">
 	<tr>
 		<td class="form_title">目录名称</td>
 		<td class="form_input"><input type="text" name="folder" maxlength="100" dataType="Char" value="${fn:escapeXml(po.folder)}" /></td>
 	</tr>
+	</c:if>
 	<tr>
 		<td class="form_title">类型</td>
 		<td class="form_input">${po.status==2?"外链":po.status==1?"单页":"列表"}</td>

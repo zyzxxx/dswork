@@ -14,6 +14,7 @@ $(function(){
 	$("#status").bind("click", function(){
 		if($("#status").val() == 2){
 			$("#mylink").show();
+			$("#myfolder").hide();
 			$("#template_category").hide();
 			$("#template_page").hide();
 			$("#viewsite").val("");
@@ -22,6 +23,7 @@ $(function(){
 		}
 		else if($("#status").val() == 1){
 			$("#mylink").hide();
+			$("#myfolder").show();
 			$("#template_category").show();
 			$("#template_page").hide();
 			$("#pageviewsite").val("");
@@ -29,6 +31,7 @@ $(function(){
 		}
 		else{
 			$("#mylink").hide();
+			$("#myfolder").show();
 			$("#template_category").show();
 			$("#template_page").show();
 			$("#url").attr("require", "false");
@@ -65,10 +68,12 @@ $(function(){
 		<td class="form_title">栏目名称</td>
 		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="" /></td>
 	</tr>
+	<tbody id="myfolder">
 	<tr>
 		<td class="form_title">目录名称</td>
 		<td class="form_input"><input type="text" name="folder" maxlength="50" dataType="Char" value="" /> <span style="font-weight:bold;">添加后不可修改</span></td>
 	</tr>
+	</tbody>
 	<tr>
 		<td class="form_title">图片</td>
 		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="" /></td>
