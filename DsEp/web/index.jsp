@@ -18,9 +18,7 @@ if(model == null)
 <%if(model.isEnterprise()){%>
 var treedata = [
 	{id:100, name:'企业管理', img:"", imgOpen:"", url:"", items:[
-		 {id:101,name:'CMS栏目管理', img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
-		,{id:102,name:'CMS信息发布', img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
-		,{id:202,name:'企业用户管理', img:"", imgOpen:"", url:'/ep/user/getUser.htm', items:[]}
+		 {id:202,name:'企业用户管理', img:"", imgOpen:"", url:'/ep/user/getUser.htm', items:[]}
 	]}
 ];
 <%}%>
@@ -40,6 +38,18 @@ var treedata = [
 	]}
 ];
 <%}%>
+var nn = [
+	{id:10, name:'CMS', img:"", imgOpen:"", url:"", items:[
+		 {id:12,name:'栏目管理', img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
+		,{id:13,name:'信息发布', img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
+	]}
+	,{id:20, name:'BBS', img:"", imgOpen:"", url:"", items:[
+	     {id:21,name:'站点管理', img:"", imgOpen:"", url:'/bbs/site/getSite.htm', items:[]}
+		,{id:22,name:'版块管理', img:"", imgOpen:"", url:'/bbs/forum/getForum.htm', items:[]}
+	]}
+];
+treedata.push(nn[0]);
+treedata.push(nn[1]);
 </script>
 </head>
 <body>

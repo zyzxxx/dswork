@@ -3,6 +3,21 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
+
+<c:if test="${siteid==0}">
+<head>
+<title></title>
+<%@include file="/commons/include/page.jsp" %>
+<body>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">信息发布：没有可管理的站点</td>
+	</tr>
+</table>
+</body>
+</c:if>
+
+<c:if test="${siteid>0}">
 <head>
 	<title></title>
 	<%@include file="/commons/include/page.jsp"%>
@@ -97,4 +112,5 @@ $(function(){
 	<iframe id="mainFrame" src="" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
 </div>
 </body>
+</c:if>
 </html>

@@ -31,7 +31,7 @@
 	where ID=#{id}
 </update>
 <update id="updateSeq">
-	update DS_CMS_CATEGORY set SEQ=#{seq} where ID=#{id}
+	update DS_CMS_CATEGORY set SEQ=#{seq} where ID=#{id} and SITEID=#{siteid}
 </update>
 <update id="updateContent">
 	update DS_CMS_CATEGORY set METAKEYWORDS=#{metakeywords}, METADESCRIPTION=#{metadescription}, CONTENT=#{content} where ID=#{id}
@@ -77,7 +77,7 @@
 
 <select id="query" resultMap="result">
 	select <include refid="columns" /> from DS_CMS_CATEGORY
-	<include refid="dynamicWhere" /> order by SEQ
+	<include refid="dynamicWhere" /> order by SEQ, ID
 </select>
 
 <select id="queryCount" resultType="int">

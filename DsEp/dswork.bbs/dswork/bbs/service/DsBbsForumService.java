@@ -1,7 +1,7 @@
 /**
  * 栏目Service
  */
-package dswork.cms.service;
+package dswork.bbs.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,30 +10,27 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dswork.cms.dao.DsCmsCategoryDao;
-import dswork.cms.dao.DsCmsPageDao;
-import dswork.cms.dao.DsCmsSiteDao;
-import dswork.cms.model.DsCmsCategory;
-import dswork.cms.model.DsCmsSite;
+import dswork.bbs.dao.DsBbsForumDao;
+import dswork.bbs.dao.DsBbsSiteDao;
+import dswork.bbs.model.DsBbsForum;
+import dswork.bbs.model.DsBbsSite;
 import dswork.core.db.EntityDao;
 import dswork.core.db.BaseService;
 import dswork.core.page.PageRequest;
 
 @Service
 @SuppressWarnings("all")
-public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
+public class DsBbsForumService extends BaseService<DsBbsForum, Long>
 {
 	@Autowired
-	private DsCmsCategoryDao catDao;
+	private DsBbsForumDao forumDao;
 	@Autowired
-	private DsCmsSiteDao siteDao;
-	@Autowired
-	private DsCmsPageDao pageDao;
+	private DsBbsSiteDao siteDao;
 
 	@Override
 	protected EntityDao getEntityDao()
 	{
-		return catDao;
+		return forumDao;
 	}
 
 	@Override
@@ -43,16 +40,17 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	}
 
 	/**
-	 * 更新排序
+	 * 批量更新节点
 	 * @param ids 主键数组
+	 * @param seqArr 名称数组
 	 * @param seqArr 排序位置数组
 	 * @param siteid 站点ID
 	 */
-	public void updateSeq(long[] idArr, int[] seqArr, long siteid)
+	public void updateBatch(long[] idArr, String[] nameArr, int[] seqArr, long siteid)
 	{
 		for(int i = 0; i < idArr.length && i < seqArr.length; i++)
 		{
-			catDao.updateSeq(idArr[i], seqArr[i], siteid);
+			forumDao.updateBatch(idArr[i], nameArr[i], seqArr[i], siteid);
 		}
 	}
 
@@ -65,7 +63,7 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pid", pid);
-		return catDao.queryCount(new PageRequest(map));
+		return forumDao.queryCount(new PageRequest(map));
 	}
 
 	/**
@@ -73,21 +71,21 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	 * @param siteid 站点主键
 	 * @param categoryid 栏目主键
 	 * @return int
-	 */
-	public int getCountByCategoryid(long siteid, long categoryid)
+	 *//*
+	public int getCountByForumid(long siteid, long forumid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		map.put("categoryid", categoryid);
+		map.put("forumid", forumid);
 		return pageDao.queryCount(new PageRequest(map));
-	}
+	}*/
 
-	public DsCmsSite getSite(Long siteid)
+	public DsBbsSite getSite(Long siteid)
 	{
-		return (DsCmsSite) siteDao.get(siteid);
+		return (DsBbsSite) siteDao.get(siteid);
 	}
 
-	public List<DsCmsSite> queryListSite(PageRequest rq)
+	public List<DsBbsSite> queryListSite(PageRequest rq)
 	{
 		return siteDao.queryList(rq);
 	}

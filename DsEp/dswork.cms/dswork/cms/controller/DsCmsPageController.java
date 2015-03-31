@@ -170,7 +170,7 @@ public class DsCmsPageController extends BaseController
 		{
 			Long id = req.getLong("siteid"), siteid = 0L;
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("own", common.auth.AuthLogin.getLoginUser(request, response).getOwn());
+			map.put("own", getOwn());
 			PageRequest rq = new PageRequest(map);
 			List<DsCmsSite> siteList = service.queryListSite(rq);
 			if(siteList != null && siteList.size() > 0)
@@ -194,10 +194,10 @@ public class DsCmsPageController extends BaseController
 			}
 			if(siteid > 0)
 			{
-				put("siteid", siteid);
 				put("list", queryCategory(siteid));
-				return "/cms/page/getCategoryTree.jsp";
 			}
+			put("siteid", siteid);
+			return "/cms/page/getCategoryTree.jsp";
 		}
 		catch(Exception ex)
 		{
@@ -521,7 +521,7 @@ public class DsCmsPageController extends BaseController
 	{
 		try
 		{
-			return service.getSite(siteid).getOwn().equals(common.auth.AuthLogin.getLoginUser(request, response).getOwn());
+			return service.getSite(siteid).getOwn().equals(getOwn());
 		}
 		catch(Exception ex)
 		{
@@ -533,11 +533,16 @@ public class DsCmsPageController extends BaseController
 	{
 		try
 		{
-			return own.equals(common.auth.AuthLogin.getLoginUser(request, response).getOwn());
+			return own.equals(getOwn());
 		}
 		catch(Exception ex)
 		{
 		}
 		return false;
+	}
+	
+	private String getOwn()
+	{
+		return common.auth.AuthLogin.getLoginUser(request, response).getOwn();
 	}
 }

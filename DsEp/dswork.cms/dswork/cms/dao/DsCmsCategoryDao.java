@@ -25,12 +25,14 @@ public class DsCmsCategoryDao extends BaseDao<DsCmsCategory, Long>
 	 * 排序节点
 	 * @param id 主键
 	 * @param seq 排序位置
+	 * @param siteid 站点ID
 	 */
-	public void updateSeq(long id, int seq)
+	public void updateSeq(long id, int seq, long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("seq", seq);
+		map.put("siteid", siteid);
 		executeUpdate("updateSeq", map);
 	}
 
