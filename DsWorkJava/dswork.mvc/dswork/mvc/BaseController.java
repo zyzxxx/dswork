@@ -64,12 +64,15 @@ public class BaseController
 		}
 	}
 	
-	protected PageRequest getPageRequest()
+	protected PageRequest getPageRequest(int pagesize)
 	{
+		if(pagesize <= 0)
+		{
+			pagesize = 10;
+		}
 		PageRequest pr = new PageRequest();
 		pr.setFilters(req.getParameterValueMap(false, false));
 		pr.setCurrentPage(req.getInt("page", 1));
-		int pagesize = 10;
 		try
 		{
 			pagesize = Integer.parseInt(String.valueOf(session.getAttribute(PageSize_SessionName)).trim());
@@ -82,5 +85,10 @@ public class BaseController
 		session.setAttribute(PageSize_SessionName, pagesize);
 		pr.setPageSize(pagesize);
 		return pr;
+	}
+	
+	protected PageRequest getPageRequest()
+	{
+		return getPageRequest(10);
 	}
 }
