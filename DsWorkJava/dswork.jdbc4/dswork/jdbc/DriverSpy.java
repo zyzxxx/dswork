@@ -75,8 +75,8 @@ public class DriverSpy implements Driver
 		}
 		else
 		{
-			subDrivers.add("oracle.jdbc.driver.OracleDriver");
 			subDrivers.add("oracle.jdbc.OracleDriver");
+			subDrivers.add("oracle.jdbc.driver.OracleDriver");
 			subDrivers.add("com.mysql.jdbc.Driver");
 			subDrivers.add("com.microsoft.jdbc.sqlserver.SQLServerDriver");// MS driver for Sql Server 2000
 			subDrivers.add("com.microsoft.sqlserver.jdbc.SQLServerDriver");// MS driver for Sql Server 2005
@@ -127,8 +127,8 @@ public class DriverSpy implements Driver
 		OracleRdbmsSpecifics oracle = new OracleRdbmsSpecifics();
 		MySqlRdbmsSpecifics mySql = new MySqlRdbmsSpecifics();
 		rdbmsSpecifics = new HashMap();
-		rdbmsSpecifics.put("oracle.jdbc.driver.OracleDriver", oracle);
 		rdbmsSpecifics.put("oracle.jdbc.OracleDriver", oracle);
+		rdbmsSpecifics.put("oracle.jdbc.driver.OracleDriver", oracle);
 		rdbmsSpecifics.put("com.mysql.jdbc.Driver", mySql);
 		//rdbmsSpecifics.put("dm.jdbc.driver.DmDriver", mySql);
 		//rdbmsSpecifics.put("com.gbase.jdbc.Driver", mySql);
