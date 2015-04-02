@@ -20,7 +20,7 @@
 	<result property="memo" column="MEMO" />
 </resultMap>
 
-<sql id="columns">SBLSH, SPTYPE, FSZT, FSCS, FSSJ, SPOBJECT, MEMO</sql>
+<sql id="columns">ID, SBLSH, SPTYPE, FSZT, FSCS, FSSJ, SPOBJECT, MEMO</sql>
 
 <sql id="dynamicWhere">
 	<where>
