@@ -7,7 +7,4 @@
   <listener>
     <listener-class>common.automatic.AutoListener</listener-class>
   </listener>
-  <listener>
-    <listener-class>common.automatic.AutoListener</listener-class>
-  </listener>
 </web-app>
