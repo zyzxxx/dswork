@@ -24,8 +24,8 @@
 
 <sql id="dynamicWhere">
 	<where>
-		<if test="@Ognl@isNotEmpty(fscs_begin)"> and FSCS&gt;=#{fscs_begin} </if>
-		<if test="@Ognl@isNotEmpty(fscs_end)"> and FSCS&lt;=#{fscs_end} </if>
+		<if test="@Ognl@isNotEmpty(fscs_begin)"> and FSCS&gt;=${fscs_begin} </if>
+		<if test="@Ognl@isNotEmpty(fscs_end)"> and FSCS&lt;=${fscs_end} </if>
 		<if test="@Ognl@isNotEmpty(fszt)"> and FSZT=#{fszt} </if>
 	</where>
 </sql>
