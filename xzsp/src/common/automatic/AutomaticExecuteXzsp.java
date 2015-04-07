@@ -155,7 +155,14 @@ public class AutomaticExecuteXzsp extends Thread
 			Object o = null;
 			ByteArrayInputStream bais = new ByteArrayInputStream(v.getBytes("ISO-8859-1"));
 			java.io.ObjectInputStream ois = new ObjectInputStream(bais);
-			o = ois.readObject();
+			try
+			{
+				o = ois.readObject();
+			}
+			catch(java.io.EOFException e)
+			{
+				System.err.println("readObject OK EOFException");
+			}
 			ois.close();
 			bais.close();
 			return o;
