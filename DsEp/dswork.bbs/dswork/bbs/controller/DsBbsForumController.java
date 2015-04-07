@@ -18,7 +18,7 @@ import dswork.core.page.PageRequest;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/bbs/forum")
+@RequestMapping("/bbs/admin/forum")
 public class DsBbsForumController extends BaseController
 {
 	@Autowired
@@ -30,7 +30,7 @@ public class DsBbsForumController extends BaseController
 	{
 		Long siteid = req.getLong("siteid");
 		put("list", queryForum(siteid, 0));
-		return "/bbs/forum/addForum.jsp";
+		return "/bbs/admin/forum/addForum.jsp";
 	}
 
 	@RequestMapping("/addForum2")
@@ -101,7 +101,7 @@ public class DsBbsForumController extends BaseController
 		{
 			put("po", po);
 			put("list", queryForum(po.getSiteid(), id));
-			return "/bbs/forum/updForum.jsp";
+			return "/bbs/admin/forum/updForum.jsp";
 		}
 		else
 		{
@@ -193,7 +193,7 @@ public class DsBbsForumController extends BaseController
 				}
 			}
 			put("siteid", siteid);
-			return "/bbs/forum/getForum.jsp";
+			return "/bbs/admin/forum/getForum.jsp";
 		}
 		catch(Exception ex)
 		{

@@ -20,7 +20,7 @@ import dswork.bbs.service.DsBbsSiteService;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/bbs/site")
+@RequestMapping("/bbs/admin/site")
 public class DsBbsSiteController extends BaseController
 {
 	@Autowired
@@ -30,7 +30,7 @@ public class DsBbsSiteController extends BaseController
 	@RequestMapping("/addSite1")
 	public String addSite1()
 	{
-		return "/bbs/site/addSite.jsp";
+		return "/bbs/admin/site/addSite.jsp";
 	}
 	
 	@RequestMapping("/addSite2")
@@ -78,7 +78,7 @@ public class DsBbsSiteController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/bbs/site/updSite.jsp";
+		return "/bbs/admin/site/updSite.jsp";
 	}
 	
 	@RequestMapping("/updSite2")
@@ -110,7 +110,7 @@ public class DsBbsSiteController extends BaseController
 		map.put("own", getOwn());
 		PageRequest rq = new PageRequest(map);
 		put("list", service.queryList(rq));
-		return "/bbs/site/getSite.jsp";
+		return "/bbs/admin/site/getSite.jsp";
 	}
 
 	//明细
@@ -119,7 +119,7 @@ public class DsBbsSiteController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/bbs/site/getSiteById.jsp";
+		return "/bbs/admin/site/getSiteById.jsp";
 	}
 
 	private boolean checkOwn(String own)
