@@ -44,8 +44,9 @@ var nn = [
 		,{id:13,name:'信息发布', img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
 	]}
 	,{id:20, name:'BBS', img:"", imgOpen:"", url:"", items:[
-	     {id:21,name:'站点管理', img:"", imgOpen:"", url:'/bbs/site/getSite.htm', items:[]}
-		,{id:22,name:'版块管理', img:"", imgOpen:"", url:'/bbs/forum/getForum.htm', items:[]}
+	     {id:21,name:'站点管理', img:"", imgOpen:"", url:'/bbs/admin/site/getSite.htm', items:[]}
+		,{id:22,name:'版块管理', img:"", imgOpen:"", url:'/bbs/admin/forum/getForum.htm', items:[]}
+		,{id:23,name:'主题管理', img:"", imgOpen:"", url:'/bbs/admin/page/getPageTree.htm', items:[]}
 	]}
 ];
 treedata.push(nn[0]);

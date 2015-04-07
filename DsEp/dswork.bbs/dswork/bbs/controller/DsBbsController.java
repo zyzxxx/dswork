@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
@@ -21,22 +22,22 @@ import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
 
-@Scope("prototype")
-@Controller
-@RequestMapping("/bbs")
+//@Scope("prototype")
+//@Controller
+//@RequestMapping("/bbs")
 public class DsBbsController extends BaseController
 {
 	@Autowired
 	private DsBbsPageService service;
 
 	//添加
-	@RequestMapping("/web/addDsBbsPage1")
+	@RequestMapping("/addDsBbsPage1")
 	public String addDsBbsPage1()
 	{
-		return "/bbs/web/addDsBbsPage.jsp";
+		return "/bbs/addDsBbsPage.jsp";
 	}
 	
-	@RequestMapping("/bbs/web/addDsBbsPage2")
+	@RequestMapping("/bbs/addDsBbsPage2")
 	public void addDsBbsPage2(DsBbsPage po)
 	{
 		try
@@ -52,7 +53,7 @@ public class DsBbsController extends BaseController
 	}
 
 	//删除
-	@RequestMapping("/bbs/web/delDsBbsPage")
+	@RequestMapping("/bbs/delDsBbsPage")
 	public void delDsBbsPage()
 	{
 		try
@@ -68,16 +69,16 @@ public class DsBbsController extends BaseController
 	}
 
 	//修改
-	@RequestMapping("/bbs/web/updDsBbsPage1")
+	@RequestMapping("/bbs/updDsBbsPage1")
 	public String updDsBbsPage1()
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
 		put("page", req.getInt("page", 1));
-		return "/bbs/web/updDsBbsPage.jsp";
+		return "/bbs/updDsBbsPage.jsp";
 	}
 	
-	@RequestMapping("/bbs/web/updDsBbsPage2")
+	@RequestMapping("/bbs/updDsBbsPage2")
 	public void updDsBbsPage2(DsBbsPage po)
 	{
 		try
@@ -93,22 +94,22 @@ public class DsBbsController extends BaseController
 	}
 
 	//获得分页
-	@RequestMapping("/bbs/web/getDsBbsPage")
+	@RequestMapping("/bbs/getDsBbsPage")
 	public String getDsBbsPage()
 	{
 		Page<DsBbsPage> pageModel = service.queryPage(getPageRequest());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsBbsPage>(request, pageModel));
-		return "/bbs/web/getDsBbsPage.jsp";
+		return "/bbs/getDsBbsPage.jsp";
 	}
 
 	//明细
-	@RequestMapping("/bbs/web/getDsBbsPageById")
+	@RequestMapping("/bbs/getDsBbsPageById")
 	public String getDsBbsPageById()
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/bbs/web/getDsBbsPageById.jsp";
+		return "/bbs/getDsBbsPageById.jsp";
 	}
 	
 	
@@ -146,7 +147,7 @@ public class DsBbsController extends BaseController
 		{
 			Long id = req.getLong("siteid", 0);
 			put("list", queryForum(id, 0));
-			return "/bbs/forum/getForum.jsp";
+			return "/bbs/forum.jsp";
 		}
 		catch(Exception ex)
 		{
@@ -155,12 +156,11 @@ public class DsBbsController extends BaseController
 	}
 
 	// 获得栏目列表
-	@RequestMapping("/forum-1-1")
-	public String forum()
+	@RequestMapping("/forum-{id}-{p}")
+	public String forum(@PathVariable("id") Long id, @PathVariable("p") int page)
 	{
 		try
 		{
-			Long id = req.getLong("siteid", 0);
 			put("list", queryForum(id, 0));
 			return "/bbs/forum/getForum.jsp";
 		}

@@ -9,11 +9,11 @@
 <%@include file="/commons/include/editor.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getPage.htm?id=${po.categoryid}&page=${page}";
+	location.href = "getPage.htm?id=${po.forumid}&page=${page}";
 }};
 $(function(){
 	try{$(".form_title").css("width", "8%");}catch(e){}
-	$('#content').xheditor({html5Upload:true,upMultiple:1,upImgUrl:"${ctx}/uploadImage.jsp?categoryid=${po.categoryid}"});
+	$('#content').xheditor({html5Upload:true,upMultiple:1,upImgUrl:"${ctx}/uploadImage.jsp?forumid=${po.forumid}"});
 });
 </script>
 </head>
@@ -23,7 +23,7 @@ $(function(){
 		<td class="title">修改</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getPage.htm?id=${po.categoryid}&page=${page}">返回</a>
+			<a class="back" href="getPage.htm?id=${po.forumid}&page=${page}">返回</a>
 		</td>
 	</tr>
 </table>
@@ -51,14 +51,14 @@ $(function(){
 		<td class="form_input"><textarea id="content" name="content" style="width:99%;height:300px;">${po.content}</textarea></td>
 	</tr>
 	<tr>
-		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.img)}" /><label>&nbsp;<input type="checkbox" name="imgtop" value="1" ${po.imgtop == 1?' checked="checked"':''}/>焦点图</label></td>
+		<td class="form_title">链接</td>
+		<td class="form_input"><input type="text" name="url" maxlength="100" style="width:300px;" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">发布</td>
 		<td class="form_input">
-			<label><input type="checkbox" name="pagetop" value="1" ${po.pagetop == 1?' checked="checked"':''}/>首页推荐</label>
-			&nbsp;&nbsp;发布时间：<input type="text" name="releasetime" class="WebDate" format="yyyy-MM-dd HH:mm:ss" value="${fn:escapeXml(po.releasetime)}" />
+			<label><input type="checkbox" name="isessence" value="1" ${po.isessence == 1?' checked="checked"':''} /> 精华</label>
+			&nbsp;&nbsp;<label><input type="checkbox" name="istop" value="1" ${po.istop == 1?' checked="checked"':''} /> 置顶</label>
 		</td>
 	</tr>
 </table>

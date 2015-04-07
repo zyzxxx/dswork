@@ -201,11 +201,6 @@ public class DsBbsForumController extends BaseController
 		return null;
 	}
 
-	/**
-	 * 取出当前登录用户的栏目
-	 * @param excludeId 需要清空指定id的子栏目
-	 * @return List
-	 */
 	private List<DsBbsForum> queryForum(long siteid, long excludeId)
 	{
 		PageRequest rq = getPageRequest();

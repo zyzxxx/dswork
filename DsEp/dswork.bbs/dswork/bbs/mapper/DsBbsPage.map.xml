@@ -21,9 +21,6 @@
 
 	<update id="update" parameterType="dswork.bbs.model.DsBbsPage">
 		update DS_BBS_PAGE set
-			SITEID=#{siteid},
-			FORUMID=#{forumid},
-			USERID=#{userid},
 			TITLE=#{title},
 			URL=#{url},
 			SUMMARY=#{summary},
@@ -34,10 +31,6 @@
 			RELEASEUSER=#{releaseuser},
 			RELEASETIME=#{releasetime},
 			OVERTIME=#{overtime},
-			LASTUSER=#{lastuser},
-			LASTTIME=#{lasttime},
-			NUMPV=#{numpv},
-			NUMHT=#{numht},
 			CONTENT=#{content}
 		where ID=#{id}
 	</update>
@@ -70,24 +63,16 @@
 	
 	<sql id="dynamicWhere">
 		<where>
-			<if test="@Ognl@isNotEmpty(siteid)"> and SITEID like concat('%',#{siteid},'%') </if>
-			<if test="@Ognl@isNotEmpty(forumid)"> and FORUMID like concat('%',#{forumid},'%') </if>
-			<if test="@Ognl@isNotEmpty(userid)"> and USERID like concat('%',#{userid},'%') </if>
-			<if test="@Ognl@isNotEmpty(title)"> and TITLE like concat('%',#{title},'%') </if>
-			<if test="@Ognl@isNotEmpty(url)"> and URL like concat('%',#{url},'%') </if>
-			<if test="@Ognl@isNotEmpty(summary)"> and SUMMARY like concat('%',#{summary},'%') </if>
-			<if test="@Ognl@isNotEmpty(isessence)"> and ISESSENCE like concat('%',#{isessence},'%') </if>
-			<if test="@Ognl@isNotEmpty(istop)"> and ISTOP like concat('%',#{istop},'%') </if>
-			<if test="@Ognl@isNotEmpty(metakeywords)"> and METAKEYWORDS like concat('%',#{metakeywords},'%') </if>
-			<if test="@Ognl@isNotEmpty(metadescription)"> and METADESCRIPTION like concat('%',#{metadescription},'%') </if>
-			<if test="@Ognl@isNotEmpty(releaseuser)"> and RELEASEUSER like concat('%',#{releaseuser},'%') </if>
-			<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME like concat('%',#{releasetime},'%') </if>
-			<if test="@Ognl@isNotEmpty(overtime)"> and OVERTIME like concat('%',#{overtime},'%') </if>
-			<if test="@Ognl@isNotEmpty(lastuser)"> and LASTUSER like concat('%',#{lastuser},'%') </if>
-			<if test="@Ognl@isNotEmpty(lasttime)"> and LASTTIME like concat('%',#{lasttime},'%') </if>
-			<if test="@Ognl@isNotEmpty(numpv)"> and NUMPV like concat('%',#{numpv},'%') </if>
-			<if test="@Ognl@isNotEmpty(numht)"> and NUMHT like concat('%',#{numht},'%') </if>
-			<if test="@Ognl@isNotEmpty(content)"> and CONTENT like concat('%',#{content},'%') </if>
+		SITEID=#{siteid}
+		<if test="@Ognl@isNotEmpty(forumid)"> and FORUMID=#{forumid} </if>
+		<if test="@Ognl@isNotEmpty(keyvalue)">
+			 and TITLE like concat('%',#{keyvalue},'%') 
+			 and METAKEYWORDS like concat('%',#{keyvalue},'%') 
+			 and METADESCRIPTION like concat('%',#{keyvalue},'%') 
+			 and SUMMARY like concat('%',#{keyvalue},'%') 
+			 and CONTENT like concat('%',#{keyvalue},'%') 
+		</if>
+		<if test="@Ognl@isNotEmpty(userid)"> and USERID=#{userid} </if>
 		</where>
 	</sql>
 
@@ -98,6 +83,7 @@
 	<select id="query" resultMap="result">
 		select <include refid="columns" /> from DS_BBS_PAGE
 		<include refid="dynamicWhere" />
+		order by ISTOP desc, ID desc
 	</select>
 
 	<select id="queryCount" resultType="int">

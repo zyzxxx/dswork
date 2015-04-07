@@ -19,9 +19,9 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
+		<td class="title">${fn:escapeXml(po.name)}-主题列表</td>
 		<td class="menuTool">
-			<a class="insert" href="addPage1.htm?categoryid=${po.id}&page=${pageModel.currentPage}">添加</a>
+			<a class="insert" href="addPage1.htm?forumid=${po.id}&page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
@@ -44,8 +44,9 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
 		<td style="width:60%">标题</td>
-		<td style="width:22%">发布时间</td>
-		<td>首页推荐</td>
+		<td style="width:22%">发表时间</td>
+		<td>精华</td>
+		<td>置顶</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
@@ -53,7 +54,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.title)}</td>
 		<td>${fn:escapeXml(d.releasetime)}</td>
-		<td>${d.pagetop == 1 ? "是" : "否"}</td>
+		<td>${d.isessence == 1 ? "是" : "否"}</td>
+		<td>${d.istop == 1 ? "是" : "否"}</td>
 	</tr>
 </c:forEach>
 </table>
