@@ -283,7 +283,7 @@ public class DsBbsForumController extends BaseController
 	{
 		try
 		{
-			return service.getSite(siteid).getOwn().equals(getOwn());
+			return checkOwn(service.getSite(siteid).getOwn());
 		}
 		catch(Exception ex)
 		{

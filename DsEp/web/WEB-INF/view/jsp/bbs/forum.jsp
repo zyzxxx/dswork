@@ -1,86 +1,122 @@
-<%@page language="java" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<!DOCTYPE html>
+<%@page language="java" pageEncoding="UTF-8"
+%><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
+%><%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"
+%><c:set var="ctx" value="${pageContext.request.contextPath}"/><!DOCTYPE html>
 <html>
-<c:if test="${siteid==0}">
 <head>
-<title></title>
-<%@include file="/commons/include/page.jsp" %>
-</head>
-<body>
-<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
-	<tr>
-		<td class="title">版块管理：没有可管理的站点</td>
-	</tr>
-</table>
-</body>
-</c:if>
-
-<c:if test="${siteid>0}">
-<head>
-<title></title>
-<%@include file="/commons/include/page.jsp" %>
-<script type="text/javascript">
-$(function(){
-	$dswork.page.menu("delForum.htm?siteid=${siteid}", "updForum1.htm?siteid=${siteid}", "", "");
-	$("#listFormSave").click(function(){
-		if($jskey.validator.Validate("listForm", $dswork.validValue || 3)){
-			if(confirm("确定保存吗？")){$("#listForm").ajaxSubmit($dswork.doAjaxOption);}
-		}
-	});
-	$("#site").bind("click", function(){
-		if($(this).val()!="${siteid}"){
-			location.href = "getForum.htm?siteid="+$(this).val();
-		}
-	});
-});
-$dswork.doAjax = true;
-$dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getForum.htm?siteid=${siteid}";
-}};
-</script>
+<meta charset="UTF-8" />
+<title>${fn:escapeXml(forum.name)}-${site.name}</title>
+<link rel="stylesheet" href="${ctx}/static/web/web.css" />
+<script type="text/javascript" src="/web/js/jquery/jquery.js"></script>
 <style type="text/css">
-.v{padding-left:3px;}
-.k{padding:0px;margin:0px;}
-.k input{border:none;background-color:transparent;text-align:center;}
+body {overflow-x:hidden;}
+.box {width:100%;line-height:20px;clear:both;}
+.cl {}
+.ct {padding:10px;color:#4CB0E1;font-size:18px;line-height:18px;font-weight:bold;margin-top:15px;}
+.cd {overflow:hidden;}
+.cd .bk {padding:10px;color:#999;}
+.cd dl {float:left;width:200px;padding:10px;border:1px solid #ddd;margin:10px;overflow:hidden;}
+.cd dl:hover {background-color:#ddd;cursor:pointer;}
+.cd dt {font-size:18px;}
+.cd dd {font-size:12px;}
+
+.cc {overflow:hidden;padding:10px;height:70px;}
+.cc div {float:left;}
+.cc div.right {float:right;}
+.cc .isessence, .cc .istop {display:block;width:50px;height:20px;line-height:20px;margin:5px auto;text-align:center;border-radius:3px;}
+.cc .isessence {background-color:#64BB25;color:#fff;}
+.cc .istop {background-color:#ff0000;color:#fff;}
+.cc .msg {float:left;overflow:hidden;margin-left:20px;}
+.cc .msg dl {}
+.cc .msg dt {font-size:18px;line-height:30px;}
+.cc .msg dt:hover {cursor:pointer;text-decoration:underline;}
+.cc .msg dd {font-size:12px;line-height:20px;margin-left:10px;}
+.cc .msg dd label {color:#999999;}
+.cc .red {color:#ff0000;}
+.cc img {width:64px;height:64px;}
+.cc a {color:#2aa8e2;text-decoration:none;}
+.cc a:link{}
+.cc a:visited{}
+.cc a:hover{text-decoration:underline;}
+.cc a:active{}
 </style>
 </head>
 <body>
-<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
-	<tr>
-		<td class="title">版块列表</td>
-		<td class="menuTool">
-			切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
-			&nbsp;
-			<a class="insert" href="addForum1.htm?siteid=${siteid}">添加</a>
-			<a class="save" id="listFormSave" href="#">保存</a>
-		</td>
-	</tr>
-</table>
-<div class="line"></div>
-<form id="listForm" method="post" action="updForumBatch.htm?siteid=${siteid}">
-<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
-	<tr class="list_title">
-		<td style="width:5%">操作</td>
-		<td style="width:6%">排序</td>
-		<td style="width:50%">名称</td>
-		<td style="width:8%">ID</td>
-		<td>状态</td>
-		<%--<td>模板</td>--%>
-	</tr>
-<c:forEach items="${list}" var="d">
-	<tr>
-		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
-		<td><input name="seq" type="text" style="width:30px;" maxlength="4" dataType="Integer" value="${d.seq}" /></td>
-		<td class="v" style="text-align:left;">${d.label}<input name="name" type="text" maxlength="100" dataType="Require" value="${fn:escapeXml(d.name)}" /></td>
-		<td class="k"><input name="keyIndex" type="text" style="width:60px;" readonly="readonly" value="${d.id}" /></td>
-		<td>${fn:escapeXml(d.status==1?"已启用":"已禁用")}</td>
-		<%--<td>${fn:escapeXml(d.viewsite)}</td>--%>
-	</tr>
-</c:forEach>
-</table>
-</form>
-</body>
+<div class="ds"></div>
+<div class="ds ds_top">
+	<div class="left">
+		&nbsp;<a href="index.htm">首页</a> >> <c:if test="${forum.pid >0 && forum.parent.pid >0}"><c:if test="${forum.parent.pid >0 && forum.parent.parent.pid >0}"><a href="forum-${forum.parent.parent.id}-1.htm">${fn:escapeXml(forum.parent.parent.name)}</a> >> </c:if><a href="forum-${forum.parent.id}-1.htm">${fn:escapeXml(forum.parent.name)}</a> >> </c:if><span class="a">${fn:escapeXml(forum.name)}</span>
+	</div>
+	<div class="right">
+		<a href="#">我的轻应用</a>
+		<a href="#">帮助中心</a>
+		&nbsp;
+	</div>
+</div>
+<c:if test="${fn:length(list)>0}">
+<div class="box">
+	<div class="cl">
+		<div class="ct">子版块</div>
+		<div class="line"></div>
+		<div class="cd"><c:forEach items="${list}" var="f">
+			<dl onclick="location.href='forum-${f.id}-1.htm';" id="dl${f.id}">
+				<dt>${fn:escapeXml(f.name)}</dt>
+				<dd>${fn:escapeXml(f.summary)}</dd>
+			</dl>
+		</c:forEach></div>
+	</div>
+</div>
 </c:if>
+<div class="box">
+	<div id="bk${forum.id}" class="cl">
+		<div class="ct">${forum.name}</div>
+		<div class="line"></div>
+		<div class="cd">
+			<div class="bk">
+				主题：<span id="show_zts"></span>
+				&nbsp;
+				帖数：<span id="show_tzs"></span>
+				<br />
+				摘要：${fn:escapeXml(forum.summary)}
+			</div>
+		</div>
+	</div>
+</div>
+<div class="box">
+	<div id="zt${forum.id}" class="cl">
+		<div class="ct">主题</div>
+	</div>
+</div>
+<div class="line"></div>
+<c:forEach items="${pageModel.result}" var="d">
+<div class="box">
+	<div class="cc">
+		<div class="right">
+			${d.istop == 1 ? '<a class="istop">置顶</a>' : ''}
+			${d.isessence == 1 ? '<a class="isessence">精华</a>' : ''}
+		</div>
+		<div>
+			<img src="" />
+		</div>
+		<div class="msg">
+			<dl>
+				<dt${d.istop == 1 ? ' class="red"' : ''}>${fn:escapeXml(d.title)}</dt>
+				<dd>${fn:escapeXml(d.summary)}</dd>
+				<dd>
+					<a href="#">${fn:escapeXml(d.releaseuser)}</a>
+					<label>发表于：</label>${fn:escapeXml(d.releasetime)}&nbsp;
+					<label>浏览：</label>(${fn:escapeXml(d.numpv)})&nbsp;
+					<label>回复：</label>(${fn:escapeXml(d.numht)})&nbsp;
+					<label>最后回复：</label>${fn:escapeXml(d.lasttime)}
+				</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<div class="line"></div>
+</c:forEach>
+<div class="ds ds_copyright">
+	&copy; 2014-2015 skey_chen@163.com
+	&nbsp;&nbsp;<a href="#">帮助中心</a>
+</div>
 </html>

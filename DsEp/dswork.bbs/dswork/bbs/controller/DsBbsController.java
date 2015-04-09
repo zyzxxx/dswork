@@ -1,6 +1,5 @@
 package dswork.bbs.controller;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,122 +19,14 @@ import dswork.bbs.service.DsBbsPageService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
-import dswork.core.util.CollectionUtil;
 
-//@Scope("prototype")
-//@Controller
-//@RequestMapping("/bbs")
+@Scope("prototype")
+@Controller
+@RequestMapping("/bbs")
 public class DsBbsController extends BaseController
 {
 	@Autowired
 	private DsBbsPageService service;
-
-	//添加
-	@RequestMapping("/addDsBbsPage1")
-	public String addDsBbsPage1()
-	{
-		return "/bbs/addDsBbsPage.jsp";
-	}
-	
-	@RequestMapping("/bbs/addDsBbsPage2")
-	public void addDsBbsPage2(DsBbsPage po)
-	{
-		try
-		{
-			service.save(po);
-			print(1);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			print("0:" + e.getMessage());
-		}
-	}
-
-	//删除
-	@RequestMapping("/bbs/delDsBbsPage")
-	public void delDsBbsPage()
-	{
-		try
-		{
-			service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
-			print(1);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			print("0:" + e.getMessage());
-		}
-	}
-
-	//修改
-	@RequestMapping("/bbs/updDsBbsPage1")
-	public String updDsBbsPage1()
-	{
-		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		put("page", req.getInt("page", 1));
-		return "/bbs/updDsBbsPage.jsp";
-	}
-	
-	@RequestMapping("/bbs/updDsBbsPage2")
-	public void updDsBbsPage2(DsBbsPage po)
-	{
-		try
-		{
-			service.update(po);
-			print(1);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-			print("0:" + e.getMessage());
-		}
-	}
-
-	//获得分页
-	@RequestMapping("/bbs/getDsBbsPage")
-	public String getDsBbsPage()
-	{
-		Page<DsBbsPage> pageModel = service.queryPage(getPageRequest());
-		put("pageModel", pageModel);
-		put("pageNav", new PageNav<DsBbsPage>(request, pageModel));
-		return "/bbs/getDsBbsPage.jsp";
-	}
-
-	//明细
-	@RequestMapping("/bbs/getDsBbsPageById")
-	public String getDsBbsPageById()
-	{
-		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		return "/bbs/getDsBbsPageById.jsp";
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Autowired
 	private DsBbsForumService forumService;
 
@@ -146,8 +37,10 @@ public class DsBbsController extends BaseController
 		try
 		{
 			Long id = req.getLong("siteid", 0);
-			put("list", queryForum(id, 0));
-			return "/bbs/forum.jsp";
+			DsBbsSite s = service.getSite(id);
+			put("site", s);
+			put("list", queryForum(querySiteForum(id), 0).getList());
+			return "/bbs/index.jsp";
 		}
 		catch(Exception ex)
 		{
@@ -161,8 +54,19 @@ public class DsBbsController extends BaseController
 	{
 		try
 		{
-			put("list", queryForum(id, 0));
-			return "/bbs/forum/getForum.jsp";
+			DsBbsForum m = service.getForum(id);
+			DsBbsSite s = service.getSite(m.getSiteid());
+			m = queryForum(querySiteForum(m.getSiteid()), id);
+			put("site", s);
+			put("forum", m);
+			put("list", m.getList());
+			PageRequest rq = getPageRequest();
+			rq.getFilters().put("siteid", m.getSiteid());
+			rq.getFilters().put("forumid", m.getId());
+			Page<DsBbsPage> pageModel = service.queryPage(rq);
+			put("pageModel", pageModel);
+			put("pageNav", new PageNav<DsBbsPage>(request, pageModel));
+			return "/bbs/forum.jsp";
 		}
 		catch(Exception ex)
 		{
@@ -170,24 +74,60 @@ public class DsBbsController extends BaseController
 		return null;
 	}
 
-	/**
-	 * 取出当前登录用户的栏目
-	 * @param excludeId 需要清空指定id的子栏目
-	 * @return List
-	 */
-	private List<DsBbsForum> queryForum(long siteid, long pid)
+	private List<DsBbsForum> querySiteForum(long siteid)
 	{
 		PageRequest rq = getPageRequest();
 		rq.getFilters().put("siteid", siteid);
 		List<DsBbsForum> clist = forumService.queryList(rq);
-		List<DsBbsForum> tlist = new ArrayList<DsBbsForum>();
+		Map<Long, DsBbsForum> map = new HashMap<Long, DsBbsForum>();
 		for(DsBbsForum m : clist)
 		{
-			if(m.getPid() == pid && m.getStatus() == 1)
+			map.put(m.getId(), m);
+		}
+		for(DsBbsForum m : clist)
+		{
+			if(m.getPid() > 0 && m.getStatus() == 1)
 			{
-				tlist.add(m);
+				try
+				{
+					DsBbsForum p = map.get(m.getPid());
+					p.add(m);// 放入其余节点对应的父节点
+					m.setParent(p);// 设置自己的父节点
+				}
+				catch(Exception ex)
+				{
+					ex.printStackTrace();// 找不到对应的父栏目
+				}
 			}
 		}
-		return tlist;
+		return clist;
+	}
+
+	private DsBbsForum queryForum(List<DsBbsForum> clist, long pid)
+	{
+		DsBbsForum t = new DsBbsForum();
+		if(pid == 0)
+		{
+			t.setId(0L);
+			for(DsBbsForum m : clist)
+			{
+				if(m.getPid() == 0 && m.getStatus() == 1)
+				{
+					t.add(m);// 只把根节点放入list
+				}
+			}
+			return t;
+		}
+		else
+		{
+			for(DsBbsForum m : clist)
+			{
+				if(m.getId() == pid && m.getStatus() == 1)
+				{
+					return m;
+				}
+			}
+		}
+		return t;
 	}
 }

@@ -58,6 +58,8 @@ public class DsBbsPageController extends BaseController
 				po.setForumid(m.getId());
 				po.setUserid("");
 				po.setReleasetime(TimeUtil.getCurrentTime());
+				po.setLastuser("");
+				po.setLasttime(po.getReleasetime());
 				service.save(po);
 				print(1);
 				return;
@@ -318,7 +320,7 @@ public class DsBbsPageController extends BaseController
 	{
 		try
 		{
-			return service.getSite(siteid).getOwn().equals(getOwn());
+			return checkOwn(service.getSite(siteid).getOwn());
 		}
 		catch(Exception ex)
 		{

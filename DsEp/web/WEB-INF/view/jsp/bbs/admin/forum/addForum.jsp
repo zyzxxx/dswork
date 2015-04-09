@@ -38,6 +38,10 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="" /></td>
 	</tr>
 	<tr>
+		<td class="form_title">摘要</td>
+		<td class="form_input"><input type="text" name="summary" maxlength="100" style="width:400px;" value="" /></td>
+	</tr>
+	<tr>
 		<td class="form_title">排序</td>
 		<td class="form_input"><input type="text" name="seq" maxlength="4" dataType="Integer" value="9999" /></td>
 	</tr>

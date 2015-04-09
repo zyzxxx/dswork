@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_BBS_FORUM
-	(ID, PID, SITEID, NAME, STATUS, SEQ, VIEWSITE)
+	(ID, PID, SITEID, NAME, SUMMARY, STATUS, SEQ, VIEWSITE)
 	values
-	(null, <if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{status}, #{seq}, #{viewsite})
+	(null, <if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{summary}, #{status}, #{seq}, #{viewsite})
 </insert>
 
 <delete id="delete">
@@ -22,6 +22,7 @@
 <update id="update" parameterType="dswork.bbs.model.DsBbsForum">
 	update DS_BBS_FORUM set
 		NAME=#{name},
+		SUMMARY=#{summary},
 		PID=<if test="0==pid">null</if><if test="0 &lt; pid">#{pid}</if>,
 		STATUS=#{status},
 		SEQ=#{seq},
@@ -32,6 +33,7 @@
 <update id="updateBatch" parameterType="dswork.bbs.model.DsBbsForum">
 	update DS_BBS_FORUM set
 		NAME=#{name},
+		SUMMARY=#{summary},
 		SEQ=#{seq}
 	where ID=#{id} and SITEID=#{siteid}
 </update>
@@ -41,13 +43,14 @@
 	<result property="pid" column="PID" />
 	<result property="siteid" column="SITEID" />
 	<result property="name" column="NAME" />
+		<result property="summary" column="SUMMARY" />
 	<result property="status" column="STATUS" />
 	<result property="seq" column="SEQ" />
 	<result property="viewsite" column="VIEWSITE" />
 </resultMap>
 
 <sql id="columns">
-	ID, PID, SITEID, NAME, STATUS, SEQ, VIEWSITE
+	ID, PID, SITEID, NAME, SUMMARY, STATUS, SEQ, VIEWSITE
 </sql>
 
 <sql id="dynamicWhere">
@@ -57,7 +60,6 @@
 			<if test="0 &lt; pid"> and PID=#{pid} </if>
 			<if test="0 &gt;= pid"> and PID is null </if>
 		</if>
-		<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 	</where>
 </sql>

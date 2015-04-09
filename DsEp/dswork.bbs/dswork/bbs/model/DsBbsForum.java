@@ -16,7 +16,9 @@ public class DsBbsForum
 	private Long siteid = 0L;
 	// 栏目名称
 	private String name = "";
-	// 类型(0列表，1单页，2外链)
+	// 摘要
+	private String summary = "";
+	// 状态(1启用,0禁用)
 	private Integer status = 0;
 	// 排序
 	private Integer seq = 0;
@@ -24,6 +26,8 @@ public class DsBbsForum
 	private String viewsite = "";
 	// 子栏目
 	private List<DsBbsForum> list = new ArrayList<DsBbsForum>();
+	// 父栏目
+	private DsBbsForum parent = null;
 	// 级别（管理时扩展显示）
 	private int level = 0;
 	// 树形标识（管理时扩展显示）
@@ -69,6 +73,16 @@ public class DsBbsForum
 		this.name = name;
 	}
 
+	public String getSummary()
+	{
+		return summary;
+	}
+
+	public void setSummary(String summary)
+	{
+		this.summary = summary;
+	}
+
 	public Integer getStatus()
 	{
 		return status;
@@ -112,6 +126,16 @@ public class DsBbsForum
 	public void add(DsBbsForum item)
 	{
 		this.list.add(item);
+	}
+
+	public DsBbsForum getParent()
+	{
+		return parent;
+	}
+
+	public void setParent(DsBbsForum parent)
+	{
+		this.parent = parent;
 	}
 
 	public int getLevel()
