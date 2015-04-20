@@ -13,7 +13,6 @@ public class PageNav<T>
 	private Page<T> page;
 	private boolean isOutForm = false;
 	private static String PAGEFORMID = "jskeyPageForm";
-	private String formId = PAGEFORMID;
 	private String formString = "";
 	private static int[] sizeArray = {5, 10, 15, 20, 25, 30, 50};
 
@@ -25,15 +24,15 @@ public class PageNav<T>
 	public PageNav(HttpServletRequest request, Page<T> page)
 	{
 		this.page = page;
-		formId = formId + System.currentTimeMillis();
 		String pageName = page.getPageName();
 		String pageSizeName = page.getPageSizeName();
+		String formId = PAGEFORMID + pageName;
 		try
 		{
-			StringBuilder sb = new StringBuilder("<script language=\"javascript\">if(typeof($jskey)!=\"object\"){$jskey={};}$jskey.page={go:function(formID,page){page=parseInt(page)||1;page=(page<1)?1:page;document.getElementById(formID+\"_page\").value=page;document.getElementById(formID).submit();}};</script>\n");
-			sb.append("<form id=\"").append(formId).append("\" method=\"post\" style=\"display:none;\" action=\"").append(request.getRequestURI().toString()).append("\">");
+			StringBuilder sb = new StringBuilder("<script language=\"javascript\">if(typeof($jskey)!=\"object\"){$jskey={};}$jskey.page={go:function(pn,page,pagesize){pn = \"" + PAGEFORMID + "\" + pn;page=parseInt(page)||1;page=(page<1)?1:page;document.getElementById(pn + \"_page\").value=page; pagesize=parseInt(pagesize||" + page.getPageSize() + ")||10;pagesize=(pagesize<1)?10:pagesize;document.getElementById(pn + \"_pagesize\").value=pagesize;document.getElementById(pn).submit();}};</script>\n");
+			sb.append("<form id=\"").append(formId).append("\" method=\"post\" style=\"display:none;\" action=\"").append(request.getRequestURI().toString()).append("\">\n");
 			sb.append("<input id=\"").append(formId).append("_page\" name=\"").append(pageName).append("\" type=\"hidden\" value=\"1\"/>\n");
-			sb.append("<input id=\"").append(formId).append("_pageSize\" name=\"").append(page.getPageSizeName()).append("\" type=\"hidden\" value=\"").append(page.getPageSize()).append("\"/>\n");
+			sb.append("<input id=\"").append(formId).append("_pagesize\" name=\"").append(pageSizeName).append("\" type=\"hidden\" value=\"").append(page.getPageSize()).append("\"/>\n");
 
 			@SuppressWarnings("all")
 			Enumeration e = request.getParameterNames();
@@ -114,22 +113,22 @@ public class PageNav<T>
 		}
 		if(isShowLink)
 		{
-			sb.append("<a class=\"first\"" + ((page.getTotalPage() > 1 && page.getCurrentPage() > 1) ? " onclick=\"$jskey.page.go('" + formId+ "', '1');return false;\" href=\"#\"" : "") + ">首页</a>&nbsp;");
-			sb.append("<a class=\"prev\"" + ((page.isHasPreviousPage()) ? " onclick=\"$jskey.page.go('" + formId+ "', '" + page.getPreviousPage() + "');return false;\" href=\"#\"" : "") + ">上页</a>&nbsp;");
-			sb.append("<a class=\"next\"" + ((page.isHasNextPage()) ? " onclick=\"$jskey.page.go('" + formId+ "', '" + page.getNextPage() + "');return false;\" href=\"#\"" : "") + ">下页</a>&nbsp;");
-			sb.append("<a class=\"last\"" + ((page.getTotalPage() > 1 && page.getCurrentPage() < page.getTotalPage()) ? " onclick=\"$jskey.page.go('" + formId+ "', '" + page.getTotalPage() + "');return false;\" href=\"#\"" : "") + ">尾页</a>&nbsp;");
+			sb.append("<a class=\"first\"" + ((page.getTotalPage() > 1 && page.getCurrentPage() > 1) ? " onclick=\"$jskey.page.go('" + page.getPageName()+ "', '1');return false;\" href=\"#\"" : "") + ">首页</a>&nbsp;");
+			sb.append("<a class=\"prev\"" + ((page.isHasPreviousPage()) ? " onclick=\"$jskey.page.go('" + page.getPageName()+ "', '" + page.getPreviousPage() + "');return false;\" href=\"#\"" : "") + ">上页</a>&nbsp;");
+			sb.append("<a class=\"next\"" + ((page.isHasNextPage()) ? " onclick=\"$jskey.page.go('" + page.getPageName()+ "', '" + page.getNextPage() + "');return false;\" href=\"#\"" : "") + ">下页</a>&nbsp;");
+			sb.append("<a class=\"last\"" + ((page.getTotalPage() > 1 && page.getCurrentPage() < page.getTotalPage()) ? " onclick=\"$jskey.page.go('" + page.getPageName()+ "', '" + page.getTotalPage() + "');return false;\" href=\"#\"" : "") + ">尾页</a>&nbsp;");
 		}
 		if(isShowJump || isShowJumpSize)
 		{
 			i = (i > 888L)?(0L):(i+1);
-			String pid = formId + "_go" + i;
+			String pid = PAGEFORMID + page.getPageName() + "_go" + i;
 			if(isShowJump)
 			{
-				sb.append("转到第 <input type=\"text\" class=\"input\" id=\"").append(pid).append("\" /> 页 ").append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.page.go('").append(formId).append("', document.getElementById('").append(pid).append("').value);\" />");
+				sb.append("转到第 <input type=\"text\" class=\"input\" id=\"").append(pid).append("\" value=\"").append(page.getCurrentPage()).append("\" /> 页 ").append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.page.go('").append(page.getPageName()).append("', document.getElementById('").append(pid).append("').value);\" />");
 			}
 			if(isShowJumpSize)
 			{
-				sb.append(" <select id=\"").append(pid).append("_s").append("\" onchange=\"document.getElementById(\'").append(formId).append("_pageSize\').value=this.value;$jskey.page.go('" + formId+ "',1);\">");
+				sb.append(" <select onchange=\"$jskey.page.go('" + page.getPageName()+ "',1, this.value);\">");
 				for(int j : sizeArray)
 				{
 					sb.append("<option value=\"").append(j).append((page.getPageSize() == j)?"\" selected=\"selected\">":"\">").append(j).append("</option>");
