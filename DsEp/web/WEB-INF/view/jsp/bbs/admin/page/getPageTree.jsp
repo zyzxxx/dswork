@@ -28,7 +28,7 @@ $dswork.ztree.click = function(){
 	var node = $dswork.ztree.getSelectedNode();
 	if(!node.isParent)
 	{
-		if(node.status == 1){
+		if(node.status == 1 && node.pid > 0){
 			attachUrl("getPage.htm?id=" + node.id);
 			return false;
 		}
@@ -37,6 +37,7 @@ $dswork.ztree.click = function(){
 	return false;
 };
 $(function(){
+	alert("");
 	var v = [];
 	<c:forEach items="${list}" var="d">
 	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "status":"${d.status}"});

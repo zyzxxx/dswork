@@ -10,7 +10,7 @@
 <script type="text/javascript" src="/web/js/jquery/jquery.js"></script>
 <style type="text/css">
 body {overflow-x:hidden;}
-.box {width:100%;line-height:20px;clear:both;}
+.box {width:800px;margin:0 auto;line-height:20px;clear:both;}
 .cl {}
 .ct {padding:10px;color:#4CB0E1;font-size:18px;line-height:18px;font-weight:bold;margin-top:15px;}
 .cd {overflow:hidden;}
@@ -73,9 +73,9 @@ body {overflow-x:hidden;}
 		<div class="line"></div>
 		<div class="cd">
 			<div class="bk">
-				主题：<span id="show_zts"></span>
+				主题：(<span id="show_zts"></span>)
 				&nbsp;
-				帖数：<span id="show_tzs"></span>
+				帖数：(<span id="show_tzs"></span>)
 				<br />
 				摘要：${fn:escapeXml(forum.summary)}
 			</div>
@@ -86,18 +86,11 @@ body {overflow-x:hidden;}
 	<div id="zt${forum.id}" class="cl">
 		<div class="ct">主题</div>
 	</div>
+	<div class="line"></div>
 </div>
-<div class="line"></div>
 <c:forEach items="${pageModel.result}" var="d">
 <div class="box">
 	<div class="cc">
-		<div class="right">
-			${d.istop == 1 ? '<a class="istop">置顶</a>' : ''}
-			${d.isessence == 1 ? '<a class="isessence">精华</a>' : ''}
-		</div>
-		<div>
-			<img src="" />
-		</div>
 		<div class="msg">
 			<dl>
 				<dt${d.istop == 1 ? ' class="red"' : ''}>${fn:escapeXml(d.title)}</dt>
@@ -111,9 +104,13 @@ body {overflow-x:hidden;}
 				</dd>
 			</dl>
 		</div>
+		<div class="right">
+			${d.istop == 1 ? '<a class="istop">置顶</a>' : ''}
+			${d.isessence == 1 ? '<a class="isessence">精华</a>' : ''}
+		</div>
 	</div>
+	<div class="line"></div>
 </div>
-<div class="line"></div>
 </c:forEach>
 <div class="ds ds_copyright">
 	&copy; 2014-2015 skey_chen@163.com
