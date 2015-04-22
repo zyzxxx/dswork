@@ -4,7 +4,7 @@ function init(){for(var i=0;i<m.length;i++){
 	var o=$(m[i].id);
 	o.d=m[i];
 	o.s=$(o.d.s);
-	o.onfocus=function(){this.s.innerHTML="";};
+	o.onfocus=function(){this.s.innerHTML="&nbsp;";};
 	o.onblur=function(){docheck(this);};
 }}
 function docheck(o){

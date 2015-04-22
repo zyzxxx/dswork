@@ -7,7 +7,7 @@
 <script type="text/javascript">
 var m = [
 	{id:"account",s:"v1",v:"账号\/邮箱不能为空",c:/\S+/}
-	,{id:"authcode",s:"v2",v:"验证码输入错误",c:/[^\s]{4}/}
+	,{id:"authcode",s:"v2",v:"输入错误",c:/[^\s]{4}/}
 ];
 </script>
 </head>
@@ -16,12 +16,13 @@ var m = [
 <div class="view">
 <form id="v" action="pwdEpAction.jsp" method="post">
 <div class="login">
-	<div class="box"><span id="v1"></span><div class="vbox">
-		　账号<input type="text" placeholder="账号/邮箱" title="账号/邮箱" id="account" name="account" value="" />
+	<div class="box"><div class="vbox">
+		<span id="v1"></span>&nbsp;　　账号<input type="text" title="账号/邮箱" id="account" name="account" value="" />
 	</div></div>
-	<div class="box"><span id="v2"></span><div class="vbox">
-		验证码<input type="text" placeholder="验证码" id="authcode" name="authcode" maxlength="4" class="code" value="" />
-		<img src="../ValidCode?width=90&height=38" onclick="this.src='../ValidCode?width=90&height=38&id=' + Math.random();" />
+	<div class="box"><div class="vbox">
+		<span class="code"><img src="../ValidCode?width=90&height=38" onclick="this.src='../ValidCode?width=90&height=38&id=' + Math.random();" /></span>
+		<span id="v2" style="width:17%;">&nbsp;</span>
+		&nbsp;　验证码<input type="text" id="authcode" name="authcode" placeholder="验证码" maxlength="4" class="code" value="" />
 	</div></div>
 	<div class="box">
 		<input type="button" class="button" value="提交" onclick="doclick()" />
