@@ -1,20 +1,20 @@
 html,body{height:100%;margin:0px auto;}*{padding:0;margin:0;font-family:Arial,"宋体";}
-div, input, a{font-weight:bold;font-size:22px;line-height:38px;}
+div, input, a{font-weight:bold;font-size:20px;line-height:36px;}
 div, input{color:#333333;}
 a{text-decoration:none;outline:none;}
 a:link,a:visited,a:active{color:#0000ff;outline:none;}
 a:hover{color:#205e92;color:#0000ff;text-decoration:underline;}
-span {color:#ff0000;font-size:14px;line-height:40px;width:35%;text-align:left;float:right;}
-div.title {background-color:#0090da;color:#ffffff;font-size:36px;font-weight:bold;text-align:center;padding:50px 0px;border-bottom:solid #ccc 1px;}
+span {color:#ff0000;font-size:14px;line-height:40px;width:40%;text-align:left;float:right;}
+div.title {background-color:#0090da;color:#ffffff;font-size:36px;font-weight:bold;text-align:center;padding:50px 0px;border-bottom:solid #ccc 1px;min-width:500px;}
 div.view {background-color:#f1f9fe;width:100%;padding:20px 0 60px 0;}
-div.login{width:600px;padding:0px;margin:0px auto;overflow:hidden;}/*border:#ccc solid 1px;border-radius:10px;*/
+div.login{width:500px;padding:0px;margin:0px auto;overflow:hidden;}/*border:#ccc solid 1px;border-radius:10px;*/
 div.box{width:90%;margin:15px auto;text-align:left;border:none;clear:both;}
 
 body {background-color:#f1f9fe;}
 .vbox{width:100%;background-color:#fff;border:#cccccc solid 1px;padding:5px 0px;overflow:hidden;vertical-align:middle;}
-.vbox input{background-color:#fff;width:38%;height:38px;margin-left:8px;padding-left:8px;border:none;border-left:#cccccc solid 1px;vertical-align:middle;}
+.vbox input{background-color:#fff;width:35%;height:36px;margin-left:8px;padding-left:8px;border:none;border-left:#cccccc solid 1px;vertical-align:middle;}
 .vbox input.code{width:20%;}
-.vbox span.code {width:18%;}
+.vbox span.code {width:23%;}
 .vbox img {border:none;cursor:pointer;vertical-align:middle;}
 
 .button{float:right;width:30%;margin-left:35%;border:#0090da solid 1px;height:50px;line-height:50px;border:none;background-color:#0090da;color:#ffffff;cursor:pointer;vertical-align:middle;}
