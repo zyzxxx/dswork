@@ -7,3 +7,5 @@
 	如：dswork.jdbc.drivers=com.mysql.jdbc.Driver,org.sqlite.JDBC
 	log4j.properties的日志输出使用“log4j.logger.jdbc.sqlonly”进行日志输出控制，兼容回log4jdbc的写法（只有jdbc.sqlonly一个）
 	最后，可以去掉spring数据源配置文件中的两个bean：log4jdbcInterceptor和dataSourceLog4jdbcAutoProxyCreator
+2015-04-28
+	修改了dswork.web下的MyCookie类，增加了secure和httponly属性，但httponly是servlet3.0的东西，所以该包不能部署在tomcat6下了（如果需要则使用特配文件dswork.web_servlet2.5.jar）

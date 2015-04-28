@@ -41,7 +41,7 @@ public class MyCookie
 	 */
 	public void addCookie(String name, String value)
 	{
-		addCookie(name, value, -1, "/", null);
+		addCookie(name, value, -1, "/", null, false, false);
 	}
 
 	/**
@@ -52,7 +52,7 @@ public class MyCookie
 	 */
 	public void addCookie(String name, String value, int maxAge)
 	{
-		addCookie(name, value, maxAge, "/", null);
+		addCookie(name, value, maxAge, "/", null, false, false);
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class MyCookie
 	 */
 	public void addCookie(String name, String value, int maxAge, String path)
 	{
-		addCookie(name, value, maxAge, path, null);
+		addCookie(name, value, maxAge, path, null, false, false);
 	}
 
 	/**
@@ -77,13 +77,30 @@ public class MyCookie
 	 */
 	public void addCookie(String name, String value, int maxAge, String path, String domain)
 	{
+		addCookie(name, value, maxAge, path, domain, false, false);
+	}
+
+	/**
+	 * 往客户端写入Cookie
+	 * @param name cookie参数名
+	 * @param value cookie参数值
+	 * @param maxAge 有效时间，int(单位秒)，0:删除Cookie，-1:页面关闭时删除cookie
+	 * @param path 与cookie一起传输的虚拟路径
+	 * @param domain 与cookie关联的域
+	 * @param isSecure 是否在https请求时才进行传输
+	 * @param isHttpOnly 是否只能通过http访问
+	 */
+	public void addCookie(String name, String value, int maxAge, String path, String domain, boolean isSecure, boolean isHttpOnly)
+	{
 		Cookie cookie = new Cookie(name, value);
 		cookie.setMaxAge(maxAge);
 		cookie.setPath(path);
-		if(domain != null)
+		if(maxAge > 0 && domain != null)
 		{
 			cookie.setDomain(domain);
 		}
+		cookie.setSecure(isSecure);
+		cookie.setHttpOnly(isHttpOnly);
 		response.addCookie(cookie);
 	}
 
