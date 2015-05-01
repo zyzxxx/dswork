@@ -13,7 +13,7 @@ public class UniqueId
 	 * 根据时间戳产生一个唯一ID，具有防止重复机制
 	 * @return long
 	 */
-	public synchronized static long genId() throws Exception
+	public synchronized static long genId()
 	{
 		long id = 0;
 		do
