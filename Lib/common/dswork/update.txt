@@ -9,3 +9,5 @@
 	最后，可以去掉spring数据源配置文件中的两个bean：log4jdbcInterceptor和dataSourceLog4jdbcAutoProxyCreator
 2015-04-28
 	修改了dswork.web下的MyCookie类，增加了secure和httponly属性，但httponly是servlet3.0的东西，所以该包不能部署在tomcat6下了（如果需要则使用特配文件dswork.web_servlet2.5.jar）
+2015-05-01
+	修改了dswork.web下的MyCookie类，通过反射判断是否存在setHttpOnly方法，存在则调用，不存在则忽略，用于兼容servlet2.5

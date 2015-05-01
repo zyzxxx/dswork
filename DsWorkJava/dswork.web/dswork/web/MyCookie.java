@@ -100,7 +100,15 @@ public class MyCookie
 			cookie.setDomain(domain);
 		}
 		cookie.setSecure(isSecure);
-		cookie.setHttpOnly(isHttpOnly);
+		try
+		{
+			Cookie.class.getMethod("setHttpOnly", boolean.class);
+			cookie.setHttpOnly(isHttpOnly);
+		}
+		catch(Exception e)
+		{
+			System.out.println("MyCookie ignore setHttpOnly Method");
+		}
 		response.addCookie(cookie);
 	}
 
