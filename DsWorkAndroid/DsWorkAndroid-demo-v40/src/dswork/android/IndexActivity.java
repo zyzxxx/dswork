@@ -33,7 +33,6 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 		super.onCreate(savedInstanceState);
 		initIndexView();//初始化主界面
 		initPoints();//初始化指示小圆点
-		System.out.println("hi");
 	}
 
 	//初始化主界面
