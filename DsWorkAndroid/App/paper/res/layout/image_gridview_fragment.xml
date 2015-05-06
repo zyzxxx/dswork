@@ -1,0 +1,33 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:background="@color/white"
+    tools:context="com.paper.MainActivity$PlaceholderFragment" >
+    
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_ly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+		<dswork.android.lib.core.ui.MoreGridView 
+			android:id="@+id/image_wall"
+			android:layout_height="fill_parent"
+			android:layout_width="fill_parent"
+			android:numColumns="2"
+			android:verticalSpacing="1dp"
+			android:horizontalSpacing="1dp"
+			android:columnWidth="100dp"
+			android:stretchMode="columnWidth"
+			android:gravity="fill"/>
+	</android.support.v4.widget.SwipeRefreshLayout>
+    
+    <TextView 
+        android:id="@+id/page"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        android:text="1"/>
+</FrameLayout>
