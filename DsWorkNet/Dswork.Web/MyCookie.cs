@@ -83,7 +83,7 @@ namespace Dswork.Web
 		/// <param name="value">cookie参数值</param>
 		public void AddCookie(String name, String value)
 		{
-			AddCookie(name, value, -1, "/", null);
+			AddCookie(name, value, -1, "/", null, false, false);
 			//AddCookie(name, value, -1, HttpRuntime.AppDomainAppVirtualPath);
 			//AddCookie(name, value, -1, request.ApplicationPath);
 		}
@@ -96,7 +96,7 @@ namespace Dswork.Web
 		/// <param name="maxAge">有效时间，int(单位秒)，0:删除Cookie，-1:页面关闭时删除cookie</param>
 		public void AddCookie(String name, String value, int maxAge)
 		{
-			AddCookie(name, value, maxAge, "/", null);
+			AddCookie(name, value, maxAge, "/", null, false, false);
 		}
 
 		/// <summary>
@@ -108,7 +108,7 @@ namespace Dswork.Web
 		/// <param name="path">与cookie一起传输的虚拟路径</param>
 		public void AddCookie(String name, String value, int maxAge, String path)
 		{
-			AddCookie(name, value, maxAge, path, null);
+			AddCookie(name, value, maxAge, path, null, false, false);
 		}
 
 		/// <summary>
@@ -120,14 +120,7 @@ namespace Dswork.Web
 		/// <param name="path">与cookie一起传输的虚拟路径</param>
 		public void AddCookie(String name, String value, int maxAge, String path, String domain)
 		{
-			HttpCookie cookie = new HttpCookie(name, value);
-			cookie.Expires = DateTime.Now.AddSeconds(maxAge);
-			cookie.Path = path;
-			if(domain != null)
-			{
-				cookie.Domain = domain;
-			}
-			AddCookie(cookie);
+			AddCookie(name, value, maxAge, path, domain, false, false);
 		}
 
 		/// <summary>
@@ -135,17 +128,21 @@ namespace Dswork.Web
 		/// </summary>
 		/// <param name="name">cookie参数名</param>
 		/// <param name="value">cookie参数值</param>
-		/// <param name="dt">有效时间，DateTime</param>
+		/// <param name="maxAge">有效时间，int(单位秒)，0:删除Cookie，-1:页面关闭时删除cookie</param>
 		/// <param name="path">与cookie一起传输的虚拟路径</param>
-		public void AddCookie(String name, String value, DateTime dt, String path, String domain)
+		/// <param name="isSecure">是否在https请求时才进行传输</param>
+		/// <param name="isHttpOnly">是否只能通过http访问</param>
+		public void AddCookie(String name, String value, int maxAge, String path, String domain, Boolean isSecure, Boolean isHttpOnly)
 		{
 			HttpCookie cookie = new HttpCookie(name, value);
-			cookie.Expires = dt;
+			cookie.Expires = DateTime.Now.AddSeconds(maxAge);
 			cookie.Path = path;
-			if(domain != null)
+			if (maxAge > 0 && domain != null)
 			{
 				cookie.Domain = domain;
 			}
+			cookie.Secure = isSecure;
+			cookie.HttpOnly = isHttpOnly;
 			AddCookie(cookie);
 		}
 
@@ -155,7 +152,7 @@ namespace Dswork.Web
 		/// <param name="name">cookie参数名</param>
 		public void DelCookie(String name)
 		{
-			AddCookie(name, "", DateTime.Now.AddSeconds(-1), "/", null);
+			AddCookie(name, "", -1, "/", null);
 		}
 
 		/// <summary>
