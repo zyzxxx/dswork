@@ -1,0 +1,1 @@
+MQAPI.jar必须基于jdk1.7
