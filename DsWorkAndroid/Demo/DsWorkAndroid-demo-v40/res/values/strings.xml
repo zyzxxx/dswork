@@ -74,11 +74,20 @@
 
     <!-- server url -->
     <string name="projPath">http://192.168.11.24:8087/DemoJava</string>
+
     <!-- database sql -->
     <string-array name="createTableSql">
         <item>CREATE TABLE person(id INTEGER PRIMARY KEY AUTOINCREMENT,name VARCHAR(2),phone VARCHAR(12) NULL, amount VARCHAR(20) NULL, sortkey VARCHAR NULL)</item>
     </string-array>
-    <string-array name="updateTableSql">
+    <string-array name="upgradeTableSql">
+        <item></item>
+    </string-array>
+
+    <!-- database sql downloadone-->
+    <string-array name="downloadone_createTableSql">
+        <item>CREATE TABLE thread_info(id INTEGER PRIMARY KEY AUTOINCREMENT, thread_id integer, url text, start integer, end integer, finished integer)</item>
+    </string-array>
+    <string-array name="downloadone_upgradeTableSql">
         <item></item>
     </string-array>
 

@@ -1,9 +1,5 @@
 package dswork.android;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
@@ -16,6 +12,11 @@ import android.support.v4.view.ViewPager.SimpleOnPageChangeListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 import dswork.android.lib.core.ui.PosPoint;
 import dswork.android.lib.core.util.WorkUtil;
 
@@ -154,7 +155,7 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.alphabet, R.drawable.ic_launcher, "alphabet", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.AlphabetActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.PullToRefresh, R.drawable.ic_launcher, "PullToRefresh", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.PullToRefreshActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.SwipeRefreshLayout, R.drawable.ic_launcher, "SwipeRefreshLayout", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.SwipeRefreshActivity",false, null, null, null));
-			WorkUtil.addShortcut(getActivity(), rootView, R.id.DownloadOne, R.drawable.ic_launcher, "DownloadOne", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.DownloadOneActivity",false, null, null, null));
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.DownloadOne, R.drawable.ic_launcher, "DownloadOne", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.downloadone.DownloadOneActivity",false, null, null, null));
 			return rootView;
 		}
 	}

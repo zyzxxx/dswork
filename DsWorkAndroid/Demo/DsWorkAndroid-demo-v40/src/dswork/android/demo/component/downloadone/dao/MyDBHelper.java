@@ -1,7 +1,8 @@
-package dswork.android.demo.framework.app.single.dao;
+package dswork.android.demo.component.downloadone.dao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import dswork.android.R;
 import dswork.android.lib.core.db.BaseDBHelper;
 import dswork.android.lib.core.db.DBOpenHelper;
@@ -18,8 +19,8 @@ public class MyDBHelper extends BaseDBHelper
 	@Override
 	protected SQLiteOpenHelper initDBHelper()
 	{
-		return new DBOpenHelper(context, "demo.db", null, 2, 
-			context.getResources().getStringArray(R.array.createTableSql), 
-			context.getResources().getStringArray(R.array.upgradeTableSql));
+		return new DBOpenHelper(context, "downloadone.db", null, 1,
+			context.getResources().getStringArray(R.array.downloadone_createTableSql),
+			context.getResources().getStringArray(R.array.downloadone_upgradeTableSql));
 	}
 }

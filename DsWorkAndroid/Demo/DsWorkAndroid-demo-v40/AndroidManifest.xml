@@ -11,8 +11,10 @@
     <!-- 访问internet权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 改变配置信息 -->
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" >
-    </uses-permission>
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- 测试 -->
     <instrumentation
@@ -98,7 +100,7 @@
             android:label="@string/title_activity_swipe_refresh" >
         </activity>
         <activity
-            android:name="dswork.android.demo.component.DownloadOneActivity"
+            android:name=".demo.component.downloadone.DownloadOneActivity"
             android:label="@string/title_activity_download_one" >
         </activity>
         <!-- webAppDemo -->
@@ -154,6 +156,11 @@
         <!-- 测试 -->
         <uses-library android:name="android.test.runner" />
 
+        <service
+            android:name=".demo.component.downloadone.DownloadService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>
