@@ -1,8 +1,20 @@
 package dswork.android.lib.core.util.webutil;
 
-import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+import android.widget.ImageView;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -11,19 +23,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
-import android.util.Log;
-import android.widget.ImageView;
-import com.android.volley.AuthFailureError;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
+
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class HttpUtil
 {
@@ -76,6 +79,7 @@ public class HttpUtil
 				{
 					o.setData((T) resp.getEntity().getContent());
 				}
+				o.setContentLength(resp.getEntity().getContentLength());
 				o.setSuc(true);
 				o.setSucMsg("请求成功："+resp.getStatusLine().getStatusCode());
 				System.out.println("请求成功："+resp.getStatusLine().getStatusCode());

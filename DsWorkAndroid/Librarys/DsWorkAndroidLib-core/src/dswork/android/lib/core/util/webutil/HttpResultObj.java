@@ -1,14 +1,12 @@
 package dswork.android.lib.core.util.webutil;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class HttpResultObj<T>
 {
 	private boolean suc;
 	private String sucMsg;
 	private String errMsg;
 	private T data;
+	private long contentLength;
 //	private Map<String,String> dataMap = new HashMap<String, String>();
 	
 	public boolean isSuc()
@@ -43,7 +41,9 @@ public class HttpResultObj<T>
 	{
 		this.data = data;
 	}
-//	public Map<String, String> getDataMap()
+	public long getContentLength() {return contentLength;}
+	public void setContentLength(long contentLength) {this.contentLength = contentLength;}
+	//	public Map<String, String> getDataMap()
 //	{
 //		return dataMap;
 //	}

@@ -80,7 +80,18 @@ public abstract class BaseDao<T, PK extends Serializable>
 	 */
 	public void add(String sql, Object...values)
 	{
-		getWritableDb().execSQL(sql,values);
+		getWritableDb().execSQL(sql, values);
+	}
+
+	/**
+	 * 删除记录
+	 * @param table 表名
+	 * @param whereClause where条件(如："id=? and name=?")
+	 * @param whereArgs where条件参数数组，数组长度需跟where条件的?号个数对应（如：new String[]{"001","张三"}）
+	 */
+	public void delete(String table, String whereClause, String[] whereArgs)
+	{
+		getWritableDb().delete(table, whereClause, whereArgs);
 	}
 	/**
 	 * 删除记录
