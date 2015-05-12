@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 
-<c:if test="${siteid==0}">
+<c:if test="${siteid<0}">
 <head>
 <title></title>
 <%@include file="/commons/include/page.jsp" %>
@@ -17,7 +17,7 @@
 </body>
 </c:if>
 
-<c:if test="${siteid>0}">
+<c:if test="${siteid>=0}">
 <head>
 	<title></title>
 	<%@include file="/commons/include/page.jsp"%>
