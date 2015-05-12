@@ -303,7 +303,8 @@ public class DsCmsPageController extends BaseController
 		try
 		{
 			DsCmsSite site = service.getSite(siteid);
-			if(checkOwn(site.getOwn()))
+			site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
+			if(site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 			{
 				String path = "http://" + request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
 				if(pageid > 0)// 生成内容页
@@ -373,8 +374,13 @@ public class DsCmsPageController extends BaseController
 					{
 						for(DsCmsCategory c : list)
 						{
-							java.io.File file = new java.io.File(getCmsRoot() + "/html/" + site.getFolder() + "/" + c.getFolder());
-							if(file != null && file.exists())
+							if(c.getStatus() == 2)
+							{
+								continue;
+							}
+							// 这部分处理不当，全把整个站点的都删除的
+							java.io.File file = new java.io.File(getCmsRoot() + "/html/" + site.getFolder() + "/html/" + c.getFolder());
+							if(c.getFolder() != null && c.getFolder().trim().length() > 0 && file != null && file.exists())
 							{
 								for(java.io.File f : file.listFiles())
 								{
@@ -383,10 +389,6 @@ public class DsCmsPageController extends BaseController
 										FileUtil.delete(f.getPath());// 清空目录
 									}
 								}
-							}
-							if(c.getStatus() == 2)
-							{
-								continue;
 							}
 							Map<String, Object> map = new HashMap<String, Object>();
 							map.put("siteid", site.getId());
@@ -441,7 +443,8 @@ public class DsCmsPageController extends BaseController
 			// java.net.URLConnection conn = url.openConnection();
 			// conn.setRequestProperty("Cookie", cookie);
 			// conn.connect();
-			FileUtil.writeFile(getCmsRoot() + savepath.replaceFirst(request.getContextPath(), ""), url.openStream(), true);
+			String p = getCmsRoot() + savepath.replaceFirst(request.getContextPath(), "");
+			FileUtil.writeFile(p, url.openStream(), true);
 		}
 		catch(Exception ex)
 		{
