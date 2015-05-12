@@ -192,7 +192,7 @@ public class DsCmsPageController extends BaseController
 					siteid = siteList.get(0).getId();
 				}
 			}
-			if(siteid > 0)
+			if(siteid >= 0)
 			{
 				put("list", queryCategory(siteid));
 			}
