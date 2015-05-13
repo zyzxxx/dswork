@@ -77,7 +77,6 @@ $(function(){
 	});
 	$("#btn_page").bind("click", function(){
 		var m = $("#category").find("option:selected");
-		alert(m.val());
 		if(confirm("是否生成栏目\"" + m.text() + "\"内容")){
 			$.post("build.htm",{"siteid":"${siteid}", "categoryid":m.val(), "pageid":"0"},function(data){
 				$dswork.doAjaxShow(data, function(){
