@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>${site.name}</title>
+<link rel="stylesheet" type="text/css" href="/web/js/easyui/themes/default/easyui.css" />
 </head>
 <body>ss
 </body>
