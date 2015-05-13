@@ -297,131 +297,151 @@ public class DsCmsPageController extends BaseController
 	@RequestMapping("/build")
 	public void build()
 	{
-		Long siteid = req.getLong("siteid");
+		Long siteid = req.getLong("siteid", -1);
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
 		try
 		{
-			DsCmsSite site = service.getSite(siteid);
-			site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
-			if(site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+			if(siteid >= 0)
 			{
-				String path = "http://" + request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
-				if(pageid > 0)// 生成内容页
+				DsCmsSite site = service.getSite(siteid);
+				if(site != null)
 				{
-					DsCmsPage p = service.get(pageid);
-					if(p.getSiteid() == siteid)
-					{
-						buildFile(path + "&pageid=" + p.getId(), p.getUrl());
-					}
+					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				else if(pageid == -1)
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 				{
-					List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
-					if(categoryid == 0)// 生成全部栏目页
+					String path = "http://" + request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
+					//生成首页：categoryid==-1，pageid==-1
+					//生成全部栏目：categoryid==0，pageid==-1
+					//生成指定栏目：categoryid>0，pageid==-1
+					//生成全部内容：categoryid==0，pageid==0
+					//生成栏目内容：categoryid>0，pageid==0
+					//生成指定内容：pageid>0
+					if(pageid > 0)// 生成内容页
 					{
-						list = service.queryListCategory(siteid);
-					}
-					else if(categoryid > 0)// 生成指定栏目页
-					{
-						DsCmsCategory c = service.getCategory(categoryid);
-						list.add(c);
-					}
-					if(categoryid >= 0)// 生成栏目页
-					{
-						for(DsCmsCategory c : list)
+						DsCmsPage p = service.get(pageid);
+						if(p.getSiteid() == siteid)
 						{
-							if(c.getSiteid() == siteid && c.getStatus() != 2)
+							buildFile(path + "&pageid=" + p.getId(), p.getUrl());
+						}
+					}
+					else if(pageid == -1)
+					{
+						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
+						if(categoryid == 0)// 生成全部栏目页
+						{
+							list = service.queryListCategory(siteid);
+						}
+						else if(categoryid > 0)// 生成指定栏目页
+						{
+							DsCmsCategory c = service.getCategory(categoryid);
+							list.add(c);
+						}
+						if(categoryid >= 0)// 生成栏目页
+						{
+							for(DsCmsCategory c : list)
 							{
-								buildFile(path + "&categoryid=" + c.getId() + "&page=1", c.getUrl());
-								if(true)
+								if(c.getStatus() == 2)// 外链没有东西生成的
 								{
-									Map<String, Object> _m = new HashMap<String, Object>();
-									_m.put("siteid", site.getId());
-									_m.put("categoryid", c.getId());
-									_m.put("releasetime", TimeUtil.getCurrentTime());
-									PageRequest rq = new PageRequest(_m);
-									rq.setPageSize(50);
-									rq.setCurrentPage(1);
-									Page<DsCmsPage> pageModel = service.queryPage(rq);
-									for(int i = 2; i < pageModel.getLastPage(); i++)
+									continue;
+								}
+								if(c.getSiteid() == siteid)
+								{
+									buildFile(path + "&categoryid=" + c.getId() + "&page=1", c.getUrl());
+									if(true)
 									{
-										buildFile(path + "&categoryid=" + c.getId() + "&page=" + i, c.getUrl().replaceAll("\\.html", "_" + i + ".html"));
+										Map<String, Object> _m = new HashMap<String, Object>();
+										_m.put("siteid", site.getId());
+										_m.put("categoryid", c.getId());
+										_m.put("releasetime", TimeUtil.getCurrentTime());
+										PageRequest rq = new PageRequest(_m);
+										rq.setPageSize(50);
+										rq.setCurrentPage(1);
+										Page<DsCmsPage> pageModel = service.queryPage(rq);
+										for(int i = 2; i < pageModel.getLastPage(); i++)
+										{
+											buildFile(path + "&categoryid=" + c.getId() + "&page=" + i, c.getUrl().replaceAll("\\.html", "_" + i + ".html"));
+										}
 									}
 								}
 							}
 						}
-					}
-					else
-					// 生成首页
-					{
-						buildFile(path, site.getUrl());
-					}
-				}
-				else if(pageid == 0)
-				{
-					List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
-					if(categoryid == 0)// 生成全部内容页
-					{
-						list = service.queryListCategory(siteid);
-					}
-					else if(categoryid > 0)// 生成指定栏目内容
-					{
-						DsCmsCategory c = service.getCategory(categoryid);
-						list.add(c);
-					}
-					if(list != null && list.size() > 0)
-					{
-						for(DsCmsCategory c : list)
+						else
+						// 生成首页
 						{
-							if(c.getStatus() == 2)
+							buildFile(path, site.getUrl());
+						}
+					}
+					else if(pageid == 0)
+					{
+						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
+						if(categoryid == 0)// 生成全部内容页
+						{
+							list = service.queryListCategory(siteid);
+						}
+						else if(categoryid > 0)// 生成指定栏目内容
+						{
+							DsCmsCategory c = service.getCategory(categoryid);
+							list.add(c);
+						}
+						if(list != null && list.size() > 0)
+						{
+							for(DsCmsCategory c : list)
 							{
-								continue;
-							}
-							// 这部分处理不当，全把整个站点的都删除的
-							java.io.File file = new java.io.File(getCmsRoot() + "/html/" + site.getFolder() + "/html/" + c.getFolder());
-							if(c.getFolder() != null && c.getFolder().trim().length() > 0 && file != null && file.exists())
-							{
-								for(java.io.File f : file.listFiles())
+								if(c.getStatus() == 2)// 外链没有东西生成的
 								{
-									if(f.isDirectory())
+									continue;
+								}
+								// 这部分处理不当，全把整个站点的都删除的
+								java.io.File file = new java.io.File(getCmsRoot() + "/html/" + site.getFolder() + "/html/" + c.getFolder());
+								if(c.getFolder() != null && c.getFolder().trim().length() > 0 && file != null && file.exists())
+								{
+									for(java.io.File f : file.listFiles())
 									{
-										FileUtil.delete(f.getPath());// 清空目录
+										if(f.isDirectory())
+										{
+											FileUtil.delete(f.getPath());// 清空目录
+										}
 									}
 								}
-							}
-							Map<String, Object> map = new HashMap<String, Object>();
-							map.put("siteid", site.getId());
-							map.put("releasetime", TimeUtil.getCurrentTime());
-							map.put("categoryid", c.getId());
-							PageRequest rq = new PageRequest(map);
-							rq.setPageSize(20);
-							rq.setCurrentPage(1);
-							Page<DsCmsPage> pageModel = service.queryPage(rq);
-							for(DsCmsPage p : pageModel.getResult())
-							{
-								buildFile(path + "&pageid=" + p.getId(), p.getUrl());
-							}
-							for(int i = 2; i < pageModel.getLastPage(); i++)
-							{
-								map.clear();
+								Map<String, Object> map = new HashMap<String, Object>();
 								map.put("siteid", site.getId());
 								map.put("releasetime", TimeUtil.getCurrentTime());
 								map.put("categoryid", c.getId());
-								rq.setFilters(map);
-								;
+								PageRequest rq = new PageRequest(map);
 								rq.setPageSize(20);
-								rq.setCurrentPage(i);
-								Page<DsCmsPage> n = service.queryPage(rq);
-								for(DsCmsPage p : n.getResult())
+								rq.setCurrentPage(1);
+								Page<DsCmsPage> pageModel = service.queryPage(rq);
+								for(DsCmsPage p : pageModel.getResult())
 								{
 									buildFile(path + "&pageid=" + p.getId(), p.getUrl());
+								}
+								for(int i = 2; i < pageModel.getLastPage(); i++)
+								{
+									map.clear();
+									map.put("siteid", site.getId());
+									map.put("releasetime", TimeUtil.getCurrentTime());
+									map.put("categoryid", c.getId());
+									rq.setFilters(map);
+									;
+									rq.setPageSize(20);
+									rq.setCurrentPage(i);
+									Page<DsCmsPage> n = service.queryPage(rq);
+									for(DsCmsPage p : n.getResult())
+									{
+										buildFile(path + "&pageid=" + p.getId(), p.getUrl());
+									}
 								}
 							}
 						}
 					}
+					print("1");
 				}
-				print("1");
+				else
+				{
+					print("0");
+				}
 			}
 			else
 			{
