@@ -23,6 +23,7 @@ public class DsCmsPageBuilderController extends BaseController
 		put("cms", cms);
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
+		put("ctx", s.get("url"));
 		if(pageid > 0)// 内容页
 		{
 			Map<String, Object> p = cms.get(pageid + "");

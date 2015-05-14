@@ -58,7 +58,7 @@ public class DsCmsPageController extends BaseController
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
 				po.setReleasetime(TimeUtil.getCurrentTime());
-				po.setUrl(request.getContextPath() + "/html/" + s.getFolder() + "/html/" + m.getFolder());
+				po.setUrl(s.getUrl() + "/" + m.getFolder());
 				service.save(po);// url拼接/id.html
 				print(1);
 				return;
@@ -268,9 +268,10 @@ public class DsCmsPageController extends BaseController
 				if(!ext.equals("") && "jpg,jpeg,gif,png".indexOf(ext) != -1)
 				{
 					String root = getCmsRoot();
-					String path = "/html/" + site.getFolder() + "/themes/" + TimeUtil.getCurrentTime("yyyyMM") + "/";
+					String ym = TimeUtil.getCurrentTime("yyyyMM");
+					String path = "/html/" + site.getFolder() + "/html/themes/" + ym + "/";
 					FileUtil.createFolder(root + path);
-					String webpath = request.getContextPath() + path;
+					String webpath = site.getUrl() + "/themes/" + ym + "/";
 					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
 					try
 					{
@@ -318,15 +319,15 @@ public class DsCmsPageController extends BaseController
 					//生成全部内容：categoryid==0，pageid==0
 					//生成栏目内容：categoryid>0，pageid==0
 					//生成指定内容：pageid>0
-					if(pageid > 0)// 生成内容页
+					if(pageid > 0)// 生成内容
 					{
 						DsCmsPage p = service.get(pageid);
 						if(p.getSiteid() == siteid)
 						{
-							buildFile(path + "&pageid=" + p.getId(), p.getUrl());
+							buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder(), site.getUrl());
 						}
 					}
-					else if(pageid == -1)
+					else if(pageid == -1)//生成栏目
 					{
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 						if(categoryid == 0)// 生成全部栏目页
@@ -348,7 +349,7 @@ public class DsCmsPageController extends BaseController
 								}
 								if(c.getSiteid() == siteid)
 								{
-									buildFile(path + "&categoryid=" + c.getId() + "&page=1", c.getUrl());
+									buildFile(path + "&categoryid=" + c.getId() + "&page=1", c.getUrl(), site.getFolder(), site.getUrl());
 									if(true)
 									{
 										Map<String, Object> _m = new HashMap<String, Object>();
@@ -361,7 +362,7 @@ public class DsCmsPageController extends BaseController
 										Page<DsCmsPage> pageModel = service.queryPage(rq);
 										for(int i = 2; i < pageModel.getLastPage(); i++)
 										{
-											buildFile(path + "&categoryid=" + c.getId() + "&page=" + i, c.getUrl().replaceAll("\\.html", "_" + i + ".html"));
+											buildFile(path + "&categoryid=" + c.getId() + "&page=" + i, c.getUrl().replaceAll("\\.html", "_" + i + ".html"), site.getFolder(), site.getUrl());
 										}
 									}
 								}
@@ -370,7 +371,7 @@ public class DsCmsPageController extends BaseController
 						else
 						// 生成首页
 						{
-							buildFile(path, site.getUrl());
+							buildFile(path, site.getUrl() + "/index.html", site.getFolder(), site.getUrl());
 						}
 					}
 					else if(pageid == 0)
@@ -415,7 +416,7 @@ public class DsCmsPageController extends BaseController
 								Page<DsCmsPage> pageModel = service.queryPage(rq);
 								for(DsCmsPage p : pageModel.getResult())
 								{
-									buildFile(path + "&pageid=" + p.getId(), p.getUrl());
+									buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder(), site.getUrl());
 								}
 								for(int i = 2; i < pageModel.getLastPage(); i++)
 								{
@@ -430,7 +431,7 @@ public class DsCmsPageController extends BaseController
 									Page<DsCmsPage> n = service.queryPage(rq);
 									for(DsCmsPage p : n.getResult())
 									{
-										buildFile(path + "&pageid=" + p.getId(), p.getUrl());
+										buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder(), site.getUrl());
 									}
 								}
 							}
@@ -455,7 +456,7 @@ public class DsCmsPageController extends BaseController
 		}
 	}
 
-	private void buildFile(String getpath, String savepath)
+	private void buildFile(String getpath, String savepath, String siteFolder, String readPath)
 	{
 		try
 		{
@@ -463,7 +464,7 @@ public class DsCmsPageController extends BaseController
 			// java.net.URLConnection conn = url.openConnection();
 			// conn.setRequestProperty("Cookie", cookie);
 			// conn.connect();
-			String p = getCmsRoot() + savepath.replaceFirst(request.getContextPath(), "");
+			String p = savepath.replaceFirst(readPath, getCmsRoot() + "html/" + siteFolder + "/html/");
 			FileUtil.writeFile(p, url.openStream(), true);
 		}
 		catch(Exception ex)
