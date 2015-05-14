@@ -464,7 +464,7 @@ public class DsCmsPageController extends BaseController
 			// java.net.URLConnection conn = url.openConnection();
 			// conn.setRequestProperty("Cookie", cookie);
 			// conn.connect();
-			String p = savepath.replaceFirst(readPath, getCmsRoot() + "html/" + siteFolder + "/html/");
+			String p = savepath.replaceFirst(readPath, getCmsRoot().replaceAll("\\\\", "/") + "html/" + siteFolder + "/html/");
 			FileUtil.writeFile(p, url.openStream(), true);
 		}
 		catch(Exception ex)
