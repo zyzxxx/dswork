@@ -46,10 +46,7 @@
 </select>
 <select id="queryCategory" resultType="java.util.Map">
 	select <include refid="c_category" /> from DS_CMS_CATEGORY
-	where SITEID=#{siteid}
-		<if test="0 &lt; pid"> and PID=#{pid} </if>
-		<if test="0 &gt;= pid"> and PID is null </if>
-	order by SEQ
+	where SITEID=#{siteid} order by SEQ
 </select>
 
 </mapper>

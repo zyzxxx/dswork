@@ -59,11 +59,10 @@ public class DsCmsDao extends MyBatisDao
 		return queryPage("query", rq, "queryCount", rq);
 	}
 
-	public List<Map<String, Object>> queryCategory(Long siteid, Long pid)
+	public List<Map<String, Object>> queryCategory(Long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		map.put("pid", pid==null?0:pid);
 		return (List)executeSelectList("queryCategory", map);
 	}
 }

@@ -3,12 +3,15 @@
  */
 package common.cms;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 //import javax.servlet.http.HttpServletResponse;
+
+
 
 
 import dswork.cms.dao.DsCmsDao;
@@ -101,9 +104,44 @@ public class CmsFactory
 		return map;
 	}
 
+	/**
+	 * 查询指定栏目下的子栏目(包括所有递归子栏目)
+	 * @param categoryid 父栏目，查询根栏目为空
+	 * @return List&lt;Map&lt;String, Object&gt;&gt;
+	 */
 	public List<Map<String, Object>> queryCategory(String categoryid)
 	{
 		init();
-		return dao.queryCategory(siteid, toLong(categoryid));
+		String pid = String.valueOf(toLong(categoryid));
+		List<Map<String, Object>> list = dao.queryCategory(siteid);
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
+		for(Map<String, Object> m : list)
+		{
+			String p = String.valueOf(map.get("pid"));
+			System.out.println("pid====" + p);
+			if(p.equals("null"))
+			{
+				m.put("pid", "0");
+				p = "0";
+			}
+			m.put("list", new ArrayList<Map<String, Object>>());
+			map.put(String.valueOf(m.get("id")), m);
+			if(p.equals(pid))
+			{
+				rs.add(m);
+			}
+		}
+		for(Map<String, Object> m : list)
+		{
+			String p = String.valueOf(m.get("pid"));
+			if(!p.equals("0") && map.get(p) != null)
+			{
+				@SuppressWarnings("unchecked")
+				List<Map<String, Object>> l = (ArrayList<Map<String, Object>>)(map.get(p));
+				l.add(m);
+			}
+		}
+		return rs;
 	}
 }
