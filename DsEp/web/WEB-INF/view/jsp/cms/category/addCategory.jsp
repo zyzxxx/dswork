@@ -71,7 +71,7 @@ $(function(){
 	<tbody id="myfolder">
 	<tr>
 		<td class="form_title">目录名称</td>
-		<td class="form_input"><input type="text" name="folder" maxlength="50" dataType="Char" value="" /> <span style="font-weight:bold;">添加后不可修改</span></td>
+		<td class="form_input"><input type="text" name="folder" maxlength="50" dataType="Char" value="" /></td>
 	</tr>
 	</tbody>
 	<tr>
