@@ -118,7 +118,7 @@ public class CmsFactory
 		List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
 		for(Map<String, Object> m : list)
 		{
-			String p = String.valueOf(map.get("pid"));
+			String p = String.valueOf(m.get("pid"));
 			System.out.println("pid====" + p);
 			if(p.equals("null"))
 			{
@@ -138,7 +138,7 @@ public class CmsFactory
 			if(!p.equals("0") && map.get(p) != null)
 			{
 				@SuppressWarnings("unchecked")
-				List<Map<String, Object>> l = (ArrayList<Map<String, Object>>)(map.get(p));
+				List<Map<String, Object>> l = (ArrayList<Map<String, Object>>)(((Map<String, Object>)(map.get(p))).get("list"));
 				l.add(m);
 			}
 		}
