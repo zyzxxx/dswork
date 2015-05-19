@@ -58,7 +58,7 @@ public class DsCmsPageController extends BaseController
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
 				po.setReleasetime(TimeUtil.getCurrentTime());
-				po.setUrl(s.getUrl() + "/" + m.getFolder());
+				po.setUrl("/" + m.getFolder());
 				service.save(po);// url拼接/id.html
 				print(1);
 				return;
@@ -371,7 +371,7 @@ public class DsCmsPageController extends BaseController
 						else
 						// 生成首页
 						{
-							buildFile(path, site.getUrl() + "/index.html", site.getFolder(), site.getUrl());
+							buildFile(path, "/index.html", site.getFolder(), site.getUrl());
 						}
 					}
 					else if(pageid == 0)
@@ -456,15 +456,15 @@ public class DsCmsPageController extends BaseController
 		}
 	}
 
-	private void buildFile(String getpath, String savepath, String siteFolder, String readPath)
+	private void buildFile(String getpath, String urlpath, String siteFolder, String readPath)
 	{
 		try
 		{
-			java.net.URL url = new java.net.URL(getpath);
+			java.net.URL url = new java.net.URL(readPath + getpath);
 			// java.net.URLConnection conn = url.openConnection();
 			// conn.setRequestProperty("Cookie", cookie);
 			// conn.connect();
-			String p = savepath.replaceFirst(readPath, getCmsRoot().replaceAll("\\\\", "/") + "html/" + siteFolder + "/html/");
+			String p = getCmsRoot().replaceAll("\\\\", "/") + "html/" + siteFolder + "/html/" + urlpath;
 			FileUtil.writeFile(p, url.openStream(), true);
 		}
 		catch(Exception ex)

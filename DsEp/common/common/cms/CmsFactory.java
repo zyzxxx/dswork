@@ -98,7 +98,7 @@ public class CmsFactory
 		for(int i = 1; i <= page.getLastPage(); i++)
 		{
 			String u = (i == 1?url:(url.replaceAll("\\.html", "_" + i + ".html")));
-			sb.append("<a href=\"").append(u).append("\"").append((i != currentPage ? " class=\"selected\"" : "")).append(">").append(i).append("</a>");
+			sb.append("<a href=\"").append(site.get("url")).append(u).append("\"").append((i != currentPage ? " class=\"selected\"" : "")).append(">").append(i).append("</a>");
 		}
 		map.put("page", sb.toString());//翻页字符串
 		return map;
