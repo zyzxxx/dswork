@@ -357,7 +357,7 @@ public class DsCmsPageController extends BaseController
 										_m.put("categoryid", c.getId());
 										_m.put("releasetime", TimeUtil.getCurrentTime());
 										PageRequest rq = new PageRequest(_m);
-										rq.setPageSize(50);
+										rq.setPageSize(25);// 需要修改成对应DsCmsPageBuilderController中的pagesize值
 										rq.setCurrentPage(1);
 										Page<DsCmsPage> pageModel = service.queryPage(rq);
 										for(int i = 2; i <= pageModel.getLastPage(); i++)
