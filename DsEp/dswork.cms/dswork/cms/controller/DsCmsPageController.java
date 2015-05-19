@@ -360,7 +360,7 @@ public class DsCmsPageController extends BaseController
 										rq.setPageSize(50);
 										rq.setCurrentPage(1);
 										Page<DsCmsPage> pageModel = service.queryPage(rq);
-										for(int i = 2; i < pageModel.getLastPage(); i++)
+										for(int i = 2; i <= pageModel.getLastPage(); i++)
 										{
 											buildFile(path + "&categoryid=" + c.getId() + "&page=" + i, c.getUrl().replaceAll("\\.html", "_" + i + ".html"), site.getFolder(), site.getUrl());
 										}
