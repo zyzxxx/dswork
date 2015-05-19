@@ -460,7 +460,7 @@ public class DsCmsPageController extends BaseController
 	{
 		try
 		{
-			java.net.URL url = new java.net.URL(readPath + getpath);
+			java.net.URL url = new java.net.URL(getpath);
 			// java.net.URLConnection conn = url.openConnection();
 			// conn.setRequestProperty("Cookie", cookie);
 			// conn.connect();
