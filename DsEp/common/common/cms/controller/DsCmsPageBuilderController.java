@@ -54,7 +54,7 @@ public class DsCmsPageBuilderController extends BaseController
 				return null;// 外链
 			}
 			put("category", c);
-			Map<String, Object> mm = cms.queryPage(page, 50, false, false, true, String.valueOf(c.get("url")), categoryid);
+			Map<String, Object> mm = cms.queryPage(page, 25, false, false, true, String.valueOf(c.get("url")), categoryid);
 			put("datalist", mm.get("list"));
 			put("datapage", mm.get("page"));
 			return "/" + s.get("folder") + "/templates/" + c.get("viewsite");
