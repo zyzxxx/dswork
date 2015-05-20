@@ -5,6 +5,11 @@ xheditor.js修改明细：
 改为
 "Cut,Copy,Paste,Pastetext,|,Blocktag,Fontface,FontSize,Bold,Italic,Underline,Strikethrough,FontColor,BackColor,SelectAll,Removeformat,|,Align,List,Outdent,Indent,|,Link,Unlink,Hr,Emot,Table,|,Source,Fullscreen"
 
+2、upLinkExt值：
+zip,rar,txt
+改为
+bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z
+
 可补充内容如下：
 ,Anchor,Img,Flash,Media(,Hr,Emot,Table,)
 ,Preview,Print(,Fullscreen)
