@@ -156,6 +156,7 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.PullToRefresh, R.drawable.ic_launcher, "PullToRefresh", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.PullToRefreshActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.SwipeRefreshLayout, R.drawable.ic_launcher, "SwipeRefreshLayout", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.SwipeRefreshActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.DownloadOne, R.drawable.ic_launcher, "DownloadOne", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.downloadone.DownloadOneActivity",false, null, null, null));
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.DownloadList, R.drawable.ic_launcher, "DownloadList", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.downloadlist.DownloadListActivity",false, null, null, null));
 			return rootView;
 		}
 	}

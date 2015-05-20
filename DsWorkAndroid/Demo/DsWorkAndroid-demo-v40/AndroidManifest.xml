@@ -12,8 +12,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- 改变配置信息 -->
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="21" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" android:maxSdkVersion="21" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <!-- 测试 -->
@@ -103,6 +103,10 @@
             android:name=".demo.component.downloadone.DownloadOneActivity"
             android:label="@string/title_activity_download_one" >
         </activity>
+        <activity
+            android:name=".demo.component.downloadlist.DownloadListActivity"
+            android:label="@string/title_activity_download_list" >
+        </activity>
         <!-- webAppDemo -->
         <!-- android:configChanges 防止横竖屏切换时重刷Activity -->
         <activity
@@ -158,6 +162,11 @@
 
         <service
             android:name=".demo.component.downloadone.DownloadService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service
+            android:name=".demo.component.downloadlist.DownloadService"
             android:enabled="true"
             android:exported="true" >
         </service>

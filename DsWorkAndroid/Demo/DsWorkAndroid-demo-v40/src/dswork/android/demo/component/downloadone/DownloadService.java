@@ -34,6 +34,7 @@ public class DownloadService extends Service
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
+        System.out.println("in onStartCommand...");
         //获取activity传来的参数
         if(ACTION_START.equals(intent.getAction()))
         {
@@ -97,7 +98,7 @@ public class DownloadService extends Service
             {
                 //连接网络文件
                 HttpActionObj mHttpActionObj = new HttpActionObj("http://media2.giga.de/2013/05/Opera_Android-robog.png", new HashMap());
-                HttpResultObj<InputStream> mHttpResultObj = HttpUtil.submitHttpAction(mHttpActionObj, InputStream.class);
+                HttpResultObj<InputStream> mHttpResultObj = HttpUtil.submitHttpAction(mHttpActionObj, InputStream.class, "GET");
                 if(!mHttpResultObj.isSuc()) return;
                 //在本地创建文件
                 File dir = new File(DOWNLOAD_PATH);

@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import dswork.android.R;
@@ -21,9 +22,11 @@ import dswork.android.lib.core.util.InjectUtil;
 @SuppressLint("NewApi")
 public class DownloadOneActivity extends Activity
 {
+    @InjectUtil.InjectView(id = R.id.tv_file) TextView tv_file;//文件名
     @InjectUtil.InjectView(id = R.id.pgb_download) ProgressBar pgb_download;//进度条
-    @InjectUtil.InjectView(id = R.id.btn_download_start) Button btn_download_start;//下载按钮
-    @InjectUtil.InjectView(id = R.id.btn_download_stop) Button btn_download_stop;//暂停按钮
+    @InjectUtil.InjectView(id = R.id.btn_download_start) Button btn_download_start;//下载开始按钮
+    @InjectUtil.InjectView(id = R.id.btn_download_stop) Button btn_download_stop;//下载暂停按钮
+    @InjectUtil.InjectView(id = R.id.btn_download) Button btn_download;//下载按钮
     FileInfo mFileInfo = null;
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -37,6 +40,7 @@ public class DownloadOneActivity extends Activity
         pgb_download.setMax(100);
         //创建文件信息对象
         mFileInfo = new FileInfo(0,"http://media2.giga.de/2013/05/Opera_Android-robog.png","Opera_Android-robog.png",0,0);
+        tv_file.setText(mFileInfo.getFileName());
         //注册按钮监听
         btn_download_start.setOnClickListener(new DownLoadStartListener());
         btn_download_stop.setOnClickListener(new DownloadStopListener());
@@ -51,6 +55,10 @@ public class DownloadOneActivity extends Activity
     {
         super.onDestroy();
         unregisterReceiver(mReceiver);
+        //停止service
+//        Intent mIntent = new Intent(DownloadOneActivity.this, DownloadService.class);
+//        stopService(mIntent);
+
     }
 
     @Override

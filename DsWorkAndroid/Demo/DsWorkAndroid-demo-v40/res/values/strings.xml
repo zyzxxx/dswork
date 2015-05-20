@@ -25,6 +25,7 @@
     <string name="title_activity_fragment_tab_host">FragmentTabHost例程</string>
     <string name="title_activity_swipe_refresh">SwipeRefresh例程</string>
     <string name="title_activity_download_one">DownloadOne例程</string>
+    <string name="title_activity_download_list">DownloadList例程</string>
 
     <string-array name="locations">
         <item>Home</item>
@@ -88,6 +89,14 @@
         <item>CREATE TABLE thread_info(id INTEGER PRIMARY KEY AUTOINCREMENT, thread_id integer, url text, start integer, end integer, finished integer)</item>
     </string-array>
     <string-array name="downloadone_upgradeTableSql">
+        <item></item>
+    </string-array>
+
+    <!-- database sql downloadlist-->
+    <string-array name="downloadlist_createTableSql">
+        <item>CREATE TABLE thread_info(id INTEGER PRIMARY KEY AUTOINCREMENT, thread_id integer, url text, start integer, end integer, finished integer)</item>
+    </string-array>
+    <string-array name="downloadlist_upgradeTableSql">
         <item></item>
     </string-array>
 

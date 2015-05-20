@@ -10,7 +10,7 @@
 	</TableRow>
 	<TableRow android:layout_width="fill_parent" android:layout_height="wrap_content" android:gravity="center">
 	    <include android:id="@+id/DownloadOne" layout="@layout/shortcut" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
-	    <include android:id="@+id/empty" layout="@layout/shortcut" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
+	    <include android:id="@+id/DownloadList" layout="@layout/shortcut" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
 	    <include android:id="@+id/empty" layout="@layout/shortcut" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"/>
 	</TableRow>
 </TableLayout>
