@@ -66,7 +66,7 @@ public class DsCmsCategoryController extends BaseController
 	{
 		try
 		{
-			if(po.getSiteid() > 0)
+			if(po.getSiteid() >= 0)
 			{
 				DsCmsSite s = service.getSite(po.getSiteid());
 				if(checkOwn(s.getOwn()))
