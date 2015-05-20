@@ -295,6 +295,75 @@ public class DsCmsPageController extends BaseController
 		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
 	}
 
+	@RequestMapping("/uploadFile")
+	public void uploadFile()
+	{
+		try
+		{
+			Long categoryid = req.getLong("categoryid");
+			DsCmsCategory m = service.getCategory(categoryid);
+			DsCmsSite site = service.getSite(m.getSiteid());
+			if(checkOwn(site.getOwn()))
+			{
+				String ext = "";
+				boolean isHTML5 = "application/octet-stream".equals(request.getContentType());
+				byte[] byteArray = null;
+				if(isHTML5)
+				{
+					String header = request.getHeader("Content-Disposition");
+					int iStart = header.indexOf("filename=\"") + 10;
+					int iEnd = header.indexOf("\"", iStart);
+					String fileName = header.substring(iStart, iEnd);
+					int len = fileName.lastIndexOf(".");
+					ext = (len != -1) ? fileName.substring(len + 1) : "";
+					int i = request.getContentLength();
+					byteArray = new byte[i];
+					int j = 0;
+					while(j < i)// 获取表单的上传文件
+					{
+						int k = request.getInputStream().read(byteArray, j, i - j);
+						j += k;
+					}
+				}
+				else
+				{
+					MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+					MultipartFile file = multipartRequest.getFile("filedata");
+					String fileName = file.getOriginalFilename();
+					int len = fileName.lastIndexOf(".");
+					ext = (len != -1) ? fileName.substring(len + 1) : "";
+					byteArray = file.getBytes();
+				}
+				if(!ext.equals("") && "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z".indexOf(ext) != -1)
+				{
+					String root = getCmsRoot();
+					String ym = TimeUtil.getCurrentTime("yyyyMM");
+					String path = "/html/" + site.getFolder() + "/html/f/file/" + ym + "/";
+					FileUtil.createFolder(root + path);
+					String webpath = site.getUrl() + "/f/file/" + ym + "/";
+					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
+					try
+					{
+						FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(byteArray), true);
+						print("{\"err\":\"\",\"msg\":\"!" + webpath + v + "\"}");
+						return;
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+						print("{\"err\":\"上传失败\",\"msg\":\"\"}");
+						return;
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
+	}
+
 	@RequestMapping("/build")
 	public void build()
 	{
