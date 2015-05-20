@@ -58,7 +58,7 @@ public class DsCmsPageController extends BaseController
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
 				po.setReleasetime(TimeUtil.getCurrentTime());
-				po.setUrl("/" + m.getFolder());
+				po.setUrl("/a/" + m.getFolder());
 				service.save(po);// url拼接/id.html
 				print(1);
 				return;
@@ -269,9 +269,9 @@ public class DsCmsPageController extends BaseController
 				{
 					String root = getCmsRoot();
 					String ym = TimeUtil.getCurrentTime("yyyyMM");
-					String path = "/html/" + site.getFolder() + "/html/themes/" + ym + "/";
+					String path = "/html/" + site.getFolder() + "/html/f/img/" + ym + "/";
 					FileUtil.createFolder(root + path);
-					String webpath = site.getUrl() + "/themes/" + ym + "/";
+					String webpath = site.getUrl() + "/f/img/" + ym + "/";
 					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
 					try
 					{
@@ -395,14 +395,14 @@ public class DsCmsPageController extends BaseController
 									continue;
 								}
 								// 这部分处理不当，全把整个站点的都删除的
-								java.io.File file = new java.io.File(getCmsRoot() + "/html/" + site.getFolder() + "/html/" + c.getFolder());
+								java.io.File file = new java.io.File(getCmsRoot() + "/html/" + site.getFolder() + "/html/a/" + c.getFolder());
 								if(c.getFolder() != null && c.getFolder().trim().length() > 0 && file != null && file.exists())
 								{
 									for(java.io.File f : file.listFiles())
 									{
 										if(f.isDirectory())
 										{
-											FileUtil.delete(f.getPath());// 清空目录
+											FileUtil.delete(f.getPath());// 清空目录，文章存放在ym结构下的目录中
 										}
 									}
 								}
@@ -411,7 +411,7 @@ public class DsCmsPageController extends BaseController
 								map.put("releasetime", TimeUtil.getCurrentTime());
 								map.put("categoryid", c.getId());
 								PageRequest rq = new PageRequest(map);
-								rq.setPageSize(20);
+								rq.setPageSize(25);
 								rq.setCurrentPage(1);
 								Page<DsCmsPage> pageModel = service.queryPage(rq);
 								for(DsCmsPage p : pageModel.getResult())
@@ -425,8 +425,7 @@ public class DsCmsPageController extends BaseController
 									map.put("releasetime", TimeUtil.getCurrentTime());
 									map.put("categoryid", c.getId());
 									rq.setFilters(map);
-									;
-									rq.setPageSize(20);
+									rq.setPageSize(25);
 									rq.setCurrentPage(i);
 									Page<DsCmsPage> n = service.queryPage(rq);
 									for(DsCmsPage p : n.getResult())

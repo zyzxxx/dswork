@@ -73,7 +73,7 @@ public class DsCmsCategoryController extends BaseController
 				{
 					if(po.getStatus() != 2)
 					{
-						po.setUrl("/" + po.getFolder() + "/index.html");
+						po.setUrl("/a/" + po.getFolder() + "/index.html");
 					}
 					service.save(po);
 					print(1);
@@ -162,7 +162,7 @@ public class DsCmsCategoryController extends BaseController
 				}
 				if(po.getStatus() != 2)
 				{
-					po.setUrl("/" + po.getFolder() + "/index.html");
+					po.setUrl("/a/" + po.getFolder() + "/index.html");
 				}
 				service.update(po);
 				print(1);
