@@ -14,7 +14,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * 新增记录
 	 * @param o 实体对象
 	 */
-	public void add(T o)
+	public synchronized void add(T o)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -33,7 +33,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param table 表名
 	 * @param o 实体对象
 	 */
-	public void add(String table, T o)
+	public synchronized void add(String table, T o)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -52,7 +52,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param sql sql语句
 	 * @param values insert语句values值数组
 	 */
-	public void add(String sql, Object...values)
+	public synchronized void add(String sql, Object...values)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -73,7 +73,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param whereClause where条件(如："id=? and name=?")
 	 * @param whereArgs where条件参数数组，数组长度需跟where条件的?号个数对应（如：new String[]{"001","张三"}）
 	 */
-	public void delete(String table, String whereClause, String[] whereArgs)
+	public synchronized void delete(String table, String whereClause, String[] whereArgs)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -92,7 +92,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param table 表名
 	 * @param primaryKey 主键值
 	 */
-	public void delete(String table, PK primaryKey)
+	public synchronized void delete(String table, PK primaryKey)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -111,7 +111,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param table 表名
 	 * @param pks PK[]主键值数组
 	 */
-	public void deleteBatch(String table, PK[] pks)
+	public synchronized void deleteBatch(String table, PK[] pks)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -130,7 +130,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param table 表名
 	 * @param pks 主键值集合
 	 */
-	public void deleteBatch(String table, List<PK> pks)
+	public synchronized void deleteBatch(String table, List<PK> pks)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -149,7 +149,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param table 表名
 	 * @param pks 主键值集合字符串,以逗号隔开
 	 */
-	public void deleteBatch(String table, String pks)
+	public synchronized void deleteBatch(String table, String pks)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -170,7 +170,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param whereClause where条件(如："id=? and name=?")
 	 * @param whereArgs where条件参数数组，数组长度需跟where条件的?号个数对应（如：new String[]{"001","张三"}）
 	 */
-	public void update(String table, ContentValues values, String whereClause, String[] whereArgs)
+	public synchronized void update(String table, ContentValues values, String whereClause, String[] whereArgs)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -190,7 +190,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param ids 主键值数组
 	 * @param fieldNames 需要修改的属性名
 	 */
-	public void update(T o, long[] ids, String[] fieldNames)
+	public synchronized void update(T o, long[] ids, String[] fieldNames)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -210,7 +210,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param id 主键
 	 * @param fieldNames 需要修改的属性名
 	 */
-	public void update(T o, Long id, String[] fieldNames)
+	public synchronized void update(T o, Long id, String[] fieldNames)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -230,7 +230,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param ids 主键值集合字符串，以逗号隔开
 	 * @param fieldNames 需要修改的属性名
 	 */
-	public void update(T o, String ids, String[] fieldNames)
+	public synchronized void update(T o, String ids, String[] fieldNames)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -248,7 +248,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * 修改记录
 	 * @param o 实体对象
 	 */
-	public void update(T o)
+	public synchronized void update(T o)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -271,7 +271,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param o 实体对象
 	 * @param ids 主键值数组
 	 */
-	public void update(T o, long[] ids)
+	public synchronized void update(T o, long[] ids)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -290,7 +290,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param o 实体对象
 	 * @param ids 主键值集合字符串，以逗号隔开
 	 */
-	public void update(T o, String ids)
+	public synchronized void update(T o, String ids)
 	{
 		getEntityDao().beginTransaction();
 		try
@@ -309,7 +309,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 * @param sql SQL的update语句
 	 * @param values update语句对应的问号值
 	 */
-	public void udpate(String sql, Object...values)
+	public synchronized void udpate(String sql, Object...values)
 	{
 		getEntityDao().beginTransaction();
 		try

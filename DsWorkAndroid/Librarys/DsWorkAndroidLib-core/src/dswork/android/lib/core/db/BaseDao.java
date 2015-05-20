@@ -16,16 +16,15 @@ import dswork.android.lib.core.util.SqlUtil;
 
 public abstract class BaseDao<T, PK extends Serializable>
 {
-	
 	public abstract SQLiteOpenHelper getDBHelper();
 	public abstract QueryParams getQueryParams(Map m);
 	
 	/*获取CRUD的操作对象SQLiteDatabase*/
-	public SQLiteDatabase getWritableDb() 
+	public SQLiteDatabase getWritableDb()
 	{
 		return getDBHelper().getWritableDatabase();
 	}
-	public SQLiteDatabase getReadableDb() 
+	public SQLiteDatabase getReadableDb()
 	{
 		return getDBHelper().getReadableDatabase();
 	}

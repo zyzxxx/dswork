@@ -18,6 +18,7 @@ import com.android.volley.toolbox.Volley;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.HttpConnectionParams;
@@ -32,26 +33,45 @@ public class HttpUtil
 {
 	private static RequestQueue mQueue;
 	
-	public static <T> HttpResultObj<T> submitHttpAction(HttpActionObj actionObj, Class<T> clazz)
+	public static <T> HttpResultObj<T> submitHttpAction(HttpActionObj actionObj, Class<T> clazz, String method)
 	{
-		return submitHttpAction(actionObj, clazz, 30000, 30000);
+		return submitHttpAction(actionObj, clazz, 30000, 30000, method);
 	}
 	@SuppressWarnings("unchecked")
-	public static <T> HttpResultObj<T> submitHttpAction(HttpActionObj actionObj, Class<T> clazz, int connectionTimeout, int soTimeout)
+	public static <T> HttpResultObj<T> submitHttpAction(HttpActionObj actionObj, Class<T> clazz, int connectionTimeout, int soTimeout, String method)
 	{
-		System.out.println("action url ------> "+actionObj.getUrl());
+		Log.i("<* http url *>", actionObj.getUrl());
 		HttpResultObj<T> o = new HttpResultObj<T>();
 		try
 		{
-			//初始化HttpPost
-			HttpPost req = new HttpPost(actionObj.getUrl());
-			req.setEntity(new UrlEncodedFormEntity(actionObj.getParams(), HTTP.UTF_8));
 			//设置网络超时
 			HttpClient client =  new DefaultHttpClient();
 			HttpConnectionParams.setConnectionTimeout(client.getParams(), connectionTimeout);//连接建立的超时时间
 			HttpConnectionParams.setSoTimeout(client.getParams(), soTimeout);//连接建立后，没有收到response的超时时间
-			//执行请求
-			HttpResponse resp = client.execute(req);
+			//发送请求
+			HttpResponse resp = null;
+			if(method.equals("POST"))
+			{
+				//初始化HttpPost
+				HttpPost req = new HttpPost(actionObj.getUrl());
+				req.setEntity(new UrlEncodedFormEntity(actionObj.getParams(), HTTP.UTF_8));
+				//执行请求
+				resp = client.execute(req);
+			}
+			else if(method.equals("GET"))
+			{
+				//初始化HttpGet
+				HttpGet req = new HttpGet(actionObj.getUrl());
+				//执行请求
+				resp = client.execute(req);
+			}
+			else
+			{
+				o.setSuc(false);
+				o.setErrMsg("请求失败：请正确填写 GET / POST");
+				Log.i("<* 请求失败：*>", "请正确填写 GET / POST");
+			}
+			//请求响应
 			if(resp.getStatusLine().getStatusCode() == 200)
 			{
 				if(clazz.isAssignableFrom(String.class))
@@ -82,25 +102,25 @@ public class HttpUtil
 				o.setContentLength(resp.getEntity().getContentLength());
 				o.setSuc(true);
 				o.setSucMsg("请求成功："+resp.getStatusLine().getStatusCode());
-				System.out.println("请求成功："+resp.getStatusLine().getStatusCode());
+				Log.i("<* 请求成功：*>", ""+resp.getStatusLine().getStatusCode());
 			}
 			else 
 			{
 				o.setSuc(false);
 				o.setErrMsg("请求失败："+resp.getStatusLine().getStatusCode());
-				System.out.println("请求失败："+resp.getStatusLine().getStatusCode());
+				Log.i("<* 请求失败：*>", ""+resp.getStatusLine().getStatusCode());
 			}
 		}
 		catch(Exception e)
 		{
 			o.setSuc(false);
 			o.setErrMsg("请求异常："+e.getMessage());
-			System.out.println("请求异常："+e.getMessage());
+			Log.i("<* 请求异常：*>", e.getMessage());
 			e.printStackTrace();
 		}
 		return o;
 	}
-	
+
 	public static void submitVollyHttpActionBitmap(Context ctx, final HttpActionObj actionObj, final ImageView v)
 	{
 		mQueue = Volley.newRequestQueue(ctx);

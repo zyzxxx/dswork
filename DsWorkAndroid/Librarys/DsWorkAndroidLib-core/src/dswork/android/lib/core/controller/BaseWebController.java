@@ -11,8 +11,8 @@ import dswork.android.lib.core.util.webutil.HttpUtil;
 public abstract class BaseWebController
 {
 	/**
-	 * 设置模块路径
-	 * @param path
+	 * 获取模块路径
+	 * @return String
 	 */
 	public abstract String getModulePath();
 	
@@ -21,12 +21,13 @@ public abstract class BaseWebController
 	 * @param actionPath 请求路径
 	 * @param clazz 返回结果类型
 	 * @param m 请求参数
+	 * @param method GET / POST
 	 * @return HttpResultObj<T>
 	 */
-	public <T> HttpResultObj<T> submitHttpAction(String actionPath, Class<T> clazz, Map<String,String> m)
+	public <T> HttpResultObj<T> submitHttpAction(String actionPath, Class<T> clazz, Map<String,String> m, String method)
 	{
 		HttpActionObj actionObj = new HttpActionObj(getModulePath()+actionPath, m);
-		return HttpUtil.submitHttpAction(actionObj, clazz);
+		return HttpUtil.submitHttpAction(actionObj, clazz, method);
 	}
 	/**
 	 * 提交Http请求
@@ -37,10 +38,10 @@ public abstract class BaseWebController
 	 * @param soTimeout 连接建立后，没有收到response的超时时间
 	 * @return HttpResultObj<T>
 	 */
-	public <T> HttpResultObj<T> submitHttpAction(String actionPath, Class<T> clazz, Map<String,String> m, int connTimeout, int soTimeout)
+	public <T> HttpResultObj<T> submitHttpAction(String actionPath, Class<T> clazz, Map<String,String> m, int connTimeout, int soTimeout, String method)
 	{
 		HttpActionObj actionObj = new HttpActionObj(getModulePath()+actionPath, m);
-		return HttpUtil.submitHttpAction(actionObj, clazz, connTimeout, soTimeout);
+		return HttpUtil.submitHttpAction(actionObj, clazz, connTimeout, soTimeout, method);
 	}
 	
 	/**
@@ -65,7 +66,8 @@ public abstract class BaseWebController
 		}
 		//当前类fields
 		Field[] fields = o.getClass().getDeclaredFields();
-		for(int i=0;i<fields.length;i++){
+		for(int i=0;i<fields.length;i++)
+		{
 			try
 			{
 				String _key = fields[i].getName();

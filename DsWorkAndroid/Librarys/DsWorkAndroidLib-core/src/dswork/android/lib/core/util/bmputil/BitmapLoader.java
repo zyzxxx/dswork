@@ -1,5 +1,14 @@
 package dswork.android.lib.core.util.bmputil;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
+import android.support.v4.util.LruCache;
+import android.view.View;
+import android.widget.ImageView;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -11,14 +20,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.support.v4.util.LruCache;
-import android.view.View;
-import android.widget.ImageView;
 import dswork.android.lib.core.util.DiskLruCache;
 import dswork.android.lib.core.util.MD5Util;
 import dswork.android.lib.core.util.WorkUtil;
@@ -301,7 +302,7 @@ public class BitmapLoader
 		try 
 		{
 			HttpActionObj o = new HttpActionObj(url, new HashMap<String, String>());
-			in = new BufferedInputStream(HttpUtil.submitHttpAction(o, InputStream.class).getData(), 8 * 1024);
+			in = new BufferedInputStream(HttpUtil.submitHttpAction(o, InputStream.class, "POST").getData(), 8 * 1024);
 			out = new BufferedOutputStream(outputStream, 8 * 1024);
 			int b;
 			while ((b = in.read()) != -1) 
