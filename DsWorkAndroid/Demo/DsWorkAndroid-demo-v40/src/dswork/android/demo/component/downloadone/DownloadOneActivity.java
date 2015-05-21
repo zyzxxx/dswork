@@ -39,7 +39,7 @@ public class DownloadOneActivity extends Activity
         InjectUtil.injectView(this);
         pgb_download.setMax(100);
         //创建文件信息对象
-        mFileInfo = new FileInfo(0,"http://media2.giga.de/2013/05/Opera_Android-robog.png","Opera_Android-robog.png",0,0);
+        mFileInfo = new FileInfo(0,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi.apk",0,0);
         tv_file.setText(mFileInfo.getFileName());
         //注册按钮监听
         btn_download_start.setOnClickListener(new DownLoadStartListener());

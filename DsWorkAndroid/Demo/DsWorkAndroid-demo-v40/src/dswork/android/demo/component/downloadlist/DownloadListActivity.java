@@ -38,15 +38,14 @@ public class DownloadListActivity extends Activity
         //创建文件信息对象
         mList = new ArrayList<FileInfo>();
         mList.add(new FileInfo(0,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi.apk",0,0));
-        mList.add(new FileInfo(1,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi1.apk",0,0));
-        mList.add(new FileInfo(2,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi2.apk",0,0));
-        mList.add(new FileInfo(3,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi3.apk",0,0));
-        mList.add(new FileInfo(4,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi4.apk", 0,0));
-        mList.add(new FileInfo(5,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi5.apk", 0,0));
-        mList.add(new FileInfo(6,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi6.apk", 0,0));
-        mList.add(new FileInfo(7,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi7.apk", 0,0));
-        mList.add(new FileInfo(8,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi8.apk", 0,0));
-        mList.add(new FileInfo(9,"http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi9.apk",0,0));
+        mList.add(new FileInfo(1,"http://120.198.243.13:9999/file.liqucn.com/upload/2015/shejiao/com.tencent.mobileqq_5.6.1_liqucn.com.apk","qq.apk",0,0));
+        mList.add(new FileInfo(2,"http://filelx.liqucn.com/upload/2015/sheji/ZombieTerminator_liqushichang_2015_5_13_300008955036_2200126314.ptada","game.apk",0,0));
+        mList.add(new FileInfo(3,"http://120.198.243.13:9999/file.liqucn.com/upload/2011/liaotian/com.tencent.mm_6.1.0.73_liqucn.com.apk","wx.apk",0,0));
+        mList.add(new FileInfo(4,"http://filelx.liqucn.com/upload/2014/shejiao/weibo-2421_0244_5.2.8release_Android.ptada","wb.apk", 0,0));
+        mList.add(new FileInfo(5,"http://file.liqucn.com/upload/2011/bangong/cn.wps.moffice_eng_7.2_liqucn.com.apk","office.apk", 0,0));
+        mList.add(new FileInfo(6,"http://filelx.liqucn.com/upload/2014/shipin/PPTV_aPhone_5.0.9_265_20150518.ptada","pptv.apk", 0,0));
+        mList.add(new FileInfo(7,"http://filelx.liqucn.com/upload/2011/shipin/Youku_Android_4.7.5_liqu.ptada","youku.apk", 0,0));
+        mList.add(new FileInfo(8,"http://file.liqucn.com/upload/2014/shipin/com.qiyi.video_6.3_liqucn.com.apk","qiyi.apk", 0,0));
 //        mList.add(new FileInfo(0,"http://media2.giga.de/2013/05/Opera_Android-robog.png","robog.png",0,0));
 //        mList.add(new FileInfo(1,"http://media2.giga.de/2013/05/Opera_Android-robog.png","robog1.png",0,0));
 //        mList.add(new FileInfo(2,"http://media2.giga.de/2013/05/Opera_Android-robog.png","robog2.png",0,0));

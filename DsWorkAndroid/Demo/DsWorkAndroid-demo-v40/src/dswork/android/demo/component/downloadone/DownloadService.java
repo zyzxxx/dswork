@@ -97,7 +97,7 @@ public class DownloadService extends Service
             try
             {
                 //连接网络文件
-                HttpActionObj mHttpActionObj = new HttpActionObj("http://media2.giga.de/2013/05/Opera_Android-robog.png", new HashMap());
+                HttpActionObj mHttpActionObj = new HttpActionObj(mFileInfo.getUrl(), new HashMap());
                 HttpResultObj<InputStream> mHttpResultObj = HttpUtil.submitHttpAction(mHttpActionObj, InputStream.class, "GET");
                 if(!mHttpResultObj.isSuc()) return;
                 //在本地创建文件

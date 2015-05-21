@@ -2,7 +2,6 @@ package dswork.android.demo.component.downloadlist;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import org.apache.http.HttpStatus;
 
@@ -31,7 +30,7 @@ public class DownloadTask
     private Context ctx = null;
     private FileInfo mFileInfo = null;
     private ThreadInfoService service = null;
-    private long mFinished = 0;
+    private long mFinished = 0l;
     private int mThreadCount = 1;//线程数量
     private List<DownloadThread> mThreadList = null;
 
@@ -61,7 +60,7 @@ public class DownloadTask
             for(int i=0; i<mThreadCount; i++)
             {
                 //创建线程信息
-                ThreadInfo mThreadInfo = new ThreadInfo(i, mFileInfo.getUrl(), length*i, (i+1)*length-1, 0);
+                ThreadInfo mThreadInfo = new ThreadInfo(i, i, mFileInfo.getUrl(), length*i, (i+1)*length-1, 0);
                 if(i == mThreadCount-1)
                 {
                     mThreadInfo.setEnd(mFileInfo.getLength());
@@ -77,7 +76,6 @@ public class DownloadTask
         for(ThreadInfo po : threadInfos)
         {
             DownloadThread mDownloadThread = new DownloadThread(po);
-//            mDownloadThread.start();
             DownloadTask.sExecutorService.execute(mDownloadThread);
             mThreadList.add(mDownloadThread);
         }
@@ -126,9 +124,8 @@ public class DownloadTask
         {
             //向数据库插入线程信息
             Map<String,Object> m = new HashMap<String,Object>();
-            m.put("id",mThreadInfo.getId());
+            m.put("thread_id", mThreadInfo.getThread_id());
             m.put("url", mThreadInfo.getUrl());
-            Log.i("test","isExists:"+service.isExists(m));
             if(!service.isExists(m))
             {
                 service.add("thread_info",mThreadInfo);
@@ -143,9 +140,10 @@ public class DownloadTask
                 conn.setConnectTimeout(3000);
                 conn.setRequestMethod("GET");
                 //设置下载位置
+                System.out.println("下载前->" + mThreadInfo.getThread_id()+" 线程start:"+mThreadInfo.getStart() +"|线程finished:"+mThreadInfo.getFinished());
                 long start = mThreadInfo.getStart() + mThreadInfo.getFinished();
                 conn.setRequestProperty("Range", "bytes=" + start + "-" + mThreadInfo.getEnd());
-                Log.i("test", "Range:"+conn.getRequestProperty("Range"));
+                System.out.println("下载前->" + mThreadInfo.getThread_id()+" Range "+conn.getRequestProperty("Range"));
                 //设置文件写入位置
                 File file = new File(DownloadService.DOWNLOAD_PATH, mFileInfo.getFileName());
                 raf = new RandomAccessFile(file,"rwd");
@@ -154,6 +152,7 @@ public class DownloadTask
                 raf.seek(start);
                 Intent intent = new Intent(DownloadService.ACTION_UPDATE);
                 mFinished += mThreadInfo.getFinished();
+                System.out.println("下载前->"+mThreadInfo.getThread_id()+" 线程进度mFinished:"+mFinished);
                 //开始下载
                 if(conn.getResponseCode() == HttpStatus.SC_PARTIAL_CONTENT)
                 {
@@ -165,25 +164,27 @@ public class DownloadTask
                     while((len = input.read(buffer)) != -1)
                     {
                         //写入文件
-                        raf.write(buffer,0,len);
+                        raf.write(buffer, 0, len);
                         //把下载进度发送广播给Activity, 每隔500毫秒发送一次广播
+                        System.out.println("下载中->" + mThreadInfo.getThread_id() + " mFinished:"+mFinished+", len:"+len);
+                        //累加整个文件完成进度
                         mFinished += len;
-                        //累加每个线程完成到进度
+                        System.out.println("下载中->" + mThreadInfo.getThread_id() + " 整个文件进度mFinished:" + mFinished);
+                        //累加每个线程完成的进度
                         mThreadInfo.setFinished(mThreadInfo.getFinished()+len);
+                        System.out.println("下载中->" + mThreadInfo.getThread_id() + " 线程进度:" + mThreadInfo.getFinished());
                         //间隔500毫秒更新一次进度
-                        if(System.currentTimeMillis() - time > 500)
+                        if(System.currentTimeMillis() - time > 1500)
                         {
-                            long _finished = mFinished * 100 / mFileInfo.getLength();
-                            System.out.println("更新前："+String.valueOf(_finished));
-                            intent.putExtra("finished", mFinished * 100 / mFileInfo.getLength());
+                            long _finished = mFinished * 100l / mFileInfo.getLength();
+                            intent.putExtra("finished", _finished);
                             intent.putExtra("id", mFileInfo.getId());
                             ctx.sendBroadcast(intent);
                         }
                         //在下载暂停时，保存下载进度
                         if(isPause)
                         {
-                            mThreadInfo.setFinished(mFinished);
-                            Log.i("test", "暂停："+mThreadInfo.toString());
+                            System.out.println("下载暂停->"+mThreadInfo.getThread_id()+" :"+mThreadInfo.toString());
                             service.updateFinished(mThreadInfo);
                             return;
                         }
@@ -203,9 +204,9 @@ public class DownloadTask
             {
                 try
                 {
-                    conn.disconnect();
-                    raf.close();
-                    input.close();
+                    if(conn!=null) conn.disconnect();
+                    if(raf!=null) raf.close();
+                    if(input!=null) input.close();
                 }
                 catch (IOException e)
                 {

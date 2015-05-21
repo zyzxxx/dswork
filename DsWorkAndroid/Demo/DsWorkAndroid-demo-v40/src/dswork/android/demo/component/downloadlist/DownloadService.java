@@ -46,15 +46,14 @@ public class DownloadService extends Service
         if(ACTION_START.equals(intent.getAction()))
         {
             FileInfo mFileInfo = (FileInfo)intent.getSerializableExtra("fileinfo");
-            Log.i("test","start:"+mFileInfo.toString());
+            Log.i("<* ACTION_START *>", mFileInfo.toString());
             //启动初始化线程
-//            new InitThread(mFileInfo).start();
             DownloadTask.sExecutorService.execute(new InitThread(mFileInfo));
         }
         else if(ACTION_STOP.equals(intent.getAction()))
         {
             FileInfo mFileInfo = (FileInfo)intent.getSerializableExtra("fileinfo");
-            Log.i("test","stop:"+mFileInfo.toString());
+            Log.i("<* ACTION_STOP *>", mFileInfo.toString());
             //从集合中取出下载任务
             DownloadTask task = mTasks.get(mFileInfo.getId());
             if(task != null)
@@ -77,21 +76,21 @@ public class DownloadService extends Service
         {
             switch (msg.what)
             {
-                case MSG_ERROR:
-                    Log.i("<* network error *>",msg.obj.toString());
-                    //发送错误广播
-                    Intent intent = new Intent(DownloadService.ACTION_ERROR);
-                    intent.putExtra("errMsg",msg.obj.toString());
-                    DownloadService.this.sendBroadcast(intent);
-                    break;
                 case MSG_INIT:
                     FileInfo mFileInfo = (FileInfo)msg.obj;
-                    Log.i("<* test *>", "Init:" + mFileInfo.toString());
+                    Log.i("<* Handler启动下载任务 *>", mFileInfo.toString());
                     //启动下载任务
                     mDownloadTask = new DownloadTask(DownloadService.this, mFileInfo, 3);
                     mDownloadTask.download();
                     //把下载任务添加到集合中
                     mTasks.put(mFileInfo.getId(),mDownloadTask);
+                    break;
+                case MSG_ERROR:
+                    Log.i("<* Handler网络异常 *>", msg.obj.toString());
+                    //发送错误广播
+                    Intent intent = new Intent(DownloadService.ACTION_ERROR);
+                    intent.putExtra("errMsg", msg.obj.toString());
+                    DownloadService.this.sendBroadcast(intent);
                     break;
             }
         }

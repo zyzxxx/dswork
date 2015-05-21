@@ -53,7 +53,8 @@ public class ThreadInfoService extends BaseService<ThreadInfo, Long>
         {
             ContentValues cv= new ContentValues();
             cv.put("finished", po.getFinished());
-            dao.update("thread_info", cv, "id=? and url=?", new String[]{String.valueOf(po.getId()), po.getUrl()});
+//            dao.update("thread_info", cv, "id=? and url=?", new String[]{String.valueOf(po.getId()), po.getUrl()});
+            dao.update("thread_info", cv, "thread_id=? and url=?", new String[]{String.valueOf(po.getThread_id()), po.getUrl()});
             getEntityDao().setTransactionSuccessful();
         }
         finally
@@ -82,6 +83,7 @@ public class ThreadInfoService extends BaseService<ThreadInfo, Long>
         {
             ThreadInfo po = new ThreadInfo();
             po.setId(c.getLong(c.getColumnIndex("id")));
+            po.setThread_id(c.getLong(c.getColumnIndex("thread_id")));
             po.setUrl(c.getString(c.getColumnIndex("url")));
             po.setStart(c.getInt(c.getColumnIndex("start")));
             po.setEnd(c.getInt(c.getColumnIndex("end")));

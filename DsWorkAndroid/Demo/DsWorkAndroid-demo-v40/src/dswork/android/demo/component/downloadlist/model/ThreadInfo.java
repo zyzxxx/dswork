@@ -5,6 +5,7 @@ package dswork.android.demo.component.downloadlist.model;
  */
 public class ThreadInfo {
     private long id;
+    private long thread_id;
     private String url;
     private long start;
     private long end;
@@ -14,9 +15,10 @@ public class ThreadInfo {
         super();
     }
 
-    public ThreadInfo(int id, String url, long start, long end, long finished)
+    public ThreadInfo(long id, long thread_id, String url, long start, long end, long finished)
     {
         this.id = id;
+        this.thread_id = thread_id;
         this.url = url;
         this.start = start;
         this.end = end;
@@ -29,6 +31,14 @@ public class ThreadInfo {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getThread_id() {
+        return thread_id;
+    }
+
+    public void setThread_id(long thread_id) {
+        this.thread_id = thread_id;
     }
 
     public String getUrl() {
@@ -63,6 +73,7 @@ public class ThreadInfo {
     public String toString() {
         return "ThreadInfo{" +
                 "id=" + id +
+                ", thread_id=" + thread_id +
                 ", url='" + url + '\'' +
                 ", start=" + start +
                 ", end=" + end +

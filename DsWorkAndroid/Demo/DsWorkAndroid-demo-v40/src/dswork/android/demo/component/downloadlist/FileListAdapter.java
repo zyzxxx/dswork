@@ -53,45 +53,47 @@ public class FileListAdapter extends BaseAdapter
     {
         final FileInfo mFileInfo = mList.get(position);
         ViewHolder holder = null;
-//        if(view == null)
-//        {
+        if(view == null)
+        {
             view = LayoutInflater.from(ctx).inflate(R.layout.activity_download_list_item,null);
             holder = new ViewHolder(view);
+//            holder = new ViewHolder();
+//            holder.tv_file = (TextView)view.findViewById(R.id.tv_file);
+//            holder.btn_download_start = (Button)view.findViewById(R.id.btn_download_start);
+//            holder.btn_download_stop = (Button)view.findViewById(R.id.btn_download_stop);
+//            holder.pgb_download = (ProgressBar)view.findViewById(R.id.pgb_download);
             view.setTag(holder);
-            //设置视图中的控件
-            holder.tv_file.setText(mFileInfo.getFileName());
-            holder.pgb_download.setMax(100);
-            holder.btn_download_start.setOnClickListener(new View.OnClickListener()
+        }
+        else
+        {
+            holder = (ViewHolder)view.getTag();
+        }
+        //设置视图中的控件
+        holder.tv_file.setText(mFileInfo.getFileName());
+        holder.pgb_download.setMax(100);
+        holder.btn_download_start.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
             {
-                @Override
-                public void onClick(View v)
-                {
-                    Intent mIntent = new Intent(ctx, DownloadService.class);
-                    mIntent.setAction(DownloadService.ACTION_START);
-                    mIntent.putExtra("fileinfo", mFileInfo);
-                    ctx.startService(mIntent);
-                }
-            });
-            holder.btn_download_stop.setOnClickListener(new View.OnClickListener()
+                Intent mIntent = new Intent(ctx, DownloadService.class);
+                mIntent.setAction(DownloadService.ACTION_START);
+                mIntent.putExtra("fileinfo", mFileInfo);
+                ctx.startService(mIntent);
+            }
+        });
+        holder.btn_download_stop.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
             {
-                @Override
-                public void onClick(View v)
-                {
-                    Intent mIntent = new Intent(ctx, DownloadService.class);
-                    mIntent.setAction(DownloadService.ACTION_STOP);
-                    mIntent.putExtra("fileinfo", mFileInfo);
-                    ctx.startService(mIntent);
-                }
-            });
-//        }
-//        else
-//        {
-//            holder = (ViewHolder)view.getTag();
-//        }
-//        System.out.println("progress : "+mFileInfo.getFinished());
+                Intent mIntent = new Intent(ctx, DownloadService.class);
+                mIntent.setAction(DownloadService.ACTION_STOP);
+                mIntent.putExtra("fileinfo", mFileInfo);
+                ctx.startService(mIntent);
+            }
+        });
         holder.pgb_download.setProgress(mFileInfo.getFinishedInt());
-//        holder.btn_download_start.setOnClickListener(new DownLoadStartListener(ctx, mFileInfo));
-//        holder.btn_download_stop.setOnClickListener(new DownloadStopListener(ctx, mFileInfo));
         return view;
     }
 
@@ -108,9 +110,9 @@ public class FileListAdapter extends BaseAdapter
 
     static class ViewHolder
     {
-        private TextView tv_file;
-        private Button btn_download_start,btn_download_stop;
-        private ProgressBar pgb_download;
+        public TextView tv_file;
+        public Button btn_download_start,btn_download_stop;
+        public ProgressBar pgb_download;
 
         public ViewHolder(View v)
         {
@@ -121,47 +123,3 @@ public class FileListAdapter extends BaseAdapter
         }
     }
 }
-//Listeners/////////////////////////////////////////////////////////////////////////////////////
-// class DownLoadStartListener implements View.OnClickListener
-//{
-//    private Context ctx;
-//    private FileInfo mFileInfo;
-//
-//    public DownLoadStartListener(Context ctx, FileInfo mFileInfo)
-//    {
-//        this.ctx = ctx;
-//        this.mFileInfo = mFileInfo;
-//    }
-//
-//    @Override
-//    public void onClick(View v)
-//    {
-//        Toast.makeText(ctx, "下载", Toast.LENGTH_SHORT).show();
-//        Intent mIntent = new Intent(ctx, DownloadService.class);
-//        mIntent.setAction(DownloadService.ACTION_START);
-//        mIntent.putExtra("fileinfo", mFileInfo);
-//        ctx.startService(mIntent);
-//    }
-//}
-//
-// class DownloadStopListener implements View.OnClickListener
-//{
-//    private Context ctx;
-//    private FileInfo mFileInfo;
-//
-//    public DownloadStopListener(Context ctx, FileInfo mFileInfo)
-//    {
-//        this.ctx = ctx;
-//        this.mFileInfo = mFileInfo;
-//    }
-//
-//    @Override
-//    public void onClick(View v)
-//    {
-//        Toast.makeText(ctx, "暂停", Toast.LENGTH_SHORT).show();
-//        Intent mIntent = new Intent(ctx, DownloadService.class);
-//        mIntent.setAction(DownloadService.ACTION_STOP);
-//        mIntent.putExtra("fileinfo", mFileInfo);
-//        ctx.startService(mIntent);
-//    }
-//}
