@@ -13,7 +13,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 }};
 $(function(){
 	try{$(".form_title").css("width", "8%");}catch(e){}
-	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${po.id}",upImgUrl:"uploadImage.htm?categoryid=${param.categoryid}"});
+	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${param.categoryid}",upImgUrl:"uploadImage.htm?categoryid=${param.categoryid}"});
 });
 </script>
 </head>
