@@ -162,7 +162,6 @@ public class CmsFactory
 		for(Map<String, Object> m : list)
 		{
 			String p = String.valueOf(m.get("pid"));
-			System.out.println("pid====" + p);
 			if(p.equals("null"))
 			{
 				m.put("pid", "0");
