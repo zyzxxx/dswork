@@ -174,7 +174,7 @@ public class DownloadTask
                         mThreadInfo.setFinished(mThreadInfo.getFinished()+len);
                         System.out.println("下载中->" + mThreadInfo.getThread_id() + " 线程进度:" + mThreadInfo.getFinished());
                         //间隔500毫秒更新一次进度
-                        if(System.currentTimeMillis() - time > 1500)
+                        if(System.currentTimeMillis() - time > 500)
                         {
                             long _finished = mFinished * 100l / mFileInfo.getLength();
                             intent.putExtra("finished", _finished);

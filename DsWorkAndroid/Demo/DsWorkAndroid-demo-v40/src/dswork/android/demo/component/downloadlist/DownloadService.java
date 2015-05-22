@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +48,7 @@ public class DownloadService extends Service
         {
             FileInfo mFileInfo = (FileInfo)intent.getSerializableExtra("fileinfo");
             Log.i("<* ACTION_START *>", mFileInfo.toString());
+            Toast.makeText(this, "<* ACTION_START *>"+mFileInfo.getFileName(), Toast.LENGTH_SHORT).show();
             //启动初始化线程
             DownloadTask.sExecutorService.execute(new InitThread(mFileInfo));
         }
@@ -54,6 +56,7 @@ public class DownloadService extends Service
         {
             FileInfo mFileInfo = (FileInfo)intent.getSerializableExtra("fileinfo");
             Log.i("<* ACTION_STOP *>", mFileInfo.toString());
+            Toast.makeText(this, "<* ACTION_STOP *>"+mFileInfo.getFileName(), Toast.LENGTH_SHORT).show();
             //从集合中取出下载任务
             DownloadTask task = mTasks.get(mFileInfo.getId());
             if(task != null)

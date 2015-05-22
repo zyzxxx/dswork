@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -22,11 +23,13 @@ public class FileListAdapter extends BaseAdapter
 {
     private Context ctx = null;
     private List<FileInfo> mList = null;
+    private ListView mListView = null;
 
-    public FileListAdapter(Context ctx, List<FileInfo> mList)
+    public FileListAdapter(Context ctx, List<FileInfo> mList, ListView mListView)
     {
         this.ctx = ctx;
         this.mList = mList;
+        this.mListView = mListView;
     }
 
     @Override
@@ -57,11 +60,6 @@ public class FileListAdapter extends BaseAdapter
         {
             view = LayoutInflater.from(ctx).inflate(R.layout.activity_download_list_item,null);
             holder = new ViewHolder(view);
-//            holder = new ViewHolder();
-//            holder.tv_file = (TextView)view.findViewById(R.id.tv_file);
-//            holder.btn_download_start = (Button)view.findViewById(R.id.btn_download_start);
-//            holder.btn_download_stop = (Button)view.findViewById(R.id.btn_download_stop);
-//            holder.pgb_download = (ProgressBar)view.findViewById(R.id.pgb_download);
             view.setTag(holder);
         }
         else
@@ -71,22 +69,18 @@ public class FileListAdapter extends BaseAdapter
         //设置视图中的控件
         holder.tv_file.setText(mFileInfo.getFileName());
         holder.pgb_download.setMax(100);
-        holder.btn_download_start.setOnClickListener(new View.OnClickListener()
-        {
+        holder.btn_download_start.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent mIntent = new Intent(ctx, DownloadService.class);
                 mIntent.setAction(DownloadService.ACTION_START);
                 mIntent.putExtra("fileinfo", mFileInfo);
                 ctx.startService(mIntent);
             }
         });
-        holder.btn_download_stop.setOnClickListener(new View.OnClickListener()
-        {
+        holder.btn_download_stop.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 Intent mIntent = new Intent(ctx, DownloadService.class);
                 mIntent.setAction(DownloadService.ACTION_STOP);
                 mIntent.putExtra("fileinfo", mFileInfo);
@@ -98,13 +92,26 @@ public class FileListAdapter extends BaseAdapter
     }
 
     /**
-     * 更新列表中的进度条
+     * 刷新列表中指定item的进度条
      */
     public void updateProgress(int id, int progress)
     {
         FileInfo mFileInfo = mList.get(id);
         mFileInfo.setFinished(progress);
-        notifyDataSetChanged();
+
+//        notifyDataSetChanged();//刷新整个listview, 影响性能, 导致item按钮响应慢
+
+        //刷新指定item，主要用到ListView的getChildAt(int position)方法，该方法是获取ListView众多可视的item中位置处于position的view。
+        //例如：getChildAt(1)，获取可视的第一个item，
+        int _visible_pos = id - mListView.getFirstVisiblePosition();
+        //获取指定itemIndex在屏幕中的view
+        View mView = mListView.getChildAt(_visible_pos);
+        //滑动ListView时，若item view在可视范围内，刷新UI
+        if(mView != null)
+        {
+            ViewHolder holder = (ViewHolder) mView.getTag();
+            holder.pgb_download.setProgress(mFileInfo.getFinishedInt());
+        }
     }
 
 

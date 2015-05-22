@@ -65,7 +65,7 @@ public class DownloadListActivity extends Activity
 //        mList.add(new FileInfo(7,"http://img.my.csdn.net/uploads/201407/26/1406383264_3954.jpg","1406383264_3954.jpg",0,0));
 //        mList.add(new FileInfo(8,"http://img.my.csdn.net/uploads/201407/26/1406383264_4787.jpg","1406383264_4787.jpg",0,0));
 //        mList.add(new FileInfo(9,"http://img.my.csdn.net/uploads/201407/26/1406383299_1976.jpg","1406383299_1976.jpg",0,0));
-        mAdapter = new FileListAdapter(this, mList);
+        mAdapter = new FileListAdapter(this, mList, lv_download);
         lv_download.setAdapter(mAdapter);
         //注册广播接收器
         IntentFilter mIntentFilter = new IntentFilter();

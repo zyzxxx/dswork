@@ -26,8 +26,8 @@ public class DownloadOneActivity extends Activity
     @InjectUtil.InjectView(id = R.id.pgb_download) ProgressBar pgb_download;//进度条
     @InjectUtil.InjectView(id = R.id.btn_download_start) Button btn_download_start;//下载开始按钮
     @InjectUtil.InjectView(id = R.id.btn_download_stop) Button btn_download_stop;//下载暂停按钮
-    @InjectUtil.InjectView(id = R.id.btn_download) Button btn_download;//下载按钮
     FileInfo mFileInfo = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
