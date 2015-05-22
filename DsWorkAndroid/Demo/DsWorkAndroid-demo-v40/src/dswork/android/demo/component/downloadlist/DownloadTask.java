@@ -176,9 +176,12 @@ public class DownloadTask
                         //间隔500毫秒更新一次进度
                         if(System.currentTimeMillis() - time > 500)
                         {
-                            long _finished = mFinished * 100l / mFileInfo.getLength();
-                            intent.putExtra("finished", _finished);
+                            long _progress = mFinished * 100l / mFileInfo.getLength();
+                            intent.putExtra("finished", Long.valueOf(mFinished/1024/1024).floatValue());
+                            intent.putExtra("len", Long.valueOf(mFileInfo.getLength()/1024/1024).floatValue());
+                            intent.putExtra("progress", _progress);
                             intent.putExtra("id", mFileInfo.getId());
+                            intent.putExtra("status","start");
                             ctx.sendBroadcast(intent);
                         }
                         //在下载暂停时，保存下载进度
@@ -186,6 +189,8 @@ public class DownloadTask
                         {
                             System.out.println("下载暂停->"+mThreadInfo.getThread_id()+" :"+mThreadInfo.toString());
                             service.updateFinished(mThreadInfo);
+                            intent.putExtra("status","stop");
+                            ctx.sendBroadcast(intent);
                             return;
                         }
                     }

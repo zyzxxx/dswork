@@ -88,13 +88,15 @@ public class FileListAdapter extends BaseAdapter
             }
         });
         holder.pgb_download.setProgress(mFileInfo.getFinishedInt());
+        holder.tv_file_finished.setText("");
+        holder.tv_file_len.setText("");
         return view;
     }
 
     /**
      * 刷新列表中指定item的进度条
      */
-    public void updateProgress(int id, int progress)
+    public void updateProgress(int id, int progress, float finished, float len, String status)
     {
         FileInfo mFileInfo = mList.get(id);
         mFileInfo.setFinished(progress);
@@ -111,6 +113,18 @@ public class FileListAdapter extends BaseAdapter
         {
             ViewHolder holder = (ViewHolder) mView.getTag();
             holder.pgb_download.setProgress(mFileInfo.getFinishedInt());
+            holder.tv_file_finished.setText(finished+" MB/");
+            holder.tv_file_len.setText(len+" MB");
+            if(status.equals("start"))
+            {
+                holder.btn_download_start.setVisibility(View.GONE);
+                holder.btn_download_stop.setVisibility(View.VISIBLE);
+            }
+            else if(status.equals("stop"))
+            {
+                holder.btn_download_start.setVisibility(View.VISIBLE);
+                holder.btn_download_stop.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -118,12 +132,15 @@ public class FileListAdapter extends BaseAdapter
     static class ViewHolder
     {
         public TextView tv_file;
-        public Button btn_download_start,btn_download_stop;
+        public TextView tv_file_finished, tv_file_len;
+        public Button btn_download_start, btn_download_stop;
         public ProgressBar pgb_download;
 
         public ViewHolder(View v)
         {
             this.tv_file = (TextView)v.findViewById(R.id.tv_file);
+            this.tv_file_finished = (TextView)v.findViewById(R.id.tv_file_finished);
+            this.tv_file_len = (TextView)v.findViewById(R.id.tv_file_len);
             this.btn_download_start = (Button)v.findViewById(R.id.btn_download_start);
             this.btn_download_stop = (Button)v.findViewById(R.id.btn_download_stop);
             this.pgb_download = (ProgressBar)v.findViewById(R.id.pgb_download);

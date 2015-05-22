@@ -117,16 +117,19 @@ public class DownloadListActivity extends Activity
         {
             if(DownloadService.ACTION_UPDATE.equals(intent.getAction()))
             {
-                int finished = Integer.valueOf(String.valueOf(intent.getLongExtra("finished", 0l)));
+                int progress = Integer.valueOf(String.valueOf(intent.getLongExtra("progress", 0l)));
                 int id = intent.getIntExtra("id",0);
-                mAdapter.updateProgress(id,finished);
+                float finished = intent.getFloatExtra("finished",0l);
+                float len = intent.getFloatExtra("len",0l);
+                String status = intent.getStringExtra("status");
+                mAdapter.updateProgress(id,progress,finished,len, status);
             }
             else if(DownloadService.ACTION_FINISH.equals(intent.getAction()))
             {
                 //下载结束
                 FileInfo mFileInfo = (FileInfo)intent.getSerializableExtra("fileinfo");
                 //更新进度为0
-                mAdapter.updateProgress(mFileInfo.getId(),0);
+                mAdapter.updateProgress(mFileInfo.getId(),0,0,0,"");
                 Toast.makeText(DownloadListActivity.this, mList.get(mFileInfo.getId()).getFileName()+"下载完毕",Toast.LENGTH_SHORT).show();
             }
             else if(DownloadService.ACTION_ERROR.equals(intent.getAction()))

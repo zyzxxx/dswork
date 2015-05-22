@@ -5,7 +5,51 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
-
+<!--
     <include layout="@layout/download_one"/>
+-->
+    <!--文件名-->
+    <TextView
+        android:id="@+id/tv_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"/>
+    <!--进度条-->
+    <ProgressBar
+        android:id="@+id/pgb_download"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_file"/>
+    <!--数字进度-->
+    <TextView
+        android:id="@+id/tv_file_finished"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pgb_download"
+        android:layout_alignLeft="@+id/pgb_download"/>
+    <TextView
+        android:id="@+id/tv_file_len"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pgb_download"
+        android:layout_toRightOf="@+id/tv_file_finished"/>
+    <!--按钮-->
+    <Button
+        android:id="@+id/btn_download_start"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pgb_download"
+        android:layout_alignRight="@+id/pgb_download"
+        android:text="下载" />
+
+    <Button
+        android:id="@+id/btn_download_stop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pgb_download"
+        android:layout_alignRight="@+id/pgb_download"
+        android:visibility="gone"
+        android:text="停止" />
 
 </RelativeLayout>
