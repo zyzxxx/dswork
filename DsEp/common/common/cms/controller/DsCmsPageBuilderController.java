@@ -56,7 +56,9 @@ public class DsCmsPageBuilderController extends BaseController
 			put("category", c);
 			Map<String, Object> mm = cms.queryPage(page, 25, false, false, true, String.valueOf(c.get("url")), categoryid);
 			put("datalist", mm.get("list"));
-			put("datapage", mm.get("page"));
+			put("datapageview", mm.get("datapageview"));
+			put("datauri", mm.get("datauri"));
+			put("datapage", mm.get("datapage"));
 			return "/" + s.get("folder") + "/templates/" + c.get("viewsite");
 		}
 		return "/" + s.get("folder") + "/templates/" + s.get("viewsite");
