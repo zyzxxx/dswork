@@ -23,22 +23,22 @@ public class DsCmsPageBuilderController extends BaseController
 		put("cms", cms);
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
-		put("ctx", s.get("url"));
+		put("ctx", getString(s.get("url")));
 		if(pageid > 0)// 内容页
 		{
 			Map<String, Object> p = cms.get(pageid + "");
 			Map<String, Object> c = cms.getCategory(String.valueOf(p.get("categoryid")));
 			put("category", c);
-			put("id", p.get("id"));
-			put("categoryid", p.get("categoryid"));
-			put("title", p.get("title"));
-			put("metakeywords", p.get("metakeywords"));
-			put("metadescription", p.get("metadescription"));
-			put("summary", p.get("summary"));
-			put("content", p.get("content"));
-			put("releasetime", p.get("releasetime"));
-			put("img", p.get("img"));
-			put("url", p.get("url"));
+			put("id", getString(p.get("id")));
+			put("categoryid", getString(p.get("categoryid")));
+			put("title", getString(p.get("title")));
+			put("metakeywords", getString(p.get("metakeywords")));
+			put("metadescription", getString(p.get("metadescription")));
+			put("summary", getString(p.get("summary")));
+			put("content", getString(p.get("content")));
+			put("releasetime", getString(p.get("releasetime")));
+			put("img", getString(p.get("img")));
+			put("url", getString(p.get("url")));
 			return "/" + s.get("folder") + "/templates/" + c.get("pageviewsite");
 		}
 		if(categoryid > 0)// 栏目页
@@ -63,5 +63,10 @@ public class DsCmsPageBuilderController extends BaseController
 			return "/" + s.get("folder") + "/templates/" + c.get("viewsite");
 		}
 		return "/" + s.get("folder") + "/templates/" + s.get("viewsite");
+	}
+	
+	private String getString(Object object)
+	{
+		return object == null ? "" : String.valueOf(object);
 	}
 }
