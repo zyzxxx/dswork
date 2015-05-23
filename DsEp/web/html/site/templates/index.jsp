@@ -15,8 +15,10 @@
 <body>
 <%@include file="include/header.jsp"%>
 
+<div style="margin:10px auto;text-align:center;width:400px;border:1px solid #000;">
 <%@include file="include/foucs.jsp"%>
-	
+</div>
+
 <%@include file="include/footer.jsp"%>
 </body>
 </html>

@@ -370,6 +370,8 @@ public class DsCmsPageController extends BaseController
 		Long siteid = req.getLong("siteid", -1);
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
+		int pagesize = req.getInt("pagesize", 25);
+		if(pagesize <= 0){pagesize = 25;}
 		try
 		{
 			if(siteid >= 0)
@@ -426,12 +428,12 @@ public class DsCmsPageController extends BaseController
 										_m.put("categoryid", c.getId());
 										_m.put("releasetime", TimeUtil.getCurrentTime());
 										PageRequest rq = new PageRequest(_m);
-										rq.setPageSize(25);// 需要修改成对应DsCmsPageBuilderController中的pagesize值
+										rq.setPageSize(pagesize);
 										rq.setCurrentPage(1);
 										Page<DsCmsPage> pageModel = service.queryPage(rq);
 										for(int i = 2; i <= pageModel.getLastPage(); i++)
 										{
-											buildFile(path + "&categoryid=" + c.getId() + "&page=" + i, c.getUrl().replaceAll("\\.html", "_" + i + ".html"), site.getFolder(), site.getUrl());
+											buildFile(path + "&categoryid=" + c.getId() + "&page=" + i + "&pagesize=" + pagesize, c.getUrl().replaceAll("\\.html", "_" + i + ".html"), site.getFolder(), site.getUrl());
 										}
 									}
 								}
@@ -494,7 +496,7 @@ public class DsCmsPageController extends BaseController
 									map.put("releasetime", TimeUtil.getCurrentTime());
 									map.put("categoryid", c.getId());
 									rq.setFilters(map);
-									rq.setPageSize(25);
+									rq.setPageSize(pagesize);
 									rq.setCurrentPage(i);
 									Page<DsCmsPage> n = service.queryPage(rq);
 									for(DsCmsPage p : n.getResult())
