@@ -420,7 +420,7 @@ public class DsCmsPageController extends BaseController
 								}
 								if(c.getSiteid() == siteid)
 								{
-									buildFile(path + "&categoryid=" + c.getId() + "&page=1", c.getUrl(), site.getFolder(), site.getUrl());
+									buildFile(path + "&categoryid=" + c.getId() + "&page=1&pagesize=" + pagesize, c.getUrl(), site.getFolder(), site.getUrl());
 									if(true)
 									{
 										Map<String, Object> _m = new HashMap<String, Object>();
@@ -482,7 +482,7 @@ public class DsCmsPageController extends BaseController
 								map.put("releasetime", TimeUtil.getCurrentTime());
 								map.put("categoryid", c.getId());
 								PageRequest rq = new PageRequest(map);
-								rq.setPageSize(25);
+								rq.setPageSize(pagesize);
 								rq.setCurrentPage(1);
 								Page<DsCmsPage> pageModel = service.queryPage(rq);
 								for(DsCmsPage p : pageModel.getResult())
