@@ -27,19 +27,7 @@
 		<dl><dt><a href="${ctx}${d.url}">${d.title}</a></dt><dd>${d.releasetime}</dd></dl>
 		</c:forEach>
 	  </div>
-	  <div class="page">
-		${datapageview}
-		
-		<br /><br /><br />
-
-		<a${datapage.page == 1?' class="selected"':''}<c:if test="${datapage.page == 1}"> onclick="return false;"</c:if> href="${ctx}/${datapage.firsturl}">1</a>
-		<c:if test="${datapage.page - 3 > 2 && datapage.page - 3 < datapage.last - 3}"><a href="${ctx}/${datauri}_${datapage.page - 4}.html">...</a></c:if>
-		<c:forEach var="i" begin="1" end="${datapage.last}">
-			<c:if test="${i > 1 && i < datapage.last && i >= datapage.page - 3 && i <= datapage.page + 3}"><a${datapage.page == i?' class="selected"':''} href="${ctx}/${datauri}_${i}.html">${i}</a></c:if>
-		</c:forEach>
-		<c:if test="${datapage.page + 3 > 2 && datapage.page + 3 < datapage.last - 3}"><a href="${ctx}/${datauri}_${datapage.page + 4}.html">...</a></c:if>
-		<c:if test="${datapage.last != 1}"><a${datapage.page == datapage.last?' class="selected"':''}<c:if test="${datapage.page == datapage.last}"> onclick="return false;"</c:if> href="${ctx}/${datapage.lasturl}">${datapage.last}</a></c:if>
-	  </div>
+	  <div class="page"><%@include file="include/pageview.jsp"%></div>
 	</div>
   </div>
 </div>

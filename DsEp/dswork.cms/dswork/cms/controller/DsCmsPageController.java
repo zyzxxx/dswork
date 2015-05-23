@@ -416,8 +416,10 @@ public class DsCmsPageController extends BaseController
 							{
 								if(c.getStatus() == 2)// 外链没有东西生成的
 								{
+									deleteFile(site.getFolder(), c.getFolder(), true, true);
 									continue;
 								}
+								deleteFile(site.getFolder(), c.getFolder(), true, false);// 删除栏目
 								if(c.getSiteid() == siteid)
 								{
 									buildFile(path + "&categoryid=" + c.getId() + "&page=1&pagesize=" + pagesize, c.getUrl(), site.getFolder(), site.getUrl());
@@ -439,13 +441,12 @@ public class DsCmsPageController extends BaseController
 								}
 							}
 						}
-						else
-						// 生成首页
+						else// 生成首页
 						{
 							buildFile(path, "/index.html", site.getFolder(), site.getUrl());
 						}
 					}
-					else if(pageid == 0)
+					else if(pageid == 0)//生成内容
 					{
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 						if(categoryid == 0)// 生成全部内容页
@@ -463,20 +464,10 @@ public class DsCmsPageController extends BaseController
 							{
 								if(c.getStatus() == 2)// 外链没有东西生成的
 								{
+									deleteFile(site.getFolder(), c.getFolder(), true, true);
 									continue;
 								}
-								// 这部分处理不当，全把整个站点的都删除的
-								java.io.File file = new java.io.File(getCmsRoot() + "/html/" + site.getFolder() + "/html/a/" + c.getFolder());
-								if(c.getFolder() != null && c.getFolder().trim().length() > 0 && file != null && file.exists())
-								{
-									for(java.io.File f : file.listFiles())
-									{
-										if(f.isDirectory())
-										{
-											FileUtil.delete(f.getPath());// 清空目录，文章存放在ym结构下的目录中
-										}
-									}
-								}
+								deleteFile(site.getFolder(), c.getFolder(), false, true);// 删除内容
 								Map<String, Object> map = new HashMap<String, Object>();
 								map.put("siteid", site.getId());
 								map.put("releasetime", TimeUtil.getCurrentTime());
@@ -523,6 +514,42 @@ public class DsCmsPageController extends BaseController
 		{
 			ex.printStackTrace();
 			print("0:生成失败");
+		}
+	}
+	
+	private void deleteFile(String siteFolder, String categoryFolder, boolean deleteCategory, boolean deletePage)
+	{
+		// 这部分处理不当，全把整个站点的都删除的
+		if(siteFolder != null && siteFolder.trim().length() > 0 && categoryFolder != null && categoryFolder.trim().length() > 0)
+		{
+			java.io.File file = new java.io.File(getCmsRoot() + "/html/" + siteFolder + "/html/a/" + categoryFolder);
+			if(file.exists())
+			{
+				for(java.io.File f : file.listFiles())
+				{
+					if(f.isDirectory())
+					{
+						FileUtil.delete(f.getPath());// 不应该存在目录
+					}
+					if(f.isFile())
+					{
+						if(f.getName().startsWith("index"))
+						{
+							if(deleteCategory)
+							{
+								f.delete();// 删除栏目页面
+							}
+						}
+						else
+						{
+							if(deletePage)
+							{
+								f.delete();// 删除非栏目页面
+							}
+						}
+					}
+				}
+			}
 		}
 	}
 
