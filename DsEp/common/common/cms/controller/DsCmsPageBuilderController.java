@@ -44,6 +44,7 @@ public class DsCmsPageBuilderController extends BaseController
 		if(categoryid > 0)// 栏目页
 		{
 			int page = req.getInt("page", 1);
+			int pagesize = req.getInt("pagesize", 25);
 			Map<String, Object> c = cms.getCategory(categoryid + "");
 			if(String.valueOf(c.get("status")).equals("2"))
 			{
@@ -54,7 +55,7 @@ public class DsCmsPageBuilderController extends BaseController
 				return null;// 外链
 			}
 			put("category", c);
-			Map<String, Object> mm = cms.queryPage(page, 25, false, false, true, String.valueOf(c.get("url")), categoryid);
+			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
 			put("datalist", mm.get("list"));
 			put("datapageview", mm.get("datapageview"));
 			put("datauri", mm.get("datauri"));

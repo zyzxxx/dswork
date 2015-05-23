@@ -88,6 +88,8 @@ public class CmsFactory
 	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean onlyImage, boolean onlyPage, boolean isDesc, String url, Object categoryid)
 	{
 		init();
+		if(currentPage <= 0){currentPage = 1;}
+		if(pageSize <= 0){pageSize = 25;}
 		StringBuilder idArray = new StringBuilder();
 		idArray.append(toLong(categoryid));
 		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage);
