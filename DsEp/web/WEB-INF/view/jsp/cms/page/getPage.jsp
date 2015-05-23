@@ -14,6 +14,15 @@ $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getPage.htm?id=${po.id}&page=${pageModel.currentPage}";
 }};
+$(function(){
+	$("#btn_category").bind("click", function(){
+		if(confirm("是否生成栏目\"${fn:escapeXml(po.name)}\"")){
+			$.post("build.htm",{"siteid":"${po.siteid}", "categoryid":"${po.id}"},function(data){
+				$dswork.doAjaxShow(data, function(){});
+			});
+		}
+	});
+});
 </script>
 </head> 
 <body>
@@ -21,6 +30,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr>
 		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
 		<td class="menuTool">
+			<a class="graph" id="btn_category" href="#">生成栏目</a>
 			<a class="insert" href="addPage1.htm?categoryid=${po.id}&page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>

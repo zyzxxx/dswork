@@ -15,6 +15,15 @@ $(function(){
 	try{$(".form_title").css("width", "8%");}catch(e){}
 	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${po.id}",upImgUrl:"uploadImage.htm?categoryid=${po.id}"});
 });
+$(function(){
+	$("#btn_category").bind("click", function(){
+		if(confirm("是否生成栏目\"${fn:escapeXml(po.name)}\"")){
+			$.post("build.htm",{"siteid":"${po.siteid}", "categoryid":"${po.id}"},function(data){
+				$dswork.doAjaxShow(data, function(){});
+			});
+		}
+	});
+});
 </script>
 </head>
 <body>
@@ -22,6 +31,7 @@ $(function(){
 	<tr>
 		<td class="title">修改</td>
 		<td class="menuTool">
+			<a class="graph" id="btn_category" href="#">生成栏目</a>
 			<a class="save" id="dataFormSave" href="#">保存</a>
 			<a class="back" href="getCategory.htm?siteid=${param.siteid}">返回</a>
 		</td>
