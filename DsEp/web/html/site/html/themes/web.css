@@ -107,8 +107,8 @@ a:hover,a:active{color:#00c;}
 .listpage .page a:hover{color:#fff;background-color:#1c72be;text-decoration:underline;cursor:pointer;}
 .listpage .page a.selected,
 .listpage .page a.selected:hover{color:#fff;background-color:#1c72be;text-decoration:none;cursor:default;}
-.listpage div.title{margin:0 auto;width:95%;font-size:16px;color:#db3a00;text-align:center;line-height:80px;border-bottom:1px solid #ddd;}
-.listpage div.content{margin:0 auto;width:90%;text-align:left;line-height:30px;padding:20px;}
+.listpage div.title{margin:0 auto;width:95%;font-size:16px;color:#db3a00;text-align:center;line-height:80px;border-bottom:1px solid #ddd;word-break:break-all;word-wrap:break-word;}
+.listpage div.content{margin:0 auto;width:90%;text-align:left;line-height:30px;padding:20px;word-break:break-all;word-wrap:break-word;}
 
 .foucs {width:400px;height:320px;padding:0;margin:0;overflow:hidden;}
 .foucs div,
