@@ -15,13 +15,29 @@ $(function(){
 	try{$(".form_title").css("width", "8%");}catch(e){}
 	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${po.id}",upImgUrl:"uploadImage.htm?categoryid=${po.id}"});
 });
+function build(categoryid)
+{
+	$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
+	var v = {"siteid":"${po.siteid}"};
+	if(categoryid != null)
+	{
+		v.categoryid = categoryid;
+	}
+	$.post("build.htm",v,function(data){
+		$dswork.doAjaxShow(data, function(){});
+	});
+}
 $(function(){
 	$("#btn_category").bind("click", function(){
-		if(confirm("是否生成栏目\"${fn:escapeXml(po.name)}\"")){
+		if(confirm("是否发布栏目\"${fn:escapeXml(po.name)}\"")){
+			$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
 			$.post("build.htm",{"siteid":"${po.siteid}", "categoryid":"${po.id}"},function(data){
 				$dswork.doAjaxShow(data, function(){});
 			});
 		}
+	});
+	$("#btn_site").bind("click", function(){
+		if(confirm("是否发布首页")){build(null);}
 	});
 });
 </script>
@@ -31,7 +47,10 @@ $(function(){
 	<tr>
 		<td class="title">修改</td>
 		<td class="menuTool">
-			<a class="graph" id="btn_category" href="#">生成栏目</a>
+			<a class="graph" id="btn_category" href="#">发布本栏目</a>
+			<a class="look" target="_blank" href="buildHTML.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
+			<a class="graph" id="btn_site" href="#">发布首页</a>
+			<a class="look" target="_blank" href="buildHTML.chtml?siteid=${po.siteid}">预览首页</a>
 			<a class="save" id="dataFormSave" href="#">保存</a>
 			<a class="back" href="getCategory.htm?siteid=${param.siteid}">返回</a>
 		</td>

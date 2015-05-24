@@ -7,6 +7,28 @@
 <title></title>
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
+function build(pageid)
+{
+	$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
+	var v = {"siteid":"${po.siteid}"};
+	if(pageid != null)
+	{
+		v.categoryid = "${po.id}";
+		v.pageid = pageid;
+	}
+	$.post("build.htm",v,function(data){$dswork.doAjaxShow(data, function(){});});
+}
+$dswork.page.join = function(td, menu, id){
+	$(menu).append($('<div iconCls="menuTool-graph">预览</div>').bind("click", function(){
+		window.open("buildHTML.chtml?siteid=${po.siteid}&categoryid=${po.id}&pageid=" + id);
+	}));
+	$(menu).append($('<div iconCls="menuTool-graph">发布</div>').bind("click", function(){
+		if(confirm("是否发布内容")){build(id);}
+	}));
+	$(menu).append($('<div iconCls="menuTool-graph">发布【并发布本栏目】</div>').bind("click", function(){
+		if(confirm("是否发布内容【并发布栏目\"${fn:escapeXml(po.name)}\"】")){build(id);build(-1);}
+	}));
+};
 $(function(){
 	$dswork.page.menu("delPage.htm?id=${po.id}", "updPage1.htm", "", "${pageModel.currentPage}");
 });
@@ -15,12 +37,14 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getPage.htm?id=${po.id}&page=${pageModel.currentPage}";
 }};
 $(function(){
+	$("#btn_page").bind("click", function(){
+		if(confirm("是否发布栏目\"${fn:escapeXml(po.name)}\"内容")){build(0);}
+	});
 	$("#btn_category").bind("click", function(){
-		if(confirm("是否生成栏目\"${fn:escapeXml(po.name)}\"")){
-			$.post("build.htm",{"siteid":"${po.siteid}", "categoryid":"${po.id}"},function(data){
-				$dswork.doAjaxShow(data, function(){});
-			});
-		}
+		if(confirm("是否发布栏目\"${fn:escapeXml(po.name)}\"")){build(-1);}
+	});
+	$("#btn_site").bind("click", function(){
+		if(confirm("是否发布首页")){build(null);}
 	});
 });
 </script>
@@ -30,7 +54,11 @@ $(function(){
 	<tr>
 		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
 		<td class="menuTool">
-			<a class="graph" id="btn_category" href="#">生成栏目</a>
+			<a class="graph" id="btn_page" href="#">发布本栏目所有内容</a>
+			<a class="graph" id="btn_category" href="#">发布本栏目</a>
+			<a class="look" target="_blank" href="buildHTML.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
+			<a class="graph" id="btn_site" href="#">发布首页</a>
+			<a class="look" target="_blank" href="buildHTML.chtml?siteid=${po.siteid}">预览首页</a>
 			<a class="insert" href="addPage1.htm?categoryid=${po.id}&page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
