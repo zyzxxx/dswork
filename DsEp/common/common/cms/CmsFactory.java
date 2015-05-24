@@ -94,6 +94,7 @@ public class CmsFactory
 		idArray.append(toLong(categoryid));
 		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage);
 		Map<String, Object> map = new HashMap<String, Object>();
+		currentPage = page.getCurrentPage();// 更新当前页
 		map.put("list", page.getResult());
 
 		Map<String, Object> pagemap = new HashMap<String, Object>();
@@ -118,18 +119,44 @@ public class CmsFactory
 		map.put("datauri", url.replaceAll("\\.html", ""));
 		map.put("datapage", pagemap);
 		
-		
-		
+
 		StringBuilder sb = new StringBuilder();
-		for(int i = 1; i <= page.getLastPage(); i++)
+		int viewpage = 3, temppage = 1;// 左右显示个数
+		
+		sb.append("<a");
+		if(currentPage == 1){sb.append(" class=\"selected\"");}else{sb.append(" href=\"").append(site.get("url")).append(url).append("\"");}
+		sb.append(">1</a>");
+		
+		temppage = currentPage - viewpage -1;
+		if(temppage > 1)
 		{
-			String u = (i == 1 ? url : (url.replaceAll("\\.html", "_" + i + ".html")));
-			sb.append("<a");
-			if(i != currentPage)
+			String u = url.replaceAll("\\.html", "_" + (temppage - 1) + ".html");
+			sb.append("<a href=\"").append(site.get("url")).append(u).append("\">...</a>");
+		}
+
+		for(int i = currentPage - viewpage; i <= currentPage + viewpage && i < page.getLastPage(); i++)
+		{
+			if(i > 1)
 			{
-				sb.append(" href=\"").append(site.get("url")).append(u).append("\"");
+				String u = (i == 1 ? url : (url.replaceAll("\\.html", "_" + i + ".html")));
+				sb.append("<a");
+				if(currentPage == i){sb.append(" class=\"selected\"");}else{sb.append(" href=\"").append(site.get("url")).append(u).append("\"");}
+				sb.append(">").append(i).append("</a>");
 			}
-			sb.append((i == currentPage ? " class=\"selected\"" : "")).append(">").append(i).append("</a>");
+		}
+
+		temppage = currentPage + viewpage + 1;
+		if(temppage < page.getLastPage())
+		{
+			String u = url.replaceAll("\\.html", "_" + temppage + ".html");
+			sb.append("<a href=\"").append(site.get("url")).append(u).append("\">...</a>");
+		}
+		if(1 != page.getLastPage())
+		{
+			String u = url.replaceAll("\\.html", "_" + page.getLastPage() + ".html");
+			sb.append("<a");
+			if(currentPage == page.getLastPage()){sb.append(" class=\"selected\"");}else{sb.append(" href=\"").append(site.get("url")).append(u).append("\"");}
+			sb.append(">").append(page.getLastPage()).append("</a>");
 		}
 		map.put("datapageview", sb.toString());// 翻页字符串
 		return map;
