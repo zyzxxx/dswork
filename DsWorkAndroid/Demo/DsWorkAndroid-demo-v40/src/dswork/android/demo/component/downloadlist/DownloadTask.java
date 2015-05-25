@@ -56,7 +56,7 @@ public class DownloadTask
         if(threadInfos.size() == 0)
         {
             //获得每个线程下载长度
-            int length = mFileInfo.getLengthInt()/mThreadCount;
+            long length = mFileInfo.getLength()/mThreadCount;
             for(int i=0; i<mThreadCount; i++)
             {
                 //创建线程信息
@@ -176,11 +176,11 @@ public class DownloadTask
                         //间隔500毫秒更新一次进度
                         if(System.currentTimeMillis() - time > 500)
                         {
-                            long _progress = mFinished * 100l / mFileInfo.getLength();
-                            intent.putExtra("finished", Long.valueOf(mFinished/1024/1024).floatValue());
-                            intent.putExtra("len", Long.valueOf(mFileInfo.getLength()/1024/1024).floatValue());
-                            intent.putExtra("progress", _progress);
+                            int _progress = Integer.valueOf(String.valueOf(mFinished * 100 / mFileInfo.getLength()));
                             intent.putExtra("id", mFileInfo.getId());
+                            intent.putExtra("progress", _progress);
+                            intent.putExtra("finished", mFinished/1024/1024);
+                            intent.putExtra("len", mFileInfo.getLength()/1024/1024);
                             intent.putExtra("status","start");
                             ctx.sendBroadcast(intent);
                         }

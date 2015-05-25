@@ -12,17 +12,17 @@ public class FileInfo implements Serializable
     private String fileName;
     private long length;
     private long finished;
+    private int progress;
+    private String status;
 
-    public FileInfo() {
-        super();
-    }
-
-    public FileInfo(int id, String url, String fileName, long length, long finished) {
+    public FileInfo(int id, String url, String fileName, long length, long finished, int progress, String status) {
         this.id = id;
         this.url = url;
         this.fileName = fileName;
         this.length = length;
         this.finished = finished;
+        this.progress = progress;
+        this.status = status;
     }
 
     public int getId() {
@@ -53,10 +53,6 @@ public class FileInfo implements Serializable
         return length;
     }
 
-    public int getLengthInt(){
-        return Integer.valueOf(String.valueOf(length));
-    }
-
     public void setLength(long length) {
         this.length = length;
     }
@@ -65,12 +61,24 @@ public class FileInfo implements Serializable
         return finished;
     }
 
-    public int getFinishedInt(){
-        return Integer.valueOf(String.valueOf(finished));
-    }
-
     public void setFinished(long finished) {
         this.finished = finished;
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     @Override
@@ -81,6 +89,8 @@ public class FileInfo implements Serializable
                 ", fileName='" + fileName + '\'' +
                 ", length=" + length +
                 ", finished=" + finished +
+                ", progress=" + progress +
+                ", status='" + status + '\'' +
                 '}';
     }
 }

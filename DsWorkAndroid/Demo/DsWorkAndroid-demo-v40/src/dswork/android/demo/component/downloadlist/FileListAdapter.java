@@ -69,37 +69,28 @@ public class FileListAdapter extends BaseAdapter
         //设置视图中的控件
         holder.tv_file.setText(mFileInfo.getFileName());
         holder.pgb_download.setMax(100);
-        holder.btn_download_start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mIntent = new Intent(ctx, DownloadService.class);
-                mIntent.setAction(DownloadService.ACTION_START);
-                mIntent.putExtra("fileinfo", mFileInfo);
-                ctx.startService(mIntent);
-            }
-        });
-        holder.btn_download_stop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mIntent = new Intent(ctx, DownloadService.class);
-                mIntent.setAction(DownloadService.ACTION_STOP);
-                mIntent.putExtra("fileinfo", mFileInfo);
-                ctx.startService(mIntent);
-            }
-        });
-        holder.pgb_download.setProgress(mFileInfo.getFinishedInt());
-        holder.tv_file_finished.setText("");
-        holder.tv_file_len.setText("");
+        setProgressUI(mFileInfo, holder);
+        holder.btn_download_start.setOnClickListener(new BtnDownloadStartOnClickListener(mFileInfo,holder));
+        holder.btn_download_stop.setOnClickListener(new BtnDownloadStopOnClickListener(mFileInfo,holder));
         return view;
     }
 
     /**
      * 刷新列表中指定item的进度条
+     * @param id 在List的索引值
+     * @param progress 进度百分比
+     * @param finished 文件已下载长度
+     * @param len 文件总长度
+     * @param status 下载状态
      */
-    public void updateProgress(int id, int progress, float finished, float len, String status)
+    public void updateItemProgress(int id, int progress, long finished, long len, String status)
     {
+        System.out.println("接受进度百分比："+progress);
         FileInfo mFileInfo = mList.get(id);
-        mFileInfo.setFinished(progress);
+        mFileInfo.setProgress(progress);
+        mFileInfo.setFinished(finished);
+        mFileInfo.setLength(len);
+        mFileInfo.setStatus(status);
 
 //        notifyDataSetChanged();//刷新整个listview, 影响性能, 导致item按钮响应慢
 
@@ -112,22 +103,31 @@ public class FileListAdapter extends BaseAdapter
         if(mView != null)
         {
             ViewHolder holder = (ViewHolder) mView.getTag();
-            holder.pgb_download.setProgress(mFileInfo.getFinishedInt());
-            holder.tv_file_finished.setText(finished+" MB/");
-            holder.tv_file_len.setText(len+" MB");
-            if(status.equals("start"))
-            {
-                holder.btn_download_start.setVisibility(View.GONE);
-                holder.btn_download_stop.setVisibility(View.VISIBLE);
-            }
-            else if(status.equals("stop"))
-            {
-                holder.btn_download_start.setVisibility(View.VISIBLE);
-                holder.btn_download_stop.setVisibility(View.GONE);
-            }
+            setProgressUI(mFileInfo, holder);
         }
     }
 
+    private void setProgressUI(FileInfo mFileInfo, ViewHolder holder)
+    {
+        holder.pgb_download.setProgress(mFileInfo.getProgress());
+        holder.tv_file_finished.setText(mFileInfo.getFinished()+" MB/");
+        holder.tv_file_len.setText(mFileInfo.getLength()+" MB");
+        if(mFileInfo.getStatus().equals("start"))
+        {
+            holder.btn_download_start.setVisibility(View.GONE);
+            holder.btn_download_stop.setVisibility(View.VISIBLE);
+        }
+        else if(mFileInfo.getStatus().equals("stop"))
+        {
+            holder.btn_download_start.setVisibility(View.VISIBLE);
+            holder.btn_download_stop.setVisibility(View.GONE);
+        }
+        else if(mFileInfo.getStatus().equals("finish"))
+        {
+            holder.btn_download_start.setVisibility(View.VISIBLE);
+            holder.btn_download_stop.setVisibility(View.GONE);
+        }
+    }
 
     static class ViewHolder
     {
@@ -144,6 +144,53 @@ public class FileListAdapter extends BaseAdapter
             this.btn_download_start = (Button)v.findViewById(R.id.btn_download_start);
             this.btn_download_stop = (Button)v.findViewById(R.id.btn_download_stop);
             this.pgb_download = (ProgressBar)v.findViewById(R.id.pgb_download);
+        }
+    }
+
+    //listeners/////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private class BtnDownloadStartOnClickListener implements View.OnClickListener
+    {
+        private FileInfo mFileInfo;
+        private ViewHolder mViewHolder;
+
+        public BtnDownloadStartOnClickListener(FileInfo mFileInfo, ViewHolder mViewHolder)
+        {
+            this.mFileInfo = mFileInfo;
+            this.mViewHolder = mViewHolder;
+        }
+
+        @Override
+        public void onClick(View v)
+        {
+            mViewHolder.btn_download_start.setVisibility(View.GONE);
+            mViewHolder.btn_download_stop.setVisibility(View.VISIBLE);
+            Intent mIntent = new Intent(ctx, DownloadService.class);
+            mIntent.setAction(DownloadService.ACTION_START);
+            mIntent.putExtra("fileinfo", mFileInfo);
+            ctx.startService(mIntent);
+        }
+    }
+
+    private class BtnDownloadStopOnClickListener implements View.OnClickListener
+    {
+        private FileInfo mFileInfo;
+        private ViewHolder mViewHolder;
+
+        public BtnDownloadStopOnClickListener(FileInfo mFileInfo, ViewHolder mViewHolder)
+        {
+            this.mFileInfo = mFileInfo;
+            this.mViewHolder = mViewHolder;
+        }
+
+        @Override
+        public void onClick(View v)
+        {
+            mViewHolder.btn_download_start.setVisibility(View.VISIBLE);
+            mViewHolder.btn_download_stop.setVisibility(View.GONE);
+            Intent mIntent = new Intent(ctx, DownloadService.class);
+            mIntent.setAction(DownloadService.ACTION_STOP);
+            mIntent.putExtra("fileinfo", mFileInfo);
+            ctx.startService(mIntent);
         }
     }
 }

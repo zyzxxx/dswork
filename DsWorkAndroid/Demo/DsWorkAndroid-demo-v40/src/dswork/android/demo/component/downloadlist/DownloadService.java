@@ -83,7 +83,7 @@ public class DownloadService extends Service
                     FileInfo mFileInfo = (FileInfo)msg.obj;
                     Log.i("<* Handler启动下载任务 *>", mFileInfo.toString());
                     //启动下载任务
-                    mDownloadTask = new DownloadTask(DownloadService.this, mFileInfo, 3);
+                    mDownloadTask = new DownloadTask(DownloadService.this, mFileInfo, 1);
                     mDownloadTask.download();
                     //把下载任务添加到集合中
                     mTasks.put(mFileInfo.getId(),mDownloadTask);
