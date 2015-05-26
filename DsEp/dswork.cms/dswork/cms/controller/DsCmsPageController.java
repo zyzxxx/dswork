@@ -42,6 +42,7 @@ public class DsCmsPageController extends BaseController
 	@RequestMapping("/addPage1")
 	public String addPage1()
 	{
+		put("releasetime", TimeUtil.getCurrentTime());
 		return "/cms/page/addPage.jsp";
 	}
 
@@ -57,7 +58,10 @@ public class DsCmsPageController extends BaseController
 			{
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
-				po.setReleasetime(TimeUtil.getCurrentTime());
+				if(po.getReleasetime().trim().equals(""))
+				{
+					po.setReleasetime(TimeUtil.getCurrentTime());
+				}
 				po.setUrl("/a/" + m.getFolder());
 				service.save(po);// url拼接/id.html
 				print(1);

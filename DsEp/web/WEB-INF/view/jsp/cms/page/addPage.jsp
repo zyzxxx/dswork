@@ -58,6 +58,7 @@ $(function(){
 		<td class="form_title">发布</td>
 		<td class="form_input">
 			<label><input type="checkbox" name="pagetop" value="1" /> 首页推荐</label>
+			&nbsp;&nbsp;发布时间：<input type="text" name="releasetime" class="WebDate" format="yyyy-MM-dd HH:mm:ss" value="${releasetime}" />
 		</td>
 	</tr>
 </table>
