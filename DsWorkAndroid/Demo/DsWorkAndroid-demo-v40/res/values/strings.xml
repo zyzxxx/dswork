@@ -94,6 +94,7 @@
 
     <!-- database sql downloadlist-->
     <string-array name="downloadlist_createTableSql">
+        <item>CREATE TABLE file_info(id INTEGER PRIMARY KEY AUTOINCREMENT, file_id integer, url text, filename text, length integer, finished integer, progress integer, status varchar)</item>
         <item>CREATE TABLE thread_info(id INTEGER PRIMARY KEY AUTOINCREMENT, thread_id integer, url text, start integer, end integer, finished integer)</item>
     </string-array>
     <string-array name="downloadlist_upgradeTableSql">
