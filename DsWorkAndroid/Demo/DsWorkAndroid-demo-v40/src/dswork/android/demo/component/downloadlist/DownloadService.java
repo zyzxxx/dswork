@@ -6,8 +6,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,30 +33,25 @@ public class DownloadService extends Service
     public static final String ACTION_ERROR = "ACTION_ERROR";
     public static final int MSG_INIT = 0;
     public static final int MSG_ERROR = -1;
-    DownloadTask mDownloadTask = null;
+    private DownloadTask mDownloadTask = null;
     //下载任务的集合
     private Map<Integer, DownloadTask> mTasks = new LinkedHashMap<Integer, DownloadTask>();
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId)
     {
-        System.out.println("in onStartCommand..."+intent.getAction());
         //获取activity传来的参数
         if(ACTION_START.equals(intent.getAction()))
         {
             FileInfo mFileInfo = (FileInfo)intent.getSerializableExtra("fileinfo");
-            Log.i("<* ACTION_START *>", mFileInfo.toString());
-            Toast.makeText(this, "<* ACTION_START *>"+mFileInfo.getFileName(), Toast.LENGTH_SHORT).show();
             //启动初始化线程
             DownloadTask.sExecutorService.execute(new InitThread(mFileInfo));
         }
         else if(ACTION_STOP.equals(intent.getAction()))
         {
             FileInfo mFileInfo = (FileInfo)intent.getSerializableExtra("fileinfo");
-            Log.i("<* ACTION_STOP *>", mFileInfo.toString());
-            Toast.makeText(this, "<* ACTION_STOP *>"+mFileInfo.getFileName(), Toast.LENGTH_SHORT).show();
             //从集合中取出下载任务
-            DownloadTask task = mTasks.get(mFileInfo.getId());
+            DownloadTask task = mTasks.get(mFileInfo.getFile_id());
             if(task != null)
             {
                 task.isPause = true;
@@ -81,15 +74,13 @@ public class DownloadService extends Service
             {
                 case MSG_INIT:
                     FileInfo mFileInfo = (FileInfo)msg.obj;
-                    Log.i("<* Handler启动下载任务 *>", mFileInfo.toString());
                     //启动下载任务
                     mDownloadTask = new DownloadTask(DownloadService.this, mFileInfo, 1);
                     mDownloadTask.download();
                     //把下载任务添加到集合中
-                    mTasks.put(mFileInfo.getId(),mDownloadTask);
+                    mTasks.put(mFileInfo.getFile_id(),mDownloadTask);
                     break;
                 case MSG_ERROR:
-                    Log.i("<* Handler网络异常 *>", msg.obj.toString());
                     //发送错误广播
                     Intent intent = new Intent(DownloadService.ACTION_ERROR);
                     intent.putExtra("errMsg", msg.obj.toString());
@@ -129,7 +120,7 @@ public class DownloadService extends Service
                     //在本地创建文件
                     File dir = new File(DOWNLOAD_PATH);
                     if(!dir.exists()) dir.mkdir();
-                    File mFile = new File(dir, mFileInfo.getFileName());
+                    File mFile = new File(dir, mFileInfo.getFilename());
                     raf = new RandomAccessFile(mFile,"rwd");
                     //设置文件长度
                     raf.setLength(mHttpResultObj.getContentLength());

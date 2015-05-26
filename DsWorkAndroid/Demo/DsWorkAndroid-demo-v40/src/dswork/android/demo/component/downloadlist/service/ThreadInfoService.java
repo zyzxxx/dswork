@@ -53,7 +53,6 @@ public class ThreadInfoService extends BaseService<ThreadInfo, Long>
         {
             ContentValues cv= new ContentValues();
             cv.put("finished", po.getFinished());
-//            dao.update("thread_info", cv, "id=? and url=?", new String[]{String.valueOf(po.getId()), po.getUrl()});
             dao.update("thread_info", cv, "thread_id=? and url=?", new String[]{String.valueOf(po.getThread_id()), po.getUrl()});
             getEntityDao().setTransactionSuccessful();
         }

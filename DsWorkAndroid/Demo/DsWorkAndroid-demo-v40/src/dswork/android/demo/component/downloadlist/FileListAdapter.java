@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import dswork.android.R;
@@ -67,7 +68,7 @@ public class FileListAdapter extends BaseAdapter
             holder = (ViewHolder)view.getTag();
         }
         //设置视图中的控件
-        holder.tv_file.setText(mFileInfo.getFileName());
+        holder.tv_file.setText(mFileInfo.getFilename());
         holder.pgb_download.setMax(100);
         setProgressUI(mFileInfo, holder);
         holder.btn_download_start.setOnClickListener(new BtnDownloadStartOnClickListener(mFileInfo,holder));
@@ -77,26 +78,12 @@ public class FileListAdapter extends BaseAdapter
 
     /**
      * 刷新列表中指定item的进度条
-     * @param id 在List的索引值
-     * @param progress 进度百分比
-     * @param finished 文件已下载长度
-     * @param len 文件总长度
-     * @param status 下载状态
      */
-    public void updateItemProgress(int id, int progress, long finished, long len, String status)
+    public void updateItemProgress(FileInfo mFileInfo)
     {
-        System.out.println("接受进度百分比："+progress);
-        FileInfo mFileInfo = mList.get(id);
-        mFileInfo.setProgress(progress);
-        mFileInfo.setFinished(finished);
-        mFileInfo.setLength(len);
-        mFileInfo.setStatus(status);
-
-//        notifyDataSetChanged();//刷新整个listview, 影响性能, 导致item按钮响应慢
-
         //刷新指定item，主要用到ListView的getChildAt(int position)方法，该方法是获取ListView众多可视的item中位置处于position的view。
         //例如：getChildAt(1)，获取可视的第一个item，
-        int _visible_pos = id - mListView.getFirstVisiblePosition();
+        int _visible_pos = mFileInfo.getFile_id() - mListView.getFirstVisiblePosition();
         //获取指定itemIndex在屏幕中的view
         View mView = mListView.getChildAt(_visible_pos);
         //滑动ListView时，若item view在可视范围内，刷新UI
@@ -109,9 +96,12 @@ public class FileListAdapter extends BaseAdapter
 
     private void setProgressUI(FileInfo mFileInfo, ViewHolder holder)
     {
+        DecimalFormat df = new DecimalFormat("0.0");//格式化小数，不足的补0
+        String _finished = df.format((float)mFileInfo.getFinished()/1024/1024);
+        String _length = df.format((float)mFileInfo.getLength()/1024/1024);
         holder.pgb_download.setProgress(mFileInfo.getProgress());
-        holder.tv_file_finished.setText(mFileInfo.getFinished()+" MB/");
-        holder.tv_file_len.setText(mFileInfo.getLength()+" MB");
+        holder.tv_file_finished.setText(_finished+" MB/");
+        holder.tv_file_len.setText(_length+" MB");
         if(mFileInfo.getStatus().equals("start"))
         {
             holder.btn_download_start.setVisibility(View.GONE);

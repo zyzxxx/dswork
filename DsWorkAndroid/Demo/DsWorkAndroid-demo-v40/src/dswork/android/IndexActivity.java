@@ -2,6 +2,7 @@ package dswork.android;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -13,10 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import dswork.android.demo.component.downloadlist.DownloadService;
+import dswork.android.demo.component.downloadlist.model.FileInfo;
 import dswork.android.lib.core.ui.PosPoint;
 import dswork.android.lib.core.util.WorkUtil;
 
@@ -29,12 +33,22 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 	private SectionsPagerAdapter mSectionsPagerAdapter;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState)
+	{
 		super.onCreate(savedInstanceState);
 		initIndexView();//初始化主界面
 		initPoints();//初始化指示小圆点
 	}
-	
+
+	@Override
+	protected void onDestroy()
+	{
+		super.onDestroy();
+		//主Activity销毁后，停止后台Service
+        Intent mIntent = new Intent(IndexActivity.this, DownloadService.class);
+        stopService(mIntent);
+	}
+
 	//初始化主界面
 	private void initIndexView()
 	{
@@ -156,7 +170,20 @@ public class IndexActivity extends FragmentActivity implements ActionBar.TabList
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.PullToRefresh, R.drawable.ic_launcher, "PullToRefresh", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.PullToRefreshActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.SwipeRefreshLayout, R.drawable.ic_launcher, "SwipeRefreshLayout", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.SwipeRefreshActivity",false, null, null, null));
 			WorkUtil.addShortcut(getActivity(), rootView, R.id.DownloadOne, R.drawable.ic_launcher, "DownloadOne", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.downloadone.DownloadOneActivity",false, null, null, null));
-			WorkUtil.addShortcut(getActivity(), rootView, R.id.DownloadList, R.drawable.ic_launcher, "DownloadList", WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.downloadlist.DownloadListActivity",false, null, null, null));
+			//创建文件信息对象
+			List<FileInfo> mList = new ArrayList<FileInfo>();
+			mList.add(new FileInfo(0, "http://120.198.243.13:9999/file.liqucn.com/upload/2015/shejiao/com.tencent.mobileqq_5.6.1_liqucn.com.apk","qq.apk",0,0,0,"stop"));
+			mList.add(new FileInfo(1, "http://gdown.baidu.com/data/wisegame/8d8165b5bae245b2/wangyigongkaike_20150514.apk","wangyi.apk",0,0,0,"stop"));
+			mList.add(new FileInfo(2, "http://filelx.liqucn.com/upload/2015/sheji/ZombieTerminator_liqushichang_2015_5_13_300008955036_2200126314.ptada","game.apk",0,0,0,"stop"));
+			mList.add(new FileInfo(3, "http://120.198.243.13:9999/file.liqucn.com/upload/2011/liaotian/com.tencent.mm_6.1.0.73_liqucn.com.apk","wx.apk",0,0,0,"stop"));
+			mList.add(new FileInfo(4, "http://filelx.liqucn.com/upload/2014/shejiao/weibo-2421_0244_5.2.8release_Android.ptada","wb.apk", 0,0,0,"stop"));
+			mList.add(new FileInfo(5, "http://file.liqucn.com/upload/2011/bangong/cn.wps.moffice_eng_7.2_liqucn.com.apk","office.apk", 0,0,0,"stop"));
+			mList.add(new FileInfo(6, "http://filelx.liqucn.com/upload/2014/shipin/PPTV_aPhone_5.0.9_265_20150518.ptada", "pptv.apk", 0, 0, 0, "stop"));
+			mList.add(new FileInfo(7, "http://filelx.liqucn.com/upload/2011/shipin/Youku_Android_4.7.5_liqu.ptada","youku.apk", 0,0,0,"stop"));
+			mList.add(new FileInfo(8, "http://file.liqucn.com/upload/2014/shipin/com.qiyi.video_6.3_liqucn.com.apk", "qiyi.apk", 0, 0, 0, "stop"));
+			Intent intent = WorkUtil.getAppIntent("dswork.android", "dswork.android.demo.component.downloadlist.DownloadListActivity", false, null, null, null);
+			intent.putExtra("fileList", (Serializable)mList);
+			WorkUtil.addShortcut(getActivity(), rootView, R.id.DownloadList, R.drawable.ic_launcher, "DownloadList", intent);
 			return rootView;
 		}
 	}

@@ -2,35 +2,41 @@ package dswork.android.demo.component.downloadlist.model;
 
 import java.io.Serializable;
 
+import dswork.android.lib.core.db.BaseModel;
+
 /**
  * Created by ole on 15/5/8.
  */
-public class FileInfo implements Serializable
+public class FileInfo extends BaseModel implements Serializable
 {
-    private int id;
+    private int file_id;
     private String url;
-    private String fileName;
+    private String filename;
     private long length;
     private long finished;
     private int progress;
     private String status;
 
-    public FileInfo(int id, String url, String fileName, long length, long finished, int progress, String status) {
-        this.id = id;
+    public FileInfo() {
+    }
+
+    public FileInfo(int file_id, String url, String filename, long length, long finished, int progress, String status)
+    {
+        this.file_id = file_id;
         this.url = url;
-        this.fileName = fileName;
+        this.filename = filename;
         this.length = length;
         this.finished = finished;
         this.progress = progress;
         this.status = status;
     }
 
-    public int getId() {
-        return id;
+    public int getFile_id() {
+        return file_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setFile_id(int file_id) {
+        this.file_id = file_id;
     }
 
     public String getUrl() {
@@ -41,12 +47,12 @@ public class FileInfo implements Serializable
         this.url = url;
     }
 
-    public String getFileName() {
-        return fileName;
+    public String getFilename() {
+        return filename;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName;
+    public void setFilename(String fileName) {
+        this.filename = fileName;
     }
 
     public long getLength() {
@@ -82,11 +88,12 @@ public class FileInfo implements Serializable
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "FileInfo{" +
-                "id=" + id +
+                "file_id=" + file_id +
                 ", url='" + url + '\'' +
-                ", fileName='" + fileName + '\'' +
+                ", filename='" + filename + '\'' +
                 ", length=" + length +
                 ", finished=" + finished +
                 ", progress=" + progress +
