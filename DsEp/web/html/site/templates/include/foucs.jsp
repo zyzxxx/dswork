@@ -43,10 +43,11 @@
 	});
 	function play(){
 		if(index>=oList.length) index = 0;
-		oList.stop(true).eq(index).fadeIn(300).siblings().hide();
+		oList.stop(true).eq(index).show().fadeIn(300).siblings().hide();
 		oMenu.eq(index).addClass('on').siblings().removeClass('on');
 	};
 	function paly(){
+		play();
 		time = setInterval(function(){index ++;play();},3000)
 	}
 	paly();
