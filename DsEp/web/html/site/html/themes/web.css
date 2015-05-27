@@ -1,21 +1,17 @@
 @charset "utf-8";
-body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,input,button,textarea,th,td,form,fieldset{margin:0;padding:0}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,input,button,textarea,th,td,form,fieldset{margin:0;padding:0;}
 body{background:#f7fcff;line-height:20px;font-size:12px;font:12px/1.5;font-family:'\5FAE\8F6F\96C5\9ED1',"Microsoft YaHei","\5B8B\4F53",Tahoma,Arial,Helvetica,sans-serif;color:#363636;background-size:cover;}
-
-table{border-collapse:collapse;border-spacing:0}
-h1{font-size:18px}h2{font-size:16px}h3{font-size:14px}h4,h5,h6{font-size:100%}
+h1{font-size:18px;}h2{font-size:16px;}h3{font-size:14px;}h4,h5,h6{font-size:100%;}
 button,input,select,textarea{font-size:100%}
 input,button{overflow:visible;vertical-align:middle;outline:none;}
-input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;outline:0}
-button{border:none}
-address,cite,dfn,em,var{font-style:normal}
-pre,xmp{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}
-textarea{resize:none}
+input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;outline:0;}
+button{border:none;}
+address,cite,dfn,em,var{font-style:normal;}
+pre,xmp{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word;}
+textarea{resize:none;}
 img{border:0 none;vertical-align:middle;display:inline-block;}
-
 ul,ol,dl{list-style-type:none;}
 sub,sup{vertical-align:baseline;}
-
 a{color:#00c;text-decoration:underline;outline:none;}
 a:link,a:visited{color:#00c;outline:none;}
 a:hover,a:active{color:#00c;}
