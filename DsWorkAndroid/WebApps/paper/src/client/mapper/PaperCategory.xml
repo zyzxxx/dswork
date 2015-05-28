@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">   
+  
+<mapper namespace="client.entity.PaperCategory">
+      <!-- 自动生成id策略 -->
+    <insert id="add" parameterType="client.entity.PaperCategory" useGeneratedKeys="true" keyProperty="id">  
+       	insert into paper_category(name,sort) values (#{name},#{sort})  
+    </insert>  
+	
+	<delete id="del" parameterType="client.entity.PaperCategory">
+		delete from paper_category where id = #{id}
+	</delete>
+	
+	<update id="upd" parameterType="client.entity.PaperCategory">
+		update paper_category set
+		  name = #{name},
+		  sort = #{sort}
+		where id = #{id}
+	</update>
+  	
+	<resultMap type="client.entity.PaperCategory" id="result">
+		<id property="id" column="id"/>
+		<result property="name" column="name"/>
+		<result property="sort" column="sort"/>
+	</resultMap>
+  	
+	<sql id="columns">
+		ID, NAME, SORT
+	</sql>
+	
+	<sql id="page">
+		<if test="rownum!=null and pagesize!=null"> limit #{rownum}, #{pagesize} </if>
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="name != null"> and NAME like concat('%',#{name},'%') </if>
+		</where>
+	</sql>	
+	
+	<select id="getById" resultMap="result">
+		select <include refid="columns"/> from paper_category where id = #{id}
+	</select>
+	
+	<select id="get" resultType="list" resultMap="result">
+		select <include refid="columns"/> from paper_category
+		<include refid="dynamicWhere" /> order by sort 
+		<include refid="page" />
+	</select>
+	
+	<select id="getCount" resultType="int">
+		select count(1) from paper_category
+		<include refid="dynamicWhere" />
+	</select>
+</mapper>  

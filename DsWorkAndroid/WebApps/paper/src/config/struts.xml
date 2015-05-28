@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 将Action的创建交给spring来管理 -->  
+    <constant name="struts.objectFactory" value="spring" />
+    <constant name="struts.objectFactory.spring.autoWire.alwaysRespect" value="true"/> 
+	<!-- 更改struts2请求Action的后缀名，默认为action。若想去掉后缀，设为","即可 -->
+	<constant name="struts.action.extension" value="action,do,htm"></constant>  
+	
+	<!-- 请求参数的编码方式 -->  
+    <constant name="struts.i18n.encoding" value="UTF-8"/> 
+    <!-- 当struts.xml改动后，是否重新加载。默认值为false(生产环境下使用),开发阶段最好打开  -->  
+    <constant name="struts.configuration.xml.reload" value="true"/>  
+    <!-- 是否使用struts的开发模式。开发模式会有更多的调试信息。默认值为false(生产环境下使用),开发阶段最好打开  -->  
+    <constant name="struts.devMode" value="true"/>  
+    <!-- 设置浏览器是否缓存静态内容。默认值为true(生产环境下使用),开发阶段最好关闭  -->  
+    <constant name="struts.serve.static.browserCache" value="false" />  
+    <!-- 是否开启动态方法调用 -->  
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    
+    <!-- 配置 -->
+    <constant name="struts.convention.default.parent.package" value="struts-default" />
+    <!--配置Convention插件自动重加载映射-->
+	<constant name="struts.convention.classes.reload" value="true"/>
+	<!-- 配置默认页面存放路径 -->
+	<constant name="struts.convention.result.path" value="/"/>
+	<!-- 配置默认Action类搜索路径 -->
+	<constant name="struts.convention.package.locators" value=""/>
+	<!-- action后缀 -->  
+    <constant name="struts.convention.action.suffix" value="Action"/>
+    <!-- 分隔符 一个action名字的获取。比如为HelloWorldAction。按照配置，actionName为hello_world。 -->  
+    <constant name="struts.convention.action.name.separator" value="_"/>
+    <!--  排除的包 
+    <constant name="struts.convention.exclude.packages" value="org.apache.struts.*,org.apache.struts2.*,org.springframework.web.struts.*,org.springframework.web.struts2.*,org.hibernate.*"/>
+	-->
+	<constant name="struts.convention.action.alwaysMapExecute" value="true"/>
+    <!-- 指定允许上传的文件最大字节数,默认值是2097152(2M),使用struts常量扩大默认上传文件大小 -->  
+    <constant name="struts.multipart.maxSize" value="104857600"/>
+    
+</struts>

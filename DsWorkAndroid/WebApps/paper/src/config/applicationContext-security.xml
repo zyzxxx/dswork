@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans 
+	xmlns="http://www.springframework.org/schema/security"
+	xmlns:b="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<!-- 配置不需要安全管理的界面 -->
+	<http pattern="/**/*.css" security="none"></http>
+	<http pattern="/**/*.jpg" security="none"></http>
+	<http pattern="/**/*.jpeg" security="none"></http>
+	<http pattern="/**/*.gif" security="none"></http>
+	<http pattern="/**/*.png" security="none"></http>
+	<http pattern="/**/*.js" security="none"></http>
+	<http pattern="/view/admin/login.jsp" security="none" />
+
+	<http auto-config="true">
+		<!-- 自定义登录页 -->
+		<form-login login-page="/view/admin/login.jsp"/>
+		<!--访问/admin/**资源的用户必须具有ROLE_ADMIN的权限 -->
+		<intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+		<!--访问/client/**资源的用户必须具有ROLE_NO的权限 -->
+		<!-- 
+		<intercept-url pattern="/client/**" access="ROLE_NO" />
+		 -->
+		<session-management>
+			<concurrency-control max-sessions="1" error-if-maximum-exceeded="false" />
+		</session-management>
+	</http>
+	
+	<authentication-manager>  
+        <authentication-provider>  
+            <user-service >  
+                <user name="admin" password="111" authorities="ROLE_ADMIN"/>
+                <!-- 
+                <user name="client" password="222" authorities="ROLE_NO"/>  
+                 -->
+            </user-service>  
+        </authentication-provider>  
+    </authentication-manager> 
+
+</b:beans>
