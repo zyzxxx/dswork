@@ -58,7 +58,7 @@ public class AutomaticExecuteXzsp extends Thread
 							m.setMemo("未知错误。");
 							try
 							{
-								Object o = outputObject(java.net.URLDecoder.decode(m.getSpobject(), "ISO-8859-1"));
+								Object o = outputObject(m.getSpobject());
 								if(o != null)
 								{
 									int result = common.gov.XzspUtil.sendObject(o);
@@ -134,7 +134,7 @@ public class AutomaticExecuteXzsp extends Thread
 		try
 		{
 			Object o = null;
-			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(v.getBytes("ISO-8859-1"));
+			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(java.net.URLDecoder.decode(v, "ISO-8859-1").getBytes("ISO-8859-1"));
 			java.io.ObjectInputStream ois = new java.io.ObjectInputStream(bais);
 			try
 			{
