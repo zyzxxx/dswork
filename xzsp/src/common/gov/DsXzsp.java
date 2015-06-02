@@ -1,5 +1,19 @@
 package common.gov;
 
+import common.automatic.AutomaticExecuteXzsp;
+
+import dswork.core.util.TimeUtil;
+import MQAPI.AcceptOB;
+import MQAPI.ApplicationOB;
+import MQAPI.BlockOB;
+import MQAPI.CompleteOB;
+import MQAPI.PreAcceptOB;
+import MQAPI.ReceiveRegOB;
+import MQAPI.ResumeOB;
+import MQAPI.SubmitOB;
+import MQAPI.SupplyAcceptOB;
+import MQAPI.SupplyOB;
+
 public class DsXzsp
 {
 	// 主键
@@ -97,5 +111,33 @@ public class DsXzsp
 	public void setMemo(String memo)
 	{
 		this.memo = memo;
+	}
+	
+	public Object getInfo()
+	{
+		try
+		{
+			Object o = AutomaticExecuteXzsp.outputObject(getSpobject());
+			if(o != null)
+			{
+				return o;
+			}
+		}
+		catch(Exception mex)
+		{
+			mex.printStackTrace();
+		}
+		return new Object();
+		
+//		if(sptype == 1obj instanceof ApplicationOB){i = 0;}// ShenBan
+//		else if(obj instanceof PreAcceptOB){i = 1;}// YuShouLi
+//		else if(obj instanceof AcceptOB){i = 2;}// ShouLi
+//		else if(obj instanceof SubmitOB){i = 3;}// ShenPi
+//		else if(obj instanceof CompleteOB){i = 4;}// BanJie
+//		else if(obj instanceof BlockOB){i = 5;}// TeBieChengXuQiDong
+//		else if(obj instanceof ResumeOB){i = 6;}// TeBieChengXuBanJie
+//		else if(obj instanceof SupplyOB){i = 7;}// BuJiaoGaoZhi
+//		else if(obj instanceof SupplyAcceptOB){i = 8;}// BuJiaoShouLi
+//		else if(obj instanceof ReceiveRegOB){i = 9;}// LingQuDengJi
 	}
 }
