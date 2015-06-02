@@ -575,6 +575,7 @@ public class XzspFactory
 			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
 			objectOutputStream.writeObject(obj);
 			String v = byteArrayOutputStream.toString("ISO-8859-1");
+			v = java.net.URLEncoder.encode(v, "ISO-8859-1");
 			objectOutputStream.close();
 			byteArrayOutputStream.close();
 			int i = 0;
