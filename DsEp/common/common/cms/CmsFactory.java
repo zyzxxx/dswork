@@ -72,7 +72,7 @@ public class CmsFactory
 		return dao.get(siteid, toLong(pageid));
 	}
 
-	public List<Map<String, Object>> queryList(int currentPage, int size, boolean onlyImage, boolean onlyPage, boolean isDesc, Object... categoryids)
+	public List<Map<String, Object>> queryList(int currentPage, int pageSize, boolean onlyImage, boolean onlyPage, boolean isDesc, Object... categoryids)
 	{
 		init();
 		StringBuilder idArray = new StringBuilder();
@@ -81,7 +81,7 @@ public class CmsFactory
 		{
 			idArray.append(",").append(toLong(categoryids[i]));
 		}
-		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, size, idArray.toString(), isDesc, onlyImage, onlyPage);
+		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage);
 		return page.getResult();
 	}
 
