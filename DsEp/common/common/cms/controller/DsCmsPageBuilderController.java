@@ -54,6 +54,7 @@ public class DsCmsPageBuilderController extends BaseController
 			{
 				return null;// 外链
 			}
+			put("categoryid", categoryid);
 			put("category", c);
 			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
 			put("datalist", mm.get("list"));
