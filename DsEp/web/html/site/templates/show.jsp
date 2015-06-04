@@ -19,7 +19,7 @@
 	<%@include file="include/tree.jsp"%>
   </div>
   <div class="w735 right">
-	<div class="listpage hei1 view">
+	<div class="listpage view">
 	  <div class="logo">&nbsp;&nbsp;当前位置：${category.name}</div>
 	  <div class="content">
 		${category.content}

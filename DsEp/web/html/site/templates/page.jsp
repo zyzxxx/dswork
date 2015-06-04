@@ -16,9 +16,12 @@
 <%@include file="include/header.jsp"%>
 <div class="w990 clear">
   <div class="w735 left">
-	<div class="listpage hei1 view">
+	<div class="listpage view">
 		<div class="logo">&nbsp;&nbsp;当前位置：${category.name}</div>
-		<div class="title">${title}</div>
+		<div class="title">
+			${title}
+			<div class="subtitle">${releasetime}</div>
+		</div>
 		<div class="content">${content}</div>
 	</div>
   </div>

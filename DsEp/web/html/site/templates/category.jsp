@@ -1,7 +1,7 @@
-<%@page language="java" pageEncoding="UTF-8" import="java.util.*"%>
+<%@page language="java" pageEncoding="UTF-8" import="common.cms.CmsFactory"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%common.cms.CmsFactory cms = (common.cms.CmsFactory)request.getAttribute("cms");%>
+<%CmsFactory cms = (CmsFactory)request.getAttribute("cms");%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,15 +19,23 @@
 	<%@include file="include/tree.jsp"%>
   </div>
   <div class="w735 right">
-	<div class="listpage hei1">
+	<div class="listpage">
 	  <div class="logo">&nbsp;&nbsp;当前位置：${category.name}</div>
-	  <div class="list">
-		<dl class="title"><dt>标题</dt><dd>发布日期</dd></dl>
-		<c:forEach items="${datalist}" var="d">
-		<dl><dt><a href="${ctx}${d.url}">${d.title}</a></dt><dd>${d.releasetime}</dd></dl>
-		</c:forEach>
-	  </div>
-	  <div class="page"><%@include file="include/pageview.jsp"%></div>
+	  <%request.setAttribute("clist", cms.queryCategory(String.valueOf(request.getAttribute("categoryid"))));%>
+	  <c:forEach items="${clist}" var="c">
+		<c:set var="ccid" value="${c.id}" scope="request" />
+		<c:set var="cname" value="${c.name}" scope="request" />
+		<c:set var="curl" value="${c.url}" scope="request" />
+		<%request.setAttribute("vlist", cms.queryList(1, 8, false, false, true, request.getAttribute("ccid")));%>
+		<div class="list">
+			<dl class="logo"><dt>${cname}</dt><dd><a class="more" href="${ctx}${curl}">&raquo; 更多</a></dd></dl>
+			<dl class="title"><dt>标题</dt><dd>发布日期</dd></dl>
+			<c:forEach items="${vlist}" var="d">
+			<dl><dt><a href="${ctx}${d.url}">${d.title}</a></dt><dd>${d.releasetime}</dd></dl>
+			</c:forEach>
+		</div>
+		<div class="vline">&nbsp;</div>
+	  </c:forEach>
 	</div>
   </div>
 </div>
