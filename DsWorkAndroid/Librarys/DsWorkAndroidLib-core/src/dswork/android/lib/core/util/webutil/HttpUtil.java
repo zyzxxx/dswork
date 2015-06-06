@@ -102,20 +102,17 @@ public class HttpUtil
 				o.setContentLength(resp.getEntity().getContentLength());
 				o.setSuc(true);
 				o.setSucMsg("请求成功："+resp.getStatusLine().getStatusCode());
-				Log.i("<* 请求成功：*>", ""+resp.getStatusLine().getStatusCode());
 			}
 			else 
 			{
 				o.setSuc(false);
 				o.setErrMsg("请求失败："+resp.getStatusLine().getStatusCode());
-				Log.i("<* 请求失败：*>", ""+resp.getStatusLine().getStatusCode());
 			}
 		}
 		catch(Exception e)
 		{
 			o.setSuc(false);
 			o.setErrMsg("请求异常："+e.getMessage());
-			Log.i("<* 请求异常：*>", e.getMessage());
 			e.printStackTrace();
 		}
 		return o;
