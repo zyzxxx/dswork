@@ -18,13 +18,13 @@ import dswork.android.demo.component.downloadlist.model.FileInfo;
 /**
  * Created by ole on 15/5/18.
  */
-public class FileListAdapter2 extends BaseAdapter
+public class FileListAdapter extends BaseAdapter
 {
     private Context ctx = null;
     private List<FileInfo> mList = null;
     private ListView mListView = null;
 
-    public FileListAdapter2(Context ctx, List<FileInfo> mList, ListView mListView)
+    public FileListAdapter(Context ctx, List<FileInfo> mList, ListView mListView)
     {
         this.ctx = ctx;
         this.mList = mList;

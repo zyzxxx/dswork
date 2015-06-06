@@ -25,7 +25,7 @@ public class DownloadListActivity extends Activity
     @InjectUtil.InjectView(id = R.id.lv_download)ListView lv_download;
     private Context ctx = DownloadListActivity.this;
     private List<FileInfo> mList = null;
-    private FileListAdapter2 mAdapter = null;
+    private FileListAdapter mAdapter = null;
     private FileInfoService mFileInfoService = null;
 
     @Override
@@ -44,7 +44,7 @@ public class DownloadListActivity extends Activity
         //接受其它Activity传来的List<FileInfo>
         mList = mFileInfoService.refreshList((List<FileInfo>) getIntent().getSerializableExtra("fileList"));
         //初始化ListView的Adapter
-        mAdapter = new FileListAdapter2(this, mList, lv_download);
+        mAdapter = new FileListAdapter(this, mList, lv_download);
         lv_download.setAdapter(mAdapter);
         //注册广播接收器
         IntentFilter mIntentFilter = new IntentFilter();
