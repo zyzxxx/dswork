@@ -70,10 +70,11 @@ public class DownloadService extends Service
     {
         public void handleMessage(Message msg)
         {
+            FileInfo mFileInfo = null;
             switch (msg.what)
             {
                 case MSG_INIT:
-                    FileInfo mFileInfo = (FileInfo)msg.obj;
+                    mFileInfo = (FileInfo)msg.obj;
                     //启动下载任务
                     mDownloadTask = new DownloadTask(DownloadService.this, mFileInfo, 1);
                     mDownloadTask.download();
@@ -81,9 +82,11 @@ public class DownloadService extends Service
                     mTasks.put(mFileInfo.getFile_id(),mDownloadTask);
                     break;
                 case MSG_ERROR:
+                    mFileInfo = (FileInfo)msg.obj;
                     //发送错误广播
                     Intent intent = new Intent(DownloadService.ACTION_ERROR);
-                    intent.putExtra("errMsg", msg.obj.toString());
+//                    intent.putExtra("errMsg", msg.obj.toString());
+                    intent.putExtra("fileinfo", mFileInfo);
                     DownloadService.this.sendBroadcast(intent);
                     break;
             }
@@ -113,7 +116,9 @@ public class DownloadService extends Service
                 HttpResultObj<InputStream> mHttpResultObj = HttpUtil.submitHttpAction(mHttpActionObj, InputStream.class, "GET");
                 if(!mHttpResultObj.isSuc())
                 {
-                    mHandler.obtainMessage(MSG_ERROR, mHttpResultObj.getErrMsg()).sendToTarget();
+                    mFileInfo.setStatus("error");
+                    mHandler.obtainMessage(MSG_ERROR, mFileInfo).sendToTarget();
+//                    mHandler.obtainMessage(MSG_ERROR, mHttpResultObj.getErrMsg()).sendToTarget();
                 }
                 else
                 {
