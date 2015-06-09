@@ -47,7 +47,7 @@ $jskey.upload ={
 
 //js的引用路径
 jsPath:document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.substring(0, document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.lastIndexOf("/") + 1),
-upinit:function(s){
+extend:function(s){
 	s.url = s.url;
 	s.flash_swf_url = this.jsPath + 'themes/plupload/Moxie.swf';
 	s.silverlight_xap_url = this.jsPath + 'themes/plupload/Moxie.xap';
@@ -88,7 +88,7 @@ upinit:function(s){
 	return s;
 },
 init:function(s){
-	s = this.upinit(s);
+	s = this.extend(s);
 	s.multipart = true;//为true时将以multipart/form-data的形式来上传文件，为false时则以二进制的格式来上传文件。html4上传方式不支持以二进制格式来上传文件，在flash上传方式中，二进制上传也有点问题。并且二进制格式上传还需要在服务器端做特殊的处理。一般我们用multipart/form-data的形式来上传文件就足够了。
 	//s.file_data_name = s.file_data_name || "file";
 	//s.multipart_params : {},// {one:'1',four:['6','7','8'],three:{a:'4',b:'5'}}
