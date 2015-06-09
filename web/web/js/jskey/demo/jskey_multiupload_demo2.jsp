@@ -13,6 +13,7 @@
 <%
 // 可用MyRequest的getLong("fiFile", -1)替换，此处没有引用框架
 long fjFile;
+request.setCharacterEncoding("UTF-8");
 try
 {
 	fjFile = Long.parseLong(request.getParameter("fjFile"));

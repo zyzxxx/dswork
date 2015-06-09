@@ -5,7 +5,7 @@ $dswork.showDate = function(){
 	var f = arguments[1] || "yyyy-MM-dd";
 	$jskey.calendar.show(o,{skin:'default', lang:0, format:f, sample:f});
 };
-$dswork.uploadURL = "/web/js/jskey/jskey_multiupload." + ($dswork.dotnet ? "aspx" : "jsp");
+$dswork.uploadURL = "/web/js/jskey/jskey_upload." + ($dswork.dotnet ? "aspx" : "jsp");
 $dswork.getChoose = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose.html";return $jskey.dialog.show(m);};
 $dswork.getChooseByKey = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose_key.html";return $jskey.dialog.show(m);};
 $dswork.getChooseDialog = function(m){return $jskey.dialog.showChoose(m);};
@@ -172,7 +172,8 @@ $dswork.upload = function(o){
 	this.url = o.url || $dswork.uploadURL;
 };
 $dswork.upload.prototype = {
-	init:function(op){try{//{id:?,vid:*?,uploadone:,ext};ext :"file|image|***,***",uploadone:"true|false"
+	init:function(op){try{
+	//{id:?,vid:*?,uploadone:,ext};ext :"file|image|***,***",uploadone:"true|false"
 	if(typeof(op) != "object"){op = {};}
 	this.count++;
 	var defaults = {uploadone:"true",vid:"",sessionKey:this.sessionKey,fileKey:this.fileKey+this.count,show:this.show,limit:this.limit,ext:this.ext};
@@ -182,42 +183,63 @@ $dswork.upload.prototype = {
 	p.limit = parseInt(p.limit);
 	p.bid = p.id + "_span";
 	p.sid = p.id + "_showdiv";
-	if(p.ext == "image"){p.types = "*." + $jskey.$replace(this.image, ",", ";*.");}
-	else if(p.ext == "file"){p.types = "*." + $jskey.$replace(this.file, ",", ";*.");}
-	else{p.types = "*." + $jskey.$replace(p.ext, ",", ";*.");}
-	var myinput = $("#" + p.id),myp = $("#" + p.id).parent(),myv=null;
-	if(p.vid != ""){myv=$("#" + p.vid);}
-	myp.append('<span id="' + p.bid + '"></span>');
-	if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
-	var url = this.url;
-	return $jskey.upload.init({
-	url:url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false"),
-	"button_placeholder_id":p.bid,
-	file_types:p.types,
-	file_size_limit:p.limit,
-	debug:false,
-	custom_settings:{div:p.show?p.sid:"",success:function(data){// {arr:[{id,name,size,state,file,type,msg}],msg:"",err:""}
-		if(typeof (data.err) == 'undefined'){alert("upload error");return false;}
-		if(data.err != ''){alert(data.err);}
-		var _has = myinput.attr("has") || "";
-		if(p.vid == ""){
-			var ok = false;
-			for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){ok = true;}}
-			myinput.val(ok ? p.fileKey : _has);
-		}
-		else{
-			var v = myv.val();
-			if(p.uploadone=="true"){
-				v = "";
+	
+	if($jskey.upload.swf){
+		if(p.ext == "image"){p.types = "*." + $jskey.$replace(this.image, ",", ";*.");}
+		else if(p.ext == "file"){p.types = "*." + $jskey.$replace(this.file, ",", ";*.");}
+		else{p.types = "*." + $jskey.$replace(p.ext, ",", ";*.");}
+		var myinput = $("#" + p.id),myp = $("#" + p.id).parent(),myv=null;
+		if(p.vid != ""){myv=$("#" + p.vid);}
+		myp.append('<span id="' + p.bid + '"></span>');
+		if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
+	}
+	else{
+		if(p.ext == "image"){p.types = this.image;}
+		else if(p.ext == "file"){p.types = this.file;}
+		else{p.types = p.ext;}
+		var myinput = $("#" + p.id),myp = $("#" + p.id).parent(),myv=null;
+		if(p.vid != ""){myv=$("#" + p.vid);}
+		myp.append('<img id="' + p.bid + '" style="cursor:pointer;width:61px;height:22px;border:none;" src="/web/js/jskey/themes/plupload/UploadButton.png"/>');
+		if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
+	}
+	var ps = {
+		url:this.url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false"),
+		browse_button : p.bid,
+		unique_names : false,
+		filters : {
+			max_file_size : p.limit + "kb",
+			mime_types: [{title : p.types, extensions : p.types}]
+		},
+		debug:false,
+		settings:{div:p.show?p.sid:"",success:function(data){// {arr:[{id,name,size,state,file,type,msg}],msg:"",err:""}
+			if(typeof (data.err) == 'undefined'){alert("upload error");return false;}
+			if(data.err != ''){alert(data.err);}
+			var _has = myinput.attr("has") || "";
+			if(p.vid == ""){
+				var ok = false;
+				for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){ok = true;}}
+				myinput.val(ok ? p.fileKey : _has);
 			}
-			for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){v += (v != "" ? "|" : "") + o.file + ":" + o.name;}}
-			myv.val(v);
-			myinput.val(v == "" ? _has : p.fileKey);
-		}
-		var v = myinput.val();
-		if(v != "" && v != 0){myinput.attr("msg","");if(p.show){var s = $("#" + p.sid), btn = $('<input class="button" type="button" value="取消上传" />');s.append(btn);btn.bind("click", function(){myinput.val(myinput.attr("has") || "");if(p.vid!=""){myv.val("");}s.html("");myinput.attr("msg","请上传文件");});}}
-	}}
-	});
+			else{
+				var v = myv.val();
+				if(p.uploadone=="true"){
+					v = "";
+				}
+				for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){v += (v != "" ? "|" : "") + o.file + ":" + o.name;}}
+				myv.val(v);
+				myinput.val(v == "" ? _has : p.fileKey);
+			}
+			var v = myinput.val();
+			if(v != "" && v != 0){myinput.attr("msg","");if(p.show){var s = $("#" + p.sid), btn = $('<input class="button" type="button" value="取消上传" />');s.append(btn);btn.bind("click", function(){myinput.val(myinput.attr("has") || "");if(p.vid!=""){myv.val("");}s.html("");myinput.attr("msg","请上传文件");});}}
+		}}
+	};
+	// 兼容swfupload
+	ps.custom_settings = ps.settings;
+	ps.button_placeholder_id = ps.browse_button;
+	ps.file_types = p.types;
+	ps.file_size_limit = p.limit;
+	
+	return $jskey.upload.init(ps);
 	}catch(e){alert("upload init error\n" + e.name + "\n" + e.message);return null;}}
 };
 $(function(){

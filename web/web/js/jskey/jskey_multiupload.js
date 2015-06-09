@@ -13,7 +13,7 @@ $jskey.formatBytes = function(bytes)
 
 $jskey.upload =
 {
-
+swf:true,
 //js的引用路径
 jsPath:document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.substring(0, document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.lastIndexOf("/") + 1),
 

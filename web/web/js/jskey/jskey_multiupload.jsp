@@ -15,6 +15,7 @@ public synchronized static long genId() throws Exception
 	return id;
 }
 %><%
+System.out.println("你使用了jskey_multiuload.jsp，建议使用jskey_upload.jsp");
 String ext = "";
 try
 {

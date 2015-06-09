@@ -8,7 +8,7 @@
 <script type="text/javascript" src="../../jquery/jquery.js"></script>
 <script type="text/javascript" src="../../dswork/dswork.js"></script>
 <script type="text/javascript" src="../jskey_core.js"></script>
-<script type="text/javascript" src="../jskey_multiupload.js"></script>
+<script type="text/javascript" src="../jskey_upload.js"></script>
 <script type="text/javascript">
 var o = new $dswork.upload({sessionKey:<%=JskeyUpload.RefreshSessionKey(Request)%>, fileKey:<%=DateTime.Now.Ticks %>, ext:"file"});
 window.onload = function()
@@ -19,7 +19,7 @@ window.onload = function()
 </head>
 <body>
 <center>
-<form id="dateForm" action="jskey_multiupload_demo2.aspx" method="post">
+<form id="dateForm" action="jskey_upload_demo2.aspx" method="post">
 <%--key--%>
 <span><input id="fjFile" name="fjFile" type="hidden" value="" dataType="UploadFile" /></span>
 <input id="fjFileNames" name="fjFileNames" type="hidden" value="" /><%--newname:oldname|newname:oldname--%>
