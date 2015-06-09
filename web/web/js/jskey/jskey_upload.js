@@ -77,11 +77,11 @@ extend:function(s){
 	s.init.QueueChanged = s.init.QueueChanged || function(up){};
 	s.init.Refresh = s.init.Refresh || function(up){};
 
-	s.init.StateChanged = s.init.StateChanged || function(up){log('[StateChanged]', up.state == plupload.STARTED ? "STARTED" : "STOPPED");};
+	s.init.StateChanged = s.init.StateChanged || function(up){};
 	
 	
 	s.init.ChunkUploaded = s.init.ChunkUploaded || function(up, file, info){};
-	s.init.Destroy = s.init.Destroy || function(up){log('[Destroy]');};
+	s.init.Destroy = s.init.Destroy || function(up){};
 	s.init.Error = s.init.Error || function(up, args){alert("ERROR:" + args.file.name + "," + args.message);};
 	s.init.FilesRemoved = s.init.FilesRemoved || function(up, files){};
 	
@@ -95,7 +95,7 @@ init:function(s){
 	s.max_retries = 0;//错误时重试次数，0为不重试
 	
 
-	s.init.OptionChanged = s.init.OptionChanged || function(up, name, value, oldValue){log('[OptionChanged]', 'Option Name: ', name, 'Value: ', value, 'Old Value: ', oldValue);};
+	s.init.OptionChanged = s.init.OptionChanged || function(up, name, value, oldValue){};
 
 	s.init.BeforeUpload = s.init.BeforeUpload || function(up, file){
 		try{
@@ -106,7 +106,6 @@ init:function(s){
 		return true;
 	};
 	s.init.UploadProgress = s.init.UploadProgress || function(up, file){
-		log('[UploadProgress]', 'File:', file, "Total:", up.total);
 		try{
 			var p = up.customSettings;
 			var allPercent = Math.ceil((p.uploadSize+file.loaded)/p.allSize*100);
@@ -196,4 +195,3 @@ init:function(s){
 	return mup;
 }
 };
-function log(){}
