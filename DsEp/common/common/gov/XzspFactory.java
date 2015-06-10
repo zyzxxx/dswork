@@ -1,15 +1,6 @@
 package common.gov;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.ObjectOutputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Date;
-
-import dswork.core.util.EnvironmentUtil;
 import MQAPI.AcceptOB;
 import MQAPI.ApplicationOB;
 import MQAPI.BlockOB;
@@ -23,7 +14,7 @@ import MQAPI.SupplyOB;
 
 public class XzspFactory
 {
-	private static final String GovXzspLxhURL = EnvironmentUtil.getToString("gov.xzsp.lxhurl", "");
+	private static final String GovXzspLxhURL = dswork.core.util.EnvironmentUtil.getToString("gov.xzsp.lxhurl", "");
 	/**
 	 * 取得当前最新的申办流水号
 	 * @return
@@ -566,18 +557,14 @@ public class XzspFactory
 		}
 	}
 
+	private static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
 	@SuppressWarnings("all")
 	private static int saveObject(Object obj, String SBLSH)
 	{
 		try
 		{
-			ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-			objectOutputStream.writeObject(obj);
-			String v = byteArrayOutputStream.toString("ISO-8859-1");
-			v = java.net.URLEncoder.encode(v, "ISO-8859-1");
-			objectOutputStream.close();
-			byteArrayOutputStream.close();
+			com.google.gson.Gson gson = builder.create();
+			String v = gson.toJson(obj);
 			int i = 0;
 			if(obj instanceof ApplicationOB){i = 0;}// ShenBan
 			else if(obj instanceof PreAcceptOB){i = 1;}// YuShouLi
@@ -604,28 +591,28 @@ public class XzspFactory
 	}
 
 	// 读取一个网页内容
-	private static String getHtml(String htmlurl, String charsetName) throws IOException
+	private static String getHtml(String htmlurl, String charsetName) throws java.io.IOException
 	{
-		URL url;
+		java.net.URL url;
 		String temp;
 		StringBuilder sb = new StringBuilder();
 		try
 		{
-			url = new URL(htmlurl);
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), charsetName));// 读取网页内容
+			url = new java.net.URL(htmlurl);
+			java.io.BufferedReader in = new java.io.BufferedReader(new java.io.InputStreamReader(url.openStream(), charsetName));// 读取网页内容
 			while((temp = in.readLine()) != null)
 			{
 				sb.append(temp);
 			}
 			in.close();
 		}
-		catch(final MalformedURLException me)
+		catch(final java.net.MalformedURLException me)
 		{
 			System.out.println("你输入的URL格式有问题！" + htmlurl);
 			me.getMessage();
 			throw me;
 		}
-		catch(final IOException e)
+		catch(final java.io.IOException e)
 		{
 			e.printStackTrace();
 			throw e;
