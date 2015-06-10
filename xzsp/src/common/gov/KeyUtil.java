@@ -38,13 +38,13 @@ public class KeyUtil
 		System.out.println("启动：" + currtime);
 		Calendar date = Calendar.getInstance();
 		date.set(date.get(Calendar.YEAR), date.get(Calendar.MONTH), date.get(Calendar.DATE), 0, 0, 1);// 当前
-		System.out.println(TimeUtil.formatDate(date.getTime(), "yyyy-MM-dd HH:mm:ss"));
+		//System.out.println(TimeUtil.formatDate(date.getTime(), "yyyy-MM-dd HH:mm:ss"));
 		_timer.schedule(_timerTask, date.getTime(), t);
 		File file = new File(filePath);
 		if(!file.isFile())
 		{
 			FileUtil.delete(filePath);
-			FileUtil.writeFile(filePath, currtime + "1", "UTF-8");
+			FileUtil.writeFile(filePath, currtime + "1", "UTF-8");// 计数器从1开始
 		}
 	}
 	public static synchronized String getLsh(String c)
@@ -75,7 +75,7 @@ public class KeyUtil
 			write();
 		}
 		String num = "000000" + count;
-		return G + currtime + v + num.substring(num.length() - 6, num.length());
+		return G + currtime.substring(currtime.length() - 6, currtime.length()) + v + num.substring(num.length() - 6, num.length());
 	}
 	
 	public static void read()
