@@ -2,6 +2,7 @@ package common.automatic;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
 import common.gov.DsXzspDao;
 
 public class AutomaticExecuteXzsp extends Thread
@@ -58,7 +59,7 @@ public class AutomaticExecuteXzsp extends Thread
 							m.setMemo("未知错误。");
 							try
 							{
-								Object o = outputObject(m.getSpobject());
+								Object o = outputObject(m.getSpobject(), m.getSptype());
 								if(o != null)
 								{
 									int result = common.gov.XzspUtil.sendObject(o);
@@ -129,23 +130,24 @@ public class AutomaticExecuteXzsp extends Thread
 		pj.start();// 启动程序
 	}
 
-	public static Object outputObject(String v)
+	private static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
+	
+	public static Object outputObject(String v, int i)
 	{
 		try
 		{
+			com.google.gson.Gson gson = builder.create();
 			Object o = null;
-			java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(java.net.URLDecoder.decode(v, "ISO-8859-1").getBytes("ISO-8859-1"));
-			java.io.ObjectInputStream ois = new java.io.ObjectInputStream(bais);
-			try
-			{
-				o = ois.readObject();
-			}
-			catch(java.io.EOFException e)
-			{
-				System.err.println("readObject OK EOFException");
-			}
-			ois.close();
-			bais.close();
+			if(i == 0){o = gson.fromJson(v, MQAPI.ApplicationOB.class);}// ShenBan
+			else if(i == 1){o = gson.fromJson(v, MQAPI.PreAcceptOB.class);}// YuShouLi
+			else if(i == 2){o = gson.fromJson(v, MQAPI.AcceptOB.class);}// ShouLi
+			else if(i == 3){o = gson.fromJson(v, MQAPI.SubmitOB.class);}// ShenPi
+			else if(i == 4){o = gson.fromJson(v, MQAPI.CompleteOB.class);}// BanJie
+			else if(i == 5){o = gson.fromJson(v, MQAPI.BlockOB.class);}// TeBieChengXuQiDong
+			else if(i == 6){o = gson.fromJson(v, MQAPI.ResumeOB.class);}// TeBieChengXuBanJie
+			else if(i == 7){o = gson.fromJson(v, MQAPI.SupplyOB.class);}// BuJiaoGaoZhi
+			else if(i == 8){o = gson.fromJson(v, MQAPI.SupplyAcceptOB.class);}// BuJiaoShouLi
+			else if(i == 9){o = gson.fromJson(v, MQAPI.ReceiveRegOB.class);}// LingQuDengJi
 			return o;
 		}
 		catch(Exception e)
