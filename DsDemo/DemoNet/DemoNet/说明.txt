@@ -1,4 +1,52 @@
-﻿增加域Manage
+﻿运行前配置说明：
+假设获取的项目放置在工作目录：
+	E:\Workspaces\workspaceDswork\LibNet
+	E:\Workspaces\workspaceDswork\web
+	E:\Workspaces\workspaceDswork\DemoNet
+以上三个项目需要放在同一级目录结构下
+
+【IISExpress配置文件默认位于：C:\Users\当前用户\Documents\IISExpress\config\applicationhost.config】
+打开项目前需要在IISExpress配置文件中<sites>节点增加如下配置：
+            <site name="web" id="2">
+                <application path="/" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="E:\Workspaces\workspaceDswork\web\web" />
+                </application>
+                <application path="/web" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="E:\Workspaces\workspaceDswork\web\web" />
+                </application>
+                <bindings>
+                    <binding protocol="http" bindingInformation="*:7070:localhost" />
+                </bindings>
+            </site>
+            <site name="DemoNet" id="3">
+                <application path="/" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="E:\Workspaces\workspaceDswork\DemoNet\DemoNet" />
+                </application>
+                <application path="/DemoNet" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="E:\Workspaces\workspaceDswork\DemoNet\DemoNet" />
+                </application>
+                <application path="/web" applicationPool="Clr4IntegratedAppPool">
+                    <virtualDirectory path="/" physicalPath="E:\Workspaces\workspaceDswork\web\web" />
+                </application>
+                <bindings>
+                    <binding protocol="http" bindingInformation="*:9090:localhost" />
+                </bindings>
+            </site>
+
+
+
+
+
+
+
+
+
+
+
+
+项目文件说明：
+
+增加域Manage
 并修改域ManageAreaRegistration.cs的url映射
 	Manage/{controller}/{action}/{id}
 	改为
