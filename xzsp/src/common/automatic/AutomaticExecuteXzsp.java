@@ -129,25 +129,21 @@ public class AutomaticExecuteXzsp extends Thread
 		AutomaticExecuteXzsp pj = new AutomaticExecuteXzsp();
 		pj.start();// 启动程序
 	}
-
-	private static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
-	
 	public static Object outputObject(String v, int i)
 	{
 		try
 		{
-			com.google.gson.Gson gson = builder.create();
 			Object o = null;
-			if(i == 0){o = gson.fromJson(v, MQAPI.ApplicationOB.class);}// ShenBan
-			else if(i == 1){o = gson.fromJson(v, MQAPI.PreAcceptOB.class);}// YuShouLi
-			else if(i == 2){o = gson.fromJson(v, MQAPI.AcceptOB.class);}// ShouLi
-			else if(i == 3){o = gson.fromJson(v, MQAPI.SubmitOB.class);}// ShenPi
-			else if(i == 4){o = gson.fromJson(v, MQAPI.CompleteOB.class);}// BanJie
-			else if(i == 5){o = gson.fromJson(v, MQAPI.BlockOB.class);}// TeBieChengXuQiDong
-			else if(i == 6){o = gson.fromJson(v, MQAPI.ResumeOB.class);}// TeBieChengXuBanJie
-			else if(i == 7){o = gson.fromJson(v, MQAPI.SupplyOB.class);}// BuJiaoGaoZhi
-			else if(i == 8){o = gson.fromJson(v, MQAPI.SupplyAcceptOB.class);}// BuJiaoShouLi
-			else if(i == 9){o = gson.fromJson(v, MQAPI.ReceiveRegOB.class);}// LingQuDengJi
+			if(i == 0){o = dswork.json.JSONUtil.toBean(v, MQAPI.ApplicationOB.class);}// ShenBan
+			else if(i == 1){o = dswork.json.JSONUtil.toBean(v, MQAPI.PreAcceptOB.class);}// YuShouLi
+			else if(i == 2){o = dswork.json.JSONUtil.toBean(v, MQAPI.AcceptOB.class);}// ShouLi
+			else if(i == 3){o = dswork.json.JSONUtil.toBean(v, MQAPI.SubmitOB.class);}// ShenPi
+			else if(i == 4){o = dswork.json.JSONUtil.toBean(v, MQAPI.CompleteOB.class);}// BanJie
+			else if(i == 5){o = dswork.json.JSONUtil.toBean(v, MQAPI.BlockOB.class);}// TeBieChengXuQiDong
+			else if(i == 6){o = dswork.json.JSONUtil.toBean(v, MQAPI.ResumeOB.class);}// TeBieChengXuBanJie
+			else if(i == 7){o = dswork.json.JSONUtil.toBean(v, MQAPI.SupplyOB.class);}// BuJiaoGaoZhi
+			else if(i == 8){o = dswork.json.JSONUtil.toBean(v, MQAPI.SupplyAcceptOB.class);}// BuJiaoShouLi
+			else if(i == 9){o = dswork.json.JSONUtil.toBean(v, MQAPI.ReceiveRegOB.class);}// LingQuDengJi
 			return o;
 		}
 		catch(Exception e)
