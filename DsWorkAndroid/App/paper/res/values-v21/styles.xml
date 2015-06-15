@@ -5,14 +5,18 @@
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
     -->
-    <style name="MyAppTheme" parent="android:Theme.Material">
-	    <!-- Main theme colors -->  
-	    <!--   your app's branding color (for the app bar) -->  
-	    <item name="android:colorPrimary">@color/red</item>  
-	    <!--   darker variant of colorPrimary (for status bar, contextual app bars) -->  
-	    <item name="android:colorPrimaryDark">@color/blue</item>  
-	    <!--   theme UI controls like checkboxes and text fields -->  
-	    <item name="android:colorAccent">@color/accent</item>  
+    <!--
+    <style name="My.Theme.AppCompat.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:colorPrimary">@color/blue_light</item>
+        <item name="android:colorPrimaryDark">@color/blue_light_close</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+    -->
+    <style name="My.Theme.AppCompat.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/blue_light</item>
+        <item name="colorPrimaryDark">@color/blue_light_close</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:colorControlHighlight">@color/blue_light</item>
     </style>
 
 </resources>

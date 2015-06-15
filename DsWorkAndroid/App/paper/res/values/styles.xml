@@ -2,34 +2,25 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
+
         -->
     </style>
 
     <!-- Application theme. -->
-<!--     <style name="AppTheme" parent="Theme.AppCompat.Light"> -->
+<!--     <style name="AppTheme" parent="Theme.AppCompat.Light">
+ -->
 
-    <!-- 自定义activity主题 -->
-    <style name="MyActivityTheme" parent="Theme.AppCompat">
-        <item name="android:windowActionBarOverlay">true</item>
-        <item name="windowActionBarOverlay">true</item>
-        <!-- 引用自定义actionbar样式 -->
-        <item name="android:actionBarStyle">@style/MyActionBar1</item>
-        <item name="actionBarStyle">@style/MyActionBar1</item>
+    <!--自定义主题-->
+    <style name="My.Theme.AppCompat.NoActionBar" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/blue_light</item>
+        <item name="colorPrimaryDark">@color/blue_light_close</item>
     </style>
-    <!-- 自定义actionbar样式 -->
-    <style name="MyActionBar1" parent="@android:style/Widget.ActionBar">
-        <item name="android:background">@color/blue_light_open</item>
-        <item name="background">@color/blue_light_open</item>
-        <!--
-        <item name="android:backgroundStacked">@drawable/ab_background</item>
-        <item name="android:backgroundSplit">@drawable/ab_split_background</item>        -->
-    </style>
-
 </resources>

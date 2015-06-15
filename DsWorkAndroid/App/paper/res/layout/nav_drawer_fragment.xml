@@ -9,12 +9,6 @@
     android:layout_marginBottom="10dp"
     android:background="@color/white"
     tools:context="com.paper.MainActivity$PlaceholderFragment" >
-    
-    <ImageView 
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
-        android:src="@drawable/nav_title"/>
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_ly"
         android:layout_width="match_parent"
