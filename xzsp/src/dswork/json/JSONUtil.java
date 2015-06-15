@@ -8,7 +8,7 @@ public class JSONUtil
 		mapping.put(java.util.Date.class, new com.alibaba.fastjson.serializer.SimpleDateFormatSerializer("yyyy-MM-dd HH:mm:ss"));
 	}
 	
-	public static String toJson(Object object)
+	public static String toJSON(Object object)
 	{
 		return com.alibaba.fastjson.JSON.toJSONString(object, mapping);
 	}
