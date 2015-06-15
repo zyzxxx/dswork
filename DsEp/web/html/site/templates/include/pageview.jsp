@@ -2,7 +2,7 @@
 ${datapageview}
 <%--
 <br /><br />
-<%request.setAttribute("viewpage", 3);%>
+<c:set var="viewpage" value="3" scope="request" />
 <a${datapage.page == 1?' class="selected"':''}<c:if test="${datapage.page != 1}"> href="${ctx}/${datapage.firsturl}"</c:if>>1</a><c:if test="${datapage.last > 1}"
 ><c:if test="${datapage.page - viewpage > 2}"><a href="${ctx}/${datauri}_${datapage.page - viewpage - 1}.html">...</a></c:if
 ><c:forEach var="i" begin="2" end="${datapage.last}"><c:if test="${i<datapage.last && i >= datapage.page-3 && i <= datapage.page+3}"
