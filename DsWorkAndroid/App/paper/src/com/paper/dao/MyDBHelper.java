@@ -1,9 +1,10 @@
 package com.paper.dao;
 
-import com.paper.R;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.paper.R;
+
 import dswork.android.lib.core.db.BaseDBHelper;
 import dswork.android.lib.core.db.DBOpenHelper;
 
@@ -19,7 +20,7 @@ public class MyDBHelper extends BaseDBHelper
 	@Override
 	protected SQLiteOpenHelper initDBHelper()
 	{
-		return new DBOpenHelper(ctx, "paper.db", null, 1, 
+		return new DBOpenHelper(ctx, "paper.db", null, 2,
 			ctx.getResources().getStringArray(R.array.createTableSql), 
 			ctx.getResources().getStringArray(R.array.updateTableSql));
 	}

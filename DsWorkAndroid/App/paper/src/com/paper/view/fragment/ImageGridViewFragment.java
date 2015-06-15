@@ -1,13 +1,5 @@
 package com.paper.view.fragment;
 
-import com.paper.R;
-import com.paper.view.asynctask.DownRefreshImageGridViewAsyncTask;
-import com.paper.view.asynctask.UpRefreshImageGridViewAsyncTask;
-
-import dswork.android.lib.core.ui.MoreGridView;
-import dswork.android.lib.core.util.InjectUtil;
-import dswork.android.lib.core.util.MyStrictMode;
-import dswork.android.lib.core.util.InjectUtil.InjectView;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,6 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.paper.R;
+import com.paper.view.asynctask.DownRefreshImageGridViewAsyncTask;
+import com.paper.view.asynctask.UpRefreshImageGridViewAsyncTask;
+
+import dswork.android.lib.core.ui.MoreGridView;
+import dswork.android.lib.core.util.InjectUtil;
+import dswork.android.lib.core.util.InjectUtil.InjectView;
+import dswork.android.lib.core.util.MyStrictMode;
 
 public class ImageGridViewFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener, MoreGridView.OnLoadListener
 {
@@ -32,7 +33,7 @@ public class ImageGridViewFragment extends Fragment implements SwipeRefreshLayou
 	
 	//定义变量
 	private Callbacks mCallbacks;
-	
+
 	public ImageGridViewFragment(int sectionNumber, long sectionId, CharSequence sectionName, Callbacks mCallbacks)
 	{
 		Bundle args = new Bundle();
@@ -64,7 +65,7 @@ public class ImageGridViewFragment extends Fragment implements SwipeRefreshLayou
 		mSwipeLayout.setColorSchemeResources(R.color.red,R.color.blue_light,R.color.orange,R.color.green);
 		mMoreGridView.setOnLoadListener(this);
         //下拉异步加载ImageWall UI
-		downRefresh();
+		downRefresh("auto");
 		return rootView;
 	}
 	
@@ -73,9 +74,9 @@ public class ImageGridViewFragment extends Fragment implements SwipeRefreshLayou
 	{
 		new UpRefreshImageGridViewAsyncTask(getActivity(), mMoreGridView, mPageNumView, getArguments().getLong(ARG_SECTION_ID)).execute(pageNum);
 	}
-	private void downRefresh()
+	private void downRefresh(String refreshMode)
 	{
-		new DownRefreshImageGridViewAsyncTask(getActivity(), mSwipeLayout, mMoreGridView, mPageNumView, getArguments().getLong(ARG_SECTION_ID)).execute("1");
+		new DownRefreshImageGridViewAsyncTask(getActivity(), mSwipeLayout, mMoreGridView, mPageNumView, getArguments().getLong(ARG_SECTION_ID), refreshMode).execute("1");
 	}
 	
 	public static interface Callbacks
@@ -101,11 +102,10 @@ public class ImageGridViewFragment extends Fragment implements SwipeRefreshLayou
 	public void onRefresh()
 	{
 		Handler handler = new Handler();
-		handler.postDelayed(new Runnable(){
+		handler.postDelayed(new Runnable() {
 			@Override
-			public void run()
-			{
-				downRefresh();
+			public void run() {
+				downRefresh("manual");
 			}}, 2000);
 	}
 }

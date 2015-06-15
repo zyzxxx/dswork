@@ -1,16 +1,5 @@
 package com.paper.view.asynctask;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.handmark.pulltorefresh.library.PullToRefreshGridView;
-import com.paper.controller.PaperImageController;
-import com.paper.model.PaperImage;
-import com.paper.view.adapter.ImageGridViewAdapter;
-
-import dswork.android.lib.core.ui.MoreGridView;
-
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.ProgressBar;
@@ -18,12 +7,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.WrapperListAdapter;
 
+import com.paper.controller.PaperImageController;
+import com.paper.model.PaperImage;
+import com.paper.view.adapter.ImageGridViewAdapter;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import dswork.android.lib.core.ui.MoreGridView;
+
 public class UpRefreshImageGridViewAsyncTask extends AsyncTask<String, Integer, Map>
 {
 	private Context ctx;
 	private ProgressBar pb;
 	private MoreGridView mGridView;
-	private PullToRefreshGridView mPullToRefreshGridView;
 	private TextView mPageNumView;
 	private long pid;
 	private PaperImageController controller;
@@ -81,6 +79,5 @@ public class UpRefreshImageGridViewAsyncTask extends AsyncTask<String, Integer, 
 			Toast.makeText(ctx, "加载失败，网络异常", Toast.LENGTH_SHORT).show();
 		}
 		((MoreGridView)mGridView).OnLoadComplete();
-//		mPullToRefreshGridView.onRefreshComplete();
 	}
 }

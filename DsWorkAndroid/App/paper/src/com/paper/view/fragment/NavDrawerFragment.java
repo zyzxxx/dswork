@@ -96,12 +96,11 @@ public class NavDrawerFragment extends Fragment implements SwipeRefreshLayout.On
 		View rootView = inflater.inflate(R.layout.nav_drawer_fragment, container, false);
 		InjectUtil.injectView(this, rootView);//注入控件
 
-		mSwipeLayout.scrollTo(0, -100);//首次打开，Y坐标向下位移-100，以显示progressbar
-		mSwipeLayout.setOnRefreshListener(this);  
+		mSwipeLayout.setOnRefreshListener(this);
         mSwipeLayout.setColorSchemeResources(R.color.red,R.color.blue_light,R.color.orange,R.color.green);
         
 		//异步加载菜单UI
-		loadNavDrawUiTask(mSwipeLayout, mDrawerListView).execute();
+		loadNavDrawUiTask(mSwipeLayout, mDrawerListView, "auto").execute();
 		
 		//首次打开，默认选中导航第一项
 		if(savedInstanceState == null)
@@ -124,7 +123,7 @@ public class NavDrawerFragment extends Fragment implements SwipeRefreshLayout.On
 	@Override
 	public void onRefresh()
 	{
-		loadNavDrawUiTask(mSwipeLayout, mDrawerListView).execute();
+		loadNavDrawUiTask(mSwipeLayout, mDrawerListView, "manual").execute();
 	}
 
 	@Override
@@ -190,11 +189,12 @@ public class NavDrawerFragment extends Fragment implements SwipeRefreshLayout.On
 	 * 新建LoadMenuUiTask对象
 	 * @param mSwipeLayout
 	 * @param mDrawerListView
+	 * @param refreshMode "auto"/"manual"
 	 * @return LoadMenuUiTask
 	 */
-	private LoadNavDrawUiTask loadNavDrawUiTask(SwipeRefreshLayout mSwipeLayout, ExpandableListView mDrawerListView)
+	private LoadNavDrawUiTask loadNavDrawUiTask(SwipeRefreshLayout mSwipeLayout, ExpandableListView mDrawerListView, String refreshMode)
 	{
-		return new LoadNavDrawUiTask(getActivity(), mSwipeLayout, mDrawerListView, new LoadNavDrawUiTask.CallBackFn()
+		return new LoadNavDrawUiTask(getActivity(), mSwipeLayout, mDrawerListView, refreshMode, new LoadNavDrawUiTask.CallBackFn()
 		{
 			@Override
 			public void exeUiSuc(final ExpandableListView mDrawerListView)

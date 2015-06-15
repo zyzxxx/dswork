@@ -1,12 +1,10 @@
 package com.paper.view;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.Window;
 
@@ -16,15 +14,19 @@ import com.paper.view.adapter.ImageViewPagerAdapter;
 import com.paper.view.fragment.ImageViewPagerFragment;
 import com.paper.view.listeners.ImageViewPagerOnPageChangeListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import dswork.android.lib.core.ui.PosPoint;
 import dswork.android.lib.core.util.InjectUtil;
-import dswork.android.lib.core.util.MyStrictMode;
 import dswork.android.lib.core.util.InjectUtil.InjectView;
+import dswork.android.lib.core.util.MyStrictMode;
 
 public class ImageViewPagerActivity extends ActionBarActivity
 {
 	//标记要注入的控件
 	@InjectView(id=R.id.image_view_pager) ViewPager vp;
+	@InjectView(id=R.id.toolbar) Toolbar mToolbar;
 	@InjectView(id=R.id.points) PosPoint pp;
 	//变量
 	private List<Fragment> fgms = new ArrayList<Fragment>();
@@ -40,9 +42,10 @@ public class ImageViewPagerActivity extends ActionBarActivity
 		MyStrictMode.setPolicy();
 		InjectUtil.injectView(this);//注入控件
 
+		setSupportActionBar(mToolbar);
+		getSupportActionBar().setHomeButtonEnabled(true);//actionbar主按键可以被点击
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);//显示左上角返回键
-//		getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#330000ff")));
-		
+
 		Bundle b = getIntent().getBundleExtra("info");
 		long id = b.getLong("id");
 		long pid = b.getLong("pid");

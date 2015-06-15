@@ -12,6 +12,7 @@ public class PaperImage implements Serializable
 	private long pid;
 	private String name;
 	private int sort;
+	private long datasize;
 	
 	public long getId()
 	{
@@ -44,5 +45,22 @@ public class PaperImage implements Serializable
 	public void setSort(int sort)
 	{
 		this.sort = sort;
+	}
+	public long getDatasize() {
+		return datasize;
+	}
+	public void setDatasize(long datasize) {
+		this.datasize = datasize;
+	}
+
+	@Override
+	public String toString() {
+		return "PaperImage{" +
+				"datasize=" + datasize +
+				", id=" + id +
+				", pid=" + pid +
+				", name='" + name + '\'' +
+				", sort=" + sort +
+				'}';
 	}
 }

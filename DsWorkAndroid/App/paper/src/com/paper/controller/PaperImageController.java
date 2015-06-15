@@ -1,13 +1,16 @@
 package com.paper.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.content.Context;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.paper.R;
 import com.paper.model.PaperImage;
-import android.content.Context;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import dswork.android.lib.core.controller.BaseWebController;
 import dswork.android.lib.core.util.webutil.HttpResultObj;
  
@@ -29,7 +32,7 @@ public class PaperImageController extends BaseWebController
 
 	public Map getPaperImagePage(Map<String,String> params) 
 	{
-		HttpResultObj<Map> o = submitHttpAction("client/paperimage/getPaperImagePage.action", Map.class, params, 5000, 5000);
+		HttpResultObj<Map> o = submitHttpAction("client/paperimage/getPaperImagePage.action", Map.class, params, 5000, 5000, "POST");
 		Map<String,Object> result = null;
 		if(o.isSuc())
 		{
@@ -39,6 +42,19 @@ public class PaperImageController extends BaseWebController
 			result = new HashMap<String,Object>();
 			result.put("list", (List<PaperImage>)gson.fromJson(_json, new TypeToken<List<PaperImage>>(){}.getType()));
 			result.put("page", _page);
+		}
+		return result;
+	}
+
+	public List getPaperImagesByPid(Map<String, String> params)
+	{
+		HttpResultObj<Map> o = submitHttpAction("client/paperimage/getPaperImagesByPid.action", Map.class, params, 5000, 5000, "POST");
+		List result = null;
+		if(o.isSuc())
+		{
+			String _json = String.valueOf(o.getData().get("json"));
+			Gson gson = new Gson();
+			result =  (List<PaperImage>)gson.fromJson(_json, new TypeToken<List<PaperImage>>(){}.getType());
 		}
 		return result;
 	}

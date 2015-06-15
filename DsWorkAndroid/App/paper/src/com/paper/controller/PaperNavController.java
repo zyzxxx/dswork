@@ -1,12 +1,12 @@
 package com.paper.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 
 import com.paper.R;
 import com.paper.service.PaperNavService;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import dswork.android.lib.core.controller.BaseWebController;
 import dswork.android.lib.core.util.webutil.HttpResultObj;
@@ -32,7 +32,7 @@ public class PaperNavController extends BaseWebController
 	public HttpResultObj<String> getNavJson() 
 	{
 		Map<String,String> m = new HashMap<String,String>();
-		HttpResultObj<String> r = submitHttpAction("client/papernav/paper-nav.action", String.class, m, 5000, 5000);
+		HttpResultObj<String> r = submitHttpAction("client/papernav/paper-nav.action", String.class, m, 5000, 5000, "POST");
 		r = service.getNavJson(r);
 		return r;
 	}
