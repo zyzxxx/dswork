@@ -403,7 +403,19 @@ public class DsCmsPageController extends BaseController
 						DsCmsPage p = service.get(pageid);
 						if(p.getSiteid() == siteid)
 						{
-							buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder(), site.getUrl());
+							if(p.getStatus() == 1)
+							{
+								buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder(), site.getUrl());
+								print("1");
+							}
+							else
+							{
+								print("0:无权生成");
+							}
+						}
+						else
+						{
+							print("0");
 						}
 					}
 					else if(pageid == -1)//生成栏目
@@ -453,6 +465,7 @@ public class DsCmsPageController extends BaseController
 						{
 							buildFile(path, "/index.html", site.getFolder(), site.getUrl());
 						}
+						print("1");
 					}
 					else if(pageid == 0)//生成内容
 					{
@@ -480,6 +493,7 @@ public class DsCmsPageController extends BaseController
 								map.put("siteid", site.getId());
 								map.put("releasetime", TimeUtil.getCurrentTime());
 								map.put("categoryid", c.getId());
+								map.put("status", 1);
 								PageRequest rq = new PageRequest(map);
 								rq.setPageSize(pagesize);
 								rq.setCurrentPage(1);
@@ -494,6 +508,7 @@ public class DsCmsPageController extends BaseController
 									map.put("siteid", site.getId());
 									map.put("releasetime", TimeUtil.getCurrentTime());
 									map.put("categoryid", c.getId());
+									map.put("status", 1);
 									rq.setFilters(map);
 									rq.setPageSize(pagesize);
 									rq.setCurrentPage(i);
@@ -505,8 +520,12 @@ public class DsCmsPageController extends BaseController
 								}
 							}
 						}
+						print("1");
 					}
-					print("1");
+					else
+					{
+						print("0");
+					}
 				}
 				else
 				{
