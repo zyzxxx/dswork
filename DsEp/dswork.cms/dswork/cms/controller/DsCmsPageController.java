@@ -52,6 +52,7 @@ public class DsCmsPageController extends BaseController
 		try
 		{
 			Long categoryid = req.getLong("categoryid");
+			int status = req.getInt("status", 1);
 			DsCmsCategory m = service.getCategory(categoryid);
 			DsCmsSite s = service.getSite(m.getSiteid());
 			if(m.getStatus() == 0 && checkOwn(s.getOwn()))
@@ -62,6 +63,7 @@ public class DsCmsPageController extends BaseController
 				{
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
+				po.setStatus(status);
 				po.setUrl("/a/" + m.getFolder());
 				service.save(po);// url拼接/id.html
 				print(1);
@@ -114,6 +116,8 @@ public class DsCmsPageController extends BaseController
 	{
 		try
 		{
+			int status = req.getInt("status", 1);
+			po.setStatus(status);
 			service.update(po);
 			print(1);
 		}

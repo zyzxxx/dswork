@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(ID, SITEID, CATEGORYID, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, IMG, IMGTOP, PAGETOP, CONTENT)
+	(ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, IMG, IMGTOP, PAGETOP, CONTENT)
 	values
-	(null, #{siteid}, #{categoryid}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{img}, #{imgtop}, #{pagetop}, #{content})
+	(null, #{siteid}, #{categoryid}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{img}, #{imgtop}, #{pagetop}, #{content})
 </insert>
 
 <delete id="delete">
@@ -21,6 +21,7 @@
 
 <update id="update" parameterType="dswork.cms.model.DsCmsPage">
 	update DS_CMS_PAGE set
+		STATUS=#{status},
 		TITLE=#{title},
 		METAKEYWORDS=#{metakeywords},
 		METADESCRIPTION=#{metadescription},
@@ -37,10 +38,15 @@
 	update DS_CMS_PAGE set URL=#{url} where ID=#{id}
 </update>
 
+<update id="updateStatus">
+	update DS_CMS_PAGE set STATUS=#{status} where ID=#{id}
+</update>
+
 <resultMap id="result" type="dswork.cms.model.DsCmsPage">
 	<id property="id" column="ID" />
 	<result property="siteid" column="SITEID" />
 	<result property="categoryid" column="CATEGORYID" />
+	<result property="status" column="STATUS" />
 	<result property="title" column="TITLE" />
 	<result property="metakeywords" column="METAKEYWORDS" />
 	<result property="metadescription" column="METADESCRIPTION" />
@@ -54,13 +60,14 @@
 </resultMap>
 
 <sql id="columns">
-	ID, SITEID, CATEGORYID, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, IMG, IMGTOP, PAGETOP, URL, CONTENT
+	ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, IMG, IMGTOP, PAGETOP, URL, CONTENT
 </sql>
 
 <sql id="dynamicWhere">
 	<where>
 		SITEID=#{siteid}
 		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
+		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(keyvalue)">
 			 and TITLE like concat('%',#{keyvalue},'%') 
 			 and METAKEYWORDS like concat('%',#{keyvalue},'%') 

@@ -43,6 +43,11 @@ public class DsCmsPageService extends BaseService<DsCmsPage, Long>
 		dao.updateURL(m.getId(), m.getUrl() + "/" + m.getId() + ".html");
 		return 1;
 	}
+	public int updateStatus(Long id, Integer status)
+	{
+		dao.updateStatus(id, status);
+		return 1;
+	}
 
 	public DsCmsSite getSite(Long siteid)
 	{

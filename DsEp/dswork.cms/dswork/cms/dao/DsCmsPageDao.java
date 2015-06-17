@@ -33,4 +33,17 @@ public class DsCmsPageDao extends BaseDao<DsCmsPage, Long>
 		map.put("url", url);
 		executeUpdate("updateURL", map);
 	}
+
+	/**
+	 * 更新状态
+	 * @param id 主键
+	 * @param status 状态
+	 */
+	public void updateStatus(long id, Integer status)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("status", status);
+		executeUpdate("updateStatus", map);
+	}
 }

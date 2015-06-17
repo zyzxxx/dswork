@@ -11,6 +11,8 @@ public class DsCmsPage
 	private Long siteid = 0L;
 	// 栏目ID
 	private Long categoryid = 0L;
+	// 状态
+	private Integer status = 0;
 	// 标题
 	private String title = "";
 	// meta关键词
@@ -60,6 +62,16 @@ public class DsCmsPage
 	public void setCategoryid(Long categoryid)
 	{
 		this.categoryid = categoryid;
+	}
+
+	public Integer getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(Integer status)
+	{
+		this.status = status;
 	}
 
 	public String getTitle()

@@ -12,7 +12,7 @@
 	id, pid, siteid, name, folder, status, url, img, viewsite, pageviewsite, metakeywords, metadescription, content
 </sql>
 <sql id="c_page">
-	id, siteid, categoryid, title, url, metakeywords, metadescription, summary, releasetime, img, content
+	id, siteid, categoryid, status, title, url, metakeywords, metadescription, summary, releasetime, img, content
 </sql>
 
 <select id="getSite" resultType="java.util.Map">
@@ -32,6 +32,7 @@
 <select id="query" resultType="java.util.Map">
 	select <include refid="c_page" /> from DS_CMS_PAGE
 	where SITEID=#{siteid} and CATEGORYID in (${idArray})
+		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
 		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=1 </if>
 		<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME&lt;=#{releasetime} </if>
@@ -40,6 +41,7 @@
 <select id="queryCount" resultType="int">
 	select count(1) from DS_CMS_PAGE
 	where SITEID=#{siteid} and CATEGORYID in (${idArray})
+		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
 		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=1 </if>
 		<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME&lt;=#{releasetime} </if>
