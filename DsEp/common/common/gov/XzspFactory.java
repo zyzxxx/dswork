@@ -558,12 +558,12 @@ public class XzspFactory
 	}
 
 	private static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
+	private static com.google.gson.Gson gson = builder.create();
 	@SuppressWarnings("all")
 	private static int saveObject(Object obj, String SBLSH)
 	{
 		try
 		{
-			com.google.gson.Gson gson = builder.create();
 			String v = gson.toJson(obj);
 			int i = 0;
 			if(obj instanceof ApplicationOB){i = 0;}// ShenBan
