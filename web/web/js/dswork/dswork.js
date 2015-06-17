@@ -5,7 +5,9 @@ $dswork.showDate = function(){
 	var f = arguments[1] || "yyyy-MM-dd";
 	$jskey.calendar.show(o,{skin:'default', lang:0, format:f, sample:f});
 };
-$dswork.uploadURL = "/web/js/jskey/jskey_upload." + ($dswork.dotnet ? "aspx" : "jsp");
+$dswork.uploadURL = function(){
+	return "/web/js/jskey/jskey_upload." + ($dswork.dotnet ? "aspx" : "jsp");
+};
 $dswork.getChoose = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose.html";return $jskey.dialog.show(m);};
 $dswork.getChooseByKey = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose_key.html";return $jskey.dialog.show(m);};
 $dswork.getChooseDialog = function(m){return $jskey.dialog.showChoose(m);};
@@ -169,7 +171,7 @@ $dswork.upload = function(o){
 	this.show == this.show ? true : false;
 	this.image = "jpg,jpeg,gif,png";
 	this.file =  "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z";
-	this.url = o.url || $dswork.uploadURL;
+	this.url = o.url || $dswork.uploadURL();
 };
 $dswork.upload.prototype = {
 	init:function(op){try{
