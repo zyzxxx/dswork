@@ -3,7 +3,7 @@ package testwork.cs;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.log4j.PropertyConfigurator;
+//import org.apache.log4j.PropertyConfigurator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -17,7 +17,7 @@ public class Start
 {
 	public static void main(String[] args)
 	{
-		PropertyConfigurator.configure("bin/config/log4j.properties");
+		//PropertyConfigurator.configure("bin/config/log4j.properties");
 		ApplicationContext context=new FileSystemXmlApplicationContext  
 		( 
 		    new String[] {  
