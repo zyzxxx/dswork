@@ -11,8 +11,8 @@
         <archive path="/Lib/common/commons/commons-logging-1.1.1.jar"/>
         <archive path="/Lib/common/commons/commons-pool-1.6.jar"/>
         <archive path="/Lib/common/log/log4j-1.2.16.jar"/>
-        <archive path="/Lib/common/log/slf4j-api-1.6.6.jar"/>
-        <archive path="/Lib/common/log/slf4j-log4j12-1.6.6.jar"/>
+        <archive path="/Lib/common/log/slf4j-api-1.7.11.jar"/>
+        <archive path="/Lib/common/log/slf4j-log4j12-1.7.11.jar"/>
         <archive path="/Lib/common/spring/spring-aop.jar"/>
         <archive path="/Lib/common/spring/spring-beans.jar"/>
         <archive path="/Lib/common/spring/spring-context.jar"/>
