@@ -37,6 +37,10 @@ namespace Dswork.Core.Upload
 			return s;
 		}
 
+        /// <summary>
+        /// 启动时是否执行临时目录初始化
+        /// </summary>
+        public static readonly Boolean UPLOAD_INIT = EnvironmentUtil.GetToBoolean("jskey.upload.init", true);
 		/// <summary>
 		/// 临时上传总目录
 		/// </summary>
@@ -74,7 +78,10 @@ namespace Dswork.Core.Upload
 		}
 		private static Timer GetTimer()//临时目录初始化，在服务器启动时执行
 		{
-			JskeyUpload.Delete(JskeyUpload.UPLOAD_SAVEPATH);//删除整个目录
+            if (JskeyUpload.UPLOAD_INIT)
+            {
+                JskeyUpload.Delete(JskeyUpload.UPLOAD_SAVEPATH);//删除整个目录
+            }
 			Timer timer = new Timer(Convert.ToDouble(JskeyUpload.UPLOAD_TIMEOUT));
 			timer.Elapsed += new System.Timers.ElapsedEventHandler(delegate(Object source, ElapsedEventArgs e) { new JskeyUpload().Run(); });
 			timer.AutoReset = true;
