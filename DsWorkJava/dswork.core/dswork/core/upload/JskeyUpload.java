@@ -29,7 +29,11 @@ public class JskeyUpload extends Thread
 		}
 		return s;
 	}
-	
+
+	/**
+	 * 启动时是否执行临时目录初始化
+	 */
+	public static final boolean UPLOAD_INIT = EnvironmentUtil.getToBoolean("jskey.upload.init", true);
 	/**
 	 * 临时上传总目录
 	 */
@@ -68,10 +72,13 @@ public class JskeyUpload extends Thread
 	{
 		try
 		{
-			String path = JskeyUpload.UPLOAD_SAVEPATH;
-			java.io.File f = new java.io.File(path);
-			System.out.println(f.getPath());
-			JskeyUpload.delete(f);//删除整个目录
+			if(JskeyUpload.UPLOAD_INIT)
+			{
+				String path = JskeyUpload.UPLOAD_SAVEPATH;
+				java.io.File f = new java.io.File(path);
+				System.out.println(f.getPath());
+				JskeyUpload.delete(f);//删除整个目录
+			}
 		}
 		catch(Exception ex)
 		{
