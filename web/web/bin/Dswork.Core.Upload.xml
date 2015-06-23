@@ -1,0 +1,187 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Dswork.Core.Upload</name>
+    </assembly>
+    <members>
+        <member name="T:Dswork.Core.Upload.JskeyUpload">
+            <summary>
+            临时文件上传服务类
+            </summary>
+        </member>
+        <member name="F:Dswork.Core.Upload.JskeyUpload.log">
+            <summary>
+            用于写入log4net日志
+            </summary>
+        </member>
+        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_INIT">
+            <summary>
+            启动时是否执行临时目录初始化
+            </summary>
+        </member>
+        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_SAVEPATH">
+            <summary>
+            临时上传总目录
+            </summary>
+        </member>
+        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_MAXSIZE">
+            <summary>
+            文件占用最大空间（bit）
+            </summary>
+        </member>
+        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_TIMEOUT">
+            <summary>
+            文件保存时长（毫秒）
+            </summary>
+        </member>
+        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_IMAGE">
+            <summary>
+            默认允许上传的图片后缀
+            </summary>
+        </member>
+        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_FILE">
+            <summary>
+            默认允许上传的文件后缀
+            </summary>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.Run">
+            <summary>
+            启动定时任务
+            </summary>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.GetToByte(System.String)">
+            <summary>
+            将一个文件读成byte(但需要注意文件太大时，内存是否足够)
+            </summary>
+            <param name="filePath">文件名称(全路径)</param>
+            <returns>成功返回byte[]，失败返回null</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.GetSavePath(System.Int64,System.Int64)">
+            <summary>
+            返回用于保存的临时目录，以"/"结尾
+            </summary>
+            <param name="sessionKey">用户临时主目录</param>
+            <param name="fileKey">用户临时子目录</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.GetFile(System.Int64,System.Int64)">
+            <summary>
+            根据参数取得上传的文件列表
+            </summary>
+            <param name="sessionKey">用户临时主目录</param>
+            <param name="fileKey">用户临时子目录</param>
+            <returns>FileInfo[]</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.DelFile(System.Int64,System.Int64)">
+            <summary>
+            删除指定的临时子目录
+            </summary>
+            <param name="sessionKey">用户临时主目录</param>
+            <param name="fileKey">用户临时子目录</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.GetUploadExt(System.String)">
+            <summary>
+            返回允许上传的后缀名字符串
+            </summary>
+            <param name="ext">需要过滤的上传文件后缀名，格式为"***,***"</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.GetNewSessionKey">
+            <summary>
+            获取一个新的上传文件会话信息
+            </summary>
+            <returns>long</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.RefreshSessionTime(System.Int64)">
+            <summary>
+            刷新sessionKey时间
+            </summary>
+            <param name="sessionKey">用户临时主目录</param>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.GetSessionKey(System.Web.HttpRequest)">
+            <summary>
+            获取sessionKey并刷新sessionKey时间，没有则返回0
+            </summary>
+            <param name="request">HttpRequest</param>
+            <returns>long</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.GetSessionKey(System.Web.HttpRequestBase)">
+            <summary>
+            获取sessionKey并刷新sessionKey时间，没有则返回0
+            </summary>
+            <param name="request">HttpRequestBase</param>
+            <returns>long</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.GetSessionKey(System.Web.HttpRequestWrapper)">
+            <summary>
+            获取sessionKey并刷新sessionKey时间，没有则返回0
+            </summary>
+            <param name="request">HttpRequestWrapper</param>
+            <returns>long</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.RefreshSessionKey(System.Web.HttpRequest)">
+            <summary>
+            获取并刷新sessionKey值，没有则新创建一个
+            </summary>
+            <param name="request">HttpRequest</param>
+            <returns>long</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.RefreshSessionKey(System.Web.HttpRequestBase)">
+            <summary>
+            获取并刷新sessionKey值，没有则新创建一个
+            </summary>
+            <param name="request">HttpRequestBase</param>
+            <returns>long</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.RefreshSessionKey(System.Web.HttpRequestWrapper)">
+            <summary>
+            获取并刷新sessionKey值，没有则新创建一个
+            </summary>
+            <param name="request">HttpRequestWrapper</param>
+            <returns>long</returns>
+        </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.ToStart(System.Int64)">
+            <summary>
+            启动临时上传目录清理程序,在目录生成或文件上传后,才需要将sessionKey加入管理程序
+            </summary>
+            <param name="sessionKey">用户临时主目录</param>
+        </member>
+        <member name="T:Dswork.Core.Util.EnvironmentUtil">
+            <summary>
+            读取系统properties配置文件，默认路径为："/Config/properties.config"
+            </summary>
+        </member>
+        <member name="M:Dswork.Core.Util.EnvironmentUtil.GetStringProperty(System.String)">
+            <summary>
+            获得系统属性配置信息，如果没有则返回null
+            </summary>
+            <param name="name">属性名</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Core.Util.EnvironmentUtil.GetToLong(System.String,System.Int64)">
+            <summary>
+            获得系统属性配置信息,如果没有则返回默认值(长整型)
+            </summary>
+            <param name="name">属性名</param>
+            <param name="defaultValue">默认值</param>
+            <returns>long</returns>
+        </member>
+        <member name="M:Dswork.Core.Util.EnvironmentUtil.GetToString(System.String,System.String)">
+            <summary>
+            获得系统属性配置信息,如果没有则返回默认值(字符串类型)
+            </summary>
+            <param name="name">属性名</param>
+            <param name="defaultValue">默认值</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Core.Util.EnvironmentUtil.GetToBoolean(System.String,System.Boolean)">
+            <summary>
+            获得系统属性配置信息,如果没有则返回默认值("true"、"false")
+            </summary>
+            <param name="name">属性名</param>
+            <param name="defaultValue">默认值</param>
+            <returns>Boolean</returns>
+        </member>
+    </members>
+</doc>
