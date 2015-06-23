@@ -1,0 +1,18 @@
+2014-12-25
+	dswork更新了EncryptUtil的encodeBase64方法，去掉了RFC2045协议中定义的每76个Characters就回车换行的做法，即去掉回车即换行符号
+2014-12-31
+	去掉了log4jdbc包，简化代码，并改为dswork.jdbc.jar，增加多个默认驱动，修改配置文件为：/config/config.properties
+	jdbc连接的jdbc.driverClassName的值使用：dswork.jdbc.DriverSpy，其余不变
+	properties如果使用键值：dswork.jdbc.drivers，则不使用默认驱动，多个驱动使用“,”分隔，不能有空格
+	如：dswork.jdbc.drivers=com.mysql.jdbc.Driver,org.sqlite.JDBC
+	log4j.properties的日志输出使用“log4j.logger.jdbc.sqlonly”进行日志输出控制，兼容回log4jdbc的写法（只有jdbc.sqlonly一个）
+	最后，可以去掉spring数据源配置文件中的两个bean：log4jdbcInterceptor和dataSourceLog4jdbcAutoProxyCreator
+2015-04-28
+	dswork修改了dswork.web下的MyCookie类，增加了secure和httponly属性，但httponly是servlet3.0的东西，所以该包不能部署在tomcat6下了（如果需要则使用特配文件dswork.web_servlet2.5.jar）
+2015-05-01
+	dswork修改了dswork.web下的MyCookie类，通过反射判断是否存在setHttpOnly方法，存在则调用，不存在则忽略，用于兼容servlet2.5
+2015-06-18
+	新增log4j2的依赖包log/log4j2，用于升级日志框架，同时log4j1的依赖包移到log/log4j1目录中
+2015-06-23
+	dswork修改了dswork.core下的JskeyUpload类，增加jskey.upload.init=true属性设置，用于是否初始化临时上传目录
+	增加dswork.http包，目前仅支持简单的http/https调用，可保持会话，但会话状态未持久化
