@@ -34,7 +34,7 @@ namespace Dswork.Core.Page
                 StringBuilder sb = new StringBuilder("<script language=\"javascript\">if(typeof($jskey)!=\"object\"){$jskey={};}$jskey.page={go:function(pn,page,pagesize){pn=\"" + PAGEFORMID + "\"+pn;page=parseInt(page)||1;page=(page<1)?1:page;document.getElementById(pn+\"_page\").value=page;pagesize=parseInt(pagesize||" + page.PageSize + ")||10;pagesize=(pagesize<1)?10:pagesize;document.getElementById(pn+\"_pagesize\").value=pagesize;document.getElementById(pn).submit();}};</script>\n");
 				sb.Append("<form id=\"").Append(formId).Append("\" method=\"post\" style=\"display:none;\" action=\"").Append(Path).Append("\">");
 				sb.Append("<input id=\"").Append(formId).Append("_page\" name=\"").Append(pageName).Append("\" type=\"hidden\" value=\"1\"/>\n");
-                sb.Append("<input id=\"").Append(formId).Append("_pageSize\" name=\"").Append(pageSizeName).Append("\" type=\"hidden\" value=\"").Append(page.PageSize).Append("\"/>\n");
+                sb.Append("<input id=\"").Append(formId).Append("_pagesize\" name=\"").Append(pageSizeName).Append("\" type=\"hidden\" value=\"").Append(page.PageSize).Append("\"/>\n");
 
 				String key;
 				String[] values;
