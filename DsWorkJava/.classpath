@@ -14,6 +14,7 @@
 	<classpathentry kind="src" path="dswork.web"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
 	<classpathentry kind="src" path="dswork.jdbc4"/>
+	<classpathentry kind="src" path="dswork.http"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
