@@ -16,32 +16,32 @@ namespace Dswork.Core.Page
 		private Page<T> page;
 		private Boolean isOutForm = false;
 		private static String PAGEFORMID = "jskeyPageForm";
-		private String formId = PAGEFORMID;
 		private String formString = "";
 		private String Path = "";
-		private static int[] sizeArray = {5, 10, 15, 20, 25, 30, 50 };
+		private static int[] sizeArray = {5, 10, 15, 20, 25, 30, 50};
 
 		/// <summary>
 		/// 初始化formString
 		/// </summary>
 		/// <param name="req"></param>
 		private void PageNavInit(NameValueCollection req)
-		{
-			formId = formId + DateTime.Now.Ticks;
-			String pageName = page.PageName;
+        {
+            String pageName = page.PageName;
+            String pageSizeName = page.PageSizeName;
+            String formId = PAGEFORMID + pageName;
 			try
 			{
-				StringBuilder sb = new StringBuilder("<script language=\"javascript\">if(typeof($jskey)!=\"object\"){$jskey={};}$jskey.page={go:function(formID,page){page=parseInt(page)||1;page=(page<1)?1:page;document.getElementById(formID+\"_page\").value=page;document.getElementById(formID).submit();}};</script>\n");
+                StringBuilder sb = new StringBuilder("<script language=\"javascript\">if(typeof($jskey)!=\"object\"){$jskey={};}$jskey.page={go:function(pn,page,pagesize){pn=\"" + PAGEFORMID + "\"+pn;page=parseInt(page)||1;page=(page<1)?1:page;document.getElementById(pn+\"_page\").value=page;pagesize=parseInt(pagesize||" + page.PageSize + ")||10;pagesize=(pagesize<1)?10:pagesize;document.getElementById(pn+\"_pagesize\").value=pagesize;document.getElementById(pn).submit();}};</script>\n");
 				sb.Append("<form id=\"").Append(formId).Append("\" method=\"post\" style=\"display:none;\" action=\"").Append(Path).Append("\">");
 				sb.Append("<input id=\"").Append(formId).Append("_page\" name=\"").Append(pageName).Append("\" type=\"hidden\" value=\"1\"/>\n");
-				sb.Append("<input id=\"").Append(formId).Append("_pageSize\" name=\"").Append(page.PageSizeName).Append("\" type=\"hidden\" value=\"").Append(page.PageSize).Append("\"/>\n");
+                sb.Append("<input id=\"").Append(formId).Append("_pageSize\" name=\"").Append(pageSizeName).Append("\" type=\"hidden\" value=\"").Append(page.PageSize).Append("\"/>\n");
 
 				String key;
 				String[] values;
 				for(int i = 0; i < req.Count; i++)
 				{
 					key = req.Keys[i];
-					if(key != pageName)
+                    if (key != pageName && key != pageSizeName)
 					{
 						values = req.GetValues(key);
 						if(values == null || values.Length == 0)
@@ -150,7 +150,7 @@ namespace Dswork.Core.Page
 		{
 			StringBuilder sb = new StringBuilder();
 			sb.Append(GetForm());
-			sb.Append("<div class='pageview'>");
+            sb.Append("<div class=\"pageview\">");
 			if(isViewTotal)
 			{
 				sb.Append(" 共").Append(page.TotalCount).Append("条记录 ");
@@ -161,22 +161,22 @@ namespace Dswork.Core.Page
 			}
 			if(isShowLink)
 			{
-				sb.Append("<a class=\"first\"" + ((page.TotalPage > 1 && page.CurrentPage > 1) ? " onclick=\"$jskey.page.go('" + formId + "', '1');return false;\" href=\"#\"" : "") + ">首页</a>&nbsp;");
-				sb.Append("<a class=\"prev\"" + ((page.IsHasPreviousPage) ? " onclick=\"$jskey.page.go('" + formId + "', '" + page.PreviousPage + "');return false;\" href=\"#\"" : "") + ">上页</a>&nbsp;");
-				sb.Append("<a class=\"next\"" + ((page.IsHasNextPage) ? " onclick=\"$jskey.page.go('" + formId + "', '" + page.NextPage + "');return false;\" href=\"#\"" : "") + ">下页</a>&nbsp;");
-				sb.Append("<a class=\"last\"" + ((page.TotalPage > 1 && page.CurrentPage < page.TotalPage) ? " onclick=\"$jskey.page.go('" + formId + "', '" + page.TotalPage + "');return false;\" href=\"#\"" : "") + ">尾页</a>&nbsp;");
+				sb.Append("<a class=\"first\"" + ((page.TotalPage > 1 && page.CurrentPage > 1) ? " onclick=\"$jskey.page.go('" + page.PageName + "','1');return false;\" href=\"#\"" : "") + ">首页</a>&nbsp;");
+                sb.Append("<a class=\"prev\"" + ((page.IsHasPreviousPage) ? " onclick=\"$jskey.page.go('" + page.PageName + "','" + page.PreviousPage + "');return false;\" href=\"#\"" : "") + ">上页</a>&nbsp;");
+                sb.Append("<a class=\"next\"" + ((page.IsHasNextPage) ? " onclick=\"$jskey.page.go('" + page.PageName + "','" + page.NextPage + "');return false;\" href=\"#\"" : "") + ">下页</a>&nbsp;");
+                sb.Append("<a class=\"last\"" + ((page.TotalPage > 1 && page.CurrentPage < page.TotalPage) ? " onclick=\"$jskey.page.go('" + page.PageName + "','" + page.TotalPage + "');return false;\" href=\"#\"" : "") + ">尾页</a>&nbsp;");
 			}
-			if(isShowJump)
+            if (isShowJump || isShowJumpSize)
 			{
 				i = (i > 888L) ? (0L) : (i + 1);
-				String pid = formId + "_go" + i;
+                String pid = PAGEFORMID + page.PageName + "_go" + i;
 				if(isShowJump)
 				{
-					sb.Append("转到第 <input type=\"text\" class=\"input\" id=\"").Append(pid).Append("\" /> 页 ").Append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.page.go('").Append(formId).Append("', document.getElementById('").Append(pid).Append("').value);\" />");
+                    sb.Append("转到第 <input type=\"text\" class=\"input\" id=\"").Append(pid).Append("\" value=\"").Append(page.CurrentPage).Append("\"/> 页 ").Append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.page.go('").Append(page.PageName).Append("', document.getElementById('").Append(pid).Append("').value);\" />");
 				}
 				if(isShowJumpSize)
 				{
-					sb.Append(" <select id=\"").Append(pid).Append("_s").Append("\" onchange=\"document.getElementById(\'").Append(formId).Append("_pageSize\').value=this.value;$jskey.page.go('" + formId+ "',1);\">");
+					sb.Append(" <select onchange=\"$jskey.page.go('").Append(page.PageName).Append("',1,this.value);\">");
 					foreach(int j in sizeArray)
 					{
 						sb.Append("<option value=\"").Append(j).Append((page.PageSize == j)?"\" selected=\"selected\">":"\">").Append(j).Append("</option>");
