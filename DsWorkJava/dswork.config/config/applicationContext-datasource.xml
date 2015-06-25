@@ -20,6 +20,19 @@
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
+		
+		<property name="minEvictableIdleTimeMillis" value="900000" />
+		<property name="timeBetweenEvictionRunsMillis" value="900000" />
+		<property name="maxActive" value="50" />
+		<property name="maxIdle" value="50" />
+		<property name="maxWait" value="60000" />
+		<!--
+		minEvictableIdleTimeMillis连接空闲时间，
+		timeBetweenEvictionRunsMillis清除空闲连接间隔，
+		maxActive最大连接数(8)， 
+		maxIdle最大空闲数(8)，
+		maxWait连接超时等待时间(无限)
+		-->
 	</bean>
 	
 	<!-- log4jdbc -->
