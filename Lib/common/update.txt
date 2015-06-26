@@ -16,3 +16,16 @@
 2015-06-23
 	dswork修改了dswork.core下的JskeyUpload类，增加jskey.upload.init=true属性设置，用于是否初始化临时上传目录
 	增加dswork.http包，目前仅支持简单的http/https调用，可保持会话，但会话状态未持久化
+2015-06-26
+	dswork增加了dswork.core下的LikeTypeHandler类，在xml进行%%配置时，可使用#{key, typeHandler=LikeTypeHandler}
+	applicationContext-mybatis.xml增加配置
+        <property name="typeHandlers">
+        	<list>
+				<bean class="dswork.core.mybatis.LikeTypeHandler" />
+        	</list>
+        </property>
+        <property name="typeAliases">
+        	<list>
+				<value>dswork.core.mybatis.LikeTypeHandler</value>
+        	</list>
+        </property>
