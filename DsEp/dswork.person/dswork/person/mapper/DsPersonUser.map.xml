@@ -59,9 +59,9 @@
 <sql id="dynamicWhere">
 	<where>
 		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT=#{account} </if>
-		<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-		<if test="@Ognl@isNotEmpty(keyvalue)"> and (MOBILE like concat('%',#{keyvalue},'%') or PHONE like concat('%',#{key},'%')) </if>
+		<if test="@Ognl@isNotEmpty(keyvalue)"> and (MOBILE like #{keyvalue, typeHandler=LikeTypeHandler} or PHONE like #{keyvalue, typeHandler=LikeTypeHandler}) </if>
 	</where>
 </sql>
 

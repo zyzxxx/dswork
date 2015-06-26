@@ -125,6 +125,6 @@
 </select>
 <sql id="sqlQueryFlowWaiting">
 	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
-	where (TUSER=#{account} or TUSERS like concat('%', #{account}, '%')) and TCOUNT=1
+	where (TUSER=#{account} or TUSERS like #{account, typeHandler=LikeTypeHandler}) and TCOUNT=1
 </sql>
 </mapper>

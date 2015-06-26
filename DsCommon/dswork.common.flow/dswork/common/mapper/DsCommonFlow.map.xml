@@ -50,7 +50,7 @@
 		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
 		<if test="@Ognl@isNotEmpty(vnum)"> and VNUM=#{vnum}</if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-		<if test="@Ognl@isNotEmpty(keyvalue)"> and (ALIAS like concat('%',#{keyvalue},'%') or NAME like concat('%',#{keyvalue},'%')) </if>
+		<if test="@Ognl@isNotEmpty(keyvalue)"> and (ALIAS like #{keyvalue, typeHandler=LikeTypeHandler} or NAME like #{keyvalue, typeHandler=LikeTypeHandler} </if>
 	</where>
 </sql>
 

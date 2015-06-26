@@ -70,10 +70,10 @@
 	<where>
 		<if test="@Ognl@isNotEmpty(qybm)"> and QYBM=lower(#{qybm}) </if>
 		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT=#{account} </if>
-		<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(usertype)"> and USERTYPE=#{usertype} </if>
-		<if test="@Ognl@isNotEmpty(keyvalue)"> and (QYBM like concat('%', #{keyvalue}, '%') or MOBILE like concat('%',#{keyvalue},'%') or PHONE like concat('%',#{key},'%')) </if>
+		<if test="@Ognl@isNotEmpty(keyvalue)"> and (QYBM like #{keyvalue, typeHandler=LikeTypeHandler} or MOBILE like #{keyvalue, typeHandler=LikeTypeHandler} or PHONE like #{keyvalue, typeHandler=LikeTypeHandler} </if>
 	</where>
 </sql>
 

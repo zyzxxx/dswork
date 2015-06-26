@@ -69,11 +69,11 @@
 		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(keyvalue)">
-			 and TITLE like concat('%',#{keyvalue},'%') 
-			 and METAKEYWORDS like concat('%',#{keyvalue},'%') 
-			 and METADESCRIPTION like concat('%',#{keyvalue},'%') 
-			 and SUMMARY like concat('%',#{keyvalue},'%') 
-			 and CONTENT like concat('%',#{keyvalue},'%') 
+			 and TITLE like #{keyvalue, typeHandler=LikeTypeHandler}
+			 and METAKEYWORDS like #{keyvalue, typeHandler=LikeTypeHandler}
+			 and METADESCRIPTION like #{keyvalue, typeHandler=LikeTypeHandler}
+			 and SUMMARY like #{keyvalue, typeHandler=LikeTypeHandler}
+			 and CONTENT like #{keyvalue, typeHandler=LikeTypeHandler}
 		</if>
 		<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME&lt;=#{releasetime} </if>
 	</where>

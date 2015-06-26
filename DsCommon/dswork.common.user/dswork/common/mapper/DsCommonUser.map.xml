@@ -64,8 +64,8 @@
 
 <sql id="dynamicWhere">
 	<where>
-		<if test="@Ognl@isNotEmpty(account)"> and u.ACCOUNT like concat('%',#{account},'%') </if>
-		<if test="@Ognl@isNotEmpty(name)"> and u.NAME like concat('%',#{name},'%') </if>
+		<if test="@Ognl@isNotEmpty(account)"> and u.ACCOUNT like #{account, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(name)"> and u.NAME like #{name, typeHandler=LikeTypeHandler} </if>
 		<if test="@Ognl@isNotEmpty(mobile)"> and u.MOBILE=#{mobile} </if>
 		<if test="@Ognl@isNotEmpty(status)"> and u.STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(idcard)"> and u.IDCARD=#{idcard} </if>

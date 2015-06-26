@@ -66,11 +66,11 @@
 		SITEID=#{siteid}
 		<if test="@Ognl@isNotEmpty(forumid)"> and FORUMID=#{forumid} </if>
 		<if test="@Ognl@isNotEmpty(keyvalue)">
-			 and TITLE like concat('%',#{keyvalue},'%') 
-			 and METAKEYWORDS like concat('%',#{keyvalue},'%') 
-			 and METADESCRIPTION like concat('%',#{keyvalue},'%') 
-			 and SUMMARY like concat('%',#{keyvalue},'%') 
-			 and CONTENT like concat('%',#{keyvalue},'%') 
+			 and TITLE like #{keyvalue, typeHandler=LikeTypeHandler}
+			 and METAKEYWORDS like #{keyvalue, typeHandler=LikeTypeHandler}
+			 and METADESCRIPTION like #{keyvalue, typeHandler=LikeTypeHandler}
+			 and SUMMARY like #{keyvalue, typeHandler=LikeTypeHandler}
+			 and CONTENT like #{keyvalue, typeHandler=LikeTypeHandler}
 		</if>
 		<if test="@Ognl@isNotEmpty(userid)"> and USERID=#{userid} </if>
 		</where>

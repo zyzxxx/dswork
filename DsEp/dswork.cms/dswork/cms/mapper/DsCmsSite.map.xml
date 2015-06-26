@@ -45,7 +45,7 @@
 <sql id="dynamicWhere">
 	<where>
 		<if test="@Ognl@isNotEmpty(own)"> OWN=#{own} </if>
-		<if test="@Ognl@isNotEmpty(name)"> and NAME like concat('%',#{name},'%') </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
 		<if test="@Ognl@isNotEmpty(folder)"> and FOLDER=#{folder} </if>
 	</where>
 </sql>
