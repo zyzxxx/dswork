@@ -39,7 +39,7 @@ $(function(){
 		<td class="input">
 			&nbsp;标题：<input type="text" name="title" value="${fn:escapeXml(param.title)}" />
 			&nbsp;内容：<input type="text" name="content" value="${fn:escapeXml(param.content)}" />
-			&nbsp;创建时间：<input type="text" name="foundtime" value="${fn:escapeXml(param.foundtime)}" />
+			&nbsp;创建时间：<input type="text" name="foundtime_begin" class="WebDate" format="yyyy-MM-dd" readonly="readonly" value="${fn:escapeXml(param.foundtime_begin)}" />至<input type="text" name="foundtime_end" class="WebDate" format="yyyy-MM-dd" readonly="readonly" value="${fn:escapeXml(param.foundtime_end)}" />
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>

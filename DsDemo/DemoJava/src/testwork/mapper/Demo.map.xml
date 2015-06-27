@@ -38,9 +38,10 @@
 
 <sql id="dynamicWhere">
 	<where>
-		<if test="@Ognl@isNotEmpty(title)"> and TITLE like '%'||#{title}||'%' </if>
-		<if test="@Ognl@isNotEmpty(content)"> and CONTENT like '%'||#{content}||'%' </if>
-		<if test="@Ognl@isNotEmpty(foundtime)"> and FOUNDTIME like '%'||#{foundtime}||'%' </if>
+		<if test="@Ognl@isNotEmpty(title)"> and TITLE like #{title, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(content)"> and CONTENT like #{content, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(foundtime_begin)"> and FOUNDTIME&gt;=#{foundtime_begin} </if>
+		<if test="@Ognl@isNotEmpty(foundtime_end)"> and FOUNDTIME&lt;=#{foundtime_end} </if>
 	</where>
 </sql>
 
