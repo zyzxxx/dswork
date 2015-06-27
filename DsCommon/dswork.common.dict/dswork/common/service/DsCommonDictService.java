@@ -243,25 +243,25 @@ public class DsCommonDictService
 		return dsCommonDictDataDao.queryList(pid, name, map);
 	}
 
-	/**
-	 * 取得字典项分页数据
-	 * @param currentPage 当前页码
-	 * @param pageSize 一页显示的条数
-	 * @param map 查询参数和条件数据
-	 * @return Page&lt;DsCommonDictData&gt;
-	 */
-	public Page<DsCommonDictData> queryPageData(int currentPage, int pageSize, Map map)
-	{
-		if(map.get("label") != null)
-		{
-			map.put("label", getSecureString(map.get("label")));
-		}
-		PageRequest pr = new PageRequest();
-		pr.setCurrentPage(currentPage);
-		pr.setPageSize(pageSize);
-		pr.setFilters(map);
-		return dsCommonDictDataDao.queryPage(pr);
-	}
+//	/**
+//	 * 取得字典项分页数据
+//	 * @param currentPage 当前页码
+//	 * @param pageSize 一页显示的条数
+//	 * @param map 查询参数和条件数据
+//	 * @return Page&lt;DsCommonDictData&gt;
+//	 */
+//	public Page<DsCommonDictData> queryPageData(int currentPage, int pageSize, Map map)
+//	{
+//		if(map.get("label") != null)
+//		{
+//			map.put("label", getSecureString(map.get("label")));
+//		}
+//		PageRequest pr = new PageRequest();
+//		pr.setCurrentPage(currentPage);
+//		pr.setPageSize(pageSize);
+//		pr.setFilters(map);
+//		return dsCommonDictDataDao.queryPage(pr);
+//	}
 	
 	/**
 	 * 获取相同标识的字典个数
