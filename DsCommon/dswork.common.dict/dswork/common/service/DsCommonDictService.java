@@ -26,10 +26,10 @@ public class DsCommonDictService
 	@Autowired
 	private DsCommonDictDataDao dsCommonDictDataDao;// 字典dao
 	
-	private static String getSecureString(Object obj)
-	{
-		return String.valueOf(obj).replace('&', ' ').replace('-', ' ').replace('*', ' ').replace('%', ' ').replace("'", "''");
-	}
+//	private static String getSecureString(Object obj)
+//	{
+//		return String.valueOf(obj).replace('&', ' ').replace('-', ' ').replace('*', ' ').replace('%', ' ').replace("'", "''");
+//	}
 
 	/**
 	 * 新增对象
@@ -103,11 +103,6 @@ public class DsCommonDictService
 	 */
 	public Page<DsCommonDict> queryPage(PageRequest pageRequest)
 	{
-		Map map = (Map)pageRequest.getFilters();
-		if(map.get("label") != null)
-		{
-			map.put("label", getSecureString(map.get("label")));
-		}
 		return dsCommonDictDao.queryPage(pageRequest);
 	}
 	
@@ -252,10 +247,6 @@ public class DsCommonDictService
 //	 */
 //	public Page<DsCommonDictData> queryPageData(int currentPage, int pageSize, Map map)
 //	{
-//		if(map.get("label") != null)
-//		{
-//			map.put("label", getSecureString(map.get("label")));
-//		}
 //		PageRequest pr = new PageRequest();
 //		pr.setCurrentPage(currentPage);
 //		pr.setPageSize(pageSize);
