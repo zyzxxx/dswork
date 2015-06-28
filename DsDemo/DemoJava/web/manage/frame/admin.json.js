@@ -15,7 +15,7 @@ var treedata = [
 	{id:2015,name:'表单验证', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_validator_demo.html', items:[]},
 	{id:2009,name:'附件上传全部效果', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_upload_demo_all.html', items:[]},
 	{id:2010,name:'附件上传(debug模式)', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_upload_demo.html', items:[]},
-	{id:2013,name:'附件上传', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_upload_demo1.jsp', items:[]}
+	{id:2013,name:'附件上传', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_upload_demo1.jsp', items:[]},
 	{id:2002,name:'Base64加密', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_base64.html', items:[]},
 	{id:2003,name:'des加密', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_des.html', items:[]},
 	{id:2005,name:'flash播放器(引入jquery)', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_flash_jquery.html', items:[]},
