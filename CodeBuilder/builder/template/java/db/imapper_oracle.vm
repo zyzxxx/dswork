@@ -48,7 +48,7 @@
 #macro (getIfs $list)
 #foreach($columnModel in $list)
 #set($tmp=$columnModel.ColumnName.ToLower())#if(!$columnModel.IsPK)
-		<if test="@Ognl@isNotEmpty($tmp)"> and $tmp.ToUpper() like '%'||#{$tmp}||'%' </if>
+		<if test="@Ognl@isNotEmpty($tmp)"> and $tmp.ToUpper() like #{$tmp, typeHandler=LikeTypeHandler} </if>
 #end#end
 #end
 <mapper namespace="${Namespace}.model${Module}.${Model}">
