@@ -9,7 +9,27 @@ input {width:205px; cursor:pointer; margin : 1px 0px 1px 0px;}
 <script src="../jskey_calendar.js"type="text/javascript"></script>
 </head>
 <body style="font-size:12px;">
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+<pre>
+/**
+ * 调用方法：$jskey.calendar
+ * 调用方式：$jskey.calendar.show(args1, args2);
+ * 1、参数args1：目前支持参数：input对象 或 'input的ID'
+ * 2、参数args2：默认为{}
+ * 目前支持参数：
+ * 其中日历类中的参数与其默认值：{skin:"default",min:"yyyy-MM-dd HH:mm:ss",max:"yyyy-MM-dd HH:mm:ss",lang:0,format:"yyyy-MM-dd HH:mm:ss",left:0,top:0,simple:"yyyy-MM-dd HH:mm:ss"}
+ * 日期选择显示格式：yyyy→年，MM→月，dd→天，HH→24小时制，mm→分钟，ss→秒
+ * @param object/id args1替代参数：{object:input对象} 或 {id:'input的ID'}上面未列出
+ * @param skin String "default" 值为内部变量config的skin中配置的皮肤
+ * @param show/sample String 取值 "yyyy-MM-dd HH:mm:ss" 或 "yyyy-MM-dd HH:mm" 或 "yyyy-MM-dd HH" 或 "yyyy-MM-dd" 或 "yyyy-MM" 或 "yyyy"
+ * @param min String "yyyy-MM-dd HH:mm:ss"，可选最小值，默认"0100-01-01 00:00:00"
+ * @param max String "yyyy-MM-dd HH:mm:ss"，可选最大值，默认"9999-12-31 23:59:59"
+ * @param lang Integer 0(中文)|1(英语) 可自由扩充
+ * @param left Integer 相对X坐标,相对于文本框的横向偏移量
+ * @param top Integer 相对Y坐标,相对于文本框的纵向偏移量
+ * @param format String "yyyy-MM-dd HH:mm:ss.SSS w W"
+ * 格式（区分大小写）：yyyy→年，MM→月，dd→天，HH→24小时制，mm→分钟，ss→秒，SSS→毫秒，w→周几，W→当年的第几周(第一周不足七天时也当第一周)
+ */
+</pre>
 <form id="form1" name="form1" method="post" action="">
 <table border="0" width="1000">
 	<tr>
@@ -36,27 +56,6 @@ input {width:205px; cursor:pointer; margin : 1px 0px 1px 0px;}
 	</tr>
 </table>
 </form>
-<pre>
-/**
- * 调用方法：$jskey.calendar
- * 调用方式：$jskey.calendar.show(args1, args2);
- * 1、参数args1：目前支持参数：input对象 或 'input的ID'
- * 2、参数args2：默认为{}
- * 目前支持参数：
- * 其中日历类中的参数与其默认值：{skin:"default",min:"yyyy-MM-dd HH:mm:ss",max:"yyyy-MM-dd HH:mm:ss",lang:0,format:"yyyy-MM-dd HH:mm:ss",left:0,top:0,simple:"yyyy-MM-dd HH:mm:ss"}
- * 日期选择显示格式：yyyy→年，MM→月，dd→天，HH→24小时制，mm→分钟，ss→秒
- * @param object/id args1替代参数：{object:input对象} 或 {id:'input的ID'}上面未列出
- * @param skin String "default" 值为内部变量config的skin中配置的皮肤
- * @param show/sample String 取值 "yyyy-MM-dd HH:mm:ss" 或 "yyyy-MM-dd HH:mm" 或 "yyyy-MM-dd HH" 或 "yyyy-MM-dd" 或 "yyyy-MM" 或 "yyyy"
- * @param min String "yyyy-MM-dd HH:mm:ss"，可选最小值，默认"0100-01-01 00:00:00"
- * @param max String "yyyy-MM-dd HH:mm:ss"，可选最大值，默认"9999-12-31 23:59:59"
- * @param lang Integer 0(中文)|1(英语) 可自由扩充
- * @param left Integer 相对X坐标,相对于文本框的横向偏移量
- * @param top Integer 相对Y坐标,相对于文本框的纵向偏移量
- * @param format String "yyyy-MM-dd HH:mm:ss.SSS w W"
- * 格式（区分大小写）：yyyy→年，MM→月，dd→天，HH→24小时制，mm→分钟，ss→秒，SSS→毫秒，w→周几，W→当年的第几周(第一周不足七天时也当第一周)
- */
-</pre>
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 </body>
