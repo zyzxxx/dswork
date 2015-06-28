@@ -8,6 +8,22 @@ var treedata = [
 	{id:202,name:'DemoHibernate', img:"", imgOpen:"", url:'/manage/hbmdemo/getDemo.htm', items:[]}
 ]}
 ,
+{id:200, name:'脚本用例', img:"", imgOpen:"", url:"", items:[
+	{id:2001,name:'日期控件', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_calendar_demo.htm', items:[]},
+	{id:2004,name:'弹窗', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_dialog_demo.html', items:[]},
+	{id:2014,name:'表单验证(引入jquery)', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_validator_demo_jquery.html', items:[]},
+	{id:2015,name:'表单验证', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_validator_demo.html', items:[]},
+	{id:2009,name:'附件上传全部效果', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_upload_demo_all.html', items:[]},
+	{id:2010,name:'附件上传(debug模式)', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_upload_demo.html', items:[]},
+	{id:2013,name:'附件上传', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_upload_demo1.jsp', items:[]}
+	{id:2002,name:'Base64加密', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_base64.html', items:[]},
+	{id:2003,name:'des加密', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_des.html', items:[]},
+	{id:2005,name:'flash播放器(引入jquery)', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_flash_jquery.html', items:[]},
+	{id:2006,name:'flash播放器', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_flash.html', items:[]},
+	{id:2007,name:'表单操作', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_form_demo.html', items:[]},
+	{id:2008,name:'自定义提示', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_tooltip_demo.html', items:[]},
+]}
+,
 {id:300, name:'普通效果', img:"", imgOpen:"", url:"", items:[
 	{id:301,name:'样例菜单', img:"", imgOpen:"", url:'#1', items:[]},
 	{id:302,name:'样例菜单', img:"", imgOpen:"", url:'#1', items:[]},
