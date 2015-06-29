@@ -40,8 +40,8 @@
 <sql id="dynamicWhere">
 	<where>
 		<if test="@Ognl@isNotEmpty(demoid)"> and DEMOID=#{demoid} </if>
-		<if test="@Ognl@isNotEmpty(content)"> and CONTENT like '%'||#{content}||'%' </if>
-		<if test="@Ognl@isNotEmpty(foundtime)"> and FOUNDTIME like '%'||#{foundtime}||'%' </if>
+		<if test="@Ognl@isNotEmpty(content)"> and CONTENT like #{content, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(foundtime)"> and FOUNDTIME like #{foundtime, typeHandler=LikeTypeHandler} </if>
 	</where>
 </sql>
 
