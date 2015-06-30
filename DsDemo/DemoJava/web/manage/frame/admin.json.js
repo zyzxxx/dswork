@@ -21,7 +21,7 @@ var treedata = [
 	{id:2005,name:'flash播放器(引入jquery)', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_flash_jquery.html', items:[]},
 	{id:2006,name:'flash播放器', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_flash.html', items:[]},
 	{id:2007,name:'表单操作', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_form_demo.html', items:[]},
-	{id:2008,name:'自定义提示', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_tooltip_demo.html', items:[]},
+	{id:2008,name:'自定义提示', img:"", imgOpen:"", url:'../../web/js/jskey/demo/jskey_tooltip_demo.html', items:[]}
 ]}
 ,
 {id:300, name:'普通效果', img:"", imgOpen:"", url:"", items:[
