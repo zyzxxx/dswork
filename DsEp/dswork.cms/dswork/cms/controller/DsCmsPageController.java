@@ -502,7 +502,7 @@ public class DsCmsPageController extends BaseController
 								{
 									buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder(), site.getUrl());
 								}
-								for(int i = 2; i < pageModel.getLastPage(); i++)
+								for(int i = 2; i <= pageModel.getLastPage(); i++)
 								{
 									map.clear();
 									map.put("siteid", site.getId());
