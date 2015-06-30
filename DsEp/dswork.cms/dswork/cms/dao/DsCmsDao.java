@@ -56,6 +56,7 @@ public class DsCmsDao extends MyBatisDao
 		rq.getFilters().put("imgtop", onlyImage?"1":"");
 		rq.getFilters().put("pagetop", onlyPage?"1":"");
 		rq.getFilters().put("releasetime", TimeUtil.getCurrentTime());
+		rq.getFilters().put("status", "1");
 		return queryPage("query", rq, "queryCount", rq);
 	}
 
