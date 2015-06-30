@@ -15,3 +15,7 @@ require.config({
         'get': '/web/js/dswork/get'
     }
 });
+require(['jskey'], function() {// 这里随便 搞一个名称
+	$jskey.$link("/web/js/easyui/themes/default/easyui.css");
+	$jskey.$link("/web/themes/default/frame.css");
+});
