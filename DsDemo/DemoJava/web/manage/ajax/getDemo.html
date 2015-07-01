@@ -10,7 +10,7 @@
 <!--[if IE 6]><style>.bottomTable{position:absolute;left:0;top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-parseInt(this.currentStyle.marginTop)-parseInt(this.currentStyle.marginBottom)))}</style><![endif]-->
 <script type="text/javascript">
 // 扩展菜单写法
-require(['get'], function(g) {
+require(['dswork.get'], function(g) {
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-user">自定义</div>').bind("click", function(){
 		location.href = "getDemoById.htm?page=${pageModel.currentPage}&keyIndex=" + id;
