@@ -1,14 +1,16 @@
 require.config({
+	baseUrl: '/web/js',
 	shim:{
-		'dswork':['jskey','jquery.form','jquery.easyui'],
+		'dswork':['jquery','jskey','jquery.form','jquery.easyui'],
 		'dswork.get':['dswork']
 	},
     paths: {
-        'jquery.easyui': '/web/js/easyui/jquery.easyui',
-        'jquery.form': '/web/js/jquery/jquery.form',
-        'jskey': '/web/js/jskey/jskey_core',
-        'dswork': '/web/js/dswork/dswork',
-        'dswork.get': '/web/js/dswork/get'
+        'jquery'       :'./jquery/jquery',
+        'jquery.easyui':'./easyui/jquery.easyui',
+        'jquery.form'  :'./jquery/jquery.form',
+        'jskey'        :'./jskey/jskey_core',
+        'dswork'       :'./dswork/dswork',
+        'dswork.get'   :'./dswork/get'
     }
 });
 require(['jskey'], function(p) {
