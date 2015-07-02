@@ -1,5 +1,5 @@
 // $.getScript("/web/js");
-$.ajaxSetup({cache:true}); 
+$.ajaxSetup({cache:false}); 
 $jskey.$link("/web/js/easyui/themes/default/easyui.css");
 $jskey.$link("/web/themes/default/frame.css");
 if(typeof($dswork)!="object"){$dswork={};}
