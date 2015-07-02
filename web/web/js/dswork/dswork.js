@@ -1,5 +1,5 @@
 //jquery.js和jskey_core.js支持
-var $dswork = {};
+if(typeof($dswork)!="object"){$dswork={};}
 $dswork.showDate = function(){
 	var o = arguments[0];
 	var f = arguments[1] || "yyyy-MM-dd";
