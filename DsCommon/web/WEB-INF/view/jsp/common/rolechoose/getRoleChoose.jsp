@@ -5,7 +5,7 @@
 <html>
 <head>
 <title></title>
-<%@include file="/commons/include/page.jsp"%>
+<%@include file="/commons/include/get.jsp"%>
 <c:if test="${systemid == null}">
 <script type="text/javascript">
 function appGO(id){

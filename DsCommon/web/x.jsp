@@ -6,7 +6,7 @@
 <html>
 <head>
 <title></title>
-<%@include file="/commons/include/page.jsp"%>
+<%@include file="/commons/include/get.jsp"%>
 <%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript" src="/web/js/dswork/form.js"></script>
 <script type="text/javascript">

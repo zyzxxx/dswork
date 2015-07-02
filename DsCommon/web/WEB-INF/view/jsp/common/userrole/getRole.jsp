@@ -5,7 +5,7 @@
 <html>
 <head>
 <title></title>
-<%@include file="/commons/include/page.jsp"%>
+<%@include file="/commons/include/get.jsp"%>
 <script type="text/javascript">
 function updSetRole(id, title){
 	parent.updSetRole(id, $("#u" + id).text());
