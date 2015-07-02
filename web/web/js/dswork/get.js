@@ -1,4 +1,18 @@
 ﻿$(function(){
+	var isIe6 = false;
+	if (/msie/.test(navigator.userAgent.toLowerCase())){
+		if($.browser && $.browser.version && $.browser.version == '6.0'){
+			isIe6 = true;
+		}
+		else if(!$.support.leadingWhitespace){
+			isIe6 = true;
+		}
+	}
+	$(".bottomTable").css({padding:"0",margin:"0",width:"100%",position:"fixed",left:"0",bottom:"0","border-top":"#c2c2c2 solid 1px"});
+	$(".listTable").css({"margin-bottom":"35px"});
+	if(isIe6){
+		$(".bottomTable").css({position:"absolute",left:"0",top:"expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-parseInt(this.currentStyle.marginTop)-parseInt(this.currentStyle.marginBottom)))"});
+	}
 	$("#listFormDelAll").click(function(){
 		var a = $("input[name='keyIndex']:checked");
 		var _c = 0;
@@ -44,21 +58,6 @@
 		var keycode = v.which || v.keyCode;
 		if (keycode==13) {$("#_querySubmit_[type=button]").click();}
 	});
-	if (/msie/.test(navigator.userAgent.toLowerCase())){
-		var isIe6 = false; 
-		if($.browser && $.browser.version && $.browser.version == '6.0'){ 
-			isIe6 = true 
-		}
-		else if(!$.support.leadingWhitespace){ 
-			isIe6 = true; 
-		}
-		var _tmp = "<style type=\"text/css\">.bottomTable{padding:0;margin:0;width:100%;position:fixed;left:0;bottom:0;border-top:#c2c2c2 solid 1px;}.listTable{margin-bottom:35px;}";
-		if(isIe6){
-			_tmp += ".bottomTable{position:absolute;left:0;top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-parseInt(this.currentStyle.marginTop)-parseInt(this.currentStyle.marginBottom)));}";
-		}
-		_tmp += "</style>";
-		$("head").append(_tmp);
-	}
 });
 $dswork.page = {};
 // del,upd,getById在默认时均调用ini方法
