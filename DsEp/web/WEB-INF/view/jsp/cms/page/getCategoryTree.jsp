@@ -6,7 +6,7 @@
 <c:if test="${siteid<0}">
 <head>
 <title></title>
-<%@include file="/commons/include/page.jsp" %>
+<%@include file="/commons/include/get.jsp" %>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
@@ -18,7 +18,7 @@
 <c:if test="${siteid>=0}">
 <head>
 	<title></title>
-	<%@include file="/commons/include/page.jsp"%>
+	<%@include file="/commons/include/get.jsp"%>
 	<%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 $dswork.callback = null;

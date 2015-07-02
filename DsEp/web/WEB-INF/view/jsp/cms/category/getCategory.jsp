@@ -6,7 +6,7 @@
 <c:if test="${siteid<0}">
 <head>
 <title></title>
-<%@include file="/commons/include/page.jsp" %>
+<%@include file="/commons/include/get.jsp" %>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
@@ -20,7 +20,7 @@
 <c:if test="${siteid>=0}">
 <head>
 <title></title>
-<%@include file="/commons/include/page.jsp" %>
+<%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
 $(function(){
 	$dswork.page.menu("delCategory.htm?siteid=${siteid}", "updCategory1.htm?siteid=${siteid}", "", "");
