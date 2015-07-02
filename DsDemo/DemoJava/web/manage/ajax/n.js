@@ -1,5 +1,6 @@
 // $.getScript("/web/js");
 if(typeof($dswork)!="object"){$dswork={};}
+$.ajaxSetup({cache:true}); 
 $.getScript("/web/js/jskey/jskey_core.js", function(){
 	$jskey.$link("/web/js/easyui/themes/default/easyui.css");
 	$jskey.$link("/web/themes/default/frame.css");
