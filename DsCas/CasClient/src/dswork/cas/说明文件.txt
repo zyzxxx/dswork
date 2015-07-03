@@ -1,0 +1,73 @@
+下面的配置中的信息说明
+127.0.0.1:8080 需要修改成实际对应的CasServer应用的发布地址：如sso:8080
+gdmlr 对应实际在系统平台上配置的系统别名
+
+一、加入dswork.cas.CasFilter.jar文件
+	需要在web.xml中增加以下配置，并且需要CasServer的应用支持
+		<filter>
+			<filter-name>sso</filter-name>
+			<filter-class>dswork.cas.CasFilter</filter-class>
+			<init-param>
+				<param-name>validateURL</param-name>
+				<param-value>http://127.0.0.1:8080/CasServer/validate.htm</param-value>
+			</init-param>
+			<init-param>
+				<param-name>loginURL</param-name>
+				<param-value>http://127.0.0.1:8080/CasServer/login.htm</param-value>
+			</init-param>
+			<init-param>
+				<param-name>ignoreURL</param-name>
+				<param-value>/menu.jsp,/m.jsp</param-value>
+			</init-param>
+		</filter>
+		<filter-mapping>
+			<filter-name>sso</filter-name>
+			<url-pattern>/manage/*</url-pattern>
+		</filter-mapping>
+
+
+二、有两种实现方法，但都有限制要求（需要【一】的支持）
+	需要CasServer的应用支持，并在config.properties文件中增加WebService访问地址的配置信息。用于服务器间的访问的ip
+	dswork.cas.webservice=http://127.0.0.1:8080/CasServer/ws/DsworkCasService
+	
+	1、使用JDK的原生jws（需要jdk6或以上），但不能再在项目上使用其它的第三方webservice包，有冲突，如：xfire、cxf等。
+		加入dswork.cas.WebServiceClient.jar文件
+
+	2、使用cxf，需要Spring3.*和cxf2.6.0或以上版本的支持
+		加入dswork.cas.WebServiceCxfClient.jar文件
+		增加Spring配置文件applicationContext-cxf-client.xml
+		部分的Spring配置如果有的话，可不写
+		<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+			<property name="locations">
+				<list>
+					<value>classpath*:/config/config.properties</value>
+				</list>
+			</property>
+		</bean>
+
+
+三、加入dswork.cas.CasCheckFilter.jar文件（需要【一、二】的支持）
+	需要在config.properties文件中增加WebService访问地址的配置信息。#号与其后面的内容不需要加入
+		#系统的全部权限缓存更新间隔，单位毫秒
+		dswork.cas.system.refresh=3600000
+		#系统别名，在平台中添加的系统别名
+		dswork.cas.system.alias=gdmlr
+		#系统访问密码，在平台中添加的系统访问密码
+		dswork.cas.system.password=1
+		#无权访问时跳转的地址
+		dswork.cas.page.noAccess=/noAccess.jsp
+		#逗号隔开不需要权限过滤的页面
+		dswork.cas.page.ignore=/index.jsp,/manage/login.htm
+		#需要进行权限过滤的后缀，不配置则默认全部
+		dswork.cas.check.fix=jsp,htm
+		#是否开启参数进行权限配置，false则不过滤参数
+		dswork.cas.check.param=true
+	需要在web.xml中增加以下配置
+		<filter>
+			<filter-name>DsworkCasCheckFilter</filter-name>
+			<filter-class>dswork.cas.CasCheckFilter</filter-class>
+		</filter>
+		<filter-mapping>
+			<filter-name>DsworkCasCheckFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</filter-mapping>
