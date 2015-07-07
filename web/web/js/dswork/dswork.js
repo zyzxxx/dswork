@@ -216,7 +216,7 @@ $dswork.upload.prototype = {
 		settings:{div:p.show?p.sid:"",success:function(data){// {arr:[{id,name,size,state,file,type,msg}],msg:"",err:""}
 			if(typeof (data.err) == 'undefined'){alert("upload error");return false;}
 			if(data.err != ''){alert(data.err);}
-			var _has = myinput.attr("has") || "";
+			var o,_has = myinput.attr("has") || "";
 			if(p.vid == ""){
 				var ok = false;
 				for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){ok = true;}}
