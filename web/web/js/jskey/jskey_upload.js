@@ -37,6 +37,13 @@ plupload.addI18n({"Stop Upload":"停止上传","Upload URL might be wrong or doe
 if(typeof ($jskey) != "object"){
 	$jskey = {};
 }
+
+
+
+;!function(){"use strict";
+
+
+
 $jskey.formatBytes = function(bytes){
 	var s = ['Byte', 'KB', 'MB', 'GB', 'TB', 'PB'];
 	var e = Math.floor(Math.log(bytes)/Math.log(1024));
@@ -46,7 +53,7 @@ $jskey.formatBytes = function(bytes){
 $jskey.upload ={
 
 //js的引用路径
-jsPath:document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.substring(0, document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.lastIndexOf("/") + 1),
+jsPath:"/web/js/jskey/",//document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.substring(0, document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.lastIndexOf("/") + 1),
 extend:function(s){
 	s.url = s.url;
 	s.flash_swf_url = this.jsPath + 'themes/plupload/Moxie.swf';
@@ -136,8 +143,8 @@ init:function(s){
 	};
 	s.init.FileUploaded = s.init.FileUploaded || function(up, file, info){
 		try{
-			eval("var d = " + info.response + ";");
-			var o;
+			var d,o;
+			eval("d=" + info.response + ";");
 			up.customSettings.uploadSize += file.size;
 			for(var i = 0;i < up.customSettings.uploadArray.length;i++){
 				o = up.customSettings.uploadArray[i];
@@ -195,3 +202,9 @@ init:function(s){
 	return mup;
 }
 };
+
+
+
+}();
+
+
