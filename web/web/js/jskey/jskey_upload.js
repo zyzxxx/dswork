@@ -34,12 +34,7 @@ plupload.addI18n({"Stop Upload":"停止上传","Upload URL might be wrong or doe
 
 
 
-if(typeof ($jskey) != "object"){
-	$jskey = {};
-}
-
-
-
+if(typeof ($jskey) != "object"){$jskey = {};}
 ;!function(){"use strict";
 
 
@@ -72,7 +67,6 @@ extend:function(s){
 	s.preinit = s.preinit || {};
 	s.init = s.init || {};
 	
-	
 	s.preinit.Init = s.preinit.Init || function(up, info){};
 	s.preinit.UploadFile = s.preinit.UploadFile || function(up, file) {};
 	
@@ -81,18 +75,15 @@ extend:function(s){
 	s.init.Browse = s.init.Browse || function(up){};
 	s.init.FileFiltered = s.init.FileFiltered || function(up, file){};
 	
-	
 	s.init.QueueChanged = s.init.QueueChanged || function(up){};
 	s.init.Refresh = s.init.Refresh || function(up){};
 
 	s.init.StateChanged = s.init.StateChanged || function(up){};
 	
-	
 	s.init.ChunkUploaded = s.init.ChunkUploaded || function(up, file, info){};
 	s.init.Destroy = s.init.Destroy || function(up){};
 	s.init.Error = s.init.Error || function(up, args){alert("ERROR:" + args.file.name + "," + args.message);};
 	s.init.FilesRemoved = s.init.FilesRemoved || function(up, files){};
-	
 	return s;
 },
 init:function(s){
@@ -101,96 +92,62 @@ init:function(s){
 	//s.file_data_name = s.file_data_name || "file";
 	//s.multipart_params : {},// {one:'1',four:['6','7','8'],three:{a:'4',b:'5'}}
 	s.max_retries = 0;//错误时重试次数，0为不重试
-	
-
 	s.init.OptionChanged = s.init.OptionChanged || function(up, name, value, oldValue){};
-
 	s.init.BeforeUpload = s.init.BeforeUpload || function(up, file){
-		try{
-			document.getElementById(up.customSettings.div).innerHTML = file.name + "开始上传...";
-		}
-		catch(ex){
-		}
+		try{document.getElementById(up.customSettings.div).innerHTML = file.name + "开始上传...";}catch(ex){}
 		return true;
 	};
-	s.init.UploadProgress = s.init.UploadProgress || function(up, file){
-		try{
-			var p = up.customSettings;
-			var allPercent = Math.ceil((p.uploadSize+file.loaded)/p.allSize*100);
-			if(allPercent == 100){
-				document.getElementById(p.div).innerHTML = "上传已完成：" + "100% (" + $jskey.formatBytes(p.allSize) + ")";
-			}
-			else{
-				var percentText = $jskey.formatBytes(p.uploadSize+file.loaded)+' / '+$jskey.formatBytes(p.allSize);
-				document.getElementById(p.div).innerHTML = "上传已完成：" + allPercent + "% (" + percentText + ")<br />" + file.name + "上传了：" + file.percent + "%";
-			}
+	s.init.UploadProgress = s.init.UploadProgress || function(up, file){try{
+		var p = up.customSettings;
+		var allPercent = Math.ceil((p.uploadSize+file.loaded)/p.allSize*100);
+		if(allPercent == 100){
+			document.getElementById(p.div).innerHTML = "上传已完成：" + "100% (" + $jskey.formatBytes(p.allSize) + ")";
 		}
-		catch(ex){
+		else{
+			var percentText = $jskey.formatBytes(p.uploadSize+file.loaded)+' / '+$jskey.formatBytes(p.allSize);
+			document.getElementById(p.div).innerHTML = "上传已完成：" + allPercent + "% (" + percentText + ")<br />" + file.name + "上传了：" + file.percent + "%";
 		}
-	};
+	}catch(ex){}};
 	s.init.FilesAdded = s.init.FilesAdded || function(up, files){
-		plupload.each(files, function(file){
-			try{
-				var arr = up.customSettings.uploadArray;
-				up.customSettings.allSize+=file.size;
-				//id,name,size,state,file,type,msg
-				arr[arr.length] = {"id":file.id,"name":file.name,"size":file.size,"state":"0","file":"","type":file.type,"msg":""},
-				document.getElementById(up.customSettings.div).innerHTML = "等待中...";
-			}
-			catch(ex){
-			}
-		});
+		plupload.each(files, function(file){try{
+			var arr = up.customSettings.uploadArray;
+			up.customSettings.allSize+=file.size;
+			//id,name,size,state,file,type,msg
+			arr[arr.length] = {"id":file.id,"name":file.name,"size":file.size,"state":"0","file":"","type":file.type,"msg":""},
+			document.getElementById(up.customSettings.div).innerHTML = "等待中...";
+		}catch(ex){}});
 		up.start();
 	};
-	s.init.FileUploaded = s.init.FileUploaded || function(up, file, info){
-		try{
-			up.customSettings.uploadSize += file.size;
-			var d,o;
-			eval("d=" + info.response + ";");
-			for(var i = 0;i < up.customSettings.uploadArray.length;i++){
-				o = up.customSettings.uploadArray[i];
-				if(file.id == o.id){
-					if(d != undefined && d.msg != undefined && !d.err){
-						o.state = "1";
-				 		o.msg = "上传成功";
-				 		o.file = d.msg;// 后台保存后的文件名
-					}
-					else{
-						o.state = "-1";
-				 		o.msg = d.err || "上传失败";
-					 	o.file = "";
-					}
-					break;
-				}
+	s.init.FileUploaded = s.init.FileUploaded || function(up, file, info){try{
+		up.customSettings.uploadSize += file.size;
+		var d,o;
+		eval("d=" + info.response + ";");
+		for(var i = 0;i < up.customSettings.uploadArray.length;i++){
+			o = up.customSettings.uploadArray[i];
+			if(file.id != o.id){continue;}
+			if(d != undefined && d.msg != undefined && !d.err){
+				o.state = "1";o.msg = "上传成功";o.file = d.msg;// 后台保存后的文件名
 			}
-		}
-		catch(ex){
-		}
-	};
-	s.init.UploadComplete = s.init.UploadComplete || function(up, files){
-		try{
-			var returnValue = {arr:[], msg:"", err:""};
-			var o;
-			for(var i = 0;i < up.customSettings.uploadArray.length;i++){
-				o = up.customSettings.uploadArray[i];
-		 		switch(o.state){
-					case "-1":
-						returnValue.err += o.name + o.msg + "\n";
-						break;
-					case "1":
-						returnValue.msg += o.name + o.msg + "\n";
-						break;
-				}
-				//id,name,size,state,file,type,msg
-				returnValue.arr[returnValue.arr.length] = {"id":o.id,"name":o.name,"size":o.size,"state":o.state,"file":o.file,"type":o.type,"msg":o.msg};
+			else{
+				o.state = "-1";o.msg = d.err || "上传失败";o.file = "";
 			}
-			up.customSettings.success(returnValue);
-			up.customSettings.uploadArray = [];
+			break;
 		}
-		catch(ex){
-			alert(ex.message);
+	}catch(ex){}};
+	s.init.UploadComplete = s.init.UploadComplete || function(up, files){try{
+		var returnValue = {arr:[], msg:"", err:""};
+		var o;//id,name,size,state,file,type,msg
+		for(var i = 0;i < up.customSettings.uploadArray.length;i++){
+			o = up.customSettings.uploadArray[i];
+	 		switch(o.state){
+				case "-1":returnValue.err += o.name + o.msg + "\n";break;
+				case  "1":returnValue.msg += o.name + o.msg + "\n";break;
+			}
+			returnValue.arr[returnValue.arr.length] = {"id":o.id,"name":o.name,"size":o.size,"state":o.state,"file":o.file,"type":o.type,"msg":o.msg};
 		}
-	};
+		up.customSettings.success(returnValue);
+		up.customSettings.uploadArray = [];
+	}catch(ex){alert(ex.message);}};
 	
 	var mup = new plupload.Uploader(s);
 	s.settings = s.settings || s.custom_settings || {};
@@ -207,5 +164,3 @@ init:function(s){
 
 
 }();
-
-
