@@ -49,15 +49,16 @@ $jskey.formatBytes = function(bytes){
 	var e = Math.floor(Math.log(bytes)/Math.log(1024));
 	return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];
 };
+//当前此js文件的目录路径
+$jskey.$uppath = document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.substring(0, document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.lastIndexOf("/") + 1);
+if($jskey.$uppath.substring($jskey.$uppath.length-7)!="/jskey/"){$jskey.$uppath="/web/js/jskey/";}
 
 $jskey.upload ={
 
-//js的引用路径
-jsPath:"/web/js/jskey/",//document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.substring(0, document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.lastIndexOf("/") + 1),
 extend:function(s){
 	s.url = s.url;
-	s.flash_swf_url = this.jsPath + 'themes/plupload/Moxie.swf';
-	s.silverlight_xap_url = this.jsPath + 'themes/plupload/Moxie.xap';
+	s.flash_swf_url = $jskey.$uppath + 'themes/plupload/Moxie.swf';
+	s.silverlight_xap_url = $jskey.$uppath + 'themes/plupload/Moxie.xap';
 	s.runtimes = s.runtimes || 'html5,flash,silverlight,html4';
 	s.unique_names = s.unique_names || false;//当值为true时会为每个上传的文件生成一个唯一的文件名，并作为额外的参数post到服务器端，参数明为name,值为生成的文件名。
 	//s.browse_button = s.browse_button;
@@ -143,9 +144,9 @@ init:function(s){
 	};
 	s.init.FileUploaded = s.init.FileUploaded || function(up, file, info){
 		try{
+			up.customSettings.uploadSize += file.size;
 			var d,o;
 			eval("d=" + info.response + ";");
-			up.customSettings.uploadSize += file.size;
 			for(var i = 0;i < up.customSettings.uploadArray.length;i++){
 				o = up.customSettings.uploadArray[i];
 				if(file.id == o.id){
