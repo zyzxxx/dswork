@@ -1,26 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<style>
-		body {font-size:12px;}
-		input {cursor:pointer;}
-		div.title {color:#000000;font-size:30px;font-weight:bold;margin:10px auto;width:200px;text-align:center;}
-		div.box {border:#000000 3px solid;width:95%;padding:20px 20px;}
-		hr {}
-	</style>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" type="text/css" href="../../easyui//themes/default/easyui.css">
-	<script type="text/javascript" src="../../jquery/jquery.js"></script>
-	<script type="text/javascript" src="../../easyui/jquery.easyui.js"></script>
-	<script type="text/javascript" src="../../jskey/jskey_core.js"></script>
-	<script type="text/javascript">
-		$jskey.dialog.callback = function(){
-			alert('返回值是:' + ($jskey.dialog.returnValue.hello));
-		};
-		function mycallback(){
-			alert("这个是自定义函数喔！" + '返回值是:' + ($jskey.dialog.returnValue.hello));
-		};
-	</script>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0,minimal-ui"/>
+<title>jskey_dialog</title>
+<style>
+	body {font-size:12px;}
+	input {cursor:pointer;}
+	div.title {color:#000000;font-size:30px;font-weight:bold;margin:10px auto;width:200px;text-align:center;}
+	div.box {border:#000000 3px solid;width:95%;padding:20px 20px;}
+	hr {}
+</style>
+<link rel="stylesheet" type="text/css" href="../../easyui//themes/default/easyui.css">
+<script type="text/javascript" src="../../jquery/jquery.js"></script>
+<script type="text/javascript" src="../../easyui/jquery.easyui.js"></script>
+<script type="text/javascript" src="../../jskey/jskey_core.js"></script>
+<script type="text/javascript">
+	$jskey.dialog.callback = function(){
+		alert('返回值是:' + ($jskey.dialog.returnValue.hello));
+	};
+	function mycallback(){
+		alert("这个是自定义函数喔！" + '返回值是:' + ($jskey.dialog.returnValue.hello));
+	};
+</script>
 </head>
 <body>
 

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0,minimal-ui"/>
+<title>jskey_pape</title>
+<script type="text/javascript" src="../../jskey/jskey_page.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+var fn = function(e){$jskey.$('show').innerHTML="page=" + e.page + ",pagesize=" + e.pagesize + ",size=" + e.size + ",lastpage=" + e.totalpage;}
+</script>
+<span id="show"></span><br />
+
+<style type="text/css">
+.jskey_page_skin_my a    {border:1px solid #ccc;background-color:#dddddd;}
+.jskey_page_skin_my span {height:28px;line-height:28px;color:#ff0000;}
+.jskey_page_skin_my .page{color:#ffffff;background-color:#ff0000;}
+.jskey_page_skin_my input {background-color:#999999;color:#ffffff;}
+.jskey_page_skin_my button{background-color:#999999;color:#ffffff;}
+.jskey_page_skin_my select{background-color:#999999;color:#ffffff;}
+.jskey_page_skin_my select option {background-color:#ffffff;color:#000000;}
+</style>
+
+<br /><div id="p"></div>
+<script type="text/javascript">
+$jskey.page({
+	template:"{pageview}<span>共{size}条记录&nbsp;第{page}/{totalpage}页&nbsp;</span>{prev}{first}{pagelist}{last}{next}<span>&nbsp;转到第</span>{skip}<span>页</span>{go}<span>&nbsp;每页</span>{pagesize}",
+	object:'p',
+	pagesize:50,// 一页数量，默认为10
+	size:990,// 总数据量
+	page:10, // 当前页
+	skin: 'my', //自定义皮肤，或者逗号分隔颜色两个(背景颜色,文本颜色)
+    first: '<<', //若不显示，设置false即可
+    last: '>>', //<尾页>若不显示，设置false即可
+    prev: '<', //若不显示，设置false即可
+    next: '>', //若不显示，设置false即可
+    go: '确定',
+    pagelist:3,
+    hide:true,
+	jump:fn
+});
+</script>
+
+<br /><div id="p1"></div>
+<script type="text/javascript">
+var Page = "";
+$jskey.page({
+	template:1,object:'p1',size:990,page:5,
+	skin: '#00AA91,#ffffff', //皮肤
+    jump:fn
+});
+</script>
+
+<br /><div id="p2"></div>
+<script type="text/javascript">
+$jskey.page({
+	template:2,object:'p2',size:990,page:5,
+	jump:fn
+});
+</script>
+
+<br /><div id="p3"></div>
+<script type="text/javascript">
+$jskey.page({
+	template:3,object:'p3',size:990,page:9,
+    jump:fn
+});
+</script>
+
+<br /><div id="p4"></div>
+<script type="text/javascript">
+$jskey.page({
+	template:4,object:'p4',size:87,page:10,
+    jump:fn
+});
+</script>
+
+</body>
+</html>

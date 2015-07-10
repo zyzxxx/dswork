@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0,minimal-ui"/>
+<title>jskey_validator</title>
 <script type="text/javascript" src="../../jskey/jskey_core.js"></script>
 <script type="text/javascript">
 function myfn(value)// value是表单中的值，只有这个参数
@@ -10,7 +12,7 @@ function myfn(value)// value是表单中的值，只有这个参数
 }
 function check(type)
 {
-	if(type < 1)type = 1;
+	if(type < 3)type = 3;
 	if(type > 4)type = 4;
 	if(!$jskey.validator.Validate("dataForm", type))
 	{
@@ -25,8 +27,6 @@ td {text-align:left;}
 </head>
 <body>
 <center>
-<input type="button" value="验证模式一" onclick="check(1);" />&nbsp;
-<input type="button" value="验证模式二" onclick="check(2);" />&nbsp;
 <input type="button" value="验证模式三" onclick="check(3);" />&nbsp;
 <input type="button" value="验证模式四" onclick="check(4);" />
 <br />
