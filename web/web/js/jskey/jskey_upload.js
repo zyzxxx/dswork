@@ -46,7 +46,7 @@ $jskey.formatBytes = function(bytes){
 };
 //当前此js文件的目录路径
 $jskey.$uppath = document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.substring(0, document.getElementsByTagName("script")[document.getElementsByTagName("script").length - 1].src.lastIndexOf("/") + 1);
-if($jskey.$uppath.substring($jskey.$uppath.length-7)!="/jskey/"){$jskey.$uppath="/web/js/jskey/";}
+try{if($jskey.$path.length>7 && $jskey.$path.substring($jskey.$path.length-7)!="/jskey/"){$jskey.$path="/web/js/jskey/";}}catch(e){}
 
 $jskey.upload ={
 
