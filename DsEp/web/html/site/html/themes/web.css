@@ -47,14 +47,7 @@ a:hover,a:active{color:#00c;}
 
 
 .footer{width:990px;clear:both;padding-top:15px;margin:0 auto;}
-.footer div {overflow:hidden;zoom:1;color:#333;padding:15px;
-  background:-webkit-linear-gradient(top,#f7fcff 0,#dff3fe 100%);
-  background:-moz-linear-gradient(top,#f7fcff 0,#dff3fe 100%);
-  background:-o-linear-gradient(top,#f7fcff 0,#dff3fe 100%);
-  background:linear-gradient(to bottom,#f7fcff 0,#dff3fe 100%);
-  background-repeat:repeat-x;
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#f7fcff,endColorstr=#dff3fe,GradientType=0);
-}
+.footer div {overflow:hidden;zoom:1;color:#333;padding:15px;}
 .footer p{float:left;width:400px;font-family:"\5B8B\4F53";text-align:left;line-height:25px;}
 .footer a{text-decoration:none;vertical-align:top;}
 .footer a.dzjg{float:left;margin-left:180px;width:100px;height:100px;}
