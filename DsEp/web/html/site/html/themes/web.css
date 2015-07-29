@@ -31,8 +31,7 @@ a:hover,a:active{color:#00c;}
   background:-moz-linear-gradient(top,#1cb3f2 0,#13408b 100%);
   background:-o-linear-gradient(top,#1cb3f2 0,#13408b 100%);
   background:linear-gradient(to bottom,#1cb3f2 0,#13408b 100%);
-  background-repeat:repeat-x;
-  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#1cb3f2,endColorstr=#13408b,GradientType=0);
+  filter:progid:DXImageTransform.Microsoft.Gradient(startColorStr=#1cb3f2,endColorStr=#13408b,gradientType=0);
   border-radius:5px;
 }
 .nav ul{list-style:none;padding:10px 15px 0 0;}
