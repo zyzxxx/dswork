@@ -4,11 +4,11 @@
 		<li href="http://browser.qq.com/">
 			<img alt="图片" src="${ctx}/themes/web/header.jpg"/><div></div><span>本网站</span>
 		</li>
-		<li href="http://www.zhihu.com/">
-			<img alt="图片" src="http://static.zhihu.com/static/img/201304_sign/logo.png"/><div></div><span>与世界分享你的知识、经验和见解</span>
+		<li href="http://msdn.itellyou.cn/">
+			<img alt="图片" src="http://msdn.itellyou.cn/images/itellyou.cn.png"/><div></div><span>与世界分享你的知识、经验和见解</span>
 		</li>
-		<li href="http://email.163.com/">
-			<img alt="图片" src="http://mimg.127.net/index/email/img/2012/ntes_logo.png"/><div></div><span>网易邮箱</span>
+		<li href="http://news.qq.com/zt2015/wxghz/">
+			<img alt="图片" src="http://mat1.gtimg.com/news/2015/zt/xwghz/img/logo.png"/><div></div><span>腾讯新闻-新闻哥</span>
 		</li>
 		<li href="https://www.baidu.com/">
 			<img alt="图片" src="https://www.baidu.com/img/bdlogo.png"/><div></div><span>百度一下，你就知道</span>
@@ -16,8 +16,8 @@
 	</ul>
 	<ul class="menu">
 		<li><img alt="图片" src="${ctx}/themes/web/header.jpg"/></li>
-		<li><img alt="图片" src="http://static.zhihu.com/static/img/201304_sign/logo.png"/></li>
-		<li><img alt="图片" src="http://mimg.127.net/index/email/img/2012/ntes_logo.png"/></li>
+		<li><img alt="图片" src="http://msdn.itellyou.cn/images/itellyou.cn.png"/></li>
+		<li><img alt="图片" src="http://mat1.gtimg.com/news/2015/zt/xwghz/img/logo.png"/></li>
 		<li><img alt="图片" src="https://www.baidu.com/img/bdlogo.png"/></li>
 	</ul>
 </div>
