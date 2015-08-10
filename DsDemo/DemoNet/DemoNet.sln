@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoNet", "DemoNet\DemoNet.csproj", "{B9B432F4-6A8E-4D8F-B9E7-F60B3F8CCCDA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{21DC8F3D-4DBF-4F7C-8746-1F532FA3D348} = {21DC8F3D-4DBF-4F7C-8746-1F532FA3D348}
