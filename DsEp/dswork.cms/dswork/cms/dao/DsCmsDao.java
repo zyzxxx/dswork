@@ -47,6 +47,8 @@ public class DsCmsDao extends MyBatisDao
 
 	public Page<Map<String, Object>> queryPage(Long siteid, int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImage, boolean onlyPage, String keyvalue)
 	{
+		if(currentPage <= 0){currentPage = 1;}
+		if(pageSize <= 0){pageSize = 25;}
 		Map<String, Object> map = new HashMap<String, Object>();
 		PageRequest rq = new PageRequest(currentPage, pageSize, map);
 		rq.getFilters().put("siteid", siteid);
