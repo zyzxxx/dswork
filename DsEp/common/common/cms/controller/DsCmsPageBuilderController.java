@@ -37,6 +37,8 @@ public class DsCmsPageBuilderController extends BaseController
 			put("summary", getString(p.get("summary")));
 			put("content", getString(p.get("content")));
 			put("releasetime", getString(p.get("releasetime")));
+			put("releasesource", getString(p.get("releasesource")));
+			put("releaseuser", getString(p.get("releaseuser")));
 			put("img", getString(p.get("img")));
 			put("url", getString(p.get("url")));
 			return "/" + s.get("folder") + "/templates/" + c.get("pageviewsite");

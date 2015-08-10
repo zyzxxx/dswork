@@ -10,9 +10,9 @@
 		select LAST_INSERT_ID()
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, IMG, IMGTOP, PAGETOP, CONTENT)
+	(ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT)
 	values
-	(null, #{siteid}, #{categoryid}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{img}, #{imgtop}, #{pagetop}, #{content})
+	(null, #{siteid}, #{categoryid}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content})
 </insert>
 
 <delete id="delete">
@@ -27,6 +27,8 @@
 		METADESCRIPTION=#{metadescription},
 		SUMMARY=#{summary},
 		RELEASETIME=#{releasetime},
+		RELEASESOURCE=#{releasesource},
+		RELEASEUSER=#{releaseuser},
 		IMG=#{img},
 		IMGTOP=#{imgtop},
 		PAGETOP=#{pagetop},
@@ -52,6 +54,8 @@
 	<result property="metadescription" column="METADESCRIPTION" />
 	<result property="summary" column="SUMMARY" />
 	<result property="releasetime" column="RELEASETIME" />
+	<result property="releasesource" column="RELEASESOURCE" />
+	<result property="releaseuser" column="RELEASEUSER" />
 	<result property="img" column="IMG" />
 	<result property="imgtop" column="IMGTOP" />
 	<result property="pagetop" column="PAGETOP" />
@@ -60,7 +64,7 @@
 </resultMap>
 
 <sql id="columns">
-	ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, IMG, IMGTOP, PAGETOP, URL, CONTENT
+	ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT
 </sql>
 
 <sql id="dynamicWhere">
