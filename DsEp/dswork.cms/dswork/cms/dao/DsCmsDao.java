@@ -26,7 +26,6 @@ public class DsCmsDao extends MyBatisDao
 
 	public Map<String, Object> getSite(Long siteid)
 	{
-		
 		return (Map)executeSelect("getSite", siteid);
 	}
 
@@ -46,7 +45,7 @@ public class DsCmsDao extends MyBatisDao
 		return (Map)executeSelect("get", map);
 	}
 
-	public Page<Map<String, Object>> queryPage(Long siteid, int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImage, boolean onlyPage)
+	public Page<Map<String, Object>> queryPage(Long siteid, int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImage, boolean onlyPage, String keyvalue)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		PageRequest rq = new PageRequest(currentPage, pageSize, map);
@@ -57,6 +56,7 @@ public class DsCmsDao extends MyBatisDao
 		rq.getFilters().put("pagetop", onlyPage?"1":"");
 		rq.getFilters().put("releasetime", TimeUtil.getCurrentTime());
 		rq.getFilters().put("status", "1");
+		rq.getFilters().put("keyvalue", keyvalue);
 		return queryPage("query", rq, "queryCount", rq);
 	}
 

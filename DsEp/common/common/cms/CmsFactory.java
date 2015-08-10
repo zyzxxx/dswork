@@ -81,7 +81,7 @@ public class CmsFactory
 		{
 			idArray.append(",").append(toLong(categoryids[i]));
 		}
-		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage);
+		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage, null);
 		return page.getResult();
 	}
 
@@ -92,7 +92,7 @@ public class CmsFactory
 		if(pageSize <= 0){pageSize = 25;}
 		StringBuilder idArray = new StringBuilder();
 		idArray.append(toLong(categoryid));
-		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage);
+		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage, null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		currentPage = page.getCurrentPage();// 更新当前页
 		map.put("list", page.getResult());
