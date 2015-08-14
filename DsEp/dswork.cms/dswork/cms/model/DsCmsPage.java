@@ -25,6 +25,10 @@ public class DsCmsPage
 	private String content = "";
 	// 创建时间
 	private String releasetime = "";
+	// 来源
+	private String releasesource = "";
+	// 作者
+	private String releaseuser = "";
 	// 图片
 	private String img = "";
 	// 焦点图(0否，1是)
@@ -132,6 +136,26 @@ public class DsCmsPage
 	public void setReleasetime(String releasetime)
 	{
 		this.releasetime = releasetime;
+	}
+
+	public String getReleasesource()
+	{
+		return releasesource;
+	}
+
+	public void setReleasesource(String releasesource)
+	{
+		this.releasesource = releasesource;
+	}
+
+	public String getReleaseuser()
+	{
+		return releaseuser;
+	}
+
+	public void setReleaseuser(String releaseuser)
+	{
+		this.releaseuser = releaseuser;
 	}
 
 	public String getImg()
