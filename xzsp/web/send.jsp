@@ -18,4 +18,5 @@ catch(Exception ex)
 {
 	out.print(0);
 }
+session.invalidate();
 %>
