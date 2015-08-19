@@ -5,6 +5,11 @@
 
 <mapper namespace="common.gov.DsXzsp">
 
+<insert id="insert" parameterType="common.gov.DsXzsp">
+	insert into DS_XZSP(ID, SBLSH, SPTYPE, FSZT, FSCS, FSSJ, SPOBJECT, MEMO) 
+	values (#{id}, #{sblsh}, #{sptype}, 0, 0, '', #{spobject}, '')
+</insert>
+
 <update id="update">
 	update DS_XZSP set FSZT=#{fszt}, FSCS=#{fscs}, FSSJ=#{fssj}, MEMO=#{memo} where ID=#{id}
 </update>

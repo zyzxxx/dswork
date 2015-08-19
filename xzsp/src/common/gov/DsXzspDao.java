@@ -19,12 +19,6 @@ public class DsXzspDao extends BaseDao<DsXzsp, Long>
 	{
 		return DsXzsp.class;
 	}
-
-	@Deprecated
-	public int save(DsXzsp entity)
-	{
-		return 0;
-	}
 	
 	@Deprecated
 	public int delete(Long primaryKey)
