@@ -1,6 +1,7 @@
 package common.gov;
 
 import java.util.Date;
+
 import MQAPI.AcceptOB;
 import MQAPI.ApplicationOB;
 import MQAPI.BlockOB;
@@ -14,16 +15,6 @@ import MQAPI.SupplyOB;
 
 public class XzspFactory
 {
-	private static final String GovXzspLxhURL = dswork.core.util.EnvironmentUtil.getToString("gov.xzsp.lxhurl", "");
-	/**
-	 * 取得当前最新的申办流水号
-	 * @return
-	 */
-	public static String getLsh() throws Exception
-	{
-		return getHtml(GovXzspLxhURL, "UTF-8");
-	}
-
 	/**
 	 * 申办0
 	 * @param SBLSH 申办流水号
@@ -547,18 +538,31 @@ public class XzspFactory
 		entity.setBYZDD(BYZDD);
 		return saveObject(entity, SBLSH);// 发送对象
 	}
-	private static CommonGovXzspDao dao;
-
-	private static void init()
-	{
-		if(dao == null)
-		{
-			dao = (CommonGovXzspDao) dswork.spring.BeanFactory.getBean("commonGovXzspDao");
-		}
-	}
-
+//	private static CommonGovXzspDao dao;
+//
+//	private static void init()
+//	{
+//		if(dao == null)
+//		{
+//			dao = (CommonGovXzspDao) dswork.spring.BeanFactory.getBean("commonGovXzspDao");
+//		}
+//	}
+	
 	private static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static com.google.gson.Gson gson = builder.create();
+	
+	private static final String GovXzspLxhURL = dswork.core.util.EnvironmentUtil.getToString("gov.xzsp.lxhurl", "");
+	private static final String GovXzspSendURL = dswork.core.util.EnvironmentUtil.getToString("gov.xzsp.sendurl", "");
+	/**
+	 * 取得当前最新的申办流水号
+	 * @return
+	 */
+	public static String getLsh() throws Exception
+	{
+		dswork.http.HttpUtil http = new dswork.http.HttpUtil();
+		return http.create(GovXzspLxhURL).connect();
+	}
+
 	@SuppressWarnings("all")
 	private static int saveObject(Object obj, String SBLSH)
 	{
@@ -576,47 +580,25 @@ public class XzspFactory
 			else if(obj instanceof SupplyOB){i = 7;}// BuJiaoGaoZhi
 			else if(obj instanceof SupplyAcceptOB){i = 8;}// BuJiaoShouLi
 			else if(obj instanceof ReceiveRegOB){i = 9;}// LingQuDengJi
-			java.util.Map map = new java.util.HashMap();
-			map.put("sblsh", SBLSH);
-			map.put("sptype", i);
-			map.put("spobject", v);
-			init();
-			dao.executeInsert(map);
-			return 1;
+			
+			dswork.http.HttpUtil http = new dswork.http.HttpUtil();
+			http.create(GovXzspSendURL)
+			.addForm("sblsh", SBLSH)
+			.addForm("sptype", String.valueOf(i))
+			.addForm("spobject", v)
+			.setUseCaches(false);
+			return String.valueOf(http.connect()).trim().equals("1")? 1 : 0;
+//			java.util.Map map = new java.util.HashMap();
+//			map.put("sblsh", SBLSH);
+//			map.put("sptype", i);
+//			map.put("spobject", v);
+//			init();
+//			dao.executeInsert(map);
+//			return 1;
 		}
 		catch(Exception e)
 		{
 			return 0;
 		}
-	}
-
-	// 读取一个网页内容
-	private static String getHtml(String htmlurl, String charsetName) throws java.io.IOException
-	{
-		java.net.URL url;
-		String temp;
-		StringBuilder sb = new StringBuilder();
-		try
-		{
-			url = new java.net.URL(htmlurl);
-			java.io.BufferedReader in = new java.io.BufferedReader(new java.io.InputStreamReader(url.openStream(), charsetName));// 读取网页内容
-			while((temp = in.readLine()) != null)
-			{
-				sb.append(temp);
-			}
-			in.close();
-		}
-		catch(final java.net.MalformedURLException me)
-		{
-			System.out.println("你输入的URL格式有问题！" + htmlurl);
-			me.getMessage();
-			throw me;
-		}
-		catch(final java.io.IOException e)
-		{
-			e.printStackTrace();
-			throw e;
-		}
-		return sb.toString().trim();
 	}
 }
