@@ -231,6 +231,11 @@ public class HttpUtil
 
 	public String connect()
 	{
+		return connect("UTF-8");
+	}
+
+	public String connect(String charsetName)
+	{
 		String result = null;
 		try
 		{
@@ -241,7 +246,7 @@ public class HttpUtil
 			}
 			if(this.form.size() > 0)
 			{
-				String data = HttpCommon.format(form, "UTF-8");
+				String data = HttpCommon.format(form, charsetName);
 				this.http.setDoOutput(true);
 				this.http.setRequestMethod("POST");
 				this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));

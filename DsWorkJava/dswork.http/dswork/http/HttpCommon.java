@@ -106,8 +106,8 @@ public class HttpCommon
 		{
 			try
 			{
-				String encodedName = java.net.URLEncoder.encode(parameter.getName(), "UTF-8");
-				String encodedValue = java.net.URLEncoder.encode(parameter.getValue(), "UTF-8");
+				String encodedName = java.net.URLEncoder.encode(parameter.getName(), charset);
+				String encodedValue = java.net.URLEncoder.encode(parameter.getValue(), charset);
 				if(result.length() > 0)
 				{
 					result.append(parameterSeparator);
@@ -159,7 +159,7 @@ public class HttpCommon
 				if(key.equalsIgnoreCase("set-cookie"))
 				{
 					v = http.getHeaderField(i);
-					System.out.print("\n****set-cookie===" + v);
+					//System.out.print("\n****set-cookie===" + v);
 					String[] arr = v.split(";");
 					String[] _m = arr[0].split("=", 2);
 					Cookie c = new Cookie(_m[0], _m[1]);
