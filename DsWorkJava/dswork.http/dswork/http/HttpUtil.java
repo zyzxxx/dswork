@@ -225,7 +225,35 @@ public class HttpUtil
 	 */
 	public HttpUtil setUserAgent(String userAgent)
 	{
-		this.http.setRequestProperty("User-Agent", userAgent);
+		return this.setRequestProperty("User-Agent", userAgent);
+	}
+
+	/**
+	 * 设置requestMethod
+	 * @param requestMethod
+	 * @return HttpUtil
+	 */
+	public HttpUtil setRequestMethod(String requestMethod)
+	{
+		try
+		{
+			this.http.setRequestMethod(requestMethod);
+		}
+		catch(Exception e)
+		{
+		}
+		return this;
+	}
+
+	/**
+	 * 设置requestProperty
+	 * @param key
+	 * @param value
+	 * @return HttpUtil
+	 */
+	public HttpUtil setRequestProperty(String key, String value)
+	{
+		this.http.setRequestProperty(key, value);
 		return this;
 	}
 
@@ -248,7 +276,10 @@ public class HttpUtil
 			{
 				String data = HttpCommon.format(form, charsetName);
 				this.http.setDoOutput(true);
-				this.http.setRequestMethod("POST");
+				if(this.http.getRequestMethod().toUpperCase().equals("GET"))// DELETE, PUT, POST
+				{
+					this.http.setRequestMethod("POST");
+				}
 				this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
 				DataOutputStream out = new DataOutputStream(this.http.getOutputStream());
 				out.writeBytes(data);
