@@ -1,7 +1,9 @@
 <%@page contentType="text/html;charset=UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>页面错误</title>
+<meta charset="UTF-8" />
+<title>页面错误</title>
 </head>
 <body>
 <div>
