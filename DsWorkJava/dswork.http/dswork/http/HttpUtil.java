@@ -59,8 +59,8 @@ public class HttpUtil
 			}
 			this.http.setDoInput(true);
 			this.http.setDoOutput(false);
-			this.http.setConnectTimeout(5000);
-			this.http.setReadTimeout(25000);
+			this.http.setConnectTimeout(10000);
+			this.http.setReadTimeout(30000);
 			this.http.setRequestProperty("User-Agent", "Mozilla/5.0 (compatible; MSIE 11; Windows NT 6.1; Win64; x64;)");// Gecko/20150123
 			this.http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			this.http.setRequestProperty("Accept-Charset", "utf-8");
