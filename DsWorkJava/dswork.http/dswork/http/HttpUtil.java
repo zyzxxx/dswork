@@ -11,8 +11,13 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class HttpUtil
 {
+	static Logger log = LoggerFactory.getLogger(HttpUtil.class.getName());
+	
 	private HttpURLConnection http;
 	private boolean isHttps = false;
 
@@ -241,6 +246,10 @@ public class HttpUtil
 		}
 		catch(Exception e)
 		{
+			if(log.isDebugEnabled())
+			{
+				log.debug(e.getMessage());
+			}
 		}
 		return this;
 	}
@@ -278,6 +287,10 @@ public class HttpUtil
 				this.http.setDoOutput(true);
 				if(this.http.getRequestMethod().toUpperCase().equals("GET"))// DELETE, PUT, POST
 				{
+					if(log.isDebugEnabled())
+					{
+						log.debug("RequestMethod GET change to POST");
+					}
 					this.http.setRequestMethod("POST");
 				}
 				this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
@@ -306,8 +319,10 @@ public class HttpUtil
 							this.addCookie(m.getName(), m.getValue());
 						}
 					}
-					System.out.println();
-					System.out.println(m);
+					if(log.isDebugEnabled())
+					{
+						log.debug("Cookie:" + m);
+					}
 				}
 				in = new BufferedReader(new InputStreamReader(http.getInputStream()));
 			}
@@ -332,7 +347,10 @@ public class HttpUtil
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			if(log.isDebugEnabled())
+			{
+				log.debug(e.getMessage());
+			}
 		}
 		http.disconnect();
 		return result;
