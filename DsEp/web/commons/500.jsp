@@ -1,15 +1,14 @@
 <%@page contentType="text/html;charset=UTF-8" isErrorPage="true"%>
-<%@page import="org.apache.commons.logging.LogFactory" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>错误信息</title>
+<meta charset="UTF-8" />
+<title>错误信息</title>
 </head>
 <body>
 <div>
 <%
 	String requestUri = (String) request.getAttribute("javax.servlet.error.request_uri");
-	LogFactory.getLog(requestUri).error(exception.getMessage(), exception);
 %>
 	<h3>错误信息: <br /><%=exception.getMessage()%></h3>
 	<br />
