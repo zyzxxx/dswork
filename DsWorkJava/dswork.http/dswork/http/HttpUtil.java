@@ -223,7 +223,7 @@ public class HttpUtil
 	 * @param userAgent
 	 * @return HttpUtil
 	 */
-	public HttpUtil setReadTimeout(String userAgent)
+	public HttpUtil setUserAgent(String userAgent)
 	{
 		this.http.setRequestProperty("User-Agent", userAgent);
 		return this;
