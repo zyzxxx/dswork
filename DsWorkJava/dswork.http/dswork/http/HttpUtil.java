@@ -246,10 +246,7 @@ public class HttpUtil
 		}
 		catch(Exception e)
 		{
-			if(log.isDebugEnabled())
-			{
-				log.debug(e.getMessage());
-			}
+			log.error(e.getMessage());
 		}
 		return this;
 	}
@@ -347,12 +344,16 @@ public class HttpUtil
 		}
 		catch(Exception e)
 		{
-			if(log.isDebugEnabled())
-			{
-				log.debug(e.getMessage());
-			}
+			log.error(e.getMessage());
 		}
-		http.disconnect();
+		try
+		{
+			http.disconnect();
+		}
+		catch(Exception e)
+		{
+			log.error(e.getMessage());
+		}
 		return result;
 	}
 }
