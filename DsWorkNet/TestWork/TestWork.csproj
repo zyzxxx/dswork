@@ -139,6 +139,10 @@
       <Project>{55962767-6cb2-464e-ae66-cb678d7dd4a7}</Project>
       <Name>Dswork.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Dswork.Http\Dswork.Http.csproj">
+      <Project>{7fa5246c-a9a0-4335-8b5d-dbab40b4eef8}</Project>
+      <Name>Dswork.Http</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Dswork.Spring\Dswork.Spring.csproj">
       <Project>{83444df5-b273-4cda-a9dd-2b87070ffb3c}</Project>
       <Name>Dswork.Spring</Name>

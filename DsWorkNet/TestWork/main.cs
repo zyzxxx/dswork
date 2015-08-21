@@ -1,14 +1,8 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.IO;
 using System.Reflection;
 using System.Text;
-using System.Xml;
-using Dswork.Core.Util;
-using Dswork.Core.Page;
-using Dswork.Web;
+using Dswork.Http;
 
 namespace Test
 {
@@ -16,6 +10,24 @@ namespace Test
 	{
 		static void Main(string[] args)
 		{
+			HttpUtil http = new HttpUtil();
+			Console.WriteLine("Testing...");
+			try { 
+			http.Create("http://127.0.0.1:8888/CasServer/cookie.jsp?ticket=a92dfcdf-a84e-43ab-8383-f3916b379ef41440155191204", false);
+
+				http.AddCookie("JSESSIONID", "05E9FD37E514F5662636576B3B9118FF")
+				.AddCookie("a", "111")
+				.AddCookie("b", "222")
+				.AddForm("title", "mytest中文")
+				.AddForm("content", "!@#$%^&*()_+|{}[]:\";'<>?,./ 4")
+				.AddForm("foundtime", "2000-01-02");
+				Console.WriteLine(http.Connect());
+			}
+			catch(Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+            }
+			/*
 			log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config/log4net.config"));
 			//log4net.Config.XmlConfigurator.Configure();
 			
