@@ -172,8 +172,8 @@ public class HttpCommon
 						try
 						{
 							_m = _t.split("=", 2);
-							vlist.add(new NameValue(_m[0].toLowerCase(), _m[1]));
-							map.put(_m[0].toLowerCase(), _m[1]);
+							vlist.add(new NameValue(_m[0].toLowerCase(Locale.ROOT), _m[1]));
+							map.put(_m[0].toLowerCase(Locale.ROOT), _m[1]);
 						}
 						catch(Exception ex)
 						{

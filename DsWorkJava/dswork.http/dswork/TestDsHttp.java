@@ -16,6 +16,16 @@ public class TestDsHttp
 			//return;
 		}
 		HttpUtil http = new HttpUtil();
+
+		http.create("http://127.0.0.1:8888/CasServer/cookie.jsp?ticket=a92dfcdf-a84e-43ab-8383-f3916b379ef41440155191204", false);
+		http.addCookie("JSESSIONID", "05E9FD37E514F5662636576B3B9118FF")
+		.addCookie("a", "111")
+		.addCookie("b", "222")
+		.addForm("title", "mytest中文")
+		.addForm("content", "!@#$%^&*()_+|{}[]:\";'<>?,./ 4")
+		.addForm("foundtime", "2000-01-02");
+		System.out.println(http.connect());
+		/*
 		System.out.println(http.create("https://www.baidu.com/", false).connect());
 		System.out.println(http.clearCookies().create("https://fp.gdltax.gov.cn/fpzx/", true).connect());
 		System.out.println(
@@ -36,5 +46,6 @@ public class TestDsHttp
 			.setUseCaches(false)
 			.connect()
 		);
+		*/
 	}
 }

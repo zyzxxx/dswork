@@ -8,6 +8,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -20,12 +21,152 @@ public class HttpUtil
 	
 	private HttpURLConnection http;
 	private boolean isHttps = false;
+	private int connectTimeout = 10000;
+	private int readTimeout = 30000;
+	private String userAgent = "Mozilla/5.0 (compatible; MSIE 11; Windows NT 6.1; Win64; x64;)";// Gecko/20150123
 
+	/**
+	 * 返回当前是否https请求
+	 * @return boolean
+	 */
 	public boolean isHttps()
 	{
 		return isHttps;
 	}
 
+	/**
+	 * 设置超时时间毫秒
+	 * @param connectTimeout int
+	 * @return HttpUtil
+	 */
+	public HttpUtil setConnectTimeout(int connectTimeout)
+	{
+		this.connectTimeout = connectTimeout;
+		if(http != null)
+		{
+			this.http.setConnectTimeout(connectTimeout);
+		}
+		return this;
+	}
+
+	/**
+	 * 设置contentType
+	 * @param contentType String
+	 * @return HttpUtil
+	 */
+	public HttpUtil setContentType(String contentType)
+	{
+		if(http != null)
+		{
+			this.http.setRequestProperty("Content-Type", contentType);
+		}
+		return this;
+	}
+
+	/**
+	 * 设置读取超时时间毫秒
+	 * @param readTimeout int
+	 * @return HttpUtil
+	 */
+	public HttpUtil setReadTimeout(int readTimeout)
+	{
+		this.readTimeout = readTimeout;
+		if(http != null)
+		{
+			this.http.setReadTimeout(readTimeout);
+		}
+		return this;
+	}
+
+	/**
+	 * 设置requestMethod
+	 * @param requestMethod String
+	 * @return HttpUtil
+	 */
+	public HttpUtil setRequestMethod(String requestMethod)
+	{
+		if(http == null)
+		{
+			log.error("http is not create");
+		}
+		else
+		{
+			try
+			{
+				this.http.setRequestMethod(requestMethod.toUpperCase(Locale.ROOT));
+			}
+			catch(Exception e)
+			{
+				log.error(e.getMessage());
+			}
+		}
+		return this;
+	}
+
+	/**
+	 * 设置requestProperty
+	 * @param key String
+	 * @param value String
+	 * @return HttpUtil
+	 */
+	public HttpUtil setRequestProperty(String key, String value)
+	{
+		if(http == null)
+		{
+			log.error("http is not create");
+		}
+		else
+		{
+			try
+			{
+				this.http.setRequestProperty(key, value);
+			}
+			catch(Exception e)
+			{
+				log.error(e.getMessage());
+			}
+		}
+		return this;
+	}
+
+	/**
+	 * setUseCaches
+	 * @param usecaches boolean
+	 * @return HttpUtil
+	 */
+	public HttpUtil setUseCaches(boolean usecaches)
+	{
+		if(http == null)
+		{
+			log.error("http is not create");
+		}
+		else
+		{
+			this.http.setUseCaches(usecaches);
+		}
+		return this;
+	}
+
+	/**
+	 * 设置userAgent
+	 * @param userAgent String
+	 * @return HttpUtil
+	 */
+	public HttpUtil setUserAgent(String userAgent)
+	{
+		this.userAgent = userAgent;
+		if(http != null)
+		{
+			this.http.setRequestProperty("User-Agent", userAgent);
+		}
+		return this;
+	}
+
+	/**
+	 * 创建新的http(s)请求，重置除cookie外的所有设置
+	 * @param url url地址请求
+	 * @return HttpUtil
+	 */
 	public HttpUtil create(String urlpath)
 	{
 		return create(urlpath, true);
@@ -44,24 +185,23 @@ public class HttpUtil
 		try
 		{
 			c = new URL(url);
-			if(isHostnameVerifier && c.getProtocol().toLowerCase().equals("https"))
+			isHttps = c.getProtocol().toLowerCase().equals("https");
+			if(isHostnameVerifier && isHttps)
 			{
-				isHttps = true;
 				HttpsURLConnection.setDefaultSSLSocketFactory(HttpCommon.getSocketFactory());
 				this.http = (HttpURLConnection) c.openConnection();
 				((HttpsURLConnection) this.http).setHostnameVerifier(HttpCommon.HV);// 不进行主机名确认
 			}
 			else
 			{
-				isHttps = false;
 				HttpsURLConnection.setDefaultSSLSocketFactory(HttpCommon.getSocketFactoryDefault());
 				this.http = (HttpURLConnection) c.openConnection();
 			}
 			this.http.setDoInput(true);
 			this.http.setDoOutput(false);
-			this.http.setConnectTimeout(10000);
-			this.http.setReadTimeout(30000);
-			this.http.setRequestProperty("User-Agent", "Mozilla/5.0 (compatible; MSIE 11; Windows NT 6.1; Win64; x64;)");// Gecko/20150123
+			this.http.setConnectTimeout(connectTimeout);
+			this.http.setReadTimeout(readTimeout);
+			this.http.setRequestProperty("User-Agent", userAgent);
 			this.http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 			this.http.setRequestProperty("Accept-Charset", "utf-8");
 			this.http.setRequestMethod("GET");
@@ -74,25 +214,104 @@ public class HttpUtil
 	}
 
 	/**
-	 * 设置超时时间毫秒
-	 * @param connectTimeout
-	 * @return HttpUtil
+	 * 连接并返回网页文本
+	 * @return String
 	 */
-	public HttpUtil setConnectTimeout(int connectTimeout)
+	public String connect()
 	{
-		this.http.setConnectTimeout(connectTimeout);
-		return this;
+		return connect("UTF-8");
 	}
 
 	/**
-	 * 设置读取超时时间毫秒
-	 * @param readTimeout
-	 * @return HttpUtil
+	 * 连接并返回网页文本
+	 * @param charsetName String
+	 * @return String
 	 */
-	public HttpUtil setReadTimeout(int readTimeout)
+	public String connect(String charsetName)
 	{
-		this.http.setReadTimeout(readTimeout);
-		return this;
+		String result = null;
+		try
+		{
+			if(this.cookies.size() > 0)
+			{
+				String _c = HttpCommon.parse(HttpCommon.getHttpCookies(this.cookies,  isHttps()), "; ");
+				http.setRequestProperty("Cookie", _c);
+			}
+			if(this.form.size() > 0)
+			{
+				String data = HttpCommon.format(form, charsetName);
+				this.http.setDoOutput(true);
+				this.http.setUseCaches(false);
+				if(this.http.getRequestMethod().toUpperCase().equals("GET"))// DELETE, PUT, POST
+				{
+					if(log.isDebugEnabled())
+					{
+						log.debug("RequestMethod GET change to POST");
+					}
+					this.http.setRequestMethod("POST");
+				}
+				//this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
+				DataOutputStream out = new DataOutputStream(this.http.getOutputStream());
+				out.write(data.getBytes("ISO-8859-1"));
+				//out.writeBytes(data);
+				out.flush();
+				out.close();
+			}
+			this.http.connect();
+			int _responseCode = http.getResponseCode();// 设置http返回状态200（ok）还是403
+			BufferedReader in = null;
+			if(_responseCode == 200)
+			{
+				Date date = new Date();
+				List<Cookie> list = HttpCommon.getHttpCookies(http);
+				for(Cookie m : list)
+				{
+					if(m.getExpiryDate() == null)
+					{
+						this.addCookie(m.getName(), m.getValue());// 会话cookie
+					}
+					else
+					{
+						if(!m.isExpired(date))
+						{
+							this.addCookie(m.getName(), m.getValue());
+						}
+					}
+					if(log.isDebugEnabled())
+					{
+						log.debug("Cookie:" + m);
+					}
+				}
+				in = new BufferedReader(new InputStreamReader(http.getInputStream()));
+				String temp = in.readLine();
+				while(temp != null)
+				{
+					if(result != null)
+					{
+						result += temp;
+					}
+					else
+					{
+						result = temp;
+					}
+					temp = in.readLine();
+				}
+				in.close();
+			}
+		}
+		catch(Exception e)
+		{
+			log.error(e.getMessage());
+		}
+		try
+		{
+			http.disconnect();
+		}
+		catch(Exception e)
+		{
+			log.error(e.getMessage());
+		}
+		return result;
 	}
 	
 	// 表单项
@@ -133,7 +352,7 @@ public class HttpUtil
 		}
 		return this;
 	}
-	// 表单项
+	// cookie
 	private List<Cookie> cookies = new ArrayList<Cookie>();
 
 	/**
@@ -210,150 +429,5 @@ public class HttpUtil
 			}
 		}
 		return list;
-	}
-
-	/**
-	 * setUseCaches
-	 * @param usecaches
-	 * @return HttpUtil
-	 */
-	public HttpUtil setUseCaches(boolean usecaches)
-	{
-		this.http.setUseCaches(usecaches);
-		return this;
-	}
-
-	/**
-	 * 设置userAgent
-	 * @param userAgent
-	 * @return HttpUtil
-	 */
-	public HttpUtil setUserAgent(String userAgent)
-	{
-		return this.setRequestProperty("User-Agent", userAgent);
-	}
-
-	/**
-	 * 设置requestMethod
-	 * @param requestMethod
-	 * @return HttpUtil
-	 */
-	public HttpUtil setRequestMethod(String requestMethod)
-	{
-		try
-		{
-			this.http.setRequestMethod(requestMethod);
-		}
-		catch(Exception e)
-		{
-			log.error(e.getMessage());
-		}
-		return this;
-	}
-
-	/**
-	 * 设置requestProperty
-	 * @param key
-	 * @param value
-	 * @return HttpUtil
-	 */
-	public HttpUtil setRequestProperty(String key, String value)
-	{
-		this.http.setRequestProperty(key, value);
-		return this;
-	}
-
-	public String connect()
-	{
-		return connect("UTF-8");
-	}
-
-	public String connect(String charsetName)
-	{
-		String result = null;
-		try
-		{
-			if(this.cookies.size() > 0)
-			{
-				String _c = HttpCommon.parse(HttpCommon.getHttpCookies(this.cookies,  isHttps()), "; ");
-				http.setRequestProperty("Cookie", _c);
-			}
-			if(this.form.size() > 0)
-			{
-				String data = HttpCommon.format(form, charsetName);
-				this.http.setDoOutput(true);
-				if(this.http.getRequestMethod().toUpperCase().equals("GET"))// DELETE, PUT, POST
-				{
-					if(log.isDebugEnabled())
-					{
-						log.debug("RequestMethod GET change to POST");
-					}
-					this.http.setRequestMethod("POST");
-				}
-				this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
-				DataOutputStream out = new DataOutputStream(this.http.getOutputStream());
-				out.writeBytes(data);
-				out.flush();
-				out.close();
-			}
-			this.http.connect();
-			int _responseCode = http.getResponseCode();// 设置http返回状态200（ok）还是403
-			BufferedReader in = null;
-			if(_responseCode == 200)
-			{
-				Date date = new Date();
-				List<Cookie> list = HttpCommon.getHttpCookies(http);
-				for(Cookie m : list)
-				{
-					if(m.getExpiryDate() == null)
-					{
-						this.addCookie(m.getName(), m.getValue());// 会话cookie
-					}
-					else
-					{
-						if(!m.isExpired(date))
-						{
-							this.addCookie(m.getName(), m.getValue());
-						}
-					}
-					if(log.isDebugEnabled())
-					{
-						log.debug("Cookie:" + m);
-					}
-				}
-				in = new BufferedReader(new InputStreamReader(http.getInputStream()));
-			}
-			else
-			{
-				in = new BufferedReader(new InputStreamReader(http.getErrorStream()));
-			}
-			String temp = in.readLine();
-			while(temp != null)
-			{
-				if(result != null)
-				{
-					result += temp;
-				}
-				else
-				{
-					result = temp;
-				}
-				temp = in.readLine();
-			}
-			in.close();
-		}
-		catch(Exception e)
-		{
-			log.error(e.getMessage());
-		}
-		try
-		{
-			http.disconnect();
-		}
-		catch(Exception e)
-		{
-			log.error(e.getMessage());
-		}
-		return result;
 	}
 }

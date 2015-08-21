@@ -7,7 +7,7 @@ try
 	m.setSblsh(req.getString("sblsh").trim());
 	m.setSptype(req.getInt("sptype"));
 	m.setSpobject(req.getString("spobject").trim());
-	if(m.getSptype() >= 0 && m.getSptype() <= 9)
+	if(m.getSptype() >= 0 && m.getSptype() <= 9 && m.getSblsh().length() > 10 && m.getSpobject().length() > 50)
 	{
 		if(dao == null)
 		{
