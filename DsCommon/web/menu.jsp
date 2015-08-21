@@ -2,7 +2,7 @@
  import="dswork.cas.model.IFunc"%><%
 String jsoncallback  = String.valueOf(request.getParameter("jsoncallback"));
 String user = String.valueOf(request.getParameter("user"));%><%=jsoncallback%>([<%
-IFunc[] list = dswork.cas.CasCheckFilter.getFuncByUser(user);
+IFunc[] list = dswork.cas.AuthFilter.getFuncByUser(user);
 
 StringBuilder sb = new StringBuilder(300);
 if(list != null)
