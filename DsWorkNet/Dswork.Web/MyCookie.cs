@@ -118,6 +118,7 @@ namespace Dswork.Web
 		/// <param name="value">cookie参数值</param>
 		/// <param name="maxAge">有效时间，int(单位秒)，0:删除Cookie，-1:页面关闭时删除cookie</param>
 		/// <param name="path">与cookie一起传输的虚拟路径</param>
+		/// <param name="domain">与cookie关联的域</param>
 		public void AddCookie(String name, String value, int maxAge, String path, String domain)
 		{
 			AddCookie(name, value, maxAge, path, domain, false, false);
@@ -130,6 +131,7 @@ namespace Dswork.Web
 		/// <param name="value">cookie参数值</param>
 		/// <param name="maxAge">有效时间，int(单位秒)，0:删除Cookie，-1:页面关闭时删除cookie</param>
 		/// <param name="path">与cookie一起传输的虚拟路径</param>
+		/// <param name="domain">与cookie关联的域</param>
 		/// <param name="isSecure">是否在https请求时才进行传输</param>
 		/// <param name="isHttpOnly">是否只能通过http访问</param>
 		public void AddCookie(String name, String value, int maxAge, String path, String domain, Boolean isSecure, Boolean isHttpOnly)
