@@ -35,7 +35,7 @@
 ../Lib/mybatis/mybatis-3.2.8.jar;
 ../Lib/mybatis/mybatis-spring-1.2.2.jar" 
         	destdir="C:\Users\skey\Desktop\jar\dswork\doc" doctitle="DsWorkJavaAPI" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" 
-        	packagenames="dswork.core.db,dswork.core.mybatis,dswork.core.upload,dswork.core.util,dswork.spring,dswork.core.page,dswork.core.encrypt,dswork.web" 
+        	packagenames="dswork.core.db,dswork.core.mybatis,dswork.core.upload,dswork.core.util,dswork.spring,dswork.core.page,dswork.core.encrypt,dswork.web,dswork.http" 
         	source="1.5" 
         	sourcefiles="
 dswork.ognl/Ognl.java,
@@ -64,6 +64,9 @@ dswork.core/dswork/core/util/FileUtil.java,
 dswork.core/dswork/core/util/TimeUtil.java,
 dswork.core/dswork/core/util/UniqueId.java,
 dswork.spring/dswork/spring/BeanFactory.java,
+dswork.http/dswork/http/Cookie.java,
+dswork.http/dswork/http/NameValue.java,
+dswork.http/dswork/http/HttpUtil.java,
 dswork.web/dswork/web/MyAuthCodeServlet.java,
 dswork.web/dswork/web/MyCookie.java,
 dswork.web/dswork/web/MyImage.java,

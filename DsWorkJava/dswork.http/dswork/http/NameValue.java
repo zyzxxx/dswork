@@ -1,10 +1,20 @@
 package dswork.http;
 
+/**
+ * 自定义NameValue
+ * @author skey
+ * @version 1.0
+ */
 public class NameValue
 {
 	private String name;
 	private String value;
 
+	/**
+	 * 构造方法
+	 * @param name String
+	 * @param value String
+	 */
 	public NameValue(String name, String value)
 	{
 		this.name = String.valueOf(name);

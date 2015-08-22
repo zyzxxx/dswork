@@ -5,6 +5,11 @@ import java.util.Date;
 //import java.util.Map;
 import java.util.Locale;
 
+/**
+ * 自定义Cookie
+ * @author skey
+ * @version 1.0
+ */
 public class Cookie implements java.io.Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -20,6 +25,11 @@ public class Cookie implements java.io.Serializable
 	//private int cookieVersion;
 	//private Date creationDate;
 
+	/**
+	 * 构造方法
+	 * @param name String
+	 * @param value String
+	 */
 	public Cookie(final String name, final String value)
 	{
 		this.name = String.valueOf(name);
