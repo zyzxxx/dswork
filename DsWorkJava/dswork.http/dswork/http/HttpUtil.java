@@ -219,7 +219,7 @@ public class HttpUtil
 
 	/**
 	 * 连接并返回网页文本
-	 * @return String
+	 * @return 连接失败返回null
 	 */
 	public String connect()
 	{
@@ -229,7 +229,7 @@ public class HttpUtil
 	/**
 	 * 连接并返回网页文本
 	 * @param charsetName 对封装的表单、获取的网页内容进行的编码设置
-	 * @return String
+	 * @return 连接失败返回null
 	 */
 	public String connect(String charsetName)
 	{
