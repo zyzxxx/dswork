@@ -57,17 +57,6 @@
 	</servlet-mapping>
 	
 	<servlet>
-		<display-name>CXFServlet</display-name>
-		<servlet-name>CXFServlet</servlet-name>
-		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>CXFServlet</servlet-name>
-		<url-pattern>/ws/*</url-pattern>
-	</servlet-mapping>
-	
-	<servlet>
 		<servlet-name>xxx</servlet-name>
 		<servlet-class>dswork.web.MyAuthCodeServlet</servlet-class>
 	</servlet>

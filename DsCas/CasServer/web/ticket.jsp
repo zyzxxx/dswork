@@ -1,13 +1,12 @@
-<%@page language="java" pageEncoding="utf-8"%>
-<%@page import="dswork.cas.service.TicketService"%>
+<%@page contentType="text/html; charset=UTF-8" import="dswork.cas.service.TicketService"%>
 <!DOCTYPE html>
 <html>
 <head>
-<title>用户登录ticket</title>
 <meta charset="UTF-8" />
+<title>用户登录ticket</title>
 </head>
 <body>
-用户当前登录的ticket值是:<%=String.valueOf(request.getParameter("ticket")) %>
+用户当前登录的ticket值是:<%=String.valueOf(request.getParameter("ticket"))%>
 <br />
 <%
 Cookie[] cookies = request.getCookies();
@@ -17,6 +16,7 @@ out.println("cookie=" + cookies.length + "<br />");
 for (int i = 0; i < cookies.length; i++)
 {
 	cookie = cookies[i];
+	out.println("&nbsp;&nbsp;" + cookie.getName() + "=" + cookie.getValue() + "=" + cookie.getPath() + "<br />");
 	if (cookie.getName().equals("__CookieTicket__"))
 	{
 		value = cookie.getValue();

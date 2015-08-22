@@ -11,6 +11,8 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,24 +20,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dswork.core.util.EncryptUtil;
 import dswork.web.MyCookie;
 import dswork.web.MyRequest;
-
 import dswork.cas.service.TicketService;
 import dswork.cas.service.CasFactoryService;
 import dswork.cas.listener.SessionListener;
 import dswork.cas.model.LoginUser;
 
-//样例信息
 @Controller
 public class CasController
 {
+	static Logger log = LoggerFactory.getLogger(CasController.class.getName());
+	
+	@Autowired
 	private CasFactoryService service;
 	private static Map<String, String> onceMap = new HashMap<String, String>();
-
-	@Autowired
-	public void setCasFactoryService(CasFactoryService service)
-	{
-		this.service = service;
-	}
 
 	/**
 	 * 用户登录系统的入口
@@ -45,6 +42,10 @@ public class CasController
 	{
 		MyRequest req = new MyRequest(request);
 		String serviceURL = req.getString("service", request.getContextPath() + "/ticket.jsp");
+		if(log.isDebugEnabled())
+		{
+			log.debug(serviceURL);
+		}
 		MyCookie cookie = new MyCookie(request, response);
 		String cookieTicket = cookie.getValue(SessionListener.COOKIETICKET);
 		if(cookieTicket != null)// 有cookie存在
@@ -75,6 +76,10 @@ public class CasController
 		String account = req.getString("account").toLowerCase();
 		String password = req.getString("password");
 		String serviceURL = req.getString("service", request.getContextPath() + "/ticket.jsp");
+		if(log.isDebugEnabled())
+		{
+			log.debug(serviceURL);
+		}
 		try
 		{
 			LoginUser user = service.getLoginUserByAccount(account);
@@ -118,7 +123,7 @@ public class CasController
 		}
 		catch(Exception e)
 		{
-			System.out.println("login:" + e.getMessage());
+			log.error(e.getMessage());
 		}
 		return null;
 	}
@@ -135,8 +140,9 @@ public class CasController
 			String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
 			service.saveLogLogout(String.valueOf(ticket), false, false);
 		}
-		catch(Exception logex)
+		catch(Exception e)
 		{
+			log.error(e.getMessage());
 		}
 		removeLoginInfo(request, response);// 试着删除
 		MyRequest req = new MyRequest(request);

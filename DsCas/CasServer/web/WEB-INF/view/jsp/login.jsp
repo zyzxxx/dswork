@@ -1,4 +1,4 @@
-<%@page language="java" pageEncoding="utf-8"%><%
+<%@page contentType="text/html; charset=UTF-8"%><%
 response.setHeader("Cache-Control","no-store");
 response.setDateHeader("Expires", 0);
 response.setHeader("Pragma","no-cache"); 
@@ -8,8 +8,8 @@ response.setHeader("Pragma","no-cache");
 <html>
 <head>
 <meta charset="UTF-8" />
-<script type="text/javascript" src="./jquery.js"></script>
-<script type="text/javascript" src="/web/js/jskey/jskey_des.js"></script>
+<script type="text/javascript" src="./js/jquery/jquery.js"></script>
+<script type="text/javascript" src="./js/jskey/jskey_des.js"></script>
 <script type="text/javascript">
 function _$(id){return document.getElementById(id);}
 if(top.location != this.location){top.location = this.location;}
@@ -49,11 +49,11 @@ $(function(){
 <style type="text/css">
 html,body{height:100%;margin:0px auto;}*{padding:0px;}
 div, input{font-family:"宋体";font-weight:bold;font-size:20px;line-height:20px;}
-.content{margin:0px auto;position:relative;width:1000px;height:473px;background:url(/web/share/login.gif) no-repeat center center;overflow:hidden;}
+.content{margin:0px auto;position:relative;width:1000px;height:473px;background:url(./img/login.gif) no-repeat center center;overflow:hidden;}
 .title{color:#184760;width:100%;font-size:30px;text-align:center;padding:50px 0px;}
 .login{position:absolute;left:545px;top:120px;width:400px;height:300px;overflow:hidden;border:#ccc solid 1px;border-radius:20px 0px;}
 
-.loginTit{color:#184760;height:50px;line-height:50px;padding:10px 15px 10px 75px;font-size:22px;background:url(/web/share/user.gif) no-repeat 15px center;}
+.loginTit{color:#184760;height:50px;line-height:50px;padding:10px 15px 10px 75px;font-size:22px;background:url(./img/user.gif) no-repeat 15px center;}
 .box{overflow:hidden;padding:0px 0px 20px 70px;text-align:left;color:#666;}
 
 input{width:180px;height:30px;border:#BAC7D2 solid 1px;vertical-align:middle;background-color:#f9f9f9;}
@@ -87,7 +87,7 @@ a {color:#0000ff;font-size:12px;font-weight:normal;line-height:40px;font-family:
   </form>
 </div>
 <div style="margin:0px auto;border-top:solid #ccc 1px;width:1000px;color:#333;text-align:center;font-size:12px;font-weight:normal;line-height:40px;font-family:Arial;">
-	Copyright &copy; 2014 skey_chen@163.com
+	Copyright &copy; 2015 skey_chen@163.com
 </div>
 </body>
 </html>

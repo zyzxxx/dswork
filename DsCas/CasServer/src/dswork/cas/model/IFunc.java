@@ -4,8 +4,8 @@
 package dswork.cas.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 public class IFunc implements Serializable
 {
@@ -33,7 +33,7 @@ public class IFunc implements Serializable
 	// 资源集合
 	private String resources = "";
 	// 资源集合转化的List
-	private List<IRes> resList = null;
+	//private List<IRes> resList = null;
 
 	public void setId(Long id)
 	{
@@ -143,40 +143,40 @@ public class IFunc implements Serializable
 	public void setResources(String resources)
 	{
 		this.resources = resources;
-		this.resList = null;
+		//this.resList = null;
 	}
-
-	public List<IRes> getResList()
-	{
-		if(resList == null)
-		{
-			resList = new ArrayList<IRes>();
-			if(resources != null && resources.length() > 0)
-			{
-				String[] list = resources.split("\n", -1);
-				int index = -1;
-				for(String s : list)
-				{
-					IRes o = new IRes();
-					index = s.indexOf("|");
-					if(index != -1)
-					{
-						o.setUrl(s.substring(0, index));
-						o.setParam(s.substring(index + 1));
-					}
-					else
-					{
-						o.setUrl(s);
-					}
-					resList.add(o);
-				}
-			}
-		}
-		return resList;
-	}
-
-	public void setResList(List<IRes> resList)
-	{
-		this.resList = resList;
-	}
+//
+//	public List<IRes> getResList()
+//	{
+//		if(resList == null)
+//		{
+//			resList = new ArrayList<IRes>();
+//			if(resources != null && resources.length() > 0)
+//			{
+//				String[] list = resources.split("\n", -1);
+//				int index = -1;
+//				for(String s : list)
+//				{
+//					IRes o = new IRes();
+//					index = s.indexOf("|");
+//					if(index != -1)
+//					{
+//						o.setUrl(s.substring(0, index));
+//						o.setParam(s.substring(index + 1));
+//					}
+//					else
+//					{
+//						o.setUrl(s);
+//					}
+//					resList.add(o);
+//				}
+//			}
+//		}
+//		return resList;
+//	}
+//
+//	public void setResList(List<IRes> resList)
+//	{
+//		this.resList = resList;
+//	}
 }
