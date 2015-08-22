@@ -7,7 +7,7 @@ using System.Text;
 namespace Dswork.Http
 {
 	/// <summary>
-	/// 扩展Request的功能
+	/// 封装http请求
 	/// </summary>
 	public class HttpUtil
 	{
@@ -133,17 +133,17 @@ namespace Dswork.Http
 		}
 
 		/// <summary>
-		/// 创建新的http(s)请求，重置除cookie外的所有设置
+		/// 创建新的http(s)请求，重置除cookie、connectTimeout、readTimeout、userAgent外的所有设置
 		/// </summary>
 		/// <param name="url">url地址请求</param>
 		/// <returns>HttpUtil</returns>
-		public HttpUtil Create(String urlpath)
+		public HttpUtil Create(String url)
 		{
-			return Create(urlpath, true);
+			return Create(url, true);
 		}
 
 		/// <summary>
-		/// 创建新的http(s)请求，重置除cookie外的所有设置
+		/// 创建新的http(s)请求，重置除cookie、connectTimeout、readTimeout、userAgent外的所有设置
 		/// </summary>
 		/// <param name="url">url地址请求</param>
 		/// <param name="isHostnameVerifier">是否不确认主机名</param>
@@ -172,11 +172,20 @@ namespace Dswork.Http
 			return this;
 		}
 
+		/// <summary>
+		/// 连接并返回网页文本
+		/// </summary>
+		/// <returns>String</returns>
 		public String Connect()
 		{
 			return Connect("UTF-8");
 		}
 
+		/// <summary>
+		/// 连接并返回网页文本
+		/// </summary>
+		/// <param name="charsetName">对封装的表单、获取的网页内容进行的编码设置</param>
+		/// <returns>String</returns>
 		public String Connect(String charsetName)
 		{
 			String result = null;
@@ -269,8 +278,8 @@ namespace Dswork.Http
 		/// <summary>
 		/// 添加表单项
 		/// </summary>
-		/// <param name="name">name</param>
-		/// <param name="value">value</param>
+		/// <param name="name">String</param>
+		/// <param name="value">String</param>
 		/// <returns>HttpUtil</returns>
 		public HttpUtil AddForm(String name, String value)
 		{
@@ -281,8 +290,7 @@ namespace Dswork.Http
 		/// <summary>
 		/// 批量添加表单项
 		/// </summary>
-		/// <param name="name">name</param>
-		/// <param name="value">value</param>
+		/// <param name="array">NameValue[]</param>
 		/// <returns>HttpUtil</returns>
 		public HttpUtil AddForms(NameValue[] array)
 		{
@@ -309,8 +317,8 @@ namespace Dswork.Http
 		/// <summary>
 		/// 添加cookie
 		/// </summary>
-		/// <param name="name">name</param>
-		/// <param name="value">value</param>
+		/// <param name="name">String</param>
+		/// <param name="value">String</param>
 		/// <returns>HttpUtil</returns>
 		public HttpUtil AddCookie(String name, String value)
 		{
@@ -321,8 +329,7 @@ namespace Dswork.Http
 		/// <summary>
 		/// 批量添加cookie
 		/// </summary>
-		/// <param name="name">name</param>
-		/// <param name="value">value</param>
+		/// <param name="array">Cookie[]</param>
 		/// <returns>HttpUtil</returns>
 		public HttpUtil AddCookies(Cookie[] array)
 		{
@@ -337,7 +344,7 @@ namespace Dswork.Http
 		/// 复制cookie
 		/// </summary>
 		/// <param name="onlySessionCookie">true：仅复制会话cookie false：复制非会话cookie null:全部cookie</param>
-		/// <returns>List<Cookie></returns>
+		/// <returns>List&lt;Cookie&gt;</returns>
 		public List<Cookie> GetCloneCookies(Boolean onlySessionCookie)
 		{
 			List<Cookie> lists = HttpCommon.GetHttpCookies(this.cookies, true);

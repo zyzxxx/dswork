@@ -9,24 +9,34 @@ using System.Text;
 
 namespace Dswork.Http
 {
+	/// <summary>
+	/// HttpCommon主要供HttpUtil内部调用
+	/// </summary>
 	public class HttpCommon
 	{
 		private static String NAME_VALUE_SEPARATOR = "=";
 		private static String PARAMETER_SEPARATOR = "&";
 
-		public static String format(List<NameValue> parameters, String charset)
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="parameters">List&lt;NameValue&gt;</param>
+		/// <param name="charsetName">String</param>
+		/// <returns>String</returns>
+		public static String format(List<NameValue> parameters, String charsetName)
 		{
-			return format(parameters, PARAMETER_SEPARATOR, charset);
+			return format(parameters, PARAMETER_SEPARATOR, charsetName);
 		}
 
-		public static String format(List<NameValue> parameters, String parameterSeparator, String charset)
+		public static String format(List<NameValue> parameters, String parameterSeparator, String charsetName)
 		{
 			StringBuilder result = new StringBuilder();
 			foreach (NameValue parameter in parameters)
 			{
 				try
 				{
-					Encoding enc = charset.ToLower().Equals("utf-8") ? new UTF8Encoding(false) : Encoding.GetEncoding(charset);
+					Encoding enc = charsetName.ToLower().Equals("utf-8") ? new UTF8Encoding(false) : Encoding.GetEncoding(charsetName);
 					String encodedName = HttpUtility.UrlEncode(parameter.Name, enc);
 					String encodedValue = HttpUtility.UrlEncode(parameter.Value, enc);
 					if (result.Length > 0)
