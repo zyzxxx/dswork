@@ -1,20 +1,12 @@
 package dswork.cas;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLSession;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -25,8 +17,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dswork.cas.http.HttpUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class CasFilter implements Filter
 {
+	static Logger log = LoggerFactory.getLogger(CasFilter.class.getName());
+
 	public final static String KEY_TICKET = "ticket";// url中传来的sessionKey的变量名
 	public final static String KEY_SESSIONUSER = "cas.client.user";// sessionUser在session中的key
 	private static String loginURL = "";// 登录页面
@@ -43,7 +42,11 @@ public class CasFilter implements Filter
 		{
 			relativeURI = relativeURI.replaceFirst(request.getContextPath(), "");
 		}
-		System.out.println(request.getContextPath() + relativeURI);
+		if(log.isDebugEnabled())
+		{
+			log.debug(request.getContextPath() + relativeURI);
+		}
+		
 		// 判断是否有ticket
 		String ticket = request.getParameter(KEY_TICKET);
 		if(ticket == null)// 如果不经由ticket的链接过来，则进此处判断
@@ -54,7 +57,8 @@ public class CasFilter implements Filter
 				return;
 			}
 		}
-		else// ticket非空,由链接传来ticket
+		else
+		// ticket非空,由链接传来ticket
 		{
 			if(ticket.equals(String.valueOf(session.getAttribute(KEY_TICKET))))// 一样的ticket
 			{
@@ -71,10 +75,7 @@ public class CasFilter implements Filter
 			}
 		}
 		// String relativeURI = request.getRequestURI();// 相对地址
-		// if(request.getContextPath().length() > 0)
-		// {
-		// relativeURI = relativeURI.replaceFirst(request.getContextPath(), "");
-		// }
+		// if(request.getContextPath().length() > 0){relativeURI = relativeURI.replaceFirst(request.getContextPath(), "");}
 		if(ignoreURLSet.contains(relativeURI))// 判断是否为无需验证页面
 		{
 			chain.doFilter(request, response);// 是无需验证页面
@@ -130,17 +131,22 @@ public class CasFilter implements Filter
 	{
 		try
 		{
-			String account = getOneHtml(validateURL + ticket);// 获取账号名,url[http://127.0.0.1/validate.htm?ticket=]
-			if(account.length() > 0)
+			String u = validateURL + ticket;
+			String account = new HttpUtil().create(u, u.startsWith("https:")).connect();// 获取账号名,url[http://127.0.0.1/validate.htm?ticket=]
+			if(account != null && account.length() > 0 && !account.equals("null"))
 			{
 				session.setAttribute(KEY_SESSIONUSER, account);
 				session.setAttribute(KEY_TICKET, ticket);
+				if(log.isDebugEnabled())
+				{
+					log.debug("account=" + account + ", ticket=" + ticket);
+				}
 				return true;
 			}
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
+			log.error(e.getMessage());
 		}
 		session.removeAttribute(KEY_SESSIONUSER);
 		session.removeAttribute(KEY_TICKET);
@@ -178,59 +184,6 @@ public class CasFilter implements Filter
 	{
 	}
 
-	// 读取一个网页内容
-	private static String getOneHtml(String htmlurl) throws IOException
-	{
-		URL url;
-		String temp;
-		StringBuffer sb = new StringBuffer();
-		try
-		{
-			url = new URL(htmlurl);
-			HttpURLConnection http = null;
-			try
-			{
-				if(url.getProtocol().toLowerCase().equals("https"))
-				{
-					javax.net.ssl.TrustManager[] trustAllCerts = new javax.net.ssl.TrustManager[1];
-					javax.net.ssl.TrustManager tm = new TM();
-					trustAllCerts[0] = tm;
-					javax.net.ssl.SSLContext sc = javax.net.ssl.SSLContext.getInstance("SSL");
-					sc.init(null, trustAllCerts, null);
-					HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
-					http = (HttpURLConnection) url.openConnection();
-					((HttpsURLConnection) http).setHostnameVerifier(CasFilter.HV);// 不进行主机名确认
-				}
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			if(http == null)
-			{
-				http = (HttpURLConnection) url.openConnection();
-			}
-			BufferedReader in = new BufferedReader(new InputStreamReader(http.getInputStream(), "UTF-8"));// 读取网页内容
-			while((temp = in.readLine()) != null)
-			{
-				sb.append(temp);
-			}
-			in.close();
-		}
-		catch(final MalformedURLException me)
-		{
-			System.out.println("你输入的URL格式有问题！" + htmlurl);
-			me.getMessage();
-			throw me;
-		}
-		catch(final IOException e)
-		{
-			e.printStackTrace();
-			throw e;
-		}
-		return sb.toString().trim();
-	}
-
 	/**
 	 * 根据参数名称取得值
 	 * @param parameter
@@ -259,31 +212,5 @@ public class CasFilter implements Filter
 			}
 		}
 		return value;
-	}
-	
-	public final static HostnameVerifier HV = new HostnameVerifier()
-	{
-		public boolean verify(String urlHostName, SSLSession session)
-		{
-			System.out.println("Warning: URL Host: " + urlHostName + " vs. " + session.getPeerHost());
-			return true;
-		}
-	};
-	private static class TM implements javax.net.ssl.TrustManager, javax.net.ssl.X509TrustManager
-	{
-		public java.security.cert.X509Certificate[] getAcceptedIssuers()
-		{
-			return null;
-		}
-
-		public void checkServerTrusted(java.security.cert.X509Certificate[] certs, String authType) throws java.security.cert.CertificateException
-		{
-			return;
-		}
-
-		public void checkClientTrusted(java.security.cert.X509Certificate[] certs, String authType) throws java.security.cert.CertificateException
-		{
-			return;
-		}
 	}
 }

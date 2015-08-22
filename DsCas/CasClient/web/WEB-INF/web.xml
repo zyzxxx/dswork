@@ -3,23 +3,7 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
+
 	<context-param>
 		<param-name>log4jConfiguration</param-name>
 		<param-value>classpath:config/log4j2.xml</param-value>
@@ -27,33 +11,27 @@
 	<listener>
 		<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
 	</listener>
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/classes/config/applicationContext*.xml</param-value>
-	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-	</listener>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
 	
 	<filter>
 		<filter-name>sso</filter-name>
 		<filter-class>dswork.cas.CasFilter</filter-class>
 		<init-param>
 			<param-name>validateURL</param-name>
-			<param-value>http://sso:8080/CasServer/validate.htm</param-value>
+			<param-value>http://127.0.0.1:8888/CasServer/validate.htm</param-value>
 		</init-param>
 		<init-param>
 			<param-name>loginURL</param-name>
-			<param-value>http://sso:8080/CasServer/login.htm</param-value>
+			<param-value>http://sso:8888/CasServer/login.htm</param-value>
 		</init-param>
 		<init-param>
 			<param-name>ignoreURL</param-name>
 			<param-value>/menu.jsp,/m.jsp</param-value>
 		</init-param>
 	</filter>
+	<filter-mapping>
+		<filter-name>sso</filter-name>
+		<url-pattern>/manage/*</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sso</filter-name>
 		<url-pattern>/1.html</url-pattern>
@@ -64,15 +42,15 @@
 	</filter-mapping>
 
 	<filter>
-		<filter-name>DsworkCasCheckFilter</filter-name>
-		<filter-class>dswork.cas.CasCheckFilter</filter-class>
+		<filter-name>DsworkCasAuthFilter</filter-name>
+		<filter-class>dswork.cas.AuthFilter</filter-class>
 	</filter>
 	<filter-mapping>
-		<filter-name>DsworkCasCheckFilter</filter-name>
-		<url-pattern>/p</url-pattern>
+		<filter-name>DsworkCasAuthFilter</filter-name>
+		<url-pattern>/p/*</url-pattern>
 	</filter-mapping>
 	
 	<session-config>
-		<session-timeout>60</session-timeout>
+		<session-timeout>30</session-timeout>
 	</session-config>
 </web-app>

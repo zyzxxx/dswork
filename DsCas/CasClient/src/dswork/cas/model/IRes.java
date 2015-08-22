@@ -10,50 +10,12 @@ import java.util.Map;
 public class IRes implements Serializable
 {
 	private static final long serialVersionUID = 1L;
-	// 主键
-	private Long id = 0L;
-	// 所属功能ID
-	private Long funcid = 0L;
-	// 所属系统ID
-	private Long systemid = 0L;
 	// 资源对应的URL
 	private String url = "";
-	// 排序
-	private Integer seq = 0;
 	// 参数(格式:name1=value2,name2=value2...)
 	private String param = "";
 	// 对param进行key=value切分后的集合
 	private Map<String, String> paramMap = new HashMap<String, String>();
-
-	public void setId(Long id)
-	{
-		this.id = id;
-	}
-
-	public Long getId()
-	{
-		return this.id;
-	}
-
-	public void setFuncid(Long funcid)
-	{
-		this.funcid = funcid;
-	}
-
-	public Long getFuncid()
-	{
-		return this.funcid;
-	}
-
-	public void setSystemid(Long systemid)
-	{
-		this.systemid = systemid;
-	}
-
-	public Long getSystemid()
-	{
-		return this.systemid;
-	}
 
 	public void setUrl(String url)
 	{
@@ -63,16 +25,6 @@ public class IRes implements Serializable
 	public String getUrl()
 	{
 		return this.url;
-	}
-
-	public void setSeq(Integer seq)
-	{
-		this.seq = seq;
-	}
-
-	public Integer getSeq()
-	{
-		return this.seq;
 	}
 
 	public String getParam()
@@ -99,10 +51,10 @@ public class IRes implements Serializable
 		paramMap.clear();
 		if(this.param.length() > 0)
 		{
-			String[] params = this.param.split(",");
-			for (String str : params)
+			String[] params = this.param.split(",", 0);
+			for(String str : params)
 			{
-				if (str.indexOf("=") > 0)
+				if(str.indexOf("=") > 0)
 				{
 					String[] keyValue = str.split("=");
 					paramMap.put(keyValue[0].trim(), keyValue[1].trim());
