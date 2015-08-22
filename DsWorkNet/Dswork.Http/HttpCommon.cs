@@ -19,7 +19,7 @@ namespace Dswork.Http
 
 
 		/// <summary>
-		/// 
+		/// format
 		/// </summary>
 		/// <param name="parameters">List&lt;NameValue&gt;</param>
 		/// <param name="charsetName">String</param>
@@ -29,6 +29,13 @@ namespace Dswork.Http
 			return format(parameters, PARAMETER_SEPARATOR, charsetName);
 		}
 
+		/// <summary>
+		/// format
+		/// </summary>
+		/// <param name="parameters">List&lt;NameValue&gt;</param>
+		/// <param name="parameterSeparator">String</param>
+		/// <param name="charsetName">String</param>
+		/// <returns>String</returns>
 		public static String format(List<NameValue> parameters, String parameterSeparator, String charsetName)
 		{
 			StringBuilder result = new StringBuilder();
@@ -57,6 +64,12 @@ namespace Dswork.Http
 			return result.ToString();
 		}
 
+		/// <summary>
+		/// parse
+		/// </summary>
+		/// <param name="parameters">List&lt;Cookie&gt;</param>
+		/// <param name="parameterSeparator">String</param>
+		/// <returns>String</returns>
 		public static String parse(List<Cookie> parameters, String parameterSeparator)
 		{
 			StringBuilder result = new StringBuilder();
@@ -76,6 +89,11 @@ namespace Dswork.Http
 			return result.ToString();
 		}
 
+		/// <summary>
+		/// GetHttpCookies
+		/// </summary>
+		/// <param name="cookies">CookieCollection</param>
+		/// <returns>List&lt;Cookie&gt;</returns>
 		public static List<Cookie> GetHttpCookies(CookieCollection cookies)
 		{
 			List<Cookie> list = new List<Cookie>();
@@ -95,7 +113,7 @@ namespace Dswork.Http
 			return list;
 		}
 
-		public static void RefreshCookies(List<Cookie> cookies)
+		private static void RefreshCookies(List<Cookie> cookies)
 		{
 			DateTime date = new DateTime();
 			for (int i = cookies.Count - 1; i >= 0; i--)
@@ -107,6 +125,12 @@ namespace Dswork.Http
 			}
 		}
 
+		/// <summary>
+		/// GetHttpCookies
+		/// </summary>
+		/// <param name="cookies">List&lt;Cookie&gt;</param>
+		/// <param name="hasSecure">Boolean</param>
+		/// <returns>List&lt;Cookie&gt;</returns>
 		public static List<Cookie> GetHttpCookies(List<Cookie> cookies, Boolean hasSecure)
 		{
 			HttpCommon.RefreshCookies(cookies);
@@ -128,6 +152,10 @@ namespace Dswork.Http
 			}
 			return list;
 		}
+
+		/// <summary>
+		/// HostnameVerifier
+		/// </summary>
 		public static void HostnameVerifier()
 		{
 			ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(ValidateServerCertificate);
