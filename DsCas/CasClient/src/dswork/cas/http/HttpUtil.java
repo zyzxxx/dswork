@@ -14,10 +14,14 @@ import javax.net.ssl.HttpsURLConnection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * 封装http请求
+ * @author skey
+ * @version 1.0
+ */
 public class HttpUtil
 {
 	static Logger log = LoggerFactory.getLogger(HttpUtil.class.getName());
-	
 	private HttpURLConnection http;
 	private boolean isHttps = false;
 	private int connectTimeout = 10000;
@@ -129,7 +133,7 @@ public class HttpUtil
 	}
 
 	/**
-	 * setUseCaches
+	 * 设置useCaches
 	 * @param usecaches boolean
 	 * @return HttpUtil
 	 */
@@ -166,13 +170,13 @@ public class HttpUtil
 	 * @param url url地址请求
 	 * @return HttpUtil
 	 */
-	public HttpUtil create(String urlpath)
+	public HttpUtil create(String url)
 	{
-		return create(urlpath, true);
+		return create(url, true);
 	}
 
 	/**
-	 * 创建新的http(s)请求，重置除cookie外的所有设置
+	 * 创建新的http(s)请求，重置除cookie、connectTimeout、readTimeout、userAgent外的所有设置
 	 * @param url url地址请求
 	 * @param isHostnameVerifier 是否不确认主机名
 	 * @return HttpUtil
@@ -214,7 +218,7 @@ public class HttpUtil
 
 	/**
 	 * 连接并返回网页文本
-	 * @return String
+	 * @return 连接失败返回null
 	 */
 	public String connect()
 	{
@@ -223,8 +227,8 @@ public class HttpUtil
 
 	/**
 	 * 连接并返回网页文本
-	 * @param charsetName String
-	 * @return String
+	 * @param charsetName 对封装的表单、获取的网页内容进行的编码设置
+	 * @return 连接失败返回null
 	 */
 	public String connect(String charsetName)
 	{
@@ -244,10 +248,10 @@ public class HttpUtil
 					}
 					this.http.setRequestMethod("POST");
 				}
-				//this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
+				// this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
 				DataOutputStream out = new DataOutputStream(this.http.getOutputStream());
 				out.write(data.getBytes("ISO-8859-1"));
-				//out.writeBytes(data);
+				// out.writeBytes(data);
 				out.flush();
 				out.close();
 			}
@@ -287,9 +291,9 @@ public class HttpUtil
 		}
 		return result;
 	}
-	
 	// 表单项
 	private List<NameValue> form = new ArrayList<NameValue>();
+
 	/**
 	 * 清除已清加的表单项
 	 * @return HttpUtil
@@ -302,8 +306,8 @@ public class HttpUtil
 
 	/**
 	 * 添加表单项
-	 * @param name
-	 * @param value
+	 * @param name String
+	 * @param value String
 	 * @return HttpUtil
 	 */
 	public HttpUtil addForm(String name, String value)
@@ -314,8 +318,7 @@ public class HttpUtil
 
 	/**
 	 * 批量添加表单项
-	 * @param name
-	 * @param value
+	 * @param array NameValue[]
 	 * @return HttpUtil
 	 */
 	public HttpUtil addForms(NameValue[] array)

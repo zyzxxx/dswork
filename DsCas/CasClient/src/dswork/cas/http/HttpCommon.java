@@ -6,6 +6,11 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
 
+/**
+ * HttpCommon主要供HttpUtil内部调用
+ * @author skey
+ * @version 1.0
+ */
 public class HttpCommon
 {
 	private static final String NAME_VALUE_SEPARATOR = "=";
@@ -67,15 +72,15 @@ public class HttpCommon
 		return format(parameters, PARAMETER_SEPARATOR, charset);
 	}
 
-	public static String format(List<? extends NameValue> parameters, String parameterSeparator, String charset)
+	public static String format(List<? extends NameValue> parameters, String parameterSeparator, String charsetName)
 	{
 		StringBuilder result = new StringBuilder();
 		for(NameValue parameter : parameters)
 		{
 			try
 			{
-				String encodedName = java.net.URLEncoder.encode(parameter.getName(), charset);
-				String encodedValue = java.net.URLEncoder.encode(parameter.getValue(), charset);
+				String encodedName = java.net.URLEncoder.encode(parameter.getName(), charsetName);
+				String encodedValue = java.net.URLEncoder.encode(parameter.getValue(), charsetName);
 				if(result.length() > 0)
 				{
 					result.append(parameterSeparator);
