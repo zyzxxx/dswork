@@ -3,6 +3,7 @@ using System.Collections;
 using System.Reflection;
 using System.Text;
 using Dswork.Http;
+using Dswork.Core.Util;
 
 namespace Test
 {
@@ -27,7 +28,6 @@ namespace Test
 			{
 				Console.WriteLine(ex.Message);
             }
-			/*
 			log4net.Config.XmlConfigurator.ConfigureAndWatch(new System.IO.FileInfo(AppDomain.CurrentDomain.SetupInformation.ApplicationBase + "Config/log4net.config"));
 			//log4net.Config.XmlConfigurator.Configure();
 			
@@ -56,7 +56,9 @@ namespace Test
 			Console.WriteLine("");
 			Console.WriteLine("");
 			*/
-			Console.ReadKey();
+			Console.Write("");
+			Program.doMain(args);
+            Console.ReadKey();
 			Console.Write("");
 		}
 		public string Bak()
