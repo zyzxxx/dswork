@@ -1,9 +1,9 @@
 下面的配置中的信息说明
-sso:8888 需要修改成实际对应的CasServer应用的发布地址：如192.168.1.1:8888
-127.0.0.1:8888 需要修改成实际对应的CasServer应用的发布地址：如172.16.1.1:8888
+sso:8888 需要修改成实际对应的CasServer应用的浏览器端访问的发布地址：如192.168.1.1:8888
+127.0.0.1:8888 需要修改成实际对应的CasServer应用的服务器端访问的发布地址：如172.16.1.1:8888
 
 
-一、加入dswork.cas.CasFilter.jar文件
+一、加入dswork.cas.CasFilter.jar文件（需要【一】的支持，需要slf4j-api的支持）
 	需要在web.xml中增加以下配置，并且需要CasServer的应用支持，validateURL为服务器端访问的ip，loginURL为浏览器端访问的ip
 		<filter>
 			<filter-name>sso</filter-name>
@@ -45,7 +45,7 @@ sso:8888 需要修改成实际对应的CasServer应用的发布地址：如192.1
 		dswork.cas.check.fix=jsp,htm
 		#是否开启参数进行权限配置，false则不过滤参数
 		dswork.cas.check.param=true
-	需要在web.xml中增加以下配置
+	需要在web.xml中增加以下配置，其中/p/*为需要处理权限验证的地址
 		<filter>
 			<filter-name>DsworkCasAuthFilter</filter-name>
 			<filter-class>dswork.cas.AuthFilter</filter-class>
