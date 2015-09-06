@@ -10,7 +10,7 @@
 <script type="text/javascript" src="../../jskey/jskey_core.js"></script>
 <script type="text/javascript" src="../../jskey/jskey_upload.js"></script>
 <script type="text/javascript">
-var o = new $dswork.upload({sessionKey:<%=JskeyUpload.refreshSessionKey(request)%>, fileKey:<%=System.currentTimeMillis() %>, ext:"file"});
+var o = new $dswork.upload({sessionKey:<%=JskeyUpload.getSessionKey(request)%>, fileKey:<%=System.currentTimeMillis() %>, ext:"file"});
 window.onload = function()
 {
 	o.init({id:"fjFile", vid:"fjFileNames", ext:"image"});//, uploadone:"false"
