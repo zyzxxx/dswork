@@ -775,9 +775,9 @@
             用于写入log4net日志
             </summary>
         </member>
-        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_INIT">
+        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_CLEAR">
             <summary>
-            启动时是否执行临时目录初始化
+            是否定时执行临时目录清理工作，建议仅web项目清理
             </summary>
         </member>
         <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_SAVEPATH">
@@ -848,65 +848,38 @@
             <param name="ext">需要过滤的上传文件后缀名，格式为"***,***"</param>
             <returns>String</returns>
         </member>
+        <member name="M:Dswork.Core.Upload.JskeyUpload.ToStart(System.Int64)">
+            <summary>
+            启动临时上传目录清理程序,在目录生成或文件上传后,才需要将sessionKey加入管理程序
+            </summary>
+            <param name="sessionKey">用户临时主目录</param>
+        </member>
         <member name="M:Dswork.Core.Upload.JskeyUpload.GetNewSessionKey">
             <summary>
             获取一个新的上传文件会话信息
             </summary>
             <returns>long</returns>
         </member>
-        <member name="M:Dswork.Core.Upload.JskeyUpload.RefreshSessionTime(System.Int64)">
-            <summary>
-            刷新sessionKey时间
-            </summary>
-            <param name="sessionKey">用户临时主目录</param>
-        </member>
         <member name="M:Dswork.Core.Upload.JskeyUpload.GetSessionKey(System.Web.HttpRequest)">
             <summary>
-            获取sessionKey并刷新sessionKey时间，没有则返回0
+            获取sessionKey，没有则新创建一个
             </summary>
             <param name="request">HttpRequest</param>
             <returns>long</returns>
         </member>
         <member name="M:Dswork.Core.Upload.JskeyUpload.GetSessionKey(System.Web.HttpRequestBase)">
             <summary>
-            获取sessionKey并刷新sessionKey时间，没有则返回0
+            获取sessionKey，没有则新创建一个
             </summary>
             <param name="request">HttpRequestBase</param>
             <returns>long</returns>
         </member>
         <member name="M:Dswork.Core.Upload.JskeyUpload.GetSessionKey(System.Web.HttpRequestWrapper)">
             <summary>
-            获取sessionKey并刷新sessionKey时间，没有则返回0
+            获取sessionKey，没有则新创建一个
             </summary>
             <param name="request">HttpRequestWrapper</param>
             <returns>long</returns>
-        </member>
-        <member name="M:Dswork.Core.Upload.JskeyUpload.RefreshSessionKey(System.Web.HttpRequest)">
-            <summary>
-            获取并刷新sessionKey值，没有则新创建一个
-            </summary>
-            <param name="request">HttpRequest</param>
-            <returns>long</returns>
-        </member>
-        <member name="M:Dswork.Core.Upload.JskeyUpload.RefreshSessionKey(System.Web.HttpRequestBase)">
-            <summary>
-            获取并刷新sessionKey值，没有则新创建一个
-            </summary>
-            <param name="request">HttpRequestBase</param>
-            <returns>long</returns>
-        </member>
-        <member name="M:Dswork.Core.Upload.JskeyUpload.RefreshSessionKey(System.Web.HttpRequestWrapper)">
-            <summary>
-            获取并刷新sessionKey值，没有则新创建一个
-            </summary>
-            <param name="request">HttpRequestWrapper</param>
-            <returns>long</returns>
-        </member>
-        <member name="M:Dswork.Core.Upload.JskeyUpload.ToStart(System.Int64)">
-            <summary>
-            启动临时上传目录清理程序,在目录生成或文件上传后,才需要将sessionKey加入管理程序
-            </summary>
-            <param name="sessionKey">用户临时主目录</param>
         </member>
         <member name="T:Dswork.Core.Util.EncryptUtil">
             <summary>
