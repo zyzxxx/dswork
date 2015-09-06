@@ -31,9 +31,14 @@ public class JskeyUpload extends Thread
 	}
 
 	/**
-	 * 启动时是否执行临时目录初始化
+	 * 是否定时执行临时目录清理工作，建议仅web项目清理
 	 */
-	public static final boolean UPLOAD_INIT = EnvironmentUtil.getToBoolean("jskey.upload.init", true);
+	public static final boolean UPLOAD_CLEAR = EnvironmentUtil.getToBoolean("jskey.upload.clear", false);
+	/**
+	 * 文件保存时长（毫秒）
+	 */
+	public static final long UPLOAD_TIMEOUT = EnvironmentUtil.getToLong("jskey.upload.timeout", 600000L);
+	
 	/**
 	 * 临时上传总目录
 	 */
@@ -42,10 +47,6 @@ public class JskeyUpload extends Thread
 	 * 文件占用最大空间（bit）
 	 */
 	public static final long UPLOAD_MAXSIZE = EnvironmentUtil.getToLong("jskey.upload.maxSize", 10485760L);
-	/**
-	 * 文件保存时长（毫秒）
-	 */
-	public static final long UPLOAD_TIMEOUT = EnvironmentUtil.getToLong("jskey.upload.timeout", 600000L);
 	/**
 	 * 默认允许上传的图片后缀
 	 */
@@ -72,7 +73,7 @@ public class JskeyUpload extends Thread
 	{
 		try
 		{
-			if(JskeyUpload.UPLOAD_INIT)
+			if(JskeyUpload.UPLOAD_CLEAR)
 			{
 				String path = JskeyUpload.UPLOAD_SAVEPATH;
 				java.io.File f = new java.io.File(path);
@@ -128,6 +129,10 @@ public class JskeyUpload extends Thread
 	 */
 	public void run()
 	{
+		if(!JskeyUpload.UPLOAD_CLEAR)
+		{
+			return;
+		}
 		if(JskeyUpload.getCount() != 0)//启动中
 		{
 			return;
@@ -359,48 +364,40 @@ public class JskeyUpload extends Thread
 			return _tmp;
 		}
 	}
-
-//################################################################################################
-/*
- * 简单说明：sessionKey是一次会话对应的值,根据它生成一个sessionKey目录,该目录下有多个fileKey目录,一个fileKey对应一次上传提交
- * 1 调用getNewSessionKey()获取sessionKey
- * 2 页面传递一个当前session下唯一的long型fileKey
- * 3 上传前后调用toStart(),启动定时清理程序将生成的sessionKey目录加入清理队列
- * 4 在调用toStart后,可显示调用refreshSessionTime推迟已上传文件失效时间,未及时处理的文件在一定时间后会被删除,每调用一次可将删除时间推迟
- * 5 已处理的文件调用delFile进行删除,节约服务器空间
- */
-//################################################################################################
-	private static final String UPLOAD_KEY = "JSKEY_UPLOAD_KEY";
-	private static long uploadSession = 1;
+	
 	/**
-	 * 获取一个新的上传文件会话信息
-	 * @return long
-	 */
-	public static final long getNewSessionKey()
-	{
-		if(uploadSession == Long.MAX_VALUE)
-		{
-			uploadSession = 0L;//还原
-		}
-		return uploadSession++;
-	}
-	/**
-	 * 刷新sessionKey时间
+	 * 启动临时上传目录清理程序,在目录生成或文件上传后,才需要将sessionKey加入管理程序
 	 * @param sessionKey 用户临时主目录
 	 */
-	public static synchronized void refreshSessionTime(long sessionKey)
+	public static final synchronized void toStart(long sessionKey)
 	{
-		try
+		JskeyUpload.jskeyUploadMap.put(sessionKey, System.currentTimeMillis());//更新时间标识
+		JskeyUpload clearDao = new JskeyUpload();
+		clearDao.start();//启动临时上传目录清理程序
+	}
+	// ################################################################################################
+	/*
+	 * 简单说明：sessionKey是一次会话对应的值,根据它生成一个sessionKey目录,该目录下有多个fileKey目录,一个fileKey对应一次上传提交
+	 * 1 调用getSessionKey()获取sessionKey
+	 * 2 页面传递一个当前session下唯一的long型fileKey
+	 * 3 上传前后调用toStart(),启动定时清理程序将生成的sessionKey目录加入清理队列
+	 * 4 已处理的文件调用delFile进行删除,节约服务器空间
+	 */
+	// ################################################################################################
+	private static final String UPLOAD_KEY = "JSKEY_UPLOAD_KEY";
+	private static long uploadSession = (new java.util.Random().nextInt(Integer.MAX_VALUE));
+	private static final long getNewSessionKey()
+	{
+		if(uploadSession >= Long.MAX_VALUE || uploadSession < 0)
 		{
-			JskeyUpload.jskeyUploadMap.put(sessionKey, System.currentTimeMillis());//更新时间标识
+			uploadSession = 0L;// 还原
 		}
-		catch(Exception ex)
-		{
-		}
+		uploadSession++;
+		return uploadSession;
 	}
 
 	/**
-	 * 获取sessionKey并刷新sessionKey时间，没有则返回0
+	 * 获取sessionKey，没有则新创建一个
 	 * @param request HttpServletRequest
 	 * @return long
 	 */
@@ -408,51 +405,33 @@ public class JskeyUpload extends Thread
 	{
 		Object obj = String.valueOf(request.getSession().getAttribute(JskeyUpload.UPLOAD_KEY));
 		long key = 0L;
-		if (obj != null)
+		if(obj != null)
 		{
 			try
 			{
 				key = Long.parseLong(String.valueOf(obj));
-				if (key > 0)
+				if(key > 0)
 				{
-					JskeyUpload.refreshSessionTime(key);
 					request.getSession().setAttribute(JskeyUpload.UPLOAD_KEY, key);
 					return key;
 				}
 			}
-			catch (NumberFormatException e)
+			catch(NumberFormatException e)
 			{
 			}
 		}
-		request.getSession().setAttribute(JskeyUpload.UPLOAD_KEY, null);
-		return 0;
-	}
-
-	/**
-	 * 获取并刷新sessionKey值，没有则新创建一个
-	 * @param request HttpServletRequest
-	 * @return long
-	 */
-	public static final long refreshSessionKey(javax.servlet.http.HttpServletRequest request)
-	{
-		long key = JskeyUpload.getSessionKey(request);
-		if (key > 0)
+		if(key > 0)
 		{
 			return key;
 		}
 		key = JskeyUpload.getNewSessionKey();
 		request.getSession().setAttribute(JskeyUpload.UPLOAD_KEY, key);
-		JskeyUpload.toStart(key);
 		return key;
 	}
-	/**
-	 * 启动临时上传目录清理程序,在目录生成或文件上传后,才需要将sessionKey加入管理程序
-	 * @param sessionKey 用户临时主目录
-	 */
-	public static final synchronized void toStart(long sessionKey)
+
+	@Deprecated
+	public static final long refreshSessionKey(javax.servlet.http.HttpServletRequest request)
 	{
-		JskeyUpload.refreshSessionTime(sessionKey);
-		JskeyUpload clearDao = new JskeyUpload();
-		clearDao.start();//启动临时上传目录清理程序
+		return getSessionKey(request);
 	}
 }
