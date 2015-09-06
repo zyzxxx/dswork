@@ -37,10 +37,10 @@ namespace Dswork.Core.Upload
 			return s;
 		}
 
-        /// <summary>
-        /// 启动时是否执行临时目录初始化
-        /// </summary>
-        public static readonly Boolean UPLOAD_INIT = EnvironmentUtil.GetToBoolean("jskey.upload.init", true);
+		/// <summary>
+		/// 是否定时执行临时目录清理工作，建议仅web项目清理
+		/// </summary>
+		public static readonly Boolean UPLOAD_CLEAR = EnvironmentUtil.GetToBoolean("jskey.upload.clear", false);
 		/// <summary>
 		/// 临时上传总目录
 		/// </summary>
@@ -78,12 +78,12 @@ namespace Dswork.Core.Upload
 		}
 		private static Timer GetTimer()//临时目录初始化，在服务器启动时执行
 		{
-            if (JskeyUpload.UPLOAD_INIT)
-            {
-                JskeyUpload.Delete(JskeyUpload.UPLOAD_SAVEPATH);//删除整个目录
-            }
+			if (JskeyUpload.UPLOAD_CLEAR)
+			{
+				JskeyUpload.Delete(JskeyUpload.UPLOAD_SAVEPATH);//删除整个目录
+			}
 			Timer timer = new Timer(Convert.ToDouble(JskeyUpload.UPLOAD_TIMEOUT));
-			timer.Elapsed += new System.Timers.ElapsedEventHandler(delegate(Object source, ElapsedEventArgs e) { new JskeyUpload().Run(); });
+			timer.Elapsed += new System.Timers.ElapsedEventHandler(delegate (Object source, ElapsedEventArgs e) { new JskeyUpload().Run(); });
 			timer.AutoReset = true;
 			timer.Enabled = true;
 			return timer;
@@ -134,6 +134,10 @@ namespace Dswork.Core.Upload
 		{
 			try
 			{
+				if (!JskeyUpload.UPLOAD_CLEAR)
+				{
+					return;
+				}
 				if (JskeyUpload.Count != 0)//启动中
 				{
 					return;
@@ -355,53 +359,50 @@ namespace Dswork.Core.Upload
 			}
 		}
 
+		/// <summary>
+		/// 启动临时上传目录清理程序,在目录生成或文件上传后,才需要将sessionKey加入管理程序
+		/// </summary>
+		/// <param name="sessionKey">用户临时主目录</param>
+		public static void ToStart(long sessionKey)
+		{
+			if (JskeyUpload.jskeyUploadMap.ContainsKey(sessionKey))
+			{
+				JskeyUpload.jskeyUploadMap.Remove(sessionKey);
+			}
+			JskeyUpload.jskeyUploadMap.Add(sessionKey, DateTime.Now.Ticks);//更新时间标识
+			JskeyUpload._timer.Start();
+			log.Debug("--临时上传目录清理程序启动，已经添加任务调度表，清理间隔" + JskeyUpload.UPLOAD_TIMEOUT / 1000 + "秒。--");
+		}
+
 		//################################################################################################
 		/*
-		 * 简单说明：sessionKey是一次会话对应的值,根据它生成一个sessionKey目录,该目录下有多个fileKey目录,一个fileKey对应一次上传提交
-		 * 1 调用GetNewSessionKey()获取sessionKey
-		 * 2 页面传递一个当前session下唯一的long型fileKey
-		 * 3 上传前后调用ToStart(),启动定时清理程序将生成的sessionKey目录加入清理队列
-		 * 4 在调用ToStart后,可显示调用RefreshSessionTime推迟已上传文件失效时间,未及时处理的文件在一定时间后会被删除,每调用一次可将删除时间推迟
-		 * 5 已处理的文件调用DelFile进行删除,节约服务器空间
-		 */
+         * 简单说明：sessionKey是一次会话对应的值,根据它生成一个sessionKey目录,该目录下有多个fileKey目录,一个fileKey对应一次上传提交
+         * 1 调用GetSessionKey()获取sessionKey
+         * 2 页面传递一个当前session下唯一的long型fileKey
+         * 3 上传前后调用ToStart(),启动定时清理程序将生成的sessionKey目录加入清理队列
+         * 4 已处理的文件调用DelFile进行删除,节约服务器空间
+         */
 		//################################################################################################
 
 		private static readonly string UPLOAD_KEY = "JSKEY_UPLOAD_KEY";
-		private static long uploadSession = 1;
+		private static long uploadSession = (new Random().Next(int.MaxValue));
 
 		/// <summary>
 		/// 获取一个新的上传文件会话信息
 		/// </summary>
 		/// <returns>long</returns>
-		public static long GetNewSessionKey()
+		private static long GetNewSessionKey()
 		{
-			if (uploadSession == long.MaxValue)
+			if (uploadSession >= long.MaxValue || uploadSession < 0)
 			{
 				uploadSession = 0L;//还原
 			}
-			return uploadSession++;
+			uploadSession++;
+			return uploadSession;
 		}
 
 		/// <summary>
-		/// 刷新sessionKey时间
-		/// </summary>
-		/// <param name="sessionKey">用户临时主目录</param>
-		public static void RefreshSessionTime(long sessionKey)
-		{
-			try
-			{
-				if (JskeyUpload.jskeyUploadMap.ContainsKey(sessionKey))
-				{
-					JskeyUpload.jskeyUploadMap.Remove(sessionKey);
-				}
-				JskeyUpload.jskeyUploadMap.Add(sessionKey, DateTime.Now.Ticks);//更新时间标识
-			}
-			catch
-			{
-			}
-		}
-		/// <summary>
-		/// 获取sessionKey并刷新sessionKey时间，没有则返回0
+		/// 获取sessionKey，没有则新创建一个
 		/// </summary>
 		/// <param name="request">HttpRequest</param>
 		/// <returns>long</returns>
@@ -410,7 +411,7 @@ namespace Dswork.Core.Upload
 			return GetSessionKey(request.RequestContext.HttpContext.Session);
 		}
 		/// <summary>
-		/// 获取sessionKey并刷新sessionKey时间，没有则返回0
+		/// 获取sessionKey，没有则新创建一个
 		/// </summary>
 		/// <param name="request">HttpRequestBase</param>
 		/// <returns>long</returns>
@@ -419,7 +420,7 @@ namespace Dswork.Core.Upload
 			return GetSessionKey(request.RequestContext.HttpContext.Session);
 		}
 		/// <summary>
-		/// 获取sessionKey并刷新sessionKey时间，没有则返回0
+		/// 获取sessionKey，没有则新创建一个
 		/// </summary>
 		/// <param name="request">HttpRequestWrapper</param>
 		/// <returns>long</returns>
@@ -427,7 +428,7 @@ namespace Dswork.Core.Upload
 		{
 			return GetSessionKey(request.RequestContext.HttpContext.Session);
 		}
-		//获取sessionKey并刷新sessionKey时间，没有则返回0
+		// 获取sessionKey，没有则新创建一个
 		private static long GetSessionKey(HttpSessionStateBase session)
 		{
 			Object obj = session[JskeyUpload.UPLOAD_KEY];
@@ -439,7 +440,6 @@ namespace Dswork.Core.Upload
 					key = Convert.ToInt64(obj);
 					if (key > 0)
 					{
-						JskeyUpload.RefreshSessionTime(key);
 						session[JskeyUpload.UPLOAD_KEY] = key;
 						return key;
 					}
@@ -448,62 +448,13 @@ namespace Dswork.Core.Upload
 				{
 				}
 			}
-			session[JskeyUpload.UPLOAD_KEY] = null;
-			return 0;
-		}
-
-		/// <summary>
-		/// 获取并刷新sessionKey值，没有则新创建一个
-		/// </summary>
-		/// <param name="request">HttpRequest</param>
-		/// <returns>long</returns>
-		public static long RefreshSessionKey(HttpRequest request)
-		{
-			long key = JskeyUpload.GetSessionKey(request);
-			return RefreshSessionKey(key, request.RequestContext.HttpContext.Session);
-		}
-		/// <summary>
-		/// 获取并刷新sessionKey值，没有则新创建一个
-		/// </summary>
-		/// <param name="request">HttpRequestBase</param>
-		/// <returns>long</returns>
-		public static long RefreshSessionKey(HttpRequestBase request)
-		{
-			long key = JskeyUpload.GetSessionKey(request);
-			return RefreshSessionKey(key, request.RequestContext.HttpContext.Session);
-		}
-		/// <summary>
-		/// 获取并刷新sessionKey值，没有则新创建一个
-		/// </summary>
-		/// <param name="request">HttpRequestWrapper</param>
-		/// <returns>long</returns>
-		public static long RefreshSessionKey(HttpRequestWrapper request)
-		{
-			long key = JskeyUpload.GetSessionKey(request);
-			return RefreshSessionKey(key, request.RequestContext.HttpContext.Session);
-		}
-		//获取并刷新sessionKey值，没有则新创建一个
-		private static long RefreshSessionKey(long key, HttpSessionStateBase session)
-		{
 			if (key > 0)
 			{
 				return key;
 			}
 			key = JskeyUpload.GetNewSessionKey();
 			session[JskeyUpload.UPLOAD_KEY] = key;
-			JskeyUpload.ToStart(key);
 			return key;
-		}
-
-		/// <summary>
-		/// 启动临时上传目录清理程序,在目录生成或文件上传后,才需要将sessionKey加入管理程序
-		/// </summary>
-		/// <param name="sessionKey">用户临时主目录</param>
-		public static void ToStart(long sessionKey)
-		{
-			JskeyUpload.RefreshSessionTime(sessionKey);
-			JskeyUpload._timer.Start();
-			log.Debug("--临时上传目录清理程序启动，已经添加任务调度表，清理间隔" + JskeyUpload.UPLOAD_TIMEOUT / 1000 + "秒。--");
 		}
 	}
 }
