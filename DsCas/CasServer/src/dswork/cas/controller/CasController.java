@@ -29,7 +29,6 @@ import dswork.cas.model.LoginUser;
 public class CasController
 {
 	static Logger log = LoggerFactory.getLogger(CasController.class.getName());
-	
 	@Autowired
 	private CasFactoryService service;
 	private static Map<String, String> onceMap = new HashMap<String, String>();
@@ -96,7 +95,7 @@ public class CasController
 					String ticket = putLoginInfo(request, response, user.getAccount());
 					try
 					{
-						service.saveLogLogin(ticket, request.getRemoteAddr(), user.getAccount(), user.getName(), true);
+						service.saveLogLogin(ticket, getClientIp(request), user.getAccount(), user.getName(), true);
 					}
 					catch(Exception logex)
 					{
@@ -114,7 +113,7 @@ public class CasController
 			request.setAttribute("code", "ZHN3b3Jr");
 			try
 			{
-				service.saveLogLogin("", request.getRemoteAddr(), account, "", false);
+				service.saveLogLogin("", getClientIp(request), account, "", false);
 			}
 			catch(Exception logex)
 			{
@@ -195,11 +194,35 @@ public class CasController
 		TicketService.removeSession(ticket);// 删除
 		cookie.delCookie(SessionListener.COOKIETICKET);
 	}
-	
+
 	private String getOnceTicket(String ticket)
 	{
 		String onceTicket = UUID.randomUUID().toString() + System.currentTimeMillis();
 		onceMap.put(onceTicket, ticket);
 		return onceTicket;
+	}
+
+	public static String getClientIp(HttpServletRequest request)
+	{
+		String ip = request.getHeader("X-Forwarded-For");
+		if(ip != null && ip.length() > 0 && !"null".equalsIgnoreCase(ip) && !"unKnown".equalsIgnoreCase(ip))
+		{
+			// 多次反向代理后会有多个ip值，第一个ip才是真实ip
+			int index = ip.indexOf(",");
+			if(index != -1)
+			{
+				return ip.substring(0, index);
+			}
+			else
+			{
+				return ip;
+			}
+		}
+		ip = request.getHeader("X-Real-IP");
+		if(ip != null && ip.length() > 0 && !"null".equalsIgnoreCase(ip) && !"unKnown".equalsIgnoreCase(ip))
+		{
+			return ip;
+		}
+		return request.getRemoteAddr();
 	}
 }
