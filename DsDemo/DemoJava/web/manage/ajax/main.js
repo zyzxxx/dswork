@@ -1,7 +1,7 @@
 require.config({
 	baseUrl: '/web/js',
 	shim:{
-		'dswork':['jquery','jskey','jquery.form','jquery.easyui'],
+		'dswork':['jquery','jquery.form','jquery.easyui'],
 		'dswork.get':['dswork']
 	},
     paths: {
