@@ -62,6 +62,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			if(service.isSystemExist(systemAlias, systemPassword))
 			{
@@ -90,6 +91,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			ISystem[] m = service.getSystemByUser(userAccount);
 			out.print(toJson(m));
@@ -116,6 +118,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			if(service.isSystemExist(systemAlias, systemPassword))
 			{
@@ -148,6 +151,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			if(service.isSystemExist(systemAlias, systemPassword))
 			{
@@ -180,6 +184,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			if(service.isSystemExist(systemAlias, systemPassword))
 			{
@@ -211,6 +216,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			IOrg m = service.getOrgByOrgId(orgId);
 			out.print(toJson(m));
@@ -235,6 +241,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			IOrg[] m = service.queryOrgByOrgPid(orgPid);
 			out.print(toJson(m));
@@ -259,6 +266,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			IOrg[] arr = service.queryOrgByOrgPid(orgId);
 			if (arr != null)
@@ -295,6 +303,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			IUser m = service.getUserByAccount(userAccount);
 			out.print(toJson(m));
@@ -319,6 +328,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			IUser[] m = service.queryUserByPostid(postId);
 			out.print(toJson(m));
@@ -343,6 +353,7 @@ public class AuthController
 		try
 		{
 			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
 			PrintWriter out = response.getWriter();
 			IUser user = service.getUserByAccount(userAccount);
 			if(user != null)
