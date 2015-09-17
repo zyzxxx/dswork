@@ -249,10 +249,9 @@ public class AuthFilter implements Filter
 						{
 						}
 						else
-						// 任意一个找不到则跳出内层for循环
 						{
 							flag = false;
-							break;
+							break;// 任意一个找不到则跳出内层for循环
 						}
 					}
 					if(flag)
