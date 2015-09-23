@@ -40,7 +40,7 @@ public class AuthFilter implements Filter
 	private static String PAGE_NOACCESS;// 跳转到无权限提示页面
 	private static Set<String> PAGE_IGNORE = new HashSet<String>();// 无需验证页面
 	private static String CHECK_FIX;// 需要过滤的后缀名
-	private static boolean isCheckAllFix;// 是否需要过滤后缀名
+	private static boolean isCheckAllFix;// 是否需要过滤所有后缀名
 	private static boolean isCheckParam;// 是否需要验证参数
 	private static Map<String, List<IRes>> resMap = new HashMap<String, List<IRes>>();// 只存放url作为key值
 	private static long refreshTime = 0L;
