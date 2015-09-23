@@ -120,7 +120,7 @@ public class AuthFilter implements Filter
 		PAGE_NOACCESS = AuthFactory.getToString(KEY_PAGE_NOACCESS, "");
 		splitToSet(AuthFactory.getToString(KEY_PAGE_IGNORE, ""), PAGE_IGNORE);
 		splitToSet(PAGE_NOACCESS, PAGE_IGNORE);
-		CHECK_FIX = AuthFactory.getToString(KEY_CHECK_FIX, "htm,jsp").trim();
+		CHECK_FIX = AuthFactory.getToString(KEY_CHECK_FIX, "").trim();
 		isCheckParam = AuthFactory.getToBoolean(KEY_CHECK_PARAM, false);
 		if(CHECK_FIX.length() > 0)
 		{
