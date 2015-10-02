@@ -21,7 +21,7 @@ if(obj == null || username.length() == 0 || username.equals("null"))
 <link rel="icon" type="image/x-icon" href="<%=path %>/favicon.ico" />
 <link rel="shortcut icon" type="image/x-icon" href="<%=path %>/favicon.ico" />
 </head>
-<frameset id="fk" name="fk" rows="100,*,24" cols="*" frameborder="no" border="0" framespacing="0">
+<frameset id="fk" name="fk" rows="76,*,24" cols="*" frameborder="no" border="0" framespacing="0">
 	<frame src="<%=path %>/frame/top.jsp" id="topFrame" name="topFrame" scrolling="no" noresize="noresize"/>
 	<frame src="<%=path %>/frame/middle.html?data=<%=Math.random()%>" id="middleFrame" name="middleFrame" scrolling="no" noresize="noresize"/>
 	<frame src="<%=path %>/frame/bottom.html" id="bottomFrame" name="bottomFrame" scrolling="no" noresize="noresize"/>

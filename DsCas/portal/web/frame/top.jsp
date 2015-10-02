@@ -2,6 +2,7 @@
 <%@page import="dswork.cas.CasFilter"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8" />
@@ -11,49 +12,52 @@
 <meta http-equiv="expires" content="0" />
 <link rel="stylesheet" type="text/css" href="style/frame.css" />
 <script type="text/javascript">
-if(top.location == this.location){top.location = "${ctx}/index.jsp";}
+var PFM = parent.frames["middleFrame"];
+function $id(id){return document.getElementById(id);}
 function reload(){
-	try{
-		parent.frames["middleFrame"].$('iframe', parent.frames["middleFrame"].$("#tt").tabs("getSelected"))[0].contentWindow.location.reload();
-	}catch(e){alert(e.message);}
+	try{PFM.$('iframe', PFM.$("#tt").tabs("getSelected"))[0].contentWindow.location.reload();}catch(e){alert(e.message);}
 }
-function doLogo(img){
-	var fs = parent.document.getElementById("fk");
-	if(document.getElementById("Logo").style.display == "none"){
-		img.src = "style/top/fullscreen.png";
-		img.title = "放大";
-		fs["rows"] = "100,*,24";
-		document.getElementById("Logo").style.display = "";
+function doDraw(){
+	var x = parent.document.getElementById("fk");
+	if($id("titleDIV").className != "title"){
+		$id("titleDIV").className = "title";
+		$id("toolDiv").className = "xtool tool";
+		setimg("big_");
+		x["rows"] = "76,*,24";
 	}
 	else{
-		img.src = "style/top/customscreen.png";
-		img.title = "缩小";
-		fs["rows"] = "24,*,0";
-		document.getElementById("Logo").style.display = "none";
+		$id("titleDIV").className = "minititle";
+		$id("toolDiv").className = "xtool minitool";
+		setimg("mini_");
+		x["rows"] = "26,*,0";
 	}
+}
+function setimg(v){
+	var p = "style/top/white/" + v;
+	$id("vuser").src = p + "user.png";
+	$id("vhome").src = p + "home.png";
+	$id("vreload").src = p + "reload.png";
+	$id("vswitch").src = p + "switch.png";
+	$id("vlogout").src = p + "logout.png";
+	$id("vwin").title=(v=="big_"?"最大化":"恢复");
+	try{$id("vscreen").src = p + "screen.png";}catch(e){}
 }
 </script>
 </head>
 <body onselectstart="return false;" oncontextmenu="return false;">
 <div class="topframe">
-	<div id="Logo" class="logo">
-		<div class="left"></div>
-		<div class="right"></div>
-	</div>
-	<div class="show">
-		<div class="left">
-			<img class="img" src="style/top/man.png"/>
-			<div>当前用户：<%=CasFilter.getAccount(session) %></div>
-		</div>
-		<div class="right">
-			<img class="img" src="style/top/home.png"/><a title="首页" onclick="parent.frames['middleFrame'].$('#tt').tabs('select', 0);" href="#">首页</a>
-			<img class="img" src="style/top/reload.png"/><a title="刷新主页面" onclick="reload();" href="#">刷新</a>
-			<img class="img" src="style/top/logout.png"/><a title="退出系统" target="_top" onclick="" href="${ctx}/logout.jsp">退出</a>
-			<img class="img" src="style/top/switch.png" /><a onclick='parent.frames["middleFrame"].frames["leftFrame"].showSystem();return false;' href="#">切换系统</a>
-			&nbsp; <img class="img" style="cursor:pointer;" onclick="doLogo(this); return false;" src="style/top/fullscreen.png" title="放大" />
-		</div>
+	<div class="left"></div>
+	<div class="right"></div>
+	<div id="toolDiv" class="xtool minitool">
+		<div><img id="vuser" src="#"/><span class="show"><%=CasFilter.getAccount(session) %></span></div>
+		<div onclick="PFM.$('#tt').tabs('select', 0);"       title="切换首页"><img id="vhome"   src="#"/><span>首页</span></div>
+		<div onclick="reload();"                             title="刷新页面"><img id="vreload" src="#"/><span>刷新</span></div>
+		<div onclick="PFM.frames['leftFrame'].showSystem();" title="切换系统"><img id="vswitch" src="#"/><span>切换系统</span></div>
+		<div onclick="top.location.href='${ctx}/logout.jsp';"    title="退出"><img id="vlogout" src="#"/><span>退出</span></div>
+		<div onclick="doDraw();" title="" id="vwin"><img id="vscreen" src="#" class="mini"/></div>
 	</div>
 </div>
-<div id="logoDIV" class="title">计算机管理控制程序</div>
+<div id="titleDIV" class="minititle">计算机管理控制程序</div>
 </body>
+<script type="text/javascript">doDraw();</script>
 </html>
