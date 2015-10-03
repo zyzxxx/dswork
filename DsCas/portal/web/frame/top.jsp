@@ -20,16 +20,16 @@ function reload(){
 function doDraw(){
 	var x = parent.document.getElementById("fk");
 	if($id("titleDIV").className != "title"){
+		x["rows"] = "76,*,24";
 		$id("titleDIV").className = "title";
 		$id("toolDiv").className = "xtool tool";
 		setimg("big_");
-		x["rows"] = "76,*,24";
 	}
 	else{
+		x["rows"] = "26,*,0";
 		$id("titleDIV").className = "minititle";
 		$id("toolDiv").className = "xtool minitool";
 		setimg("mini_");
-		x["rows"] = "26,*,0";
 	}
 }
 function setimg(v){
