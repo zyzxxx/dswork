@@ -36,8 +36,11 @@ function menuload(o){
 <%--
 这个是全部加载在同一个页面
 <script type="text/javascript" src="left.js"></script>
+
 这个是每次只加载一个系统
 <script type="text/javascript" src="leftone.js"></script>
+如果使用leftone.js，则在top.jsp上增加功能菜单
+<div onclick="PFM.frames['leftFrame'].showSystem();" title="切换系统"><img id="vswitch" src="#"/><span>切换系统</span></div>
 --%>
 <script type="text/javascript" src="left.js"></script>
 </head>

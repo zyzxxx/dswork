@@ -37,7 +37,7 @@ function setimg(v){
 	$id("vuser").src = p + "user.png";
 	$id("vhome").src = p + "home.png";
 	$id("vreload").src = p + "reload.png";
-	$id("vswitch").src = p + "switch.png";
+	try{$id("vswitch").src = p + "switch.png";}catch(e){}
 	$id("vlogout").src = p + "logout.png";
 	$id("vwin").title=(v=="big_"?"最大化":"恢复");
 	try{$id("vscreen").src = p + "screen.png";}catch(e){}
@@ -52,7 +52,7 @@ function setimg(v){
 		<div><img id="vuser" src="#"/><span class="show"><%=CasFilter.getAccount(session) %></span></div>
 		<div onclick="PFM.$('#tt').tabs('select', 0);"       title="切换首页"><img id="vhome"   src="#"/><span>首页</span></div>
 		<div onclick="reload();"                             title="刷新页面"><img id="vreload" src="#"/><span>刷新</span></div>
-		<div onclick="PFM.frames['leftFrame'].showSystem();" title="切换系统"><img id="vswitch" src="#"/><span>切换系统</span></div>
+		<%--<div onclick="PFM.frames['leftFrame'].showSystem();" title="切换系统"><img id="vswitch" src="#"/><span>切换系统</span></div>--%>
 		<div onclick="top.location.href='${ctx}/logout.jsp';"    title="退出"><img id="vlogout" src="#"/><span>退出</span></div>
 		<div onclick="doDraw();" title="" id="vwin"><img id="vscreen" src="#" class="mini"/></div>
 	</div>

@@ -5,6 +5,6 @@
 <meta charset="UTF-8" />
 <style type="text/css">html,body{height:100%;}</style>
 </head>
-<body style="background:url(../../img/index.jpg) no-repeat center bottom fixed;">
+<body style="background:url(/web/share/index.jpg) no-repeat center bottom fixed;position:relative;overflow:hidden;">
 </body>
 </html>
