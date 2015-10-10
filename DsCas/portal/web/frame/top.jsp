@@ -23,24 +23,16 @@ function doDraw(){
 		x["rows"] = "76,*,24";
 		$id("titleDIV").className = "title";
 		$id("toolDiv").className = "xtool tool";
-		setimg("big_");
+		$id("fontscreen").innerHTML = "&#xf0021;";
+		$id("vwin").title = "收缩";
 	}
 	else{
 		x["rows"] = "26,*,0";
 		$id("titleDIV").className = "minititle";
 		$id("toolDiv").className = "xtool minitool";
-		setimg("mini_");
+		$id("fontscreen").innerHTML = "&#xf0022;";
+		$id("vwin").title = "恢复";
 	}
-}
-function setimg(v){
-	var p = "style/top/white/" + v;
-	$id("vuser").src = p + "user.png";
-	$id("vhome").src = p + "home.png";
-	$id("vreload").src = p + "reload.png";
-	try{$id("vswitch").src = p + "switch.png";}catch(e){}
-	$id("vlogout").src = p + "logout.png";
-	$id("vwin").title=(v=="big_"?"最大化":"恢复");
-	try{$id("vscreen").src = p + "screen.png";}catch(e){}
 }
 </script>
 </head>
@@ -49,12 +41,12 @@ function setimg(v){
 	<div class="left"></div>
 	<div class="right"></div>
 	<div id="toolDiv" class="xtool minitool">
-		<div><img id="vuser" src="#"/><span class="show"><%=CasFilter.getAccount(session) %></span></div>
-		<div onclick="PFM.$('#tt').tabs('select', 0);"       title="切换首页"><img id="vhome"   src="#"/><span>首页</span></div>
-		<div onclick="reload();"                             title="刷新页面"><img id="vreload" src="#"/><span>刷新</span></div>
-		<%--<div onclick="PFM.frames['leftFrame'].showSystem();" title="切换系统"><img id="vswitch" src="#"/><span>切换系统</span></div>--%>
-		<div onclick="top.location.href='${ctx}/logout.jsp';"    title="退出"><img id="vlogout" src="#"/><span>退出</span></div>
-		<div onclick="doDraw();" title="" id="vwin"><img id="vscreen" src="#" class="mini"/></div>
+		<div><i>&#xf0001;</i><b class="show"><%=CasFilter.getAccount(session) %></b></div>
+		<div onclick="PFM.$('#tt').tabs('select', 0);"       title="切换首页"><i>&#xf0003;</i><b>首页</b></div>
+		<div onclick="reload();"                             title="刷新页面"><i>&#xf0004;</i><b>刷新</b></div>
+		<%--<div onclick="PFM.frames['leftFrame'].showSystem();" title="切换系统"><i>&#xf0009;</i><b>切换系统</b></div>--%>
+		<div onclick="top.location.href='${ctx}/logout.jsp';"    title="退出"><i>&#xf0005;</i><b>退出</b></div>
+		<div onclick="doDraw();" title="" id="vwin"><i id="fontscreen" class="mini">&#xf0021;</i></div>
 	</div>
 </div>
 <div id="titleDIV" class="minititle">计算机管理控制程序</div>
