@@ -4,6 +4,18 @@
 html,body {height:100%;margin:0px;padding:0px;overflow:hidden;}
 iframe {margin:0px;padding:0px;border:none;width:100%;height:100%;}
 
+@font-face {
+	font-family:"dsworkfont" !important;
+	src:url("fonts/dsworkfont.eot");/* IE9+ */
+	src:local('☺'),
+	  url('fonts/dsworkfont.eot?#iefix') format('embedded-opentype'),/* IE6-IE8 */
+	  url('fonts/dsworkfont.woff') format('woff'),/* chrome、firefox */
+	  url('fonts/dsworkfont.ttf') format('truetype'),/* chrome、firefox、opera、Safari, Android, iOS 4.2+ */
+	  url('fonts/dsworkfont.svg#iconfont') format('svg');/* iOS 4.1- */
+	font-weight:normal;
+	font-style:normal;
+}
+
 a {font-size:12px;cursor:hand;cursor:pointer;text-decoration:none;}
 a:link {color:#eeeeee;}
 a:visited {color:#eeeeee;}
@@ -15,6 +27,8 @@ div.minititle {margin-left:10px;line-height:28px;font-size:14px;}
 
 .topframe {height:76px;width:100%;background-color:#4c7fbe;top:0;left:0;overflow:hidden;}
 .topframe img {border:none;margin:0;padding:0;vertical-align:middle;}
+.topframe i,.topframe b{color:#ffffff;font-style:normal;font-weight:normal;display:inline;vertical-align:baseline;text-decoration:inherit;}
+.topframe i {font-size:16px;font-family:'dsworkfont';height:auto;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:0.2px;-moz-osx-font-smoothing:grayscale;}
 
 .topframe .left {float:left; width:300px;height:100%;background:url(top/left.png)  no-repeat;overflow:hidden;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="style/top/left.png");}
 .topframe .right{float:right;width:300px;height:100%;background:url(top/right.png) no-repeat;overflow:hidden;_background:none;_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="style/top/right.png");text-align:center;}
@@ -24,16 +38,21 @@ div.minititle {margin-left:10px;line-height:28px;font-size:14px;}
 .topframe .xtool div{cursor:pointer;background:#4c7fbe;height:100%;text-align:center;vertical-align:middle;display:block;float:left;margin-left:1px;padding:0 5px;}
 .topframe .xtool div:hover{background:#6699cc;}
 .topframe .xtool div img{float:left;}
-.topframe .xtool div span{float:left;font-size:14px;color:#eeeeee;padding:0 3px;font-weight:bold;font-family:"宋体"}
-.topframe .xtool div span:hover{color:#ffffff;}
+.topframe .xtool div i{float:left;}
+.topframe .xtool div b{float:left;font-size:14px;color:#eeeeee;padding:0 3px;font-weight:bold;font-family:"宋体"}
+.topframe .xtool div b:hover{color:#ffffff;}
 
-.topframe .tool div span{display:none;height:76px;line-height:76px;margin:0 12px 0 -12px;}
-.topframe .tool div span.show{display:inline;}
+.topframe .tool div b{display:none;height:76px;line-height:76px;margin:0 12px 0 -12px;}
+.topframe .tool div b.show{display:inline;}
 .topframe .tool div img {margin:22px 12px;}
 .topframe .tool div img.mini {margin:22px -5px;}
+.topframe .tool div i {margin:22px 12px;font-size:32px;}
+.topframe .tool div i.mini {margin:22px -5px;font-size:32px;}
 
-.topframe .minitool div span{display:inline;line-height:26px;}
+.topframe .minitool div b{display:inline;line-height:26px;}
 .topframe .minitool div img {margin:4px 0 0 0px;}
+.topframe .minitool div i {margin:4px 0 0 0px;font-size:16px;}
+.topframe .minitool div i.mini {margin:4px 0 0 0px;font-size:16px;}
 
 
 .middleframe {border:none;width:100%;height:100%;background-color:#E0ECFF;}
@@ -48,13 +67,4 @@ div.minititle {margin-left:10px;line-height:28px;font-size:14px;}
 .bottomframe {width:100%;height:100%;line-height:25px;color:#ffffff;text-align:center;
 	background-color: #4C7FBE;
 }
-/*
-
-	background: -webkit-linear-gradient(top,#ffffff 0,#7198DB 100%);
-	background: -moz-linear-gradient(top,#ffffff 0,#7198DB 100%);
-	background: -o-linear-gradient(top,#ffffff 0,#7198DB 100%);
-	background: linear-gradient(to bottom,#ffffff 0,#7198DB 100%);
-	background-repeat: repeat-x;
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff,endColorstr=#7198DB,GradientType=0);
-*/
 .bottomframe .copyRight {font-family:Arial;}
