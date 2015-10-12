@@ -52,7 +52,6 @@ $(function(){
 			<a class="graph" id="btn_site" href="#">发布首页</a>
 			<a class="look" target="_blank" href="buildHTML.chtml?siteid=${po.siteid}">预览首页</a>
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getCategory.htm?siteid=${param.siteid}">返回</a>
 		</td>
 	</tr>
 </table>
