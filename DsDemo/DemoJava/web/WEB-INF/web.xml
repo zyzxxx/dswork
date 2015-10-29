@@ -67,6 +67,16 @@
 		<url-pattern>*.htm</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>xxx</servlet-name>
+		<servlet-class>dswork.web.MyAuthCodeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>xxx</servlet-name>
+		<url-pattern>/ValidCode</url-pattern>
+	</servlet-mapping>
+	
+	
 	<error-page>
 		<error-code>403</error-code>
 		<location>/commons/403.jsp</location>
