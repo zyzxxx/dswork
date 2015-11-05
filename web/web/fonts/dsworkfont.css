@@ -1,5 +1,5 @@
 @font-face {
-	font-family:"dsworkfont" !important;
+	font-family:"dsworkfont",Sans-Serif;
 	src:url("dsworkfont/dsworkfont.eot");/* IE9+ */
 	src:url('dsworkfont/dsworkfont.eot?#iefix') format('embedded-opentype'),/* IE6-IE8 */
 		url('dsworkfont/dsworkfont.woff') format('woff'),/* chrome、firefox */
