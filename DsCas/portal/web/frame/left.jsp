@@ -9,6 +9,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"/>
 <title></title>
 <link rel="stylesheet" type="text/css" href="${ctx}/frame/js/jskey/themes/menu/jskey.menu.css" />
 <script type="text/javascript" src="${ctx}/frame/js/jskey/jskey.menu.js"></script>
