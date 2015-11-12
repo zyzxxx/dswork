@@ -185,9 +185,4 @@ public class CasFactoryService
 		List<IFunc> list = dao.getFuncBySystemAliasAndPostid(systemAlias, postid);
 		return list.toArray(new IFunc[list.size()]);
 	}
-	
-	public boolean isSystemExist(String systemAlias, String systemPassword)
-	{
-		return dao.isSystemExist(systemAlias, systemPassword);
-	}
 }

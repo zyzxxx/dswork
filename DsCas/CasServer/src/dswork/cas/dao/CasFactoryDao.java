@@ -121,11 +121,6 @@ public class CasFactoryDao extends MyBatisDao
 		return "0";// 该id主要作为sql查询条件，没有值时返回0，DS_COMMON_SYSTEM表没有0的记录
 	}
 
-	public boolean isSystemExist(String systemAlias, String systemPassword)
-	{
-		ISystem sys = getISystem(systemAlias);
-		return (sys != null && String.valueOf(systemPassword).equals(sys.getPassword()));
-	}
 	public ISystem getSystem(String systemAlias)
 	{
 		return getISystem(systemAlias);
