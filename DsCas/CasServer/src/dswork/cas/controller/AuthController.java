@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cas.service.CasFactoryService;
+import dswork.cas.service.TicketService;
 import dswork.cas.model.IFunc;
 import dswork.cas.model.IOrg;
 import dswork.cas.model.ISystem;
@@ -282,6 +283,60 @@ public class AuthController
 				IOrg[] m = newList.toArray(new IOrg[newList.size()]);
 				out.print(toJson(m));
 			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		request.getSession().invalidate();
+	}
+
+	/**
+	 * @note 获取指定用户的基本信息
+	 * @param ticket 一次性用户ticket
+	 * @return Map
+	 */
+	@RequestMapping("/getLoginer")
+	public void getLoginer(HttpServletRequest request, HttpServletResponse response)
+	{
+		MyRequest req = new MyRequest(request);
+		String onceTicket = req.getString("ticket");
+		String account = null;
+		if(onceTicket.length() > 0)
+		{
+			account = TicketService.getAccountByOnceTicket(onceTicket);
+		}
+		try
+		{
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			if(account != null)
+			{
+				IUser m = service.getUserByAccount(account);
+				java.util.Map<String, String> map = new java.util.HashMap<String, String>();
+
+				map.put("id", m.getId() + "");
+				map.put("account", m.getAccount());
+				map.put("name", m.getName());
+				map.put("idcard", m.getIdcard());
+				map.put("workcard", m.getWorkcard());
+				map.put("orgid", m.getOrgid() + "");
+				map.put("orgpid", m.getOrgpid() + "");
+				
+				//IOrg o = service.getOrgByOrgId(m.getOrgid() + "");
+				//map.put("orgname", o.getName());
+				
+				//o = service.getOrgByOrgId(m.getOrgpid() + "");
+				//map.put("unitname", o.getName());
+				
+				out.print(toJson(map));
+			}
+			else
+			{
+				out.print("{}");
+			}
+			out.close();
 		}
 		catch(Exception ex)
 		{

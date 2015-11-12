@@ -65,7 +65,7 @@ a {color:#0000ff;font-size:12px;font-weight:normal;line-height:40px;font-family:
 <body>
 <div class="content">
   <div class="title">统一认证平台</div>
-  <form id="v" action="loginAction.htm" method="post">
+  <form id="v" action="loginAction" method="post">
   <div class="login">
 	<div class="loginTit">用户登录</div>
 	<div class="box">

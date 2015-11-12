@@ -31,7 +31,6 @@ public class CasController
 	static Logger log = LoggerFactory.getLogger(CasController.class.getName());
 	@Autowired
 	private CasFactoryService service;
-	private static Map<String, String> onceMap = new HashMap<String, String>();
 
 	/**
 	 * 用户登录系统的入口
@@ -54,7 +53,7 @@ public class CasController
 			if(account != null)
 			{
 				// 无需登录，生成ticket给应用去登录
-				response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + getOnceTicket(cookieTicket));
+				response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(cookieTicket));
 				return null;
 			}
 			removeLoginInfo(request, response);// 把相关信息删除
@@ -101,7 +100,7 @@ public class CasController
 					{
 					}
 					// 成功就跳到切换系统视图
-					response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + getOnceTicket(ticket));
+					response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(ticket));
 					return null;
 				}
 			}
@@ -146,35 +145,14 @@ public class CasController
 		removeLoginInfo(request, response);// 试着删除
 		MyRequest req = new MyRequest(request);
 		String serviceURL = java.net.URLEncoder.encode(req.getString("service", request.getContextPath() + "/ticket.jsp"), "UTF-8");
-		response.sendRedirect(request.getContextPath() + "/login.htm?service=" + String.valueOf(serviceURL));
+		response.sendRedirect(request.getContextPath() + "/login?service=" + String.valueOf(serviceURL));
 		return;
-	}
-
-	// 明细
-	@RequestMapping("/validate")
-	public void validate(HttpServletRequest request, HttpServletResponse response) throws Exception
-	{
-		String account = null;
-		MyRequest req = new MyRequest(request);
-		String onceTicket = req.getString("ticket");
-		if(onceTicket.length() > 0)
-		{
-			String ticket = onceMap.get(onceTicket);
-			onceMap.remove(onceTicket);// 使用后必须移除
-			if(ticket != null)
-			{
-				account = TicketService.getAccountByTicket(ticket);
-			}
-		}
-		response.setContentType("text/plain");
-		response.getWriter().print(account != null ? account : "");
-		response.getWriter().close();
 	}
 
 	@RequestMapping("/index")
 	public void index(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
-		response.sendRedirect(request.getContextPath() + "/login.htm");
+		response.sendRedirect(request.getContextPath() + "/login");
 	}
 
 	private String putLoginInfo(HttpServletRequest request, HttpServletResponse response, String account)
@@ -193,13 +171,6 @@ public class CasController
 		String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
 		TicketService.removeSession(ticket);// 删除
 		cookie.delCookie(SessionListener.COOKIETICKET);
-	}
-
-	private String getOnceTicket(String ticket)
-	{
-		String onceTicket = UUID.randomUUID().toString() + System.currentTimeMillis();
-		onceMap.put(onceTicket, ticket);
-		return onceTicket;
 	}
 
 	public static String getClientIp(HttpServletRequest request)

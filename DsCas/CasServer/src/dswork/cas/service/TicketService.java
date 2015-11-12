@@ -46,4 +46,36 @@ public class TicketService
 			return null;
 		}
 	}
+
+	private static Map<String, String> onceMap = new HashMap<String, String>();
+
+	public static String getOnceTicket(String ticket)
+	{
+		String onceTicket = UUID.randomUUID().toString() + System.currentTimeMillis();
+		onceMap.put(onceTicket, ticket);
+		return onceTicket;
+	}
+
+	/**
+	 * 根据onceTicket返回登录用户名，没有则返回null
+	 * @param onceTicket
+	 * @return String
+	 */
+	public static String getAccountByOnceTicket(String onceTicket)
+	{
+		String account = null;
+		try
+		{
+			String ticket = onceMap.get(onceTicket);
+			onceMap.remove(onceTicket);// 使用后必须移除
+			if(ticket != null)
+			{
+				account = TicketService.getAccountByTicket(ticket);
+			}
+		}
+		catch (Exception e)
+		{
+		}
+		return account;
+	}
 }
