@@ -27,7 +27,7 @@ sso:8888 需要修改成实际对应的CasServer应用的浏览器端访问的�
 			</init-param>
 			<init-param>
 				<param-name>loginURL</param-name>
-				<param-value>http://sso:8888/CasServer/login.htm</param-value>
+				<param-value>http://sso:8888/CasServer/login</param-value>
 			</init-param>
 			<init-param>
 				<param-name>ignoreURL</param-name>
