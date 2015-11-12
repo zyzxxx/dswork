@@ -76,7 +76,7 @@ a {color:#0000ff;font-size:12px;font-weight:normal;line-height:40px;font-family:
 	</div>
 	<div class="box">
 		验证码 <input type="text" placeholder="验证码" id="authcode" name="authcode" maxlength="4" class="code" value="" />
-		<img src='./AuthCode?width=90&height=38' style="cursor:pointer;vertical-align:middle;" onclick="this.src='./AuthCode?width=90&height=38&id=' + Math.random();" />
+		<img src='./authcode?width=90&height=38' style="cursor:pointer;vertical-align:middle;" onclick="this.src='./authcode?width=90&height=38&id=' + Math.random();" />
 	</div>
 	<div class="box">
 		<input type="button" class="button" style="background-color:#00a0f0;color:#fff;" value="登 录" onclick="doclick()" />
