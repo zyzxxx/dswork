@@ -4,9 +4,6 @@
 package dswork.cas.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -90,8 +87,13 @@ public class CasController
 			{
 				msg = "验证码已过期";
 			}
+			else if(!randcode.toLowerCase().equals(authcode.toLowerCase()))
+			{
+				msg = "验证码输入错误,请重新输入";
+			}
 			else
 			{
+				request.getSession().setAttribute(dswork.web.MyAuthCodeServlet.SessionName_Randcode, "");// 对了再清除
 				if(user != null)
 				{
 					if(user.getStatus() != 1)// Status:1允许，0禁止
