@@ -1,8 +1,7 @@
 ﻿﻿<%@page language="java" pageEncoding="UTF-8" import="dswork.cas.CasFilter"%><%
 String path = request.getContextPath();
 Object obj = session.getAttribute(CasFilter.KEY_SESSIONUSER);
-String username = String.valueOf(obj).trim();
-if(obj == null || username.length() == 0 || username.equals("null"))
+if(obj == null)
 {
 	response.sendRedirect(path + "/logout.jsp");
 	return;
