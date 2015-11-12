@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.core.util.EncryptUtil;
+import dswork.web.MyAuthCodeServlet;
 import dswork.web.MyCookie;
 import dswork.web.MyRequest;
 import dswork.cas.service.TicketService;
@@ -73,6 +74,7 @@ public class CasController
 		MyRequest req = new MyRequest(request);
 		String account = req.getString("account").toLowerCase();
 		String password = req.getString("password");
+		String authcode = req.getString("authcode");
 		String serviceURL = req.getString("service", request.getContextPath() + "/ticket.jsp");
 		if(log.isDebugEnabled())
 		{
@@ -81,27 +83,35 @@ public class CasController
 		try
 		{
 			LoginUser user = service.getLoginUserByAccount(account);
-			String msg = "用户名或密码错误！";
 			password = EncryptUtil.decodeDes(password, "ZHN3b3Jr");
-			if(user != null)
+			String msg = "用户名或密码错误！";
+			String randcode = String.valueOf(request.getSession().getAttribute(MyAuthCodeServlet.SessionName_Randcode));
+			if(randcode.equals("null") || randcode.equals(""))
 			{
-				if(user.getStatus() != 1)// Status:1允许，0禁止
+				msg = "验证码已过期";
+			}
+			else
+			{
+				if(user != null)
 				{
-					msg = "用户已禁用，请联系管理员！";
-				}
-				else if(EncryptUtil.encryptMd5(password).equals(user.getPassword()))
-				{
-					String ticket = putLoginInfo(request, response, user.getAccount());
-					try
+					if(user.getStatus() != 1)// Status:1允许，0禁止
 					{
-						service.saveLogLogin(ticket, getClientIp(request), user.getAccount(), user.getName(), true);
+						msg = "用户已禁用，请联系管理员！";
 					}
-					catch(Exception logex)
+					else if(EncryptUtil.encryptMd5(password).equals(user.getPassword()))
 					{
+						String ticket = putLoginInfo(request, response, user.getAccount());
+						try
+						{
+							service.saveLogLogin(ticket, getClientIp(request), user.getAccount(), user.getName(), true);
+						}
+						catch(Exception logex)
+						{
+						}
+						// 成功就跳到切换系统视图
+						response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(ticket));
+						return null;
 					}
-					// 成功就跳到切换系统视图
-					response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(ticket));
-					return null;
 				}
 			}
 			// 失败则转回来
