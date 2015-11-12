@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.Filter;
@@ -22,14 +24,24 @@ import dswork.cas.http.HttpUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.google.gson.reflect.TypeToken;
+
 public class CasFilter implements Filter
 {
+	private static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
+	public static com.google.gson.Gson getGson()
+	{
+		return builder.create();
+	}
+	private static com.google.gson.Gson gson = getGson();
 	static Logger log = LoggerFactory.getLogger(CasFilter.class.getName());
 
-	public final static String KEY_TICKET = "ticket";// url中传来的sessionKey的变量名
-	public final static String KEY_SESSIONUSER = "cas.client.user";// sessionUser在session中的key
+	private final static String TICKET = "ticket";// url中传来的sessionKey的变量名
+	public final static String LOGINER = "cas.client.loginer";// sessionUser在session中的key
+	private static String ssoURL = "";// 验证页面
+	private static String ssoName = "";
+	private static String ssoPassword = "";
 	private static String loginURL = "";// 登录页面
-	private static String validateURL = "";// 验证页面
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException
@@ -48,10 +60,10 @@ public class CasFilter implements Filter
 		}
 		
 		// 判断是否有ticket
-		String ticket = request.getParameter(KEY_TICKET);
+		String ticket = request.getParameter(TICKET);
 		if(ticket == null)// 如果不经由ticket的链接过来，则进此处判断
 		{
-			if(session.getAttribute(KEY_SESSIONUSER) != null)// 已登录
+			if(session.getAttribute(LOGINER) != null)// 已登录
 			{
 				chain.doFilter(request, response);
 				return;
@@ -60,9 +72,9 @@ public class CasFilter implements Filter
 		else
 		// ticket非空,由链接传来ticket
 		{
-			if(ticket.equals(String.valueOf(session.getAttribute(KEY_TICKET))))// 一样的ticket
+			if(ticket.equals(String.valueOf(session.getAttribute(TICKET))))// 一样的ticket
 			{
-				if(session.getAttribute(KEY_SESSIONUSER) != null)// 已登录
+				if(session.getAttribute(LOGINER) != null)// 已登录
 				{
 					chain.doFilter(request, response);
 					return;
@@ -84,15 +96,27 @@ public class CasFilter implements Filter
 		response.sendRedirect(getLoginURL(request));
 		return;
 	}
+	
+	public static String getSsoURL()
+	{
+		return ssoURL;
+	}
+	
+	public static String getSsoName()
+	{
+		return ssoName;
+	}
+	
+	public static String getSsoPassword()
+	{
+		return ssoPassword;
+	}
 
 	public static String getAccount(HttpSession session)
 	{
-		Object o = session.getAttribute(KEY_SESSIONUSER);
-		if(o == null)
-		{
-			return "";
-		}
-		return String.valueOf(o).trim();
+		Map<String, String> m = getLoginer(session);
+		String account = String.valueOf(m.get("account"));
+		return (account.length() > 0 && !account.equals("null")) ? account : "";
 	}
 
 	@SuppressWarnings("all")
@@ -109,7 +133,7 @@ public class CasFilter implements Filter
 			{
 				key = String.valueOf(e.nextElement());
 				value = request.getParameter(key);
-				if(value != null && !value.equals("") && !key.equals(KEY_TICKET) && !key.equals("service"))
+				if(value != null && !value.equals("") && !key.equals(TICKET) && !key.equals("service"))
 				{
 					params += "&" + key + "=" + getValueByParameter(request, key);
 				}
@@ -126,17 +150,53 @@ public class CasFilter implements Filter
 		}
 		return loginURL + URLEncoder.encode(url, "UTF-8");
 	}
+	
+	/**
+	 * @note 获取指定用户的基本信息
+	 * @param ticket 登录凭证
+	 * @return Loginer
+	 */
+	@SuppressWarnings("all")
+	public static Map<String, String> getLoginer(HttpSession session)
+	{
+		Map<String, String> m = null;
+		try
+		{
+			m = (Map<String, String>) session.getAttribute(LOGINER);
+		}
+		catch(Exception e)
+		{
+		}
+		if(m == null)
+		{
+			m = new HashMap<String, String>();
+		}
+		return m;
+	}
 
 	private boolean doValidate(HttpSession session, String ticket)
 	{
 		try
 		{
-			String u = validateURL + ticket;
-			String account = new HttpUtil().create(u, u.startsWith("https:")).connect();// 获取账号名,url[http://127.0.0.1/validate.htm?ticket=]
-			if(account != null && account.length() > 0 && !account.equals("null"))
+			String u = ssoURL + "/getLoginer?ticket=" + ticket;
+			String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
+			if(log.isDebugEnabled())
 			{
-				session.setAttribute(KEY_SESSIONUSER, account);
-				session.setAttribute(KEY_TICKET, ticket);
+				log.debug("CasFilter:url=" + u + ", json:" + v);
+			}
+			Map<String, String> m = gson.fromJson(v, new TypeToken<Map<String, String>>(){}.getType());
+			//m.get("id");
+			//m.get("account");
+			//m.get("name");
+			//m.get("idcard");
+			//m.get("workcard");
+			//m.get("orgid");
+			//m.get("orgpid");
+			String account = String.valueOf(m.get("account"));
+			if(account.length() > 0 && !account.equals("null"))
+			{
+				session.setAttribute(LOGINER, m);
+				session.setAttribute(TICKET, ticket);
 				if(log.isDebugEnabled())
 				{
 					log.debug("account=" + account + ", ticket=" + ticket);
@@ -148,24 +208,27 @@ public class CasFilter implements Filter
 		{
 			log.error(e.getMessage());
 		}
-		session.removeAttribute(KEY_SESSIONUSER);
-		session.removeAttribute(KEY_TICKET);
+		session.removeAttribute(LOGINER);
+		session.removeAttribute(TICKET);
 		return false;
 	}
 
 	public static void doLogout(HttpSession session)
 	{
-		session.setAttribute(KEY_SESSIONUSER, "");
-		session.removeAttribute(KEY_SESSIONUSER);
+		session.setAttribute(LOGINER, "");
+		session.removeAttribute(LOGINER);
 	}
 
 	public void init(FilterConfig config) throws ServletException
 	{
+		ssoURL = String.valueOf(config.getInitParameter("ssoURL")).trim();
+		ssoName = String.valueOf(config.getInitParameter("ssoName")).trim();
+		ssoPassword = String.valueOf(config.getInitParameter("ssoPassword")).trim();
 		loginURL = String.valueOf(config.getInitParameter("loginURL")).trim();
 		loginURL = loginURL + (loginURL.indexOf("?") == -1 ? "?service=" : "&service=");
-		validateURL = String.valueOf(config.getInitParameter("validateURL")).trim();
-		validateURL = validateURL + (validateURL.indexOf("?") == -1 ? "?ticket=" : "&ticket=");
+		
 		ignoreURLSet.clear();
+		
 		String ignoreURL = String.valueOf(config.getInitParameter("ignoreURL")).trim();
 		if(ignoreURL.length() > 0)
 		{
@@ -197,7 +260,9 @@ public class CasFilter implements Filter
 		{
 			value = request.getParameter(parameter);
 			if(value == null)
+			{
 				return "";
+			}
 			value = value.trim();
 		}
 		else
@@ -206,9 +271,13 @@ public class CasFilter implements Filter
 			for(int i = 0; i < values.length; i++)
 			{
 				if(i == k - 1)
+				{
 					value += values[i].trim();
+				}
 				else
+				{
 					value += values[i].trim() + ",";
+				}
 			}
 		}
 		return value;

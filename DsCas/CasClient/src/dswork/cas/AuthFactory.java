@@ -3,10 +3,11 @@
  */
 package dswork.cas;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.security.MessageDigest;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
-import java.util.Properties;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,23 +22,68 @@ import dswork.cas.model.IUser;
 
 public class AuthFactory
 {
-	static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
-	static com.google.gson.Gson gson = builder.create();
+	static com.google.gson.Gson gson = CasFilter.getGson();
 	static String url = "";
 	static Logger log = LoggerFactory.getLogger(CasFilter.class.getName());
+	
+	private static String getAPI()
+	{
+		return CasFilter.getSsoURL();
+	}
+	private static String getName()
+	{
+		return CasFilter.getSsoName();
+	}
+	private static String getPwd()
+	{
+		String v = CasFilter.getSsoPassword();
+		return pwdMd5(v);
+	}
+	private static String pwdMd5(String str)
+	{
+		if(str != null)
+		{
+			Calendar cal = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.CHINA);
+			String v = sdf.format(cal.getTime()) + str;
+			StringBuilder sb = new StringBuilder();
+			try
+			{
+				MessageDigest md = MessageDigest.getInstance("MD5");
+				byte[] digest = md.digest(v.getBytes("UTF-8"));
+				String stmp = "";
+				for(int n = 0; n < digest.length; n++)
+				{
+					stmp = (Integer.toHexString(digest[n] & 0XFF));
+					sb.append((stmp.length() == 1) ? "0" : "").append(stmp);
+				}
+				return sb.toString().toUpperCase(Locale.ENGLISH);
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+			finally
+			{
+				sb = null;
+			}
+		}
+		return "";
+	}
+	
+	
 	
 	//////////////////////////////////////////////////////////////////////////////
 	// 权限相关的方法
 	//////////////////////////////////////////////////////////////////////////////
 	/**
 	 * 获取子系统信息
-	 * @param systemAlias 系统标识
 	 * @param systemPassword 系统访问密码
 	 * @return ISystem
 	 */
-	public static ISystem getSystem(String systemAlias, String systemPassword)
+	public static ISystem getSystem()
 	{
-		String u = url + "/getSystem.htm?systemAlias=" + systemAlias + "&systemPassword=" + systemPassword;
+		String u = getAPI() + "/getSystem?name=" + getName() + "&pwd=" + getPwd();
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -53,7 +99,7 @@ public class AuthFactory
 	 */
 	public static ISystem[] getSystemByUser(String userAccount)
 	{
-		String u = url + "/getSystemByUser.htm?userAccount=" + userAccount;
+		String u = getAPI() + "/getSystemByUser?name=" + getName() + "&pwd=" + getPwd() + "&userAccount=" + userAccount;
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -69,9 +115,9 @@ public class AuthFactory
 	 * @param systemPassword 系统访问密码
 	 * @return IFunc[]
 	 */
-	public static IFunc[] getFunctionBySystem(String systemAlias, String systemPassword)
+	public static IFunc[] getFunctionBySystem()
 	{
-		String u = url + "/getFunctionBySystem.htm?systemAlias=" + systemAlias + "&systemPassword=" + systemPassword;
+		String u = getAPI() + "/getFunctionBySystem?name=" + getName() + "&pwd=" + getPwd();
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -88,9 +134,9 @@ public class AuthFactory
 	 * @param userAccount 用户帐号
 	 * @return IFunc[]
 	 */
-	public static IFunc[] getFunctionByUser(String systemAlias, String systemPassword, String userAccount)
+	public static IFunc[] getFunctionByUser(String userAccount)
 	{
-		String u = url + "/getFunctionByUser.htm?systemAlias=" + systemAlias + "&systemPassword=" + systemPassword + "&userAccount=" + userAccount;
+		String u = getAPI() + "/getFunctionByUser?name=" + getName() + "&pwd=" + getPwd() + "&userAccount=" + userAccount;
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -107,9 +153,9 @@ public class AuthFactory
 	 * @param postId 岗位ID
 	 * @return IFunc[]
 	 */
-	public static IFunc[] getFunctionByPost(String systemAlias, String systemPassword, String postId)
+	public static IFunc[] getFunctionByPost(String postId)
 	{
-		String u = url + "/getFunctionByPost.htm?systemAlias=" + systemAlias + "&systemPassword=" + systemPassword + "&postId=" + postId;
+		String u = getAPI() + "/getFunctionByPost?name=" + getName() + "&pwd=" + getPwd() + "&postId=" + postId;
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -129,7 +175,7 @@ public class AuthFactory
 	 */
 	public static IOrg getOrg(String orgId)
 	{
-		String u = url + "/getOrg.htm?orgId=" + orgId;
+		String u = getAPI() + "/getOrg?name=" + getName() + "&pwd=" + getPwd() + "&orgId=" + orgId;
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -146,7 +192,7 @@ public class AuthFactory
 	 */
 	public static IOrg[] queryOrgByOrgParent(String orgPid)
 	{
-		String u = url + "/queryOrgByOrgParent.htm?orgPid=" + orgPid;
+		String u = getAPI() + "/queryOrgByOrgParent?name=" + getName() + "&pwd=" + getPwd() + "&orgPid=" + orgPid;
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -163,7 +209,7 @@ public class AuthFactory
 	 */
 	public static IOrg[] queryPostByOrg(String orgId)
 	{
-		String u = url + "/queryPostByOrg.htm?orgId=" + orgId;
+		String u = getAPI() + "/queryPostByOrg?name=" + getName() + "&pwd=" + getPwd() + "&orgId=" + orgId;
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -180,7 +226,7 @@ public class AuthFactory
 	 */
 	public static IUser getUser(String userAccount)
 	{
-		String u = url + "/getUser.htm?userAccount=" + userAccount;
+		String u = getAPI() + "/getUser?name=" + getName() + "&pwd=" + getPwd() + "&userAccount=" + userAccount;
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -197,7 +243,7 @@ public class AuthFactory
 	 */
 	public static IUser[] queryUserByPost(String postId)
 	{
-		String u = url + "/queryUserByPost.htm?postId=" + postId;
+		String u = getAPI() + "/queryUserByPost?name=" + getName() + "&pwd=" + getPwd() + "&postId=" + postId;
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -214,7 +260,7 @@ public class AuthFactory
 	 */
 	public static IOrg[] queryPostByUser(String userAccount)
 	{
-		String u = url + "/queryPostByUser.htm?userAccount=" + userAccount;
+		String u = getAPI() + "/queryPostByUser?name=" + getName() + "&pwd=" + getPwd() + "&userAccount=" + userAccount;
 		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 		if(log.isDebugEnabled())
 		{
@@ -222,152 +268,5 @@ public class AuthFactory
 		}
 		List<IOrg> list = gson.fromJson(v, new TypeToken<List<IOrg>>(){}.getType());
 		return list.toArray(new IOrg[list.size()]);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	private static final String SYSTEM_PROPERTIES_PATH = "/config/config.properties";
-	private static Properties SYSTEM_PROPERTIES;
-	static
-	{
-		setSystemProperties(SYSTEM_PROPERTIES_PATH);
-		url = getToString("dswork.cas.api", "");
-	}
-
-	private static void setSystemProperties(String path)
-	{
-		SYSTEM_PROPERTIES = new Properties();
-		InputStream stream = AuthFactory.class.getResourceAsStream(path);
-		if (stream != null)
-		{
-			try
-			{
-				SYSTEM_PROPERTIES.load(stream);
-			}
-			catch (Exception e)
-			{
-				System.out.println();
-			}
-			finally
-			{
-				try
-				{
-					stream.close();
-				}
-				catch (IOException ioe)
-				{
-					System.out.println(SYSTEM_PROPERTIES_PATH + "关闭流失败");
-				}
-			}
-		}
-		else
-		{
-			System.out.println(SYSTEM_PROPERTIES_PATH + "无法加载");
-		}
-		System.getProperties();
-	}
-
-	/**
-	 * 获得系统属性配置信息，如果没有则返回null
-	 * @param name 属性名
-	 * @return String
-	 */
-	private static final String getStringProperty(String name)
-	{
-		if (SYSTEM_PROPERTIES != null)
-		{
-			String str = SYSTEM_PROPERTIES.getProperty(name);
-			if(str != null)
-			{
-				return String.valueOf(str).trim();
-			}
-		}
-		return null;
-	}
-	
-	/**
-	 * 获得系统属性配置信息，如果没有则返回默认值(长整型)
-	 * @param name 属性名
-	 * @param defaultValue 默认值
-	 * @return long
-	 */
-	public static final long getToLong(String name, long defaultValue)
-	{
-		try
-		{
-			return Long.parseLong(getStringProperty(name));
-		}
-		catch (Exception e)
-		{
-			return defaultValue;
-		}
-	}
-
-	/**
-	 * 获得系统属性配置信息，如果没有则返回默认值(字符串类型)
-	 * @param name 属性名
-	 * @param defaultValue 默认值
-	 * @return String
-	 */
-	public static final String getToString(String name, String defaultValue)
-	{
-		try
-		{
-			String str = getStringProperty(name);
-			if (str != null)
-			{
-				return str;
-			}
-		}
-		catch (Exception e)
-		{
-		}
-		return defaultValue;
-	}
-	
-	/**
-	 * 获得系统属性配置信息，如果没有则返回默认值("true"、"false")
-	 * @param name 属性名
-	 * @param defaultValue 默认值
-	 * @return boolean
-	 */
-	public static final boolean getToBoolean(String name, boolean defaultValue)
-	{
-		try
-		{
-			String str = String.valueOf(getStringProperty(name));
-			if(str.equals("true"))
-			{
-				return Boolean.TRUE;
-			}
-			else if(str.equals("false"))
-			{
-				return Boolean.FALSE;
-			}
-		}
-		catch (Exception e)
-		{
-		}
-		return defaultValue;
 	}
 }

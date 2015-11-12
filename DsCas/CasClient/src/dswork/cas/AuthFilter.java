@@ -26,38 +26,19 @@ import dswork.cas.model.IRes;
 @SuppressWarnings("unchecked")
 public class AuthFilter implements Filter
 {
-	private final static String KEY_SESSIONFUNC = "dswork.cas.func";// 存放在session中用户岗位信息的key
-	private final static String KEY_SYSTEM_REFRESH = "dswork.cas.system.refresh";// 当前系统的标识
-	private final static String KEY_SYSTEM_ALIAS = "dswork.cas.system.alias";// 当前系统的标识
-	private final static String KEY_SYSTEM_PASSWORD = "dswork.cas.system.password";// 当前系统的标识
-	private final static String KEY_PAGE_NOACCESS = "dswork.cas.page.noAccess";// 不能访问时的提示页面
-	private final static String KEY_PAGE_IGNORE = "dswork.cas.page.ignore";// 规则范围内不需要验证的页面
-	private final static String KEY_CHECK_FIX = "dswork.cas.check.fix";// 以逗号隔开需要过滤的后缀名,*指全部页面,空指不过滤
-	private final static String KEY_CHECK_PARAM = "dswork.cas.check.param";// 是否需要验证参数true验证，false不验证
-	private static Long SYSTEM_REFRESH = AuthFactory.getToLong(KEY_SYSTEM_REFRESH, 60000);// 当前系统的全部权限缓存更新间隔1000(1秒)|60000(1分钟)|3600000(1小时)|86400000(1天)
-	private static String SYSTEM_ALIAS = AuthFactory.getToString(KEY_SYSTEM_ALIAS, "");// 当前系统的标识
-	private static String SYSTEM_PASSWORD = AuthFactory.getToString(KEY_SYSTEM_PASSWORD, "");;// 当前系统的标识
-	private static String PAGE_NOACCESS;// 跳转到无权限提示页面
+	//private static Long SYSTEM_REFRESH = AuthFactory.getToLong(KEY_SYSTEM_REFRESH, 60000);// 当前系统的全部权限缓存更新间隔1000(1秒)|60000(1分钟)|3600000(1小时)|86400000(1天)
 	private static Set<String> PAGE_IGNORE = new HashSet<String>();// 无需验证页面
 	private static String CHECK_FIX;// 需要过滤的后缀名
 	private static boolean isCheckAllFix;// 是否需要过滤所有后缀名
 	private static boolean isCheckParam;// 是否需要验证参数
 	private static Map<String, List<IRes>> resMap = new HashMap<String, List<IRes>>();// 只存放url作为key值
 	private static long refreshTime = 0L;
-
-	public static String getSystemAlias()
-	{
-		return SYSTEM_ALIAS;
-	}
-
-	public static String getSystemPassword()
-	{
-		return SYSTEM_PASSWORD;
-	}
+	private static long  SYSTEM_REFRESH = 0L;
+	private static String PAGE_NOACCESS;// 跳转到无权限提示页面
 
 	private static void splitToSet(String str, Set<String> set)
 	{
-		if(str != null)
+		if(str != null && str.length() > 0)
 		{
 			String[] values = str.trim().split(",");
 			for(String value : values)
@@ -78,7 +59,7 @@ public class AuthFilter implements Filter
 			try
 			{
 				resMap.clear();
-				IFunc[] funcArray = AuthFactory.getFunctionBySystem(SYSTEM_ALIAS, SYSTEM_PASSWORD);// 初始化该系统已配置的全部功能
+				IFunc[] funcArray = AuthFactory.getFunctionBySystem();// 初始化该系统已配置的全部功能
 				if(funcArray != null)// 读得到数据，结果集也可以为0
 				{
 					for(IFunc o : funcArray)// 将系统里的所有资源初始化到map中
@@ -99,7 +80,7 @@ public class AuthFilter implements Filter
 							}
 						}
 					}
-					refreshTime += System.currentTimeMillis() + SYSTEM_REFRESH.longValue();
+					refreshTime += System.currentTimeMillis() + SYSTEM_REFRESH;
 					isFailure = false;
 				}
 			}
@@ -117,11 +98,12 @@ public class AuthFilter implements Filter
 
 	public void init(FilterConfig config) throws ServletException
 	{
-		PAGE_NOACCESS = AuthFactory.getToString(KEY_PAGE_NOACCESS, "");
-		splitToSet(AuthFactory.getToString(KEY_PAGE_IGNORE, ""), PAGE_IGNORE);
+		SYSTEM_REFRESH = getToLong(config.getInitParameter("refreshTime"), 3600000L);
+		PAGE_NOACCESS = getToString(config.getInitParameter("forbiddenPage"), "");
+		splitToSet(getToString(config.getInitParameter("ignorePage"), ""), PAGE_IGNORE);
 		splitToSet(PAGE_NOACCESS, PAGE_IGNORE);
-		CHECK_FIX = AuthFactory.getToString(KEY_CHECK_FIX, "").trim();
-		isCheckParam = AuthFactory.getToBoolean(KEY_CHECK_PARAM, false);
+		CHECK_FIX = getToString(config.getInitParameter("fixSuffix"), "");
+		isCheckParam = getToBoolean(config.getInitParameter("checkParam"), false);
 		if(CHECK_FIX.length() > 0)
 		{
 			CHECK_FIX = "," + CHECK_FIX + ",";
@@ -180,11 +162,7 @@ public class AuthFilter implements Filter
 			return;
 		}
 		// 取得当前用户账号
-		String userAccount = String.valueOf(request.getSession().getAttribute(CasFilter.KEY_SESSIONUSER)).trim();
-		if(userAccount.equals("null"))
-		{
-			userAccount = "";
-		}
+		String userAccount = CasFilter.getAccount(request.getSession());
 		if(isAccess(request, userAccount, relativeURI))// 判断是否能访问该页面
 		{
 			chain.doFilter(request, response);// 有权限访问
@@ -268,6 +246,7 @@ public class AuthFilter implements Filter
 		return true;
 	}
 
+	private final static String KEY_SESSIONFUNC = "dswork.cas.func";// 存放在session中用户岗位信息的key
 	// 获取用户有权限访问的资源
 	private static Map<String, List<IRes>> getUserRes(String userAccount, HttpSession session)
 	{
@@ -279,7 +258,7 @@ public class AuthFilter implements Filter
 		}
 		else
 		{
-			IFunc[] myFuncArray = AuthFactory.getFunctionByUser(SYSTEM_ALIAS, SYSTEM_PASSWORD, userAccount);
+			IFunc[] myFuncArray = AuthFactory.getFunctionByUser(userAccount);
 			if(myFuncArray != null)
 			{
 				for(IFunc o : myFuncArray)
@@ -316,7 +295,7 @@ public class AuthFilter implements Filter
 		List<IFunc> list = new ArrayList<IFunc>();
 		if(account != null && !account.equals(""))
 		{
-			IFunc[] arr = AuthFactory.getFunctionByUser(SYSTEM_ALIAS, SYSTEM_PASSWORD, account);
+			IFunc[] arr = AuthFactory.getFunctionByUser(account);
 			if(arr != null)
 			{
 				for(IFunc m : arr)
@@ -330,5 +309,67 @@ public class AuthFilter implements Filter
 			return list.toArray(new IFunc[list.size()]);
 		}
 		return null;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+
+	private static final String getString(String v)
+	{
+		if(v != null)
+		{
+			return String.valueOf(v).trim();
+		}
+		return null;
+	}
+	private static final long getToLong(String name, long defaultValue)
+	{
+		try
+		{
+			return Long.parseLong(getString(name));
+		}
+		catch (Exception e)
+		{
+			return defaultValue;
+		}
+	}
+	private static final String getToString(String name, String defaultValue)
+	{
+		try
+		{
+			String str = getString(name);
+			if (str != null)
+			{
+				return str;
+			}
+		}
+		catch (Exception e)
+		{
+		}
+		return defaultValue;
+	}
+	private static final boolean getToBoolean(String name, boolean defaultValue)
+	{
+		try
+		{
+			String str = String.valueOf(getString(name));
+			if(str.equals("true"))
+			{
+				return Boolean.TRUE;
+			}
+			else if(str.equals("false"))
+			{
+				return Boolean.FALSE;
+			}
+		}
+		catch (Exception e)
+		{
+		}
+		return defaultValue;
 	}
 }
