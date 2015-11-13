@@ -92,14 +92,13 @@ public class CasController
 			{
 				request.getSession().setAttribute(dswork.web.MyAuthCodeServlet.SessionName_Randcode, "");// 对了再清除
 				LoginUser user = service.getLoginUserByAccount(account);
-				password = EncryptUtil.decodeDes(password, randcode);
 				if(user != null)
 				{
 					if(user.getStatus() != 1)// Status:1允许，0禁止
 					{
 						msg = "用户已禁用，请联系管理员！";
 					}
-					else if(EncryptUtil.encryptMd5(password).equals(user.getPassword()))
+					else if((EncryptUtil.encryptMd5(user.getPassword()+authcode).equals(password)))
 					{
 						String ticket = putLoginInfo(request, response, user.getAccount());
 						try

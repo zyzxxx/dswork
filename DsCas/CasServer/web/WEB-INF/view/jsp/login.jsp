@@ -11,7 +11,7 @@ response.setHeader("Pragma","no-cache");
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"/>
 <title></title>
-<script type="text/javascript" src="${ctx}/js/jskey/jskey_des.js"></script>
+<script type="text/javascript" src="${ctx}/js/md5.js"></script>
 <link rel="stylesheet" type="text/css" href="${ctx}/themes/share/fonts/dsworkfont.css"/>
 <script type="text/javascript">
 function _$(id){return document.getElementById(id);}
@@ -25,7 +25,7 @@ if(!_$('password').value){s += "密码不能为空\n";}
 if(!_$('authcode').value){s += "验证码不能为空\n";}
 if(s != ""){alert(s);return;}
 if(_$("savename").checked){setCookie('savename',_$('account').value,365);}else{setCookie('savename','',0);}
-try{_$('password').value = $jskey.encodeDes(_$('password').value, _$('authcode').value);}catch(e){}
+try{_$('password').value = md5(md5(_$('password').value).toUpperCase()+_$('authcode').value).toUpperCase();}catch(e){}
 _$('v').submit();
 }
 </script>
