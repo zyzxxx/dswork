@@ -90,7 +90,6 @@ a:hover{color:#0000ff;text-decoration:underline;}
 <script type="text/javascript">
 <c:if test="${errorMsg != ''}">alert("${errorMsg}");</c:if>
 _$('account').focus();
-_$('account').select();
 var _x = getCookie('savename');
 if(_x.length > 0){
 	_$('account').value = _x;//"${fn:escapeXml(account)}"
@@ -115,5 +114,6 @@ function registKeydown(id) {
 registKeydown("account");
 registKeydown("password");
 registKeydown("authcode");
+$('#account').select();
 </script>
 </html>
