@@ -56,10 +56,8 @@ public class CasController
 			}
 			removeLoginInfo(request, response);// 把相关信息删除
 		}
-		request.setAttribute("errorMsg", "");
-		request.setAttribute("code", "ZHN3b3Jr");
 		request.setAttribute("service", serviceURL);
-		request.setAttribute("ctx", request.getContextPath());
+		request.setAttribute("errorMsg", "");
 		return "/login.jsp";
 	}
 
@@ -80,10 +78,8 @@ public class CasController
 		}
 		try
 		{
-			LoginUser user = service.getLoginUserByAccount(account);
-			password = EncryptUtil.decodeDes(password, "ZHN3b3Jr");
 			String msg = "用户名或密码错误！";
-			String randcode = String.valueOf(request.getSession().getAttribute(MyAuthCodeServlet.SessionName_Randcode));
+			String randcode = String.valueOf(request.getSession().getAttribute(MyAuthCodeServlet.SessionName_Randcode)).trim();
 			if(randcode.equals("null") || randcode.equals(""))
 			{
 				msg = "验证码已过期";
@@ -95,6 +91,8 @@ public class CasController
 			else
 			{
 				request.getSession().setAttribute(dswork.web.MyAuthCodeServlet.SessionName_Randcode, "");// 对了再清除
+				LoginUser user = service.getLoginUserByAccount(account);
+				password = EncryptUtil.decodeDes(password, randcode);
 				if(user != null)
 				{
 					if(user.getStatus() != 1)// Status:1允许，0禁止
@@ -119,10 +117,8 @@ public class CasController
 			}
 			// 失败则转回来
 			request.setAttribute("account", account);
-			request.setAttribute("password", password);
 			request.setAttribute("service", serviceURL);
 			request.setAttribute("errorMsg", msg);
-			request.setAttribute("code", "ZHN3b3Jr");
 			try
 			{
 				service.saveLogLogin("", getClientIp(request), account, "", false);
