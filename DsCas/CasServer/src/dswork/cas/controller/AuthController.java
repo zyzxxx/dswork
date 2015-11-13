@@ -27,7 +27,7 @@ import dswork.cas.model.IUser;
 import dswork.web.MyRequest;
 
 @Controller
-@RequestMapping("/api")
+//@RequestMapping("/api")
 public class AuthController
 {
 	private static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -26,6 +26,6 @@ for (int i = 0; i < cookies.length; i++)
 %>
 用户账号是:<%=String.valueOf(TicketService.getAccountByTicket(String.valueOf(value))) %>
 <br />
-<a href="logout.htm">退出系统</a>
+<a href="<%=request.getContextPath()%>/logout">退出系统</a>
 </body>
 </html>

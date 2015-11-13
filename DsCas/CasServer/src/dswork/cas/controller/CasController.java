@@ -59,6 +59,7 @@ public class CasController
 		request.setAttribute("errorMsg", "");
 		request.setAttribute("code", "ZHN3b3Jr");
 		request.setAttribute("service", serviceURL);
+		request.setAttribute("ctx", request.getContextPath());
 		return "/login.jsp";
 	}
 

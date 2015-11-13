@@ -8,8 +8,8 @@ response.setHeader("Pragma","no-cache");
 <html>
 <head>
 <meta charset="UTF-8" />
-<script type="text/javascript" src="./js/jquery/jquery.js"></script>
-<script type="text/javascript" src="./js/jskey/jskey_des.js"></script>
+<script type="text/javascript" src="${ctx}/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="${ctx}/js/jskey/jskey_des.js"></script>
 <script type="text/javascript">
 function _$(id){return document.getElementById(id);}
 if(top.location != this.location){top.location = this.location;}
@@ -49,11 +49,11 @@ $(function(){
 <style type="text/css">
 html,body{height:100%;margin:0px auto;}*{padding:0px;}
 div, input{font-family:"宋体";font-weight:bold;font-size:20px;line-height:20px;}
-.content{margin:0px auto;position:relative;width:1000px;height:473px;background:url(./img/login.gif) no-repeat center center;overflow:hidden;}
+.content{margin:0px auto;position:relative;width:1000px;height:473px;background:url(${ctx}/img/login.gif) no-repeat center center;overflow:hidden;}
 .title{color:#184760;width:100%;font-size:30px;text-align:center;padding:50px 0px;}
 .login{position:absolute;left:545px;top:120px;width:400px;height:300px;overflow:hidden;border:#ccc solid 1px;border-radius:20px 0px;}
 
-.loginTit{color:#184760;height:50px;line-height:50px;padding:10px 15px 10px 75px;font-size:22px;background:url(./img/user.gif) no-repeat 15px center;}
+.loginTit{color:#184760;height:50px;line-height:50px;padding:10px 15px 10px 75px;font-size:22px;background:url(${ctx}/img/user.gif) no-repeat 15px center;}
 .box{overflow:hidden;padding:0px 0px 20px 70px;text-align:left;color:#666;}
 
 input{width:180px;height:30px;border:#BAC7D2 solid 1px;vertical-align:middle;background-color:#f9f9f9;}
@@ -76,7 +76,7 @@ a {color:#0000ff;font-size:12px;font-weight:normal;line-height:40px;font-family:
 	</div>
 	<div class="box">
 		验证码 <input type="text" placeholder="验证码" id="authcode" name="authcode" maxlength="4" class="code" value="" />
-		<img src='./authcode?width=90&height=38' style="cursor:pointer;vertical-align:middle;" onclick="this.src='./authcode?width=90&height=38&id=' + Math.random();" />
+		<img src='${ctx}/authcode?width=90&height=38' style="cursor:pointer;vertical-align:middle;" onclick="this.src='${ctx}/authcode?width=90&height=38&id=' + Math.random();" />
 	</div>
 	<div class="box">
 		<input type="button" class="button" style="background-color:#00a0f0;color:#fff;" value="登 录" onclick="doclick()" />
