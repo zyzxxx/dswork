@@ -16,7 +16,7 @@ out.println("cookie=" + cookies.length + "<br />");
 for (int i = 0; i < cookies.length; i++)
 {
 	cookie = cookies[i];
-	out.println("&nbsp;&nbsp;" + cookie.getName() + "=" + cookie.getValue() + "=" + cookie.getPath() + "<br />");
+	out.println("&nbsp;&nbsp;" + cookie.getName() + "=" + cookie.getValue() + "<br />");
 	if (cookie.getName().equals("__CookieTicket__"))
 	{
 		value = cookie.getValue();
