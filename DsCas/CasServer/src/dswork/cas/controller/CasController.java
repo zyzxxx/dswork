@@ -162,12 +162,6 @@ public class CasController
 		return;
 	}
 
-	@RequestMapping("/index")
-	public void index(HttpServletRequest request, HttpServletResponse response) throws IOException
-	{
-		response.sendRedirect(request.getContextPath() + "/login");
-	}
-
 	private String putLoginInfo(HttpServletRequest request, HttpServletResponse response, String account)
 	{
 		MyCookie cookie = new MyCookie(request, response);
