@@ -3,20 +3,26 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>用户登录ticket</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"/>
+<title>Error</title>
+<style>
+    body {
+        width: 38em;
+        margin: 0 auto;
+        font-family: Tahoma, Verdana, Arial, sans-serif, 微软雅黑;
+    }
+</style>
 </head>
 <body>
-用户当前登录的ticket值是:<%=String.valueOf(request.getParameter("ticket"))%>
-<br />
 <%
 Cookie[] cookies = request.getCookies();
 Cookie cookie = null;
 String value = null;
-out.println("cookie=" + cookies.length + "<br />");
+String v = "cookie=" + cookies.length;
 for (int i = 0; i < cookies.length; i++)
 {
 	cookie = cookies[i];
-	out.println("&nbsp;&nbsp;" + cookie.getName() + "=" + cookie.getValue() + "<br />");
+	v += ("<br />" + cookie.getName() + "=" + cookie.getValue());
 	if (cookie.getName().equals("__CookieTicket__"))
 	{
 		value = cookie.getValue();
@@ -24,8 +30,9 @@ for (int i = 0; i < cookies.length; i++)
 	}
 }
 %>
-用户账号是:<%=String.valueOf(TicketService.getAccountByTicket(String.valueOf(value))) %>
-<br />
-<a href="<%=request.getContextPath()%>/logout">退出系统</a>
+<h1>用户账号是:<%=String.valueOf(TicketService.getAccountByTicket(String.valueOf(value))) %>。</h1>
+<p><%=v %></p>
+<p><a href="<%=request.getContextPath()%>/logout">退出系统</a></p>
+<p><em>system administrator.</em></p>
 </body>
 </html>
