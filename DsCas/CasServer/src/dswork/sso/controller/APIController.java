@@ -1,7 +1,7 @@
 /**
  * 获取认证信息
  */
-package dswork.cas.controller;
+package dswork.sso.controller;
 
 import java.io.PrintWriter;
 import java.security.MessageDigest;
@@ -18,17 +18,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.cas.service.CasFactoryService;
-import dswork.cas.service.TicketService;
-import dswork.cas.model.IFunc;
-import dswork.cas.model.IOrg;
-import dswork.cas.model.ISystem;
-import dswork.cas.model.IUser;
+import dswork.sso.model.IFunc;
+import dswork.sso.model.IOrg;
+import dswork.sso.model.ISystem;
+import dswork.sso.model.IUser;
+import dswork.sso.service.AuthFactoryService;
+import dswork.sso.service.TicketService;
 import dswork.web.MyRequest;
 
 @Controller
 //@RequestMapping("/api")
-public class AuthController
+public class APIController
 {
 	private static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
 	private static com.google.gson.Gson gson = builder.create();
@@ -47,7 +47,7 @@ public class AuthController
 	//}
 	
 	@Autowired
-	private CasFactoryService service;
+	private AuthFactoryService service;
 
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -98,15 +98,13 @@ public class AuthController
 			{
 				out.print("{}");
 			}
-			out.close();
+			//out.close();
 		}
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
-
 	private static String pwdMd5(String str)
 	{
 		if(str != null)
@@ -175,7 +173,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	/**
@@ -206,7 +203,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	/**
@@ -237,7 +233,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	/**
@@ -270,7 +265,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	/**
@@ -303,7 +297,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	//////////////////////////////////////////////////////////////////////////////
@@ -337,7 +330,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	/**
@@ -368,7 +360,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	/**
@@ -411,7 +402,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	/**
@@ -442,7 +432,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	/**
@@ -473,7 +462,6 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 
 	/**
@@ -508,6 +496,5 @@ public class AuthController
 		{
 			ex.printStackTrace();
 		}
-		request.getSession().invalidate();
 	}
 }

@@ -1,4 +1,4 @@
-package dswork.cas.service;
+package dswork.sso.service;
 
 import java.util.List;
 
@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.core.util.EncryptUtil;
-import dswork.cas.dao.CasFactoryDao;
-import dswork.cas.model.IFunc;
-import dswork.cas.model.IOrg;
-import dswork.cas.model.ISystem;
-import dswork.cas.model.IUser;
-import dswork.cas.model.LoginUser;
+import dswork.sso.dao.AuthFactoryDao;
+import dswork.sso.model.IFunc;
+import dswork.sso.model.IOrg;
+import dswork.sso.model.ISystem;
+import dswork.sso.model.IUser;
+import dswork.sso.model.LoginUser;
 
 @Service
 // @SuppressWarnings("unchecked")
-public class CasFactoryService
+public class AuthFactoryService
 {
-	private CasFactoryDao dao;
+	private AuthFactoryDao dao;
 //	private CasCacheService cache;
 
 	@Autowired
-	public void setCasFactoryDao(CasFactoryDao dao)
+	public void setAuthFactoryDao(AuthFactoryDao dao)
 	{
 		this.dao = dao;
 	}

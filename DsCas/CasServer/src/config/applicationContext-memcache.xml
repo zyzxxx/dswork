@@ -9,7 +9,7 @@
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
 	   default-autowire="byName" default-lazy-init="false">
 
-	<bean id="memcachedFactory" class="dswork.cas.service.cache.MemcachedFactory" factory-method="getInstance" destroy-method="destroy" scope="singleton">
+	<bean id="memcachedFactory" class="dswork.sso.service.cache.MemcachedFactory" factory-method="getInstance" destroy-method="destroy" scope="singleton">
 		<constructor-arg index="0">
             <value>config/memcached.xml</value>
         </constructor-arg>

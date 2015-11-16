@@ -1,4 +1,4 @@
-package dswork.cas.dao;
+package dswork.sso.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -8,15 +8,15 @@ import org.springframework.stereotype.Repository;
 
 import dswork.core.db.MyBatisDao;
 import dswork.core.util.TimeUtil;
-import dswork.cas.model.IFunc;
-import dswork.cas.model.IOrg;
-import dswork.cas.model.ISystem;
-import dswork.cas.model.IUser;
-import dswork.cas.model.LoginUser;
+import dswork.sso.model.IFunc;
+import dswork.sso.model.IOrg;
+import dswork.sso.model.ISystem;
+import dswork.sso.model.IUser;
+import dswork.sso.model.LoginUser;
 
 @Repository
 @SuppressWarnings("all")
-public class CasFactoryDao extends MyBatisDao
+public class AuthFactoryDao extends MyBatisDao
 {
 	@Override
 	public Class getEntityClass()

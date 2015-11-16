@@ -1,7 +1,7 @@
 /**
  * 缓存实现类的接口
  */
-package dswork.cas.service.cache;
+package dswork.sso.service.cache;
 
 import java.util.Date;
 import java.util.Map;

@@ -1,4 +1,4 @@
-<%@page contentType="text/html; charset=UTF-8" import="dswork.cas.service.TicketService"%><%
+<%@page contentType="text/html; charset=UTF-8" import="dswork.sso.service.TicketService"%><%
 Cookie[] cookies = request.getCookies();
 Cookie c = null;
 String value = null;

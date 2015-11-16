@@ -39,7 +39,7 @@
 	</listener>
 	
 	<listener>
-		<listener-class>dswork.cas.listener.SessionListener</listener-class>
+		<listener-class>dswork.sso.listener.SessionListener</listener-class>
 	</listener>
 
 	<servlet>

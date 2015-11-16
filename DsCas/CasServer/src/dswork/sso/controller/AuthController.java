@@ -1,7 +1,7 @@
 /**
  * 获取用户信息
  */
-package dswork.cas.controller;
+package dswork.sso.controller;
 
 import java.io.IOException;
 
@@ -15,20 +15,20 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.core.util.EncryptUtil;
+import dswork.sso.listener.SessionListener;
+import dswork.sso.model.LoginUser;
+import dswork.sso.service.AuthFactoryService;
+import dswork.sso.service.TicketService;
 import dswork.web.MyAuthCodeServlet;
 import dswork.web.MyCookie;
 import dswork.web.MyRequest;
-import dswork.cas.service.TicketService;
-import dswork.cas.service.CasFactoryService;
-import dswork.cas.listener.SessionListener;
-import dswork.cas.model.LoginUser;
 
 @Controller
-public class CasController
+public class AuthController
 {
-	static Logger log = LoggerFactory.getLogger(CasController.class.getName());
+	static Logger log = LoggerFactory.getLogger(AuthController.class.getName());
 	@Autowired
-	private CasFactoryService service;
+	private AuthFactoryService service;
 
 	/**
 	 * 用户登录系统的入口

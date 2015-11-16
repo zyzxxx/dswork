@@ -1,7 +1,7 @@
 /**
  * memcached缓存管理实现抽象类
  */
-package dswork.cas.service.cache;
+package dswork.sso.service.cache;
 
 import com.alisoft.xplatform.asf.cache.ICacheManager;
 import com.alisoft.xplatform.asf.cache.IMemcachedCache;

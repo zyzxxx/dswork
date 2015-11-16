@@ -1,7 +1,7 @@
 /**
  * @描述：应用系统
  */
-package dswork.cas.model;
+package dswork.sso.model;
 
 import java.io.Serializable;
 

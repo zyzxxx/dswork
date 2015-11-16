@@ -1,7 +1,7 @@
 /**
  * @描述：功能结构 
  */
-package dswork.cas.model;
+package dswork.sso.model;
 
 import java.io.Serializable;
 //import java.util.ArrayList;

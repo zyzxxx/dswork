@@ -1,4 +1,4 @@
-package dswork.cas.model;
+package dswork.sso.model;
 
 public class LoginUser extends IUser
 {

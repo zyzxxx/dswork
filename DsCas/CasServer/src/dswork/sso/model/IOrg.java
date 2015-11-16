@@ -1,7 +1,7 @@
 /**
  * @描述：组织机构 
  */
-package dswork.cas.model;
+package dswork.sso.model;
 
 import java.io.Serializable;
 

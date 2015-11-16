@@ -1,7 +1,7 @@
 /**
  * 记录用户登录状态
  */
-package dswork.cas.service;
+package dswork.sso.service;
 
 import java.util.Map;
 import java.util.HashMap;

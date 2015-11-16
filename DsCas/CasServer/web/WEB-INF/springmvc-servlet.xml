@@ -10,7 +10,7 @@
         http://www.springframework.org/schema/context/spring-context-3.0.xsd"
 	default-autowire="byName" default-lazy-init="false">
 
-	<context:component-scan base-package="dswork.cas.controller" />
+	<context:component-scan base-package="dswork.sso.controller" />
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" />  
 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter" />
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
