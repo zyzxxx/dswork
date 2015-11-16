@@ -3,23 +3,23 @@ sso:8888 需要修改成实际对应的CasServer应用的浏览器端访问的�
 127.0.0.1:8888 需要修改成实际对应的CasServer应用的服务器端访问的发布地址：如172.16.1.1:8888
 
 
-一、加入dswork.cas.jar文件（需要【一】的支持，需要slf4j-api的支持，需要gson2.3.1支持）
-		ssoURL #需要CasServer的应用支持，调用api的访问地址的配置信息。使用服务器端访问的ip
+一、加入dswork.sso.jar文件（需要【一】的支持，需要slf4j-api的支持，需要gson2.3.1支持）
+		ssoURL #需要sso的应用支持，调用api的访问地址的配置信息。使用服务器端访问的ip
 		ssoName #系统别名，在平台中添加的系统别名
 		ssoPassword #系统访问密码，在平台中添加的系统访问密码
 		loginURL #单点登录页面
 		ignoreURL #逗号隔开不需要权限过滤的页面
-	需要在web.xml中增加以下配置，并且需要CasServer的应用支持，ssoURL为服务器端访问的ip，loginURL为浏览器端访问的ip
+	需要在web.xml中增加以下配置，并且需要sso的应用支持，ssoURL为服务器端访问的ip，loginURL为浏览器端访问的ip
 		<filter>
 			<filter-name>sso</filter-name>
-			<filter-class>dswork.cas.CasFilter</filter-class>
+			<filter-class>dswork.sso.SSOFilter</filter-class>
 			<init-param>
 				<param-name>ssoURL</param-name>
-				<param-value>http://127.0.0.1:8888/CasServer/api</param-value>
+				<param-value>http://127.0.0.1:8888/sso/api</param-value>
 			</init-param>
 			<init-param>
 				<param-name>ssoName</param-name>
-				<param-value>CasClient</param-value>
+				<param-value>cas-client</param-value>
 			</init-param>
 			<init-param>
 				<param-name>ssoPassword</param-name>
@@ -27,7 +27,7 @@ sso:8888 需要修改成实际对应的CasServer应用的浏览器端访问的�
 			</init-param>
 			<init-param>
 				<param-name>loginURL</param-name>
-				<param-value>http://sso:8888/CasServer/login</param-value>
+				<param-value>http://sso-server:8888/sso/login</param-value>
 			</init-param>
 			<init-param>
 				<param-name>ignoreURL</param-name>
@@ -40,7 +40,7 @@ sso:8888 需要修改成实际对应的CasServer应用的浏览器端访问的�
 		</filter-mapping>
 
 
-二、加入dswork.cas.authfilter.jar文件（需要【一】的支持）
+二、加入dswork.sso.authfilter.jar文件（需要【一】的支持）
 		refreshTime #系统的全部权限缓存更新间隔，单位毫秒
 		forbiddenPage #无权访问时跳转的地址
 		ignorePage #逗号隔开不需要权限过滤的页面
@@ -49,7 +49,7 @@ sso:8888 需要修改成实际对应的CasServer应用的浏览器端访问的�
 	需要在web.xml中增加以下配置，其中/p/*为需要处理权限验证的地址
 		<filter>
 			<filter-name>DsworkCasAuthFilter</filter-name>
-			<filter-class>dswork.cas.AuthFilter</filter-class>
+			<filter-class>dswork.sso.AuthFilter</filter-class>
 			<init-param>
 				<param-name>refreshTime</param-name>
 				<param-value>3600000</param-value>

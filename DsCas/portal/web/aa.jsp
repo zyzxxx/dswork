@@ -6,11 +6,11 @@
 <title></title>
 </head>
 <body>
-<%=dswork.cas.AuthFactory.getOrg("1").getName() %>
+<%=dswork.sso.AuthFactory.getOrg("1").getName() %>
 <br />
 
 
-<%=dswork.cas.AuthFactory.getUser("admin").getName() %>
+<%=dswork.sso.AuthFactory.getUser("admin").getName() %>
 <br />
 
 

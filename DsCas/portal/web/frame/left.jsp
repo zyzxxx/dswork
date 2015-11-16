@@ -1,9 +1,9 @@
 <%@page language="java" pageEncoding="UTF-8" import="
-	dswork.cas.CasFilter,
-	dswork.cas.AuthFactory,
-	dswork.cas.model.ISystem"%>
+	dswork.sso.SSOFilter,
+	dswork.sso.AuthFactory,
+	dswork.sso.model.ISystem"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><c:set var="ctx" value="${pageContext.request.contextPath}" /><%
-	ISystem[] arr = AuthFactory.getSystemByUser(CasFilter.getAccount(session));
+	ISystem[] arr = AuthFactory.getSystemByUser(SSOFilter.getAccount(session));
 %>
 <!--<!DOCTYPE html>-->
 <html>
@@ -24,7 +24,7 @@ sys[sys.length] = {index:<%=i+1%>,data:[],id:<%=arr[i].getId()%>,name:"<%=arr[i]
 function menuload(o){
 	var url = o.domainurl + o.menuurl;
 	url += ((url.indexOf("?") == -1)?"?":"&") + "jsoncallback=?";
-	$.getJSON(url, {"user":"<%=CasFilter.getAccount(session)%>"},
+	$.getJSON(url, {"user":"<%=SSOFilter.getAccount(session)%>"},
 		function(data){
 			try{
 				o.data = $jskey.menu.format(data);

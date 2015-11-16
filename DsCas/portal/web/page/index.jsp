@@ -1,6 +1,6 @@
-<%@page language="java" import="java.util.*,dswork.cas.CasFilter" pageEncoding="UTF-8"%><%
+<%@page language="java" import="java.util.*,dswork.sso.SSOFilter" pageEncoding="UTF-8"%><%
 String path = request.getContextPath();
-String obj = CasFilter.getAccount(session);
+String obj = SSOFilter.getAccount(session);
 if(obj == null)
 {
 	response.sendRedirect(path + "/logout.jsp");

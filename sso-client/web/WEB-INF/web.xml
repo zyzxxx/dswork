@@ -3,23 +3,6 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-
-    <filter>
-    	<filter-name>encodingFilter</filter-name>
-    	<filter-class>dswork.CharacterEncodingFilter</filter-class>
-    	<init-param>
-    		<param-name>encoding</param-name>
-    		<param-value>UTF-8</param-value>
-    	</init-param>
-    	<init-param>
-    		<param-name>forceEncoding</param-name>
-    		<param-value>true</param-value>
-    	</init-param>
-    </filter>
-    <filter-mapping>
-    	<filter-name>encodingFilter</filter-name>
-    	<url-pattern>/*</url-pattern>
-    </filter-mapping>
 	
 	<context-param>
 		<param-name>log4jConfiguration</param-name>
@@ -38,7 +21,7 @@
 		</init-param>
 		<init-param>
 			<param-name>ssoName</param-name>
-			<param-value>portal</param-value>
+			<param-value>cas-client</param-value>
 		</init-param>
 		<init-param>
 			<param-name>ssoPassword</param-name>
@@ -55,14 +38,46 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>sso</filter-name>
-		<url-pattern>/frame/*</url-pattern>
+		<url-pattern>/manage/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>sso</filter-name>
-		<url-pattern>/page/*</url-pattern>
+		<url-pattern>/1.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>sso</filter-name>
+		<url-pattern>/2.html</url-pattern>
 	</filter-mapping>
 	
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
+	<filter>
+		<filter-name>DsworkCasAuthFilter</filter-name>
+		<filter-class>dswork.sso.AuthFilter</filter-class>
+		<init-param>
+			<param-name>refreshTime</param-name>
+			<param-value>3600000</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forbiddenPage</param-name>
+			<param-value>/casNoAccess.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ignorePage</param-name>
+			<param-value>/menu.jsp,/m.jsp,/index.jsp,/manage/login.htm</param-value>
+		</init-param>
+		<init-param>
+			<param-name>fixSuffix</param-name>
+			<param-value>jsp,htm</param-value>
+		</init-param>
+		<init-param>
+			<param-name>checkParam</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>DsworkCasAuthFilter</filter-name>
+		<url-pattern>/p/*</url-pattern>
+	</filter-mapping>
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
 </web-app>
