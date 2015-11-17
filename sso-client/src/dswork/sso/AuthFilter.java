@@ -162,7 +162,7 @@ public class AuthFilter implements Filter
 			return;
 		}
 		// 取得当前用户账号
-		String userAccount = SSOFilter.getAccount(request.getSession());
+		String userAccount = WebFilter.getAccount(request.getSession());
 		if(isAccess(request, userAccount, relativeURI))// 判断是否能访问该页面
 		{
 			chain.doFilter(request, response);// 有权限访问

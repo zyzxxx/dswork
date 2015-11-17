@@ -26,13 +26,13 @@ import org.slf4j.LoggerFactory;
 
 import com.google.gson.reflect.TypeToken;
 
-public class SSOFilter implements Filter
+public class WebFilter implements Filter
 {
 	static com.google.gson.Gson gson = AuthGlobal.getGson();
 	static Logger log = LoggerFactory.getLogger("dswork.cas");
 
 	private final static String TICKET = "ticket";// url中传来的sessionKey的变量名
-	public final static String LOGINER = "cas.client.loginer";// sessionUser在session中的key
+	public final static String LOGINER = "sso.web.loginer";// sessionUser在session中的key
 	private static String loginURL = "";// 登录页面
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 
@@ -190,7 +190,7 @@ public class SSOFilter implements Filter
 		return false;
 	}
 
-	public static void doLogout(HttpSession session)
+	public static void logout(HttpSession session)
 	{
 		session.setAttribute(LOGINER, "");
 		session.removeAttribute(LOGINER);

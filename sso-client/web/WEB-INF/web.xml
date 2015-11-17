@@ -14,7 +14,7 @@
 
 	<filter>
 		<filter-name>sso</filter-name>
-		<filter-class>dswork.sso.SSOFilter</filter-class>
+		<filter-class>dswork.sso.WebFilter</filter-class>
 		<init-param>
 			<param-name>ssoURL</param-name>
 			<param-value>http://127.0.0.1:8888/sso/api</param-value>
