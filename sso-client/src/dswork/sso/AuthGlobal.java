@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 
 public class AuthGlobal
 {
-	static Logger log = LoggerFactory.getLogger("dswork.cas");
+	static Logger log = LoggerFactory.getLogger("dswork.sso");
 	private static com.google.gson.GsonBuilder builder = new com.google.gson.GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
 	public static com.google.gson.Gson getGson()
 	{

@@ -20,7 +20,7 @@ public class AuthFactory
 {
 	static com.google.gson.Gson gson = AuthGlobal.getGson();
 	static String url = "";
-	static Logger log = LoggerFactory.getLogger("dswork.cas");
+	static Logger log = LoggerFactory.getLogger("dswork.sso");
 	
 	private static StringBuilder getPath(String path)
 	{

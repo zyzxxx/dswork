@@ -29,7 +29,7 @@ import com.google.gson.reflect.TypeToken;
 public class WebFilter implements Filter
 {
 	static com.google.gson.Gson gson = AuthGlobal.getGson();
-	static Logger log = LoggerFactory.getLogger("dswork.cas");
+	static Logger log = LoggerFactory.getLogger("dswork.sso");
 
 	private final static String TICKET = "ticket";// url中传来的sessionKey的变量名
 	public final static String LOGINER = "sso.web.loginer";// sessionUser在session中的key
