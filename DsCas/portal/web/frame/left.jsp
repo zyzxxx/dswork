@@ -1,9 +1,9 @@
 <%@page language="java" pageEncoding="UTF-8" import="
-	dswork.sso.SSOFilter,
+	dswork.sso.WebFilter,
 	dswork.sso.AuthFactory,
 	dswork.sso.model.ISystem"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><c:set var="ctx" value="${pageContext.request.contextPath}" /><%
-	ISystem[] arr = AuthFactory.getSystemByUser(SSOFilter.getAccount(session));
+	ISystem[] arr = AuthFactory.getSystemByUser(WebFilter.getAccount(session));
 %>
 <!--<!DOCTYPE html>-->
 <html>

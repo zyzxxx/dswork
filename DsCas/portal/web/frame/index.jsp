@@ -1,6 +1,6 @@
-﻿﻿<%@page language="java" pageEncoding="UTF-8" import="dswork.sso.SSOFilter"%><%
+﻿﻿<%@page language="java" pageEncoding="UTF-8"%><%
 String path = request.getContextPath();
-String obj = SSOFilter.getAccount(session);
+String obj = dswork.sso.WebFilter.getAccount(session);
 if(obj == null)
 {
 	response.sendRedirect(path + "/logout.jsp");

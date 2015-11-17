@@ -1,5 +1,4 @@
 ﻿<%@page language="java" pageEncoding="UTF-8"%>
-<%@page import="dswork.sso.SSOFilter"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="ctx" value="${pageContext.request.contextPath}" />
 <!DOCTYPE html>
@@ -42,7 +41,7 @@ function doDraw(){
 	<div class="left"></div>
 	<div class="right"></div>
 	<div id="toolDiv" class="xtool minitool">
-		<div><i>&#xf0001;</i><b class="show"><%=SSOFilter.getAccount(session) %></b></div>
+		<div><i>&#xf0001;</i><b class="show"><%=dswork.sso.WebFilter.getAccount(session) %></b></div>
 		<div onclick="PFM.$('#tt').tabs('select', 0);"       title="切换首页"><i>&#xf0003;</i><b>首页</b></div>
 		<div onclick="reload();"                             title="刷新页面"><i>&#xf0004;</i><b>刷新</b></div>
 		<%--<div onclick="PFM.frames['leftFrame'].showSystem();" title="切换系统"><i>&#xf0009;</i><b>切换系统</b></div>--%>
