@@ -40,7 +40,7 @@ sso:8888 需要修改成实际对应的sso-server应用的浏览器端访问的�
 		</filter-mapping>
 
 
-二、加入dswork.sso.authfilter.jar文件（需要【一】的支持）
+二、加入dswork.sso.authfilter.jar文件（需要【一】的支持，适用于在统一认证平台上，配置是以URI地址作为资源管理的，可用uri作为权限拦截的系统）
 		refreshTime #系统的全部权限缓存更新间隔，单位毫秒
 		forbiddenPage #无权访问时跳转的地址
 		ignorePage #逗号隔开不需要权限过滤的页面

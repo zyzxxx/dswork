@@ -24,7 +24,7 @@ sys[sys.length] = {index:<%=i+1%>,data:[],id:<%=arr[i].getId()%>,name:"<%=arr[i]
 function menuload(o){
 	var url = o.domainurl + o.menuurl;
 	url += ((url.indexOf("?") == -1)?"?":"&") + "jsoncallback=?";
-	$.getJSON(url, {"user":"<%=SSOFilter.getAccount(session)%>"},
+	$.getJSON(url, {"user":"<%=WebFilter.getAccount(session)%>"},
 		function(data){
 			try{
 				o.data = $jskey.menu.format(data);
