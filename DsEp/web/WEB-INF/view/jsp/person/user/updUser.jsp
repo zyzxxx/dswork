@@ -50,10 +50,6 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="form_input"><input type="text" id="phone" name="phone" require="false" dataType="Phone" maxlength="50" value="${fn:escapeXml(po.phone)}" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">传真：</td>
-		<td class="form_input"><input type="text" name="fax" maxlength="100" value="${fn:escapeXml(po.fax)}" /></td>
-	</tr>
-	<tr>
 		<td class="form_title">CA证书的KEY：</td>
 		<td class="form_input"><input type="text" name="cakey" maxlength="100" value="${fn:escapeXml(po.cakey)}" /></td>
 	</tr>
