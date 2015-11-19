@@ -260,7 +260,7 @@ public class HttpUtil
 			BufferedReader in = null;
 			if(_responseCode == 200)
 			{
-				in = new BufferedReader(new InputStreamReader(http.getInputStream()));
+				in = new BufferedReader(new InputStreamReader(http.getInputStream(), "UTF-8"));
 				String temp = in.readLine();
 				while(temp != null)
 				{
