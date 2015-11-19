@@ -63,11 +63,11 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">来源</td>
-		<td class="form_input"><input name="releasesource" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.releasesource)}" /></td>
+		<td class="form_input"><input type="text" name="releasesource" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.releasesource)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">作者</td>
-		<td class="form_input"><input name="releaseuser" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.releaseuser)}" /></td>
+		<td class="form_input"><input type="text" name="releaseuser" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.releaseuser)}" /></td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />
