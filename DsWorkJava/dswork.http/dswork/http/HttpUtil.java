@@ -286,7 +286,7 @@ public class HttpUtil
 						log.debug("Cookie:" + m);
 					}
 				}
-				in = new BufferedReader(new InputStreamReader(http.getInputStream()));
+				in = new BufferedReader(new InputStreamReader(http.getInputStream(), charsetName));
 				String temp = in.readLine();
 				while(temp != null)
 				{
