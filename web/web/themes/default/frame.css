@@ -190,7 +190,7 @@ div.line{display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hidd
 .pageview select{height:18px;width:40px;line-height:1.5em;text-align:center;cursor:pointer;border:none;border:#7998c6 solid 1px;}
 
 /*表单*/
-/*标题*/td.form_title{padding-left:3px;padding-right:3px;text-align:right;background-color:#e6eefe;}
+/*标题*/td.form_title{padding-left:3px;padding-right:3px;text-align:right;background-color:#fcfcfc;}
 /*内容*/td.form_input{padding-left:3px;padding-right:3px;text-align:left;background-color:#ffffff;}
 /*信息*/td.form_tips {text-align:center;height:50px;vertical-align:middle;}
 /*底部列(一般放置铵钮)*/
