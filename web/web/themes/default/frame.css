@@ -135,7 +135,7 @@ img{border:0;vertical-align:middle;-ms-interpolation-mode:bicubic;}
 .menuTool-pie     {background:url(img/menu.png) no-repeat 0px -675px;}
 
 input[type="text"],input[type="password"],select{border:#c2c2c2 solid 1px;min-height:22px;}
-input[type="text"]:hover,input[type="password"]:hover{border:#e0ecff solid 1px;}}
+input[type="text"]:hover,input[type="password"]:hover{border:#0192d0 solid 1px;}}
 
 span.msg{color:#0000ff;}
 span.tips{color:#0000ff;}
