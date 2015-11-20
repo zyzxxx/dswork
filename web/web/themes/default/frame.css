@@ -196,6 +196,7 @@ div.line{display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hidd
 .pageview input{min-height:18px;line-height:12px;text-align:center;}
 .pageview input.input{width:25px;height:14px;border:#7998c6 solid 1px;font-size:12px;}
 .pageview input.go{width:30px;cursor:pointer;border:#7998C6 solid 1px;height:18px;background:none;font-size:10px;font-weight:bold;border-radius:3px;}
+.pageview input.go:hover{background-color:#317ef3;color:#fff;}
 .pageview select{min-height:18px;height:18px;width:42px;line-height:1.8em;text-align:center;cursor:pointer;border:none;border:#7998c6 solid 1px;}
 
 /*表单*/
