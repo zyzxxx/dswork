@@ -6,7 +6,7 @@ html,body{*position:static;height:100%;border:0;line-height:1.6;}
 html{font-family:sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;}
 input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;}
 input,button{overflow:visible;vertical-align:middle;outline:none;}
-body,th,td,button,input,select,textarea,a,span,p,div{font-family:"\5B8B\4F53","Microsoft Yahei","Hiragino Sans GB","Helvetica Neue",Helvetica,tahoma,arial,Verdana,sans-serif,"\5B8B\4F53","WenQuanYi Micro Hei";font-size:12px;color:#182a2d;-webkit-font-smoothing:antialiased;-moz-font-smoothing:antialiased;}
+body,th,td,button,input,select,textarea,a,span,p,div{font-family:"Microsoft Yahei","Hiragino Sans GB","Helvetica Neue",Helvetica,tahoma,arial,Verdana,sans-serif,"\5B8B\4F53";font-size:12px;color:#182a2d;-webkit-font-smoothing:antialiased;-moz-font-smoothing:antialiased;}
 sub,sup{vertical-align:baseline;}
 html{overflow:-moz-scrollbars-vertical;zoom:expression(function(ele){ele.style.zoom = "1";document.execCommand("BackgroundImageCache",false,true)}(this))}
 
@@ -141,7 +141,9 @@ span.msg{color:#0000ff;}
 span.tips{color:#0000ff;}
 span.imp{padding-left:3px;color:#ff0000;font-weight:bold;}
 input.button,
-input.delete{background:null;padding:0em 0.25em;margin:0em;line-height:1.5em;cursor:pointer;color:#000000;border:#000000 solid 1px;}
+input.delete{border:none;background:none;padding:0em;margin:0em;line-height:1.5em;cursor:pointer;background-color:#2996ff;color:#fff;border-radius:3px;}
+input.button{padding:0.5em;}
+input.button:hover{background-color:#317ef3;}
 input.delete{border:none;width:18px;height:18px;background:url(img/button/delete.png) 0px 0px no-repeat;}
 input.text{width:200px;}
 input.readonlytext{width:200px;background-color:#e1e1e1;color:#000000;}
@@ -168,7 +170,7 @@ div.line{display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hidd
 .listLogo td{color:#000000;text-align:right;vertical-align:middle;white-space:nowrap;padding:0px 5px;}
 .listLogo td.title{text-align:left;}
 .listLogo td, .listTable tr.list_title td, .listTable tr.list_title th{background-color:#e0ecff;}
-.listLogo input.button{background-color:#f0f1f2;}
+.listLogo input.button{}
 
 .queryTable{border:#c2c2c2 solid 1px;width:99%;margin:0 auto;}
 .queryTable tr{height:30px;}
@@ -177,23 +179,24 @@ div.line{display:block;width:1px;height:3px;margin:0px;padding:0px;overflow:hidd
 .queryTable td.input{text-align:left;padding-right:1px;}
 .queryTable td.query{text-align:center;}
 .queryTable input.text{width:80px;}
-.queryTable input.button{background-color:#e0ecff;height:20px;padding:0em;margin:0em;width:38px;}
+.queryTable input.button{height:20px;padding:0em;margin:0em;width:38px;}
 
-.pageview, .pageview *{margin:0em;padding:0em;font-family:tahoma;color:#182a2d;font-size:12px;height:30px;line-height:30px;vertical-align:middle;}
+.pageview, .pageview *{margin:0em;padding:0em;color:#182a2d;font-size:12px;height:28px;line-height:28px;vertical-align:middle;}
 .pageview{float:right;text-align:right;padding:0px 10px 0px 0px;width:100%;}
-.pageview a{text-decoration:none;border:none;}
-.pageview a:link{}
-.pageview a:visited{}
-.pageview a:hover{color:#205e92;}
-.pageview a:active{}
-.pageview a.first{width:38px;padding-left: 14px;background:url(img/pageview/first.png) no-repeat;background-position:left center;}
-.pageview a.prev {width:38px;padding-left: 13px;background:url(img/pageview/prev.png ) no-repeat;background-position:left center;}
-.pageview a.next {width:38px;padding-right:13px;background:url(img/pageview/next.png ) no-repeat;background-position:right center;}
-.pageview a.last {width:38px;padding-right:14px;background:url(img/pageview/last.png ) no-repeat;background-position:right center;}
-.pageview input{line-height:16px;height:16px;text-align:center;}
-.pageview input.input{width:25px;border:#7998c6 solid 1px;font-size:12px;}
-.pageview input.go{width:30px;cursor:pointer;border:#7998C6 solid 1px;height:18px;background:none;font-size:10px;font-weight:bold;}
-.pageview select{height:18px;width:40px;line-height:1.5em;text-align:center;cursor:pointer;border:none;border:#7998c6 solid 1px;}
+.pageview a,
+.pageview a:link,
+.pageview a:visited,
+.pageview a:hover,
+.pageview a:active{width:auto;height:18px;line-height:18px;text-decoration:none;color:#182a2d;background-color:#d9e5fd;border:#7998C6 solid 1px;display:inline-block;padding:0 5px;border-radius:3px;}
+.pageview a:hover{background-color:#317ef3;color:#fff;}
+.pageview a.first{}/*width:38px;padding-left: 14px;background:url(img/pageview/first.png) no-repeat;background-position:left center;}*/
+.pageview a.prev {}/*width:38px;padding-left: 13px;background:url(img/pageview/prev.png ) no-repeat;background-position:left center;}*/
+.pageview a.next {}/*width:38px;padding-right:13px;background:url(img/pageview/next.png ) no-repeat;background-position:right center;}*/
+.pageview a.last {}/*width:38px;padding-right:14px;background:url(img/pageview/last.png ) no-repeat;background-position:right center;}*/
+.pageview input{min-height:18px;line-height:12px;text-align:center;}
+.pageview input.input{width:25px;height:14px;border:#7998c6 solid 1px;font-size:12px;}
+.pageview input.go{width:30px;cursor:pointer;border:#7998C6 solid 1px;height:18px;background:none;font-size:10px;font-weight:bold;border-radius:3px;}
+.pageview select{min-height:18px;height:18px;width:42px;line-height:1.8em;text-align:center;cursor:pointer;border:none;border:#7998c6 solid 1px;}
 
 /*表单*/
 /*标题*/td.form_title{padding-left:3px;padding-right:3px;text-align:right;background-color:#fcfcfc;}
