@@ -8,10 +8,11 @@
 			isIe6 = true;
 		}
 	}
-	$(".bottomTable").css({padding:"0",margin:"0",width:"100%",position:"fixed",left:"0",bottom:"0","border-top":"#c2c2c2 solid 1px"});
 	$(".listTable").css({"margin-bottom":"35px"});
+	$(".bottomTable").css({padding:"0",margin:"0",width:"100%",position:"fixed",left:"0",bottom:"0","border-top":"#c2c2c2 solid 1px"});
 	if(isIe6){
-		$(".bottomTable").css({position:"absolute",left:"0",top:"expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-parseInt(this.currentStyle.marginTop)-parseInt(this.currentStyle.marginBottom)))"});
+		try{$(".bottomTable").before("<div style='visibility:hidden;height:0px;padding:0;margin:0;'></div>");}catch(ie6ex){}
+		$(".bottomTable").css({position:"absolute",top:"expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-parseInt(this.currentStyle.marginTop)-parseInt(this.currentStyle.marginBottom)))"});
 	}
 	$("#listFormDelAll").click(function(){
 		var a = $("input[name='keyIndex']:checked");
