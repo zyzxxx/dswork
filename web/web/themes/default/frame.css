@@ -21,7 +21,7 @@ a:hover,a:active{outline:none;}:focus{outline:none;}
 img{border:0;vertical-align:middle;-ms-interpolation-mode:bicubic;}
 
 .menuTool{white-space:nowrap;}
-.menuTool a{padding:2px 0px 2px 18px;}
+.menuTool a{padding:0 0 2px 18px;}
 .menuTool a.excel{background:url(img/file/excel.png) no-repeat 0px 0px;}
 .menuTool a.exe  {background:url(img/file/exe.png) no-repeat 0px 0px;}
 .menuTool a.file {background:url(img/file/file.png) no-repeat 0px 0px;}
@@ -134,15 +134,15 @@ img{border:0;vertical-align:middle;-ms-interpolation-mode:bicubic;}
 .menuTool-bar     {background:url(img/menu.png) no-repeat 0px -650px;}
 .menuTool-pie     {background:url(img/menu.png) no-repeat 0px -675px;}
 
-input[type="text"],input[type="password"],select{border:#c2c2c2 solid 1px;min-height:22px;}
-input[type="text"]:hover,input[type="password"]:hover{border:#0192d0 solid 1px;}}
+input.text,input[type="text"],input[type="password"],select{border:#c2c2c2 solid 1px;min-height:22px;}
+input.text:hover,input[type="text"]:hover,input[type="password"]:hover{border:#0192d0 solid 1px;}}
 
 span.msg{color:#0000ff;}
 span.tips{color:#0000ff;}
 span.imp{padding-left:3px;color:#ff0000;font-weight:bold;}
 input.button,
 input.delete{border:none;background:none;padding:0em;margin:0em;line-height:1.5em;cursor:pointer;background-color:#2996ff;color:#fff;border-radius:3px;}
-input.button{padding:0.5em;}
+input.button{padding:0.2em 1em 0.3em 1em;}
 input.button:hover{background-color:#317ef3;}
 input.delete{border:none;width:18px;height:18px;background:url(img/button/delete.png) 0px 0px no-repeat;}
 input.text{width:200px;}
