@@ -1,9 +1,0 @@
-dswork.js
-$dswork.upload中默认的url是:/web/js/jskey/jskey_multiupload.jsp
-.net 调用时需要修改为：/web/js/jskey/jskey_multiupload.aspx
-
-以下四个方法调用的是jsp里的common路径，.net无法使用
-$dswork.getChoose()
-$dswork.getChooseByKey()
-$dswork.getChooseDialog()
-$dswork.getChooseDialogByKey() 
