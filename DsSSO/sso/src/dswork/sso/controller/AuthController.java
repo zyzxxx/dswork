@@ -163,7 +163,7 @@ public class AuthController
 		String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
 		TicketService.removeSession(ticket);// 删除
 		ticket = TicketService.saveSession(account);
-		cookie.addCookie(SessionListener.COOKIETICKET, ticket);// 更新
+		cookie.addCookie(SessionListener.COOKIETICKET, ticket, -1, "/", null, false, true);// 更新
 		return ticket;
 	}
 
