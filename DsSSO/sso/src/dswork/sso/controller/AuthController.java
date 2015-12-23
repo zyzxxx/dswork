@@ -163,7 +163,9 @@ public class AuthController
 		String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
 		TicketService.removeSession(ticket);// 删除
 		ticket = TicketService.saveSession(account);
-		cookie.addCookie(SessionListener.COOKIETICKET, ticket, -1, "/", null, false, true);// 更新
+		response.setHeader("P3P", "CP=CAO PSA OUR");
+		//response.setHeader("P3P", "CP='CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR'");
+		cookie.addCookie(SessionListener.COOKIETICKET, ticket);// 更新, 7200, "/", null, false, false
 		return ticket;
 	}
 
