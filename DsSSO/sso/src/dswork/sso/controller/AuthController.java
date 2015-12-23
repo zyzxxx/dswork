@@ -36,6 +36,9 @@ public class AuthController
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
+		response.setHeader("P3P", "CP=CAO PSA OUR");
+		//response.setHeader("P3P", "CP='CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR'");
+		//response.setHeader("P3P", "CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'");
 		MyRequest req = new MyRequest(request);
 		String serviceURL = req.getString("service", request.getContextPath() + "/ticket.jsp");
 		if(log.isDebugEnabled())
@@ -67,6 +70,7 @@ public class AuthController
 	@RequestMapping("/loginAction")
 	public String loginAction(HttpServletRequest request, HttpServletResponse response)
 	{
+		response.setHeader("P3P", "CP=CAO PSA OUR");
 		MyRequest req = new MyRequest(request);
 		String account = req.getString("account").toLowerCase();
 		String password = req.getString("password");
@@ -163,8 +167,6 @@ public class AuthController
 		String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
 		TicketService.removeSession(ticket);// 删除
 		ticket = TicketService.saveSession(account);
-		response.setHeader("P3P", "CP=CAO PSA OUR");
-		//response.setHeader("P3P", "CP='CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR'");
 		cookie.addCookie(SessionListener.COOKIETICKET, ticket);// 更新, 7200, "/", null, false, false
 		return ticket;
 	}
