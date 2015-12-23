@@ -117,7 +117,7 @@ public class WebFilter implements Filter
 				}
 			}
 			url = request.getRequestURL().toString();
-			params += "&ex=" + System.currentTimeMillis();
+			//params += "&ex=" + System.currentTimeMillis();
 			if(params.length() > 0)
 			{
 				url = url + (url.indexOf("?") == -1 ? "?" : "&") + params.substring(1);
@@ -161,7 +161,7 @@ public class WebFilter implements Filter
 			String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
 			if(log.isDebugEnabled())
 			{
-				log.debug("CasFilter:url=" + u + ", json:" + v);
+				log.debug("WebFilter:url=" + u + ", json:" + v);
 			}
 			Map<String, String> m = gson.fromJson(v, new TypeToken<Map<String, String>>(){}.getType());
 			//m.get("id");
