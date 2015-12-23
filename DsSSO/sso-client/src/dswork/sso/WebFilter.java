@@ -117,9 +117,10 @@ public class WebFilter implements Filter
 				}
 			}
 			url = request.getRequestURL().toString();
+			params += "&ex=" + System.currentTimeMillis();
 			if(params.length() > 0)
 			{
-				url = url + (url.indexOf("?") == -1 ? "?" : "&") + params;
+				url = url + (url.indexOf("?") == -1 ? "?" : "&") + params.substring(1);
 			}
 		}
 		catch(Exception e)
