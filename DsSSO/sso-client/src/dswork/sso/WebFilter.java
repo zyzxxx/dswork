@@ -85,6 +85,7 @@ public class WebFilter implements Filter
 			chain.doFilter(request, response);// 是无需验证页面
 			return;
 		}
+		response.setHeader("P3P", "CP=CAO PSA OUR");
 		response.sendRedirect(getLoginURL(request));
 		return;
 	}
