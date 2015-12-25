@@ -1,6 +1,7 @@
 #set($mf="$")
 #set($pk="ID")
 #set($memo="MEMO")
+#set($Frame=$vo.GetParam('Frame'))
 #set($Model=$vo.GetParam('Model'))
 @{
     Layout = "~/Views/Commons/UpdAjax.cshtml";
