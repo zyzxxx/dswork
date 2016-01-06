@@ -148,7 +148,6 @@ public class OffsetLimitInterceptor implements Interceptor
 		{
 			throw new RuntimeException("Dialect can not loading:" + dialectClass, e);
 		}
-		System.out.println("Loading:" + dialectClass);
 	}
 
 	public static class BoundSqlSqlSource implements SqlSource
