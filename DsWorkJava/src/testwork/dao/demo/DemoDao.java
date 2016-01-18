@@ -6,7 +6,7 @@ package testwork.dao.demo;
 import org.springframework.stereotype.Repository;
 
 import dswork.core.db.BaseDao;
-import testwork.model.demo.Demo;
+import testwork.model.Demo;
 
 @Repository
 @SuppressWarnings(value={"all"})

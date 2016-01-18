@@ -1,7 +1,7 @@
 /**
  * 样例信息Model
  */
-package testwork.model.demo;
+package testwork.model;
 
 //@javax.persistence.Entity
 //@org.hibernate.annotations.Entity(dynamicUpdate = true)
@@ -10,7 +10,19 @@ package testwork.model.demo;
 public class Demo// implements java.io.Serializable
 {
 	//样例编号
-	private Long id = 0L;
+	private Long id;
+	//样例编号
+	private long id2;
+	public long getId2()
+	{
+		return id2;
+	}
+
+	public void setId2(long id2)
+	{
+		this.id2 = id2;
+	}
+
 	//标题
 	private String title = "";
 	//内容

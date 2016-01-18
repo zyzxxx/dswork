@@ -19,7 +19,7 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
-import testwork.model.demo.Demo;
+import testwork.model.Demo;
 import testwork.service.demo.DemoService;
 
 @Controller

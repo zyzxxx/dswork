@@ -6,7 +6,8 @@ import dswork.core.db.EntityDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import testwork.model.demo.*;
+import testwork.model.Demo;
+import testwork.model.*;
 import testwork.dao.demo.HbmDemoDao;
 
 @Service

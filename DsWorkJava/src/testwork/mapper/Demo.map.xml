@@ -3,8 +3,8 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="testwork.model.demo.Demo">
-	<insert id="insert" parameterType="testwork.model.demo.Demo">
+<mapper namespace="testwork.model.Demo">
+	<insert id="insert" parameterType="testwork.model.Demo">
 	<!--
 		<selectKey resultType="java.lang.Long" order="BEFORE" keyProperty="id">
 			select SEQ_ID.NEXTVAL from dual
@@ -22,7 +22,7 @@
 		delete from DEMO where ID=#{id}
 	</delete>
 
-	<update id="update" parameterType="testwork.model.demo.Demo">
+	<update id="update" parameterType="testwork.model.Demo">
 		<![CDATA[
 		update DEMO SET
 			TITLE=#{title},
@@ -32,7 +32,7 @@
 		]]>
 	</update>
 
-	<resultMap id="result" type="testwork.model.demo.Demo">
+	<resultMap id="result" type="testwork.model.Demo">
 		<result property="id" column="ID" />
 		<result property="title" column="TITLE" />
 		<result property="content" column="CONTENT" />

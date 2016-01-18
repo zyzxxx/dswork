@@ -3,7 +3,7 @@ package testwork.dao.demo;
 import java.util.Map;
 
 import dswork.core.db.HibernateBaseDao;
-import testwork.model.demo.Demo;
+import testwork.model.Demo;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;

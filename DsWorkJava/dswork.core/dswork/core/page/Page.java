@@ -44,7 +44,10 @@ public class Page<T> implements Serializable
 			throw new IllegalArgumentException("[pageSize] must great than zero");
 		}
 		this.lastPage = totalCount % pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
-		this.lastPage = (this.lastPage < 1) ? 1 : this.lastPage;
+		if(this.lastPage < 1)
+		{
+			this.lastPage = 1;
+		}
 		this.pageSize = pageSize;
 		if(currentPage <= 1)
 		{
@@ -204,9 +207,7 @@ public class Page<T> implements Serializable
 	 */
 	public int getTotalPage()
 	{
-		int page = totalCount / pageSize;
-		int tmp = totalCount % pageSize;
-		return page + ((tmp == 0) ? 0 : 1);
+		return lastPage;
 	}
 
 	/**
