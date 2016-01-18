@@ -12,7 +12,7 @@ import dswork.core.page.PageRequest;
  * @version 1.0
  */
 @SuppressWarnings("all")
-public interface MyEntityDao
+public interface MyDataEntity
 {
 	/**
 	 * 新增对象
