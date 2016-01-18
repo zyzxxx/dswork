@@ -1,13 +1,10 @@
 package dswork.core.data;
 
-import org.springframework.stereotype.Repository;
-
 /**
  * MyBatis基础Dao类
  * @author sille
  * @version 1.0
  */
-@Repository
 public class MyDao extends MyDataDao implements MyDaoEntity
 {
 	/**
