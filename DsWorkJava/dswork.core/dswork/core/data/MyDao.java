@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * @version 1.0
  */
 @Repository
-public class MyDao extends MyDataDao implements MyDataEntity
+public class MyDao extends MyDataDao implements MyDaoEntity
 {
 	/**
 	 * 获取需要操作sql的id，当getEntityClass().getName()无法满足时，可以重载此方法

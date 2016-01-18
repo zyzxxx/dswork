@@ -27,7 +27,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 	 * 需要被子类覆盖
 	 * @return EntityDao
 	 */
-	protected abstract MyDataEntity getEntityDao();
+	protected abstract MyDaoEntity getEntityDao();
 
 	protected abstract String getSqlNamespace();
 
