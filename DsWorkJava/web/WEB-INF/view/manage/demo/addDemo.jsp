@@ -5,7 +5,7 @@
 <html>
 <head>
 	<title></title>
-	<%@include file="/commons/include/addAjax.jsp" %>
+	<%@include file="/commons/include/add.jsp" %>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
@@ -18,7 +18,7 @@
 	</tr>
 </table>
 <div class="line"></div>
-<form id="dataForm" method="post" action="addDemo2.htm">
+<form id="dataForm" method="post" action="${ctx}/manage/my/save/Demo.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">标题：</td>

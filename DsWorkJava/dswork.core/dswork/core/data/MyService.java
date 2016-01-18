@@ -119,7 +119,7 @@ public class MyService
 	 */
 	public List<Object> queryList(String namespace, PageRequest pageRequest)
 	{
-		return (List<Object>) dao.executeSelectList(namespace + ".query", pageRequest);
+		return (List<Object>) dao.executeSelectList(namespace + ".query", pageRequest.getFilters());
 	}
 
 	/**
