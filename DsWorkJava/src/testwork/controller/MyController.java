@@ -36,6 +36,18 @@ public class MyController extends BaseController
 			Object obj;
 			obj = Class.forName(namespaceDot + model).newInstance();
 			req.getFillObject(obj);
+			try
+			{
+				obj.getClass().getMethod("setId", String.class).invoke(obj, dswork.core.util.UniqueId.genGuid());
+			}
+			catch(Exception ex1)
+			{
+				try
+				{
+					obj.getClass().getMethod("setId", Long.class).invoke(obj, dswork.core.util.UniqueId.genId());
+				}
+				catch(Exception ex2){}
+			}
 			service.save(namespaceDot + model, obj);
 			map.put("status", 1);
 			map.put("msg", obj.getClass().getMethod("getId").invoke(obj));
