@@ -36,7 +36,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 	 * @param entity 需要新增的对象模型
 	 * @return int
 	 */
-	public int save(Object entity)
+	public int save(T entity)
 	{
 		return getEntityDao().executeInsert(getSqlNamespace() + ".insert", entity);
 	}
@@ -61,7 +61,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 		{
 			for(PK p : primaryKeys)
 			{
-				delete(p);
+				getEntityDao().executeDelete(getSqlNamespace() + ".delete", p);
 			}
 		}
 	}
@@ -71,7 +71,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 	 * @param entity 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
 	 * @return int
 	 */
-	public int update(Object entity)
+	public int update(T entity)
 	{
 		return getEntityDao().executeUpdate(getSqlNamespace() + ".update", entity);
 	}

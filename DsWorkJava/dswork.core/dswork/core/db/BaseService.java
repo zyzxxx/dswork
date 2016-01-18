@@ -59,7 +59,7 @@ public abstract class BaseService<T, PK extends Serializable>
 		{
 			for (PK p : primaryKeys)
 			{
-				delete(p);
+				getEntityDao().delete(p);
 			}
 		}
 	}
