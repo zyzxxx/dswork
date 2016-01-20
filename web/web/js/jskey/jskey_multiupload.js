@@ -126,7 +126,7 @@ uploadProgress:function(file, bytesLoaded, bytesTotal)
 	{
 		var p = this.customSettings;
 		var allPercent = Math.ceil((p.uploadSize+bytesLoaded)/p.allSize*100);
-		if(allPercent == 100)
+		if(allPercent >= 100)
 		{
 			document.getElementById(p.div).innerHTML = "上传已完成：" + "100% (" + $jskey.formatBytes(p.allSize) + ")";
 		}
