@@ -46,22 +46,12 @@ public abstract class MyDataDao extends DaoSupport
 	}
 
 	/**
-	 * 不建议使用，使用execute*和query*方法代替
+	 * 不建议直接使用，建议使用execute*和query*方法代替
 	 * @return SqlSessionTemplate
 	 */
 	protected SqlSessionTemplate getSqlSessionTemplate()
 	{
 		return sqlSessionTemplate;
-	}
-
-	/**
-	 * 获取需要操作sql的id，当getEntityClass().getName()无法满足时，可以重载此方法
-	 * @param statementName SQL的ID(不包含namespace)
-	 * @return String
-	 */
-	protected String getStatementName(String statementName, Object obj)
-	{
-		return obj.getClass().toString() + "." + statementName;
 	}
 
 	/**
@@ -119,17 +109,6 @@ public abstract class MyDataDao extends DaoSupport
 		return getSqlSessionTemplate().selectList(statementName, parameter);
 	}
 
-	// /**
-	// * 封装sqlSessionTemplate.selectMap方法
-	// * @param statementName SQL的ID(包含namespace)
-	// * @param parameter 参数
-	// * @param mapKey
-	// * @return Map
-	// */
-	// protected Map executeSelectMap(String statementName, Object parameter, String mapKey)
-	// {
-	// return getSqlSessionTemplate().selectMap(statementName, parameter, mapKey);
-	// }
 	/**
 	 * 不分页查询数据
 	 * @param statementName SQL的ID(包含namespace)
@@ -171,7 +150,7 @@ public abstract class MyDataDao extends DaoSupport
 		return MyDataDao.queryCountProcess(o);// xml里配置是int或long都可以
 	}
 
-	protected final static int queryCountProcess(Object o)
+	private final static int queryCountProcess(Object o)
 	{
 		int totalCount = 0;
 		try

@@ -10,30 +10,30 @@ import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
 
 /**
- * 单模块服务类
- * @author skey
+ * 通用数据操作service
+ * @author skey,sille
  * @version 1.0
  */
 @SuppressWarnings("all")
 public class MyService
 {
 	protected Log log = LogFactory.getLog(getClass());
-	private MyDao dao;
+	private MyDaoEntity dao;
 	
 	/**
-	 * 注入MyDao
+	 * 注入MyDaoEntity实例
 	 * @param dao MyDao
 	 */
-	public void setMyDao(MyDao dao)
+	public void setMyDaoEntity(MyDaoEntity dao)
 	{
 		this.dao = dao;
 	}
 	
 	/**
-	 * 获取MyDao
+	 * 供service层获取MyDaoEntity实例
 	 * @return MyDao
 	 */
-	public MyDao getMyDao()
+	protected MyDaoEntity getMyDaoEntity()
 	{
 		return dao;
 	}
@@ -46,56 +46,56 @@ public class MyService
 	 */
 	public int save(String namespace, Object entity)
 	{
-		return dao.executeInsert(namespace + ".insert", entity);
+		return getMyDaoEntity().executeInsert(namespace + ".insert", entity);
 	}
 
 	/**
 	 * 根据主键删除对象
 	 * @param namespace SQL的namespace
-	 * @param p 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
+	 * @param primaryKey 参数，一般传入主键
 	 * @return int
 	 */
-	public int delete(String namespace, Long p)
+	public int delete(String namespace, Object primaryKey)
 	{
-		return dao.executeDelete(namespace + ".delete", p);
+		return getMyDaoEntity().executeDelete(namespace + ".delete", primaryKey);
 	}
 
 	/**
 	 * 根据主键批量删除对象
 	 * @param namespace SQL的namespace
-	 * @param primaryKeys 主键数组(如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map)
+	 * @param primaryKeys 参数数组，一般传入主键数组
 	 */
-	public void deleteBatch(String namespace, Long[] primaryKeys)
+	public void deleteBatch(String namespace, Object[] primaryKeys)
 	{
 		if(primaryKeys != null && primaryKeys.length > 0)
 		{
-			for(Long p : primaryKeys)
+			for(Object p : primaryKeys)
 			{
-				dao.executeDelete(namespace + ".delete", p);
+				getMyDaoEntity().executeDelete(namespace + ".delete", p);
 			}
 		}
 	}
 
 	/**
-	 * 查询对象
+	 * 更新对象
 	 * @param namespace SQL的namespace
-	 * @param entity 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
+	 * @param entity 需要更新的对象模型
 	 * @return int
 	 */
 	public int update(String namespace, Object entity)
 	{
-		return dao.executeUpdate(namespace + ".update", entity);
+		return getMyDaoEntity().executeUpdate(namespace + ".update", entity);
 	}
 
 	/**
 	 * 查询对象
 	 * @param namespace SQL的namespace
-	 * @param primaryKey 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
-	 * @return T对象模型
+	 * @param primaryKey 参数，一般传入主键
+	 * @return Object
 	 */
-	public Object get(String namespace, Long primaryKey)
+	public Object get(String namespace, Object primaryKey)
 	{
-		return (Object) dao.executeSelect(namespace + ".select", primaryKey);
+		return (Object) getMyDaoEntity().executeSelect(namespace + ".select", primaryKey);
 	}
 
 	/**
@@ -106,9 +106,7 @@ public class MyService
 	 */
 	public List<Object> queryList(String namespace, Map map)
 	{
-		PageRequest request = new PageRequest();
-		request.setFilters(map);
-		return (List<Object>) dao.executeSelectList(namespace + ".query", request);
+		return (List<Object>) getMyDaoEntity().executeSelectList(namespace + ".query", map);
 	}
 
 	/**
@@ -119,7 +117,7 @@ public class MyService
 	 */
 	public List<Object> queryList(String namespace, PageRequest pageRequest)
 	{
-		return (List<Object>) dao.executeSelectList(namespace + ".query", pageRequest.getFilters());
+		return (List<Object>) getMyDaoEntity().executeSelectList(namespace + ".query", pageRequest.getFilters());
 	}
 
 	/**
@@ -133,7 +131,7 @@ public class MyService
 	public Page<Object> queryPage(String namespace, int currentPage, int pageSize, Map map)
 	{
 		PageRequest pageRequest = new PageRequest(currentPage, pageSize, map);
-		Page<Object> page = dao.queryPage(namespace + ".query", pageRequest, namespace + ".queryCount", pageRequest);
+		Page<Object> page = getMyDaoEntity().queryPage(namespace + ".query", pageRequest, namespace + ".queryCount", pageRequest);
 		return page;
 	}
 
@@ -145,7 +143,7 @@ public class MyService
 	 */
 	public Page<Object> queryPage(String namespace, PageRequest pageRequest)
 	{
-		return (Page<Object>)dao.queryPage(namespace + ".query", pageRequest, namespace + ".queryCount", pageRequest);
+		return (Page<Object>)getMyDaoEntity().queryPage(namespace + ".query", pageRequest, namespace + ".queryCount", pageRequest);
 	}
 
 	/**
@@ -154,8 +152,8 @@ public class MyService
 	 * @param pageRequestCount PageRequest.getFilters()查询参数和条件数据
 	 * @return int
 	 */
-	public int queryCount(String namespace, PageRequest pageRequest)
+	public int queryCount(String namespace, PageRequest pageRequestCount)
 	{
-		return dao.queryCount(namespace + ".queryCount", pageRequest);
+		return getMyDaoEntity().queryCount(namespace + ".queryCount", pageRequestCount);
 	}
 }

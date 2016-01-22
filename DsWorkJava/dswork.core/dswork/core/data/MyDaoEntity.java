@@ -7,7 +7,7 @@ import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
 
 /**
- * 基类接口
+ * 通用dao接口
  * @author skey
  * @version 1.0
  */

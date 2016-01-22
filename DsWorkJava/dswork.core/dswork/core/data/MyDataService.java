@@ -11,8 +11,8 @@ import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
 
 /**
- * 服务基础类
- * @author sille
+ * 通用service接口，基于getSqlNamespace()返回值作为全局命名空间
+ * @author skey,sille
  * @version 1.0
  * @param &lt;T&gt; 对象模型
  * @param &lt;PK&gt; 主键类
@@ -24,11 +24,15 @@ public abstract class MyDataService<T, PK extends Serializable>
 	protected Log log = LogFactory.getLog(getClass());
 
 	/**
-	 * 需要被子类覆盖
-	 * @return EntityDao
+	 * 供service层获取MyDaoEntity实例
+	 * @return MyDaoEntity
 	 */
-	protected abstract MyDaoEntity getEntityDao();
+	protected abstract MyDaoEntity getMyEntityDao();
 
+	/**
+	 * 获取MyBatis配置sql的通用命名空间
+	 * @return String
+	 */
 	protected abstract String getSqlNamespace();
 
 	/**
@@ -38,7 +42,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 	 */
 	public int save(T entity)
 	{
-		return getEntityDao().executeInsert(getSqlNamespace() + ".insert", entity);
+		return getMyEntityDao().executeInsert(getSqlNamespace() + ".insert", entity);
 	}
 
 	/**
@@ -48,7 +52,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 	 */
 	public int delete(PK p)
 	{
-		return getEntityDao().executeDelete(getSqlNamespace() + ".delete", p);
+		return getMyEntityDao().executeDelete(getSqlNamespace() + ".delete", p);
 	}
 
 	/**
@@ -61,19 +65,19 @@ public abstract class MyDataService<T, PK extends Serializable>
 		{
 			for(PK p : primaryKeys)
 			{
-				getEntityDao().executeDelete(getSqlNamespace() + ".delete", p);
+				getMyEntityDao().executeDelete(getSqlNamespace() + ".delete", p);
 			}
 		}
 	}
 
 	/**
-	 * 查询对象
-	 * @param entity 如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map
+	 * 更新对象
+	 * @param entity 需要更新的对象模型
 	 * @return int
 	 */
 	public int update(T entity)
 	{
-		return getEntityDao().executeUpdate(getSqlNamespace() + ".update", entity);
+		return getMyEntityDao().executeUpdate(getSqlNamespace() + ".update", entity);
 	}
 
 	/**
@@ -83,7 +87,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 	 */
 	public T get(PK primaryKey)
 	{
-		return (T) getEntityDao().executeSelect(getSqlNamespace() + ".select", primaryKey);
+		return (T) getMyEntityDao().executeSelect(getSqlNamespace() + ".select", primaryKey);
 	}
 
 	/**
@@ -93,9 +97,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 	 */
 	public List<T> queryList(Map map)
 	{
-		PageRequest request = new PageRequest();
-		request.setFilters(map);
-		return (List<T>) getEntityDao().executeSelectList(getSqlNamespace() + ".query", request);
+		return (List<T>) getMyEntityDao().executeSelectList(getSqlNamespace() + ".query", map);
 	}
 
 	/**
@@ -105,7 +107,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 	 */
 	public List<T> queryList(PageRequest pageRequest)
 	{
-		return (List<T>) getEntityDao().executeSelectList(getSqlNamespace() + ".query", pageRequest);
+		return (List<T>) getMyEntityDao().executeSelectList(getSqlNamespace() + ".query", pageRequest.getFilters());
 	}
 
 	/**
@@ -121,7 +123,7 @@ public abstract class MyDataService<T, PK extends Serializable>
 		pageRequest.setFilters(map);
 		pageRequest.setCurrentPage(currentPage);
 		pageRequest.setPageSize(pageSize);
-		Page<T> page = getEntityDao().queryPage(getSqlNamespace() + ".query", pageRequest, getSqlNamespace() + ".queryCount", pageRequest);
+		Page<T> page = getMyEntityDao().queryPage(getSqlNamespace() + ".query", pageRequest, getSqlNamespace() + ".queryCount", pageRequest);
 		return page;
 	}
 
@@ -132,17 +134,17 @@ public abstract class MyDataService<T, PK extends Serializable>
 	 */
 	public Page<T> queryPage(PageRequest pageRequest)
 	{
-		return getEntityDao().queryPage(getSqlNamespace() + ".query", pageRequest, getSqlNamespace() + ".queryCount", pageRequest);
+		return getMyEntityDao().queryPage(getSqlNamespace() + ".query", pageRequest, getSqlNamespace() + ".queryCount", pageRequest);
 	}
+
 
 	/**
 	 * 执行查询操作取得数据条数
-	 * @param statementNameCount SQL的ID(包含namespace)
 	 * @param pageRequestCount PageRequest.getFilters()查询参数和条件数据
 	 * @return int
 	 */
-	public int queryCount(PageRequest pageRequest)
+	public int queryCount(PageRequest pageRequestCount)
 	{
-		return getEntityDao().queryCount(getSqlNamespace() + ".queryCount", pageRequest);
+		return getMyEntityDao().queryCount(getSqlNamespace() + ".queryCount", pageRequestCount);
 	}
 }
