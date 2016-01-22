@@ -27,7 +27,7 @@ public class MyController extends BaseController
 {
 	@Autowired
 	private MyService service;
-	private static String namespaceDot = "testwork.model.";
+	private static String namespaceDot = "testwork.model.";// 配置单表model类命名空间前缀
 
 	@RequestMapping("/save/{model}")
 	public void save(@PathVariable String model)

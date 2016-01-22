@@ -1,10 +1,19 @@
 var treedata = [
-{id:100, name:'Demo项目', img:"", imgOpen:"", url:"", items:[
+{id:100, name:'MyBatisDemo', img:"", imgOpen:"", url:"", items:[
 	{id:101,name:'Demo', img:"", imgOpen:"", url:'/manage/demo/getDemo.htm', items:[]}
 	,{id:101,name:'Mark', img:"", imgOpen:"", url:'/manage/mark/getDemo.htm', items:[]}
 ]}
 ,
-{id:200, name:'Demo项目', img:"", imgOpen:"", url:"", items:[
+{id:110, name:'MyBatis通用模块', img:"", imgOpen:"", url:"", items:[
+	{id:111,name:'通用列表', img:"", imgOpen:"", url:'/manage/my/list/Demo.htm', items:[]}
+	,{id:112,name:'通用翻页', img:"", imgOpen:"", url:'/manage/my/page/Demo.htm?page=1&pageSize=2', items:[]}
+	,{id:113,name:'通用save', img:"", imgOpen:"", url:'/manage/my/save/Demo.htm', items:[]}
+	,{id:114,name:'通用update', img:"", imgOpen:"", url:'/manage/my/update/Demo.htm?keyIndex=1&title=update', items:[]}
+	,{id:115,name:'通用get', img:"", imgOpen:"", url:'/manage/my/get/Demo.htm?keyIndex=1', items:[]}
+	,{id:116,name:'通用delete', img:"", imgOpen:"", url:'/manage/my/delete/Demo.htm?keyIndex=2', items:[]}
+]}
+,
+{id:200, name:'HibernateDemo', img:"", imgOpen:"", url:"", items:[
 	{id:202,name:'DemoHibernate', img:"", imgOpen:"", url:'/manage/hbmdemo/getDemo.htm', items:[]}
 ]}
 ,
