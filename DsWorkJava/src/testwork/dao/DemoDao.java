@@ -1,7 +1,7 @@
 /**
  * 样例信息Dao
  */
-package testwork.dao.demo;
+package testwork.dao;
 
 import org.springframework.stereotype.Repository;
 

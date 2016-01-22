@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import testwork.model.Demo;
 import testwork.model.*;
-import testwork.dao.demo.HbmDemoDao;
+import testwork.dao.HbmDemoDao;
 
 @Service
 @SuppressWarnings(value={"all"})

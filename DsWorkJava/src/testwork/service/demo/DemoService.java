@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import dswork.core.db.EntityDao;
 import dswork.core.db.BaseService;
 import testwork.model.Demo;
-import testwork.dao.demo.DemoDao;
+import testwork.dao.DemoDao;
 
 @Service
 @SuppressWarnings(value={"all"})

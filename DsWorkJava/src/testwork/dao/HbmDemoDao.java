@@ -1,4 +1,4 @@
-package testwork.dao.demo;
+package testwork.dao;
 
 import java.util.Map;
 
