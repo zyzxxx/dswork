@@ -26,7 +26,10 @@ namespace Dswork.Core.Page
 				throw new Exception("[pageSize] must great than zero");
 			}
 			this.lastPage = totalCount % pageSize == 0 ? totalCount / pageSize : totalCount / pageSize + 1;
-			this.lastPage = (this.lastPage < 1) ? 1 : this.lastPage;
+			if (this.lastPage < 1)
+			{
+				this.lastPage = 1;
+			}
 			this.pageSize = pageSize;
 			if(currentPage <= 1)
 			{
@@ -253,9 +256,7 @@ namespace Dswork.Core.Page
 		{
 			get
 			{
-				int page = totalCount / pageSize;
-				int tmp = totalCount % pageSize;
-				return page + ((tmp == 0) ? 0 : 1);
+				return lastPage;
 			}
 		}
 
