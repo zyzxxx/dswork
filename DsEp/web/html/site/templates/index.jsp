@@ -10,6 +10,7 @@
 <title>${site.name}</title>
 <link rel="stylesheet" type="text/css" href="${ctx}/themes/web.css"/>
 <script type="text/javascript" src="${ctx}/js/jquery.js"></script>
+<script type="text/javascript" src="${ctx}/js/jskey_focus.js"></script>
 </head>
 <body>
 <%@include file="include/header.jsp"%>

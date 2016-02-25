@@ -42,6 +42,7 @@ var nn = [
 	{id:10, name:'CMS', img:"", imgOpen:"", url:"", items:[
 		 {id:12,name:'栏目管理', img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
 		,{id:13,name:'信息发布', img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
+		,{id:14,name:'模板编辑', img:"", imgOpen:"", url:'/cms/template/getTemplateTree.htm', items:[]}
 	]}
 	,{id:20, name:'BBS', img:"", imgOpen:"", url:"", items:[
 	     {id:21,name:'站点管理', img:"", imgOpen:"", url:'/bbs/admin/site/getSite.htm', items:[]}
@@ -73,7 +74,7 @@ for(var i = 0; i < treedata.length; i++){
 <br />&nbsp;&nbsp;&nbsp;&nbsp;<a target='top' href='<%=path%>/logout.jsp'>退出</a>
 </div>
 <div style="float:right;height:100%;width:80%;min-width:800px;">
-	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="auto" frameborder="0" src="#"></iframe>
+	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="auto" frameborder="0" src="about:_blank;"></iframe>
 </div>
 </div>
 </body>

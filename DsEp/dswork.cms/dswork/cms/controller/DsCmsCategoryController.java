@@ -213,7 +213,7 @@ public class DsCmsCategoryController extends BaseController
 	{
 		try
 		{
-			Long id = req.getLong("siteid"), siteid = 0L;
+			Long id = req.getLong("siteid"), siteid = -1L;
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("own", getOwn());
 			PageRequest rq = new PageRequest(map);
@@ -221,7 +221,7 @@ public class DsCmsCategoryController extends BaseController
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);
-				if(id > 0)
+				if(id >= 0)
 				{
 					for(DsCmsSite m : siteList)
 					{
@@ -233,7 +233,7 @@ public class DsCmsCategoryController extends BaseController
 						}
 					}
 				}
-				if(siteid == 0)
+				if(siteid == -1)
 				{
 					siteid = siteList.get(0).getId();
 					put("list", queryCategory(siteid, true, 0));
