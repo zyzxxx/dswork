@@ -3,15 +3,10 @@
  */
 package dswork.cms.controller;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-//import java.io.FileReader;
-import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +20,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.cms.CmsFactory;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsSiteService;
 import dswork.core.page.PageRequest;
@@ -40,214 +34,154 @@ public class DsCmsFileController extends BaseController
 {
 	@Autowired
 	private DsCmsSiteService service;
-
-	/**
-	 * 文件保存的路径
-	 */
-	private static String FilePath = "";
-	/**
-	 * 文件引用的网址
-	 */
-	private static String UseUrl = "";
-	/**
-	 * 站点文件路径
-	 */
-	private static String SitePath = "";
-	/**
-	 * 获取cms根路径
-	 * @return
-	 */
+	
 	private String getCmsRoot()
 	{
 		return request.getSession().getServletContext().getRealPath("/html") + "/";
 	}
 
-	/**
-	 * 获取附件树，对附件进行管理
-	 * @param sitename 站点文件夹名称
-	 * @return
-	 */
 	@RequestMapping("/getFileTree")
-	public String getFileTree(String sitename)
+	public String getFileTree()
 	{
-		Map<String, Object> json = new HashMap<String, Object>();
-		json.put("id", 0);
-		json.put("pid", null);
-		json.put("name", "文件夹");
-		// 将跟地址显示为$root
-		// 判断sitename是否为空，如果不为空
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("own", getOwn());
-		PageRequest rq = new PageRequest(map);
-		List<DsCmsSite> list = service.queryList(rq);
-		
-		if(sitename == null && list.size() > 0)//如果sitename为空时，设置为第一个站点文件名
+		try
 		{
-			sitename = list.get(0).getFolder();
+			Long id = req.getLong("siteid"), siteid = -1L;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("own", getOwn());
+			PageRequest rq = new PageRequest(map);
+			List<DsCmsSite> siteList = service.queryList(rq);
+			if(siteList != null && siteList.size() > 0)
+			{
+				put("siteList", siteList);
+				if(id >= 0)
+				{
+					for(DsCmsSite m : siteList)
+					{
+						if(m.getId().longValue() == id)
+						{
+							siteid = m.getId();
+							put("site", m);
+							break;
+						}
+					}
+				}
+				if(siteid == -1)
+				{
+					siteid = siteList.get(0).getId();
+					put("site", siteList.get(0));
+				}
+			}
+			put("siteid", siteid);
+			return "/cms/file/getFileTree.jsp";
 		}
-		FilePath = getCmsRoot() + sitename + "/html/f/res";
-		SitePath = getCmsRoot() + sitename + "/html";
-		FilePath = FilePath.replace("\\", "/");
-		SitePath = SitePath.replace("\\", "/");
-		json.put("path", getVirtualFileName(FilePath));
-		json.put("parent", "");
-		put("po", json);
-		put("siteList", list);
-		long siteid = req.getLong("siteid", (Long) list.get(0).getId());
-		UseUrl = service.get(siteid).getUrl();
-		return "/manage/file/getFileTree.jsp";
-	}
-
-	/**
-	 * 获取某个文件夹下的文件列表
-	 * @return
-	 */
-	@RequestMapping("/getFile")
-	public String getFile()
-	{
-		String path = req.getString("path");
-		long pid = req.getLong("pid", 0);
-		put("list", fileLoad(getRealFileName(path), pid));
-		put("path", path);
-		return "/manage/file/getFile.jsp";
+		catch(Exception ex)
+		{
+		}
+		return null;
 	}
 
 	/**
 	 * 获取文件树
 	 */
-	@RequestMapping("/tree")
-	public void tree()
+	@RequestMapping("/getFileTreeJson")
+	public void getFileTreeJson()
 	{
-		// 判断传入对象是否为一个文件夹对象
-		File f = null;
-		String path = getRealFileName(req.getString("path", ""));
-		long pid = req.getLong("pid", 0);
-		if(path.equals(""))
+		StringBuilder sb = new StringBuilder(2);
+		sb.append("[");
+		try
 		{
-			f = new File("\\\\");
-		}
-		else
-		{
-			f = new File(path);
-		}
-		//判断该文件是不是文件夹
-		if(!f.isDirectory())
-		{
-			if(pid == 0)
+			long siteid = req.getLong("siteid", -1);
+			String uriPath = req.getString("path", "");
+			long pid = req.getLong("pid", 0);
+			if(siteid >= 0 && uriPath.indexOf("..") == -1)// 防止读取上级目录
 			{
-				print("文件打开失败！");
-			}
-			else
-			{
-				try
+				DsCmsSite site = service.get(siteid);
+				if(site != null)
 				{
-					fileRead(path);
+					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				catch(Exception e)
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 				{
-					e.printStackTrace();
+					String filePath = getCmsRoot() + site.getFolder() + "/html/f/res/";
+					File froot = new File(filePath);
+					File f = new File(filePath + uriPath);
+					// 限制为只能读取根目录下的信息
+					if(f.isDirectory() && (f.getPath().startsWith(froot.getPath())))
+					{
+						int i = 0;
+						for(File o : f.listFiles())
+						{
+							if(o.isDirectory())
+							{
+								if(i > 0)
+								{
+									sb.append(",");
+								}
+								sb.append("{id:").append(UniqueId.genId()).append(",pid:").append(pid).append(",isParent:").append(o.isDirectory()).append(",name:\"").append(o.getName()).append("\",path:\"").append(uriPath).append(o.getName()).append("/\"}");
+								i++;
+							}
+						}
+					}
 				}
 			}
 		}
-		else
+		catch(Exception ex)
 		{
-			print(fileLoad(path, pid));
 		}
+		sb.append("]");
+		System.out.println(sb.toString());
+		print(sb.toString());
 	}
 
 	/**
-	 * 传入虚拟的文件地址，转成真实的文件地址并返回。
-	 * @param path 虚拟的文件地址
-	 * @return
+	 * 获取文件树
 	 */
-	private String getRealFileName(String path)
+	@RequestMapping("/getFile")
+	public String getFile()
 	{
-		return path.replace("$root", FilePath);
-	}
-	/**
-	 * 传入真实的文件地址，转成虚拟的文件地址并返回。
-	 * @param path 真实的文件地址
-	 * @return
-	 */
-	private String getVirtualFileName(String path)
-	{
-		return path.replace(FilePath, "$root");
-	}
-	
-	/**
-	 * 传入文件的磁盘地址，转化成可以引用的访问地址并返回
-	 * @param path
-	 * @return
-	 */
-	private String getUseUrl(String path)
-	{
-		return path.replace(SitePath, UseUrl);
-	}
-
-	/**
-	 * 文件加载
-	 * @param path
-	 * @param pid
-	 * @return
-	 */
-	public List<Map<String, Object>> fileLoad(String path, long pid)
-	{
-		File f = null;
-		f = new File(path);
-		File[] t = f.listFiles();
-		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-		// file type
-		for(int i = 0; i < t.length; i++)
+		try
 		{
-			Map<String, Object> json = new HashMap<String, Object>();
-			// 判断文件列表中的对象是否为文件夹对象，如果是则执行tree递归，直到把此文件夹中所有文件输出为止
-			if(t[i].isDirectory())
+			long siteid = req.getLong("siteid", -1);
+			String uriPath = req.getString("path", "");
+			if(siteid >= 0 && uriPath.indexOf("..") == -1)// 防止读取上级目录
 			{
-				// System.out.println("文件夹：" + t[i].getName() + "   路径：" + t[i].getPath());
-				try
+				DsCmsSite site = service.get(siteid);
+				if(site != null)
 				{
-					json.put("id", UniqueId.genId());
+					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				catch(Exception e)
+				List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 				{
-					e.printStackTrace();
+					String resPath = getCmsRoot() + site.getFolder() + "/html/f/res/";
+					File froot = new File(resPath);
+					File f = new File(resPath + uriPath);
+					// 限制为只能读取根目录下的信息
+					if(f.isDirectory() && (f.getPath().startsWith(froot.getPath())))
+					{
+						for(File o : f.listFiles())
+						{
+							if(o.isFile())
+							{
+								Map<String, Object> m = new HashMap<String, Object>();
+								m.put("name", o.getName());
+								m.put("path", uriPath + o.getName());
+								m.put("root", site.getUrl() + "/f/res/");
+								list.add(m);
+							}
+						}
+					}
 				}
-				json.put("pid", pid);
-				json.put("name", t[i].getName());
-				json.put("isParent", true);
-				json.put("path", getVirtualFileName(t[i].getPath().replace("\\", "/")));
-				json.put("thispath", getVirtualFileName(t[i].getPath().substring(path.length(), t[i].getPath().length()).replace("\\", "/")));
-				json.put("parent", getVirtualFileName(t[i].getParent().replace("\\", "/")));
-				list.add(json);
+				put("list", list);
+				put("path", uriPath);
+				put("siteid", siteid);
+				return "/cms/file/getFile.jsp";
 			}
 		}
-		// document type
-		for(int i = 0; i < t.length; i++)
+		catch(Exception ex)
 		{
-			Map<String, Object> json = new HashMap<String, Object>();
-			// 判断文件列表中的对象是否为文件夹对象，如果是则执行tree递归，直到把此文件夹中所有文件输出为止
-			if(!t[i].isDirectory())
-			{
-				try
-				{
-					json.put("id", UniqueId.genId());
-				}
-				catch(Exception e)
-				{
-					e.printStackTrace();
-				}
-				json.put("pid", pid);
-				json.put("name", t[i].getName());
-				json.put("isParent", false);
-				json.put("path", getVirtualFileName(t[i].getPath().replace("\\", "/")));
-				json.put("thispath", getVirtualFileName(t[i].getPath().substring(path.length(), t[i].getPath().length()).replace("\\", "/")));
-				json.put("parent", getVirtualFileName(t[i].getParent().replace("\\", "/")));
-				json.put("filetype", getExtensionName(t[i].getName()));
-				json.put("useurl", getUseUrl(t[i].getPath().replace("\\", "/")));
-				list.add(json);
-			}
 		}
-		return list;
+		return null;
 	}
 
 	/**
@@ -255,39 +189,99 @@ public class DsCmsFileController extends BaseController
 	 * @return
 	 */
 	@RequestMapping("/uploadFile1")
-	public String uploadTemplate1()
+	public String uploadFile1()
 	{
-		put("path", req.getString("path").replace("\\", "/"));
-		put("v_file", System.currentTimeMillis());
-		put("v_session", JskeyUpload.getSessionKey(request));
-		return "/manage/file/uploadFile.jsp";
+		try
+		{
+			long siteid = req.getLong("siteid", -1);
+			String uriPath = req.getString("path", "");
+			if(siteid >= 0 && uriPath.indexOf("..") == -1)// 防止读取上级目录
+			{
+				DsCmsSite site = service.get(siteid);
+				if(site != null)
+				{
+					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
+				}
+				List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				{
+					String resPath = getCmsRoot() + site.getFolder() + "/html/f/res/";
+					File froot = new File(resPath);
+					File f = new File(resPath + uriPath);
+					// 限制为只能读取根目录下的信息
+					if(f.isDirectory() && (f.getPath().startsWith(froot.getPath())))
+					{
+						put("list", list);
+						put("path", uriPath);
+						put("siteid", siteid);
+						put("v_file", System.currentTimeMillis());
+						put("v_session", JskeyUpload.getSessionKey(request));
+						return "/cms/file/uploadFile.jsp";
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+		}
+		return null;
 	}
 
 	@RequestMapping("/uploadFile2")
 	public void uploadFile2()
 	{
-		// 文件keyID
-		String f_key = req.getString("f_key");
-		// 文件保存路径
-		String path = getRealFileName(req.getString("path"));
-		if(!f_key.equals(""))
+		try
 		{
-			long fj = Long.parseLong(f_key);
-			try
+			long siteid = req.getLong("siteid", -1);
+			String uriPath = req.getString("path", "");
+			if(siteid >= 0 && uriPath.indexOf("..") == -1)// 防止读取上级目录
 			{
-				File file = JskeyUpload.getFile(JskeyUpload.getSessionKey(request), fj)[0];
-				if(file != null)
+				DsCmsSite site = service.get(siteid);
+				if(site != null)
 				{
-					unzipFile(file.getPath(), getRealFileName(path));
-					file.delete();
+					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
+				}
+				//List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				{
+					String resPath = getCmsRoot() + site.getFolder() + "/html/f/res/";
+					File froot = new File(resPath);
+					File f = new File(resPath + uriPath);
+					// 限制为只能读取根目录下的信息
+					if(f.isDirectory() && (f.getPath().startsWith(froot.getPath())))
+					{
+						// 文件keyID
+						String f_key = req.getString("f_key");
+						if(!f_key.equals(""))
+						{
+							long fj = Long.parseLong(f_key);
+							try
+							{
+								File file = JskeyUpload.getFile(JskeyUpload.getSessionKey(request), fj)[0];
+								if(file != null)
+								{
+									unzipFile(file.getPath(), resPath + uriPath);
+									file.delete();
+								}
+							}
+							catch(Exception exx)
+							{
+							}
+						}
+					}
 				}
 			}
-			catch(Exception exx)
-			{
-			}
+			print(1);
 		}
-		print(1);
+		catch(Exception ex)
+		{
+			print(0);
+		}
 	}
+	
+	private static String hz = "avi,bmp,css,doc,docx,flv,gif,jpeg,jpg,mp3,mp4,pdf,png,ppt,pptx,rtf,swf,txt,xls,xlsx";
+	private static String cc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_0123456789.";
+	private static String[] hzArr = hz.split(",");
 
 	/**
 	 * 解压文件
@@ -299,46 +293,88 @@ public class DsCmsFileController extends BaseController
 		try
 		{
 			File zipFile = new File(zipFilePath);
+			//ZipFile zipFile = new ZipFile(file);
 			InputStream is = new FileInputStream(zipFile);
-			// 设置字符编码Charset.forName("GBK")
 			ZipInputStream zis = new ZipInputStream(is, Charset.forName("GBK"));
 			ZipEntry entry = null;
-			System.out.println("开始解压:" + zipFile.getName() + "...");
+			outer:
 			while((entry = zis.getNextEntry()) != null)
 			{
-				String zipPath = entry.getName();
+				System.out.println("解压缩文件" + (entry.isDirectory()?"夹：":"：") + entry.getName());
+				String zfilepath = entry.getName().replaceAll("\\\\", "/");
+				if(zfilepath.endsWith("/"))
+				{
+					zfilepath = zfilepath.substring(0, zfilepath.length() - 1);
+					System.out.println(zfilepath);
+				}
+				
+				
+				int zi = zfilepath.lastIndexOf("/");
+				String zfilename = zi == -1 ? zfilepath : zfilepath.substring(zi+1);
 				try
 				{
-					if(entry.isDirectory())
+					int i = zfilename.lastIndexOf(".");
+					if(i == 0)
 					{
-						File zipFolder = new File(targetPath + File.separator + zipPath);
-						if(!zipFolder.exists())
+						continue;
+					}
+					// 文件名校验
+					for(int j = 0; j < zfilename.length(); j++)
+					{
+						if(cc.indexOf(zfilename.charAt(j) + "") == -1)
 						{
-							zipFolder.mkdirs();
+							continue outer;//非法文件名
+						}
+					}
+					if(entry.isDirectory())// 文件夹会先于文件解压缩
+					{
+						if(i == -1)// 文件夹不能存在小数点
+						{
+							File zFolder = new File(targetPath + File.separator + zfilepath);
+							if(!zFolder.exists())
+							{
+								zFolder.mkdirs();
+							}
+							System.out.println("成功解压文件夹:" + zFolder.getPath());
 						}
 					}
 					else
 					{
-						File file = new File(targetPath + File.separator + zipPath);
-						if(!file.exists())
+						if(i > 1)
 						{
-							File pathDir = file.getParentFile();
-							pathDir.mkdirs();
-							file.createNewFile();
+							boolean ok = false;
+							String sup = zfilename.substring(i + 1);
+							for(String s : hzArr)
+							{
+								if(s.equals(sup))
+								{
+									ok = true;
+									break;
+								}
+							}
+							if(!ok)
+							{
+								continue;// 后缀名不匹配
+							}
+							File zFile = new File(targetPath + File.separator + zfilepath);
+							if(zFile.getParentFile().exists()){
+				            	zFile.createNewFile();
+								FileOutputStream fos = new FileOutputStream(zFile);
+								int bread;
+								while((bread = zis.read()) != -1)
+								{
+									fos.write(bread);
+								}
+								fos.close();
+								System.out.println("成功解压文件:" + zFile.getPath());
+				            }
+							// 不存在上级目录，代表目录名不合法
 						}
-						FileOutputStream fos = new FileOutputStream(file);
-						int bread;
-						while((bread = zis.read()) != -1)
-						{
-							fos.write(bread);
-						}
-						fos.close();
 					}
-					System.out.println("成功解压:" + zipPath);
 				}
 				catch(Exception e)
 				{
-					System.out.println("解压" + zipPath + "失败");
+					System.out.println("解压" + zfilepath + "失败");
 					continue;
 				}
 			}
@@ -352,68 +388,18 @@ public class DsCmsFileController extends BaseController
 		}
 	}
 
-	public String fileRead(String path)
+
+	private boolean checkOwn(String own)
 	{
-		File file = new File(path);
-		StringBuffer contents = new StringBuffer();
-		BufferedReader reader = null;
 		try
 		{
-			reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-			String text = null;
-			// repeat until all lines is read
-			while((text = reader.readLine()) != null)
-			{
-				contents.append(text).append(System.getProperty("line.separator"));
-			}
+			return own.equals(getOwn());
 		}
-		catch(FileNotFoundException e)
+		catch(Exception ex)
 		{
-			e.printStackTrace();
 		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				if(reader != null)
-				{
-					reader.close();
-				}
-			}
-			catch(IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
-		// show file contents here
-		// System.out.println(contents.toString());
-		return contents.toString();
+		return false;
 	}
-
-	/**
-	 * 获取文件后缀
-	 * @param filename
-	 * @return
-	 */
-	public String getExtensionName(String filename)
-	{
-		if((filename != null) && (filename.length() > 0))
-		{
-			int dot = filename.lastIndexOf('.');
-			if((dot > -1) && (dot < (filename.length() - 1)))
-			{
-				// System.out.println(filename.substring(dot + 1));
-				return filename.substring(dot + 1);
-			}
-		}
-		// System.out.println(filename);
-		return filename;
-	}
-
 	private String getOwn()
 	{
 		return common.auth.AuthLogin.getLoginUser(request, response).getOwn();

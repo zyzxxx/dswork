@@ -27,7 +27,7 @@ function setTextChange(t){
 }
 $dswork.callback = null;
 function refreshNode(re){$dswork.ztree.refreshNode(re);}
-$dswork.ztree.beforeClick = function(treeId, treeNode, clickFlag){
+$dswork.ztree.beforeClick = function(){
 	var treeNode = $dswork.ztree.getSelectedNode();
 	if(!treeNode.isParent){
 		if(textChange){
@@ -42,7 +42,7 @@ $dswork.ztree.beforeClick = function(treeId, treeNode, clickFlag){
 	}
 	return true;
 };
-$dswork.ztree.click = function(event, treeId, treeNode, clickFlag){
+$dswork.ztree.click = function(){
 	attachUrl("editTemplate1.htm?siteid=${siteid}&path="+$dswork.ztree.getSelectedNode().path);
 };
 $dswork.ztree.root.name = "模板文件";

@@ -29,16 +29,12 @@ public class DsCmsTemplateController extends BaseController
 	@Autowired
 	private DsCmsSiteService service;
 	
-	/**
-	 * 获取cms根路径
-	 * @return
-	 */
 	private String getCmsRoot()
 	{
 		return request.getSession().getServletContext().getRealPath("/html") + "/";
 	}
 
-
+	// 模块
 	@RequestMapping("/getTemplateTree")
 	public String getTemplateTree()
 	{
@@ -79,9 +75,6 @@ public class DsCmsTemplateController extends BaseController
 		return null;
 	}
 
-	/**
-	 * 获取文件树
-	 */
 	@RequestMapping("/getTemplateTreeJson")
 	public void getTemplateTreeJson()
 	{
@@ -90,7 +83,7 @@ public class DsCmsTemplateController extends BaseController
 		try
 		{
 			long siteid = req.getLong("siteid", -1);
-			String uriPath = req.getString("path", "/");
+			String uriPath = req.getString("path", "");
 			long pid = req.getLong("pid", 0);
 			if(siteid >= 0 && uriPath.indexOf("..") == -1)// 防止读取上级目录
 			{

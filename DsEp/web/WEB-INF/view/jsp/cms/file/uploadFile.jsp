@@ -7,6 +7,7 @@
 <title></title>
 <%@include file="/commons/include/upd.jsp" %>
 <script type="text/javascript" src="/web/js/jskey/jskey_upload.js"></script>
+<script type="text/javascript" src="${ctx}/js/layer/layer.js"></script>
 <script type="text/javascript">
 $(function(){
 	var myup = new $dswork.upload({sessionKey:"${v_session}",fileKey:"${v_file}",show:true});//ext默认是image,limit默认是10240,show默认是false
@@ -41,7 +42,6 @@ $(function(){
 			try{
 				var arr = up.customSettings.uploadArray;
 				up.customSettings.allSize+=file.size;
-				//id,name,size,state,file,type,msg
 				arr[arr.length] = {"id":file.id,"name":file.name,"size":file.size,"state":"0","file":"","type":file.type,"msg":""},
 				document.getElementById(up.customSettings.div).innerHTML = "等待中...";
 			}
@@ -74,8 +74,9 @@ $(function(){
 			}
 			
 			up.customSettings.success(returnValue);
-			$.post("uploadFile2.htm", {"f_key":myup.fileKey, "path":"${path}"}, function(data){
-				layer.msg('上传成功，请刷新资源管理！', {icon: 1});
+			$.post("uploadFile2.htm", {"siteid":"${siteid}","f_key":myup.fileKey, "path":"${path}"}, function(data){
+				layer.msg('上传成功！', {icon: 1});
+				setInterval(function(){parent.refreshNode(false);}, 2000);
 			});
 			up.customSettings.uploadArray = [];
 		}
@@ -100,6 +101,10 @@ button:hover{background-color:#0192D0;}
 	<hr style="width:100%;"></hr>
 	<div style="margin:20px;text-align:left;">
 		<p>1. 请需要上传的内容打包成"zip"文件</p>
+		<p>2. 所有文件名仅允许大小写字母、数字、下划线、中划线</p>
+		<p>3. 文件夹名称不能有小数点</p>
+		<p>4. 文件名称必须带上后缀名，且后缀名不能有大写字母</p>
+		<p>5. 允许文件类型：${hz}</p>
 	</div>
 </body>
 </html>

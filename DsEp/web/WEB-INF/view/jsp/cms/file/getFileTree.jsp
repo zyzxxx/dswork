@@ -3,44 +3,59 @@
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
+<c:if test="${siteid<0}">
 <head>
 <title></title>
-<%@include file="/commons/include/page.jsp"%>
+<%@include file="/commons/include/get.jsp" %>
+<body>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">模板管理：没有可管理的站点</td>
+	</tr>
+</table>
+</body>
+</c:if>
+<c:if test="${siteid>=0}">
+<head>
+<title></title>
+<%@include file="/commons/include/get.jsp" %>
 <%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
+var textChange = false;
+function setTextChange(t){
+	textChange = t;
+}
 $dswork.callback = null;
 function refreshNode(re){$dswork.ztree.refreshNode(re);}
-$dswork.ztree.click = function(){
-	treeNode = $dswork.ztree.getSelectedNode();
-	//attachUrl("tree.htm?pid=" + treeNode.id+"&path="+treeNode.path);
-	fileDeal(treeNode);
-	return false;
+$dswork.ztree.beforeClick = function(treeId, treeNode, clickFlag){
+	return treeNode.isParent;
 };
-$dswork.ztree.root.name = "文件";
-//$dswork.ztree.root.id = ${po.id};
-$dswork.ztree.root.path = "${po.path}";
-$dswork.ztree.url = function(treeNode){return "tree.htm?pid=" + treeNode.id+"&path="+treeNode.path};
+$dswork.ztree.click = function(){
+	var treeNode = $dswork.ztree.getSelectedNode();
+	if(treeNode.isParent == true){
+		attachUrl("getFile.htm?siteid=${siteid}&path="+treeNode.path);
+	}
+};
+$dswork.ztree.rightClick = function(event, treeId, treeNode){//右击节点函数
+	$dswork.ztree.refreshNode(false);
+};
+$dswork.ztree.root.name = "附件文件";
+$dswork.ztree.root.path = "";
+$dswork.ztree.url = function(n){return "getFileTreeJson.htm?siteid=${siteid}&pid="+n.id+"&path="+n.path};
 $(function(){
 	var $z = $dswork.ztree;
 	$z.load();
 	$z.expandRoot();
-	$("#site").bind("click", function(){
+	$("#site").bind("change", function(){
 		if($(this).val()!="${siteid}"){
 			location.href = "getFileTree.htm?siteid="+$(this).val();
 		}
 	});
 });
 $dswork.ztree.dataFilter = function (treeId, parentNode, data){
-// 	if(data){for(var i = 0;i < data.length;i++){
-// 		data[i].iconSkin = "groups";
-// 	}}
+	if(data){for(var i =0; i < data.length; i++){data[i].name = data[i].name.replace(".jsp", "");}}
 	return data;
 };
-function fileDeal(data){
-	if(data.isParent == true){
-		attachUrl("getFile.htm?path="+data.path);
-	}
-}
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
@@ -58,22 +73,15 @@ function fileDeal(data){
 	</tr>
 </table>
 </div>
-<div region="west" split="true" title="资源管理器" style="width:250px;">
+<div region="west" split="true" title="附件管理" style="width:250px;">
  	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />
 	</div>
-<!--	<div id="divMenu" class="easyui-menu easyuiMenu">
-		<div id="menu_refresh" iconCls="menuTool-refresh">刷新</div>
-		<div id="menu_add" iconCls="menuTool-insert">添加</div>
-		<div id="menu_del" iconCls="menuTool-delete">删除</div>
-		<div id="menu_upd" iconCls="menuTool-update">修改</div>
-		<div id="menu_sort" iconCls="menuTool-sort">排序</div>
-		<div id="menu_select" iconCls="menuTool-select">明细</div>
-	</div> -->
 </div>
 <div region="center" style="overflow:hidden;">
-	<iframe id="mainFrame" src="" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
+	<iframe id="mainFrame" name="mainFrame" src="" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
 </div>
 </body>
+</c:if>
 </html>
 	
