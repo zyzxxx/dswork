@@ -215,6 +215,7 @@ public class DsCmsFileController extends BaseController
 						put("list", list);
 						put("path", uriPath);
 						put("siteid", siteid);
+						put("hz", hz);
 						put("v_file", System.currentTimeMillis());
 						put("v_session", JskeyUpload.getSessionKey(request));
 						return "/cms/file/uploadFile.jsp";
