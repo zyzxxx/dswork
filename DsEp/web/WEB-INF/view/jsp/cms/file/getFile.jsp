@@ -6,14 +6,6 @@
 <head>
 <title></title>
 <%@include file="/commons/include/get.jsp" %>
-<script type="text/javascript">
-/*
-function getfilepath(){
-	var filePath=document.getElementById("filepath").value;
-	location.href="uploadzip.htm";
-}
-*/
-</script>
 </head> 
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
