@@ -207,6 +207,7 @@ public class DsCmsFileController extends BaseController
 				{
 					String resPath = getCmsRoot() + site.getFolder() + "/html/f/res/";
 					File froot = new File(resPath);
+					froot.mkdirs();
 					File f = new File(resPath + uriPath);
 					// 限制为只能读取根目录下的信息
 					if(f.isDirectory() && (f.getPath().startsWith(froot.getPath())))
