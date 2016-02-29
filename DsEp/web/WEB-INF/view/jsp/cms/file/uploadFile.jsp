@@ -7,7 +7,6 @@
 <title></title>
 <%@include file="/commons/include/upd.jsp" %>
 <script type="text/javascript" src="/web/js/jskey/jskey_upload.js"></script>
-<script type="text/javascript" src="${ctx}/js/layer/layer.js"></script>
 <script type="text/javascript">
 $(function(){
 	var myup = new $dswork.upload({sessionKey:"${v_session}",fileKey:"${v_file}",show:true});//ext默认是image,limit默认是10240,show默认是false
@@ -48,11 +47,10 @@ $(function(){
 			catch(ex){
 			}
 		});
-		layer.confirm('确认上传吗？', {icon: 3}, function(){
-		    layer.msg('开始上传，请稍等...', {time:2000}, function(){
-		    	up.start();
-		    });
-		});
+		if(confirm('确认上传吗？')){
+		    alert('开始上传，请稍等...');
+		    up.start();
+		};
 	};
 	
 	ps.init.UploadComplete = ps.init.UploadComplete || function(up, files){
@@ -75,8 +73,8 @@ $(function(){
 			
 			up.customSettings.success(returnValue);
 			$.post("uploadFile2.htm", {"siteid":"${siteid}","f_key":myup.fileKey, "path":"${path}"}, function(data){
-				layer.msg('上传成功！', {icon: 1});
-				setInterval(function(){parent.refreshNode(false);}, 2000);
+				alert('上传成功！');
+				parent.refreshNode(false);//setInterval(function(){}, 2000);
 			});
 			up.customSettings.uploadArray = [];
 		}
