@@ -241,9 +241,18 @@ public class HttpUtil
 				String _c = HttpCommon.parse(HttpCommon.getHttpCookies(this.cookies, isHttps()), "; ");
 				http.setRequestProperty("Cookie", _c);
 			}
+			byte[] arr = null;
 			if(this.form.size() > 0)
 			{
 				String data = HttpCommon.format(form, charsetName);
+				arr = data.getBytes("ISO-8859-1");
+			}
+			else if(databody != null)
+			{
+				arr = databody;
+			}
+			if(arr != null)
+			{
 				this.http.setDoOutput(true);
 				this.http.setUseCaches(false);
 				if(this.http.getRequestMethod().toUpperCase().equals("GET"))// DELETE, PUT, POST
@@ -256,7 +265,7 @@ public class HttpUtil
 				}
 				// this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
 				DataOutputStream out = new DataOutputStream(this.http.getOutputStream());
-				out.write(data.getBytes("ISO-8859-1"));
+				out.write(arr, 0, arr.length);
 				// out.writeBytes(data);
 				out.flush();
 				out.close();
@@ -317,6 +326,21 @@ public class HttpUtil
 		}
 		return result;
 	}
+	
+	// post的数据流，与Form数据冲突
+	private byte[] databody = null;
+
+	/**
+	 * 设置数据流，优先使用form值
+	 * @param arr byte[]
+	 * @return HttpUtil
+	 */
+	public HttpUtil setDataBody(byte[] arr)
+	{
+		databody = arr;
+		return this;
+	}
+	
 	// 表单项
 	private List<NameValue> form = new ArrayList<NameValue>();
 
