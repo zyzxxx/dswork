@@ -49,10 +49,10 @@ if(rs){
 			<EventKey><![CDATA[自定义的key值或URL值]]></EventKey>
 			*/
 			if(_Event.equals("VIEW")){
-				System.out.println(":::VIEW");
+				System.out.println(":::VIEW" + _EventKey);// EventKey是URL值
 			}
 			else if(_Event.equals("CLICK")){
-				System.out.println(":::CLICK");
+				System.out.println(":::CLICK" + _EventKey);// EventKey是KEY值
 			}
 			else if(_Event.equals("scancode_waitmsg") || _Event.equals("scancode_push")){
 				/*
