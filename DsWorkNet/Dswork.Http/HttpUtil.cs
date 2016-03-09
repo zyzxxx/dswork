@@ -216,17 +216,26 @@ namespace Dswork.Http
 					String _c = HttpCommon.parse(HttpCommon.GetHttpCookies(this.cookies, Https), "; ");
 					this.http.CookieContainer.SetCookies(http.RequestUri, _c);
 				}
+				byte[] arr = null;
 				if (this.form.Count > 0)
 				{
 					String data = HttpCommon.format(form, charsetName);
+					Encoding enc = Encoding.GetEncoding(28591);//28591对应iso-8859-1
+					arr = enc.GetBytes(data);
+				}
+				else if (this.databody != null)
+				{
+					arr = this.databody;
+				}
+				if (arr != null)
+				{
 					if (this.http.Method.ToUpper() == "GET")
 					{
 						this.http.Method = "POST";
 					}
-					Encoding enc = Encoding.GetEncoding(28591);//28591对应iso-8859-1
 					using (Stream stream = this.http.GetRequestStream())
 					{
-						stream.Write(enc.GetBytes(data), 0, data.Length);
+						stream.Write(arr, 0, arr.Length);
 					}
 				}
 				HttpWebResponse res = http.GetResponse() as HttpWebResponse;
@@ -261,6 +270,20 @@ namespace Dswork.Http
 				Console.WriteLine(ex.Message);
 			}
 			return result;
+		}
+
+		// post的数据流，与Form数据冲突
+		private byte[] databody = null;
+
+		/// <summary>
+		/// 设置数据流，优先使用form值
+		/// </summary>
+		/// <param name="arr">byte[]</param>
+		/// <returns>HttpUtil</returns>
+		public HttpUtil SetDataBody(byte[] arr)
+		{
+			databody = arr;
+			return this;
 		}
 
 		// 表单项
