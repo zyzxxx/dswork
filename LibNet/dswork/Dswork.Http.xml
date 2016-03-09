@@ -76,14 +76,21 @@
             <summary>
             连接并返回网页文本
             </summary>
-            <returns>连接失败返回null</returns>
+            <returns>String</returns>
         </member>
         <member name="M:Dswork.Http.HttpUtil.Connect(System.String)">
             <summary>
             连接并返回网页文本
             </summary>
             <param name="charsetName">对封装的表单、获取的网页内容进行的编码设置</param>
-            <returns>连接失败返回null</returns>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Http.HttpUtil.SetDataBody(System.Byte[])">
+            <summary>
+            设置数据流，优先使用form值
+            </summary>
+            <param name="arr">byte[]</param>
+            <returns>HttpUtil</returns>
         </member>
         <member name="M:Dswork.Http.HttpUtil.ClearForm">
             <summary>
@@ -217,6 +224,56 @@
         <member name="M:Dswork.Http.Cookie.Clone">
             <summary>
             复制为新对象
+            </summary>
+        </member>
+        <member name="T:Dswork.Http.HttpCommon">
+            <summary>
+            HttpCommon主要供HttpUtil内部调用
+            </summary>
+        </member>
+        <member name="M:Dswork.Http.HttpCommon.format(System.Collections.Generic.List{Dswork.Http.NameValue},System.String)">
+            <summary>
+            format
+            </summary>
+            <param name="parameters">List&lt;NameValue&gt;</param>
+            <param name="charsetName">String</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Http.HttpCommon.format(System.Collections.Generic.List{Dswork.Http.NameValue},System.String,System.String)">
+            <summary>
+            format
+            </summary>
+            <param name="parameters">List&lt;NameValue&gt;</param>
+            <param name="parameterSeparator">String</param>
+            <param name="charsetName">String</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Http.HttpCommon.parse(System.Collections.Generic.List{Dswork.Http.Cookie},System.String)">
+            <summary>
+            parse
+            </summary>
+            <param name="parameters">List&lt;Cookie&gt;</param>
+            <param name="parameterSeparator">String</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Http.HttpCommon.GetHttpCookies(System.Net.CookieCollection)">
+            <summary>
+            GetHttpCookies
+            </summary>
+            <param name="cookies">CookieCollection</param>
+            <returns>List&lt;Cookie&gt;</returns>
+        </member>
+        <member name="M:Dswork.Http.HttpCommon.GetHttpCookies(System.Collections.Generic.List{Dswork.Http.Cookie},System.Boolean)">
+            <summary>
+            GetHttpCookies
+            </summary>
+            <param name="cookies">List&lt;Cookie&gt;</param>
+            <param name="hasSecure">Boolean</param>
+            <returns>List&lt;Cookie&gt;</returns>
+        </member>
+        <member name="M:Dswork.Http.HttpCommon.HostnameVerifier">
+            <summary>
+            HostnameVerifier
             </summary>
         </member>
     </members>
