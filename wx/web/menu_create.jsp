@@ -16,9 +16,9 @@ String json = "{'button':[" +
        	"	{'type':'scancode_push',       'name': '扫码推事件',    'key': 'GO_2_2','sub_button': []}" +
        	"]}, " +
        	"{'name':'发图','sub_button':[" +
-       	"	{'type':'pic_sysphoto',        'name': '系统拍照发图',  'key': 'GO_3_1','sub_button': []}, " +
-       	"	{'type':'pic_photo_or_album',  'name': '拍照相册发图',  'key': 'GO_3_2','sub_button': []}, " +
-       	"	{'type':'pic_weixin',          'name': '微信相册发图',  'key': 'GO_3_3','sub_button': []}" +
+       	"	{'type':'pic_sysphoto',        'name': '拍照',  'key': 'GO_3_1','sub_button': []}, " +
+       	"	{'type':'pic_photo_or_album',  'name': '拍照或相册',  'key': 'GO_3_2','sub_button': []}, " +
+       	"	{'type':'pic_weixin',          'name': '相册',  'key': 'GO_3_3','sub_button': []}" +
        	"]}" +
 	"]}";
 json = json.replaceAll("'", "\"");
