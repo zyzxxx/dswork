@@ -4,8 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
@@ -21,7 +21,7 @@ import dswork.core.page.PageRequest;
 public abstract class BaseService<T, PK extends Serializable>
 {
 	private static final long serialVersionUID = 1L;
-	protected Log log = LogFactory.getLog(getClass());
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 
 	/**
 	 * 需要被子类覆盖

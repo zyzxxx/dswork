@@ -3,8 +3,8 @@ package dswork.core.data;
 import java.util.List;
 //import java.util.Map;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.dao.support.DaoSupport;
 import org.springframework.util.Assert;
@@ -21,7 +21,7 @@ import dswork.core.page.PageRequest;
 public abstract class MyDataDao extends DaoSupport
 {
 	private static final long serialVersionUID = 1L;
-	protected final Log log = LogFactory.getLog(getClass());
+	protected final Logger log = LoggerFactory.getLogger(getClass());
 	/**
 	 * 注入SqlSessionTemplate
 	 * @param sqlSessionTemplate SqlSessionTemplate
