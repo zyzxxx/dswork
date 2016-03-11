@@ -1,5 +1,5 @@
 <%@page language="java" import="java.util.*, common.wx.*" pageEncoding="UTF-8"%><%
-String url = WxExecute.getWxURL("http://112.74.111.188/wx/auth.jsp", "x", false);
+String url = WxFactory.getWxURL("http://112.74.111.188/wx/auth.jsp", "x", false);
 %><!DOCTYPE html>
 <html>
 <head>

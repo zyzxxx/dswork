@@ -6,7 +6,7 @@ if(code == null){
 	msg = "没有从微信登录，或授权失败";
 }
 else{
-	String openid = WxExecute.getWxOpenid(code);
+	String openid = WxFactory.getWxOpenid(code);
 	msg = openid;
 }
 %><%=msg%>
