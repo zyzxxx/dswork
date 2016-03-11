@@ -11,6 +11,13 @@ namespace Test
 	{
 		static void Main(string[] args)
 		{
+			Console.WriteLine("");
+			Console.WriteLine("sha1:" + EncryptUtil.EncryptSha1("123456789"));
+
+			Console.WriteLine("");
+
+
+
 			HttpUtil http = new HttpUtil();
 			Console.WriteLine("Testing...");
 			try { 

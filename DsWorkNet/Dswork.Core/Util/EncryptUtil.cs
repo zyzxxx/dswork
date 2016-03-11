@@ -6,7 +6,7 @@ using System.Text;
 namespace Dswork.Core.Util
 {
 	/// <summary>
-	/// 加密算法（MD5、Base64）
+	/// 加密算法（Base64、DES、MD5、SHA-1）
 	/// </summary>
 	public class EncryptUtil
 	{
@@ -22,6 +22,27 @@ namespace Dswork.Core.Util
 				byte[] result = Encoding.UTF8.GetBytes(str);
 				MD5 md5 = new MD5CryptoServiceProvider();
 				byte[] output = md5.ComputeHash(result);
+				return BitConverter.ToString(output).Replace("-", "");
+			}
+			catch
+			{
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// SHA-1加密
+		/// </summary>
+		/// <param name="str">需要加密的字符串</param>
+		/// <returns>SHA-1的String，失败返回null</returns>
+		public static String EncryptSha1(String str)
+		{
+			try
+			{
+
+				byte[] result = Encoding.UTF8.GetBytes(str);
+				SHA1 sha = new SHA1CryptoServiceProvider();
+				byte[] output = sha.ComputeHash(result);
 				return BitConverter.ToString(output).Replace("-", "");
 			}
 			catch
