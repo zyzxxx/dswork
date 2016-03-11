@@ -883,7 +883,7 @@
         </member>
         <member name="T:Dswork.Core.Util.EncryptUtil">
             <summary>
-            加密算法（MD5、Base64）
+            加密算法（Base64、DES、MD5、SHA-1）
             </summary>
         </member>
         <member name="M:Dswork.Core.Util.EncryptUtil.EncryptMd5(System.String)">
@@ -892,6 +892,13 @@
             </summary>
             <param name="str">需要加密的字符串</param>
             <returns>32位MD5的String，失败返回null</returns>
+        </member>
+        <member name="M:Dswork.Core.Util.EncryptUtil.EncryptSha1(System.String)">
+            <summary>
+            SHA-1加密
+            </summary>
+            <param name="str">需要加密的字符串</param>
+            <returns>SHA-1的String，失败返回null</returns>
         </member>
         <member name="M:Dswork.Core.Util.EncryptUtil.EncodeBase64(System.String)">
             <summary>

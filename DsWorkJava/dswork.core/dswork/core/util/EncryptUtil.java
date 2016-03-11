@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * 加密算法（MD5、Base64）
+ * 加密算法（Base64、DES、MD5、SHA-1）
  */
 public class EncryptUtil
 {
@@ -17,12 +17,38 @@ public class EncryptUtil
 	 */
 	public static String encryptMd5(String str)
 	{
+		String code = encrypts(str, "MD5");
+		if(code != null)
+		{
+			return code.toUpperCase(Locale.ENGLISH);
+		}
+		return null;
+	}
+	
+	/**
+	 * SHA-1加密
+	 * @param str 需要加密的String
+	 * @return SHA-1的String，失败返回null
+	 */
+	public static String encryptSha1(String str)
+	{
+		return encrypts(str, "SHA-1");
+	}
+	
+	/**
+	 * 处理加密码内置方法
+	 * @param str 加密字符串
+	 * @param type 加密类型
+	 * @return
+	 */
+	private static String encrypts(String str, String type)
+	{
 		if(str != null)
 		{
 			StringBuilder sb = new StringBuilder();
 			try
 			{
-				MessageDigest md = MessageDigest.getInstance("MD5");
+				MessageDigest md = MessageDigest.getInstance(type);
 				byte[] digest = md.digest(str.getBytes("UTF-8"));
 				String stmp = "";
 				for(int n = 0; n < digest.length; n++)
@@ -30,7 +56,7 @@ public class EncryptUtil
 					stmp = (Integer.toHexString(digest[n] & 0XFF));
 					sb.append((stmp.length() == 1) ? "0" : "").append(stmp);
 				}
-				return sb.toString().toUpperCase(Locale.ENGLISH);
+				return sb.toString();
 			}
 			catch(Exception e)
 			{
