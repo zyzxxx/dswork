@@ -273,7 +273,7 @@ public class HttpUtil
 			this.http.connect();
 			int _responseCode = http.getResponseCode();// 设置http返回状态200（ok）还是403
 			BufferedReader in = null;
-			if(_responseCode == 200)
+			if(_responseCode >= 200 && _responseCode < 300)
 			{
 				Date date = new Date();
 				List<Cookie> list = HttpCommon.getHttpCookies(http);
