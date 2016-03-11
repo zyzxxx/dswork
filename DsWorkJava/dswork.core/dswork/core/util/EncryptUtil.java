@@ -32,7 +32,12 @@ public class EncryptUtil
 	 */
 	public static String encryptSha1(String str)
 	{
-		return encrypts(str, "SHA-1");
+		String code = encrypts(str, "SHA-1");
+		if(code != null)
+		{
+			return code.toUpperCase(Locale.ENGLISH);
+		}
+		return null;
 	}
 	
 	/**
