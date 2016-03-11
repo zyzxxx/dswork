@@ -4,39 +4,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>DEMO</title>
-	<script type="text/javascript" src="./js/jquery/jquery.js"></script>
-	<script type="text/javascript" src="./js/jskey/jskey_core.js"></script>
-	<script type="text/javascript" src="./js/laytpl/laytpl.js"></script>
-<script type="text/javascript">
-// 扩展菜单写法
-function changeLis(){
-	var demo = $("#demo").val();
-	if(demo == "Demo")
-		location.href="/DsWorkJava/demo/getDemo.jsp";
-	else
-		location.href="/DsWorkJava/demo2/getDemo.jsp";
-}
-</script>
-<style>
-table.zwtable{width:100%;background-color:#000;}
-table.zwtable td{background-color:#fff;line-height:20px;font-size:14px;text-align:left;padding:5px;}
-table.zwtable td.rt{text-align:right;}
-table.zwtable td.tt{text-align:center;background-color: #187FC4;color: #fff;}
-</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"/>
+<script type="text/javascript" src="/web/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="/web/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="/web/js/jskey/jskey_core.js"></script>
+<script type="text/javascript" src="/web/js/layui/laytpl.js"></script>
+
 </head> 
 <body>
 <div style="width:1000px;margin:50px auto;">
-	<section>
-		<div>
-			<select id="demo" name="demo" style="width:135px;" onchange="changeLis()">
-				<option value="Demo">Demo</option>
-				<option value="Demo2">Demo2</option>
-			</select>
-		</div>
-		<div id="dview" style="margin:10px 0;"></div>
-		<div id="dpage"></div>
-	</section>
+	<div id="dview" style="margin:10px 0;"></div>
+	<div id="dpage"></div>
 </div>
 <br />
 <script id="tpl" type="text/tmpl">
@@ -58,16 +37,15 @@ table.zwtable td.tt{text-align:center;background-color: #187FC4;color: #fff;}
 </script>
 <script type="text/javascript">
 var tpl = document.getElementById('tpl').innerHTML;
-$.getJSON('/DsWorkJava/manage/my/page/Demo.htm?page=1'+new Date(), function(data){
-	$jskey.page({object:'dpage', size:data.size, pagesize:data.pagesize, page:1, template:1, jump:function(e){
-		$.getJSON('/DsWorkJava/manage/my/page/Demo.htm?page='+e.page+"&r="+new Date(), function(res){
-			e.size = res.size;
-			laytpl(tpl).render(res, function(render){
-			    document.getElementById('dview').innerHTML = render;
-			});
+$jskey.page({object:'dpage', size:data.size, pagesize:data.pagesize, page:1, template:1, jump:function(e){
+	$.getJSON('/DsWorkJava/manage/my/page/Demo.htm?page='+e.page+"&r="+new Date(), function(res){
+		e.size = res.size;
+		laytpl(tpl).render(res, function(render){
+		    document.getElementById('dview').innerHTML = render;
+		    
 		});
-	}});
-});
+	});
+}});
 </script>
 </body>
 </html>
