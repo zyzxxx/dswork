@@ -56,7 +56,7 @@ $dswork.callback = function(){
 	</tr>
 	<tr>
 		<td class="form_title">标识</td>
-		<td class="form_input"><input type="text" id="alias" name="alias" style="width:400px;" require="false" dataType="Char" maxlength="100" value="" value="${fn:escapeXml(po.alias)}" /></td>
+		<td class="form_input"><input type="text" id="alias" name="alias" style="width:400px;" require="false" dataType="Char" maxlength="100" value="${fn:escapeXml(po.alias)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">地址</td>
