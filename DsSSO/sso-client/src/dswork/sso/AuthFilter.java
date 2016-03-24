@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Map.Entry;
 
 import javax.servlet.Filter;
@@ -23,9 +25,13 @@ import javax.servlet.http.HttpSession;
 import dswork.sso.model.IFunc;
 import dswork.sso.model.IRes;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @SuppressWarnings("unchecked")
 public class AuthFilter implements Filter
 {
+	static Logger log = LoggerFactory.getLogger("dswork.sso");
 	//private static Long SYSTEM_REFRESH = AuthFactory.getToLong(KEY_SYSTEM_REFRESH, 60000);// 当前系统的全部权限缓存更新间隔1000(1秒)|60000(1分钟)|3600000(1小时)|86400000(1天)
 	private static Set<String> PAGE_IGNORE = new HashSet<String>();// 无需验证页面
 	private static String CHECK_FIX;// 需要过滤的后缀名
@@ -51,6 +57,22 @@ public class AuthFilter implements Filter
 		}
 	}
 
+	private static Timer _timer = null;
+	private static TimerTask _timerTask = new TimerTask()
+	{
+		public void run()
+		{
+			log.info("--AuthFilter定时任务开始执行--");
+			try
+			{
+				refreshSystem();
+			}
+			catch(Exception ex)
+			{
+				log.error(ex.getMessage());
+			}
+		}
+	};
 	private static void refreshSystem()
 	{
 		if(System.currentTimeMillis() > refreshTime)// 初始时refreshPermissionTime为0，肯定会执行
@@ -58,7 +80,8 @@ public class AuthFilter implements Filter
 			boolean isFailure = true;
 			try
 			{
-				resMap.clear();
+				Map<String, List<IRes>> _resMap = new HashMap<String, List<IRes>>();
+				
 				IFunc[] funcArray = AuthFactory.getFunctionBySystem();// 初始化该系统已配置的全部功能
 				if(funcArray != null)// 读得到数据，结果集也可以为0
 				{
@@ -70,16 +93,18 @@ public class AuthFilter implements Filter
 						}
 						for(IRes r : o.getResList())
 						{
-							if(resMap.get(r.getUrl()) == null)
+							if(_resMap.get(r.getUrl()) == null)
 							{
-								resMap.put(r.getUrl(), new ArrayList<IRes>());
+								_resMap.put(r.getUrl(), new ArrayList<IRes>());
 							}
 							if(isCheckParam)// 需要参数判断时才放入参数信息，否则只需要有url的key值即可
 							{
-								resMap.get(r.getUrl()).add(r);// 也可只放入参数值，但放入r的话，方便取map信息
+								_resMap.get(r.getUrl()).add(r);// 也可只放入参数值，但放入r的话，方便取map信息
 							}
 						}
 					}
+					resMap.clear();
+					resMap.putAll(_resMap);
 					refreshTime += System.currentTimeMillis() + SYSTEM_REFRESH;
 					isFailure = false;
 				}
@@ -113,6 +138,9 @@ public class AuthFilter implements Filter
 		{
 			isCheckAllFix = true;
 		}
+		_timer = new Timer(true);
+		// Timer.schedule(TimerTask task, Date date, long period)// 从date开始,每period毫秒执行task.
+		_timer.schedule(_timerTask, 0, SYSTEM_REFRESH);// 从服务器启动开始运行,每period毫秒执行
 	}
 
 	public void destroy()
@@ -179,7 +207,7 @@ public class AuthFilter implements Filter
 		{
 			return false;
 		}
-		refreshSystem();// 刷新数据
+		//refreshSystem();// 刷新数据
 		if(resMap.get("dswork_null_key") != null)
 		{
 			return false;// 读不到权限数据
@@ -247,10 +275,17 @@ public class AuthFilter implements Filter
 	}
 
 	private final static String KEY_SESSIONFUNC = "dswork.cas.func";// 存放在session中用户岗位信息的key
+	private final static String KEY_SESSIONFUNC_ACCOUNT = "dswork.cas.func.account";// 存放在session中用户岗位信息的key
 	// 获取用户有权限访问的资源
 	private static Map<String, List<IRes>> getUserRes(String userAccount, HttpSession session)
 	{
 		Map<String, List<IRes>> userResMap = new HashMap<String, List<IRes>>();
+		String oldAccount = String.valueOf(session.getAttribute(KEY_SESSIONFUNC_ACCOUNT));
+		if(!userAccount.equals(oldAccount))
+		{
+			session.setAttribute(KEY_SESSIONFUNC_ACCOUNT, userAccount);// 更新新的用户
+			session.setAttribute(KEY_SESSIONFUNC, null);// 清空旧的权限信息
+		}
 		// 用户未改变，则session有信息
 		if(session.getAttribute(KEY_SESSIONFUNC) != null)
 		{
@@ -319,7 +354,7 @@ public class AuthFilter implements Filter
 	
 	
 
-	private static final String getString(String v)
+	private static final String getString(Object v)
 	{
 		if(v != null)
 		{
@@ -327,22 +362,22 @@ public class AuthFilter implements Filter
 		}
 		return null;
 	}
-	private static final long getToLong(String name, long defaultValue)
+	private static final long getToLong(String value, long defaultValue)
 	{
 		try
 		{
-			return Long.parseLong(getString(name));
+			return Long.parseLong(getString(value));
 		}
 		catch (Exception e)
 		{
 			return defaultValue;
 		}
 	}
-	private static final String getToString(String name, String defaultValue)
+	private static final String getToString(String value, String defaultValue)
 	{
 		try
 		{
-			String str = getString(name);
+			String str = getString(value);
 			if (str != null)
 			{
 				return str;
@@ -353,11 +388,11 @@ public class AuthFilter implements Filter
 		}
 		return defaultValue;
 	}
-	private static final boolean getToBoolean(String name, boolean defaultValue)
+	private static final boolean getToBoolean(String value, boolean defaultValue)
 	{
 		try
 		{
-			String str = String.valueOf(getString(name));
+			String str = getString(value);
 			if(str.equals("true"))
 			{
 				return Boolean.TRUE;
