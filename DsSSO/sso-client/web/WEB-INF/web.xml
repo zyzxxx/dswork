@@ -58,7 +58,7 @@
 		</init-param>
 		<init-param>
 			<param-name>forbiddenPage</param-name>
-			<param-value>/casNoAccess.jsp</param-value>
+			<param-value>/x/40x.html</param-value>
 		</init-param>
 		<init-param>
 			<param-name>ignorePage</param-name>
