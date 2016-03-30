@@ -8,6 +8,7 @@ public class Auth
 	private String password;
 	private String name;
 	private String email;
+	private String mobile;
 	private Integer logintype;// -1系统用户，0企业用户，1个人用户
 	private Integer loginstatus;// 1正常，0禁用
 	private Integer usertype;// 系统（），企业（1管理员,0普通用户），个人（）
@@ -63,6 +64,16 @@ public class Auth
 	public void setEmail(String email)
 	{
 		this.email = email;
+	}
+
+	public String getMobile()
+	{
+		return mobile;
+	}
+
+	public void setMobile(String mobile)
+	{
+		this.mobile = mobile;
 	}
 
 	public Integer getLogintype()
@@ -139,7 +150,7 @@ public class Auth
 	{
 		return getLogintype().intValue() == -1;
 	}
-	
+
 	// 用于判断cms、bbs的拥有者
 	public String getOwn()
 	{
