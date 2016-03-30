@@ -11,6 +11,7 @@
 		<result property="password" column="PASSWORD" />
 		<result property="name" column="NAME" />
 		<result property="email" column="EMAIL" />
+		<result property="mobile" column="MOBILE" />
 		<result property="logintype" column="LOGINTYPE" />
 		<result property="loginstatus" column="LOGINSTATUS" />
 		<result property="usertype" column="USERTYPE" />
@@ -20,17 +21,17 @@
 	</resultMap>
 	
 	<select id="getByAccount" resultMap="result">
-		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, -1 as LOGINTYPE, STATUS as LOGINSTATUS, 1 as USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, -1 as LOGINTYPE, STATUS as LOGINSTATUS, 1 as USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
 		from DS_COMMON_USER where ACCOUNT=LOWER(#{account})
 	</select>
 
 
 	<select id="getEpByAccount" resultMap="result">
-		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, 0 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, QYBM, SSDW, SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 0 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, QYBM, SSDW, SSBM
 		from DS_EP_USER where ACCOUNT=LOWER(#{account})
 	</select>
 	<select id="queryEpList" resultMap="result">
-		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, 0 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, QYBM, SSDW, SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 0 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, QYBM, SSDW, SSBM
 		from DS_EP_USER where 1=1
 		<if test="account == null"> and EMAIL=#{email} </if>
 		<if test="email == null"> and ACCOUNT=LOWER(#{account}) </if>
@@ -41,13 +42,13 @@
 
 
 	<select id="getPersonByAccount" resultMap="result">
-		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, 1 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 1 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
 		from DS_PERSON_USER where 
 		<if test="account != null"> ACCOUNT=LOWER(#{account}) </if>
 		<if test="account == null"> IDCARD=#{idcard} </if>
 	</select>
 	<select id="queryPersonList" resultMap="result">
-		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, 1 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 1 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
 		from DS_PERSON_USER where 1=1
 		<if test="account != null"> and ACCOUNT=LOWER(#{account}) </if>
 		<if test="idcard != null"> and IDCARD=#{idcard} </if>
