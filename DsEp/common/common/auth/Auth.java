@@ -76,10 +76,10 @@ public class Auth
 		this.mobile = mobile;
 	}
 
-	public Integer getLogintype()
-	{
-		return logintype;
-	}
+	//public Integer getLogintype()
+	//{
+	//	return logintype;
+	//}
 
 	public void setLogintype(Integer logintype)
 	{
@@ -138,17 +138,17 @@ public class Auth
 
 	public boolean isAdmin()
 	{
-		return getLogintype().intValue() <= 0;
+		return logintype.intValue() <= 0;
 	}
 
 	public boolean isUser()
 	{
-		return getLogintype().intValue() == 1;
+		return logintype.intValue() == 1;
 	}
 
 	public boolean isEnterprise()
 	{
-		return getLogintype().intValue() == 2;
+		return logintype.intValue() == 2;
 	}
 
 	// 用于判断cms、bbs的拥有者
