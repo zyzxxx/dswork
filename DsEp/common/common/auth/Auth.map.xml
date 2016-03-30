@@ -21,17 +21,17 @@
 	</resultMap>
 	
 	<select id="getByAccount" resultMap="result">
-		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, -1 as LOGINTYPE, STATUS as LOGINSTATUS, 1 as USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 0 as LOGINTYPE, STATUS as LOGINSTATUS, 1 as USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
 		from DS_COMMON_USER where ACCOUNT=LOWER(#{account})
 	</select>
 
 
 	<select id="getEpByAccount" resultMap="result">
-		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 0 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, QYBM, SSDW, SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 2 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, QYBM, SSDW, SSBM
 		from DS_EP_USER where ACCOUNT=LOWER(#{account})
 	</select>
 	<select id="queryEpList" resultMap="result">
-		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 0 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, QYBM, SSDW, SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 2 as LOGINTYPE, STATUS as LOGINSTATUS, USERTYPE, QYBM, SSDW, SSBM
 		from DS_EP_USER where 1=1
 		<if test="account == null"> and EMAIL=#{email} </if>
 		<if test="email == null"> and ACCOUNT=LOWER(#{account}) </if>

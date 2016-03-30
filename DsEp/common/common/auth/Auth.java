@@ -9,7 +9,7 @@ public class Auth
 	private String name;
 	private String email;
 	private String mobile;
-	private Integer logintype;// -1系统用户，0企业用户，1个人用户
+	private Integer logintype;// 0系统用户，1个人用户，2企业用户
 	private Integer loginstatus;// 1正常，0禁用
 	private Integer usertype;// 系统（），企业（1管理员,0普通用户），个人（）
 	private String qybm;// 企业编码，后台用户为空
@@ -136,6 +136,11 @@ public class Auth
 		this.ssbm = ssbm;
 	}
 
+	public boolean isAdmin()
+	{
+		return getLogintype().intValue() <= 0;
+	}
+
 	public boolean isUser()
 	{
 		return getLogintype().intValue() == 1;
@@ -143,12 +148,7 @@ public class Auth
 
 	public boolean isEnterprise()
 	{
-		return getLogintype().intValue() == 0;
-	}
-
-	public boolean isAdmin()
-	{
-		return getLogintype().intValue() == -1;
+		return getLogintype().intValue() == 2;
 	}
 
 	// 用于判断cms、bbs的拥有者

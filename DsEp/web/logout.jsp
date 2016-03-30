@@ -8,8 +8,8 @@ if(model != null)
 {
 	switch(model.getLogintype().intValue())
 	{
-		case 0:url = "loginEp.html";break;//0企业管理员
 		case 1:url = "loginPerson.html";break;//1个人用户
+		case 2:url = "loginEp.html";break;//0企业管理员
 	}
 }
 response.sendRedirect(url);

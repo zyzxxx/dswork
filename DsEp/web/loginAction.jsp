@@ -4,7 +4,7 @@ MyRequest req = new MyRequest(request);
 String account = req.getString("account");
 String password = req.getString("password");
 String authcode = req.getString("authcode");
-int logintype = req.getInt("logintype", -1);
+int logintype = req.getInt("logintype", 0);
 AuthLogin login = new AuthLogin(pageContext);
 String s = "about:blank", m = "";
 if(logintype > -2 && logintype < 2)
@@ -13,7 +13,7 @@ if(logintype > -2 && logintype < 2)
 	{
 		response.sendRedirect("manage/frame/index.html");
 	}
-	if(logintype == 0)
+	if(logintype == 2)
 	{
 		s = "loginEp.html";
 	}
@@ -21,7 +21,7 @@ if(logintype > -2 && logintype < 2)
 	{
 		s = "loginPerson.html";
 	}
-	else// if(logintype == -1)
+	else// if(logintype == 0)
 	{
 		s = "login.html";
 	}
