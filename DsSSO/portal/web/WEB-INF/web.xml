@@ -30,7 +30,7 @@
 	</listener>
 
 	<filter>
-		<filter-name>sso</filter-name>
+		<filter-name>websso</filter-name>
 		<filter-class>dswork.sso.WebFilter</filter-class>
 		<init-param>
 			<param-name>ssoURL</param-name>
@@ -54,11 +54,11 @@
 		</init-param>
 	</filter>
 	<filter-mapping>
-		<filter-name>sso</filter-name>
+		<filter-name>websso</filter-name>
 		<url-pattern>/frame/*</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
-		<filter-name>sso</filter-name>
+		<filter-name>websso</filter-name>
 		<url-pattern>/page/*</url-pattern>
 	</filter-mapping>
 	
