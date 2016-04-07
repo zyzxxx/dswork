@@ -3,23 +3,22 @@
  */
 package dswork.sso.service;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class TicketService
 {
-	private static Map<String, String> map = new HashMap<String, String>();
+	private static ConcurrentHashMap<String, String> map = new ConcurrentHashMap<String, String>();
 
 	/**
 	 * 保存用户登录状态，并返回ticket
 	 * @param IUser
 	 * @return
 	 */
-	public static synchronized String saveSession(String account)
+	public static String saveSession(String account)
 	{
 		String ticket = String.valueOf(UUID.randomUUID()) + System.currentTimeMillis();//java.util.UUID.fromString(account + System.currentTimeMillis()).toString();
 		map.put(ticket, account);// 这里可以考虑放到数据库或者memcache中
@@ -47,7 +46,7 @@ public class TicketService
 		}
 	}
 
-	private static Map<String, String> onceMap = new HashMap<String, String>();
+	private static ConcurrentHashMap<String, String> onceMap = new ConcurrentHashMap<String, String>();
 
 	public static String getOnceTicket(String ticket)
 	{
