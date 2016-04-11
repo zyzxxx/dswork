@@ -27,6 +27,7 @@
         </property>
         <property name="mapperLocations">
         	<list>
+        		<value>classpath*:/common/**/*.map.xml</value>
         		<value>classpath*:/testwork/mapper/**/*.map.xml</value>
         	</list>
         </property>
