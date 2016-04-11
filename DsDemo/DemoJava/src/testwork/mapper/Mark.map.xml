@@ -7,7 +7,7 @@
 
 <insert id="insert" parameterType="testwork.model.Mark">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ROWID()
+		<include refid="common.rowid"/>
 	</selectKey>
 	insert into MARK
 	(ID, DEMOID, CONTENT, FOUNDTIME)
