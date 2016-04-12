@@ -19,7 +19,7 @@ put:function(i, title, id, html){
 createCell:function(obj, c){
 	var html = '<tr>';
 	html += '<td id="JskeyMT_' + c + '" class="menuClose" onclick="$jskey.menu.clickBar(' + c + ')"' + ((c == this.list.length)?' style="display:none;"':'') + '>';
-	html += '<img id="JskeyI' + 'JskeyMT_' + c + '" align="absmiddle" style="border:0;" src="' + this.imgPath + 'right.gif" /> ';
+	html += '<span id="JskeyI' + 'JskeyMT_' + c + '" class="arrow">+</span>';
 	html += obj.title + '</td>';
 	html += '</tr><tr>';
 	html += '<td id="JskeyMC_' + c + '" valign="top" class="cellClose" style="' + ((c == this.list.length)?'display:;height:100%':'display:none;height:') + '">';
@@ -68,7 +68,8 @@ clickBar:function(c){
 		if(isClose){
 			this.$("JskeyMT_" + c).className = "menuClose";
 			this.$("JskeyMC_" + c).className = "cellClose";
-			this.$("JskeyI" + "JskeyMT_" + c).src = this.imgPath + "right.gif";
+			//this.$("JskeyI" + "JskeyMT_" + c).src = this.imgPath + "right.gif";
+			this.$("JskeyI" + "JskeyMT_" + c).innerHTML = "+";
 			if(this.hidden){
 				this.$("JskeyMC_" + this.list.length).style.display = "";
 				this.smoothMenu(this.list.length, c, 0);// 需要将最后一个展开
@@ -80,13 +81,13 @@ clickBar:function(c){
 		else{
 			this.$("JskeyMT_" + c).className = "menuOpen";
 			this.$("JskeyMC_" + c).className = "cellOpen";
-			this.$("JskeyI" + "JskeyMT_" + c).src = this.imgPath + "down.gif";
+			this.$("JskeyI" + "JskeyMT_" + c).innerHTML = "&minus;";
 			if(this.hidden){
 				for(var i = 0;i < this.list.length;i++){
 					if(i != c && this.$("JskeyMC_" + i).style.display == ""){// 找到有其他被打开的就直接关掉并返回
 						this.$("JskeyMT_" + i).className = "menuClose";
 						this.$("JskeyMC_" + i).className = "cellClose";
-						this.$("JskeyI" + "JskeyMT_" + i).src = this.imgPath + "right.gif";
+						this.$("JskeyI" + "JskeyMT_" + i).innerHTML = "+";
 						this.smoothMenu(c, i, 0);
 						return;
 					}
@@ -302,10 +303,17 @@ $jskey.menu.changeURL = function(parentname, nodename, url){
 			parent.$('#tt').tabs('select', s);
 		}
 		else{
-			parent.$('#tt').tabs('add',{
-				title:s,
-				content:'<div style="overflow:hidden;width:100%;height:100%;padding:0px;margin:0px;"><iframe scrolling="yes" frameborder="0" src="' + url + '"></iframe></div>',
-				closable:true
+			// 为了处理新增tab高度不适应bug
+			parent.$('#tt').tabs('add',{});// 增加空白tab
+			var tab = parent.$('#tt').tabs('getSelected');
+			parent.$('#tt').tabs('update',{
+				tab:tab,
+				options:{
+					title:s,
+					content:'<div style="overflow:hidden;width:100%;height:100%;padding:0px;margin:0px;"><iframe scrolling="yes" frameborder="0" src="' + url + '"></iframe></div>',
+					closable:true,
+					selected:true
+				}
 			});
 		}
 	}catch(e){}}
@@ -319,16 +327,28 @@ $jskey.menu.reChangeURL = function(parentname, nodename, url){
 	}
 	if(url != ""){try{
 		var s = nodename;//parentname + '-'+nodename;
+		var tab = null;
 		if(parent.$('#tt').tabs('exists', s)){
 			parent.$('#tt').tabs('select', s);
-			parent.$('#tt').tabs('getTab', s).find('iframe')[0].src = url;
+			tab = parent.$('#tt').tabs('getTab', s);//.find('iframe')[0].src = url;
 		}
 		else{
-			parent.$('#tt').tabs('add',{
+			//parent.$('#tt').tabs('add',{
+			//	title:s,
+			//	content:'<div style="overflow:hidden;width:100%;height:100%;padding:0px;margin:0px;"><iframe scrolling="yes" frameborder="0" src="' + url + '"></iframe></div>',
+			//	closable:true
+			//});
+			parent.$('#tt').tabs('add',{});// 增加空白tab
+			tab = parent.$('#tt').tabs('getSelected');
+		}
+		parent.$('#tt').tabs('update',{
+			tab:tab,
+			options:{
 				title:s,
 				content:'<div style="overflow:hidden;width:100%;height:100%;padding:0px;margin:0px;"><iframe scrolling="yes" frameborder="0" src="' + url + '"></iframe></div>',
-				closable:true
-			});
-		}
+				closable:true,
+				selected:true
+			}
+		});
 	}catch(e){}}
 };
