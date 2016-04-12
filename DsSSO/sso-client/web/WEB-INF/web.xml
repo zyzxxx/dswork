@@ -11,6 +11,15 @@
 	<listener>
 		<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
 	</listener>
+	
+	<filter>
+		<filter-name>websso_logout</filter-name>
+		<filter-class>dswork.sso.WebLogoutFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>websso_logout</filter-name>
+		<url-pattern>/logout</url-pattern>
+	</filter-mapping>
 
 	<filter>
 		<filter-name>websso</filter-name>
