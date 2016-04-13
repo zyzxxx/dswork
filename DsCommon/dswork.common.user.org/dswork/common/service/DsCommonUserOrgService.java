@@ -17,6 +17,7 @@ import dswork.common.model.DsCommonOrg;
 import dswork.common.model.DsCommonUser;
 import dswork.common.model.DsCommonUserOrg;
 import dswork.core.page.PageRequest;
+import dswork.core.util.UniqueId;
 
 @Service
 @SuppressWarnings("all")
@@ -41,6 +42,7 @@ public class DsCommonUserOrgService
 		o.setOrgid(orgid);
 		for(Long id : useridList)
 		{
+			o.setId(UniqueId.genUniqueId());
 			o.setUserid(id);
 			userorgDao.save(o);
 		}
