@@ -6,9 +6,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonUser">
 	insert into DS_COMMON_USER
-	(ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME, ORGPID, ORGID)
+	(ID, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME, ORGPID, ORGID)
 	values
-	(LOWER(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{cakey}, #{workcard}, #{createtime}, #{orgpid}, #{orgid})
+	(#{id}, LOWER(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{cakey}, #{workcard}, #{createtime}, #{orgpid}, #{orgid})
 </insert>
 
 <delete id="delete">

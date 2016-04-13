@@ -16,6 +16,7 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.util.CollectionUtil;
 import dswork.core.util.TimeUtil;
+import dswork.core.util.UniqueId;
 import dswork.common.model.DsCommonUser;
 import dswork.common.service.DsCommonUserService;
 import dswork.mvc.BaseController;
@@ -49,6 +50,7 @@ public class DsCommonUserController extends BaseController
 			{
 				if(!service.isExistsByAccount(po.getAccount()))
 				{
+					po.setId(UniqueId.genUniqueId());
 					po.setCreatetime(TimeUtil.getCurrentTime());
 					po.setStatus(0);//默认禁用用户
 					po.setPassword(EncryptUtil.encryptMd5(po.getPassword()));
