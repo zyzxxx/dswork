@@ -47,7 +47,7 @@
 	select <include refid="columns" /> from DS_COMMON_DICT where ID=#{id}
 </select>
 <select id="query" resultMap="result">
-	select <include refid="columns" /> from DS_COMMON_DICT
+	select <include refid="common.top" /><include refid="columns" /> from DS_COMMON_DICT
 	<include refid="dynamicWhere" /> order by SEQ, LABEL
 </select>
 <select id="queryCount" resultType="int">

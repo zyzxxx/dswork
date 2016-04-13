@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonSystem">
 	INSERT INTO DS_COMMON_SYSTEM
-	(ID, NAME, ALIAS, PASSWORD, MEMO, DOMAINURL, ROOTURL, MENUURL, STATUS)
+	(NAME, ALIAS, PASSWORD, MEMO, DOMAINURL, ROOTURL, MENUURL, STATUS)
 	VALUES
-	(null, #{name}, #{alias}, #{password}, #{memo}, #{domainurl}, #{rooturl}, #{menuurl}, #{status})
+	(#{name}, #{alias}, #{password}, #{memo}, #{domainurl}, #{rooturl}, #{menuurl}, #{status})
 </insert>
 
 <delete id="delete">

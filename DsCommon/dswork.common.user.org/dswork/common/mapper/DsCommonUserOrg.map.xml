@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonUserOrg">
 	insert into DS_COMMON_USERORG
-	(ID, ORGID, USERID)
+	(ORGID, USERID)
 	values
-	(null, #{orgid}, #{userid})
+	(#{orgid}, #{userid})
 </insert>
 
 <delete id="deleteByOrgid">

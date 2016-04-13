@@ -81,7 +81,7 @@
 	</select>
 
 	<select id="query" resultMap="result">
-		select <include refid="columns" /> from DS_BBS_PAGE
+		select <include refid="common.top" /><include refid="columns" /> from DS_BBS_PAGE
 		<include refid="dynamicWhere" />
 		order by ISTOP desc, ID desc
 	</select>

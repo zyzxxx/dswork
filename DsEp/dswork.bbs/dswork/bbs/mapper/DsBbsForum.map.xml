@@ -69,7 +69,7 @@
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="columns" /> from DS_BBS_FORUM
+	select <include refid="common.top" /><include refid="columns" /> from DS_BBS_FORUM
 	<include refid="dynamicWhere" /> order by SEQ, ID
 </select>
 

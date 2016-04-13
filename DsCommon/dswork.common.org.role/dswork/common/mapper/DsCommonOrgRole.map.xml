@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonOrgRole">
 	insert into DS_COMMON_ORGROLE
-	(ID, ORGID, ROLEID)
+	(ORGID, ROLEID)
 	values
-	(null, #{orgid}, #{roleid})
+	(#{orgid}, #{roleid})
 </insert>
 
 <delete id="deleteByOrgid">
@@ -29,7 +29,7 @@
 </resultMap>
 
 <select id="query" resultMap="result">
-	select a.ORGID as ORGID, r.ID as ROLEID, r.NAME as ROLENAME, s.ID as SYSTEMID, s.NAME as SYSTEMNAME
+	select <include refid="common.top" />a.ORGID as ORGID, r.ID as ROLEID, r.NAME as ROLENAME, s.ID as SYSTEMID, s.NAME as SYSTEMNAME
 	from DS_COMMON_ORGROLE a
 	left join DS_COMMON_ROLE r on a.ROLEID=r.ID
 	left join DS_COMMON_SYSTEM s on r.SYSTEMID=s.ID

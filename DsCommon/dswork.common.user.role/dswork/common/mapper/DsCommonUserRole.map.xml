@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonUserRole">
 	insert into DS_COMMON_USERROLE
-	(ID, ROLEID, USERID)
+	(ROLEID, USERID)
 	values
-	(null, #{roleid}, #{userid})
+	(#{roleid}, #{userid})
 </insert>
 
 <delete id="deleteByRoleid">
@@ -31,7 +31,7 @@
 </resultMap>
 
 <select id="query" resultMap="result">
-	select a.USERID as USERID, u.NAME as USERNAME, u.ACCOUNT as USERACCOUNT, r.ID as ROLEID, r.NAME as ROLENAME, s.ID as SYSTEMID, s.NAME as SYSTEMNAME
+	select <include refid="common.top" />a.USERID as USERID, u.NAME as USERNAME, u.ACCOUNT as USERACCOUNT, r.ID as ROLEID, r.NAME as ROLENAME, s.ID as SYSTEMID, s.NAME as SYSTEMNAME
 	from DS_COMMON_USERROLE a
 	left join DS_COMMON_ROLE r on a.ROLEID=r.ID
 	left join DS_COMMON_USER u on a.USERID=u.ID

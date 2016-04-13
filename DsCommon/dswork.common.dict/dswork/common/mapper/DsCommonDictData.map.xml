@@ -64,7 +64,7 @@
 	select <include refid="columns" /> from DS_COMMON_DICT_DATA where ID=#{id}
 </select>
 <select id="query" resultMap="result">
-	select <include refid="columns" /> from DS_COMMON_DICT_DATA
+	select <include refid="common.top" /><include refid="columns" /> from DS_COMMON_DICT_DATA
 	<include refid="dynamicWhere" /> order by SEQ, ALIAS
 </select>
 <select id="queryCount" resultType="int">
