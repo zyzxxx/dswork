@@ -5,6 +5,8 @@ package dswork.common.model;
 
 public class DsCommonOrgRole
 {
+	// ID
+	private Long id = 0L;
 	// 岗位ID
 	private Long orgid = 0L;
 	// 角色ID
@@ -15,6 +17,16 @@ public class DsCommonOrgRole
 	private Long systemid = 0L;
 	// 系统名称
 	private String systemname = "";
+
+	public Long getId()
+	{
+		return id;
+	}
+
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
 
 	public Long getOrgid()
 	{

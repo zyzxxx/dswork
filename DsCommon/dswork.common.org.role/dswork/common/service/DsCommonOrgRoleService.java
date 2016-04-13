@@ -12,6 +12,7 @@ import dswork.common.dao.DsCommonOrgDao;
 import dswork.common.dao.DsCommonOrgRoleDao;
 import dswork.common.model.DsCommonOrg;
 import dswork.common.model.DsCommonOrgRole;
+import dswork.core.util.UniqueId;
 
 @Service
 public class DsCommonOrgRoleService
@@ -35,6 +36,7 @@ public class DsCommonOrgRoleService
 		{
 			if(roleid > 0)
 			{
+				o.setId(UniqueId.genUniqueId());
 				o.setRoleid(roleid);
 				orgroleDao.save(o);
 			}
