@@ -6,9 +6,6 @@
 <mapper namespace="dswork.common.model.DsCommonFlow">
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFlow">
-	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
-	</selectKey>
 	insert into DS_FLOW
 	(ID, CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS)
 	values
