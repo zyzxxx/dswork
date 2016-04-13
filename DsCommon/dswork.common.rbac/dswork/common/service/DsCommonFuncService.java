@@ -17,6 +17,7 @@ import dswork.common.model.DsCommonFunc;
 import dswork.common.model.DsCommonRes;
 import dswork.common.model.DsCommonSystem;
 import dswork.core.page.PageRequest;
+import dswork.core.util.UniqueId;
 
 @Service
 @SuppressWarnings("all")
@@ -40,6 +41,7 @@ public class DsCommonFuncService
 	 */
 	public void save(DsCommonFunc po)
 	{
+		po.setId(UniqueId.genUniqueId());
 		funcDao.save(po);
 	}
 

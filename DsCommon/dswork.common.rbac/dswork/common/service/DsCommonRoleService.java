@@ -18,6 +18,7 @@ import dswork.common.model.DsCommonRole;
 import dswork.common.model.DsCommonRoleFunc;
 import dswork.common.model.DsCommonSystem;
 import dswork.core.page.PageRequest;
+import dswork.core.util.UniqueId;
 
 @Service
 @SuppressWarnings("all")
@@ -42,11 +43,13 @@ public class DsCommonRoleService
 	 */
 	public void save(DsCommonRole po, List<DsCommonRoleFunc> list)
 	{
+		po.setId(UniqueId.genUniqueId());
 		roleDao.save(po);
 		if(null != list)
 		{
 			for(DsCommonRoleFunc tmp : list)
 			{
+				tmp.setId(UniqueId.genUniqueId());
 				tmp.setSystemid(po.getSystemid());
 				tmp.setRoleid(po.getId());
 				roleDao.saveRoleFunc(tmp);
@@ -80,6 +83,7 @@ public class DsCommonRoleService
 		roleDao.deleteRoleFuncByRoleid(po.getId());
 		for(DsCommonRoleFunc tmp : list)
 		{
+			tmp.setId(UniqueId.genUniqueId());
 			tmp.setRoleid(po.getId());
 			tmp.setSystemid(po.getSystemid());
 			roleDao.saveRoleFunc(tmp);

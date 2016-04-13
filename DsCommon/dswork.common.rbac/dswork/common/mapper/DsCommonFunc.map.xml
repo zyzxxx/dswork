@@ -10,9 +10,9 @@
 		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_COMMON_FUNC
-	(PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO, RESOURCES)
+	(ID, PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO, RESOURCES)
 	values
-	(<if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{alias}, #{uri}, #{img}, #{status}, #{seq}, #{memo}, #{resources})
+	(#{id}, <if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{alias}, #{uri}, #{img}, #{status}, #{seq}, #{memo}, #{resources})
 </insert>
 
 <delete id="delete">

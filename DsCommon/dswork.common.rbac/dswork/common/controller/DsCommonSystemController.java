@@ -10,6 +10,7 @@ import dswork.common.model.DsCommonSystem;
 import dswork.common.service.DsCommonSystemService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
+import dswork.core.util.UniqueId;
 
 //应用系统
 @Scope("prototype")
@@ -39,6 +40,7 @@ public class DsCommonSystemController extends BaseController
 			{
 				if (!service.isExistsByAlias(po.getAlias()))
 				{
+					po.setId(UniqueId.genUniqueId());
 					po.setStatus(0);// 默认禁用系统
 					service.save(po);
 					print(1);
