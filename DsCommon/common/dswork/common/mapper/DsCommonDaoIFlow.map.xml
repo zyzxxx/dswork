@@ -18,9 +18,6 @@
 
 
 <insert id="insertFlowPi" parameterType="dswork.common.model.IFlowPi">
-	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
-	</selectKey>
 	insert into DS_FLOW_PI
 	(ID, YWLSH, SBLSH, ALIAS, FLOWID, DEPLOYID, PIDAY, PIDAYTYPE, PISTART, PIEND, PIUPSTART, PIUPEND, STATUS, CACCOUNT, CNAME, PIALIAS)
 	values
@@ -55,9 +52,6 @@
 
 
 <insert id="insertFlowPiData" parameterType="dswork.common.model.IFlowPiData">
-	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
-	</selectKey>
 	insert into DS_FLOW_PI_DATA
 	(ID, PIID, TALIAS, TNAME, STATUS, PACCOUNT, PNAME, PTIME, PTYPE, MEMO)
 	values
@@ -86,9 +80,6 @@
 	ID, PIID, YWLSH, SBLSH, FLOWID, FLOWNAME, TALIAS, TNAME, TCOUNT, TNEXT, TSTART, TUSER, TUSERS, TMEMO, TINTERFACE
 </sql>
 <insert id="insertFlowWaiting" parameterType="dswork.common.model.IFlowWaiting">
-	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
-	</selectKey>
 	insert into DS_FLOW_PI_WAITING
 	(<include refid="sqlFlowWaiting" />)
 	values
