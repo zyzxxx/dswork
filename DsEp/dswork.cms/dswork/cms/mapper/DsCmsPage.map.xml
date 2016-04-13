@@ -7,12 +7,12 @@
 
 <insert id="insert" parameterType="dswork.cms.model.DsCmsPage">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT)
+	(SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT)
 	values
-	(null, #{siteid}, #{categoryid}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content})
+	(#{siteid}, #{categoryid}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content})
 </insert>
 
 <delete id="delete">

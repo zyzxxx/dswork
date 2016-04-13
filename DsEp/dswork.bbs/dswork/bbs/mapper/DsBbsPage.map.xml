@@ -7,12 +7,12 @@
 
 	<insert id="insert" parameterType="dswork.bbs.model.DsBbsPage">
 		<selectKey resultType="Long" order="AFTER" keyProperty="id">
-			select LAST_INSERT_ID()
+			<include refid="common.rowid" />
 		</selectKey>
 		insert into DS_BBS_PAGE
-		(ID, SITEID, FORUMID, USERID, TITLE, URL, SUMMARY, ISESSENCE, ISTOP, METAKEYWORDS, METADESCRIPTION, RELEASEUSER, RELEASETIME, OVERTIME, LASTUSER, LASTTIME, NUMPV, NUMHT, CONTENT)
+		(SITEID, FORUMID, USERID, TITLE, URL, SUMMARY, ISESSENCE, ISTOP, METAKEYWORDS, METADESCRIPTION, RELEASEUSER, RELEASETIME, OVERTIME, LASTUSER, LASTTIME, NUMPV, NUMHT, CONTENT)
 		values
-		(null, #{siteid}, #{forumid}, #{userid}, #{title}, #{url}, #{summary}, #{isessence}, #{istop}, #{metakeywords}, #{metadescription}, #{releaseuser}, #{releasetime}, #{overtime}, #{lastuser}, #{lasttime}, #{numpv}, #{numht}, #{content})
+		(#{siteid}, #{forumid}, #{userid}, #{title}, #{url}, #{summary}, #{isessence}, #{istop}, #{metakeywords}, #{metadescription}, #{releaseuser}, #{releasetime}, #{overtime}, #{lastuser}, #{lasttime}, #{numpv}, #{numht}, #{content})
 	</insert>
 
 	<delete id="delete">

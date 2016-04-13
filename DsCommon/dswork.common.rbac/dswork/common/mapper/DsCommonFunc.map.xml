@@ -7,12 +7,12 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFunc">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_COMMON_FUNC
-	(ID, PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO, RESOURCES)
+	(PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO, RESOURCES)
 	values
-	(null,<if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{alias}, #{uri}, #{img}, #{status}, #{seq}, #{memo}, #{resources})
+	(<if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{alias}, #{uri}, #{img}, #{status}, #{seq}, #{memo}, #{resources})
 </insert>
 
 <delete id="delete">

@@ -7,12 +7,12 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonRole">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_COMMON_ROLE
-	(ID, PID, SYSTEMID, NAME, SEQ, MEMO)
+	(PID, SYSTEMID, NAME, SEQ, MEMO)
 	values
-	(null, <if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{seq}, #{memo})
+	(<if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{systemid}, #{name}, #{seq}, #{memo})
 </insert>
 
 <delete id="delete">

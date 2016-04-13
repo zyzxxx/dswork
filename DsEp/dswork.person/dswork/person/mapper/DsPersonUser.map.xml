@@ -7,12 +7,12 @@
 
 <insert id="insert" parameterType="dswork.person.model.DsPersonUser">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_PERSON_USER
-	(ID, IDCARD, ACCOUNT, PASSWORD, NAME, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, CAKEY, CREATETIME)
+	(IDCARD, ACCOUNT, PASSWORD, NAME, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, CAKEY, CREATETIME)
 	values
-	(null, lower(#{idcard}), lower(#{account}), #{password}, #{name}, #{status}, #{usertype}, #{email}, #{mobile}, #{phone}, #{cakey}, #{createtime})
+	(lower(#{idcard}), lower(#{account}), #{password}, #{name}, #{status}, #{usertype}, #{email}, #{mobile}, #{phone}, #{cakey}, #{createtime})
 </insert>
 
 <delete id="delete">

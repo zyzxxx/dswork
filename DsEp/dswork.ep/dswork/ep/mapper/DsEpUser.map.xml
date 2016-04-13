@@ -7,12 +7,12 @@
 
 <insert id="insert" parameterType="dswork.ep.model.DsEpUser">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_EP_USER
-	(ID, QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, WORKCARD, CAKEY, CREATETIME, SSDW, SSBM, FAX)
+	(QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, WORKCARD, CAKEY, CREATETIME, SSDW, SSBM, FAX)
 	values
-	(null, lower(#{qybm}), lower(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{usertype}, #{email}, #{mobile}, #{phone}, #{workcard}, #{cakey}, #{createtime}, #{ssdw}, #{ssbm}, #{fax})
+	(lower(#{qybm}), lower(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{usertype}, #{email}, #{mobile}, #{phone}, #{workcard}, #{cakey}, #{createtime}, #{ssdw}, #{ssbm}, #{fax})
 </insert>
 
 <delete id="delete">

@@ -7,12 +7,12 @@
 
 <insert id="insert" parameterType="dswork.cms.model.DsCmsCategory">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_CMS_CATEGORY
-	(ID, PID, SITEID, NAME, FOLDER, STATUS, URL, IMG, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, CONTENT)
+	(PID, SITEID, NAME, FOLDER, STATUS, URL, IMG, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, CONTENT)
 	values
-	(null, <if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{folder}, #{status}, #{url}, #{img}, #{seq}, #{viewsite}, #{pageviewsite}, #{metakeywords}, #{metadescription}, #{content})
+	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{folder}, #{status}, #{url}, #{img}, #{seq}, #{viewsite}, #{pageviewsite}, #{metakeywords}, #{metadescription}, #{content})
 </insert>
 
 <delete id="delete">

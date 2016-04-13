@@ -7,12 +7,12 @@
 
 <insert id="insert" parameterType="dswork.bbs.model.DsBbsSite">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_BBS_SITE
-	(ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE)
+	(OWN, NAME, FOLDER, URL, IMG, VIEWSITE)
 	values
-	(null, #{own}, #{name}, #{folder}, #{url}, #{img}, #{viewsite})
+	(#{own}, #{name}, #{folder}, #{url}, #{img}, #{viewsite})
 </insert>
 
 <delete id="delete">

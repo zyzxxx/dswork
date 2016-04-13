@@ -7,12 +7,12 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFlow">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_FLOW
-	(ID, CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS)
+	(CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS)
 	values
-	(null, #{categoryid}, LOWER(#{alias}), #{vnum}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{name}, #{status})
+	(#{categoryid}, LOWER(#{alias}), #{vnum}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{name}, #{status})
 </insert>
 
 <delete id="delete">

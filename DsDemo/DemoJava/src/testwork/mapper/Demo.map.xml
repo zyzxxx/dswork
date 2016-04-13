@@ -7,7 +7,7 @@
 
 <insert id="insert" parameterType="testwork.model.Demo">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid"/>
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DEMO
 	(ID, TITLE, CONTENT, FOUNDTIME)

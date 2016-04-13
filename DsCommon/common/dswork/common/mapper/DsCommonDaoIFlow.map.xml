@@ -19,12 +19,12 @@
 
 <insert id="insertFlowPi" parameterType="dswork.common.model.IFlowPi">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_FLOW_PI
-	(ID, YWLSH, SBLSH, ALIAS, FLOWID, DEPLOYID, PIDAY, PIDAYTYPE, PISTART, PIEND, PIUPSTART, PIUPEND, STATUS, CACCOUNT, CNAME, PIALIAS)
+	(YWLSH, SBLSH, ALIAS, FLOWID, DEPLOYID, PIDAY, PIDAYTYPE, PISTART, PIEND, PIUPSTART, PIUPEND, STATUS, CACCOUNT, CNAME, PIALIAS)
 	values
-	(null, #{ywlsh}, #{sblsh}, #{alias}, #{flowid}, #{deployid}, #{piday}, #{pidaytype}, #{pistart},
+	(#{ywlsh}, #{sblsh}, #{alias}, #{flowid}, #{deployid}, #{piday}, #{pidaytype}, #{pistart},
 		<if test="@Ognl@isEmpty(piend)">null</if><if test="@Ognl@isNotEmpty(piend)">#{piend}</if>,
 		#{piupstart}, #{piupend}, #{status}, #{caccount}, #{cname}, #{pialias})
 </insert>
@@ -56,26 +56,26 @@
 
 <insert id="insertFlowPiData" parameterType="dswork.common.model.IFlowPiData">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_FLOW_PI_DATA
-	(ID, PIID, TALIAS, TNAME, STATUS, PACCOUNT, PNAME, PTIME, PTYPE, MEMO)
+	(PIID, TALIAS, TNAME, STATUS, PACCOUNT, PNAME, PTIME, PTYPE, MEMO)
 	values
-	(null, #{piid}, #{talias}, #{tname}, #{status}, #{paccount}, #{pname}, #{ptime}, #{ptype}, #{memo})
+	(#{piid}, #{talias}, #{tname}, #{status}, #{paccount}, #{pname}, #{ptime}, #{ptype}, #{memo})
 </insert>
 
 
 <sql id="sqlFlowWaiting">
-	ID, PIID, YWLSH, SBLSH, FLOWID, FLOWNAME, TALIAS, TNAME, TCOUNT, TNEXT, TSTART, TUSER, TUSERS, TMEMO, TINTERFACE
+	PIID, YWLSH, SBLSH, FLOWID, FLOWNAME, TALIAS, TNAME, TCOUNT, TNEXT, TSTART, TUSER, TUSERS, TMEMO, TINTERFACE
 </sql>
 <insert id="insertFlowWaiting" parameterType="dswork.common.model.IFlowWaiting">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		select LAST_INSERT_ID()
+		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_FLOW_PI_WAITING
 	(<include refid="sqlFlowWaiting" />)
 	values
-	(null, #{piid}, #{ywlsh}, #{sblsh}, #{flowid}, #{flowname}, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tstart},
+	(#{piid}, #{ywlsh}, #{sblsh}, #{flowid}, #{flowname}, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tstart},
 		<if test="@Ognl@isEmpty(tuser)">null</if><if test="@Ognl@isNotEmpty(tuser)">#{tuser}</if>,
 		<if test="@Ognl@isEmpty(tusers)">null</if><if test="@Ognl@isNotEmpty(tusers)">#{tusers}</if>,
 		#{tmemo}, #{tinterface})
@@ -111,10 +111,10 @@
 	<result property="tinterface" column="TINTERFACE" />
 </resultMap>
 <select id="selectFlowWaiting" resultMap="resultFlowWaiting">
-	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING where ID=#{id}
+	select ID, <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING where ID=#{id}
 </select>
 <select id="selectFlowWaitingByPiid" resultMap="resultFlowWaiting">
-	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
+	select ID, <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
 	where PIID=#{piid} <if test="@Ognl@isNotEmpty(talias)"> and TALIAS=#{talias}</if>
 </select>
 <select id="queryFlowWaitingTalias" resultType="java.lang.String">
@@ -124,7 +124,7 @@
 	<include refid="sqlQueryFlowWaiting" />
 </select>
 <sql id="sqlQueryFlowWaiting">
-	select <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
+	select ID, <include refid="sqlFlowWaiting" /> from DS_FLOW_PI_WAITING
 	where (TUSER=#{account} or TUSERS like #{account, typeHandler=LikeTypeHandler}) and TCOUNT=1
 </sql>
 </mapper>

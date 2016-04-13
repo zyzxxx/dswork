@@ -7,12 +7,12 @@
 
 	<insert id="insert" parameterType="dswork.ep.model.DsEpEnterprise">
 		<selectKey resultType="Long" order="AFTER" keyProperty="id">
-			select LAST_INSERT_ID()
+			<include refid="common.rowid" />
 		</selectKey>
 		insert into DS_EP_ENTERPRISE
-		(ID, NAME, SSXQ, QYBM, STATUS, TYPE)
+		(NAME, SSXQ, QYBM, STATUS, TYPE)
 		values
-		(null, #{name}, #{ssxq}, lower(#{qybm}), #{status}, #{type})
+		(#{name}, #{ssxq}, lower(#{qybm}), #{status}, #{type})
 	</insert>
 
 	<delete id="delete">
