@@ -11,6 +11,10 @@
 	<result property="status" column="STATUS" />
 	<result property="pid" column="PID" />
 </resultMap>
+<select id="getDict" resultMap="resultDict">
+	select LABEL, ALIAS, STATUS from DS_COMMON_DICT_DATA
+	where NAME=#{name} and ALIAS=#{alias} 
+</select>
 <select id="queryDict" resultMap="resultDict">
 	select a.LABEL, a.ALIAS, a.STATUS, b.ALIAS as PID from DS_COMMON_DICT_DATA a
 	left join DS_COMMON_DICT_DATA b on a.PID=b.ID

@@ -92,4 +92,15 @@ public class DsCommonFactoryDict
 		init();
 		return dao.queryListDict(name, parentAlias);
 	}
+
+	public String getLabel(String name, String alias)
+	{
+		init();
+		IDict po = dao.getDict(name, alias);
+		if(po == null)
+		{
+			return "";
+		}
+		return po.getLabel();
+	}
 }

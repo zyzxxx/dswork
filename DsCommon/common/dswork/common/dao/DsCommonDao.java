@@ -33,10 +33,23 @@ public class DsCommonDao extends MyBatisDao
 	// 字典
 	// /////////////////////////////////////////////////////////////////////////
 	/**
+	 * 获取指定节点
+	 * @param name 字典分类名
+	 * @param alias 上级标识，当alias为null时获取全部节点数据，当alias为""时获取根节点数据
+	 * @return IDict
+	 */
+	public IDict getDict(String name, String alias)
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("name", name);
+		map.put("alias", alias);
+		return (IDict) executeSelect("getDict", map);
+	}
+	/**
 	 * 获取指定节点的列表数据
 	 * @param name 字典分类名
 	 * @param alias 上级标识，当alias为null时获取全部节点数据，当alias为""时获取根节点数据
-	 * @return List&lt;IDsDict&gt;
+	 * @return List&lt;IDict&gt;
 	 */
 	public List<IDict> queryListDict(String name, String parentAlias)
 	{
@@ -54,7 +67,7 @@ public class DsCommonDao extends MyBatisDao
 	 * 根据上级组织机构主键取得列表数据
 	 * @param pid 上级组织机构主键
 	 * @param status 0-2为指定分类（2单位，1部门，0岗位），超出0-2范围则不过滤
-	 * @return List&lt;DsCommonOrg&gt;
+	 * @return List&lt;IOrg&gt;
 	 */
 	public List<IOrg> queryListOrg(Long pid, Integer status)
 	{
