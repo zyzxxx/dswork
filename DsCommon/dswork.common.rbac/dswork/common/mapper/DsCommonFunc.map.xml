@@ -6,9 +6,6 @@
 <mapper namespace="dswork.common.model.DsCommonFunc">
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFunc">
-	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
-	</selectKey>
 	insert into DS_COMMON_FUNC
 	(ID, PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO, RESOURCES)
 	values

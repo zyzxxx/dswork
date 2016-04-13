@@ -6,9 +6,6 @@
 <mapper namespace="dswork.common.model.DsCommonRole">
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonRole">
-	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
-	</selectKey>
 	insert into DS_COMMON_ROLE
 	(ID, PID, SYSTEMID, NAME, SEQ, MEMO)
 	values
