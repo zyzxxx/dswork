@@ -12,6 +12,7 @@ import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
 import dswork.core.util.TimeUtil;
+import dswork.core.util.UniqueId;
 
 @Service
 // @SuppressWarnings("all")
@@ -33,6 +34,7 @@ public class DsCommonService
 		{
 			IFlowTask task = dao.getFlowTask(flowid, "start");
 			IFlowPi pi = new IFlowPi();
+			pi.setId(UniqueId.genUniqueId());
 			pi.setYwlsh(ywlsh);
 			pi.setSblsh(sblsh);
 			pi.setAlias(alias);
@@ -49,6 +51,7 @@ public class DsCommonService
 			dao.saveFlowPi(pi);
 			Long piid = pi.getId();
 			IFlowWaiting m = new IFlowWaiting();
+			m.setId(UniqueId.genUniqueId());
 			m.setPiid(piid);
 			m.setYwlsh(ywlsh);
 			m.setSblsh(sblsh);
@@ -100,6 +103,7 @@ public class DsCommonService
 		{
 			String time = TimeUtil.getCurrentTime();
 			IFlowPiData pd = new IFlowPiData();
+			pd.setId(UniqueId.genUniqueId());
 			pd.setPiid(m.getPiid());
 			pd.setTalias(m.getTalias());
 			pd.setTname(m.getTname());
@@ -130,6 +134,7 @@ public class DsCommonService
 					else
 					{
 						IFlowWaiting newm = new IFlowWaiting();
+						newm.setId(UniqueId.genUniqueId());
 						newm.setPiid(m.getPiid());
 						newm.setYwlsh(m.getYwlsh());
 						newm.setSblsh(m.getSblsh());
