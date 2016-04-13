@@ -40,7 +40,7 @@ public class DsCommonDictController extends BaseController
 	{
 		try
 		{
-			po.setId(UniqueId.genId());
+			po.setId(UniqueId.genUniqueId());
 			if(po.getName().trim().length() <= 0)
 			{
 				print("0:保存失败，引用名不能为空");
@@ -189,7 +189,7 @@ public class DsCommonDictController extends BaseController
 					v++;//print("0:保存失败，标识不能为空");
 					continue;
 				}
-				po.setId(UniqueId.genId());
+				po.setId(UniqueId.genUniqueId());
 				po.setStatus(1);// 暂时只需要支持树叉
 				po.setName(dict.getName());
 				po.setPid(pid);

@@ -18,6 +18,7 @@ import dswork.common.model.DsCommonFlow;
 import dswork.common.model.DsCommonFlowCategory;
 import dswork.common.model.DsCommonFlowTask;
 import dswork.core.page.PageRequest;
+import dswork.core.util.UniqueId;
 
 @Service
 @SuppressWarnings("all")
@@ -32,12 +33,14 @@ public class DsCommonFlowService
 
 	public int saveFlow(DsCommonFlow flow, List<DsCommonFlowTask> list)
 	{
+		flow.setId(UniqueId.genUniqueId());
 		flow.setDeployid("");
 		flow.setStatus(0);
 		flow.setVnum(0);
 		flowDao.save(flow);
 		for(DsCommonFlowTask m : list)
 		{
+			m.setId(UniqueId.genUniqueId());
 			m.setFlowid(flow.getId());
 			m.setDeployid("");
 			taskDao.save(m);
@@ -62,6 +65,7 @@ public class DsCommonFlowService
 		taskDao.deleteByFlowid(flow.getId());
 		for(DsCommonFlowTask task : list)
 		{
+			task.setId(UniqueId.genUniqueId());
 			task.setFlowid(flow.getId());
 			taskDao.save(task);
 		}
@@ -90,6 +94,7 @@ public class DsCommonFlowService
 		DsCommonFlow flow = (DsCommonFlow) flowDao.get(flowid);
 		if(flow.getVnum() == 0)
 		{
+			flow.setId(UniqueId.genUniqueId());
 			// 把旧的数据处理为发布版本
 			flow.setDeployid("");
 			flow.setVnum(1);
@@ -103,6 +108,7 @@ public class DsCommonFlowService
 			{
 				for(DsCommonFlowTask m : list)
 				{
+					m.setId(UniqueId.genUniqueId());
 					m.setFlowid(flow.getId());
 					m.setDeployid(deployid);
 					taskDao.save(m);
@@ -132,6 +138,7 @@ public class DsCommonFlowService
 	 */
 	public void save(DsCommonFlowCategory entity)
 	{
+		entity.setId(UniqueId.genUniqueId());
 		categoryDao.save(entity);
 	}
 

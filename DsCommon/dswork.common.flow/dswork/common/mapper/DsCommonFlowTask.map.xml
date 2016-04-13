@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFlowTask">
 	insert into DS_FLOW_TASK
-	(FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO)
+	(ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO)
 	values
-	(#{flowid}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tusers}, #{tmemo})
+	(#{id}, #{flowid}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tusers}, #{tmemo})
 </insert>
 
 <delete id="deleteByFlowid">

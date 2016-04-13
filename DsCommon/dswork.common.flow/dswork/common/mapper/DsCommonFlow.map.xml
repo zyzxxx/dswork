@@ -10,9 +10,9 @@
 		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_FLOW
-	(CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS)
+	(ID, CATEGORYID, ALIAS, VNUM, DEPLOYID, NAME, STATUS)
 	values
-	(#{categoryid}, LOWER(#{alias}), #{vnum}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{name}, #{status})
+	(#{id}, #{categoryid}, LOWER(#{alias}), #{vnum}, <if test="@Ognl@isEmpty(deployid)">null</if><if test="@Ognl@isNotEmpty(deployid)">#{deployid}</if>, #{name}, #{status})
 </insert>
 
 <delete id="delete">
