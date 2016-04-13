@@ -5,6 +5,8 @@ package dswork.common.model;
 
 public class DsCommonUserRole
 {
+	// ID
+	private Long id = 0L;
 	// 用户ID
 	private Long userid = 0L;
 	// 用户名称
@@ -19,6 +21,16 @@ public class DsCommonUserRole
 	private Long systemid = 0L;
 	// 系统名称
 	private String systemname = "";
+
+	public Long getId()
+	{
+		return id;
+	}
+
+	public void setId(Long id)
+	{
+		this.id = id;
+	}
 
 	public Long getUserid()
 	{

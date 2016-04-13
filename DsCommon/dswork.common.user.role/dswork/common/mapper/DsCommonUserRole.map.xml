@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonUserRole">
 	insert into DS_COMMON_USERROLE
-	(ROLEID, USERID)
+	(ID, ROLEID, USERID)
 	values
-	(#{roleid}, #{userid})
+	(#{id}, #{roleid}, #{userid})
 </insert>
 
 <delete id="deleteByRoleid">

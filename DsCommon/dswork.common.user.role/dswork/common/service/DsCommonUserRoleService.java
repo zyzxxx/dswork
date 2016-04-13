@@ -18,6 +18,7 @@ import dswork.common.model.DsCommonUser;
 import dswork.common.model.DsCommonUserRole;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
+import dswork.core.util.UniqueId;
 
 @Service
 @SuppressWarnings("all")
@@ -42,6 +43,7 @@ public class DsCommonUserRoleService
 		o.setRoleid(roleid);
 		for(Long id : useridList)
 		{
+			o.setId(UniqueId.genUniqueId());
 			o.setUserid(id);
 			userroleDao.save(o);
 		}
@@ -61,6 +63,7 @@ public class DsCommonUserRoleService
 		{
 			if(id > 0)
 			{
+				o.setId(UniqueId.genUniqueId());
 				o.setRoleid(id);
 				userroleDao.save(o);
 			}
