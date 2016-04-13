@@ -125,6 +125,10 @@ public class DsCommonDao extends MyBatisDao
 	{
 		executeInsert("insertFlowPiData", pidata);
 	}
+	public List<IFlowPiData> queryFlowPiData(Long piid)
+	{
+		return executeSelectList("queryFlowPiData", piid);
+	}
 	
 	// ////////////////////////
 	// 流程实例待办

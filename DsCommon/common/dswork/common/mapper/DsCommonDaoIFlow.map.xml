@@ -63,6 +63,23 @@
 	values
 	(#{piid}, #{talias}, #{tname}, #{status}, #{paccount}, #{pname}, #{ptime}, #{ptype}, #{memo})
 </insert>
+<resultMap id="resultFlowPiData" type="dswork.common.model.IFlowPiData">
+	<id property="id" column="ID" />
+	<result property="piid" column="PIID" />
+	<result property="talias" column="TALIAS" />
+	<result property="tname" column="TNAME" />
+	<result property="status" column="STATUS" />
+	<result property="paccount" column="PACCOUNT" />
+	<result property="pname" column="PNAME" />
+	<result property="ptime" column="PTIME" />
+	<result property="ptype" column="PTYPE" />
+	<result property="memo" column="MEMO" />
+</resultMap>
+<select id="queryFlowPiData" resultMap="resultFlowPiData">
+	select ID, PIID, TALIAS, TNAME, STATUS, PACCOUNT, PNAME, PTIME, PTYPE, MEMO
+	from DS_FLOW_PI_DATA
+	where PIID=#{piid}
+</select>
 
 
 <sql id="sqlFlowWaiting">

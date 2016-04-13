@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
 import dswork.common.service.DsCommonService;
@@ -174,5 +175,19 @@ public class DsCommonFactoryFlow
 			e.printStackTrace();
 		}
 		return map;
+	}
+
+	public List<IFlowPiData> queryFlowPiData(String piid)
+	{
+		try
+		{
+			init();
+			return service.queryFlowPiData(Long.parseLong(piid));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

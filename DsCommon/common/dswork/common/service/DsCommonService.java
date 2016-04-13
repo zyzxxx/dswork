@@ -213,6 +213,11 @@ public class DsCommonService
 	{
 		return dao.queryFlowTask(flowid);
 	}
+
+	public List<IFlowPiData> queryFlowPiData(Long piid)
+	{
+		return dao.queryFlowPiData(piid);
+	}
 	
 
 //	private long deployidToFlowid(String deployid)
