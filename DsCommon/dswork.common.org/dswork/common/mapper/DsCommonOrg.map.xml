@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonOrg">
 	insert into DS_COMMON_ORG
-	(PID, NAME, STATUS, SEQ, DUTYSCOPE, MEMO)
+	(ID, PID, NAME, STATUS, SEQ, DUTYSCOPE, MEMO)
 	values
-	(<if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{name}, #{status}, #{seq}, #{dutyscope}, #{memo})
+	(#{id}, <if test="null==pid or 0==pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{name}, #{status}, #{seq}, #{dutyscope}, #{memo})
 </insert>
 
 <delete id="delete">
