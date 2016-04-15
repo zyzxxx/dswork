@@ -587,14 +587,24 @@ public class XzspFactory
 			.addForm("sptype", String.valueOf(i))
 			.addForm("spobject", v)
 			.setUseCaches(false);
-			return String.valueOf(http.connect()).trim().equals("1")? 1 : 0;
-//			java.util.Map map = new java.util.HashMap();
-//			map.put("sblsh", SBLSH);
-//			map.put("sptype", i);
-//			map.put("spobject", v);
-//			init();
-//			dao.executeInsert(map);
-//			return 1;
+			
+			try
+			{
+				return String.valueOf(http.connect()).trim().equals("1")? 1 : 0;
+			}
+			catch(Exception e2)
+			{
+				Thread.sleep(1000);
+				try
+				{
+					return String.valueOf(http.connect()).trim().equals("1")? 1 : 0;
+				}
+				catch(Exception e3)
+				{
+					Thread.sleep(1000);
+					return String.valueOf(http.connect()).trim().equals("1")? 1 : 0;
+				}
+			}
 		}
 		catch(Exception e)
 		{
