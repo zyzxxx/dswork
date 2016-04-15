@@ -5,13 +5,14 @@ package dswork.sso.service;
 
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class TicketService
 {
-	private static ConcurrentHashMap<String, String> map = new ConcurrentHashMap<String, String>();
+	private static ConcurrentMap<String, String> map = new ConcurrentHashMap<String, String>();
 
 	/**
 	 * 保存用户登录状态，并返回ticket
