@@ -1,14 +1,14 @@
 package common.auth;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class AuthPassport
 {
-	private static Map<Long, String> mapEp = new HashMap<Long, String>();
-	private static Map<Long, String> mapPerson = new HashMap<Long, String>();
+	private static ConcurrentMap<Long, String> mapEp = new ConcurrentHashMap<Long, String>();
+	private static ConcurrentMap<Long, String> mapPerson = new ConcurrentHashMap<Long, String>();
 	private static Timer _timer = null;
 	
 	static
@@ -24,22 +24,22 @@ public class AuthPassport
 					if(mapEp.size() > 0)
 					{
 						//清空超时的记录
-						for(Map.Entry<Long, String> entry: mapEp.entrySet())
+						for(ConcurrentMap.Entry<Long, String> entry: mapEp.entrySet())
 						{
 							if(entry.getKey() < now)
 							{
-								mapEp.put(entry.getKey(), null);
+								mapEp.remove(entry.getKey());
 							}
 						}
 					}
 					if(mapPerson.size() > 0)
 					{
 						//清空超时的记录
-						for(Map.Entry<Long, String> entry: mapPerson.entrySet())
+						for(ConcurrentMap.Entry<Long, String> entry: mapPerson.entrySet())
 						{
 							if(entry.getKey() < now)
 							{
-								mapPerson.put(entry.getKey(), null);
+								mapPerson.remove(entry.getKey());
 							}
 						}
 					}
@@ -84,7 +84,7 @@ public class AuthPassport
 	}
 	public static void clearAccountPerson(Long code)
 	{
-		mapPerson.put(code, null);
+		mapPerson.remove(code);
 	}
 	
 
