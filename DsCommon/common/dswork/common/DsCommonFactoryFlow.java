@@ -130,6 +130,7 @@ public class DsCommonFactoryFlow
 		{
 			if(user != null && user.trim().length() > 0)
 			{
+				init();
 				service.updateFlowWaitingUser(waitid, user);
 				return true;
 			}
