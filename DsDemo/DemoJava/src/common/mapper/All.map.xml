@@ -10,5 +10,5 @@
 -->
 <mapper namespace="common">
     <sql id="rowid">select LAST_INSERT_ROWID()</sql>
-    <sql id="top"></sql>
+    <sql id="top"> </sql>
 </mapper>
