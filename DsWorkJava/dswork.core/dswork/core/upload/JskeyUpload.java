@@ -4,8 +4,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -65,7 +65,7 @@ public class JskeyUpload extends Thread
 	// ################################################################################################
 	private Timer _timer = null;
 	private static int count = 0;
-	private static Map<Long, Long> jskeyUploadMap = new HashMap<Long, Long>();
+	private static ConcurrentMap<Long, Long> jskeyUploadMap = new ConcurrentHashMap<Long, Long>();
 	private static synchronized int getCount() {return JskeyUpload.count;}
 	// count仅用于标记是否启动任务，1为启动，0为不启动
 	private static synchronized void setCount(int count) {JskeyUpload.count = count;}
@@ -153,7 +153,7 @@ public class JskeyUpload extends Thread
 						if(JskeyUpload.existMapValue())
 						{
 							long currTime = Calendar.getInstance().getTimeInMillis();//取得当前时间
-							for(Map.Entry<Long, Long> entry: JskeyUpload.jskeyUploadMap.entrySet())
+							for(ConcurrentMap.Entry<Long, Long> entry: JskeyUpload.jskeyUploadMap.entrySet())
 							{
 								if(currTime - entry.getValue().longValue() > JskeyUpload.UPLOAD_TIMEOUT)
 								{
