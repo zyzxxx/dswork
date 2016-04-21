@@ -79,7 +79,7 @@
 	insert into DS_COMMON_LOGIN
 	(ID, LOGINTIME, LOGOUTTIME, TICKET, IP, ACCOUNT, NAME, STATUS)
 	values
-	(null, #{logintime}, #{logouttime}, #{ticket}, #{ip}, #{account}, #{name}, #{status})
+	(#{id}, #{logintime}, #{logouttime}, #{ticket}, #{ip}, #{account}, #{name}, #{status})
 </insert>
 <update id="update">
 	update DS_COMMON_LOGIN set LOGOUTTIME=#{logouttime}, TIMEOUTTIME=#{timeouttime}, PWDTIME=#{pwdtime} where TICKET=#{ticket}

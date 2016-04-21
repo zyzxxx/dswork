@@ -39,7 +39,7 @@ public class AuthFactoryService
 	{
 		dao.saveLogLogout(ticket, isTimeout, isUpdatePassword);
 	}
-	public void updatePassword(String account, String password) throws Exception
+	public void updatePassword(String account, String password)
 	{
 		dao.updatePassword(account, EncryptUtil.encryptMd5(password));
 	}
