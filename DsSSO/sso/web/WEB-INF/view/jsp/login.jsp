@@ -64,13 +64,13 @@ a:hover{color:#0000ff;text-decoration:underline;}
   <div class="login">
 	<div class="box"><div class="title">用户登录</div></div>
 	<div class="box"><div class="vbox">
-		<span>&#xf0001;</span><input type="text" title="账号" id="account" name="account" value="" />
+		<span>&#xf1001;</span><input type="text" title="账号" id="account" name="account" value="" />
 	</div></div>
 	<div class="box"><div class="vbox">
-		<span>&#xf0002;</span><input type="password" title="密码" id="password" name="password" value="" />
+		<span>&#xf1002;</span><input type="password" title="密码" id="password" name="password" value="" />
 	</div></div>
 	<div class="box"><div class="vbox">
-		<span>&#xf0026;</span><input type="text" title="验证码" placeholder="" id="authcode" name="authcode" maxlength="4" class="code" value="" />
+		<span>&#xf1026;</span><input type="text" title="验证码" placeholder="" id="authcode" name="authcode" maxlength="4" class="code" value="" />
 		<img src="${ctx}/authcode?width=90&height=38" onclick="this.src='${ctx}/authcode?width=90&height=38&id=' + Math.random();" />
 	</div></div>
 	<div class="box">
