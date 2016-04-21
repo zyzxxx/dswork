@@ -29,7 +29,7 @@ public class AuthFactoryDao extends MyBatisDao
 	public void saveLogLogin(String ticket, String ip, String account, String name, boolean isSuccess)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", UniqueId.genGuid());
+		map.put("id", UniqueId.genUniqueId());
 		map.put("logintime", TimeUtil.getCurrentTime());
 		map.put("logouttime", isSuccess ? "0" : TimeUtil.getCurrentTime());// 退出前标识为0
 		map.put("ticket", ticket);
