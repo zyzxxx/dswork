@@ -7,18 +7,18 @@ import java.util.Map;
 import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
-import dswork.common.service.DsCommonService;
+import dswork.common.service.DsCommonServiceIFlow;
 import dswork.spring.BeanFactory;
 
 public class DsCommonFactoryFlow
 {
-	private static DsCommonService service = null;
+	private static DsCommonServiceIFlow service = null;
 
 	private static void init()
 	{
 		if(service == null)
 		{
-			service = (DsCommonService) BeanFactory.getBean("dsCommonService");
+			service = (DsCommonServiceIFlow) BeanFactory.getBean("dsCommonServiceIFlow");
 		}
 	}
 

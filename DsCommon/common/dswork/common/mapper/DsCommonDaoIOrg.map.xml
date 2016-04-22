@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.common.dao.DsCommonDao">
+<mapper namespace="dswork.common.dao.DsCommonDaoIOrg">
 
 <resultMap id="resultOrg" type="dswork.common.model.IOrg">
 	<id property="id" column="ID" />

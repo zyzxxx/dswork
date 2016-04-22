@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dswork.common.dao.DsCommonDao;
+import dswork.common.dao.DsCommonDaoIFlow;
 import dswork.common.model.IFlow;
 import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
@@ -16,10 +16,10 @@ import dswork.core.util.UniqueId;
 
 @Service
 // @SuppressWarnings("all")
-public class DsCommonService
+public class DsCommonServiceIFlow
 {
 	@Autowired
-	private DsCommonDao dao;
+	private DsCommonDaoIFlow dao;
 
 	public IFlowWaiting saveFlowStart(String alias, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
 	{

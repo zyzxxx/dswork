@@ -1,16 +1,16 @@
 package dswork.common;
 
-import dswork.common.dao.DsCommonDao;
+import dswork.common.dao.DsCommonDaoIOrg;
 import dswork.spring.BeanFactory;
 
 public class DsCommonFactoryOrg
 {
-	private static DsCommonDao dao;
+	private static DsCommonDaoIOrg dao;
 	private static void init()
 	{
 		if(dao == null)
 		{
-			dao = (DsCommonDao) BeanFactory.getBean("dsCommonDao");
+			dao = (DsCommonDaoIOrg) BeanFactory.getBean("dsCommonDaoIOrg");
 		}
 	}
 	
