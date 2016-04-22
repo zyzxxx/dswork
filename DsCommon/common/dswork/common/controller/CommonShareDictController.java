@@ -14,7 +14,7 @@ import dswork.common.DsFactory;
 
 @Controller
 @RequestMapping("/common/share")
-public class CommonShareController
+public class CommonShareDictController
 {
 	@RequestMapping("/getJsonDict")
 	public void getJsonDict(HttpServletRequest request, HttpServletResponse response)
@@ -26,23 +26,6 @@ public class CommonShareController
 		try
 		{
 			response.getWriter().print(DsFactory.getDict().getDictJson(name, parentAlias));
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	@RequestMapping("/getJsonOrg")
-	public void getJsonOrg(HttpServletRequest request, HttpServletResponse response)
-	{
-		response.setCharacterEncoding("UTF-8");
-		MyRequest req = new MyRequest(request);
-		long pid = req.getLong("pid");
-		int status = req.getInt("status", -1);
-		try
-		{
-			response.getWriter().print(DsFactory.getOrg().getOrgJson(pid, (status > -1 && status < 3) ? status : null));
 		}
 		catch(Exception e)
 		{
