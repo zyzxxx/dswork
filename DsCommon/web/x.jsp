@@ -1,15 +1,34 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page import="dswork.common.DsFactory"%>
 <!DOCTYPE html>
 <html>
 <head>
 <title></title>
 <%@include file="/commons/include/get.jsp"%>
 <%@include file="/commons/include/ztree.jsp"%>
-<script type="text/javascript" src="/web/js/dswork/form.js"></script>
 <script type="text/javascript">
+function loaddata(value, objectid, type, ename){
+	$.post("${ctx}/common/share/getJsonDict.htm",{name:"SSXQ", value:value},function(data){
+		var a = eval(data);
+		var s = $("#" + objectid);
+		if(type == "checkbox" || type == "radio"){
+			for(var i=0; i<a.length; i++){
+				s.append("<label><input name=\"" + ename + "\" type=\"" + type + "\" value=\"" + a[i].id + "\" " + (i==0?"checked":"") + " />"+a[i].name+"</label>");
+			}
+			s.append("<input name=\"" + ename + "\" type=\"" + type + "\" dataType=\"Group\" msg=\"必选\" value=\"\" style=\"display:none;\" />");
+		}else{
+			for(var i=0; i<a.length; i++){
+				var o = $("<option></option>");
+				o.text(a[i].name);
+				o.attr("value", a[i].id);
+				if(i == 0){o.prop("selected", true);}// 当下拉框size大于1时，默认不会有选中的值
+				s.append(o);
+			}
+			s.change();
+		}
+	});
+}
 $(function(){
 	$("#orgpname").bind("click", function(e){
 		$dswork.showTree({id:"treeid1",width:400,height:200,root:{name:"选择单位"}
@@ -30,20 +49,6 @@ $(function(){
 		});
 	});
 	
-	function loaddata(value, selectid){
-		$.post("${ctx}/common/share/getJsonDict.htm",{name:"SSXQ", value:value},function(data){
-			var s = $("#" + selectid);
-			var a = eval(data);
-			for(var i=0; i<a.length; i++){
-				var o = $("<option></option>");
-				o.text(a[i].name);
-				o.attr("value", a[i].id);
-				if(i == 0){o.prop("selected", true);}// 当下拉框size大于1时，默认不会有选中的值
-				s.append(o);
-			}
-			s.change();
-		});
-	}
 	$("#v1").bind("change", function(e){
 		document.getElementById("v2").options.length = 0;
 		document.getElementById("v3").options.length = 0;
@@ -69,19 +74,43 @@ $(function(){
 </table>
 <br />******************************<br />
 <form id="dataForm" method="post" action="#">
-<span><select id="v1" size="15"></select></span>
-&nbsp;<span><select id="v2" size="15"></select></span>
-&nbsp;<span><select id="v3" size="15"></select></span> 
+<span><select id="v1" size="15" style="min-width:100px;height:150px;"></select></span>
+&nbsp;<span><select id="v2" size="15" style="min-width:100px;height:150px;"></select></span>
+&nbsp;<span><select id="v3" size="15" style="min-width:100px;height:150px;"></select></span> 
 <br />******************************<br />
-<span><%=DsFactory.getDict().getCheckbox("SSXQ", "chk_hello") %></span>
+<span id="chk1"></span>
+<script type="text/javascript">
+$(function(){
+	loaddata("440100", "chk1", "checkbox", "chk_hello");
+});
+</script>
+
+
 <br />******************************<br />
-<span><%=DsFactory.getDict().getRadio("SSXQ", "rdo_hello") %></span>
+<span id="rdo1"></span>
+<script type="text/javascript">
+$(function(){
+	loaddata("440100", "rdo1", "radio", "rdo_hello");
+});
+</script>
+
+
 <br />******************************<br />
-<span><%=DsFactory.getDict().getSelect("SSXQ", "sel_hello") %></span>
+<span id="sel1"><select id="news" name="news"></select></span>
+<script type="text/javascript">
+$(function(){
+	document.getElementById("news").options.length = 0;
+	$("#news").append($('<option value="">其他</option>'));
+	loaddata("440100", "news");
+});
+</script>
 <br />******************************<br />
-<span><select id="news" name="news"><option value="">其他</option><%=DsFactory.getDict().getOption("SSXQ", "440100") %></select></span>
-<br />******************************<br />
-<%=DsFactory.getDict().getDictJson("SSXQ", "") %>
+
+
+
+
+
+
 <br />******************************<br />
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
