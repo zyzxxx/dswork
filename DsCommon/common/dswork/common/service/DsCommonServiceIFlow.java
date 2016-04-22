@@ -15,7 +15,6 @@ import dswork.core.util.TimeUtil;
 import dswork.core.util.UniqueId;
 
 @Service
-// @SuppressWarnings("all")
 public class DsCommonServiceIFlow
 {
 	@Autowired
