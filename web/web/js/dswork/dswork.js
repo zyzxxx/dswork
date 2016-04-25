@@ -6,7 +6,7 @@ $dswork.showDate = function(){
 	$jskey.calendar.show(o,{skin:'default', lang:0, format:f, sample:f});
 };
 $dswork.uploadURL = function(){
-	return "/web/js/jskey/jskey_upload." + ($dswork.dotnet ? "aspx" : "jsp");
+	return "/web/upload/jskey_upload." + ($dswork.dotnet ? "aspx" : "jsp");
 };
 $dswork.getChoose = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose.html";return $jskey.dialog.show(m);};
 $dswork.getChooseByKey = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose_key.html";return $jskey.dialog.show(m);};
