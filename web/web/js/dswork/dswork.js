@@ -185,6 +185,7 @@ $dswork.upload.prototype = {
 	p.limit = parseInt(p.limit);
 	p.bid = p.id + "_span";
 	p.sid = p.id + "_showdiv";
+	p.name= p.name;
 	
 	if($jskey.upload.swf){
 		if(p.ext == "image"){p.types = "*." + $jskey.$replace(this.image, ",", ";*.");}
@@ -205,7 +206,7 @@ $dswork.upload.prototype = {
 		if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
 	}
 	var ps = {
-		url:this.url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false"),
+		url:this.url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false") + "&name=" + name,
 		browse_button : p.bid,
 		unique_names : false,
 		filters : {
