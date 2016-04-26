@@ -3,6 +3,8 @@ package dswork.sso.dao;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.stereotype.Repository;
 
@@ -90,7 +92,7 @@ public class AuthFactoryDao extends MyBatisDao
 	
 	
 	// system//////////////////////////////////////////////////////////////////
-	private static Map<String, ISystem> map = new HashMap<String, ISystem>();
+	private static ConcurrentMap<String, ISystem> map = new ConcurrentHashMap<String, ISystem>();
 	private static long refreshTime = 0L;
 
 	private ISystem getISystem(String systemAlias)
@@ -106,6 +108,7 @@ public class AuthFactoryDao extends MyBatisDao
 				map.put(i.getAlias(), i);
 			}
 			refreshTime += System.currentTimeMillis() + 60000;// 刷新间隔1000(1秒)|60000(1分钟)|3600000(1小时)|86400000(1天)
+			sys = null;
 		}
 		if(sys == null)
 		{
