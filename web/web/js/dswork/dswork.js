@@ -8,6 +8,9 @@ $dswork.showDate = function(){
 $dswork.uploadURL = function(){
 	return "/web/upload/jskey_upload." + ($dswork.dotnet ? "aspx" : "jsp");
 };
+$dswork.ioURL = function(){
+	return "/webio/io/up.jsp";
+};
 $dswork.getChoose = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose.html";return $jskey.dialog.show(m);};
 $dswork.getChooseByKey = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose_key.html";return $jskey.dialog.show(m);};
 $dswork.getChooseDialog = function(m){return $jskey.dialog.showChoose(m);};
@@ -171,7 +174,16 @@ $dswork.upload = function(o){
 	this.show == this.show ? true : false;
 	this.image = "jpg,jpeg,gif,png";
 	this.file =  "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z";
-	this.url = o.url || $dswork.uploadURL();
+	this.name = "";
+	if(o.name)
+	{
+		this.name = o.name;
+		this.url = o.url || $dswork.ioURL();
+	}
+	else
+	{
+		this.url = o.url || $dswork.uploadURL();
+	}
 };
 $dswork.upload.prototype = {
 	init:function(op){try{
@@ -185,8 +197,6 @@ $dswork.upload.prototype = {
 	p.limit = parseInt(p.limit);
 	p.bid = p.id + "_span";
 	p.sid = p.id + "_showdiv";
-	p.name= p.name;
-	
 	if($jskey.upload.swf){
 		if(p.ext == "image"){p.types = "*." + $jskey.$replace(this.image, ",", ";*.");}
 		else if(p.ext == "file"){p.types = "*." + $jskey.$replace(this.file, ",", ";*.");}
@@ -206,7 +216,7 @@ $dswork.upload.prototype = {
 		if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
 	}
 	var ps = {
-		url:this.url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false") + "&name=" + name,
+		url:this.url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false") + "&name=" + this.name,
 		browse_button : p.bid,
 		unique_names : false,
 		filters : {
