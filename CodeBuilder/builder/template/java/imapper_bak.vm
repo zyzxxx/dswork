@@ -30,7 +30,7 @@
 #foreach($columnModel in $list)
 	#set($count=$count+1)
 	#set($tmp=$columnModel.ColumnName.ToLower())
-#if($count<$list.Count)#if($columnModel.IsPK)#{$tmp}#else#{$tmp}#end, #else#if($columnModel.IsPK)null#else#{$tmp}#end#end
+#if($count<$list.Count)#if($columnModel.IsPK)null#else#{$tmp}#end, #else#if($columnModel.IsPK)null#else#{$tmp}#end#end
 #end
 #end
 #macro (getUpdateValues $list)
@@ -47,13 +47,16 @@
 #end
 #macro (getIfs $list)
 #foreach($columnModel in $list)
-#set($tmp=$columnModel.ColumnName.ToLower())#if($columnModel.IsPK)
+#set($tmp=$columnModel.ColumnName.ToLower())#if(!$columnModel.IsPK)
 		<if test="@Ognl@isNotEmpty($tmp)"> and $tmp.ToUpper() like #{$tmp, typeHandler=LikeTypeHandler} </if>
 #end#end
 #end
 <mapper namespace="${Namespace}.model${Module}.${Model}">
 
 <insert id="insert" parameterType="${Namespace}.model${Module}.${Model}">
+	<selectKey resultType="Long" order="AFTER" keyProperty="id">
+		<include refid="common.rowid" />
+	</selectKey>
 	insert into ${vo.TableName}
 	(#getCommonColumns($v))
 	values
