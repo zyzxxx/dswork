@@ -174,23 +174,18 @@ $dswork.upload = function(o){
 	this.show == this.show ? true : false;
 	this.image = "jpg,jpeg,gif,png";
 	this.file =  "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z";
-	this.name = "";
-	if(o.name)
-	{
-		this.name = o.name;
-		this.url = o.url || $dswork.ioURL();
-	}
-	else
-	{
-		this.url = o.url || $dswork.uploadURL();
-	}
+	this.name = o.name || "";
+	this.io = o.io;
+	if(this.io == null){this.io = false;}
+	this.io == this.io ? true : false;
+	this.url = o.url || (this.io ? $dswork.ioURL() : $dswork.uploadURL());
 };
 $dswork.upload.prototype = {
 	init:function(op){try{
 	//{id:?,vid:*?,uploadone:,ext};ext :"file|image|***,***",uploadone:"true|false"
 	if(typeof(op) != "object"){op = {};}
 	this.count++;
-	var defaults = {uploadone:"true",vid:"",sessionKey:this.sessionKey,fileKey:this.fileKey+this.count,show:this.show,limit:this.limit,ext:this.ext};
+	var defaults = {url:this.url,uploadone:"true",vid:"",sessionKey:this.sessionKey,fileKey:this.fileKey+this.count,show:this.show,limit:this.limit,ext:this.ext,name:this.name};
 	var p = $.extend(defaults, op);
 	p.sessionKey = parseInt(p.sessionKey);
 	p.fileKey = parseInt(p.fileKey);
@@ -215,8 +210,14 @@ $dswork.upload.prototype = {
 		myp.append('<img id="' + p.bid + '" style="cursor:pointer;width:61px;height:22px;border:none;" src="/web/js/jskey/themes/plupload/UploadButton.png"/>');
 		if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
 	}
+	if(this.io){
+		p.url = p.url + "?name=" + this.name + "&ext=" + p.ext;
+	}
+	else{
+		p.url = p.url + "?sessionkey=" + p.sessionKey + "&filekey=" + p.fileKey + "&ext=" + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false");
+	}
 	var ps = {
-		url:this.url + '?sessionkey=' + p.sessionKey + '&filekey=' + p.fileKey + '&ext=' + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false") + "&name=" + this.name,
+		url:p.url,
 		browse_button : p.bid,
 		unique_names : false,
 		filters : {
