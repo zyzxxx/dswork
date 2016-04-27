@@ -50,7 +50,7 @@
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="columns" /> from DEMO <include refid="dynamicWhere" />
+	select <include refid="common.top" /><include refid="columns" /> from DEMO <include refid="dynamicWhere" />
 </select>
 
 <select id="queryCount" resultType="int">
