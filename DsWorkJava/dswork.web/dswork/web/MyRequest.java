@@ -690,8 +690,9 @@ public class MyRequest
 		str = str.replace(";", "；");// 过滤中断sql
 		str = str.replace("<", "＜");// 过滤脚本,iframe等html标签
 		str = str.replace(">", "＞");
-		str = str.replace("(", "（");// 处理调用数据库函数，如mid,substring,substr,chr等
-		str = str.replace(")", "）");
+		// 某些身份证会带有括号，估不作为基本安全过滤
+		//str = str.replace("(", "（");// 处理调用数据库函数，如mid,substring,substr,chr等
+		//str = str.replace(")", "）");
 		str = str.replace("%", "％");
 		return str;
 	}
