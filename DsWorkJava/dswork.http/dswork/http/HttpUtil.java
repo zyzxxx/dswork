@@ -2,6 +2,7 @@ package dswork.http;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -325,6 +326,100 @@ public class HttpUtil
 			log.error(e.getMessage());
 		}
 		return result;
+	}
+
+	/**
+	 * 连接并返回网页流
+	 * @return 连接失败返回null
+	 */
+	public InputStream connectStream()
+	{
+		return connectStream("UTF-8");
+	}
+
+	/**
+	 * 连接并返回网页流
+	 * @param charsetName 对封装的表单、获取的网页内容进行的编码设置
+	 * @return 连接失败返回null
+	 */
+	public InputStream connectStream(String charsetName)
+	{
+		try
+		{
+			if(this.cookies.size() > 0)
+			{
+				String _c = HttpCommon.parse(HttpCommon.getHttpCookies(this.cookies, isHttps()), "; ");
+				http.setRequestProperty("Cookie", _c);
+			}
+			byte[] arr = null;
+			if(this.form.size() > 0)
+			{
+				String data = HttpCommon.format(form, charsetName);
+				arr = data.getBytes("ISO-8859-1");
+			}
+			else if(databody != null)
+			{
+				arr = databody;
+			}
+			if(arr != null)
+			{
+				this.http.setDoOutput(true);
+				this.http.setUseCaches(false);
+				if(this.http.getRequestMethod().toUpperCase().equals("GET"))// DELETE, PUT, POST
+				{
+					if(log.isDebugEnabled())
+					{
+						log.debug("RequestMethod GET change to POST");
+					}
+					this.http.setRequestMethod("POST");
+				}
+				// this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
+				DataOutputStream out = new DataOutputStream(this.http.getOutputStream());
+				out.write(arr, 0, arr.length);
+				// out.writeBytes(data);
+				out.flush();
+				out.close();
+			}
+			this.http.connect();
+			int _responseCode = http.getResponseCode();// 设置http返回状态200（ok）还是403
+			if(_responseCode >= 200 && _responseCode < 300)
+			{
+				Date date = new Date();
+				List<Cookie> list = HttpCommon.getHttpCookies(http);
+				for(Cookie m : list)
+				{
+					if(m.getExpiryDate() == null)
+					{
+						this.addCookie(m.getName(), m.getValue());// 会话cookie
+					}
+					else
+					{
+						if(!m.isExpired(date))
+						{
+							this.addCookie(m.getName(), m.getValue());
+						}
+					}
+					if(log.isDebugEnabled())
+					{
+						log.debug("Cookie:" + m);
+					}
+				}
+				return http.getInputStream();
+			}
+		}
+		catch(Exception e)
+		{
+			log.error(e.getMessage());
+		}
+		try
+		{
+			http.disconnect();
+		}
+		catch(Exception e)
+		{
+			log.error(e.getMessage());
+		}
+		return null;
 	}
 	
 	// post的数据流，与Form数据冲突
