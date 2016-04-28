@@ -22,7 +22,7 @@ for(String s : str.split("\\|"))
 		String[] s2 = s.split(":");
 		if(s2[0].length() > 0 && s2[1].length() > 0)
 		{
-			map.put(s2[0], s2[1]);
+			%><a href="/webio/io/down.jsp?name=MYAPP&f=<%=s2[0]%>"><%=s2[1]%></a><br /><%
 			// 使用s2[0]去调用api获取文件流，如果需要存到本地的话
 		}
 	}
