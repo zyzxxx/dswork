@@ -178,7 +178,7 @@ $dswork.upload = function(o){
 	this.io = o.io;
 	if(this.io == null){this.io = false;}
 	this.io == this.io ? true : false;
-	this.url = o.url || (this.io ? $dswork.ioURL() : $dswork.uploadURL());
+	this.url = o.url || "";
 };
 $dswork.upload.prototype = {
 	init:function(op){try{
@@ -210,11 +210,13 @@ $dswork.upload.prototype = {
 		myp.append('<img id="' + p.bid + '" style="cursor:pointer;width:61px;height:22px;border:none;" src="/web/js/jskey/themes/plupload/UploadButton.png"/>');
 		if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
 	}
-	if(this.io){
-		p.url = p.url + "?name=" + this.name + "&ext=" + p.ext;
-	}
-	else{
-		p.url = p.url + "?sessionkey=" + p.sessionKey + "&filekey=" + p.fileKey + "&ext=" + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false");
+	if(p.url == ""){
+		if(this.io){
+			p.url = $dswork.ioURL() + "?name=" + this.name + "&ext=" + p.ext;
+		}
+		else{
+			p.url = $dswork.uploadURL() + "?sessionkey=" + p.sessionKey + "&filekey=" + p.fileKey + "&ext=" + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false");
+		}
 	}
 	var ps = {
 		url:p.url,
