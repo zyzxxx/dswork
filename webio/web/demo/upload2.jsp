@@ -2,7 +2,6 @@
 <%@page import="java.io.File"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
-<%@page import="dswork.core.upload.JskeyUpload"%>
 <!DOCTYPE html>
 <html>
 <head>
