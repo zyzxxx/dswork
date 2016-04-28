@@ -671,7 +671,7 @@ public class MyRequest
 	}
 
 	/**
-	 * 去掉\\||\\&|\\*|\\?|exec\\s|drop\\s|insert\\s|select\\s|delete\\s|update\\s|truncate\\s字符，替换;&lt;&gt;()%为双字节字符，替换
+	 * 去掉\\||\\&|\\*|\\?|exec\\s|drop\\s|insert\\s|select\\s|delete\\s|update\\s|truncate\\s字符，替换;&lt;&gt;%为双字节字符，替换
 	 * '为''
 	 * @param str 需要过滤的String
 	 * @return String
