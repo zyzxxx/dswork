@@ -10,9 +10,9 @@
 		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_EP_USER
-	(QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, WORKCARD, CAKEY, CREATETIME, SSDW, SSBM, FAX)
+	(ID, QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, WORKCARD, CAKEY, CREATETIME, SSDW, SSBM, FAX)
 	values
-	(lower(#{qybm}), lower(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{usertype}, #{email}, #{mobile}, #{phone}, #{workcard}, #{cakey}, #{createtime}, #{ssdw}, #{ssbm}, #{fax})
+	(#{id}, lower(#{qybm}), lower(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{usertype}, #{email}, #{mobile}, #{phone}, #{workcard}, #{cakey}, #{createtime}, #{ssdw}, #{ssbm}, #{fax})
 </insert>
 
 <delete id="delete">

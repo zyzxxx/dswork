@@ -10,9 +10,9 @@
 			<include refid="common.rowid" />
 		</selectKey>
 		insert into DS_EP_ENTERPRISE
-		(NAME, SSXQ, QYBM, STATUS, TYPE)
+		(ID, NAME, SSXQ, QYBM, STATUS, TYPE)
 		values
-		(#{name}, #{ssxq}, lower(#{qybm}), #{status}, #{type})
+		(#{id}, #{name}, #{ssxq}, lower(#{qybm}), #{status}, #{type})
 	</insert>
 
 	<delete id="delete">
