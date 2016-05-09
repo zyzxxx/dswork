@@ -42,9 +42,12 @@ public class DsCommonUserOrgService
 		o.setOrgid(orgid);
 		for(Long id : useridList)
 		{
-			o.setId(UniqueId.genUniqueId());
-			o.setUserid(id);
-			userorgDao.save(o);
+			if(id != 0)
+			{
+				o.setId(UniqueId.genUniqueId());
+				o.setUserid(id);
+				userorgDao.save(o);
+			}
 		}
 	}
 
@@ -62,6 +65,7 @@ public class DsCommonUserOrgService
 		{
 			if(id > 0)
 			{
+				o.setId(UniqueId.genUniqueId());
 				o.setOrgid(id);
 				userorgDao.save(o);
 			}
