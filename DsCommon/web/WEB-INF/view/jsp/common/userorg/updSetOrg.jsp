@@ -19,6 +19,7 @@ function refreshValue(){
 	$("input[name='keyIndex']:checked").each(function(){
 		ids += "," + $(this).val();
 	});
+	ids = (ids.length == 1) ? "" : ids.substring(2);
 	parent.$jskey.dialog.returnValue = (oids == ids)?null:ids;
 }
 $(function(){
@@ -36,6 +37,7 @@ $(function(){
 		$("<td></td>").html("<label style='cursor:pointer;' for='v" + m.id + "'>" + m.name + "</label>").appendTo(r);
 		t.append(r);
 	}
+	oids = (oids.length == 1) ? "" : oids.substring(2);
 	refreshValue();
 });
 </script>

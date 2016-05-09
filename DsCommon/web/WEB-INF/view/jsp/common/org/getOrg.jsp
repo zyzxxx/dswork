@@ -22,7 +22,7 @@ $("#listFormMoveAll").click(function(){
 		if(vv == "0"){isPost = true;}
 	});
 	if(_c > 0){
-		v = v.substr(2, v.length-2);
+		v = v.substring(2);
 		$("#moveids").val(v);
 		var obj = {"title":"移动到选中节点","args":{"data":v}, "url":"updOrgMove1.htm?rootid=${rootid}"};
 		obj.buttons = [{text:"移动",iconCls:"menuTool-save",handler:function(){
