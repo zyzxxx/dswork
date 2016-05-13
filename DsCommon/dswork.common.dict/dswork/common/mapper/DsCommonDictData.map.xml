@@ -57,7 +57,7 @@
 		<if test="@Ognl@isNotEmpty(alias)"> and ALIAS=#{alias} </if>
 		<if test="@Ognl@isNotEmpty(notid)"> and ID!=#{notid} </if>
 		
-		<if test="@Ognl@isNotEmpty(label)"> and LABEL like #{label, typeHandler=LikeTypeHandler}# </if>
+		<if test="@Ognl@isNotEmpty(label)"> and LABEL like #{label, typeHandler=LikeTypeHandler} </if>
 	</where>
 </sql>
 <select id="select" resultMap="result">

@@ -36,7 +36,7 @@
 </sql>
 <sql id="dynamicWhere">
 	<where>
-		<if test="@Ognl@isNotEmpty(label)"> and LABEL like #{label, typeHandler=LikeTypeHandler}# </if>
+		<if test="@Ognl@isNotEmpty(label)"> and LABEL like #{label, typeHandler=LikeTypeHandler} </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		
 		<if test="@Ognl@isNotEmpty(name)"> and NAME=#{name} </if>
