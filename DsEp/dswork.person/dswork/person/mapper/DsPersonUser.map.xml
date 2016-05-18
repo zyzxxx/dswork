@@ -6,13 +6,10 @@
 <mapper namespace="dswork.person.model.DsPersonUser">
 
 <insert id="insert" parameterType="dswork.person.model.DsPersonUser">
-	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
-	</selectKey>
 	insert into DS_PERSON_USER
-	(IDCARD, ACCOUNT, PASSWORD, NAME, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, CAKEY, CREATETIME)
+	(ID, IDCARD, ACCOUNT, PASSWORD, NAME, STATUS, USERTYPE, EMAIL, MOBILE, PHONE, CAKEY, CREATETIME)
 	values
-	(lower(#{idcard}), lower(#{account}), #{password}, #{name}, #{status}, #{usertype}, #{email}, #{mobile}, #{phone}, #{cakey}, #{createtime})
+	(#{id}, lower(#{idcard}), lower(#{account}), #{password}, #{name}, #{status}, #{usertype}, #{email}, #{mobile}, #{phone}, #{cakey}, #{createtime})
 </insert>
 
 <delete id="delete">

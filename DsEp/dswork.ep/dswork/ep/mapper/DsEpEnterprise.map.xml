@@ -6,9 +6,6 @@
 <mapper namespace="dswork.ep.model.DsEpEnterprise">
 
 	<insert id="insert" parameterType="dswork.ep.model.DsEpEnterprise">
-		<selectKey resultType="Long" order="AFTER" keyProperty="id">
-			<include refid="common.rowid" />
-		</selectKey>
 		insert into DS_EP_ENTERPRISE
 		(ID, NAME, SSXQ, QYBM, STATUS, TYPE)
 		values
