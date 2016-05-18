@@ -1,7 +1,7 @@
 /**
  * MyBatis样例Service
  */
-package testwork.service.demo;
+package testwork.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,8 @@ import testwork.dao.DemoDao;
 
 @Service
 @SuppressWarnings("all")
-public class DemoService extends BaseService<Demo, Long>
+// 一个service对应一个控制器Controller
+public class ManageDemoService extends BaseService<Demo, Long>
 {
 	@Autowired
 	private DemoDao dao;

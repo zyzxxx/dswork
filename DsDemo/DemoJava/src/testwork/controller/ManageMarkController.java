@@ -3,7 +3,7 @@
  * 开发人员:skey
  * 创建时间:2014-07-01 12:01:01
  */
-package testwork.controller.manage;
+package testwork.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +20,15 @@ import dswork.core.page.PageRequest;
 import dswork.core.util.TimeUtil;
 import testwork.model.Demo;
 import testwork.model.Mark;
-import testwork.service.demo.MarkService;
+import testwork.service.ManageMarkService;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/manage/mark")
-public class MarkController extends BaseController
+@RequestMapping("/manage/mark")// 控制器类名对应url的目录部分(除应用名contextPath)
+public class ManageMarkController extends BaseController
 {
 	@Autowired
-	private MarkService service;
+	private ManageMarkService service;// 一个service对应一个控制器Controller
 
 	@RequestMapping("/addMark2")
 	public void addMark2()

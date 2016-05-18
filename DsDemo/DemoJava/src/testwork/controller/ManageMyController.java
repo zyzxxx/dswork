@@ -1,5 +1,5 @@
 /**
- * 功能:MyController
+ * 功能:MyController测试类，请忽略
  */
 package testwork.controller;
 
@@ -11,6 +11,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
@@ -22,16 +23,15 @@ import dswork.core.util.CollectionUtil;
 @Scope("prototype")
 @Controller
 @RequestMapping("/manage/my")
-public class MimeController extends BaseController
+public class ManageMyController extends BaseController
 {
 	@Autowired
 	private MyService service;
 	private static String namespaceDot = "testwork.model.";// 配置单表model类命名空间前缀
 
-	@RequestMapping("/save")
-	public void save()
+	@RequestMapping("/save/{model}")
+	public void save(@PathVariable String model)
 	{
-		String model = req.getString("model");
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
 		{
@@ -46,7 +46,7 @@ public class MimeController extends BaseController
 			{
 				try
 				{
-					obj.getClass().getMethod("setId", Long.class).invoke(obj, dswork.core.util.UniqueId.genId());
+					obj.getClass().getMethod("setId", Long.class).invoke(obj, dswork.core.util.UniqueId.genUniqueId());
 				}
 				catch(Exception ex2){}
 			}
@@ -62,10 +62,9 @@ public class MimeController extends BaseController
 		print(toJson(map));
 	}
 
-	@RequestMapping("/delete")
-	public void delete()
+	@RequestMapping("/delete/{model}")
+	public void delete(@PathVariable String model)
 	{
-		String model = req.getString("model");
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
 		{
@@ -81,10 +80,9 @@ public class MimeController extends BaseController
 		print(toJson(map));
 	}
 
-	@RequestMapping("/update")
-	public void update()
+	@RequestMapping("/update/{model}")
+	public void update(@PathVariable String model)
 	{
-		String model = req.getString("model");
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
 		{
@@ -103,10 +101,9 @@ public class MimeController extends BaseController
 		print(toJson(map));
 	}
 
-	@RequestMapping("/page")
-	public void page()
+	@RequestMapping("/page/{model}")
+	public void page(@PathVariable String model)
 	{
-		String model = req.getString("model");
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
 		{
@@ -129,10 +126,9 @@ public class MimeController extends BaseController
 		print(toJson(map));
 	}
 
-	@RequestMapping("/list")
-	public void list()
+	@RequestMapping("/list/{model}")
+	public void list(@PathVariable String model)
 	{
-		String model = req.getString("model");
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
 		{
@@ -150,10 +146,9 @@ public class MimeController extends BaseController
 		print(toJson(map));
 	}
 
-	@RequestMapping("/get")
-	public void get()
+	@RequestMapping("/get/{model}")
+	public void get(@PathVariable String model)
 	{
-		String model = req.getString("model");
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
 		{

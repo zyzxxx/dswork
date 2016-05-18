@@ -8,7 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 import testwork.model.Demo;
-import testwork.service.demo.DemoService;
+import testwork.service.ManageDemoService;
 
 /**
  * cs 系统启动
@@ -26,7 +26,7 @@ public class Start
 		    	"/src/config/applicationContext-project.xml"	    	
 		    }  
 		 );
-		DemoService service = (DemoService)context.getBean("demoService");
+		ManageDemoService service = (ManageDemoService)context.getBean("demoService");
 		Demo demo = new Demo();
 		demo.setContent("Content");
 		demo.setTitle("Title");

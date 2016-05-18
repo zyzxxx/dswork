@@ -1,7 +1,7 @@
 /**
  * MyBatis样例Service
  */
-package testwork.service.demo;
+package testwork.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,7 +21,8 @@ import testwork.dao.MarkDao;
 
 @Service
 @SuppressWarnings("all")
-public class MarkService
+// 一个service对应一个控制器Controller
+public class ManageMarkService
 {
 	@Autowired
 	private DemoDao demoDao;
