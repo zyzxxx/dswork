@@ -11,7 +11,7 @@ public class DsCmsPage
 	private Long siteid = 0L;
 	// 栏目ID
 	private Long categoryid = 0L;
-	// 状态
+	// 状态(1的才生成)
 	private Integer status = 0;
 	// 标题
 	private String title = "";
@@ -31,9 +31,9 @@ public class DsCmsPage
 	private String releaseuser = "";
 	// 图片
 	private String img = "";
-	// 焦点图(0否，1是)
+	// 焦点图(0否,1是)
 	private Integer imgtop = 0;
-	// 首页推荐(0否，1是)
+	// 首页推荐(0否,1是)
 	private Integer pagetop = 0;
 	// 链接
 	private String url = "";

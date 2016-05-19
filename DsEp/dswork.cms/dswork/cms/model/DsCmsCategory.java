@@ -18,7 +18,7 @@ public class DsCmsCategory
 	private String name = "";
 	// 目录名称
 	private String folder = "";
-	// 类型(0列表，1单页，2外链)
+	// 类型(0列表,1单页,2外链)
 	private Integer status = 0;
 	// 链接
 	private String url = "";
@@ -38,9 +38,9 @@ public class DsCmsCategory
 	private String content = "";
 	// 子栏目
 	private List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
-	// 级别（管理时扩展显示）
+	// 级别(管理时扩展显示)
 	private int level = 0;
-	// 树形标识（管理时扩展显示）
+	// 树形标识(管理时扩展显示)
 	private String label = "";
 
 	public Long getId()

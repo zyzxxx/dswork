@@ -8,7 +8,7 @@ public class DsXzsp
 	private String sblsh = "";
 	// 对象类型0ShenBan，1YuShouLi，2ShouLi，3ShenPi，4BanJie，5TeBieChengXuQiDong，6TeBieChengXuBanJie，7BuJiaoGaoZhi，8BuJiaoShouLi，9LingQuDengJi
 	private Integer sptype = 0;
-	// 发送状态0待发1已发3信息格式不正确
+	// 发送状态(0待发,1已发,3信息格式不正确)
 	private Integer fszt = 0;
 	// 发送次数
 	private Integer fscs = 0;

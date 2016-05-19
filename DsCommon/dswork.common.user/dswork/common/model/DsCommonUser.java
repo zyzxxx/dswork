@@ -15,7 +15,7 @@ public class DsCommonUser
 	private String name = "";
 	// 身份证号
 	private String idcard = "";
-	// 状态(0,禁止,1,允许)
+	// 状态(1启用,0禁用)
 	private Integer status = 1;
 	// 电子邮件
 	private String email = "";
@@ -29,9 +29,9 @@ public class DsCommonUser
 	private String workcard = "";
 	// 创建时间
 	private String createtime = "";
-	// 所属单位
+	// 所属单位ID
 	private Long orgpid = 0L;
-	// 所属部门
+	// 所属部门ID
 	private Long orgid = 0L;
 	// 单位名称
 	private String orgpname = "";

@@ -11,7 +11,7 @@ public class IDict
 	private String label = "";
 	// 上级标识
 	private String pid = "0";
-	// 状态(1:树叉，0:树叶)
+	// 状态(1树叉,0树叶)
 	private Integer status = 0;
 
 	public String getLabel()

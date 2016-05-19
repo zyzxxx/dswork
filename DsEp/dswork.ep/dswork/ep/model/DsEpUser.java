@@ -17,9 +17,9 @@ public class DsEpUser
 	private String name = "";
 	// 身份证号
 	private String idcard = "";
-	// 状态
+	// 状态(1启用,0禁用)
 	private Integer status = 0;
-	// 用户类型（1企业管理员，0普通用户）
+	// 用户类型(1企业管理员,0普通用户)
 	private Integer usertype = 0;
 	// 电子邮件
 	private String email = "";

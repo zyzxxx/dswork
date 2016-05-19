@@ -21,9 +21,9 @@ public class IFlowWaiting
 	private String talias = "";
 	// 任务名称
 	private String tname = "";
-	// 等待任务数
+	// 合并任务个数(只有一个任务时等于1，其余大于1)
 	private Integer tcount = 0;
-	// 下级任务（以逗号分隔节点标识， 以|线分隔分支任务）
+	// 下级任务（以逗号分隔节点标识，以|线分隔分支任务）
 	private String tnext = "";
 	// 任务开始时间
 	private String tstart = "";

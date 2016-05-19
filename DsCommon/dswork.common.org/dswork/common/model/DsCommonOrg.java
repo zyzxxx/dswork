@@ -7,7 +7,7 @@ public class DsCommonOrg
 {
 	// 部门ID
 	private Long id = 0L;
-	// 上级ID(本表,所属组织)
+	// 上级ID(本表)
 	private Long pid = 0L;
 	// 名称
 	private String name = "";

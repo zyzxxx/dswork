@@ -11,15 +11,15 @@ public class DsCommonFlowTask
 	private Long flowid = 0L;
 	// 流程发布ID，当前版本此值为空
 	private String deployid = "";
-	// 节点标识（start开始，end结束）
+	// 节点标识(start开始，end结束)
 	private String talias = "";
 	// 节点名称
 	private String tname = "";
-	// 合并任务个数（只有一个任务时等于1，其余大于1）
+	// 合并任务个数(只有一个任务时等于1，其余大于1)
 	private Integer tcount = 0;
-	// 下级任务（以逗号分隔节点标识， 以|线分隔分支任务）
+	// 下级任务(以逗号分隔节点标识，以|线分隔分支任务)
 	private String tnext = "";
-	// 当前任务的用户ID（以逗号分隔节点标识）
+	// 当前任务的用户ID(以逗号分隔节点标识)
 	private String tusers = "";
 	// 参数
 	private String tmemo = "";

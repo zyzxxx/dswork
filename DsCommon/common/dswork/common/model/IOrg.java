@@ -7,7 +7,7 @@ public class IOrg
 {
 	// 部门ID
 	private String id = "";
-	// 上级ID(本表,所属组织)
+	// 上级ID(本表)
 	private String pid = "";
 	// 名称
 	private String name = "";

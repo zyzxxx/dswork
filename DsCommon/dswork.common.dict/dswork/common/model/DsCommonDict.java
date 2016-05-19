@@ -11,7 +11,7 @@ public class DsCommonDict
 	private String name = "";
 	// 名称
 	private String label = "";
-	// 状态(1:树形，0:列表)
+	// 状态(1树形,0列表)
 	private Integer status = 0;
 	// 排序
 	private Integer seq = 0;

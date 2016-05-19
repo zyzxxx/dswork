@@ -13,7 +13,7 @@ public class DsEpEnterprise
 	private String ssxq = "";
 	// 企业编码
 	private String qybm = "";
-	// 状态
+	// 状态(0禁用,1正常运营,待扩展)
 	private Integer status = 0;
 	// 类型
 	private String type = "";

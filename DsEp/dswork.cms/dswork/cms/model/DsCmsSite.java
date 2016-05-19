@@ -9,7 +9,7 @@ public class DsCmsSite
 	private Long id = 0L;
 	// 拥有者
 	private String own = "";
-	// 栏目名称
+	// 站点名称
 	private String name = "";
 	// 目录名称
 	private String folder = "";

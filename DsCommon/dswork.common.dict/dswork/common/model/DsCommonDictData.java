@@ -15,7 +15,7 @@ public class DsCommonDictData
 	private String label = "";
 	// 标识
 	private String alias = "";
-	// 状态(1:树叉，0:树叶)
+	// 状态(1树叉,0树叶)
 	private Integer status = 0;
 	// 排序
 	private Integer seq = 0;

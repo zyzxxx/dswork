@@ -18,9 +18,9 @@ public class DsBbsPage
 	private String url = "";
 	//摘要
 	private String summary = "";
-	//精华(0否，1是)
+	//精华(0否,1是)
 	private Integer isessence = 0;
-	//置顶(0否，1是)
+	//置顶(0否,1是)
 	private Integer istop = 0;
 	//meta关键词
 	private String metakeywords = "";

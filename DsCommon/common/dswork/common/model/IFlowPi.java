@@ -5,7 +5,7 @@ package dswork.common.model;
 
 public class IFlowPi
 {
-	// 主键ID（流程实例ID）
+	// 主键ID(流程实例ID)
 	private Long id = 0L;
 	// 业务流水号
 	private String ywlsh = "";
@@ -13,7 +13,7 @@ public class IFlowPi
 	private String sblsh = "";
 	// 流程标识
 	private String alias = "";
-	// 流程ID（对应deployid）
+	// 流程ID(对应deployid)
 	private Long flowid = 0L;
 	// 流程发布ID
 	private String deployid = "";
@@ -29,7 +29,7 @@ public class IFlowPi
 	private String piupstart = "";
 	// 挂起结束时间
 	private String piupend = "";
-	// 流程状态(1,申请,2,运行,3挂起,0结束)
+	// 流程状态(1申请,2运行,3挂起,0结束)
 	private Integer status = 0;
 	// 承办人账号
 	private String caccount = "";

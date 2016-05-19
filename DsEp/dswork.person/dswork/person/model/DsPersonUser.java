@@ -15,7 +15,7 @@ public class DsPersonUser
 	private String password = "";
 	// 姓名
 	private String name = "";
-	// 状态
+	// 状态(1启用,0禁用)
 	private Integer status = 0;
 	// 用户类型
 	private Integer usertype = 0;
