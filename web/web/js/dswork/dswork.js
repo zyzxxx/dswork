@@ -82,12 +82,14 @@ function MaskControl(){
 			s += "</div>";
 			$("body").append(m=$(s));
 		}
-		$("#div_maskBackground").css("top", 0).css("left", 0).css("width", w).css("height", h);
+		var ww = $(document).width(), hh = $(document).height();
+		if(ww < w){ww = w;}if(hh < h){hh = h;}
+		$("#div_maskBackground").css("top", 0).css("left", 0).css("width", ww).css("height", hh);
 		var tip = $("#div_maskMessage");
 		tip.html(html||"");
 		m.show();
 		var x = (w - tip.width()) / 2, y = (h - tip.height()) / 2;
-		tip.css("left", x).css("top", y);
+		tip.css("left", x).css("top", y + $(document).scrollTop());
 	};
 	this.hide = function(){var m = $("#div_maskContainer");if(m.length == 0){return;}m.remove();if(self.callBack != null){self.callBack();}this.callBack = null;};
 	this.autoDelayHide = function(html, timeOut){var m = $("#div_maskContainer");if(m.length == 0){this.show(html);}else{$("#div_maskMessage").html(html);}if(timeOut == undefined){timeOut = 3000;}window.setTimeout(this.hide, timeOut);};
