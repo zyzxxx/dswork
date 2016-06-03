@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="DsWorkJava">
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.config"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.core"/>
@@ -12,6 +11,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.jdbc4"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.http"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.cs"/>
         <property name="context-root" value="DsWorkJava"/>
         <property name="java-output-path" value="/DsWorkJava/web/WEB-INF/classes"/>
     </wb-module>
