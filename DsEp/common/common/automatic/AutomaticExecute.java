@@ -33,23 +33,28 @@ public class AutomaticExecute extends Thread
 		}
 	}
 	/**
-	 * 启动线程
+	 * 启动线程，该线程仅负责定时器的运行
 	 */
 	public void run()
 	{
-		if(AutomaticExecute.getCount() != 0)//启动中
+		final long index = System.currentTimeMillis();
+		System.out.println("********AutomaticExecute线程启动********");
+		System.out.println("标识号：" + index);
+		if(AutomaticExecute.getCount() != 0)//上次的任务还没有结束呢，不需要重复执行 了
 		{
+			System.out.println("********AutomaticExecute线程结束 ，因上次线程任务还在运行，本次不执行********");
+			System.out.println("标识号：" + index);
 			return;
 		}
-		AutomaticExecute.setCount(1);//标记启动
-		System.out.println("--发送程序启动。--");
+		AutomaticExecute.setCount(1);//标记任务启动
 		try
 		{
 			TimerTask _timerTask = new TimerTask()
 			{
 				public void run()
 				{
-					System.out.println("--发送线程启动。--");
+					System.out.println("--AutomaticExecute定时任务启动。--");
+					System.out.println("标识号：" + index);
 					try
 					{
 						//long now = Calendar.getInstance().getTimeInMillis();//取得当前时间
@@ -80,7 +85,8 @@ public class AutomaticExecute extends Thread
 							////if(list == null || list.size() == 0)
 							////{
 								AutomaticExecute.setCount(0);// 退出
-								System.out.println("--已无待发信息，发送线程和程序自动结束。--");
+								System.out.println("--AutomaticExecute定时任务结束，已无待发信息。--");
+								System.out.println("标识号：" + index);
 								_timer.cancel();// 全部发完了结束
 							////}
 							//else{}//又出现了新的待发信息，等下次启动再执行
@@ -93,7 +99,8 @@ public class AutomaticExecute extends Thread
 					catch(Exception ex)
 					{
 						AutomaticExecute.setCount(0);// 退出
-						System.out.println("--发送程序异常。--");
+						System.out.println("--AutomaticExecute定时任务异常。--");
+						System.out.println("标识号：" + index);
 						ex.printStackTrace();
 						_timer.cancel();
 					}
@@ -108,7 +115,8 @@ public class AutomaticExecute extends Thread
 		{
 			try {_timer.cancel();}catch(Exception timerEx) {}//尝试停止进程，即使它未初始化或未启动
 			ex.printStackTrace();
-			System.out.println("--发送程序异常结束。--");
+			System.out.println("********AutomaticExecute线程异常结束 ********");
+			System.out.println("标识号：" + index);
 			AutomaticExecute.setCount(0);
 		}
 	}
