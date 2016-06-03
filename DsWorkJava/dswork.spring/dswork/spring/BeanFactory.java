@@ -4,7 +4,7 @@ import org.springframework.context.ApplicationContext;
 /**
  * 从ApplicationContext取得spring管理的类<br />
  * 默认情况下spring容器从org.springframework.web.context.ContextLoaderListener.getCurrentWebApplicationContext()中获取<br />
- * 如果应用在非web应用中，则调用setApplicationContext方法进行设置
+ * 如果在非web应用中使用，则必须调用setApplicationContext方法进行设置
  */
 @SuppressWarnings("all")
 public class BeanFactory

@@ -29,3 +29,14 @@
 				<value>dswork.core.mybatis.LikeTypeHandler</value>
         	</list>
         </property>
+2015-08-22
+	dswork修改了dswork.http下的HttpUtil类，增加了设置方法
+2015-09-11
+	dswork修改了dswork.mvc下的类，优化代码
+2015-11-19
+	dswork修改了dswork.http下的HttpUtil类，增加操作response中body数据流的方法
+2016-06-03
+	dswork修改了dswork.spring下的BeanFactory类，增加setApplicationContext方法，因之前修改获取spring容器获取方法后，在非web环境下，该类无法使用
+	dswork修改了dswork.core下的MyBatisDao类，修复通过PageRequest获取Page分页数据后，pageName和pageSizeName属性丢失的bug
+
+
