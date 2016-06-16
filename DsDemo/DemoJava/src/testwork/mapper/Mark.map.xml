@@ -6,13 +6,10 @@
 <mapper namespace="testwork.model.Mark">
 
 <insert id="insert" parameterType="testwork.model.Mark">
-	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
-	</selectKey>
 	insert into MARK
 	(ID, DEMOID, CONTENT, FOUNDTIME)
 	values
-	(null, #{demoid}, #{content}, #{foundtime})
+	(#{id}, #{demoid}, #{content}, #{foundtime})
 </insert>
 
 <delete id="delete">

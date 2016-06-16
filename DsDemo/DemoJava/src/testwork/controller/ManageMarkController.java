@@ -46,7 +46,14 @@ public class ManageMarkController extends BaseController
 				m.setFoundtime(TimeUtil.getCurrentDate());
 				list.add(m);
 			}
-			service.save(list);
+			if(list.size() == 3)
+			{
+				service.test(list);
+			}
+			else
+			{
+				service.save(list);
+			}
 			print(1);
 		}
 		catch(Exception e)

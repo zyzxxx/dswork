@@ -75,7 +75,7 @@ $dswork.callback = function()
 <input type="hidden" name="demoid" value="${po.id}" />
 <table id="contactTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td>批量添加评论内容</td>
+		<td>批量添加评论内容，当添加内容数量为2(save方法)-3(test方法)个时，可用于测试数据回滚</td>
 		<td style="width:8%;">操作</td>
 	</tr>
 	<tr class="list">
