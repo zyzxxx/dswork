@@ -2,7 +2,6 @@
 <eclipse-userlibraries version="2">
     <library name="JAVA" systemlibrary="false">
         <archive path="/Lib/common/aopalliance.jar"/>
-        <archive path="/Lib/common/cglib-2.2.2.jar"/>
         <archive path="/Lib/common/commons/commons-collections-3.2.1.jar"/>
         <archive path="/Lib/common/commons/commons-dbcp-1.4.jar"/>
         <archive path="/Lib/common/commons/commons-io-2.3.jar"/>
