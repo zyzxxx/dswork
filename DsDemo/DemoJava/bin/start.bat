@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-title "鎴戠殑搴旂敤绋嬪簭"
+title "我的应用程序"
 
 call sconfig.bat
 
@@ -10,7 +10,6 @@ call sconfig.bat
 #)
 
 set classpath=%classpath%;%BAT_HOME%\lib\aopalliance.jar
-set classpath=%classpath%;%BAT_HOME%\lib\cglib-2.2.2.jar
 set classpath=%classpath%;%BAT_HOME%\lib\commons-collections-3.2.1.jar
 set classpath=%classpath%;%BAT_HOME%\lib\commons-dbcp-1.4.jar
 set classpath=%classpath%;%BAT_HOME%\lib\commons-io-2.3.jar
@@ -21,11 +20,9 @@ set classpath=%classpath%;%BAT_HOME%\lib\dswork.core.jar
 set classpath=%classpath%;%BAT_HOME%\lib\dswork.jdbc4.jar
 set classpath=%classpath%;%BAT_HOME%\lib\dswork.ognl.jar
 set classpath=%classpath%;%BAT_HOME%\lib\dswork.spring.jar
-set classpath=%classpath%;%BAT_HOME%\lib\gson-2.3.1.jar
 set classpath=%classpath%;%BAT_HOME%\lib\log4j-api-2.3.jar
 set classpath=%classpath%;%BAT_HOME%\lib\log4j-core-2.3.jar
 set classpath=%classpath%;%BAT_HOME%\lib\log4j-slf4j-impl-2.3.jar
-set classpath=%classpath%;%BAT_HOME%\lib\mail.jar
 set classpath=%classpath%;%BAT_HOME%\lib\mybatis-3.2.8.jar
 set classpath=%classpath%;%BAT_HOME%\lib\mybatis-spring-1.2.2.jar
 set classpath=%classpath%;%BAT_HOME%\lib\slf4j-api-1.7.12.jar
@@ -45,6 +42,8 @@ set classpath=%classpath%;%BAT_HOME%\lib\wsdl4j-1.6.2.jar
 
 set classpath=%classpath%;%BAT_HOME%\lib\mysql-connector-java-5.1.31-bin.jar
 set classpath=%classpath%;%BAT_HOME%\lib\sqlite-jdbc-3.7.2.jar
+set classpath=%classpath%;%BAT_HOME%\lib\mail.jar
+set classpath=%classpath%;%BAT_HOME%\lib\gson-2.3.1.jar
 
 SET classpath=%classpath%;%BAT_HOME%\classes;
 
