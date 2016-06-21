@@ -51,11 +51,11 @@
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>websso</filter-name>
-		<url-pattern>/1.html</url-pattern>
+		<url-pattern>/1.jsp</url-pattern>
 	</filter-mapping>
 	<filter-mapping>
 		<filter-name>websso</filter-name>
-		<url-pattern>/2.html</url-pattern>
+		<url-pattern>/2.jsp</url-pattern>
 	</filter-mapping>
 	
 	<filter>

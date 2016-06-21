@@ -1,3 +1,4 @@
+<%@page language="java" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,6 +9,6 @@
 <meta http-equiv="Cache" content="no-cache">
 </head>
 <body>
-2
+2.jsp
 </body>
 </html>
