@@ -34,14 +34,12 @@ function logoutload(o){
 			ok++;
 			$("#x" + o.id).html(o.name + "已退出！");
 			if(ok >= count){
-				alert("退完应用系统了，现退出门户!");
 				location.href="${ctx}/logoutAction.jsp";
 			}
 		},
-		error:function(){alert(o.name + "...出错了！！！");
+		error:function(){alert(o.name + "...退出失败，无法访问该服务器！！！");
 			ok++;
 			if(ok >= count){
-				alert("退完应用系统了，现退出门户!");
 				location.href="${ctx}/logoutAction.jsp";
 			}
 		}
