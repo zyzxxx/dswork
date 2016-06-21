@@ -86,11 +86,11 @@ public class ThreadExecute extends Thread
 						System.out.println("标识号：" + index);
 						goclose = true;// 可以退出了，线程可以结束了
 					////}
-					//else{}//你看，就在这么一会，就真的又出现了新的待发信息，只能先不退出了，等下次启动再执行
+					//else{}//你看，就在这么一会，就真的又出现了新的待发信息，只能先不退出了，重新进循环执行
 				//}
 				//else
 				//{
-				//	System.out.println("--还有待发信息，等待发送线程定时执行。--");
+				//	System.out.println("--还有待发信息，重新进循环执行--");
 				//}
 			}
 			catch(Exception ex)
