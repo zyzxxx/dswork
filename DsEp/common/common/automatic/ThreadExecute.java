@@ -12,9 +12,8 @@ import java.util.Map;
 public class ThreadExecute extends Thread
 {
 	// ################################################################################################
-	// 定时任务相关
+	// 线程任务相关
 	// ################################################################################################
-	//boolean retry = false;// 用于判断是否有定时发送，但未到时间
 	private static int count = 0;
 	private static synchronized int getCount() {return ThreadExecute.count;}
 	private static synchronized void setCount(int count) {ThreadExecute.count = count;}// count仅用于标记是否启动任务，1为启动，0为不启动
@@ -45,7 +44,7 @@ public class ThreadExecute extends Thread
 		}
 		ThreadExecute.setCount(1);//标记任务启动
 		
-		
+		//boolean retry = false;// 用于判断是否有定时发送，但未到时间
 		boolean goclose = false;
 		while(!goclose)
 		{
