@@ -27,7 +27,8 @@ public class WebLogoutFilter implements Filter
 		try
 		{
 			HttpSession session = request.getSession();
-			session.setAttribute(WebFilter.LOGINER, "");// 只清空sso的session信息
+			session.removeAttribute(WebFilter.LOGINER);
+			session.invalidate();
 			String jsoncallback  = request.getParameter("jsoncallback");
 			PrintWriter out = response.getWriter();
 			out.print(jsoncallback + "([])");
