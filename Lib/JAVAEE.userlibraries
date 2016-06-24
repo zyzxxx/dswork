@@ -3,5 +3,6 @@
     <library name="JAVAEE" systemlibrary="true">
         <archive path="/Lib/JAVAEE/jsp-api.jar"/>
         <archive path="/Lib/JAVAEE/servlet-api.jar"/>
+        <archive path="/Lib/JAVAEE/websocket-api.jar"/>
     </library>
 </eclipse-userlibraries>
