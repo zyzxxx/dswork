@@ -30,6 +30,6 @@
         <archive path="/Lib/common/spring/spring-web.jar"/>
         <archive path="/Lib/common/spring/spring-webmvc.jar"/>
         <archive path="/Lib/mybatis/mybatis-3.2.8.jar"/>
-        <archive path="/Lib/mybatis/mybatis-spring-1.2.2.jar"/>
+        <archive path="/Lib/mybatis/mybatis-spring-1.2.5.jar"/>
     </library>
 </eclipse-userlibraries>
