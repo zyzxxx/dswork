@@ -8,14 +8,14 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="dswork.config"/>
 	<classpathentry kind="src" path="dswork.core"/>
+	<classpathentry kind="src" path="dswork.http"/>
+	<classpathentry kind="src" path="dswork.jdbc4"/>
 	<classpathentry kind="src" path="dswork.mvc"/>
 	<classpathentry kind="src" path="dswork.ognl"/>
 	<classpathentry kind="src" path="dswork.spring"/>
 	<classpathentry kind="src" path="dswork.web"/>
-	<classpathentry kind="src" path="org.hibernate.dialect"/>
-	<classpathentry kind="src" path="dswork.jdbc4"/>
-	<classpathentry kind="src" path="dswork.http"/>
 	<classpathentry kind="src" path="dswork.cs"/>
+	<classpathentry kind="src" path="org.hibernate.dialect"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
