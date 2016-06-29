@@ -13,6 +13,7 @@
 	dswork修改了dswork.web下的MyCookie类，通过反射判断是否存在setHttpOnly方法，存在则调用，不存在则忽略，用于兼容servlet2.5
 2015-06-18
 	新增log4j2的依赖包log/log4j2，用于升级日志框架，同时log4j1的依赖包移到log/log4j1目录中
+	由于log4j-2.3之后的版本依赖为jdk7，故仅升级到2.3版本
 2015-06-23
 	dswork修改了dswork.core下的JskeyUpload类，增加jskey.upload.init=true属性设置，用于是否初始化临时上传目录
 	增加dswork.http包，目前仅支持简单的http/https调用，可保持会话，但会话状态未持久化
@@ -38,5 +39,9 @@
 2016-06-03
 	dswork修改了dswork.spring下的BeanFactory类，增加setApplicationContext方法，因之前修改获取spring容器获取方法后，在非web环境下，该类无法使用
 	dswork修改了dswork.core下的MyBatisDao类，修复通过PageRequest获取Page分页数据后，pageName和pageSizeName属性丢失的bug
-
-
+2016-06-28
+	slf4j-1.7.12升级到slf4j-1.7.21
+	mybatis.spring-1.2.2升级到mybatis.spring-1.2.5
+	spring从4.0.0.release升级为4.0.2.release，4.0.0和4.0.2都是基于1.8.0-ea编译的
+2016-06-29
+	spring升级为4.0.9.release，基于1.8.0_20编译的
