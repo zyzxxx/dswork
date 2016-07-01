@@ -615,7 +615,7 @@ public class XzspFactory
 		}
 		catch(Exception e)
 		{
-			log.warn("数据第三次提交失败，" + e.getMessage());
+			log.error("数据第三次提交失败，" + e.getMessage());
 			return 0;
 		}
 	}
