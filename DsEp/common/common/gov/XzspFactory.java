@@ -2,6 +2,9 @@ package common.gov;
 
 import java.util.Date;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import MQAPI.AcceptOB;
 import MQAPI.ApplicationOB;
 import MQAPI.BlockOB;
@@ -553,6 +556,8 @@ public class XzspFactory
 	
 	private static final String GovXzspLxhURL = dswork.core.util.EnvironmentUtil.getToString("gov.xzsp.lxhurl", "");
 	private static final String GovXzspSendURL = dswork.core.util.EnvironmentUtil.getToString("gov.xzsp.sendurl", "");
+	
+	protected static final Logger log = LoggerFactory.getLogger(XzspFactory.class);
 	/**
 	 * 取得当前最新的申办流水号
 	 * @return
@@ -595,6 +600,7 @@ public class XzspFactory
 			catch(Exception e2)
 			{
 				Thread.sleep(1000);
+				log.warn("数据第一次提交失败：" + v);
 				try
 				{
 					return String.valueOf(http.connect()).trim().equals("1")? 1 : 0;
@@ -602,12 +608,14 @@ public class XzspFactory
 				catch(Exception e3)
 				{
 					Thread.sleep(1000);
+					log.warn("数据第二次提交失败：" + v);
 					return String.valueOf(http.connect()).trim().equals("1")? 1 : 0;
 				}
 			}
 		}
 		catch(Exception e)
 		{
+			log.warn("数据第三次提交失败，" + e.getMessage());
 			return 0;
 		}
 	}
