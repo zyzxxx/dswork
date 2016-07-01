@@ -44,6 +44,15 @@ public class ThreadExecute extends Thread
 		}
 		ThreadExecute.setCount(1);//标记任务启动
 		
+		try
+		{
+			// 可以让任务启动后，等待一段时间再运行
+			sleep(1000 * 60 * 60 * 1L);// 进来先休息一个小时
+		}
+		catch(Exception e)
+		{
+		}
+		
 		//boolean retry = false;// 用于判断是否有定时发送，但未到时间
 		boolean goclose = false;
 		while(!goclose)
@@ -52,7 +61,6 @@ public class ThreadExecute extends Thread
 			System.out.println("标识号：" + index);
 			try
 			{
-				sleep(1000*60*60*1L);// 进来先休息一个小时
 				
 				//long now = Calendar.getInstance().getTimeInMillis();//取得当前时间
 				////DxService dxService = (DxService)BeanFactory.getBean("dxService");
@@ -84,7 +92,14 @@ public class ThreadExecute extends Thread
 						ThreadExecute.setCount(0);// 退出
 						System.out.println("--AutomaticExecute定时任务结束，已无待发信息。--");
 						System.out.println("标识号：" + index);
+						
+						
 						goclose = true;// 可以退出了，线程可以结束了
+						sleep(1000*60*60*1L);// 如果当定时任务来用，就去掉goclose=true;当线程睡一会继续执行就可以当定时器用了
+						
+						
+						
+						
 					////}
 					//else{}//你看，就在这么一会，就真的又出现了新的待发信息，只能先不退出了，重新进循环执行
 				//}
