@@ -23,7 +23,14 @@ public class DsCmsPageBuilderController extends BaseController
 		put("cms", cms);
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
-		put("ctx", getString(s.get("url")));
+		if(req.getString("view").equals("true"))
+		{
+			put("ctx", request.getContextPath() + "/" + s.get("folder") + "/html");// 预览时，现在可以不需要运行服务器，即可浏览相对地址
+		}
+		else
+		{
+			put("ctx", getString(s.get("url")));
+		}
 		if(pageid > 0)// 内容页
 		{
 			Map<String, Object> p = cms.get(pageid + "");

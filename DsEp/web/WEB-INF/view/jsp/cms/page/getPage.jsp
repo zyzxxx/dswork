@@ -20,7 +20,7 @@ function build(pageid)
 }
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-graph">预览</div>').bind("click", function(){
-		window.open("buildHTML.chtml?siteid=${po.siteid}&categoryid=${po.id}&pageid=" + id);
+		window.open("buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&pageid=" + id);
 	}));
 	$(menu).append($('<div iconCls="menuTool-graph">发布</div>').bind("click", function(){
 		if(confirm("是否发布内容")){build(id);}
@@ -56,9 +56,9 @@ $(function(){
 		<td class="menuTool">
 			<a class="graph" id="btn_page" href="#">发布本栏目所有内容</a>
 			<a class="graph" id="btn_category" href="#">发布本栏目</a>
-			<a class="look" target="_blank" href="buildHTML.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
+			<a class="look" target="_blank" href="buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
 			<a class="graph" id="btn_site" href="#">发布首页</a>
-			<a class="look" target="_blank" href="buildHTML.chtml?siteid=${po.siteid}">预览首页</a>
+			<a class="look" target="_blank" href="buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
 			<a class="insert" href="addPage1.htm?categoryid=${po.id}&page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
