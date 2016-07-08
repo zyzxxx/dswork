@@ -6,10 +6,13 @@ String url = "login.html";//-1后台用户
 AuthLogin.logout(request);
 if(model != null)
 {
-	switch(model.getLogintype().intValue())
+	if(model.isEnterprise())
 	{
-		case 1:url = "loginPerson.html";break;//1个人用户
-		case 2:url = "loginEp.html";break;//0企业管理员
+		url = "loginEp.html";
+	}
+	else if(model.isUser())
+	{
+		url = "loginPerson.html";
 	}
 }
 response.sendRedirect(url);
