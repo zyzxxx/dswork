@@ -45,7 +45,6 @@
 	where SITEID=#{siteid} 
 		<if test="@Ognl@isNotEmpty(idArray)"> and CATEGORYID in (${idArray}) </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
 		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=1 </if>
 		<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME&lt;=#{releasetime} </if>
