@@ -25,7 +25,7 @@ public class DsCmsPageBuilderController extends BaseController
 		put("site", s);
 		if(req.getString("view").equals("true"))
 		{
-			put("ctx", request.getContextPath() + "/" + s.get("folder") + "/html");// 预览时，现在可以不需要运行服务器，即可浏览相对地址
+			put("ctx", request.getContextPath() + "/html/" + s.get("folder") + "/html");// 预览时，现在可以不需要运行服务器，即可浏览相对地址
 		}
 		else
 		{
@@ -62,6 +62,15 @@ public class DsCmsPageBuilderController extends BaseController
 			if(String.valueOf(c.get("viewsite")).equals(""))
 			{
 				return null;// 外链
+			}
+			try
+			{
+				Map<String, Object> categoryparent = cms.getCategory(c.get("pid"));
+				put("categoryparent", categoryparent);
+			}
+			catch(Exception ex)
+			{
+				
 			}
 			put("categoryid", categoryid);
 			put("category", c);

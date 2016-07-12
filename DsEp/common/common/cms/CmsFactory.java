@@ -181,7 +181,7 @@ public class CmsFactory
 	 *        父栏目，查询根栏目为空
 	 * @return List&lt;Map&lt;String, Object&gt;&gt;
 	 */
-	public List<Map<String, Object>> queryCategory(String categoryid)
+	public List<Map<String, Object>> queryCategory(Object categoryid)
 	{
 		init();
 		String pid = String.valueOf(toLong(categoryid));
