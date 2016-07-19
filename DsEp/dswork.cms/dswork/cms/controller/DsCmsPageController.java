@@ -372,6 +372,7 @@ public class DsCmsPageController extends BaseController
 		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
 	}
 
+	// 发布指定的信息
 	@RequestMapping("/build")
 	public void build()
 	{
@@ -379,6 +380,30 @@ public class DsCmsPageController extends BaseController
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
 		int pagesize = req.getInt("pagesize", 25);
+		_building(true, siteid, categoryid, pageid, pagesize);
+	}
+
+	// 删除指定的信息
+	@RequestMapping("/unbuild")
+	public void unbuild()
+	{
+		Long siteid = req.getLong("siteid", -1);
+		Long categoryid = req.getLong("categoryid", -1);
+		Long pageid = req.getLong("pageid", -1);
+		int pagesize = req.getInt("pagesize", 25);
+		_building(false, siteid, categoryid, pageid, pagesize);
+	}
+	
+	/**
+	 * 生成或删除信息
+	 * @param isCreateOrDelete true生成，false删除
+	 * @param siteid
+	 * @param categoryid
+	 * @param pageid
+	 * @param pagesize
+	 */
+	private void _building(boolean isCreateOrDelete, long siteid, long categoryid, long pageid, int pagesize)
+	{
 		if(pagesize <= 0){pagesize = 25;}
 		try
 		{
@@ -392,25 +417,25 @@ public class DsCmsPageController extends BaseController
 				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 				{
 					String path = "http://" + request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
-					//生成首页：categoryid==-1，pageid==-1
-					//生成全部栏目：categoryid==0，pageid==-1
-					//生成指定栏目：categoryid>0，pageid==-1
-					//生成全部内容：categoryid==0，pageid==0
-					//生成栏目内容：categoryid>0，pageid==0
-					//生成指定内容：pageid>0
-					if(pageid > 0)// 生成内容
+					//首页：categoryid==-1，pageid==-1
+					//全部栏目：categoryid==0，pageid==-1
+					//指定栏目：categoryid>0，pageid==-1
+					//全部内容：categoryid==0，pageid==0
+					//栏目内容：categoryid>0，pageid==0
+					//指定内容：pageid>0
+					if(pageid > 0)// 指定内容
 					{
 						DsCmsPage p = service.get(pageid);
 						if(p.getSiteid() == siteid)
 						{
 							if(p.getStatus() == 1)
 							{
-								buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder(), site.getUrl());
+								_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 								print("1");
 							}
 							else
 							{
-								print("0:无权生成");
+								print("0:无权操作");
 							}
 						}
 						else
@@ -418,19 +443,19 @@ public class DsCmsPageController extends BaseController
 							print("0");
 						}
 					}
-					else if(pageid == -1)//生成栏目
+					else if(pageid == -1)// 栏目首页
 					{
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
-						if(categoryid == 0)// 生成全部栏目页
+						if(categoryid == 0)// 全部栏目首页
 						{
 							list = service.queryListCategory(siteid);
 						}
-						else if(categoryid > 0)// 生成指定栏目页
+						else if(categoryid > 0)// 指定栏目首页
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
 							list.add(c);
 						}
-						if(categoryid >= 0)// 生成栏目页
+						if(categoryid >= 0)// 栏目首页，这里不能用list.size，因为可能长度就是0
 						{
 							for(DsCmsCategory c : list)
 							{
@@ -439,42 +464,40 @@ public class DsCmsPageController extends BaseController
 									deleteFile(site.getFolder(), c.getFolder(), true, true);
 									continue;
 								}
-								deleteFile(site.getFolder(), c.getFolder(), true, false);// 删除栏目
-								if(c.getSiteid() == siteid)
+								deleteFile(site.getFolder(), c.getFolder(), true, false);// 删除栏目首页
+								if(isCreateOrDelete && c.getSiteid() == siteid)
 								{
-									buildFile(path + "&categoryid=" + c.getId() + "&page=1&pagesize=" + pagesize, c.getUrl(), site.getFolder(), site.getUrl());
-									if(true)
+									_buildFile(path + "&categoryid=" + c.getId() + "&page=1&pagesize=" + pagesize, c.getUrl(), site.getFolder());
+									
+									Map<String, Object> _m = new HashMap<String, Object>();
+									_m.put("siteid", site.getId());
+									_m.put("categoryid", c.getId());
+									_m.put("releasetime", TimeUtil.getCurrentTime());
+									PageRequest rq = new PageRequest(_m);
+									rq.setPageSize(pagesize);
+									rq.setCurrentPage(1);
+									Page<DsCmsPage> pageModel = service.queryPage(rq);
+									for(int i = 2; i <= pageModel.getLastPage(); i++)
 									{
-										Map<String, Object> _m = new HashMap<String, Object>();
-										_m.put("siteid", site.getId());
-										_m.put("categoryid", c.getId());
-										_m.put("releasetime", TimeUtil.getCurrentTime());
-										PageRequest rq = new PageRequest(_m);
-										rq.setPageSize(pagesize);
-										rq.setCurrentPage(1);
-										Page<DsCmsPage> pageModel = service.queryPage(rq);
-										for(int i = 2; i <= pageModel.getLastPage(); i++)
-										{
-											buildFile(path + "&categoryid=" + c.getId() + "&page=" + i + "&pagesize=" + pagesize, c.getUrl().replaceAll("\\.html", "_" + i + ".html"), site.getFolder(), site.getUrl());
-										}
+										_buildFile(path + "&categoryid=" + c.getId() + "&page=" + i + "&pagesize=" + pagesize, c.getUrl().replaceAll("\\.html", "_" + i + ".html"), site.getFolder());
 									}
 								}
 							}
 						}
-						else// 生成首页
+						else// 首页
 						{
-							buildFile(path, "/index.html", site.getFolder(), site.getUrl());
+							_buildFile(isCreateOrDelete ? path : null, "/index.html", site.getFolder());
 						}
 						print("1");
 					}
-					else if(pageid == 0)//生成内容
+					else if(pageid == 0)// 栏目内容
 					{
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
-						if(categoryid == 0)// 生成全部内容页
+						if(categoryid == 0)// 全部栏目内容
 						{
 							list = service.queryListCategory(siteid);
 						}
-						else if(categoryid > 0)// 生成指定栏目内容
+						else if(categoryid > 0)// 指定栏目内容
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
 							list.add(c);
@@ -489,33 +512,36 @@ public class DsCmsPageController extends BaseController
 									continue;
 								}
 								deleteFile(site.getFolder(), c.getFolder(), false, true);// 删除内容
-								Map<String, Object> map = new HashMap<String, Object>();
-								map.put("siteid", site.getId());
-								map.put("releasetime", TimeUtil.getCurrentTime());
-								map.put("categoryid", c.getId());
-								map.put("status", 1);
-								PageRequest rq = new PageRequest(map);
-								rq.setPageSize(pagesize);
-								rq.setCurrentPage(1);
-								Page<DsCmsPage> pageModel = service.queryPage(rq);
-								for(DsCmsPage p : pageModel.getResult())
+								if(isCreateOrDelete)
 								{
-									buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder(), site.getUrl());
-								}
-								for(int i = 2; i <= pageModel.getLastPage(); i++)
-								{
-									map.clear();
+									Map<String, Object> map = new HashMap<String, Object>();
 									map.put("siteid", site.getId());
 									map.put("releasetime", TimeUtil.getCurrentTime());
 									map.put("categoryid", c.getId());
 									map.put("status", 1);
-									rq.setFilters(map);
+									PageRequest rq = new PageRequest(map);
 									rq.setPageSize(pagesize);
-									rq.setCurrentPage(i);
-									Page<DsCmsPage> n = service.queryPage(rq);
-									for(DsCmsPage p : n.getResult())
+									rq.setCurrentPage(1);
+									Page<DsCmsPage> pageModel = service.queryPage(rq);
+									for(DsCmsPage p : pageModel.getResult())
 									{
-										buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder(), site.getUrl());
+										_buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder());
+									}
+									for(int i = 2; i <= pageModel.getLastPage(); i++)
+									{
+										map.clear();
+										map.put("siteid", site.getId());
+										map.put("releasetime", TimeUtil.getCurrentTime());
+										map.put("categoryid", c.getId());
+										map.put("status", 1);
+										rq.setFilters(map);
+										rq.setPageSize(pagesize);
+										rq.setCurrentPage(i);
+										Page<DsCmsPage> n = service.queryPage(rq);
+										for(DsCmsPage p : n.getResult())
+										{
+											_buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder());
+										}
 									}
 								}
 							}
@@ -540,7 +566,7 @@ public class DsCmsPageController extends BaseController
 		catch(Exception ex)
 		{
 			ex.printStackTrace();
-			print("0:生成失败");
+			print(isCreateOrDelete ? "0:生成失败" : "0:删除失败");
 		}
 	}
 	
@@ -564,14 +590,14 @@ public class DsCmsPageController extends BaseController
 						{
 							if(deleteCategory)
 							{
-								f.delete();// 删除栏目页面
+								f.delete();// 删除栏目首页
 							}
 						}
 						else
 						{
 							if(deletePage)
 							{
-								f.delete();// 删除非栏目页面
+								f.delete();// 删除栏目内容
 							}
 						}
 					}
@@ -580,16 +606,21 @@ public class DsCmsPageController extends BaseController
 		}
 	}
 
-	private void buildFile(String getpath, String urlpath, String siteFolder, String readPath)
+	private void _buildFile(String getpath, String urlpath, String siteFolder)
 	{
 		try
 		{
-			java.net.URL url = new java.net.URL(getpath);
-			// java.net.URLConnection conn = url.openConnection();
-			// conn.setRequestProperty("Cookie", cookie);
-			// conn.connect();
 			String p = getCmsRoot().replaceAll("\\\\", "/") + "html/" + siteFolder + "/html/" + urlpath;
-			FileUtil.writeFile(p, url.openStream(), true);
+			if(getpath == null){
+				FileUtil.delete(p);
+			}
+			else{
+				java.net.URL url = new java.net.URL(getpath);
+				// java.net.URLConnection conn = url.openConnection();
+				// conn.setRequestProperty("Cookie", cookie);
+				// conn.connect();
+				FileUtil.writeFile(p, url.openStream(), true);
+			}
 		}
 		catch(Exception ex)
 		{

@@ -24,8 +24,7 @@
 $dswork.callback = null;
 $dswork.ztree.click = function(){
 	var node = $dswork.ztree.getSelectedNode();
-	if(!node.isParent)
-	{
+	if(!node.isParent){
 		if(node.status == 0){
 			attachUrl("getPage.htm?id=" + node.id);
 			return false;
@@ -38,10 +37,15 @@ $dswork.ztree.click = function(){
 	attachUrl("");
 	return false;
 };
-function build(categoryid, pageid)
-{
+function build(categoryid, pageid){
 	$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
 	$.post("build.htm",{"siteid":"${siteid}", "categoryid":categoryid, "pageid":pageid},function(data){
+		$dswork.doAjaxShow(data, function(){});
+	});
+}
+function unbuild(categoryid, pageid){
+	$dswork.doAjaxObject.autoDelayHide("删除中", 2000);
+	$.post("unbuild.htm",{"siteid":"${siteid}", "categoryid":categoryid, "pageid":pageid},function(data){
 		$dswork.doAjaxShow(data, function(){});
 	});
 }
@@ -63,23 +67,31 @@ $(function(){
 	$("#btn_site").bind("click", function(){
 		if(confirm("是否发布首页")){build(-1, -1);}
 	});
+	
+	$("#category").bind("click", function(){
+		$(this).val()!="0" ? $("#view").show() : $("#view").hide();
+	});
 	$("#btn_category").bind("click", function(){
 		var m = $("#category").find("option:selected");
 		if(confirm("是否发布栏目\"" + m.text() + "\"")){build(m.val(), -1);}
-		
 	});
 	$("#btn_page").bind("click", function(){
 		var m = $("#category").find("option:selected");
 		if(confirm("是否发布栏目\"" + m.text() + "\"内容")){build(m.val(), 0);}
-	});
-	$("#category").bind("click", function(){
-		$(this).val()!="0" ? $("#view").show() : $("#view").hide();
 	});
 	$("#view").bind("click", function(){
 		var v = $('#category').find('option:selected').val();
 		if(v!="0"){
 			window.open('buildHTML.chtml?view=true&siteid=${siteid}&categoryid='+v);
 		}
+	});
+	$("#btn_category_d").bind("click", function(){
+		var m = $("#category").find("option:selected");
+		if(confirm("是否删除栏目\"" + m.text() + "\"已发布首页")){unbuild(m.val(), -1);}
+	});
+	$("#btn_page_d").bind("click", function(){
+		var m = $("#category").find("option:selected");
+		if(confirm("是否删除栏目\"" + m.text() + "\"已发布内容")){unbuild(m.val(), 0);}
 	});
 	$("#category").click();
 });
@@ -93,7 +105,11 @@ $(function(){
 			<input id="btn_site" type="button" class="button" value="发布首页" /> <input type="button" class="button" value="预览首页" onclick="window.open('buildHTML.chtml?view=true&siteid=${siteid}');" />
 			&nbsp;&nbsp;
 			选择需要发布的栏目：<select id="category"><option value="0">全部栏目</option><c:forEach items="${list}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
-			<input id="btn_category" type="button" class="button" value="发布栏目" /> <input id="btn_page" type="button" class="button" value="发布内容" /> <input id="view" type="button" class="button" value="预览栏目" />
+			<input id="btn_category" type="button" class="button" value="发布栏目首页" />
+			<input id="btn_page" type="button" class="button" value="发布栏目内容" />
+			<input id="view" type="button" class="button" value="预览栏目" />
+			<input id="btn_category_d" type="button" class="button" value="删除栏目首页" />
+			<input id="btn_page_d" type="button" class="button" value="删除发布内容" />
 		</td>
 	</tr>
 </table>
