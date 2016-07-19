@@ -1,4 +1,6 @@
 <%@page language="java" pageEncoding="UTF-8"%>
+<script type="text/javascript" src="${ctx}/js/jquery.js"></script>
+<script type="text/javascript" src="${ctx}/js/jskey_focus.js"></script>
 <style type="text/css">
 	#showid1 img{width:100%;height:100%;margin:0 auto;}
 </style>
@@ -44,11 +46,12 @@
 	</div>
 	<div class="nav-down">
 		<c:forEach items="${mheader}" var="d"><c:if test="${fn:length(d.list)>0}">
-			<div class="nav-down-menu" data-nav="${d.id}">
-			<c:forEach items="${d.list}" var="dd">
-				<dl><dt><a href="${ctx}${dd.url}">${dd.name}</a></dt>
+			<div class="nav-down-menu" data-nav="${d.id}"><c:forEach items="${d.list}" var="dd">
+				<dl><dt><a target="_blank"<c:if test="${dd.list==null || fn:length(dd.list)==0}"> href="${dd.status==2?'':ctx}${dd.url}"</c:if>>${dd.name}</a></dt>
 					<c:forEach items="${dd.list}" var="ddd">
-					<dd><a href="${ctx}${ddd.list}">${ddd.name}</a></dd></c:forEach></dl>
+					<dd><a target="_blank" href="${ddd.status==2?'':ctx}${ddd.url}">${ddd.name}</a></dd>
+					</c:forEach>
+				</dl>
 			</c:forEach></div>
 		</c:if></c:forEach>
 	</div>

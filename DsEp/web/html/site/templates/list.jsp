@@ -24,7 +24,7 @@
 	  <div class="list">
 		<dl class="title"><dt>标题</dt><dd>发布日期</dd></dl>
 		<c:forEach items="${datalist}" var="d">
-		<dl><dt><a href="${ctx}${d.url}">${d.title}</a></dt><dd>${d.releasetime}</dd></dl>
+		<dl><dt><a target="_blank" href="${ctx}${d.url}">${d.title}</a></dt><dd>${d.releasetime}</dd></dl>
 		</c:forEach>
 	  </div>
 	  <div class="page"><%@include file="include/pageview.jsp"%></div>

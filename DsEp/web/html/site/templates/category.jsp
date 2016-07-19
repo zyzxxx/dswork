@@ -26,12 +26,13 @@
 		<c:set var="ccid" value="${c.id}" scope="request" />
 		<c:set var="cname" value="${c.name}" scope="request" />
 		<c:set var="curl" value="${c.url}" scope="request" />
+		<c:set var="cstatus" value="${c.status}" scope="request" />
 		<%request.setAttribute("vlist", cms.queryList(1, 8, false, false, true, request.getAttribute("ccid")));%>
 		<div class="list">
-			<dl class="logo"><dt>${cname}</dt><dd><a class="more" href="${ctx}${curl}">&raquo; 更多</a></dd></dl>
+			<dl class="logo"><dt>${cname}</dt><dd><a class="more"${cstatus==2?' target="_blank"':''} href="<c:if test="${cstatus != 2}">${ctx}</c:if>${curl}">&raquo; 更多</a></dd></dl>
 			<dl class="title"><dt>标题</dt><dd>发布日期</dd></dl>
 			<c:forEach items="${vlist}" var="d">
-			<dl><dt><a href="${ctx}${d.url}">${d.title}</a></dt><dd>${d.releasetime}</dd></dl>
+			<dl><dt><a target="_blank" href="${ctx}${d.url}">${d.title}</a></dt><dd>${d.releasetime}</dd></dl>
 			</c:forEach>
 		</div>
 		<div class="vline">&nbsp;</div>
