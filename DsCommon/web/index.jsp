@@ -49,10 +49,8 @@ var treedata = [
 	,{id:11,name:'流程示例', img:"", imgOpen:"", url:'', items:[
 		{id:111,name:'流程测试', img:"", imgOpen:"", url:'/flow/waiting.jsp', items:[]}
 	]}
-	,{id:12,name:'其他示例', img:"", imgOpen:"", url:'', items:[
-   		{id:112,name:'字典样例', img:"", imgOpen:"", url:'/x.jsp', items:[]}
-   	]}
 ]}
+,{id:112,name:'字典样例', img:"", imgOpen:"", url:'/x.jsp', items:[]}
 ];
 </script>
 </head>
