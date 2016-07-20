@@ -27,7 +27,7 @@ a:hover {background-color:#0f9ae0;}
 </style>
 <script type="text/javascript">
 var treedata = [
-	{id:10, name:"CMS", img:"", imgOpen:"", url:"", items:[
+	{id:10, name:"功能示例", img:"", imgOpen:"", url:"", items:[
 		 {id:12,name:"Hibernate", img:"", imgOpen:"", url:'/manage/hbmdemo/getDemo.htm', items:[]}
 		,{id:13,name:"MyBatis", img:"", imgOpen:"", url:'/manage/demo/getDemo.htm', items:[]}
 	]}
