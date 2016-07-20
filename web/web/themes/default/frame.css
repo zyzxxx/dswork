@@ -15,7 +15,7 @@ table.normal{width:99%;}
 
 a{outline:none;text-decoration:none;cursor:pointer;}
 a:link,a:visited,a:active{color:#182a2d;outline:none;}
-a:hover{outline:none;color:#205e92;color:#182a2d;text-decoration:underline;}
+a:hover{outline:none;color:#205e92;text-decoration:underline;}
 a:focus{outline:none;}
 a:hover,a:active{outline:none;}:focus{outline:none;}
 img{border:0;vertical-align:middle;-ms-interpolation-mode:bicubic;}
