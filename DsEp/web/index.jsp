@@ -82,7 +82,7 @@ treedata.push(nn[2]);
 <script type="text/javascript">
 for(var i = 0; i < treedata.length; i++){
 	var item = treedata[i];
-	if(item.url == ""){
+	if(item.url == "" || item.url == "#"){
 		document.write("<label class='level1'>" + item.name + "</label><br />");
 	}
 	else{
@@ -90,15 +90,15 @@ for(var i = 0; i < treedata.length; i++){
 	}
 	for(var j = 0; j < item.items.length; j++){
 		var m = item.items[j];
-		if(m.url == ""){
+		if(m.url == "" || m.url == "#"){
 			document.write("<label class='level2'>" + m.name + "</label><br />");
 		}
 		else{
 			document.write("<a class='level2' target='main' href='<%=path%>" + m.url + "'>" + m.name + "</a><br />");
 		}
 		
-		for(var jj = 0; jj < m.items.length; jj++){
-			var mm = m.items[jj];
+		for(var k = 0; k < m.items.length; k++){
+			var mm = m.items[k];
 			document.write("<a class='level3' target='main' href='<%=path%>" + mm.url + "'>" + mm.name + "</a><br />");
 		}
 	}
