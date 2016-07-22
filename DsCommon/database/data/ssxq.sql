@@ -108,13 +108,19 @@ insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
 values (440115, 4401, '南沙区', '440115', '', 440115, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440116, 4401, '萝岗区', '440116', '', 440116, 1, 'SSXQ');
+values (440116, 4401, '萝岗区', '440116', '已撤区', 440116, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440183, 4401, '增城市', '440183', '', 440183, 1, 'SSXQ');
+values (440117, 4401, '从化区', '440117', '440184', 440117, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
-values (440184, 4401, '从化市', '440184', '', 440184, 1, 'SSXQ');
+values (440118, 4401, '增城区', '440118', '440183', 440118, 1, 'SSXQ');
+
+insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
+values (440183, 4401, '增城区', '440183', '已撤市', 440183, 1, 'SSXQ');
+
+insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
+values (440184, 4401, '从化区', '440184', '已撤市', 440184, 1, 'SSXQ');
 
 insert into DS_COMMON_DICT_DATA (ID, PID, LABEL, ALIAS, MEMO, SEQ, STATUS, NAME)
 values (440201, 4402, '市辖区', '440201', '', 440201, 1, 'SSXQ');
