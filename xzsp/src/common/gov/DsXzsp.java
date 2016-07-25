@@ -14,7 +14,7 @@ public class DsXzsp
 	private Integer fscs = 0;
 	// 发送时间
 	private String fssj = "";
-	// 序列化对象jdk7或以上
+	// json序列化对象
 	private String spobject = "";
 	// 备注，一般存放发送失败信息
 	private String memo = "";
