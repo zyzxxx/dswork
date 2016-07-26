@@ -1,14 +1,2 @@
-项目作为cs项目运行时，需要修改的配置：
-删除以下文件：
-	.classpath
-	.project
-	.settings/org.eclipse.wst.common.project.facet.core.xml
-	.settings/org.eclipse.wst.common.component
-删除/web目录
-删除/src/testwork/controller目录
-复制/cs/目录下的两个文件到项目根目录下
-然后重新导入到eclipse下，或者关闭project后再打开也可以
-运行testwork.cs.Start
-
 !!!!!!!!!不得将此项目复制为工作项目，仅作为教学示例!!!!!!!!!
 作为bs项目运行时，还需要将web项目同时发布
