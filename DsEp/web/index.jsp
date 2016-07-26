@@ -47,7 +47,7 @@ var treedata = [
 		 {id:201,name:"企业管理", img:"", imgOpen:"", url:'/ep/enterprise/getEnterprise.htm', items:[]}
 	]}
 	,{id:300, name:"个人数据", img:"", imgOpen:"", url:"", items:[
-		{id:301,name:"个人用户管理", img:"", imgOpen:"", url:'/person/user/getUser.htm', items:[]}
+		{id:301,name:"个人管理", img:"", imgOpen:"", url:'/person/user/getUser.htm', items:[]}
 	]}
 ];
 <%}%>
@@ -77,8 +77,11 @@ treedata.push(nn[2]);
 </script>
 </head>
 <body>
-<div style="height:100%;width:100%;">
-<div style="float:left;height:100%;">
+<div style="overflow:hidden;height:100%;width:100%;">
+<div style="overflow:hidden;float:right;height:100%;width:80%;">
+	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="auto" frameborder="0" src="about:blank"></iframe>
+</div>
+<div style="overflow:auto;float:left;height:100%;width:19.8%;border-right:1px solid #6ea5eb;">
 <script type="text/javascript">
 for(var i = 0; i < treedata.length; i++){
 	var item = treedata[i];
@@ -104,9 +107,6 @@ for(var i = 0; i < treedata.length; i++){
 	}
 }
 </script>
-</div>
-<div style="float:right;height:100%;width:80%;min-width:800px;">
-	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="auto" frameborder="0" src="about:blank"></iframe>
 </div>
 </div>
 </body>

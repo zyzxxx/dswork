@@ -40,7 +40,7 @@ function updStatus(objid, id){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">个人用户列表</td>
+		<td class="title">个人列表</td>
 		<td class="menuTool">
 			<a class="insert" href="addUser1.htm?page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>

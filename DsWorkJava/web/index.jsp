@@ -35,8 +35,11 @@ var treedata = [
 </script>
 </head>
 <body>
-<div style="height:100%;width:100%;">
-<div style="float:left;height:100%;">
+<div style="overflow:hidden;height:100%;width:100%;">
+<div style="overflow:hidden;float:right;height:100%;width:80%;">
+	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="auto" frameborder="0" src="about:blank"></iframe>
+</div>
+<div style="overflow:auto;float:left;height:100%;width:19.8%;border-right:1px solid #6ea5eb;">
 <script type="text/javascript">
 for(var i = 0; i < treedata.length; i++){
 	var item = treedata[i];
@@ -62,9 +65,6 @@ for(var i = 0; i < treedata.length; i++){
 	}
 }
 </script>
-</div>
-<div style="float:right;height:100%;width:80%;min-width:800px;">
-	<iframe id="main" name="main" style="height:100%;width:100%;" scrolling="auto" frameborder="0" src="about:blank"></iframe>
 </div>
 </div>
 </body>
