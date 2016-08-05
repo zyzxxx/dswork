@@ -25,7 +25,7 @@
 	<classpathentry kind="lib" path="/Lib/common/spring/spring-tx.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/spring/spring-web.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/spring/spring-webmvc.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/aopalliance.jar"/>
+	<classpathentry kind="lib" path="/Lib/common/aopalliance-1.0.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/jstl-1.2.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-3.2.8.jar"/>
 	<classpathentry kind="lib" path="/Lib/mybatis/mybatis-spring-1.2.5.jar"/>

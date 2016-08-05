@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <eclipse-userlibraries version="2">
     <library name="JAVAWEB" systemlibrary="false">
-        <archive path="/Lib/common/aopalliance.jar"/>
+        <archive path="/Lib/common/aopalliance-1.0.jar"/>
         <archive path="/Lib/common/jstl-1.2.jar"/>
         <archive path="/Lib/common/commons/commons-collections-3.2.1.jar"/>
         <archive path="/Lib/common/commons/commons-dbcp-1.4.jar"/>
