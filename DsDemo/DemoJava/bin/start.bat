@@ -9,7 +9,7 @@ call sconfig.bat
 #    SET classpath=%classpath%;%%i  
 #)
 
-set classpath=%classpath%;%BAT_HOME%\lib\aopalliance.jar
+set classpath=%classpath%;%BAT_HOME%\lib\aopalliance-1.0.jar
 set classpath=%classpath%;%BAT_HOME%\lib\commons-collections-3.2.1.jar
 set classpath=%classpath%;%BAT_HOME%\lib\commons-dbcp-1.4.jar
 set classpath=%classpath%;%BAT_HOME%\lib\commons-io-2.3.jar
