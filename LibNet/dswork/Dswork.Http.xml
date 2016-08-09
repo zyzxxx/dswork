@@ -9,11 +9,6 @@
             封装http请求
             </summary>
         </member>
-        <member name="P:Dswork.Http.HttpUtil.Https">
-            <summary>
-            返回当前是否https请求
-            </summary>
-        </member>
         <member name="M:Dswork.Http.HttpUtil.SetConnectTimeout(System.Int32)">
             <summary>
             设置超时时间毫秒
@@ -85,6 +80,19 @@
             <param name="charsetName">对封装的表单、获取的网页内容进行的编码设置</param>
             <returns>String</returns>
         </member>
+        <member name="M:Dswork.Http.HttpUtil.ConnectStream">
+            <summary>
+            连接并返回网页流
+            </summary>
+            <returns>Stream</returns>
+        </member>
+        <member name="M:Dswork.Http.HttpUtil.ConnectStream(System.String)">
+            <summary>
+            连接并返回网页流
+            </summary>
+            <param name="charsetName">对封装的表单、获取的网页内容进行的编码设置</param>
+            <returns>Stream</returns>
+        </member>
         <member name="M:Dswork.Http.HttpUtil.SetDataBody(System.Byte[])">
             <summary>
             设置数据流，优先使用form值
@@ -140,14 +148,19 @@
             <param name="onlySessionCookie">true：仅复制会话cookie false：复制非会话cookie null:全部cookie</param>
             <returns>List&lt;Cookie&gt;</returns>
         </member>
+        <member name="P:Dswork.Http.HttpUtil.Https">
+            <summary>
+            返回当前是否https请求
+            </summary>
+        </member>
         <member name="T:Dswork.Http.NameValue">
             <summary>
-            ×Ô¶¨ÒåNameValue
+            自定义NameValue
             </summary>
         </member>
         <member name="M:Dswork.Http.NameValue.#ctor(System.String,System.String)">
             <summary>
-            ¹¹Ôì·½·¨
+            构造方法
             </summary>
             <param name="name">String</param>
             <param name="value">String</param>
@@ -173,6 +186,23 @@
             </summary>
             <param name="name">String</param>
             <param name="value">String</param>
+        </member>
+        <member name="M:Dswork.Http.Cookie.IsExpired(System.DateTime)">
+            <summary>
+            判断是否过期
+            </summary>
+            <param name="date">DateTime</param>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Dswork.Http.Cookie.ToString">
+            <summary>
+            ToString
+            </summary>
+        </member>
+        <member name="M:Dswork.Http.Cookie.Clone">
+            <summary>
+            复制为新对象
+            </summary>
         </member>
         <member name="P:Dswork.Http.Cookie.Name">
             <summary>
@@ -207,23 +237,6 @@
         <member name="P:Dswork.Http.Cookie.HttpOnly">
             <summary>
             HttpOnly
-            </summary>
-        </member>
-        <member name="M:Dswork.Http.Cookie.IsExpired(System.DateTime)">
-            <summary>
-            判断是否过期
-            </summary>
-            <param name="date">DateTime</param>
-            <returns>Boolean</returns>
-        </member>
-        <member name="M:Dswork.Http.Cookie.ToString">
-            <summary>
-            ToString
-            </summary>
-        </member>
-        <member name="M:Dswork.Http.Cookie.Clone">
-            <summary>
-            复制为新对象
             </summary>
         </member>
         <member name="T:Dswork.Http.HttpCommon">
