@@ -272,6 +272,82 @@ namespace Dswork.Http
 			return result;
 		}
 
+		/// <summary>
+		/// 连接并返回网页流
+		/// </summary>
+		/// <returns>Stream</returns>
+		public Stream ConnectStream()
+		{
+			return ConnectStream("UTF-8");
+		}
+
+		/// <summary>
+		/// 连接并返回网页流
+		/// </summary>
+		/// <param name="charsetName">对封装的表单、获取的网页内容进行的编码设置</param>
+		/// <returns>Stream</returns>
+		public Stream ConnectStream(String charsetName)
+		{
+			try
+			{
+				DateTime dt = new DateTime();
+				this.http.CookieContainer = new CookieContainer();
+				if (this.cookies.Count > 0)
+				{
+					String _c = HttpCommon.parse(HttpCommon.GetHttpCookies(this.cookies, Https), "; ");
+					this.http.CookieContainer.SetCookies(http.RequestUri, _c);
+				}
+				byte[] arr = null;
+				if (this.form.Count > 0)
+				{
+					String data = HttpCommon.format(form, charsetName);
+					Encoding enc = Encoding.GetEncoding(28591);//28591对应iso-8859-1
+					arr = enc.GetBytes(data);
+				}
+				else if (this.databody != null)
+				{
+					arr = this.databody;
+				}
+				if (arr != null)
+				{
+					if (this.http.Method.ToUpper() == "GET")
+					{
+						this.http.Method = "POST";
+					}
+					using (Stream stream = this.http.GetRequestStream())
+					{
+						stream.Write(arr, 0, arr.Length);
+					}
+				}
+				HttpWebResponse res = http.GetResponse() as HttpWebResponse;
+				if (res.StatusCode == HttpStatusCode.OK)
+				{
+					List<Cookie> list = HttpCommon.GetHttpCookies(res.Cookies);
+					foreach (Cookie m in list)
+					{
+						if (m.ExpiryDate == null)
+						{
+							this.AddCookie(m.Name, m.Value);// 会话cookie
+						}
+						else
+						{
+							if (!m.IsExpired(dt))
+							{
+								this.AddCookie(m.Name, m.Value);
+							}
+						}
+					}
+					Stream stream = res.GetResponseStream();
+					return stream;
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine(ex.Message);
+			}
+			return null;
+		}
+
 		// post的数据流，与Form数据冲突
 		private byte[] databody = null;
 
