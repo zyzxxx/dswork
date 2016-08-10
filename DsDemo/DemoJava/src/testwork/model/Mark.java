@@ -19,9 +19,10 @@ public class Mark
 		return id;
 	}
 
-	public void setId(Long id)
+	public Mark setId(Long id)
 	{
 		this.id = id;
+		return this;
 	}
 
 	public Long getDemoid()
@@ -29,9 +30,10 @@ public class Mark
 		return demoid;
 	}
 
-	public void setDemoid(Long demoid)
+	public Mark setDemoid(Long demoid)
 	{
 		this.demoid = demoid;
+		return this;
 	}
 
 	public String getContent()
@@ -39,9 +41,10 @@ public class Mark
 		return content;
 	}
 
-	public void setContent(String content)
+	public Mark setContent(String content)
 	{
 		this.content = content;
+		return this;
 	}
 
 	public String getFoundtime()
@@ -49,8 +52,9 @@ public class Mark
 		return foundtime;
 	}
 
-	public void setFoundtime(String foundtime)
+	public Mark setFoundtime(String foundtime)
 	{
 		this.foundtime = foundtime;
+		return this;
 	}
 }

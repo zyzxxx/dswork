@@ -1,5 +1,5 @@
 /**
- * 样例Model
+ * 样例Model，改造了试验性set返回值，测试中
  */
 package testwork.model;
 public class Demo
@@ -18,9 +18,10 @@ public class Demo
 		return id;
 	}
 
-	public void setId(Long id)
+	public Demo setId(Long id)
 	{
 		this.id = id;
+		return this;
 	}
 
 	public String getTitle()
@@ -28,9 +29,10 @@ public class Demo
 		return title;
 	}
 
-	public void setTitle(String title)
+	public Demo setTitle(String title)
 	{
 		this.title = title;
+		return this;
 	}
 
 	public String getContent()
@@ -38,9 +40,10 @@ public class Demo
 		return content;
 	}
 
-	public void setContent(String content)
+	public Demo setContent(String content)
 	{
 		this.content = content;
+		return this;
 	}
 
 	public String getFoundtime()
@@ -48,8 +51,9 @@ public class Demo
 		return foundtime;
 	}
 
-	public void setFoundtime(String foundtime)
+	public Demo setFoundtime(String foundtime)
 	{
 		this.foundtime = foundtime;
+		return this;
 	}
 }
