@@ -5,7 +5,7 @@ try
 	String s_name = String.valueOf(request.getParameter("name"));//经由get方式传递过来的文件名
 	String f = String.valueOf(request.getParameter("f"));//经由get方式传递过来的文件名
 	String t = String.valueOf(request.getParameter("t"));//经由get方式传递过来的下载文件名
-	if(s_name.length() > 0 && !s_name.equals("null") && f.length() > 32)
+	if(s_name.length() > 0 && !s_name.equals("null") && f.length() > 33)// f=****.***
 	{
 		StringBuilder sb = new StringBuilder();
 		String path = sb.append(WebioUtil.PATH)
@@ -21,7 +21,54 @@ try
 				.append("/").append(f)
 				.toString();
 		ServletOutputStream sos = response.getOutputStream();
-		response.setContentType("application/octet-stream");
+		//if("".equals(s_name))
+		//{
+		//	response.setContentType("application/octet-stream");
+		//}
+		//else if("".equals(s_name))
+		//{
+		//	response.setContentType("application/octet-stream");
+		//}
+		//else
+		//{
+			String ext = f.substring(33).toLowerCase();
+			if(ext.length() > 0)
+			{
+				if(".gif.jpeg.png.".indexOf(ext) > -1)
+				{
+					response.setContentType("image/" + ext);
+				}
+				else if(".jpg.".indexOf(ext) > -1)
+				{
+					response.setContentType("image/jpeg");
+				}
+				else if(".bmp.ppt.xls.xlsx".indexOf(ext) > -1)
+				{
+					response.setContentType("application/x-" + ext);
+				}
+				else if(".pdf.".indexOf(ext) > -1)
+				{
+					response.setContentType("application/" + ext);
+				}
+				else if(".doc.docx.rtf.".indexOf(ext) > -1)
+				{
+					response.setContentType("application/msword");
+				}
+				else if(".xls.xlsx.".indexOf(ext) > -1)
+				{
+					response.setContentType("application/vnd.ms-excel");
+				}
+				else
+				{
+					response.setContentType("application/octet-stream");
+				}
+			}
+			else
+			{
+				response.setContentType("application/octet-stream");
+			}
+		//}
+		
 		sb.setLength(0);
 		
 		sb.append("attachment;filename=\"")
