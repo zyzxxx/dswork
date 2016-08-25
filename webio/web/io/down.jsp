@@ -21,53 +21,7 @@ try
 				.append("/").append(f)
 				.toString();
 		ServletOutputStream sos = response.getOutputStream();
-		//if("".equals(s_name))
-		//{
-		//	response.setContentType("application/octet-stream");
-		//}
-		//else if("".equals(s_name))
-		//{
-		//	response.setContentType("application/octet-stream");
-		//}
-		//else
-		//{
-			String ext = f.substring(33).toLowerCase();
-			if(ext.length() > 0)
-			{
-				if(".gif.jpeg.png.".indexOf(ext) > -1)
-				{
-					response.setContentType("image/" + ext);
-				}
-				else if(".jpg.".indexOf(ext) > -1)
-				{
-					response.setContentType("image/jpeg");
-				}
-				else if(".bmp.ppt.pptx.xls.xlsx".indexOf(ext) > -1)
-				{
-					response.setContentType("application/x-" + ext);
-				}
-				else if(".pdf.".indexOf(ext) > -1)
-				{
-					response.setContentType("application/" + ext);
-				}
-				else if(".doc.docx.rtf.".indexOf(ext) > -1)
-				{
-					response.setContentType("application/msword");
-				}
-				else if(".xls.xlsx.".indexOf(ext) > -1)
-				{
-					response.setContentType("application/vnd.ms-excel");
-				}
-				else
-				{
-					response.setContentType("application/octet-stream");
-				}
-			}
-			else
-			{
-				response.setContentType("application/octet-stream");
-			}
-		//}
+		response.setContentType("application/octet-stream");
 		
 		sb.setLength(0);
 		
