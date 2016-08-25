@@ -42,7 +42,7 @@ try
 				{
 					response.setContentType("image/jpeg");
 				}
-				else if(".bmp.ppt.xls.xlsx".indexOf(ext) > -1)
+				else if(".bmp.ppt.pptx.xls.xlsx".indexOf(ext) > -1)
 				{
 					response.setContentType("application/x-" + ext);
 				}
