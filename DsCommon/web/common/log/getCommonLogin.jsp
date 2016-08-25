@@ -1,40 +1,37 @@
-<%@page language="java" pageEncoding="UTF-8" import="org.apache.ibatis.jdbc.*,
-dswork.core.page.*,
-dswork.web.*,
-dswork.spring.BeanFactory,
-common.any.AnyDao"%><%!
+<%@page language="java" pageEncoding="UTF-8" import="dswork.spring.BeanFactory,dswork.core.page.*,dswork.web.*,common.any.AnyDao"%><%!
 public boolean isNotEmpty(PageRequest pr, String key){
 	Object o = pr.getFilters().get(key);
 	return o != null && String.valueOf(o).length() > 0;
 }
 public PageRequest genSQL(PageRequest pr, boolean isCount){
-	SqlBuilder.BEGIN();
+	StringBuilder sql = new StringBuilder(50);
+	sql.append("select");
 	if(isCount){
-		SqlBuilder.SELECT("count(1)");
+		sql.append(" count(1)");
 	}
 	else{
-		SqlBuilder.SELECT("id, logintime, logouttime, timeouttime, pwdtime, ip, account, name, status");
+		sql.append(" id, logintime, logouttime, timeouttime, pwdtime, ip, account, name, status");
 	}
-	SqlBuilder.FROM("DS_COMMON_LOGIN");
+	sql.append(" from DS_COMMON_LOGIN where 1=1");
 	if(isNotEmpty(pr, "logintime_begin")){
-		SqlBuilder.WHERE("LOGINTIME>=#{logintime_begin}");
+		sql.append(" and LOGINTIME>=#{logintime_begin}");
 	}
 	if(isNotEmpty(pr, "logintime_end")){
-		SqlBuilder.WHERE("LOGINTIME<=#{logintime_end}");
+		sql.append(" and LOGINTIME<=#{logintime_end}");
 	}
 	if(isNotEmpty(pr, "account")){
-		SqlBuilder.WHERE("ACCOUNT like #{account, typeHandler=LikeTypeHandler}");
+		sql.append(" and ACCOUNT like #{account, typeHandler=LikeTypeHandler}");
 	}
 	if(isNotEmpty(pr, "name")){
-		SqlBuilder.WHERE("NAME like #{name, typeHandler=LikeTypeHandler}");
+		sql.append(" and NAME like #{name, typeHandler=LikeTypeHandler}");
 	}
 	if(isNotEmpty(pr, "status")){
-		SqlBuilder.WHERE("STATUS=#{status}");
+		sql.append(" and STATUS=#{status}");
 	}
 	if(isNotEmpty(pr, "pwdtime")){
-		SqlBuilder.WHERE("PWDTIME is not null");
+		sql.append(" and PWDTIME is not null");
 	}
-	pr.getFilters().put("sql", SqlBuilder.SQL());
+	pr.getFilters().put("sql", sql.toString());
 	return pr;
 }
 public PageRequest getPageRequest(HttpServletRequest request)
@@ -60,7 +57,6 @@ public PageRequest getPageRequest(HttpServletRequest request)
 %><%
 AnyDao dao = (AnyDao)BeanFactory.getBean("anyDao");
 PageRequest pr = getPageRequest(request);
-request.setAttribute("param", pr.getFilters());
 PageRequest prcount = getPageRequest(request);
 Page pageModel = dao.queryPage(genSQL(pr, false), genSQL(prcount, true));
 request.setAttribute("pageModel", pageModel);
