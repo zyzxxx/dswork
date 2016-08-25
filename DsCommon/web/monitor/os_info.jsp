@@ -9,13 +9,16 @@ import="com.sun.management.OperatingSystemMXBean,java.lang.management.Management
 		.append("osarch").append(":\"").append(osmb.getArch()).append("\",")
 		.append("osversion").append(":\"").append(osmb.getVersion()).append("\",")
 		.append("oscpu").append(":\"").append(osmb.getAvailableProcessors()).append("\",")
-		.append("osmemory").append(":\"").append(osmb.getTotalSwapSpaceSize() / 1024 / 1024).append("\",")
-		.append("osphysicalmemory").append(":\"").append(osmb.getTotalPhysicalMemorySize() / 1024 / 1024).append("\",")
-		.append("free").append(":\"").append(osmb.getFreePhysicalMemorySize() / 1024 / 1024).append("\",")
-		.append("swap").append(":\"").append(osmb.getFreeSwapSpaceSize() / 1024 / 1024).append("\",")
-		.append("runmax").append(":\"").append(r.maxMemory() / 1024 / 1024).append("\",")
-		.append("runtotal").append(":\"").append(r.totalMemory() / 1024 / 1024).append("\",")
-		.append("runfree").append(":\"").append(r.freeMemory() / 1024 / 1024).append("\",")
-		.append("runcpu").append(":\"").append(r.availableProcessors())
+
+		.append("os_memory").append(":\"").append(osmb.getTotalPhysicalMemorySize() / 1024 / 1024).append("\",")
+		.append("os_memory_free").append(":\"").append(osmb.getFreePhysicalMemorySize() / 1024 / 1024).append("\",")
+		.append("os_swap").append(":\"").append(osmb.getTotalSwapSpaceSize() / 1024 / 1024).append("\",")
+		.append("os_swap_free").append(":\"").append(osmb.getFreeSwapSpaceSize() / 1024 / 1024).append("\",")
+		
+		
+		.append("run_memory_max").append(":\"").append(r.maxMemory() / 1024 / 1024).append("\",")
+		.append("run_memory_total").append(":\"").append(r.totalMemory() / 1024 / 1024).append("\",")
+		.append("run_memory_free").append(":\"").append(r.freeMemory() / 1024 / 1024).append("\",")
+		.append("run_cpu").append(":\"").append(r.availableProcessors())
 		.append("\"}");
 %><%=sb.toString()%>

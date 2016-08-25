@@ -3,130 +3,140 @@
 <head>
 	<title></title>
 	<style type="text/css">
-.listTable {width:100%;background-color:#c2c2c2;border:none;}/*数据表格*/
-.listTable tr {height:25px;padding:0px 2px 0px 2px;}
-.listTable td {vertical-align:middle;text-align:center;background-color:#ffffff;color:#2b3e44;word-wrap:break-word;word-break:break-all;}
-.listTable tr.list_title {height:30px;}
-.listTable tr.list_title td{background-color:#dfe9fd;color:#24373d;}
+.listTable {width:100%;background-color:#999;border:none;}/*数据表格*/
+.listTable * {font-size:14px;font-weight:bold;color:#000;}
 
-td.form_title, td.form_input {height:25px;background-color:#dfe9fd;padding-left:3px;padding-right:3px;}
-td.form_title {text-align:right;}
-td.form_input {text-align:left;background-color:#e6eefe;}
+.listTable tr {height:25px;padding:0px 2px 0px 2px;}
+.listTable td {vertical-align:middle;text-align:center;word-wrap:break-word;word-break:break-all;}
+.listTable tr.list_title {height:30px;}
+.listTable tr.list_title td{background-color:#ccc;}
+
+td.form_title, td.form_input {height:25px;padding-left:3px;padding-right:3px;}
+td.form_title {text-align:right;background-color:#eee;}
+td.form_input {text-align:left;background-color:#eee;}
 
 		td.memory {line-height:28px;vertical-align:top;}
 		td.memory div {line-height:28px;height:28px;text-align:left;overflow:hidden;}
 		td.memory div span {line-height:28px;height:28px;text-align:left;overflow:hidden;font-weight:bold;}
 	</style>
+	<script src="https://cdn.bootcss.com/jquery/2.1.4/jquery.min.js"></script>
 	<script type="text/javascript" src="/web/js/jquery/jquery.js"></script>
 </head>
-<body>
-<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
-	<tr>
-		<td class="title">监控系统运行状态</td>
-	</tr>
-</table>
+<body style="min-width:600px;">
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td colspan="4">系统信息</td>
 	</tr>
 	<tr>
-		<td class="form_title" style="width:20%;">操作系统(架构)：</td>
-		<td class="form_input" style="width:30%;" id="osname"></td>
-		<td class="form_title" style="width:20%;">内存总量：</td>
-		<td class="form_input" style="width:30%;" id="osmemory"></td>
+		<td class="form_title" style="width:20%;">操作系统：</td>
+		<td class="form_input" id="osname"></td>
 	</tr>
 	<tr>
-		<td class="form_title">CPU数量：</td>
+		<td class="form_title">内存总量：</td>
+		<td class="form_input" id="os_memory"></td>
+	</tr>
+	<tr>
+		<td class="form_title">处理器核数：</td>
 		<td class="form_input" id="oscpu"></td>
-		<td class="form_title">物理内存：</td>
-		<td class="form_input" id="osphysicalmemory"></td>
+	</tr>
+	<tr>
+		<td class="form_title">虚拟内存：</td>
+		<td class="form_input">总量：<span id="os_swap"></span>&nbsp;空闲：<span id="os_swap_free"></span></td>
 	</tr>
 </table>
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td style="width:50%;">系统内存运行状态监控</td>
-		<td style="width:50%;">JAVA虚拟机内存状态监控</td>
+		<td style="width:50%;">物理内存状态</td>
+		<td style="width:50%;">JAVA虚拟机运行时状态</td>
 	</tr>
 	<tr>
 		<td class="form_input memory">
 			<div>
-				已用物理内存：<span id="memoryBusy"></span>
+				空闲物理内存：<span id="os_memory_free"></span>
 			</div>
 			<div>
-				可用物理内存：<span id="memoryFree"></span>
+				已用物理内存：<span id="os_memory_nofree"></span>
 			</div>
-			<div style="width:99%;;background:url('free.jpg') repeat-x;">
-				<div id="memoryBusyShow" style="float:left;width:5%;background:url('busy.jpg') repeat-x;text-align:right;">
+			<div style="width:100%;position:relative;height:30px;line-height:30px;background-color:green;text-align:right;">
+				<div id="memoryUseTotalDiv" style="width:10%;height:30px;line-height:30px;float:left;background-color:red;display:block;">&nbsp;</div>
+				<div id="memoryUseTotal" style="position:absolute;top:0;left:0;height:30px;line-height:30px;width:100px;padding:0 0 0 10px;color:white;text-align:left;">
 					0%
 				</div>
+				<span id="memoryTotal" style="color:white;padding:0 10px 0 0;"></span>
 			</div>
-			<div>
-				可用内存（物理内存+虚拟内存）：<span id="memoryFreeSwapSpace"></span>
-			</div>
+			<div>JDK与操作系统位数不一致时，数据可能不准确</div>
 		</td>
 		<td class="form_input memory">
 			<div>
-				占用内存：<span id="runtotal"></span>
+				可使用最大内存：<span id="run_memory_max"></span>
 			</div>
 			<div>
-				空闲内存：<span id="runfree"></span>
+				运行时内存总量：<span id="run_memory_total"></span>
 			</div>
 			<div>
-				试图使用的最大内存：<span id="runmax"></span>
+				运行时空闲内存：<span id="run_memory_free"></span>
 			</div>
 			<div>
-				可用CPU数：<span id="runcpu"></span>
+				可用处理器核数：<span id="run_cpu"></span>
 			</div>
 		</td>
 	</tr>
 </table>
 </body>
 <script type="text/javascript">
-	function getInfo()
-	{
-		$.ajax({
-			url:"os_info.jsp?" + (new Date().getTime()),
-			type:"post",
-			data:{},
-			success:
-				function(jsobj)
-				{
-					try
-					{
-						eval("jsobj=" + jsobj + ";");
-						$("#osname").html(jsobj.osname + " (" + jsobj.osarch + ")");
-						//$("#osversion").html(jsobj.osversion);
-						$("#oscpu").html(jsobj.oscpu);
-						$("#osmemory").html(jsobj.osmemory + " MB");
-						var memoryTotal = jsobj.osphysicalmemory;
-						$("#osphysicalmemory").html(memoryTotal + " MB");
-						var percent = parseInt((1-(jsobj.free)/memoryTotal)*100);
-						$("#memoryBusyShow").css("width", percent + "%");
-						$("#memoryBusyShow").html(percent + "%");
-						$("#memoryBusy").html(percent + "%&nbsp;&nbsp;" + (memoryTotal - jsobj.free) + " MB");
-						$("#memoryFree").html((100-percent) + "%&nbsp;&nbsp;" + jsobj.free + " MB");
-						$("#memoryFreeSwapSpace").html(jsobj.swap + " MB");
-						$("#runtotal").html(jsobj.runtotal + " MB");
-						$("#runfree").html(jsobj.runfree + " MB");
-						$("#runmax").html(jsobj.runmax + " MB");
-						$("#runcpu").html(jsobj.runcpu);
-					}
-					catch(e)
-					{
-						alert(e.message);
-					}
-					setTimeout(getInfo, 2000);
-				},
-			error:
-				function()
-				{
-					alert("加载信息出错，请重试");
-					setTimeout(getInfo, 2000);
-				}
-		});
+function getInfo(){$.ajax({
+	url:"os_info.jsp?" + (new Date().getTime()),
+	type:"post",
+	data:{},
+	success:function(m){
+		try{
+			eval("m=" + m + ";");
+			$("#osname").html(m.osname + " (" + m.osarch + ") NT" + m.osversion);
+			//$("#osversion").html(m.osversion);
+			$("#oscpu").html(m.oscpu);
+			var os_memory = parseInt(m.os_memory);
+			var os_swap = parseInt(m.os_swap);
+			var os_memory_free = parseInt(m.os_memory_free);
+			var os_swap_free = parseInt(m.os_swap_free);
+			
+			
+			$("#os_memory").html(os_memory + " MB");
+			$("#os_swap").html(os_swap + " MB");
+			$("#os_memory_free").html(os_memory_free + " MB");
+			$("#os_swap_free").html(os_swap_free + " MB");
+
+			
+			$("#os_memory_nofree").html((os_memory-os_memory_free) + " MB");
+			//$("#os_swap_nofree").html((os_swap-os_swap_free) + " MB");
+			
+			
+			var memoryTotal = os_memory;// + os_swap;
+			var memoryFreeTotal = os_memory_free;// + os_swap_free;
+			var memoryUseTotal = memoryTotal - memoryFreeTotal;
+			var percent = parseInt((memoryUseTotal*100)/memoryTotal);
+			$("#memoryUseTotalDiv").css("width", percent + "%");
+			$("#memoryUseTotal").html(percent + "%");
+			$("#memoryTotal").html(memoryTotal + "MB");
+			
+			
+			$("#run_memory_total").html(m.run_memory_total + " MB");
+			$("#run_memory_free").html(m.run_memory_free + " MB");
+			$("#run_memory_max").html(m.run_memory_max + " MB");
+			
+			$("#run_cpu").html(m.run_cpu);
+		}
+		catch(e){
+			alert(e.message);
+		}
+		setTimeout(getInfo, 5000);
+	},
+	error:function(){
+		alert("加载信息出错，请重试");
+		setTimeout(getInfo, 5000);
 	}
-	setTimeout(getInfo, 1);
+});}
+setTimeout(getInfo, 1);
 </script>
 </html>
