@@ -3,6 +3,8 @@
  */
 package dswork.sso.service;
 
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -12,7 +14,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class TicketService
 {
-	private static ConcurrentMap<String, String> map = new ConcurrentHashMap<String, String>();
+	private static ConcurrentMap<String, String> map = new ConcurrentHashMap<String, String>();// 记录所有登录凭证
+	// 记录免登凭证算法密钥，它同时也是密钥的过期时间，一个登录凭证每次只能生成一个免登凭证，新生成的将会踢掉旧的
+	private static ConcurrentMap<String, Long> mapOnce = new ConcurrentHashMap<String, Long>();
 
 	/**
 	 * 保存用户登录状态，并返回ticket
@@ -21,13 +25,14 @@ public class TicketService
 	 */
 	public static String saveSession(String account)
 	{
-		String ticket = String.valueOf(UUID.randomUUID()) + System.currentTimeMillis();//java.util.UUID.fromString(account + System.currentTimeMillis()).toString();
+		String ticket = UUID.randomUUID().toString().toUpperCase();//46CAA926-307D-4D44-BEE7-B1438E2F840F
 		map.put(ticket, account);// 这里可以考虑放到数据库或者memcache中
 		return ticket;
 	}
 	public static void removeSession(String ticket)
 	{
 		map.remove(ticket);
+		mapOnce.remove(ticket);
 	}
 
 	/**
@@ -47,12 +52,14 @@ public class TicketService
 		}
 	}
 
-	private static ConcurrentHashMap<String, String> onceMap = new ConcurrentHashMap<String, String>();
-
+	private static long timeout = 600000;// 有效时间仅为10分钟1000*60*10
 	public static String getOnceTicket(String ticket)
 	{
-		String onceTicket = UUID.randomUUID().toString() + System.currentTimeMillis();
-		onceMap.put(onceTicket, ticket);
+		Long time = System.currentTimeMillis() + timeout;
+		mapOnce.put(ticket, time);
+		String time_str = String.valueOf(time);
+		String time_base64 = dswork.core.util.EncryptUtil.encodeBase64(time_str);
+		String onceTicket = dswork.core.util.EncryptUtil.encodeDes(ticket, time_str) + time_base64;// ticket是36位的uuid，加密后为144长的字母加数字字符串
 		return onceTicket;
 	}
 
@@ -66,11 +73,27 @@ public class TicketService
 		String account = null;
 		try
 		{
-			String ticket = onceMap.get(onceTicket);
-			onceMap.remove(onceTicket);// 使用后必须移除
-			if(ticket != null)
+			if(onceTicket != null && onceTicket.length() > 144)
 			{
-				account = TicketService.getAccountByTicket(ticket);
+				long endtime = System.currentTimeMillis();
+				int i = onceTicket.length();
+				String _time_base64 = onceTicket.substring(144, i);
+				String _time_str = dswork.core.util.EncryptUtil.decodeBase64(_time_base64);
+				long _time = Long.parseLong(_time_str);
+				if(_time > endtime)//  过期直接忽略
+				{
+					String _onceTicket = onceTicket.substring(0, 144);
+					String _ticket = dswork.core.util.EncryptUtil.decodeDes(_onceTicket, _time_str);
+					if(_ticket != null)
+					{
+						Long _xtime = mapOnce.get(_ticket);
+						if(_xtime != null && _xtime == _time)// 密钥存在，且相同
+						{
+							mapOnce.remove(_ticket);// 使用后必须移除
+							account = TicketService.getAccountByTicket(_ticket);
+						}
+					}
+				}
 			}
 		}
 		catch (Exception e)
