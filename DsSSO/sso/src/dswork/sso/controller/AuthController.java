@@ -149,12 +149,15 @@ public class AuthController
 			MyCookie cookie = new MyCookie(request, response);
 			String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
 			service.saveLogLogout(String.valueOf(ticket), false, false);
+			if(!ticket.equals("null") && ticket.length() > 0)
+			{
+				removeLoginInfo(request, response);// 试着删除
+			}
 		}
 		catch(Exception e)
 		{
 			log.error(e.getMessage());
 		}
-		removeLoginInfo(request, response);// 试着删除
 		MyRequest req = new MyRequest(request);
 		String serviceURL = java.net.URLEncoder.encode(req.getString("service", request.getContextPath() + "/ticket.jsp"), "UTF-8");
 		response.sendRedirect(request.getContextPath() + "/login?service=" + String.valueOf(serviceURL));
@@ -176,7 +179,7 @@ public class AuthController
 	{
 		MyCookie cookie = new MyCookie(request, response);
 		String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
-		TicketService.removeSession(ticket);// 删除
+		TicketService.removeSession(ticket);//  如果有，删除原cookie带的信息，此处为cookie存在信息时才调用
 		cookie.delCookie(SessionListener.COOKIETICKET);
 	}
 
