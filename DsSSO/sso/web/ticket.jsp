@@ -28,7 +28,7 @@ if(value == null)
 </head>
 <body>
 <h1>用户账号是:<%=String.valueOf(TicketService.getAccountByTicket(String.valueOf(value))) %>。</h1>
-<p><%=v %></p>
+<!--<%=v %>-->
 <p><a href="<%=request.getContextPath()%>/logout">退出系统</a></p>
 <p><em>system administrator.</em></p>
 </body>
