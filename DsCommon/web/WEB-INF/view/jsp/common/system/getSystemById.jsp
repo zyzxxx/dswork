@@ -19,7 +19,7 @@
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">标识</td>
+		<td class="form_title">应用标识</td>
 		<td class="form_input">${fn:escapeXml(po.alias)}</td>
 	</tr>
 	<tr>
@@ -27,7 +27,7 @@
 		<td class="form_input">${fn:escapeXml(po.name)}</td>
 	</tr>
 	<tr>
-		<td class="form_title">访问密码</td>
+		<td class="form_title">应用密码</td>
 		<td class="form_input">${fn:escapeXml(po.password)}</td>
 	</tr>
 	<tr>

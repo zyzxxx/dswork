@@ -26,16 +26,16 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <form id="dataForm" method="post" action="addSystem2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_title">标识</td>
+		<td class="form_title">应用标识</td>
 		<td class="form_input"><input type="text" id="alias" name="alias" style="width:200px;" dataType="Char" maxlength="64" value="" /> <span class="imp">*</span> <span style="font-weight:bold;">添加后不可修改</span></td>
+	</tr>
+	<tr>
+		<td class="form_title">应用密码</td>
+		<td class="form_input"><input type="text" id="password" name="password" style="width:100px;" dataType="Char" maxlength="32" value="1" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">名称</td>
 		<td class="form_input"><input type="text" id="name" name="name" style="width:200px;" dataType="RequireTrim" maxlength="100" value="" /> <span class="imp">*</span></td>
-	</tr>
-	<tr>
-		<td class="form_title">访问密码</td>
-		<td class="form_input"><input type="text" id="password" name="password" style="width:100px;" dataType="Char" maxlength="32" value="1" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">网络地址</td>
