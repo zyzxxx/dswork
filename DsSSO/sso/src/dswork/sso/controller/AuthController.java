@@ -163,10 +163,11 @@ public class AuthController
 
 	private String putLoginInfo(HttpServletRequest request, HttpServletResponse response, String account)
 	{
+		String ticket = String.valueOf(request.getSession().getAttribute(SessionListener.COOKIETICKET));
+		TicketService.removeSession(ticket);// 如果有，删除原session带的信息
 		MyCookie cookie = new MyCookie(request, response);
-		String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
-		TicketService.removeSession(ticket);// 删除
 		ticket = TicketService.saveSession(account);
+		request.getSession().setAttribute(SessionListener.COOKIETICKET, ticket);
 		cookie.addCookie(SessionListener.COOKIETICKET, ticket, -1, "/", null, false, true);// 更新
 		return ticket;
 	}
