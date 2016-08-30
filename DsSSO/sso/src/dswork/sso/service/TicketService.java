@@ -53,11 +53,11 @@ public class TicketService
 	private static long timeout = 600000;// 有效时间仅为10分钟1000*60*10
 	public static String getOnceTicket(String ticket)
 	{
-		Long time = System.currentTimeMillis() + timeout;
-		mapOnce.put(ticket, time);
-		String time_str = String.valueOf(time);
-		String time_base64 = dswork.core.util.EncryptUtil.encodeBase64(time_str);
-		String onceTicket = dswork.core.util.EncryptUtil.encodeDes(ticket, time_str) + time_base64;// ticket是36位的uuid，加密后为144长的字母加数字字符串
+		Long time = System.currentTimeMillis();
+		Long outtime = time + timeout;
+		mapOnce.put(ticket, outtime);
+		String time_base64 = dswork.core.util.EncryptUtil.encodeBase64(String.valueOf(outtime));
+		String onceTicket = dswork.core.util.EncryptUtil.encodeDes(ticket, String.valueOf(time)) + time_base64;// ticket是36位的uuid，加密后为144长的字母加数字字符串
 		return onceTicket;
 	}
 
@@ -77,15 +77,15 @@ public class TicketService
 				int i = onceTicket.length();
 				String _time_base64 = onceTicket.substring(144, i);
 				String _time_str = dswork.core.util.EncryptUtil.decodeBase64(_time_base64);
-				long _time = Long.parseLong(_time_str);
-				if(_time > endtime)//  过期直接忽略
+				long _outtime_key = Long.parseLong(_time_str);
+				if(_outtime_key > endtime)//  过期直接忽略
 				{
 					String _onceTicket = onceTicket.substring(0, 144);
-					String _ticket = dswork.core.util.EncryptUtil.decodeDes(_onceTicket, _time_str);
+					String _ticket = dswork.core.util.EncryptUtil.decodeDes(_onceTicket, String.valueOf((_outtime_key - timeout)));
 					if(_ticket != null)
 					{
-						Long _xtime = mapOnce.get(_ticket);
-						if(_xtime != null && _xtime == _time)// 密钥存在，且相同
+						Long _key = mapOnce.get(_ticket);
+						if(_key != null && _key == _outtime_key)// 密钥存在，且相同
 						{
 							mapOnce.remove(_ticket);// 使用后必须移除
 							account = TicketService.getAccountByTicket(_ticket);
