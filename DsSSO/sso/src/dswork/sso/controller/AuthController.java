@@ -167,7 +167,7 @@ public class AuthController
 		TicketService.removeSession(ticket);// 如果有，删除原session带的信息
 		MyCookie cookie = new MyCookie(request, response);
 		ticket = TicketService.saveSession(account);
-		request.getSession().setAttribute(SessionListener.COOKIETICKET, ticket);
+		request.getSession().setAttribute(SessionListener.COOKIETICKET, ticket);// 这里主要用在session侦听中，超时退出时用来获取ticket
 		cookie.addCookie(SessionListener.COOKIETICKET, ticket, -1, "/", null, false, true);// 更新
 		return ticket;
 	}
