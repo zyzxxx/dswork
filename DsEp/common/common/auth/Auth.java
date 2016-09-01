@@ -12,7 +12,8 @@ public class Auth
 	private Integer logintype;// 0系统用户，1个人用户，2企业用户
 	private Integer loginstatus;// 1正常，0禁用
 	private Integer usertype;// 系统（），企业（1管理员,0普通用户），个人（）
-	private String qybm;// 企业编码，后台用户为空
+	private String qybm;// 企业编码，仅前台用户使用
+	private String ssxq;// 所属辖区，仅后台用户使用
 	private String ssdw;// 所属单位
 	private String ssbm;// 所属部门
 
@@ -114,6 +115,16 @@ public class Auth
 	public void setQybm(String qybm)
 	{
 		this.qybm = qybm;
+	}
+
+	public String getSsxq()
+	{
+		return ssxq;
+	}
+
+	public void setSsxq(String ssxq)
+	{
+		this.ssxq = ssxq;
 	}
 
 	public String getSsdw()
