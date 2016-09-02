@@ -14,11 +14,9 @@ import dswork.sso.model.IUser;
 import dswork.sso.model.LoginUser;
 
 @Service
-// @SuppressWarnings("unchecked")
 public class AuthFactoryService
 {
 	private AuthFactoryDao dao;
-//	private CasCacheService cache;
 
 	@Autowired
 	public void setAuthFactoryDao(AuthFactoryDao dao)
@@ -26,11 +24,6 @@ public class AuthFactoryService
 		this.dao = dao;
 	}
 
-//	@Autowired
-//	public void setCasCacheService(CasCacheService cache)
-//	{
-//		this.cache = cache;
-//	}
 	public void saveLogLogin(String ticket, String ip, String account, String name, boolean isSuccess)
 	{
 		dao.saveLogLogin(ticket, ip, account, name, isSuccess);
@@ -85,26 +78,7 @@ public class AuthFactoryService
 		{
 			return null;
 		}
-		IUser user = null;
-		try
-		{
-//			if (cache != null && cache.containsKey("account." + account))
-//			{
-//				user = (IUser) cache.get("account." + account);
-//			}
-//			else
-//			{
-				user = (IUser) dao.getUserByAccount(account);
-//				if (cache != null && user != null)
-//				{
-//					cache.put("account." + account, user, 600);// 10分钟
-//				}
-//			}
-		}
-		catch (Exception e)
-		{
-			user = (IUser) dao.getUserByAccount(account);
-		}
+		IUser user = (IUser) dao.getUserByAccount(account);
 		return user;
 	}
 
@@ -128,8 +102,12 @@ public class AuthFactoryService
 		return null;
 	}
 
+	
+	
 	public ISystem getSystem(String systemAlias)
 	{
+		// 此方法调用频率最大，应该增加一些缓存
+		
 		return dao.getSystem(systemAlias);
 	}
 
@@ -155,29 +133,9 @@ public class AuthFactoryService
 
 	public IFunc[] getFuncBySystemAliasAndAccount(String systemAlias, String account)
 	{
-//		String key = systemAlias + "." + account;
-//		if (cache != null && cache.containsKey(key))
-//		{
-//			return (IFunc[]) cache.get(key);
-//		}
-//		else
-//		{
-			List<IFunc> list = dao.getFuncBySystemAliasAndAccount(systemAlias, account);
-			IFunc[] arr = list.toArray(new IFunc[list.size()]);
-//			if (cache != null)
-//			{
-//				try
-//				{
-//					cache.put(key, arr, 600);
-//				}
-//				catch (Exception e)
-//				{
-//					System.out.println("myerror:");
-//					e.printStackTrace();
-//				}
-//			}
-			return arr;
-//		}
+		List<IFunc> list = dao.getFuncBySystemAliasAndAccount(systemAlias, account);
+		IFunc[] arr = list.toArray(new IFunc[list.size()]);
+		return arr;
 	}
 
 	public IFunc[] getFuncBySystemAliasAndPostid(String systemAlias, String postid)
