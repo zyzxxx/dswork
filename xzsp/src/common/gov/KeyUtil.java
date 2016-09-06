@@ -20,9 +20,9 @@ public class KeyUtil
 	private static String readtime = null; 
 	private static int readcount = 0;
 	private static Timer _timer = null;
-	private static final String G12 = EnvironmentUtil.getToString("gov.xzsp.area", "gz");
-	private static final String G34 = EnvironmentUtil.getToString("gov.xzsp.org", "000000000");
-	private static final String G = G12 + G34;
+	private static final String G1 = EnvironmentUtil.getToString("gov.xzsp.area", "gz");
+	private static final String G2 = EnvironmentUtil.getToString("gov.xzsp.org", "000000000");
+	private static final String G = G1 + G2;
 	private static final int t = (24 * 60 * 60 * 1000);
 	static
 	{
