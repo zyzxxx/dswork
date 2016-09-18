@@ -38,6 +38,10 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
+	
+	<listener>
+		<listener-class>common.auto.AutoListener</listener-class>
+	</listener>
 
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
