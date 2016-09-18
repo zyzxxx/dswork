@@ -9,14 +9,14 @@ import java.util.Map;
 //import dswork.core.util.TimeUtil;
 //import dswork.spring.BeanFactory;
 
-public class ThreadExecute extends Thread
+public class AutoThreadExecute extends Thread
 {
 	// ################################################################################################
 	// 线程任务相关
 	// ################################################################################################
 	private static int count = 0;
-	private static synchronized int getCount() {return ThreadExecute.count;}
-	private static synchronized void setCount(int count) {ThreadExecute.count = count;}// count仅用于标记是否启动任务，1为启动，0为不启动
+	private static synchronized int getCount() {return AutoThreadExecute.count;}
+	private static synchronized void setCount(int count) {AutoThreadExecute.count = count;}// count仅用于标记是否启动任务，1为启动，0为不启动
 	static//临时目录初始化，在服务器启动时执行
 	{
 		try
@@ -36,13 +36,13 @@ public class ThreadExecute extends Thread
 		final long index = System.currentTimeMillis();
 		System.out.println("********AutomaticExecute线程启动********");
 		System.out.println("标识号：" + index);
-		if(ThreadExecute.getCount() != 0)//上次的任务还没有结束呢，不需要重复执行 了
+		if(AutoThreadExecute.getCount() != 0)//上次的任务还没有结束呢，不需要重复执行 了
 		{
 			System.out.println("********AutomaticExecute线程结束 ，因上次线程任务还在运行，本次不执行********");
 			System.out.println("标识号：" + index);
 			return;
 		}
-		ThreadExecute.setCount(1);//标记任务启动
+		AutoThreadExecute.setCount(1);//标记任务启动
 		
 		try
 		{
@@ -89,7 +89,7 @@ public class ThreadExecute extends Thread
 					////list = dxService.queryList(map);
 					////if(list == null || list.size() == 0)
 					////{
-						ThreadExecute.setCount(0);// 退出
+						AutoThreadExecute.setCount(0);// 退出
 						System.out.println("--AutomaticExecute定时任务结束，已无待发信息。--");
 						System.out.println("标识号：" + index);
 						
@@ -110,7 +110,7 @@ public class ThreadExecute extends Thread
 			}
 			catch(Exception ex)
 			{
-				ThreadExecute.setCount(0);// 退出
+				AutoThreadExecute.setCount(0);// 退出
 				System.out.println("********AutomaticExecute线程异常结束 ********");
 				System.out.println("标识号：" + index);
 				ex.printStackTrace();
@@ -122,7 +122,7 @@ public class ThreadExecute extends Thread
 	 */
 	public static final void toStart()
 	{
-		ThreadExecute pj = new ThreadExecute();
+		AutoThreadExecute pj = new AutoThreadExecute();
 		pj.start();//启动程序
 	}
 }

@@ -11,7 +11,7 @@ import java.util.TimerTask;
 //import dswork.core.util.TimeUtil;
 //import dswork.spring.BeanFactory;
 
-public class AutomaticExecute extends Thread
+public class AutoTimerExecute extends Thread
 {
 	// ################################################################################################
 	// 定时任务相关
@@ -19,8 +19,8 @@ public class AutomaticExecute extends Thread
 	//boolean retry = false;// 用于判断是否有定时发送，但未到时间
 	private Timer _timer = null;
 	private static int count = 0;
-	private static synchronized int getCount() {return AutomaticExecute.count;}
-	private static synchronized void setCount(int count) {AutomaticExecute.count = count;}// count仅用于标记是否启动任务，1为启动，0为不启动
+	private static synchronized int getCount() {return AutoTimerExecute.count;}
+	private static synchronized void setCount(int count) {AutoTimerExecute.count = count;}// count仅用于标记是否启动任务，1为启动，0为不启动
 	static//临时目录初始化，在服务器启动时执行
 	{
 		try
@@ -40,13 +40,13 @@ public class AutomaticExecute extends Thread
 		final long index = System.currentTimeMillis();
 		System.out.println("********AutomaticExecute线程启动********");
 		System.out.println("标识号：" + index);
-		if(AutomaticExecute.getCount() != 0)//上次的任务还没有结束呢，不需要重复执行 了
+		if(AutoTimerExecute.getCount() != 0)//上次的任务还没有结束呢，不需要重复执行 了
 		{
 			System.out.println("********AutomaticExecute线程结束 ，因上次线程任务还在运行，本次不执行********");
 			System.out.println("标识号：" + index);
 			return;
 		}
-		AutomaticExecute.setCount(1);//标记任务启动
+		AutoTimerExecute.setCount(1);//标记任务启动
 		try
 		{
 			TimerTask _timerTask = new TimerTask()
@@ -84,7 +84,7 @@ public class AutomaticExecute extends Thread
 							////list = dxService.queryList(map);
 							////if(list == null || list.size() == 0)
 							////{
-								AutomaticExecute.setCount(0);// 退出
+								AutoTimerExecute.setCount(0);// 退出
 								System.out.println("--AutomaticExecute定时任务结束，已无待发信息。--");
 								System.out.println("标识号：" + index);
 								_timer.cancel();// 全部发完了结束
@@ -98,7 +98,7 @@ public class AutomaticExecute extends Thread
 					}
 					catch(Exception ex)
 					{
-						AutomaticExecute.setCount(0);// 退出
+						AutoTimerExecute.setCount(0);// 退出
 						System.out.println("--AutomaticExecute定时任务异常。--");
 						System.out.println("标识号：" + index);
 						ex.printStackTrace();
@@ -117,7 +117,7 @@ public class AutomaticExecute extends Thread
 			ex.printStackTrace();
 			System.out.println("********AutomaticExecute线程异常结束 ********");
 			System.out.println("标识号：" + index);
-			AutomaticExecute.setCount(0);
+			AutoTimerExecute.setCount(0);
 		}
 	}
 	/*
@@ -125,7 +125,7 @@ public class AutomaticExecute extends Thread
 	 */
 	public static final void toStart()
 	{
-		AutomaticExecute pj = new AutomaticExecute();
+		AutoTimerExecute pj = new AutoTimerExecute();
 		pj.start();//启动程序
 	}
 }
