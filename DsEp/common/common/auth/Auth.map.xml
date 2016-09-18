@@ -20,10 +20,13 @@
 		<result property="ssbm" column="SSBM" />
 	</resultMap>
 	
-	<select id="getByAccount" resultMap="result">
+	<select id="getUserByAccount" resultMap="result">
 		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 0 as LOGINTYPE, STATUS as LOGINSTATUS, 1 as USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
 		from DS_COMMON_USER where ACCOUNT=LOWER(#{account})
 	</select>
+	<update id="updateUserPassword">
+		update DS_COMMON_USER set PASSWORD=#{password} where ACCOUNT=#{account}
+	</update>
 
 
 	<select id="getEpByAccount" resultMap="result">

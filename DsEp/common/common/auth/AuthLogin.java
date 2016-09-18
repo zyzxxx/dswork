@@ -73,7 +73,7 @@ public class AuthLogin
 			Auth loginUser = null;
 			if(logintype == -1)
 			{
-				loginUser = ((AuthService)BeanFactory.getBean("authService")).getByAccount(account);
+				loginUser = ((AuthService)BeanFactory.getBean("authService")).getUserByAccount(account);
 			}
 			else if(logintype == 0)
 			{

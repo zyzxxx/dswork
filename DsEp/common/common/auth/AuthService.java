@@ -15,9 +15,14 @@ public class AuthService
 	@Autowired
 	private AuthDao dao;
 
-	public Auth getByAccount(String account)
+	public Auth getUserByAccount(String account)
 	{
-		return dao.getByAccount(account);
+		return dao.getUserByAccount(account);
+	}
+
+	public int updateUserPassword(String account, String password)
+	{
+		return dao.updateUserPassword(account, password);
 	}
 
 	public Auth getEpByAccount(String account)

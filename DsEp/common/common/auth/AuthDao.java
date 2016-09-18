@@ -25,9 +25,16 @@ public class AuthDao extends MyBatisDao
 	////////////////////////////
 	//管理相关
 	////////////////////////////
-	public Auth getByAccount(String account)
+	public Auth getUserByAccount(String account)
 	{
-		return (Auth)executeSelect("getByAccount", account);
+		return (Auth)executeSelect("getUserByAccount", account);
+	}
+	public int updateUserPassword(String account, String password)
+	{
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("account", account);
+		map.put("password", password);
+		return executeUpdate("updateUserPassword", map);
 	}
 
 	////////////////////////////
