@@ -7,64 +7,34 @@
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
+		<init-param><param-name>encoding</param-name><param-value>UTF-8</param-value></init-param>
+		<init-param><param-name>forceEncoding</param-name><param-value>true</param-value></init-param>
 	</filter>
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
+	<filter-mapping><filter-name>encodingFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
+
 	<context-param>
 		<param-name>log4jConfiguration</param-name>
 		<param-value>classpath:config/log4j2.xml</param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
-	</listener>
+	<listener><listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class></listener>
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/config/applicationContext*.xml</param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-	</listener>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
+	<listener><listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class></listener>
+	<listener><listener-class>org.springframework.web.context.ContextLoaderListener</listener-class></listener>
 
 	<servlet>
 		<servlet-name>springmvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>springmvc</servlet-name>
-		<url-pattern>*.htm</url-pattern>
-	</servlet-mapping>
+	<servlet-mapping><servlet-name>springmvc</servlet-name><url-pattern>*.htm</url-pattern></servlet-mapping>
 
-	<error-page>
-		<error-code>403</error-code>
-		<location>/commons/403.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/commons/404.jsp</location>
-	</error-page>
-	<error-page>
-	   <error-code>500</error-code>
-	   <location>/commons/500.jsp</location>
-	</error-page>
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
+	<error-page><error-code>403</error-code><location>/commons/403.jsp</location></error-page>
+	<error-page><error-code>404</error-code><location>/commons/404.jsp</location></error-page>
+	<error-page><error-code>500</error-code><location>/commons/500.jsp</location></error-page>
+	<session-config><session-timeout>120</session-timeout></session-config>
+	<welcome-file-list><welcome-file>index.jsp</welcome-file></welcome-file-list>
 </web-app>
