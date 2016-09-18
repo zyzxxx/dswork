@@ -30,7 +30,10 @@
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<servlet-mapping><servlet-name>springmvc</servlet-name><url-pattern>*.htm</url-pattern></servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
 
 	<error-page><error-code>403</error-code><location>/commons/403.jsp</location></error-page>
 	<error-page><error-code>404</error-code><location>/commons/404.jsp</location></error-page>

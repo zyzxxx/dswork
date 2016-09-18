@@ -7,27 +7,16 @@
     <filter>
     	<filter-name>encodingFilter</filter-name>
     	<filter-class>dswork.CharacterEncodingFilter</filter-class>
-    	<init-param>
-    		<param-name>encoding</param-name>
-    		<param-value>UTF-8</param-value>
-    	</init-param>
-    	<init-param>
-    		<param-name>forceEncoding</param-name>
-    		<param-value>true</param-value>
-    	</init-param>
+		<init-param><param-name>encoding</param-name><param-value>UTF-8</param-value></init-param>
+		<init-param><param-name>forceEncoding</param-name><param-value>true</param-value></init-param>
     </filter>
-    <filter-mapping>
-    	<filter-name>encodingFilter</filter-name>
-    	<url-pattern>/*</url-pattern>
-    </filter-mapping>
+	<filter-mapping><filter-name>encodingFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
 	
 	<context-param>
 		<param-name>log4jConfiguration</param-name>
 		<param-value>classpath:config/log4j2.xml</param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
-	</listener>
+	<listener><listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class></listener>
 	
 	<filter>
 		<filter-name>websso_logout</filter-name>
@@ -41,26 +30,11 @@
 	<filter>
 		<filter-name>websso</filter-name>
 		<filter-class>dswork.sso.WebFilter</filter-class>
-		<init-param>
-			<param-name>ssoURL</param-name>
-			<param-value>http://127.0.0.1:8888/sso/api</param-value>
-		</init-param>
-		<init-param>
-			<param-name>ssoName</param-name>
-			<param-value>portal</param-value>
-		</init-param>
-		<init-param>
-			<param-name>ssoPassword</param-name>
-			<param-value>1</param-value>
-		</init-param>
-		<init-param>
-			<param-name>loginURL</param-name>
-			<param-value>http://sso-server:8888/sso/login</param-value>
-		</init-param>
-		<init-param>
-			<param-name>ignoreURL</param-name>
-			<param-value>/menu.jsp,/m.jsp</param-value>
-		</init-param>
+		<init-param><param-name>ssoURL</param-name>     <param-value>http://127.0.0.1:8888/sso/api</param-value></init-param>
+		<init-param><param-name>ssoName</param-name>    <param-value>portal</param-value></init-param>
+		<init-param><param-name>ssoPassword</param-name><param-value>1</param-value></init-param>
+		<init-param><param-name>loginURL</param-name>   <param-value>http://sso-server:8888/sso/login</param-value></init-param>
+		<init-param><param-name>ignoreURL</param-name>  <param-value>/menu.jsp,/m.jsp</param-value></init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>websso</filter-name>
