@@ -1,4 +1,4 @@
-package common.automatic;
+package common.auto;
 
 //import java.util.ArrayList;
 //import java.util.Calendar;
