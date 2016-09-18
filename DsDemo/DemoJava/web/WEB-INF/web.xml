@@ -3,51 +3,35 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
 	<filter>
 		<filter-name>encodingFilter</filter-name>
 		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param>
-			<param-name>encoding</param-name>
-			<param-value>UTF-8</param-value>
-		</init-param>
-		<init-param>
-			<param-name>forceEncoding</param-name>
-			<param-value>true</param-value>
-		</init-param>
+		<init-param><param-name>encoding</param-name><param-value>UTF-8</param-value></init-param>
+		<init-param><param-name>forceEncoding</param-name><param-value>true</param-value></init-param>
 	</filter>
-	<filter-mapping>
-		<filter-name>encodingFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	
+	<filter-mapping><filter-name>encodingFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
+
 	<context-param>
 		<param-name>log4jConfiguration</param-name>
 		<param-value>classpath:config/log4j2.xml</param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
-	</listener>
+	<listener><listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class></listener>
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/config/applicationContext*.xml</param-value>
 	</context-param>
-	<listener>
-		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
-	</listener>
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener>
-	
+	<listener><listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class></listener>
+	<listener><listener-class>org.springframework.web.context.ContextLoaderListener</listener-class></listener>
+
 	<!-- Spring 视图层使用完后才关闭数据库连接，使用hibernate时需要 -->
 	<!--
 	<filter>
 		<filter-name>openSessionInViewFilter</filter-name>
 		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
 	</filter>
-	<filter-mapping>
-		<filter-name>openSessionInViewFilter</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
+	<filter-mapping><filter-name>openSessionInViewFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
 	-->
 
 	<!-- SpringMVC 分派器及相关映射，需要在WEB-INF目录找到[servlet-name]-servlet.xml这个文件名-->
@@ -62,38 +46,15 @@
 		</init-param>
 		-->
 	</servlet>
-	<servlet-mapping>
-		<servlet-name>springmvc</servlet-name>
-		<url-pattern>*.htm</url-pattern>
-	</servlet-mapping>
+	<servlet-mapping><servlet-name>springmvc</servlet-name><url-pattern>*.htm</url-pattern></servlet-mapping>
 
-	<servlet>
-		<servlet-name>xxx</servlet-name>
-		<servlet-class>dswork.web.MyAuthCodeServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>xxx</servlet-name>
-		<url-pattern>/ValidCode</url-pattern>
-	</servlet-mapping>
+	<servlet><servlet-name>xxx</servlet-name><servlet-class>dswork.web.MyAuthCodeServlet</servlet-class></servlet>
+	<servlet-mapping><servlet-name>xxx</servlet-name><url-pattern>/ValidCode</url-pattern></servlet-mapping>
+
 	
-	
-	<error-page>
-		<error-code>403</error-code>
-		<location>/commons/403.jsp</location>
-	</error-page>
-	<error-page>
-		<error-code>404</error-code>
-		<location>/commons/404.jsp</location>
-	</error-page>
-	<error-page>
-	   <error-code>500</error-code>
-	   <location>/commons/500.jsp</location>
-	</error-page>
-	<!-- session超时定义,单位为分钟 -->
-	<session-config>
-		<session-timeout>30</session-timeout>
-	</session-config>
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
+	<error-page><error-code>403</error-code><location>/commons/403.jsp</location></error-page>
+	<error-page><error-code>404</error-code><location>/commons/404.jsp</location></error-page>
+	<error-page><error-code>500</error-code><location>/commons/500.jsp</location></error-page>
+	<session-config><session-timeout>120</session-timeout></session-config>
+	<welcome-file-list><welcome-file>index.jsp</welcome-file></welcome-file-list>
 </web-app>
