@@ -46,7 +46,7 @@ public class AuthController
 			log.debug(serviceURL);
 		}
 		MyCookie cookie = new MyCookie(request, response);
-		String cookieTicket = cookie.getValue(SessionListener.COOKIETICKET);
+		String cookieTicket = cookie.getValue(SessionListener.DS_SSO_TICKET);
 		if(cookieTicket != null)// 有cookie存在
 		{
 			String account;
@@ -104,7 +104,7 @@ public class AuthController
 					}
 					else if((EncryptUtil.encryptMd5(user.getPassword()+authcode).equals(password)))
 					{
-						String ticket = putLoginInfo(request, response, user.getAccount());
+						String ticket = putLoginInfo(request, response, user.getAccount(), user.getName());
 						try
 						{
 							service.saveLogLogin(ticket, getClientIp(request), user.getAccount(), user.getName(), true);
@@ -147,7 +147,7 @@ public class AuthController
 		try
 		{
 			MyCookie cookie = new MyCookie(request, response);
-			String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
+			String ticket = String.valueOf(cookie.getValue(SessionListener.DS_SSO_TICKET));
 			service.saveLogLogout(String.valueOf(ticket), false, false);
 			if(!ticket.equals("null") && ticket.length() > 0)
 			{
@@ -164,23 +164,26 @@ public class AuthController
 		return;
 	}
 
-	private String putLoginInfo(HttpServletRequest request, HttpServletResponse response, String account)
+	private String putLoginInfo(HttpServletRequest request, HttpServletResponse response, String account, String name)
 	{
-		String ticket = String.valueOf(request.getSession().getAttribute(SessionListener.COOKIETICKET));
+		String ticket = String.valueOf(request.getSession().getAttribute(SessionListener.DS_SSO_TICKET));
 		TicketService.removeSession(ticket);// 如果有，删除原session带的信息
 		MyCookie cookie = new MyCookie(request, response);
 		ticket = TicketService.saveSession(account);
-		request.getSession().setAttribute(SessionListener.COOKIETICKET, ticket);// 这里主要用在session侦听中，超时退出时用来获取ticket
-		cookie.addCookie(SessionListener.COOKIETICKET, ticket, -1, "/", null, false, true);// 更新
+		request.getSession().setAttribute(SessionListener.DS_SSO_TICKET, ticket);// 这里主要用在session侦听中，超时退出时用来获取ticket
+		cookie.addCookie(SessionListener.DS_SSO_TICKET, ticket, -1, "/", null, false, true);// 更新
+		// 使用ticket作为密码进行des加密(账号#姓名)
+		cookie.addCookie(SessionListener.DS_SSO_CODE, dswork.core.util.EncryptUtil.encodeDes((account+"#"+name), ticket), -1, "/", null, false, true);// 更新
 		return ticket;
 	}
 
 	private void removeLoginInfo(HttpServletRequest request, HttpServletResponse response)
 	{
 		MyCookie cookie = new MyCookie(request, response);
-		String ticket = String.valueOf(cookie.getValue(SessionListener.COOKIETICKET));
+		String ticket = String.valueOf(cookie.getValue(SessionListener.DS_SSO_TICKET));
 		TicketService.removeSession(ticket);//  如果有，删除原cookie带的信息，此处为cookie存在信息时才调用
-		cookie.delCookie(SessionListener.COOKIETICKET);
+		cookie.delCookie(SessionListener.DS_SSO_TICKET);
+		cookie.delCookie(SessionListener.DS_SSO_CODE);// 删除账号#姓名
 	}
 
 	public static String getClientIp(HttpServletRequest request)
