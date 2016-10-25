@@ -44,16 +44,16 @@ public class MyAuthCodeServlet extends HttpServlet
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
-		int w = getInt(request, "width", 60), h = getInt(request, "height", 20), l = getInt(request, "length", 4);
+		int w = getInt(request, "width", 90), h = getInt(request, "height", 38), l = getInt(request, "length", 4);
 		if(w < 10 || w > 300)
 		{
-			w = 60;
+			w = 90;
 		}
-		if(h < 5 || h > 300)
+		if(h < 10 || h > 300)
 		{
-			h = 20;
+			h = 38;
 		}
-		if(l < 1 || l > 64)
+		if(l < 2 || l > 64)
 		{
 			l = 4;
 		}
