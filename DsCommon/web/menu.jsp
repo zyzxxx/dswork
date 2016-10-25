@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"
+<%@ page language="java" contentType="application/json; charset=UTF-8" pageEncoding="UTF-8"
  import="dswork.sso.model.IFunc"%><%!
 /**
  * 获取用户菜单功能，过滤掉不显示在菜单上的功能项
@@ -29,7 +29,7 @@ static {
 dswork.sso.AuthGlobal.init("http://127.0.0.1:8888/sso/api", "DsCommon", "1");
 }
 %><%
-String jsoncallback  = String.valueOf(request.getParameter("jsoncallback"));
+String jsoncallback  = String.valueOf(request.getParameter("jsoncallback")).replaceAll("<", "").replaceAll(">", "").replaceAll("\"", "").replaceAll("'", "");
 String user = String.valueOf(request.getParameter("user"));%><%=jsoncallback%>([<%
 IFunc[] list = getFuncByUser(user);
 
