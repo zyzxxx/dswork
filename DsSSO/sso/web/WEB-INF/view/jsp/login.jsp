@@ -72,7 +72,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 	</div></div>
 	<div class="box"><div class="vbox">
 		<span>&#xf1026;</span><input type="text" title="验证码" placeholder="" id="authcode" name="authcode" autocomplete="off" maxlength="4" class="code" value="" />
-		<img src="${ctx}/authcode?width=90&height=38" onclick="this.src='${ctx}/authcode?width=90&height=38&id=' + Math.random();" />
+		<img id="mycode" alt="请点击" style="width:90px;height:38px;" src="about:blank" onclick="this.src='${ctx}/authcode?r=' + Math.random();" />
 	</div></div>
 	<div class="box">
 		<input type="button" class="button" value="登 录" onclick="doclick()" />
@@ -90,6 +90,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 </body>
 <script type="text/javascript">
 <c:if test="${errorMsg != ''}">alert("${errorMsg}");</c:if>
+_$('mycode').click();
 var _x = getCoo('savename');
 if(_x.length > 0){
 	_$('account').value = _x;
