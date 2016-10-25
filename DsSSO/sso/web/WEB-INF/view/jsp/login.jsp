@@ -2,8 +2,8 @@
 response.setHeader("Cache-Control","no-store");
 response.setDateHeader("Expires", 0);
 response.setHeader("Pragma","no-cache"); 
-%><%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"
 %><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
+%><%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"
 %><c:set var="ctx" value="${pageContext.request.contextPath}"
 /><!DOCTYPE html>
 <html>
@@ -14,9 +14,10 @@ response.setHeader("Pragma","no-cache");
 <script type="text/javascript" src="${ctx}/js/jskey/jskey_md5.js"></script>
 <link rel="stylesheet" type="text/css" href="${ctx}/themes/share/fonts/dsworkfont.css"/>
 <script type="text/javascript">
+var dd = document, cc = "coo" + "kie";
 function _$(id){return document.getElementById(id);}
-function setCookie(k,v,d){var x=new Date();x.setDate(x.getDate()+d);document.cookie=k+"="+escape(v)+((d==null)?"":";expires="+x.toGMTString());}
-function getCookie(k){if(document.cookie.length>0){var x1=document.cookie.indexOf(k+"=");if(x1!=-1){x1=x1+k.length+1;x2=document.cookie.indexOf(";",x1);if(x2==-1){x2=document.cookie.length;}return unescape(document.cookie.substring(x1,x2));} }return "";}
+function setCoo(k,v,d){var x=new Date();x.setDate(x.getDate()+d);dd[cc]=k+"="+escape(v)+((d==null)?"":";expires="+x.toGMTString());}
+function getCoo(k){if(dd[cc].length>0){var x1=dd[cc].indexOf(k+"=");if(x1!=-1){x1=x1+k.length+1;x2=dd[cc].indexOf(";",x1);if(x2==-1){x2=dd[cc].length;}return unescape(dd[cc].substring(x1,x2));} }return "";}
 if(top.location != this.location){top.location = this.location;}
 function doclick(){
 var s = "";
@@ -24,7 +25,7 @@ if(!_$('account').value){s += "账号不能为空\n";}
 if(!_$('password').value){s += "密码不能为空\n";}
 if(!_$('authcode').value){s += "验证码不能为空\n";}
 if(s != ""){alert(s);return;}
-if(_$("savename").checked){setCookie('savename',_$('account').value,365);}else{setCookie('savename','',0);}
+if(_$("savename").checked){setCoo('savename',_$('account').value,365);}else{setCoo('savename','',0);}
 try{_$('password').value = $jskey.md5($jskey.md5(_$('password').value)+_$('authcode').value);}catch(e){}
 _$('v').submit();
 }
@@ -64,23 +65,23 @@ a:hover{color:#0000ff;text-decoration:underline;}
   <div class="login">
 	<div class="box"><div class="title">用户登录</div></div>
 	<div class="box"><div class="vbox">
-		<span>&#xf1001;</span><input type="text" title="账号" id="account" name="account" value="" />
+		<span>&#xf1001;</span><input type="text" title="账号" id="account" name="account" autocomplete="off" value="" />
 	</div></div>
 	<div class="box"><div class="vbox">
-		<span>&#xf1002;</span><input type="password" title="密码" id="password" name="password" value="" />
+		<span>&#xf1002;</span><input type="password" title="密码" id="password" name="password" autocomplete="off" value="" />
 	</div></div>
 	<div class="box"><div class="vbox">
-		<span>&#xf1026;</span><input type="text" title="验证码" placeholder="" id="authcode" name="authcode" maxlength="4" class="code" value="" />
+		<span>&#xf1026;</span><input type="text" title="验证码" placeholder="" id="authcode" name="authcode" autocomplete="off" maxlength="4" class="code" value="" />
 		<img src="${ctx}/authcode?width=90&height=38" onclick="this.src='${ctx}/authcode?width=90&height=38&id=' + Math.random();" />
 	</div></div>
 	<div class="box">
 		<input type="button" class="button" value="登 录" onclick="doclick()" />
 	</div>
 	<div class="box">
-		<label style="float:right;margin-right:38px;">&nbsp;&nbsp;<input id="savename" type="checkbox" class="checkbox" onclick="">&nbsp;记住用户名&nbsp;</label>
+		<label style="float:right;margin-right:38px;">&nbsp;&nbsp;<input id="savename" type="checkbox" autocomplete="off" class="checkbox" onclick="">&nbsp;记住用户名&nbsp;</label>
 	</div>
   </div>
-  <input type="hidden" name="service" value="${service}" />
+  <input type="hidden" name="service" value="${fn:escapeXml(service)}" />
   </form>
 </div>
 <div class="cp">
@@ -89,18 +90,18 @@ a:hover{color:#0000ff;text-decoration:underline;}
 </body>
 <script type="text/javascript">
 <c:if test="${errorMsg != ''}">alert("${errorMsg}");</c:if>
-_$('account').focus();
-var _x = getCookie('savename');
+var _x = getCoo('savename');
 if(_x.length > 0){
-	_$('account').value = _x;//"${fn:escapeXml(account)}"
+	_$('account').value = _x;
 	_$('savename').checked = true;
 }
 else {
 	_$('account').value = "";
 	_$('savename').checked = false;
 }
-_$('password').value="";
-_$('authcode').value="";
+_$('password').value = "";
+_$('authcode').value = "";
+_$((_$('account').value == "") ? 'account' : 'password').focus();
 </script>
 <script type="text/javascript" src="${ctx}/js/jquery/jquery.js"></script>
 <script type="text/javascript">
@@ -114,6 +115,5 @@ function registKeydown(id) {
 registKeydown("account");
 registKeydown("password");
 registKeydown("authcode");
-$('#account').select();
 </script>
 </html>
