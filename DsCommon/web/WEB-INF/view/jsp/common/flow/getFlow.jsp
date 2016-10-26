@@ -39,7 +39,7 @@ $(function(){
 });
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getFlow.htm?categoryid=${param.categoryid}";
+	location.href = "getFlow.htm?categoryid=${fn:escapeXml(param.categoryid)}";
 }};
 $(function(){
 	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
@@ -54,13 +54,13 @@ $(function(){
 	<tr>
 		<td class="title">${fn:escapeXml(po.name)}列表</td>
 		<td class="menuTool">
-			<a class="insert" href="addFlow1.htm?categoryid=${param.categoryid}">添加</a>
+			<a class="insert" href="addFlow1.htm?categoryid=${fn:escapeXml(param.categoryid)}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
 </table>
 <div class="line"></div>
-<form id="queryForm" method="post" action="getFlow.htm?categoryid=${param.categoryid}">
+<form id="queryForm" method="post" action="getFlow.htm?categoryid=${fn:escapeXml(param.categoryid)}">
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">

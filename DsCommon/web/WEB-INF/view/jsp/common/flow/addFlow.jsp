@@ -16,7 +16,7 @@ tr.list td {text-align:left;padding-left:1px;}
 </style>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getFlow.htm?categoryid=${param.categoryid}";
+	location.href = "getFlow.htm?categoryid=${fn:escapeXml(param.categoryid)}";
 }};
 $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 </script>
@@ -27,14 +27,14 @@ $dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getFlow.htm?categoryid=${param.categoryid}">返回</a>
+			<a class="back" href="getFlow.htm?categoryid=${fn:escapeXml(param.categoryid)}">返回</a>
 		</td>
 	</tr>
 </table>
 <div class="line"></div>
 <form id="dataForm" method="post" action="addFlow2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-	<input type="hidden" name="categoryid" value="${param.categoryid}" />
+	<input type="hidden" name="categoryid" value="${fn:escapeXml(param.categoryid)}" />
 	<input type="hidden" name="status" value="0" />
 	<input type="hidden" name="deployid" value="" />
 	<tr>

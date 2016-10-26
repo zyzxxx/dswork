@@ -8,10 +8,10 @@
 <%@include file="/commons/include/addAjax.jsp"%>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getDict.htm?status=${param.status}&page=${parem.page}";
+	location.href = "getDict.htm?status=${fn:escapeXml(param.status)}&page=${fn:escapeXml(parem.page)}";
 }};
 $(function(){
-	if("${param.status}" == "0"){document.getElementById("status0").checked = true;}
+	if("${fn:escapeXml(param.status)}" == "0"){document.getElementById("status0").checked = true;}
 });
 </script>
 </head>
@@ -21,7 +21,7 @@ $(function(){
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getDict.htm?status=${param.status}&page=${param.page}">返回</a>
+			<a class="back" href="getDict.htm?status=${fn:escapeXml(param.status)}&page=${fn:escapeXml(param.page)}">返回</a>
 		</td>
 	</tr>
 </table>
