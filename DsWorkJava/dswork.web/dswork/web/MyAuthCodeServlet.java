@@ -44,6 +44,7 @@ public class MyAuthCodeServlet extends HttpServlet
 		response.setHeader("Pragma", "No-cache");
 		response.setHeader("Cache-Control", "no-cache");
 		response.setDateHeader("Expires", 0);
+		response.setContentType("image/jpeg");
 		int w = getInt(request, "width", 90), h = getInt(request, "height", 38), l = getInt(request, "length", 4);
 		if(w < 10 || w > 300)
 		{
