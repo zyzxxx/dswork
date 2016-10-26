@@ -109,6 +109,7 @@ $dswork.doAjaxShow = function(data, callback){
 };
 $dswork.doAjaxOption = {beforeSubmit:$dswork.showRequest,success:$dswork.showResponse};
 _options = $dswork.doAjaxOption;
+$dswork.readySubmit = function(){};
 $dswork.beforeSubmit = function(){
 	if(!$dswork.validCallBack()){return false;}
 	return $jskey.validator.Validate("dataForm", $dswork.validValue || 3);
