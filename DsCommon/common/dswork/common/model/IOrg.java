@@ -16,7 +16,7 @@ public class IOrg
 
 	public void setName(String name)
 	{
-		this.name = String.valueOf(name).trim();
+		this.name = String.valueOf(name).trim().replaceAll("\r", "").replaceAll("\n", "");
 	}
 
 	public String getName()

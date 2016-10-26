@@ -49,7 +49,7 @@ public class DsCommonDictData
 
 	public void setName(String name)
 	{
-		this.name = name;
+		this.name = String.valueOf(name).replaceAll("\r", "").replaceAll("\n", "");
 	}
 
 	public String getLabel()
@@ -59,7 +59,7 @@ public class DsCommonDictData
 
 	public void setLabel(String label)
 	{
-		this.label = label;
+		this.label = String.valueOf(label).replaceAll("\r", "").replaceAll("\n", "");
 	}
 
 	public String getAlias()

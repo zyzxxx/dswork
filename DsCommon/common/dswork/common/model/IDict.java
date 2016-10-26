@@ -21,7 +21,7 @@ public class IDict
 
 	public void setLabel(String label)
 	{
-		this.label = label;
+		this.label = String.valueOf(label).replaceAll("\r", "").replaceAll("\n", "");
 	}
 
 	public String getAlias()
