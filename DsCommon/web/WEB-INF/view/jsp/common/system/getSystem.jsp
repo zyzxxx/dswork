@@ -41,7 +41,6 @@ $dswork.page.join = function(td, menu, id){
 };
 $(function(){
 	$dswork.page.menu("delSystem.htm", "updSystem1.htm", "getSystemById.htm", "${pageModel.currentPage}");
-	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
 	$("#status").bind("change", function(){
 		$("#queryForm").submit();
 	});
@@ -64,7 +63,7 @@ $(function(){
 		<td class="input">
 			&nbsp;名称：<input type="text" class="text" id="name" name="name" value="${fn:escapeXml(param.name)}" style="width:150px;" />
 			&nbsp;标识：<input type="text" class="text" id="alias" name="alias" value="${fn:escapeXml(param.alias)}" style="width:100px;" />
-			&nbsp;状态：<select id="status" name="status" style="width:55px;"><option value="">全部</option><option value="1"${'1'==param.status?' selected="selected"':''}>启用</option><option value=0${'0'==param.status?' selected="selected"':''}>禁用</option></select>
+			&nbsp;状态：<select name="status" style="width:55px;" v="${fn:escapeXml(param.status)}"><option value="">全部</option><option value="1">启用</option><option value=0>禁用</option></select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
 	</tr>

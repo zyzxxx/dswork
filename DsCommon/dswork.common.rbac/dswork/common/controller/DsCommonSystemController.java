@@ -10,7 +10,6 @@ import dswork.common.model.DsCommonSystem;
 import dswork.common.service.DsCommonSystemService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
-import dswork.core.page.PageRequest;
 import dswork.core.util.UniqueId;
 
 //应用系统
@@ -148,17 +147,7 @@ public class DsCommonSystemController extends BaseController
 	@RequestMapping("/getSystem")
 	public String getSystem()
 	{
-		PageRequest pr = getPageRequest();
-		int status = req.getInt("status", -1);
-		if (status == 0 || status == 1)
-		{
-			pr.getFilters().put("status", status);
-		}
-		else
-		{
-			pr.getFilters().remove("status");
-		}
-		Page<DsCommonSystem> pageModel = service.queryPage(pr);
+		Page<DsCommonSystem> pageModel = service.queryPage(getPageRequest());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsCommonSystem>(request, pageModel));
 		return "/common/system/getSystem.jsp";

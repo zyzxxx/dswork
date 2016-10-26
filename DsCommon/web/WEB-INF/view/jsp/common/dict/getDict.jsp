@@ -9,7 +9,6 @@
 <script type="text/javascript">
 $(function(){
 	$dswork.page.menu("delDict.htm?status=${fn:escapeXml(param.status)}", "updDict1.htm?status=${fn:escapeXml(param.status)}", "", "${pageModel.currentPage}");
-	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
 	$("#status").bind("change", function(){
 		$("#queryForm").submit();
 	});
@@ -54,7 +53,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="input">
 			&nbsp;名称：<input type="text" name="label" value="${fn:escapeXml(param.label)}" />
 			&nbsp;引用名：<input type="text" name="name" value="${fn:escapeXml(param.name)}" />
-			&nbsp;分类：<select id="status" name="status"><option value="">全部</option><option value="1">树形集合</option><option value="0">列表集合</option></select>
+			&nbsp;分类：<select name="status" v="${fn:escapeXml(param.status)}"><option value="">全部</option><option value="1">树形集合</option><option value="0">列表集合</option></select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>
