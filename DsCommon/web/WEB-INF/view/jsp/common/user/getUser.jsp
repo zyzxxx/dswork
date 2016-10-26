@@ -82,7 +82,7 @@ $(function(){
 	</tr>
 <c:forEach items="${pageModel.result}" var="d" varStatus="status">
 	<tr>
-		<td><input name="keyIndex" type="checkbox" value="${d.id}" ${'admin'==d.account?'style="display:none;"':''}/></td>
+		<td><input name="keyIndex" type="checkbox" value="${d.id}" ${'admin'==d.account?'style="display:none;" disabled="disabled"':''}/></td>
 		<td class="menuTool" keyIndex="${d.id}" v="${'admin'==d.account?'true':''}">&nbsp;</td>
 		<td style="text-align:left;">&nbsp;${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
 		<td>${fn:escapeXml(d.orgpname)}</td>

@@ -29,7 +29,7 @@ public class DsCommonOrgController extends BaseController
 		if(pid > 0)
 		{
 			parent = service.get(pid);
-			if(parent.getStatus() == 0)// 岗位不能添加子节点
+			if(parent == null || parent.getStatus() == 0)// 岗位不能添加子节点
 			{
 				return null;
 			}
