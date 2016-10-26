@@ -11,6 +11,9 @@
 $dswork.callback = function(){if($dswork.result.type == 1){
 	if(!confirm("是否继续添加用户？")){location.href = "getUser.htm";}
 }};
+$dswork.readySubmit = function(){
+	$("#password").val($("#password1").val());
+};
 $(function(){
 	$("#orgpname").bind("click", function(e){
 		$dswork.showTree({id:"treeid1",width:400,height:200,root:{name:"选择单位"}
@@ -56,11 +59,11 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">密码</td>
-		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" dataType="Require" maxlength="32" value="000000" /> <span class="imp">*</span> <span style="font-weight:bold;">默认码为：000000</span></td>
+		<td class="form_input"><input type="password" id="password1" style="width:130px;" dataType="Require" maxlength="32" value="000000" /> <span class="imp">*</span> <span style="font-weight:bold;">默认码为：000000</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">确认密码</td>
-		<td class="form_input"><input type="password" id="password2" name="password2" style="width:130px;" dataType="Repeat" to="password" msg="两次输入的密码不一致" value="000000" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="password" id="password2" style="width:130px;" dataType="Repeat" to="password1" msg="两次输入的密码不一致" value="000000" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">身份证号</td>
@@ -91,6 +94,7 @@ $(function(){
 		<td class="form_input"><input type="text" id="workcard" name="workcard" style="width:200px;" require="false" dataType="Require" maxlength="64" value="" /></td>
 	</tr>
 </table>
+<input type="hidden" id="password" name="password" value="" />
 </form>
 </body>
 </html>
