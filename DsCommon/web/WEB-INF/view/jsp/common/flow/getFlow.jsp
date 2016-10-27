@@ -42,7 +42,6 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getFlow.htm?categoryid=${fn:escapeXml(param.categoryid)}";
 }};
 $(function(){
-	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
 	$("#status").bind("change", function(){
 		$("#queryForm").submit();
 	});
@@ -65,7 +64,7 @@ $(function(){
 	<tr>
 		<td class="input">
 			&nbsp;关键字：<input type="text" name="keyvalue" style="width:200px;" value="${fn:escapeXml(param.keyvalue)}" />
-			&nbsp;状态:<select id="status" name="status" style="width:55px;"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
+			&nbsp;状态:<select name="status" style="width:55px;" v="${fn:escapeXml(param.status)}"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>

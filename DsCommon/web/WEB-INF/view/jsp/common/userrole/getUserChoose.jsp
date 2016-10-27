@@ -27,7 +27,6 @@ function dosetting(id, has){
 	document.getElementById("a" + id).innerHTML = s;
 }
 $(function(){
-	try{$("#status").val("${fn:escapeXml(param.status)}");}catch(e){}
 	$("#status").bind("change", function(){
 		$("#queryForm").submit();
 	});
@@ -40,9 +39,9 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
-			&nbsp;姓名：<input id="name" name="name" value="${fn:escapeXml(param.name)}" style="width:75px;" />
-			&nbsp;手机：<input id="mobile" name="mobile" value="${fn:escapeXml(param.mobile)}" style="width:75px;" />
-			&nbsp;状态：<select id="status" name="status" style="width:55px;"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
+			&nbsp;姓名：<input name="name" value="${fn:escapeXml(param.name)}" style="width:75px;" />
+			&nbsp;手机：<input name="mobile" value="${fn:escapeXml(param.mobile)}" style="width:75px;" />
+			&nbsp;状态：<select name="status" style="width:55px;" v="${fn:escapeXml(param.status)}"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
 	</tr>
