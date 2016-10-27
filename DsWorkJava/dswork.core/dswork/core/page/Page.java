@@ -127,7 +127,7 @@ public class Page<T> implements Serializable
 		{
 			throw new IllegalArgumentException("[pageName] must be not null");
 		}
-		this.pageName = pageName.trim();
+		this.pageName = pageName.trim().replace("\"", "&quot;").replace("\r", "").replace("\n", "");
 	}
 
 	/**
@@ -158,7 +158,7 @@ public class Page<T> implements Serializable
 		{
 			throw new IllegalArgumentException("[pageSizeName] must be not null");
 		}
-		this.pageSizeName = pageSizeName.trim();
+		this.pageSizeName = pageSizeName.trim().replace("\"", "&quot;").replace("\r", "").replace("\n", "");
 	}
 
 	/**

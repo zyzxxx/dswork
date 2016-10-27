@@ -46,7 +46,7 @@ public class PageNav<T>
 					value = request.getParameterValues(key);
 					if(value == null || value.length == 0)
 					{
-						sb.append("<input name=\"").append(key).append("\" type=\"hidden\" value=\"\"/>\n");
+						sb.append("<input name=\"").append(key.replace("\"", "&quot;").replace("\r", "").replace("\n", "")).append("\" type=\"hidden\" value=\"\"/>\n");
 					}
 					else
 					{
@@ -56,7 +56,7 @@ public class PageNav<T>
 							{
 								value[i] = "";
 							}
-							sb.append("<input name=\"").append(key).append("\" type=\"hidden\" value=\"").append(value[i].replace("\"", "&quot;")).append("\"/>\n");
+							sb.append("<input name=\"").append(key.replace("\"", "&quot;").replace("\r", "").replace("\n", "")).append("\" type=\"hidden\" value=\"").append(value[i].replace("\"", "&quot;").replace("\r", "").replace("\n", "")).append("\"/>\n");
 						}
 					}
 				}
