@@ -29,7 +29,7 @@ public class WebLogoutFilter implements Filter
 			HttpSession session = request.getSession();
 			session.removeAttribute(WebFilter.LOGINER);
 			session.invalidate();
-			String jsoncallback  = request.getParameter("jsoncallback");
+			String jsoncallback  = request.getParameter("jsoncallback").replaceAll("<", "").replaceAll(">", "").replaceAll("\"", "").replaceAll("'", "");
 			PrintWriter out = response.getWriter();
 			out.print(jsoncallback + "([])");
 		}

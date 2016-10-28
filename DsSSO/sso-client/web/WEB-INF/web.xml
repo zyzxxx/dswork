@@ -29,7 +29,7 @@
 			<param-value>1</param-value>
 		</init-param>
 		<init-param><param-name>loginURL</param-name>
-			<param-value>http://sso-server:8888/sso/login</param-value>
+			<param-value>https://192.168.1.47/sso/login</param-value>
 		</init-param>
 		<init-param><param-name>ignoreURL</param-name>
 			<param-value>/menu.jsp,/m.jsp</param-value>

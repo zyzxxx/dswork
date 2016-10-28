@@ -1,11 +1,11 @@
 <%@page language="java" pageEncoding="UTF-8" import="
 	dswork.sso.WebFilter,
 	dswork.sso.AuthFactory,
-	dswork.sso.model.ISystem"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><c:set var="ctx" value="${pageContext.request.contextPath}" /><%
+	dswork.sso.model.ISystem"
+%><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%
 	ISystem[] arr = AuthFactory.getSystemByUser(WebFilter.getAccount(session));
-%>
-<!DOCTYPE html>
+%><c:set var="ctx" value="${pageContext.request.contextPath}" />
+
 <html>
 <head>
 <meta charset="UTF-8" />
@@ -14,7 +14,7 @@
 <meta http-equiv="pragma" content="no-cache" />
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="expires" content="0" />
-<script type="text/javascript" src="${ctx}/frame/js/jquery.js"></script>
+<script type="text/javascript" src="${ctx}/frame/js/jquery.js"></script><%--当用户没登录时访问，此js不会被加载--%>
 <script type="text/javascript">
 var sys = [];
 <%if(arr != null){for(int i = 0; i < arr.length; i++){%>
@@ -45,11 +45,12 @@ function logoutload(o){
 		}
 	});
 }
-$(function(){
-	for(var i = 0; i < count; i++){
-		logoutload(sys[i]);
-	}
-});
+if(count <= 0){
+	location.href="${ctx}/logoutAction.jsp";
+}
+else{
+	for(var i = 0; i < count; i++){logoutload(sys[i]);}
+}
 </script>
 </head>
 <body></body>
