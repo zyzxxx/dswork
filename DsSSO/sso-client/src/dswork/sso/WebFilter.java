@@ -33,7 +33,8 @@ public class WebFilter implements Filter
 
 	private final static String TICKET = "ticket";// url中传来的sessionKey的变量名
 	public final static String LOGINER = "sso.web.loginer";// sessionUser在session中的key
-	private static String loginURL = "";// 登录页面
+	private static String loginURL = "";// 登入页面
+	private static String logoutURL = "";// 登出页面
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException
@@ -152,6 +153,16 @@ public class WebFilter implements Filter
 		}
 		return m;
 	}
+	
+	public static String getLoginURL()
+	{
+		return loginURL;
+	}
+	
+	public static String getLogoutURL()
+	{
+		return logoutURL;
+	}
 
 	private boolean doValidate(HttpSession session, String ticket)
 	{
@@ -207,6 +218,9 @@ public class WebFilter implements Filter
 		
 		loginURL = String.valueOf(config.getInitParameter("loginURL")).trim();
 		loginURL = loginURL + (loginURL.indexOf("?") == -1 ? "?service=" : "&service=");
+		
+		logoutURL = String.valueOf(config.getInitParameter("logoutURL")).trim();
+		logoutURL = logoutURL + (logoutURL.indexOf("?") == -1 ? "?service=" : "&service=");
 		
 		ignoreURLSet.clear();
 		

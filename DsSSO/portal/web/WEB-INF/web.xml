@@ -34,15 +34,12 @@
 		<init-param><param-name>ssoName</param-name>    <param-value>portal</param-value></init-param>
 		<init-param><param-name>ssoPassword</param-name><param-value>1</param-value></init-param>
 		<init-param><param-name>loginURL</param-name>   <param-value>https://192.168.1.47/sso/login</param-value></init-param>
+		<init-param><param-name>logoutURL</param-name>  <param-value>https://192.168.1.47/sso/logout</param-value></init-param>
 		<init-param><param-name>ignoreURL</param-name>  <param-value>/menu.jsp,/m.jsp</param-value></init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>websso</filter-name>
 		<url-pattern>/frame/*</url-pattern>
-	</filter-mapping>
-	<filter-mapping>
-		<filter-name>websso</filter-name>
-		<url-pattern>/page/*</url-pattern>
 	</filter-mapping>
 	
 	<welcome-file-list>

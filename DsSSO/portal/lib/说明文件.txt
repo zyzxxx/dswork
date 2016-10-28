@@ -9,7 +9,8 @@ sso:8888 需要修改成实际对应的sso-server应用的浏览器端访问的�
 		ssoPassword #系统访问密码，在平台中添加的系统访问密码
 		loginURL #单点登录页面
 		ignoreURL #逗号隔开不需要权限过滤的页面
-	需要在web.xml中增加以下配置，并且需要sso的应用支持，ssoURL为服务器端访问的ip，loginURL为浏览器端访问的ip
+	需要在web.xml中增加以下配置，并且需要sso的应用支持，ssoURL为服务器端访问的ip，loginURL，logoutURL为浏览器端访问的ip
+	通过dswork.sso.WebFilter调用getLoginURL和getLogoutURL将取到带着?service=的URL，如：“http://sso-server:8888/sso/login?service=”
 	
 		<filter>
 			<filter-name>websso_logout</filter-name>
@@ -37,6 +38,10 @@ sso:8888 需要修改成实际对应的sso-server应用的浏览器端访问的�
 			<init-param>
 				<param-name>loginURL</param-name>
 				<param-value>http://sso-server:8888/sso/login</param-value>
+			</init-param>
+			<init-param>
+				<param-name>logoutURL</param-name>
+				<param-value>http://sso-server:8888/sso/logout</param-value>
 			</init-param>
 			<init-param>
 				<param-name>ignoreURL</param-name>
