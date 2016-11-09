@@ -1,24 +1,24 @@
-package dswork.common;
+package dswork.common.util;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import dswork.common.dao.DsCommonUtilIFlow;
+import dswork.common.dao.DsCommonDaoIFlow;
 import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
 import dswork.spring.BeanFactory;
 
-public class DsCommonFactoryFlow
+public class DsCommonIFlowUtil
 {
-	private static DsCommonUtilIFlow util = null;
+	private static DsCommonDaoIFlow dao = null;
 
 	private static void init()
 	{
-		if(util == null)
+		if(dao == null)
 		{
-			util = (DsCommonUtilIFlow) BeanFactory.getBean("dsCommonUtilIFlow");
+			dao = (DsCommonDaoIFlow) BeanFactory.getBean("dsCommonDaoIFlow");
 		}
 	}
 
@@ -39,7 +39,7 @@ public class DsCommonFactoryFlow
 		try
 		{
 			init();
-			return util.saveStart(alias, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+			return dao.saveStart(alias, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
 		}
 		catch(Exception e)
 		{
@@ -64,7 +64,7 @@ public class DsCommonFactoryFlow
 		try
 		{
 			init();
-			return util.saveFlowStart(alias, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+			return dao.saveFlowStart(alias, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
 		}
 		catch(Exception e)
 		{
@@ -78,7 +78,7 @@ public class DsCommonFactoryFlow
 		try
 		{
 			init();
-			util.saveStop(Long.parseLong(piid));
+			dao.saveStop(Long.parseLong(piid));
 		}
 		catch(Exception e)
 		{
@@ -101,7 +101,7 @@ public class DsCommonFactoryFlow
 		try
 		{
 			init();
-			return util.saveProcess(waitid, nextTalias, paccount, pname, resultType, resultMsg);
+			return dao.saveProcess(waitid, nextTalias, paccount, pname, resultType, resultMsg);
 		}
 		catch(Exception e)
 		{
@@ -115,7 +115,7 @@ public class DsCommonFactoryFlow
 		try
 		{
 			init();
-			return util.queryFlowWaiting(account);
+			return dao.queryFlowWaiting(account);
 		}
 		catch(Exception e)
 		{
@@ -131,7 +131,7 @@ public class DsCommonFactoryFlow
 			if(user != null && user.trim().length() > 0)
 			{
 				init();
-				util.updateFlowWaitingUser(waitid, user);
+				dao.updateFlowWaitingUser(waitid, user);
 				return true;
 			}
 		}
@@ -147,7 +147,7 @@ public class DsCommonFactoryFlow
 		try
 		{
 			init();
-			return util.getFlowWaiting(waitid);
+			return dao.getFlowWaiting(waitid);
 		}
 		catch(Exception e)
 		{
@@ -162,7 +162,7 @@ public class DsCommonFactoryFlow
 		try
 		{
 			init();
-			List<IFlowTask> list = util.queryFlowTask(flowid);
+			List<IFlowTask> list = dao.queryFlowTask(flowid);
 			if(list != null)
 			{
 				for(IFlowTask m : list)
@@ -183,7 +183,7 @@ public class DsCommonFactoryFlow
 		try
 		{
 			init();
-			return util.queryFlowPiData(Long.parseLong(piid));
+			return dao.queryFlowPiData(Long.parseLong(piid));
 		}
 		catch(Exception e)
 		{
