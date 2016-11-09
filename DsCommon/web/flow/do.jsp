@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page import="dswork.common.DsFactory, dswork.web.MyRequest, dswork.common.model.*"%>
+<%@page import="dswork.common.DsFactoryService, dswork.web.MyRequest, dswork.common.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,9 +30,9 @@ long wid = req.getLong("wid");
 try
 {
   if(wid > 0){
-	IFlowWaiting po = DsFactory.getFlow().getWaiting(wid);
+	IFlowWaiting po = DsFactoryService.getFlow().getWaiting(wid);
 	request.setAttribute("po", po);
-	java.util.Map<String, String> map = DsFactory.getFlow().getTaskList(po.getFlowid());
+	java.util.Map<String, String> map = DsFactoryService.getFlow().getTaskList(po.getFlowid());
 %>
 	流程名称：${po.flowname}<br />
 	当前任务：${po.talias}&nbsp;${po.tname}<br />

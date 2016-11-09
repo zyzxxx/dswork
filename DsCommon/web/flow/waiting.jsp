@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page import="dswork.common.DsFactory"%>
+<%@page import="dswork.common.DsFactoryService"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,7 @@ li,a {line-height:2em;}
 		</td>
 	</tr>
 </table>
-<%request.setAttribute("list", DsFactory.getFlow().queryWaiting("admin"));%>
+<%request.setAttribute("list", DsFactoryService.getFlow().queryWaiting("admin"));%>
 <ul>
 <c:forEach items="${list}" var="d" varStatus="status">
 	<li>

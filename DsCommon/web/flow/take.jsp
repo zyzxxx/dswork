@@ -1,9 +1,9 @@
-<%@page language="java" pageEncoding="UTF-8" import="dswork.common.DsFactory, dswork.web.MyRequest"%><%
+<%@page language="java" pageEncoding="UTF-8" import="dswork.common.DsFactoryService, dswork.web.MyRequest"%><%
 MyRequest req = new MyRequest(request);
 long waitid = req.getLong("wid");
 if(waitid > 0)
 {
-	DsFactory.getFlow().takeWaiting(waitid, "admin");
+	DsFactoryService.getFlow().takeWaiting(waitid, "admin");
 	response.sendRedirect("waiting.jsp");
 }
 %>

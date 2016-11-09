@@ -1,11 +1,10 @@
-package dswork.common.service;
+package dswork.common.dao;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
-import dswork.common.dao.DsCommonDaoIFlow;
 import dswork.common.model.IFlow;
 import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
@@ -14,11 +13,15 @@ import dswork.common.model.IFlowWaiting;
 import dswork.core.util.TimeUtil;
 import dswork.core.util.UniqueId;
 
-@Service
-public class DsCommonServiceIFlow
+/**
+ * DsCommonUtilIFlow没有事务处理
+ * @author skey
+ */
+@Repository
+public class DsCommonUtilIFlow
 {
 	@Autowired
-	private DsCommonDaoIFlow dao;
+	private static DsCommonDaoIFlow dao;
 
 	public IFlowWaiting saveFlowStart(String alias, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
 	{
@@ -222,19 +225,4 @@ public class DsCommonServiceIFlow
 	{
 		return dao.queryFlowPiData(piid);
 	}
-	
-
-//	private long deployidToFlowid(String deployid)
-//	{
-//		long flowid = 0L;
-//		if(deployid != null && deployid.indexOf("-") > 0)
-//		{
-//			String[] arr = deployid.split("-");
-//			if(arr.length > 1)
-//			{
-//				flowid = Long.parseLong(arr[arr.length - 1]);
-//			}
-//		}
-//		return flowid;
-//	}
 }
