@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page import="dswork.common.DsFactoryService"%>
+<%@page import="dswork.common.DsFactory"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +19,7 @@
 	</tr>
 </table>
 <%
-String piid = DsFactoryService.getFlow().start("tech_duty", "1000", "0", "admin", "管理员", 0, true, "1");
+String piid = DsFactory.getFlow().start("tech_duty", "1000", "0", "admin", "管理员", 0, true, "1");
 %>
 <%=piid.equals("")?"启动失败":piid%>
 <br />

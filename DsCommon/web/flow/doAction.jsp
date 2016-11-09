@@ -1,7 +1,7 @@
 <%@ page language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@page import="dswork.common.DsFactoryService, dswork.web.MyRequest, dswork.common.model.*"%>
+<%@page import="dswork.common.DsFactory, dswork.web.MyRequest, dswork.common.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,11 +28,11 @@ long wid = req.getLong("wid");
 try
 {
   if(wid > 0){
-	IFlowWaiting po = DsFactoryService.getFlow().getWaiting(wid);
+	IFlowWaiting po = DsFactory.getFlow().getWaiting(wid);
 	String[] taskList = req.getStringArray("taskList");
 	String resultType = req.getString("resultType");
 	String resultMsg = req.getString("resultMsg");
-	if(DsFactoryService.getFlow().process(po.getId(), taskList, "admin", "管理员", resultType, resultMsg))
+	if(DsFactory.getFlow().process(po.getId(), taskList, "admin", "管理员", resultType, resultMsg))
 		{msg = "处理成功";}
 	else
 		{msg = "处理失败";}
