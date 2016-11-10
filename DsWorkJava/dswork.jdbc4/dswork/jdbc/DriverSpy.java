@@ -130,7 +130,7 @@ public class DriverSpy implements Driver
 		rdbmsSpecifics = new HashMap();
 		rdbmsSpecifics.put("oracle.jdbc.driver.OracleDriver", oracle);
 		rdbmsSpecifics.put("oracle.jdbc.OracleDriver", oracle);
-		rdbmsSpecifics.put("com.mysql.jc.jdbc.Driver", mySql);
+		rdbmsSpecifics.put("com.mysql.jc.jdbc.Driver", mySql);// 只有jdbc4.2需要用上，因为它只支持jdk8
 		rdbmsSpecifics.put("com.mysql.jdbc.Driver", mySql);
 		log.debug("... dswork jdbc initialized! ...");
 	}
