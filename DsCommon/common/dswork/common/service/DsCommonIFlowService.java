@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.common.dao.DsCommonDaoIFlow;
+import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
@@ -111,6 +112,16 @@ public class DsCommonIFlowService
 			}
 		}
 		return map;
+	}
+
+	public List<IFlowPi> queryFlowPi(String ywlsh)
+	{
+		return dao.queryFlowPi(ywlsh);
+	}
+
+	public IFlowPi getFlowPi(String ywlsh)
+	{
+		return dao.getFlowPi(ywlsh);
 	}
 
 	public List<IFlowPiData> queryFlowPiData(String piid)

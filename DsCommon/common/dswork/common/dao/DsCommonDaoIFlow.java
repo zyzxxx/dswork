@@ -86,6 +86,21 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		return executeSelectList("queryFlowTask", flowid);
 	}
 	
+	public IFlowPi getFlowPi(String ywlsh)
+	{
+		List<IFlowPi> list = executeSelectList("queryFlowPi", ywlsh);
+		if(list == null || list.size() == 0)
+		{
+			return null;
+		}
+		return list.get(0);
+	}
+	
+	public List<IFlowPi> queryFlowPi(String ywlsh)
+	{
+		return executeSelectList("queryFlowPi", ywlsh);
+	}
+	
 	public List<IFlowPiData> queryFlowPiData(Long piid)
 	{
 		return executeSelectList("queryFlowPiData", piid);

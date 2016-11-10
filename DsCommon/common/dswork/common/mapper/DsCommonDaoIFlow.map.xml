@@ -28,6 +28,28 @@
 <update id="updateFlowPi">
 	update DS_FLOW_PI set STATUS=#{status}<if test="status==0">, PIEND=#{piend}</if>, PIALIAS=#{pialias} where ID=#{id}
 </update>
+<resultMap id="resultFlowPi" type="dswork.common.model.IFlowPi">
+	<id property="id" column="ID" />
+	<result property="ywlsh" column="YWLSH" />
+	<result property="sblsh" column="SBLSH" />
+	<result property="alias" column="ALIAS" />
+	<result property="flowid" column="FLOWID" />
+	<result property="deployid" column="DEPLOYID" />
+	<result property="piday" column="PIDAY" />
+	<result property="pidaytype" column="PIDAYTYPE" />
+	<result property="pistart" column="PISTART" />
+	<result property="piend" column="PIEND" />
+	<result property="piupstart" column="PIUPSTART" />
+	<result property="piupend" column="PIUPEND" />
+	<result property="status" column="STATUS" />
+	<result property="caccount" column="CACCOUNT" />
+	<result property="cname" column="CNAME" />
+	<result property="pialias" column="PIALIAS" />
+</resultMap>
+<select id="queryFlowPi" resultMap="resultFlowPi">
+	select ID, YWLSH, SBLSH, ALIAS, FLOWID, DEPLOYID, PIDAY, PIDAYTYPE, PISTART, PIEND, PIUPSTART, PIUPEND, STATUS, CACCOUNT, CNAME, PIALIAS
+	from DS_FLOW_PI where YWLSH=#{ywlsh}
+</select>
 
 
 <resultMap id="resultFlowTask" type="dswork.common.model.IFlowTask">

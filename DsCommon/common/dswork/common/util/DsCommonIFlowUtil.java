@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import dswork.common.dao.DsCommonDaoIFlow;
+import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowTask;
 import dswork.common.model.IFlowWaiting;
@@ -176,6 +177,34 @@ public class DsCommonIFlowUtil
 			e.printStackTrace();
 		}
 		return map;
+	}
+
+	public List<IFlowPi> queryFlowPi(String ywlsh)
+	{
+		try
+		{
+			init();
+			return dao.queryFlowPi(ywlsh);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public IFlowPi getFlowPi(String ywlsh)
+	{
+		try
+		{
+			init();
+			return dao.getFlowPi(ywlsh);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	public List<IFlowPiData> queryFlowPiData(String piid)
