@@ -4,7 +4,7 @@ import dswork.common.service.DsCommonIFlowService;
 import dswork.spring.BeanFactory;
 
 /**
- * 相当于dao，本身没有事务支持。
+ * 在控制器调用，相当于service，本身提供事务支持。
  */
 public class DsFactory
 {
