@@ -77,7 +77,7 @@ public class DriverSpy implements Driver
 		{
 			subDrivers.add("oracle.jdbc.driver.OracleDriver");
 			subDrivers.add("oracle.jdbc.OracleDriver");
-			subDrivers.add("com.mysql.jc.jdbc.Driver");// mysql j 6.x
+			subDrivers.add("com.mysql.jc.jdbc.Driver");// mysql j 6.x for jdk8
 			subDrivers.add("com.mysql.jdbc.Driver");// mysql j 5.x及之前
 			subDrivers.add("com.microsoft.jdbc.sqlserver.SQLServerDriver");// MS driver for Sql Server 2000
 			subDrivers.add("com.microsoft.sqlserver.jdbc.SQLServerDriver");// MS driver for Sql Server 2005
