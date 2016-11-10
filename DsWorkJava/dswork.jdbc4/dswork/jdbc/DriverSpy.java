@@ -282,4 +282,10 @@ public class DriverSpy implements Driver
 		lastUnderlyingDriverRequested = d;
 		return d.getPropertyInfo(url, info);
 	}
+
+// for jdbc 4.1
+//	public Logger getParentLogger() throws SQLFeatureNotSupportedException
+//	{
+//		return lastUnderlyingDriverRequested.getParentLogger();
+//	}
 }

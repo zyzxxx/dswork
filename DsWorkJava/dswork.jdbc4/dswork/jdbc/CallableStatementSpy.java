@@ -612,4 +612,14 @@ public class CallableStatementSpy extends PreparedStatementSpy implements Callab
 	{
 		return (iface != null && (iface == CallableStatement.class || iface == PreparedStatement.class || iface == Statement.class || iface == Spy.class)) || realCallableStatement.isWrapperFor(iface);
 	}
+// for jdbc 4.1
+//	public <T> T getObject(int parameterIndex, Class<T> type) throws SQLException
+//	{
+//		return realCallableStatement.getObject(parameterIndex, type);
+//	}
+//
+//	public <T> T getObject(String parameterName, Class<T> type) throws SQLException
+//	{
+//		return realCallableStatement.getObject(parameterName, type);
+//	}
 }

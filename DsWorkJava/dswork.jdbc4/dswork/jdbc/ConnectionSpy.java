@@ -792,4 +792,34 @@ public class ConnectionSpy implements Connection, Spy
 			throw s;
 		}
 	}
+// for jdbc 4.1
+//	@Override
+//	public void setSchema(String schema) throws SQLException
+//	{
+//		realConnection.setSchema(schema);
+//	}
+//
+//	@Override
+//	public String getSchema() throws SQLException
+//	{
+//		return realConnection.getSchema();
+//	}
+//
+//	@Override
+//	public void abort(Executor executor) throws SQLException
+//	{
+//		realConnection.abort(executor);
+//	}
+//
+//	@Override
+//	public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException
+//	{
+//		realConnection.setNetworkTimeout(executor, milliseconds);
+//	}
+//
+//	@Override
+//	public int getNetworkTimeout() throws SQLException
+//	{
+//		return realConnection.getNetworkTimeout();
+//	}
 }

@@ -407,6 +407,18 @@ public class StatementSpy implements Statement, Spy
 	{
 		return (iface != null && (iface == Statement.class || iface == Spy.class)) || realStatement.isWrapperFor(iface);
 	}
+	
+// for jdbc 4.1
+//	@Override
+//	public void closeOnCompletion() throws SQLException
+//	{
+//		realStatement.closeOnCompletion();
+//	}
+//	@Override
+//	public boolean isCloseOnCompletion() throws SQLException
+//	{
+//		return realStatement.isCloseOnCompletion();
+//	}
 
 	protected static String rightJustify(int fieldSize, String field)
 	{
