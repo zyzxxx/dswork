@@ -130,9 +130,8 @@ public class DriverSpy implements Driver
 		rdbmsSpecifics = new HashMap();
 		rdbmsSpecifics.put("oracle.jdbc.driver.OracleDriver", oracle);
 		rdbmsSpecifics.put("oracle.jdbc.OracleDriver", oracle);
+		rdbmsSpecifics.put("com.mysql.jc.jdbc.Driver", mySql);
 		rdbmsSpecifics.put("com.mysql.jdbc.Driver", mySql);
-		//rdbmsSpecifics.put("dm.jdbc.driver.DmDriver", mySql);
-		//rdbmsSpecifics.put("com.gbase.jdbc.Driver", mySql);
 		log.debug("... dswork jdbc initialized! ...");
 	}
 	static RdbmsSpecifics defaultRdbmsSpecifics = new RdbmsSpecifics();
