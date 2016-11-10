@@ -14,6 +14,21 @@ public class StatementSpy implements Statement, Spy
 	protected final SpyLogDelegator log;
 	protected ConnectionSpy connectionSpy;
 	protected Statement realStatement;
+	
+	private static String rightJustify(int fieldSize, String field)
+	{
+		if(field == null)
+		{
+			field = "";
+		}
+		StringBuffer output = new StringBuffer();
+		for(int i = 0, j = fieldSize - field.length(); i < j; i++)
+		{
+			output.append(' ');
+		}
+		output.append(field);
+		return output.toString();
+	}
 
 	public Statement getRealStatement()
 	{
@@ -408,30 +423,15 @@ public class StatementSpy implements Statement, Spy
 		return (iface != null && (iface == Statement.class || iface == Spy.class)) || realStatement.isWrapperFor(iface);
 	}
 	
-// for jdbc 4.1
-//	@Override
+//	// jdbc 4.1
 //	public void closeOnCompletion() throws SQLException
 //	{
 //		realStatement.closeOnCompletion();
 //	}
-//	@Override
+//	
+//	// jdbc 4.1
 //	public boolean isCloseOnCompletion() throws SQLException
 //	{
 //		return realStatement.isCloseOnCompletion();
 //	}
-
-	protected static String rightJustify(int fieldSize, String field)
-	{
-		if(field == null)
-		{
-			field = "";
-		}
-		StringBuffer output = new StringBuffer();
-		for(int i = 0, j = fieldSize - field.length(); i < j; i++)
-		{
-			output.append(' ');
-		}
-		output.append(field);
-		return output.toString();
-	}
 }

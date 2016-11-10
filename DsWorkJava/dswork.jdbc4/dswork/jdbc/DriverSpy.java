@@ -283,8 +283,8 @@ public class DriverSpy implements Driver
 		return d.getPropertyInfo(url, info);
 	}
 
-// for jdbc 4.1
-//	public Logger getParentLogger() throws SQLFeatureNotSupportedException
+//	// jdbc4.1
+//	public java.util.logging.Logger getParentLogger() throws java.sql.SQLFeatureNotSupportedException
 //	{
 //		return lastUnderlyingDriverRequested.getParentLogger();
 //	}

@@ -53,7 +53,7 @@ public abstract class HibernateDao extends HibernateDaoSupport
 	protected Query createQuery(final String hql, final Object... values)
 	{
 		Assert.hasText(hql);
-		Query query = getHibernateTemplate().execute(new HibernateCallback()
+		Query query = (Query)getHibernateTemplate().execute(new HibernateCallback()
 		{
 			public Query doInHibernate(Session session) throws HibernateException, SQLException
 			{
@@ -76,7 +76,7 @@ public abstract class HibernateDao extends HibernateDaoSupport
 	protected Criteria createCriteria(Criterion... criterions)
 	{
 		//final Class _class = getEntityClass();
-		Criteria criteria = getHibernateTemplate().execute(new HibernateCallback()
+		Criteria criteria = (Criteria)getHibernateTemplate().execute(new HibernateCallback()
 		{
 			public Criteria doInHibernate(Session session) throws HibernateException, SQLException
 			{
@@ -103,7 +103,7 @@ public abstract class HibernateDao extends HibernateDaoSupport
 	{
 		Assert.hasText(hql);
 		Assert.hasText(hqlCount);
-		return getHibernateTemplate().execute(new HibernateCallback()
+		return (Page)getHibernateTemplate().execute(new HibernateCallback()
 		{
 			public Page doInHibernate(Session session) throws HibernateException, SQLException
 			{

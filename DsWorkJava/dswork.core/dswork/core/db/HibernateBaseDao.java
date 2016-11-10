@@ -160,7 +160,7 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	 */
 	public Page queryPage(final PageRequest pageRequest)
 	{
-		return getHibernateTemplate().execute(new HibernateCallback()
+		return (Page)getHibernateTemplate().execute(new HibernateCallback()
 		{
 			public Page doInHibernate(Session session) throws HibernateException, SQLException
 			{

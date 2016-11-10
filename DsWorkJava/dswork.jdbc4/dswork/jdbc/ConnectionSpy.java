@@ -765,6 +765,7 @@ public class ConnectionSpy implements Connection, Spy
 		}
 	}
 
+	// jdbc4
 	public <T> T unwrap(Class<T> iface) throws SQLException
 	{
 		try
@@ -779,6 +780,7 @@ public class ConnectionSpy implements Connection, Spy
 		}
 	}
 
+	// jdbc4
 	public boolean isWrapperFor(Class<?> iface) throws SQLException
 	{
 		try
@@ -792,32 +794,32 @@ public class ConnectionSpy implements Connection, Spy
 			throw s;
 		}
 	}
-// for jdbc 4.1
-//	@Override
+
+//	// jdbc4.1
 //	public void setSchema(String schema) throws SQLException
 //	{
 //		realConnection.setSchema(schema);
 //	}
 //
-//	@Override
+//	// jdbc4.1
 //	public String getSchema() throws SQLException
 //	{
 //		return realConnection.getSchema();
 //	}
 //
-//	@Override
-//	public void abort(Executor executor) throws SQLException
+//	// jdbc4.1
+//	public void abort(java.util.concurrent.Executor executor) throws SQLException
 //	{
 //		realConnection.abort(executor);
 //	}
 //
-//	@Override
-//	public void setNetworkTimeout(Executor executor, int milliseconds) throws SQLException
+//	// jdbc4.1
+//	public void setNetworkTimeout(java.util.concurrent.Executor executor, int milliseconds) throws SQLException
 //	{
 //		realConnection.setNetworkTimeout(executor, milliseconds);
 //	}
 //
-//	@Override
+//	// jdbc4.1
 //	public int getNetworkTimeout() throws SQLException
 //	{
 //		return realConnection.getNetworkTimeout();
