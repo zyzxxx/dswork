@@ -42,11 +42,12 @@ public class WebFilter implements Filter
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		HttpSession session = request.getSession();
-		String relativeURI = request.getRequestURI();// 相对地址
-		if(request.getContextPath().length() > 0)
-		{
-			relativeURI = relativeURI.replaceFirst(request.getContextPath(), "");
-		}
+		String relativeURI = request.getServletPath();// 相对地址
+//		String relativeURI = request.getRequestURI();// request.getRequestURI()=request.getContextPath()+request.getServletPath()
+//		if(request.getContextPath().length() > 0)
+//		{
+//			relativeURI = relativeURI.replaceFirst(request.getContextPath(), "");
+//		}
 		if(log.isDebugEnabled())
 		{
 			log.debug(request.getContextPath() + relativeURI);
