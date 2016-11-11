@@ -22,6 +22,7 @@ sys[sys.length] = {index:<%=i%>,data:[],id:<%=arr[i].getId()%>,name:"<%=arr[i].g
 <%}}%>
 var index = 0,count = sys.length;
 var ok = 0;
+var errmsg = "";
 function logoutload(o){
 	var url = o.domainurl + o.rooturl + "/logout?jsoncallback=?";
 	$("body").append("<div id='x" + o.id + "'>" + o.name + "正在退出！</div>");
@@ -31,29 +32,33 @@ function logoutload(o){
 		type:"post",
 		dataType:"jsonp",
 		cache:false,
-		timeout:3000,
+		timeout:5000,
 		success:function(data){
 			ok++;
 			$("#x" + o.id).html(o.name + "已退出！");
 			if(ok >= count){
+				if(errmsg.length > 0){alert(errmsg);}
 				location.href="${ctx}/logoutAction.jsp";
 			}
 		},
-		error:function(){//alert(o.name + "...退出失败，无法访问该服务器！！！");
+		error:function(){errmsg += ((errmsg.length == 0)?"":"\n") + o.name + "...退出失败，无法访问该服务器！！！";
 			ok++;
 			if(ok >= count){
+				if(errmsg.length > 0){alert(errmsg);}
 				location.href="${ctx}/logoutAction.jsp";
 			}
 		}
 	});
 	}catch(e){alert(e.message);}
 }
+$(function(){
 if(count <= 0){
 	location.href="${ctx}/logoutAction.jsp";
 }
 else{
 	for(var i = 0; i < count; i++){logoutload(sys[i]);}
 }
+});
 </script>
 </head>
 <body></body>
