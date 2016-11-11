@@ -25,11 +25,13 @@ var ok = 0;
 function logoutload(o){
 	var url = o.domainurl + o.rooturl + "/logout?jsoncallback=?";
 	$("body").append("<div id='x" + o.id + "'>" + o.name + "正在退出！</div>");
+	try{
 	$.ajax({
 		url:url,
 		type:"post",
 		dataType:"jsonp",
 		cache:false,
+		timeout:3000,
 		success:function(data){
 			ok++;
 			$("#x" + o.id).html(o.name + "已退出！");
@@ -44,6 +46,7 @@ function logoutload(o){
 			}
 		}
 	});
+	}catch(e){alert(e.message);}
 }
 if(count <= 0){
 	location.href="${ctx}/logoutAction.jsp";
