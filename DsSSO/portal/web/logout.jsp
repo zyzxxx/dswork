@@ -32,7 +32,7 @@ function logoutload(o){
 		type:"post",
 		dataType:"jsonp",
 		cache:false,
-		timeout:5000,
+		timeout:3000,
 		success:function(data){
 			ok++;
 			$("#x" + o.id).html(o.name + "已退出！");
