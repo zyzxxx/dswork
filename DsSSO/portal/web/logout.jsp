@@ -39,7 +39,7 @@ function logoutload(o){
 				location.href="${ctx}/logoutAction.jsp";
 			}
 		},
-		error:function(){alert(o.name + "...退出失败，无法访问该服务器！！！");
+		error:function(){//alert(o.name + "...退出失败，无法访问该服务器！！！");
 			ok++;
 			if(ok >= count){
 				location.href="${ctx}/logoutAction.jsp";
