@@ -3,14 +3,17 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-	
+
 	<context-param>
 		<param-name>log4jConfiguration</param-name>
 		<param-value>classpath:config/log4j2.xml</param-value>
 	</context-param>
 	<listener><listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class></listener>
 	
-	<filter><filter-name>websso_logout</filter-name><filter-class>dswork.sso.WebLogoutFilter</filter-class></filter>
+	<filter>
+		<filter-name>websso_logout</filter-name>
+		<filter-class>dswork.sso.WebLogoutFilter</filter-class>
+	</filter>
 	<filter-mapping>
 		<filter-name>websso_logout</filter-name>
 		<url-pattern>/logout</url-pattern>
@@ -19,24 +22,12 @@
 	<filter>
 		<filter-name>websso</filter-name>
 		<filter-class>dswork.sso.WebFilter</filter-class>
-		<init-param><param-name>ssoURL</param-name>
-			<param-value>http://127.0.0.1:8888/sso/api</param-value>
-		</init-param>
-		<init-param><param-name>ssoName</param-name>
-			<param-value>cas-client</param-value>
-		</init-param>
-		<init-param><param-name>ssoPassword</param-name>
-			<param-value>1</param-value>
-		</init-param>
-		<init-param><param-name>loginURL</param-name>
-			<param-value>https://192.168.1.47/sso/login</param-value>
-		</init-param>
-		<init-param><param-name>logoutURL</param-name>
-			<param-value>https://192.168.1.47/sso/logout</param-value>
-		</init-param>
-		<init-param><param-name>ignoreURL</param-name>
-			<param-value>/menu.jsp,/m.jsp</param-value>
-		</init-param>
+		<init-param><param-name>ssoURL</param-name>     <param-value>https://127.0.0.1/sso/api</param-value></init-param>
+		<init-param><param-name>ssoName</param-name>    <param-value>portal</param-value></init-param>
+		<init-param><param-name>ssoPassword</param-name><param-value>1</param-value></init-param>
+		<init-param><param-name>loginURL</param-name>   <param-value>https://192.168.1.47/sso/login</param-value></init-param>
+		<init-param><param-name>logoutURL</param-name>  <param-value>https://192.168.1.47/sso/logout</param-value></init-param>
+		<init-param><param-name>ignoreURL</param-name>  <param-value>/menu.jsp,/m.jsp</param-value></init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>websso</filter-name>
@@ -54,26 +45,17 @@
 	<filter>
 		<filter-name>DsworkCasAuthFilter</filter-name>
 		<filter-class>dswork.sso.AuthFilter</filter-class>
-		<init-param><param-name>refreshTime</param-name>
-			<param-value>3600000</param-value>
-		</init-param>
-		<init-param><param-name>forbiddenPage</param-name>
-			<param-value>/x/40x.html</param-value>
-		</init-param>
-		<init-param><param-name>ignorePage</param-name>
-			<param-value>/menu.jsp,/m.jsp,/index.jsp,/manage/login.htm</param-value>
-		</init-param>
-		<init-param><param-name>fixSuffix</param-name>
-			<param-value>jsp,htm</param-value>
-		</init-param>
-		<init-param><param-name>checkParam</param-name>
-			<param-value>false</param-value>
-		</init-param>
+		<init-param><param-name>refreshTime</param-name>  <param-value>3600000</param-value></init-param>
+		<init-param><param-name>forbiddenPage</param-name><param-value>/x/40x.html</param-value></init-param>
+		<init-param><param-name>ignorePage</param-name>   <param-value>/menu.jsp,/m.jsp,/index.jsp,/manage/login.htm</param-value></init-param>
+		<init-param><param-name>fixSuffix</param-name>    <param-value>jsp,htm</param-value></init-param>
+		<init-param><param-name>checkParam</param-name>   <param-value>false</param-value></init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>DsworkCasAuthFilter</filter-name>
 		<url-pattern>/p/*</url-pattern>
 	</filter-mapping>
 
-	<session-config><session-timeout>30</session-timeout></session-config>
+	<session-config><session-timeout>120</session-timeout></session-config>
+	<welcome-file-list><welcome-file>index.jsp</welcome-file></welcome-file-list>
 </web-app>
