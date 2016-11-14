@@ -168,10 +168,13 @@ public class CmsFactory
 		{
 			init();
 			StringBuilder idArray = new StringBuilder();
-			idArray.append("0");
-			for(int i = 0; i < categoryids.length; i++)
+			if(categoryids.length > 0)
 			{
-				idArray.append(",").append(toLong(categoryids[i]));
+				idArray.append("0");
+				for(int i = 0; i < categoryids.length; i++)
+				{
+					idArray.append(",").append(toLong(categoryids[i]));
+				}
 			}
 			Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, false, false, keyvalue);
 			
