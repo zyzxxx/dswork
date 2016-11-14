@@ -32,7 +32,7 @@
 <script id="tpl" type="text/tmpl">
 找到关于“<span style="color:red;font-weight:bold;">{{ d.keyvalue }}</span>”的结果约<span style="font-size:14px;font-weight:bold;color:red;"> {{ d.size }} </span>条结果 <br/><br/>
 {{# for(var i=0,len=d.rows.length; i<len; i++){ }}
-<div style="border-top:1px solid #ddd;padding:10px;height:70px;">
+<div style="border-top:1px solid #ddd;padding:10px;height:80px;">
 	<a target="_blank" style="text-decoration: none;" href="${ctx}{{ d.rows[i].url }}"><span class="myxx" style="line-height:25px;font-size:16px;color:#000;">{{ d.rows[i].title }}</span></a><br/>
 	<a target="_blank" style="text-decoration: none;color:black;" href="${ctx}/d.rows[i].url"><span class="myxx" style="line-height:25px;font-size:14px;color:#999;">{{ d.rows[i].summary }}</span></a>
 </div>
