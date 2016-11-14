@@ -99,8 +99,7 @@ public class CmsFactory
 
 		Map<String, Object> pagemap = new HashMap<String, Object>();
 		pagemap.put("page", currentPage);
-		pagemap.put("size", pageSize);
-		pagemap.put("total", page.getLastPage());
+		pagemap.put("pagesize", pageSize);
 
 		pagemap.put("first", 1);
 		pagemap.put("firsturl", url);
@@ -159,6 +158,38 @@ public class CmsFactory
 			sb.append(">").append(page.getLastPage()).append("</a>");
 		}
 		map.put("datapageview", sb.toString());// 翻页字符串
+		return map;
+	}
+
+	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean isDesc, String keyvalue, Object... categoryids)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		try
+		{
+			init();
+			StringBuilder idArray = new StringBuilder();
+			idArray.append("0");
+			for(int i = 0; i < categoryids.length; i++)
+			{
+				idArray.append(",").append(toLong(categoryids[i]));
+			}
+			Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, false, false, keyvalue);
+			
+			map.put("status", "1");//success
+			map.put("msg", "success");
+			
+			map.put("size", page.getTotalCount());
+			map.put("page", page.getCurrentPage());
+			map.put("pagesize", page.getPageSize());
+			
+			map.put("totalpage", page.getTotalPage());
+			map.put("rows", page.getResult());
+		}
+		catch(Exception ex)
+		{
+			map.put("status", "0");
+			map.put("msg", "error");
+		}
 		return map;
 	}
 	
