@@ -62,19 +62,19 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td style="width:5%">操作</td>
-		<td style="width:6%">排序</td>
-		<td style="width:8%">栏目ID</td>
-		<td style="width:50%">名称</td>
-		<td>目录</td>
-		<td>栏目模板</td>
-		<td>内容模板</td>
+		<td style="width:5%">排序</td>
+		<td style="width:6%">栏目ID</td>
+		<td>名称</td>
+		<td style="width:10%">目录</td>
+		<td style="width:17%">栏目模板</td>
+		<td style="width:13%">内容模板</td>
 	</tr>
 <c:forEach items="${list}" var="d">
 	<tr>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td><input name="seq" type="text" style="width:24px;" value="${d.seq}" /></td>
-		<td class="k"><input name="keyIndex" type="text" style="width:60px;" readonly="readonly" value="${d.id}" /></td>
-		<td class="v" style="text-align:left;">${d.label}${fn:escapeXml(d.name)}<c:if test="${d.status>0}"><img src="${ctx}/themes/cms/${d.status}.png" title="${fn:escapeXml(d.url)}" /></c:if></td>
+		<td class="k"><input name="keyIndex" type="text" style="width:100%;" readonly="readonly" value="${d.id}" /></td>
+		<td class="v" style="text-align:left;">${d.label}${fn:escapeXml(d.name)}<c:if test="${d.status>0}">&nbsp;<a onclick="return false;" href="#" title="${fn:escapeXml(d.url)}">[${d.status==1?"单页":"外链"}]</a></c:if></td>
 		<td>${fn:escapeXml(d.folder)}</td>
 		<td>${fn:escapeXml(d.viewsite)}</td>
 		<td>${fn:escapeXml(d.pageviewsite)}</td>
