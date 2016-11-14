@@ -127,7 +127,7 @@ public class DsBbsPageController extends BaseController
 	{
 		try
 		{
-			Long id = req.getLong("siteid"), siteid = 0L;
+			Long id = req.getLong("siteid", -1), siteid = -1L;
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("own", getOwn());
 			PageRequest rq = new PageRequest(map);
@@ -135,7 +135,7 @@ public class DsBbsPageController extends BaseController
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);
-				if(id > 0)
+				if(id >= 0)
 				{
 					for(DsBbsSite m : siteList)
 					{
@@ -146,12 +146,12 @@ public class DsBbsPageController extends BaseController
 						}
 					}
 				}
-				if(siteid == 0)
+				if(siteid == -1)
 				{
 					siteid = siteList.get(0).getId();
 				}
 			}
-			if(siteid > 0)
+			if(siteid >= 0)
 			{
 				put("list", queryListForum(siteid));
 			}

@@ -48,10 +48,10 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">栏目列表</td>
-		<td class="menuTool">
+		<td class="title">
 			切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
-			&nbsp;
+		</td>
+		<td class="menuTool">
 			<a class="insert" href="addCategory1.htm?siteid=${siteid}">添加</a>
 			<a class="save" id="listFormSave" href="#">保存排序</a>
 		</td>
