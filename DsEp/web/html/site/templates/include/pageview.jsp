@@ -13,7 +13,7 @@ ${datapageview}
 </c:if>
 
 <br /><br />
-<a${datapage.page == 1?' class="selected"':''}<c:if test="${datapage.page != 1}"> href="${ctx}/${datauri}.html"</c:if>>1</a><c:forEach var="i" begin="2" end="${datapage.total}"><a<c:if test="${datapage.page == i}"> class="selected"</c:if><c:if test="${datapage.page != i}"> href="${ctx}/${datauri}_${i}.html"</c:if>>${i}</a></c:forEach>
+<a${datapage.page == 1?' class="selected"':''}<c:if test="${datapage.page != 1}"> href="${ctx}/${datauri}.html"</c:if>>1</a><c:forEach var="i" begin="2" end="${datapage.last}"><a<c:if test="${datapage.page == i}"> class="selected"</c:if><c:if test="${datapage.page != i}"> href="${ctx}/${datauri}_${i}.html"</c:if>>${i}</a></c:forEach>
 
 <br /><br />
 <a<c:if test="${datapage.page == 1}"> onclick="return false;"</c:if> href="${ctx}/${datapage.firsturl}">首页</a>
