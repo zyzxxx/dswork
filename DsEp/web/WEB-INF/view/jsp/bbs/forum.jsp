@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8" />
 <title>${fn:escapeXml(forum.name)}-${site.name}</title>
-<link rel="stylesheet" href="${ctx}/static/web/web.css" />
+<link rel="stylesheet" href="${ctx}/bbs/web.css" />
 <script type="text/javascript" src="/web/js/jquery/jquery.js"></script>
 <style type="text/css">
 body {overflow-x:hidden;}
