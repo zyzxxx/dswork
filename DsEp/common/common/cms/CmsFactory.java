@@ -129,7 +129,7 @@ public class CmsFactory
 		temppage = currentPage - viewpage -1;
 		if(temppage > 1)
 		{
-			String u = url.replaceAll("\\.html", "_" + (temppage - 1) + ".html");
+			String u = url.replaceAll("\\.html", "_" + temppage + ".html");
 			sb.append("<a href=\"").append(site.get("url")).append(u).append("\">...</a>");
 		}
 
