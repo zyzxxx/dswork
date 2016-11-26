@@ -80,10 +80,20 @@ public class EncryptUtil
 	 * @param str 需要加密的String
 	 * @return base64编码的String，失败返回null
 	 */
+	@SuppressWarnings("all")
 	public static String encodeBase64(String str)
 	{
 		try
 		{
+			try
+			{
+				Class.forName("java.util.Base64");
+				return java.util.Base64.getEncoder().encodeToString(str.getBytes("UTF-8"));
+			}
+			catch(ClassNotFoundException ex)
+			{
+				System.out.println("EncryptUtil ignore java.util.Base64 Class");
+			}
 			return (new sun.misc.BASE64Encoder()).encode(str.getBytes("UTF-8")).replaceAll("\r", "").replaceAll("\n", "");
 		}
 		catch(Exception e)
@@ -97,12 +107,22 @@ public class EncryptUtil
 	 * @param str base64编码的字符串
 	 * @return 解码后的字符串，失败返回null
 	 */
+	@SuppressWarnings("all")
 	public static String decodeBase64(String str)
 	{
 		try
 		{
 			if(str != null)
 			{
+				try
+				{
+					Class.forName("java.util.Base64");
+					return new String(java.util.Base64.getDecoder().decode(str), "UTF-8");
+				}
+				catch(ClassNotFoundException ex)
+				{
+					System.out.println("EncryptUtil ignore java.util.Base64 Class");
+				}
 				return new String((new sun.misc.BASE64Decoder()).decodeBuffer(str), "UTF-8");
 			}
 		}
@@ -117,10 +137,20 @@ public class EncryptUtil
 	 * @param byteArray 需要加密的byte[]
 	 * @return base64编码的byte[]，失败返回null
 	 */
+	@SuppressWarnings("all")
 	public static String encodeByteBase64(byte[] byteArray)
 	{
 		try
 		{
+			try
+			{
+				Class.forName("java.util.Base64");
+				return java.util.Base64.getEncoder().encodeToString(byteArray);
+			}
+			catch(ClassNotFoundException ex)
+			{
+				System.out.println("EncryptUtil ignore java.util.Base64 Class");
+			}
 			return (new sun.misc.BASE64Encoder()).encode(byteArray);
 		}
 		catch(Exception e)
@@ -134,12 +164,22 @@ public class EncryptUtil
 	 * @param str base64编码的字符串
 	 * @return 解码后的byte[]，失败返回null
 	 */
+	@SuppressWarnings("all")
 	public static byte[] decodeByteBase64(String str)
 	{
 		try
 		{
 			if(str != null)
 			{
+				try
+				{
+					Class.forName("java.util.Base64");
+					return java.util.Base64.getDecoder().decode(str);
+				}
+				catch(ClassNotFoundException ex)
+				{
+					System.out.println("EncryptUtil ignore java.util.Base64 Class");
+				}
 				return (new sun.misc.BASE64Decoder()).decodeBuffer(str);
 			}
 		}
