@@ -6,7 +6,7 @@
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-logging-1.1.3.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/commons/commons-pool-1.6.jar"/>\
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.core.jar"/>
-	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.jdbc4.jar"/>
+	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.jdbc.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.mvc.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.ognl.jar"/>
 	<classpathentry kind="lib" path="/Lib/common/dswork/dswork.spring.jar"/>

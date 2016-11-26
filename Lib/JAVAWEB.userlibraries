@@ -10,7 +10,7 @@
         <archive path="/Lib/common/commons/commons-logging-1.1.3.jar"/>
         <archive path="/Lib/common/commons/commons-pool-1.6.jar"/>
         <archive path="/Lib/common/dswork/dswork.core.jar"/>
-        <archive path="/Lib/common/dswork/dswork.jdbc4.jar"/>
+        <archive path="/Lib/common/dswork/dswork.jdbc.jar"/>
         <archive path="/Lib/common/dswork/dswork.mvc.jar"/>
         <archive path="/Lib/common/dswork/dswork.ognl.jar"/>
         <archive path="/Lib/common/dswork/dswork.spring.jar"/>
