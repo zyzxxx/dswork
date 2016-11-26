@@ -185,32 +185,38 @@ public class MyRequest
 					pre_name = clazzName + name;
 					typeName = descritors[i].getReadMethod().getReturnType().getName();
 					_tmp = String.valueOf(request.getParameter(pre_name)); 
-					if(name.equals("class") || _tmp.equals("null"))
+					if(name.equals("class"))
 					{
 						continue;
 					}
 					if(typeName.equals(String.class.getName()))
 					{
+						if(_tmp.equals("null")){continue;}
 						descritors[i].getWriteMethod().invoke(o, new Object[]{_tmp});
 					}
 					else if(typeName.equals(Long.class.getName()) || typeName.equals("long"))
 					{
+						if(_tmp.equals("null")){continue;}
 						descritors[i].getWriteMethod().invoke(o, new Object[]{Long.parseLong(_tmp)});
 					}
 					else if(typeName.equals(Integer.class.getName()) || typeName.equals("int"))
 					{
+						if(_tmp.equals("null")){continue;}
 						descritors[i].getWriteMethod().invoke(o, new Object[]{Integer.parseInt(_tmp)});
 					}
 					else if(typeName.equals(Float.class.getName()) || typeName.equals("float"))
 					{
+						if(_tmp.equals("null")){continue;}
 						descritors[i].getWriteMethod().invoke(o, new Object[]{Float.parseFloat(_tmp)});
 					}
 					else if(typeName.equals(Double.class.getName()) || typeName.equals("double"))
 					{
+						if(_tmp.equals("null")){continue;}
 						descritors[i].getWriteMethod().invoke(o, new Object[]{Double.parseDouble(_tmp)});
 					}
 					else if(typeName.equals(Date.class.getName()))
 					{
+						if(_tmp.equals("null")){continue;}
 						descritors[i].getWriteMethod().invoke(o, new Object[]{MyRequest.toDate(_tmp)});
 					}
 					else
