@@ -13,14 +13,6 @@ request.setAttribute("czys", cms.queryList(1, 5, false, false, true, 45));
 //人大建议52
 request.setAttribute("rdjy", cms.queryList(1, 5, false, false, true, 52));
 %>
-<%--
-<div class="w360 left">
-	<a target="_blank" href="#"><img style="width:360px;height:79px;"="w360" src="${ctx}/f/res/ad/ad_360x79_left.jpg"/></a>
-</div>
-<div class="w360 right">
-	<a target="_blank" href="#"><img style="width:360px;height:79px;" src="${ctx}/f/res/ad/ad_360x79_right.jpg"/></a>
-</div>
---%>
 <div class="w360 left">
 	<a target="_blank" href="http://121.8.226.112:443/gztbs/enterprise/login.html"><img style="width:360px;height:79px;"="w360" src="${ctx}/themes/images/ad_360x79_1.jpg"/></a>
 </div>
