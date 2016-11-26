@@ -1,0 +1,1 @@
+用了反射去支持jdbc3,jdbc4,jdbc4.1,jdbc4.2
