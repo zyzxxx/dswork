@@ -1,0 +1,18 @@
+jdk1.1
+	classes111.jar
+
+jdk1.2和jdk1.3
+	classes12.jar
+
+jdk1.4和jdk5
+	ojdbc14.jar (来源于oracle10.2.0.5)
+
+jdk5
+	ojdbc5.jar (来源于oracle11.2.0.4.0)
+
+jdk6
+	ojdbc6.jar (来源于oracle11.2.0.4.0)
+
+带_g的文件名即使用javac -g编译，生成所有调试信息
+	ojdbc5_g.jar
+	ojdbc6_g.jar

@@ -1,2 +1,16 @@
 连接microsoft sqlserver 2000时，使用：mssql-2000jdbc.jar
 2005及以上的，使用：mssql-jdbc4.jar
+
+
+
+jdk4以上，sqlserver2000
+	mssql-2000jdbc.jar
+
+jdk4以上，sqlserver2000和sqlserver2005（只有这个同时兼容2000和2005）
+	mssql-2005jdbc.jar
+
+jdk5（sqlserver2005以上）
+	mssql-jdbc3.jar
+
+jdk6（sqlserver2005以上）
+	mssql-jdbc4.jar
