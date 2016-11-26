@@ -3,7 +3,7 @@
 
 
 
-jdk4以上，sqlserver2000
+jdk4以上，sqlserver2000(此jar的package其它版本不同，可同时使用)
 	mssql-2000jdbc.jar
 
 jdk4以上，sqlserver2000和sqlserver2005（只有这个同时兼容2000和2005）
