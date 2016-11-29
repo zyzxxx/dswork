@@ -5,7 +5,7 @@
         	classpath="
 ../Lib/JAVAEE/jsp-api.jar;
 ../Lib/JAVAEE/servlet-api.jar;
-../Lib/common/aopalliance.jar;
+../Lib/common/aopalliance-1.0.jar;
 ../Lib/common/jstl-1.2.jar;
 ../Lib/common/commons/commons-collections-3.2.1.jar;
 ../Lib/common/commons/commons-dbcp-1.4.jar;
@@ -38,7 +38,7 @@
 ../Lib/mybatis/mybatis-3.2.8.jar;
 ../Lib/mybatis/mybatis-spring-1.2.5.jar" 
         	destdir="C:\Users\skey\Desktop\jar\dswork\doc" doctitle="DsWorkJavaAPI" nodeprecated="false" nodeprecatedlist="false" noindex="false" nonavbar="false" notree="false" 
-        	packagenames="dswork.core.db,dswork.core.mybatis,dswork.core.upload,dswork.core.util,dswork.spring,dswork.core.page,dswork.core.encrypt,dswork.web,dswork.http" 
+        	packagenames="dswork.core.db,dswork.core.mybatis,dswork.core.upload,dswork.core.util,dswork.spring,dswork.core.page,dswork.web,dswork.http" 
         	source="1.5" 
         	sourcefiles="
 dswork.core/dswork/core/db/BaseDao.java,
