@@ -10,9 +10,9 @@
 		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_CMS_CATEGORY
-	(PID, SITEID, NAME, FOLDER, STATUS, URL, IMG, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, CONTENT)
+	(PID, SITEID, NAME, FOLDER, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT)
 	values
-	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{folder}, #{status}, #{url}, #{img}, #{seq}, #{viewsite}, #{pageviewsite}, #{metakeywords}, #{metadescription}, #{content})
+	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{folder}, #{status}, #{url}, #{seq}, #{viewsite}, #{pageviewsite}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content})
 </insert>
 
 <delete id="delete">
@@ -25,7 +25,6 @@
 		NAME=#{name},
 		FOLDER=#{folder},
 		URL=#{url},
-		IMG=#{img},
 		VIEWSITE=#{viewsite},
 		PAGEVIEWSITE=#{pageviewsite}
 	where ID=#{id}
@@ -33,8 +32,16 @@
 <update id="updateSeq">
 	update DS_CMS_CATEGORY set SEQ=#{seq} where ID=#{id} and SITEID=#{siteid}
 </update>
-<update id="updateContent">
-	update DS_CMS_CATEGORY set METAKEYWORDS=#{metakeywords}, METADESCRIPTION=#{metadescription}, CONTENT=#{content} where ID=#{id}
+<update id="updateContent" parameterType="dswork.cms.model.DsCmsCategory">
+	update DS_CMS_CATEGORY set
+		METAKEYWORDS=#{metakeywords},
+		METADESCRIPTION=#{metadescription}, 
+		SUMMARY=#{summary},
+		RELEASETIME=#{releasetime},
+		RELEASESOURCE=#{releasesource},
+		RELEASEUSER=#{releaseuser},
+		IMG=#{img},
+		CONTENT=#{content} where ID=#{id}
 </update>
 
 <resultMap id="result" type="dswork.cms.model.DsCmsCategory">
@@ -45,17 +52,21 @@
 	<result property="folder" column="FOLDER" />
 	<result property="status" column="STATUS" />
 	<result property="url" column="URL" />
-	<result property="img" column="IMG" />
 	<result property="seq" column="SEQ" />
 	<result property="viewsite" column="VIEWSITE" />
 	<result property="pageviewsite" column="PAGEVIEWSITE" />
 	<result property="metakeywords" column="METAKEYWORDS" />
 	<result property="metadescription" column="METADESCRIPTION" />
+	<result property="summary" column="SUMMARY" />
+	<result property="releasetime" column="RELEASETIME" />
+	<result property="releasesource" column="RELEASESOURCE" />
+	<result property="releaseuser" column="RELEASEUSER" />
+	<result property="img" column="IMG" />
 	<result property="content" column="CONTENT" />
 </resultMap>
 
 <sql id="columns">
-	ID, PID, SITEID, NAME, FOLDER, STATUS, URL, IMG, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, CONTENT
+	ID, PID, SITEID, NAME, FOLDER, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT
 </sql>
 
 <sql id="dynamicWhere">

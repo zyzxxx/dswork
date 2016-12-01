@@ -22,8 +22,6 @@ public class DsCmsCategory
 	private Integer status = 0;
 	// 链接
 	private String url = "";
-	// 图片
-	private String img = "";
 	// 栏目模板
 	private String viewsite = "";
 	// 内容模板
@@ -34,6 +32,16 @@ public class DsCmsCategory
 	private String metakeywords = "";
 	// meta描述
 	private String metadescription = "";
+	// 摘要
+	private String summary = "";
+	// 创建时间
+	private String releasetime = "";
+	// 来源
+	private String releasesource = "";
+	// 作者
+	private String releaseuser = "";
+	// 图片
+	private String img = "";
 	// 内容
 	private String content = "";
 	// 子栏目
@@ -113,16 +121,6 @@ public class DsCmsCategory
 		this.url = url;
 	}
 
-	public String getImg()
-	{
-		return img;
-	}
-
-	public void setImg(String img)
-	{
-		this.img = img;
-	}
-
 	public String getViewsite()
 	{
 		return viewsite;
@@ -171,6 +169,56 @@ public class DsCmsCategory
 	public void setMetadescription(String metadescription)
 	{
 		this.metadescription = metadescription;
+	}
+
+	public String getSummary()
+	{
+		return summary;
+	}
+
+	public void setSummary(String summary)
+	{
+		this.summary = summary;
+	}
+
+	public String getReleasetime()
+	{
+		return releasetime;
+	}
+
+	public void setReleasetime(String releasetime)
+	{
+		this.releasetime = releasetime;
+	}
+
+	public String getReleasesource()
+	{
+		return releasesource;
+	}
+
+	public void setReleasesource(String releasesource)
+	{
+		this.releasesource = releasesource;
+	}
+
+	public String getReleaseuser()
+	{
+		return releaseuser;
+	}
+
+	public void setReleaseuser(String releaseuser)
+	{
+		this.releaseuser = releaseuser;
+	}
+
+	public String getImg()
+	{
+		return img;
+	}
+
+	public void setImg(String img)
+	{
+		this.img = img;
 	}
 
 	public String getContent()

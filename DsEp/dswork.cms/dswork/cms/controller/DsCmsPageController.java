@@ -136,6 +136,10 @@ public class DsCmsPageController extends BaseController
 		DsCmsCategory po = service.getCategory(id);
 		if(po.getStatus() == 1)// 单页栏目
 		{
+			if(po.getReleasetime() == null || po.getReleasetime().length() == 0)
+			{
+				po.setReleasetime(TimeUtil.getCurrentTime());
+			}
 			put("po", po);
 			return "/cms/page/updCategory.jsp";
 		}
@@ -146,18 +150,14 @@ public class DsCmsPageController extends BaseController
 	}
 
 	@RequestMapping("/updCategory2")
-	public void updCategory2()
+	public void updCategory2(DsCmsCategory po)
 	{
 		try
 		{
-			Long id = req.getLong("id");
-			String metakeywords = req.getString("metakeywords");
-			String metadescription = req.getString("metadescription");
-			String content = req.getString("content");
-			DsCmsCategory m = service.getCategory(id);
+			DsCmsCategory m = service.getCategory(po.getId());
 			if(m.getStatus() == 1 && checkOwn(m.getSiteid()))
 			{
-				service.updateCategory(m.getId(), metakeywords, metadescription, content);
+				service.updateCategory(po);
 				print(1);
 				return;
 			}

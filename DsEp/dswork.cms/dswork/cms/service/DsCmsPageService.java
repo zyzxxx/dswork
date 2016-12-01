@@ -70,16 +70,9 @@ public class DsCmsPageService extends BaseService<DsCmsPage, Long>
 		map.put("siteid", siteid);
 		return catDao.queryList(new PageRequest(map));
 	}
-
-	/**
-	 * 更新单页栏目内容
-	 * @param id 主键
-	 * @param keywords meta关键词
-	 * @param keywords meta描述
-	 * @param content 内容
-	 */
-	public void updateCategory(long id, String metakeywords, String metadescription, String content)
+	
+	public void updateCategory(DsCmsCategory po)
 	{
-		catDao.updateContent(id, metakeywords, metadescription, content);
+		catDao.updateContent(po);
 	}
 }

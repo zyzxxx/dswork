@@ -42,13 +42,8 @@ public class DsCmsCategoryDao extends BaseDao<DsCmsCategory, Long>
 	 * @param keywords 关键词
 	 * @param content 内容
 	 */
-	public void updateContent(long id, String metakeywords, String metadescription, String content)
+	public void updateContent(DsCmsCategory po)
 	{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("metakeywords", metakeywords);
-		map.put("metadescription", metadescription);
-		map.put("content", content);
-		executeUpdate("updateContent", map);
+		executeUpdate("updateContent", po);
 	}
 }
