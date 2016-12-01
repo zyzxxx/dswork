@@ -47,6 +47,14 @@ $(function(){
 		<td class="form_input"><input type="text" name="metadescription" maxlength="100" style="width:300px;" value="" /></td>
 	</tr>
 	<tr>
+		<td class="form_title">来源</td>
+		<td class="form_input"><input type="text" name="releasesource" maxlength="100" style="width:300px;" value="" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">作者</td>
+		<td class="form_input"><input type="text" name="releaseuser" maxlength="100" style="width:300px;" value="" /></td>
+	</tr>
+	<tr>
 		<td class="form_title">内容</td>
 		<td class="form_input"><textarea id="content" name="content" style="width:99%;height:300px;"></textarea></td>
 	</tr>
@@ -60,14 +68,6 @@ $(function(){
 			<label><input type="checkbox" name="pagetop" value="1" /> 首页推荐</label>
 			&nbsp;&nbsp;发布时间：<input type="text" name="releasetime" class="WebDate" format="yyyy-MM-dd HH:mm:ss" value="${releasetime}" />
 		</td>
-	</tr>
-	<tr>
-		<td class="form_title">来源</td>
-		<td class="form_input"><input type="text" name="releasesource" maxlength="100" style="width:300px;" value="" /></td>
-	</tr>
-	<tr>
-		<td class="form_title">作者</td>
-		<td class="form_input"><input type="text" name="releaseuser" maxlength="100" style="width:300px;" value="" /></td>
 	</tr>
 </table>
 </form>

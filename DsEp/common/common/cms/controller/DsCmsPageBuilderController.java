@@ -39,15 +39,15 @@ public class DsCmsPageBuilderController extends BaseController
 			put("id", getString(p.get("id")));
 			put("categoryid", getString(p.get("categoryid")));
 			put("title", getString(p.get("title")));
+			put("summary", getString(p.get("summary")));
 			put("metakeywords", getString(p.get("metakeywords")));
 			put("metadescription", getString(p.get("metadescription")));
-			put("summary", getString(p.get("summary")));
-			put("content", getString(p.get("content")));
 			put("releasetime", getString(p.get("releasetime")));
 			put("releasesource", getString(p.get("releasesource")));
 			put("releaseuser", getString(p.get("releaseuser")));
 			put("img", getString(p.get("img")));
 			put("url", getString(p.get("url")));
+			put("content", getString(p.get("content")));
 			return "/" + s.get("folder") + "/templates/" + c.get("pageviewsite");
 		}
 		if(categoryid > 0)// 栏目页

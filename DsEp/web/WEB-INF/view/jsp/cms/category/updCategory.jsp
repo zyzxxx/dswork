@@ -66,10 +66,6 @@ $(function(){
 		<td class="form_input">${fn:escapeXml(po.url)}</td>
 	</tr>
 	</c:if>
-	<tr>
-		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" /></td>
-	</tr>
 	<c:if test="${po.status!=2}">
 	<tr>
 		<td class="form_title">栏目模板</td>

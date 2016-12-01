@@ -59,6 +59,10 @@ $(function(){
 <form id="dataForm" method="post" action="updCategory2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
+		<td class="form_title">摘要</td>
+		<td class="form_input"><input type="text" name="summary" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.summary)}" /></td>
+	</tr>
+	<tr>
 		<td class="form_title">meta关键词</td>
 		<td class="form_input"><input type="text" name="metakeywords" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.metakeywords)}" /></td>
 	</tr>
@@ -67,8 +71,26 @@ $(function(){
 		<td class="form_input"><input type="text" name="metadescription" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.metadescription)}" /></td>
 	</tr>
 	<tr>
+		<td class="form_title">来源</td>
+		<td class="form_input"><input type="text" name="releasesource" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.releasesource)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">作者</td>
+		<td class="form_input"><input type="text" name="releaseuser" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.releaseuser)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">图片</td>
+		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" /></td>
+	</tr>
+	<tr>
 		<td class="form_title">内容</td>
 		<td class="form_input"><textarea id="content" name="content" style="width:99%;height:300px;">${po.content}</textarea></td>
+	</tr>
+	<tr>
+		<td class="form_title">发布</td>
+		<td class="form_input">
+			发布时间：<input type="text" name="releasetime" class="WebDate" format="yyyy-MM-dd HH:mm:ss" value="${fn:escapeXml(po.releasetime)}" />
+		</td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />

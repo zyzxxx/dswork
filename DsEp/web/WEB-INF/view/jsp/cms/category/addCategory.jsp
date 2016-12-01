@@ -75,10 +75,6 @@ $(function(){
 	</tr>
 	</tbody>
 	<tr>
-		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="" /></td>
-	</tr>
-	<tr>
 		<td class="form_title">类型</td>
 		<td class="form_input"><select id="status" name="status" style="width:100px;">
 			<option value="0">列表</option>
