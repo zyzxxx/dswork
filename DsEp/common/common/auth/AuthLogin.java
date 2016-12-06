@@ -54,15 +54,7 @@ public class AuthLogin
 		return re;
 	}
 
-	/**
-	 * 登入
-	 * @param account 用户帐号
-	 * @param password 密码
-	 * @param logintype 用户类型
-	 * @param validCode 验证码
-	 * @return boolean
-	 */
-	public boolean login(String account, String password, int logintype, String validCode)
+	private boolean login(Auth auth, String validCode)
 	{
 		if(!this.isCode(validCode))
 		{
@@ -71,23 +63,23 @@ public class AuthLogin
 		try
 		{
 			Auth loginUser = null;
-			if(logintype == -1)
+			if(auth.isAdmin())
 			{
-				loginUser = ((AuthService)BeanFactory.getBean("authService")).getUserByAccount(account);
+				loginUser = ((AuthService)BeanFactory.getBean("authService")).getUserByAccount(auth.getAccount());
 			}
-			else if(logintype == 0)
+			else if(auth.isEnterprise())
 			{
-				loginUser = ((AuthService)BeanFactory.getBean("authService")).getEpByAccount(account);
+				loginUser = ((AuthService)BeanFactory.getBean("authService")).getEpByAccount(auth.getAccount());
 			}
-			else if(logintype == 1)
+			else if(auth.isUser())
 			{
-				loginUser = ((AuthService)BeanFactory.getBean("authService")).getPersonByAccount(account);
+				loginUser = ((AuthService)BeanFactory.getBean("authService")).getPersonByAccount(auth.getAccount());
 			}
 			if(loginUser != null)
 			{
 				if(loginUser.getLoginstatus() == 1)// 正常
 				{
-					password = EncryptUtil.decodeDes(password, "dswork");
+					String password = EncryptUtil.decodeDes(auth.getPassword(), "dswork");
 					password = EncryptUtil.encryptMd5(password).toLowerCase();
 					if(password.equalsIgnoreCase(loginUser.getPassword().toLowerCase()))
 					{
@@ -109,6 +101,23 @@ public class AuthLogin
 		{
 		}
 		return false;
+	}
+
+	/**
+	 * 登入
+	 * @param account 用户帐号
+	 * @param password 密码
+	 * @param logintype 用户类型
+	 * @param validCode 验证码
+	 * @return boolean
+	 */
+	public boolean login(String account, String password, int logintype, String validCode)
+	{
+		Auth auth = new Auth();
+		auth.setAccount(account);
+		auth.setPassword(password);
+		auth.setLogintype(logintype);
+		return login(auth, validCode);
 	}
 
 	/**
