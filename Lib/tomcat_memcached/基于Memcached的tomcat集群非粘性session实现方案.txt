@@ -6,8 +6,29 @@
 Tomcat配置：
 ***************************************************************************************
 $CATALINA_BASE/conf/context.xml添加，也可在$CATALINA_BASE/conf/server.xml配置文件的<Host>...<Host>中添加配置
+	###################################################################################
 	<Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
 		memcachedNodes="n1:192.168.100.208:1121,n2:192.168.100.208:11311"
+		sticky="false"
+		lockingMode="auto"
+		sessionBackupAsync="false"
+		sessionBackupTimeout="100"
+		requestUriIgnorePattern=".*\.(png|gif|jpg|css|js|ico|eot|svg|ttf|woff)$"
+		transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
+		/>
+	###################################################################################
+	<Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+		memcachedNodes="127.0.0.1:11211"
+		sticky="false"
+		lockingMode="auto"
+		sessionBackupAsync="false"
+		sessionBackupTimeout="100"
+		requestUriIgnorePattern=".*\.(png|gif|jpg|css|js|ico|eot|svg|ttf|woff)$"
+		transcoderFactoryClass="de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory"
+		/>
+	###################################################################################
+	<Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+		memcachedNodes="127.0.0.1:11211"
 		sticky="false"
 		lockingMode="auto"
 		sessionBackupAsync="false"
