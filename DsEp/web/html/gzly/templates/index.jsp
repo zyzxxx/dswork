@@ -17,7 +17,6 @@
 
 
 <!--浮动二维码-->
-<!--
 <div class="floatPanel">
 	<div class="ctrolPanel">
 		<div class="titlePanel">
@@ -33,7 +32,7 @@ function disnon(){
 	$(".floatPanel").css("display","none");
 }
 </script>
--->
+
 
 <div class="imsg w990 clearfix">
 <div class="main left">

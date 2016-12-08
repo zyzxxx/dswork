@@ -27,6 +27,7 @@ request.setAttribute("lyts", cms.queryList(1, 4, false, false, true, 87));
 <!--网页flv,mp4视频播放器PlayerLite/代码结束-->
 	<a target="_blank" href="${ctx}/a/jzxx/index.html"><img src="${ctx}/themes/images/jzxx.png"></a>
 	<a target="_blank" href="${ctx}/a/gkyjx/index.html"><img src="${ctx}/themes/images/gkyjx.png"></a>
+ 	<a target="_blank" href="http://wsbs.gz.gov.cn/gz/zwgk/zqqd.jsp?orgId=10052"><img src="${ctx}/themes/images/ad_qzqd.jpg"></a>
 	<a target="_blank" href="http://wsbs.gz.gov.cn/gz/index.jsp"><img src="${ctx}/themes/images/ad_bsdt.jpg"></a>
 </div>
 
@@ -180,7 +181,7 @@ $.getJSON('/zw/zwclient/survey/surveyJsonAction.jsp', function(data){
 		if(d.option15 != ""){
 			t = t + "<li><input type=\"radio\" id=\"choice15\" name=\"choice\" value=\"15\"/>&nbsp;&nbsp;"+d.option15+"</li>";
 		}
-		t = t+"</ul><br/><input type=\"submit\" style=\"width: 60px;height:25px;background-color:#0192D0;border:0px;border-radius:2px;color:#fff;\" value=\"投票\"/>  <a style=\"text-decoration:none;color:#da3b01;\" href=\"${ctx}/a/dcjg/index.html?keyIndex="+d.id+"\"\">查看结果</a></form><div class=\"vline\">&nbsp;</div></div>";
+		t = t+"</ul><br/><input type=\"submit\" style=\"width: 60px;height:25px;background-color:#0192D0;border:0px;border-radius:2px;color:#fff;\" value=\"投票\"/>  <a style=\"text-decoration:none;color:#da3b01;\" href=\"${ctx}/a/dcjg/index.html?keyIndex="+d.id+"&a="+(new Date().getTime())+"\"\">查看结果</a></form><div class=\"vline\">&nbsp;</div></div>";
 		zxdc = zxdc + t;
 	}
 	document.getElementById('zxdc').innerHTML = zxdc;
@@ -201,5 +202,4 @@ function showLogo(d){
 	}
 }
 </script>
-
 

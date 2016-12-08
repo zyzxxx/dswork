@@ -10,5 +10,6 @@
 			<a href="http://www.miitbeian.gov.cn">粤ICP备14092107号-3</a>&nbsp;&nbsp;&nbsp;粤公网安备44010402000260号
 		</p>
 		<a class="gs" target="_blank"><img src="${ctx}/themes/web/gongshang.gif"/></a>
+		<a class="jiucuo"><script id="_jiucuo_" sitecode='4401000056' src='http://pucha.kaipuyun.cn/exposure/jiucuo.js'></script></a>
 	</div>
 </div>

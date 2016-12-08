@@ -13,11 +13,19 @@ request.setAttribute("czys", cms.queryList(1, 5, false, false, true, 45));
 //人大建议52
 request.setAttribute("rdjy", cms.queryList(1, 5, false, false, true, 52));
 %>
+<%--
 <div class="w360 left">
-	<a target="_blank" href="http://121.8.226.112:443/gztbs/enterprise/login.html"><img style="width:360px;height:79px;"="w360" src="${ctx}/themes/images/ad_360x79_1.jpg"/></a>
+	<a target="_blank" href="#"><img style="width:360px;height:79px;"="w360" src="${ctx}/f/res/ad/ad_360x79_left.jpg"/></a>
 </div>
 <div class="w360 right">
-	<a target="_blank" href="http://121.8.226.112:443/gzlycj/enterprise/login.action"><img style="width:360px;height:79px;" src="${ctx}/themes/images/ad_360x79_2.jpg"/></a>
+	<a target="_blank" href="#"><img style="width:360px;height:79px;" src="${ctx}/f/res/ad/ad_360x79_right.jpg"/></a>
+</div>
+--%>
+<div class="w360 left">
+	<a target="_blank" href="http://121.8.226.113/gzsso/login.jsp?v=2&serviceURL=%2Fpt"><img style="width:360px;height:79px;"="w360" src="${ctx}/themes/images/ad_360x79_1.jpg"/></a>
+</div>
+<div class="w360 right">
+	<a target="_blank" href="http://121.8.226.113/gzsso/login.jsp?v=2&serviceURL=%2Fpt"><img style="width:360px;height:79px;" src="${ctx}/themes/images/ad_360x79_2.jpg"/></a>
 </div>
 <div class="w360 left">
 	<a target="_blank" href="http://www.gzlytj.com/Note/note_list.aspx"><img style="width:360px;height:79px;"="w360" src="${ctx}/themes/images/ad_360x79_3.jpg"/></a>
@@ -87,13 +95,15 @@ request.setAttribute("rdjy", cms.queryList(1, 5, false, false, true, 52));
 
 <div class="vline">&nbsp;</div>
 <div class="w735">
- 	<a target="_blank" href="http://www.visitgz.com/lyzt22.html"><img class="w735" src="${ctx}/themes/images/index_22.jpg"/></a>
+ 	<a target="_blank" href="http://www.visitgz.com/lyzt37.html">
+	<img class="w735" src="http://www.visitgz.gov.cn/lizhuo/images37/index_0728.jpg"/>
+	</a>
 </div>
 <div class="w735">
 	<a target="_blank" href="http://www.visitgz.com/lyzt12.html"><img class="w735" src="${ctx}/themes/images/index_12.jpg"/></a>
 </div>
 <div class="w735">
-	<a target="_blank" href="http://www.visitgz.com/lyzt15.html"><img class="w735" src="${ctx}/themes/images/index_07.jpg"/></a>
+	<a target="_blank" href="http://www.visitgz.com/lyzt25.html"><img class="w735" src="${ctx}/themes/images/index_07.jpg"/></a>
 </div>
 <div class="w735">
 	<a target="_blank" href="http://www.visitgz.com/contents/55/8317.html"><img class="w735" src="${ctx}/themes/images/index_08.jpg"/></a>

@@ -15,7 +15,7 @@
 </head>
 <body>
 <%@include file="include/header.jsp"%>
-<div class="w990 clear">
+<div class="container w990 clear">
   <div class="w990 right">
 	<div class="listpage">
 	  <div class="logo">&nbsp;&nbsp;当前位置：${category.name}</div>

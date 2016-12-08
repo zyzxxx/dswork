@@ -16,7 +16,7 @@
 <body>
 <%@include file="include/header.jsp"%>
 <script type="text/javascript" src="${ctx}/js/tv/swfobject.js"></script>
-<div class="w990 clear">
+<div class="container w990 clear">
   <div class="w990">
 	<div class="listpage">
 	  <div class="logo">&nbsp;&nbsp;当前位置：${category.name}</div>

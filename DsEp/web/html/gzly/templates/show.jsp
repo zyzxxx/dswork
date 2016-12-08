@@ -15,7 +15,7 @@
 </head>
 <body>
 <%@include file="include/header.jsp"%>
-<div class="w990 clear">
+<div class="container w990 clear">
   <div class="gk w240 left">
 	<%@include file="include/tree.jsp"%>
   </div>

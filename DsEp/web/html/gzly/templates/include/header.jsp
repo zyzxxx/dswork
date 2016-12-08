@@ -19,6 +19,7 @@
 </div>
 
 
+<%--
 <script type="text/javascript" src="${ctx}/js/jskey_focus.js"></script>
 <style type="text/css">
 #showid1 img{width:100%;height:100%;margin:0 auto;}
@@ -35,12 +36,12 @@
 <div id="showid1" style="width:100%;height:300px;margin:0 auto;overflow:hidden;background-color:#fff;clear:both;">
 	<div class="jskey_focus">
 		<ul>
+			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/1.jpg"/></a></li>
+			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/2.jpg"/></a></li>
 			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/3.jpg"/></a></li>
-			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/3.jpg"/></a></li>
-			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/3.jpg"/></a></li>
-			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/3.jpg"/></a></li>
-			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/3.jpg"/></a></li>
-			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/3.jpg"/></a></li>
+			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/4.jpg"/></a></li>
+			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/5.jpg"/></a></li>
+			<li><a href="#" target="_blank"><img src="${ctx}/f/res/index/6.jpg"/></a></li>
 		</ul>
 	</div>
 </div>
@@ -54,11 +55,11 @@
 .nav-my .nav-up a{color:#fff;padding:0 26px;}
 .nav-my .nav-up .nav-up-hover a{color:yellow;}
 .nav-my .nav-down dl{margin:10px 12px 8px 12px;}
-.nav-my .nav-down dt a {color:#ddd;}
-.nav-my .nav-down dt a:link {color:#ddd;}
+.nav-my .nav-down dt a {color:#999;}
+.nav-my .nav-down dt a:link {color:#ccc;}
 .nav-my .nav-down dt a:hover{color:yellow;}
-.nav-my .nav-down dd a {color:#eee;}
-.nav-my .nav-down dd a:link {color:#eee;}
+.nav-my .nav-down dd a {color:#aaa;}
+.nav-my .nav-down dd a:link {color:#aaa;}
 .nav-my .nav-down dd a:hover{color:yellow;}
 </style>
 <div style="width:990px;height:44px;margin:0 auto;">
@@ -107,5 +108,4 @@ $(function(){
 	$("#v1").navtool({height:44,bgColor:"#1C72BE",bgColorHover:"#15539C",bgColorMenu:"#15539C"});// 字体颜色需要使用css进行设置
 });
 </script>
-<%--
 --%>
