@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<eclipse-userlibraries version="2">
+    <library name="Analyzer" systemlibrary="false">
+        <archive path="/Lib/module/dswork/analyzer/config/analyzer/extend.dic"/>
+        <archive path="/Lib/module/dswork/analyzer/config/analyzer/main.dic"/>
+        <archive path="/Lib/module/dswork/analyzer/config/analyzer/quantifier.dic"/>
+        <archive path="/Lib/module/dswork/analyzer/config/analyzer/stopword.dic"/>
+    </library>
+</eclipse-userlibraries>
