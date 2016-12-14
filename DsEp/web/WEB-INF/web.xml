@@ -53,7 +53,11 @@
 
 
 
-	<listener><listener-class>common.auto.AutoListener</listener-class></listener>
+	<servlet>
+		<servlet-name>autoload</servlet-name>
+		<servlet-class>common.auto.AutoServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
 
 	<filter><filter-name>authFilter</filter-name><filter-class>common.auth.AuthFilter</filter-class></filter>
 	<filter-mapping>
