@@ -12,6 +12,8 @@
 	<classpathentry kind="src" path="dswork.web"/>
 	<classpathentry kind="src" path="dswork.cs"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
+	<classpathentry kind="src" path="dswork.analyzer"/>
+	<classpathentry kind="src" path="dswork.html"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -33,5 +35,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="dswork.test"/>
+	<classpathentry kind="lib" path="/Lib/module/lucene/lucene-core-5.5.3.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
