@@ -105,7 +105,6 @@ public class LuceneUtil
 	
 	public static void initFile(IndexWriter iwriter, String rootpath, File files) throws IOException
 	{
-		System.out.println(files.getPath());
 		if(files.isFile())
 		{
 			if(files.getName().endsWith(".html") && !files.getName().startsWith("index"))
