@@ -100,7 +100,7 @@ public class LuceneUtil
 					e.printStackTrace();
 				}
 				String url = files.getPath().replaceAll("\\\\", "/").replaceFirst(rootpath, "");
-				dswork.html.nodes.Document document = HtmlUtil.parse(FileUtil.readFile(files.getPath(), "UTF-8"));
+				dswork.html.nodes.Document document = HtmlUtil.parse(FileUtil.readFile(files.getPath(), "UTF-8").replaceAll("&nbsp;", ""));
 				if(document == null)
 				{
 					System.out.println("---------------------\nerror:");
@@ -110,7 +110,7 @@ public class LuceneUtil
 				// 此处读取的信息应该根据不同的项目，截取不同的文档信息
 				// ----------------------------------------
 				String title = document.selectOwnText(".title").trim();
-				String content = document.selectText(".content").trim().replaceAll("&nbsp;", "");
+				String content = document.selectText(".content").trim();
 				if(title.length() > 0 && content.length() > 0)
 				{
 					count++;
