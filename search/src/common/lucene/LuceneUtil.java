@@ -45,6 +45,7 @@ public class LuceneUtil
 	private static final String INDEX_PATH = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.index", "");
 	private static final String Domain = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.domain", "");
 	private static final int Size = new Long(dswork.core.util.EnvironmentUtil.getToLong("dswork.lucene.size", 100)).intValue();
+	public static final long Refreshtime = dswork.core.util.EnvironmentUtil.getToLong("dswork.lucene.refreshtime", 86400000);
 	
 	
 	private static Formatter formatter = new SimpleHTMLFormatter("<span class='keyvalue'>", "</span>");// 关键字增加前后缀
@@ -82,25 +83,6 @@ public class LuceneUtil
 		fieldType.setTokenized(true);
 		doc.add(new Field(SearchKey, name+msg, fieldType));
 		return doc;
-	}
-	
-	
-	static
-	{
-		System.out.println("------------------");
-		try
-		{
-			System.out.println("索引初始化开始");
-			System.out.println("------------------");
-			initIndex();
-			System.out.println("索引初始化结束");
-		}
-		catch(Exception e)
-		{
-			System.out.println("***索引初始化失败***");
-			e.printStackTrace();
-		}
-		System.out.println("------------------");
 	}
 	
 	public static void initFile(IndexWriter iwriter, String rootpath, File files) throws IOException
@@ -280,8 +262,21 @@ public class LuceneUtil
 		return pageModel;
 	}
 	
-	public static void load()
+	public static void reload()
 	{
-		
+		System.out.println("------------------");
+		try
+		{
+			System.out.println("索引初始化开始");
+			System.out.println("------------------");
+			initIndex();
+			System.out.println("索引初始化结束");
+		}
+		catch(Exception e)
+		{
+			System.out.println("***索引初始化失败***");
+			e.printStackTrace();
+		}
+		System.out.println("------------------");
 	}
 }

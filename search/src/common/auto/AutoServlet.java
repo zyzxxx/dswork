@@ -5,6 +5,6 @@ public class AutoServlet extends javax.servlet.http.HttpServlet
 {
 	static
 	{
-		common.lucene.LuceneUtil.load();
+		common.auto.AutoTimerLucene.toStart();
 	}
 }
