@@ -8,7 +8,13 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jskey_page.js"></script>
 <script type="text/javascript" src="js/laytpl.js"></script>
-<style type="text/css">span.keyvalue {color:red;}</style>
+<style type="text/css">
+a:link,a:visited,a:active{outline:none;text-decoration:underline;}
+a:hover{outline:none;text-decoration:underline;}
+span.keyvalue {color:red;}
+span.title {line-height:25px;font-size:16px;}
+span.summary {line-height:20px;font-size:12px;color:black;}
+</style>
 </head>
 <body>
 <div id="search" style="margin:10px 0;"></div>
@@ -17,9 +23,9 @@
 <script id="tpl" type="text/tmpl">
 找到关于“<span style="color:red;font-weight:bold;">{{ d.keyvalue }}</span>”的结果约<span style="font-size:14px;font-weight:bold;color:red;"> {{ d.size }} </span>条结果 <br/><br/>
 {{# for(var i=0,len=d.rows.length; i<len; i++){ }}
-<div style="border-top:1px solid #ddd;padding:10px;height:80px;">
-	<a target="_blank" style="text-decoration: none;" href="${ctx}{{ d.rows[i].url }}"><span class="myxx" style="line-height:25px;font-size:16px;color:#000;">{{ d.rows[i].title }}</span></a><br/>
-	<a target="_blank" style="text-decoration: none;color:black;" href="${ctx}/d.rows[i].url"><span class="myxx" style="line-height:25px;font-size:14px;color:#999;">{{ d.rows[i].summary }}</span></a>
+<div style="border-top:1px solid #ddd;padding:10px;">
+	<a target="_blank" href="{{ d.rows[i].url }}"><span class="title">{{ d.rows[i].title }}</span></a>
+	<br/><span class="summary">{{ d.rows[i].summary }}</span>
 </div>
 {{# } }}
 </script>

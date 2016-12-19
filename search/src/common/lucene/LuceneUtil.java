@@ -173,6 +173,8 @@ public class LuceneUtil
 		}
 	}
 	
+	private static int MaxLength = 300;
+	
 	public static Page<MyDocument> search(String keyword, int page, int pagesize)
 	{
 		// 太多了，处理一下
@@ -204,7 +206,7 @@ public class LuceneUtil
 			Scorer scorer = new QueryScorer(query);// 封装关键字
 			Highlighter highlighter = new Highlighter(formatter, scorer);
 			// 文档切片
-			Fragmenter fragmenter = new SimpleFragmenter(100);
+			Fragmenter fragmenter = new SimpleFragmenter(MaxLength);
 			highlighter.setTextFragmenter(fragmenter);
 			
 			List<MyDocument> ls = new ArrayList<MyDocument>();
@@ -218,7 +220,14 @@ public class LuceneUtil
 				String uri = targetDoc.get(SearchUri);
 				String title = highlighter.getBestFragment(analyzer, SearchName, name);
 				String summary = highlighter.getBestFragment(analyzer, SearchMsg, content);
-				
+				if(title == null)
+				{
+					title = name;
+				}
+				if(summary == null)
+				{
+					summary = (content.length() > MaxLength) ? content.substring(0, 300): content;
+				}
 				MyDocument doc = new MyDocument();
 				//doc.setName(name).setMsg(content);
 				doc.setScore(score).setTitle(title).setSummary(summary).setUrl(Domain + uri);
