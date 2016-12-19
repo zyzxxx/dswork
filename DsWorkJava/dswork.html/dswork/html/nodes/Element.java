@@ -172,6 +172,20 @@ public class Element extends Node
 		return sb.toString();
 	}
 
+	public String selectOwnText(String cssQuery)
+	{
+		List<Element> arr = select(cssQuery);
+		StringBuilder sb = new StringBuilder(64);
+		if(arr.size() > 0)
+		{
+			for(Element ele : arr)
+			{
+				sb.append(ele.ownText());
+			}
+		}
+		return sb.toString();
+	}
+
 	public boolean is(String cssQuery)
 	{
 		return is(ParserQuery.parse(cssQuery));

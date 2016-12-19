@@ -25,15 +25,6 @@ public class Document extends Element
 		this.transitionLowerCase = transitionLowerCase;
 	}
 
-	public static Document createShell(String location)
-	{
-		Document doc = new Document(location);
-		Element html = doc.appendElement("html");
-		html.appendElement("head");
-		html.appendElement("body");
-		return doc;
-	}
-
 	public String location()
 	{
 		return location;
