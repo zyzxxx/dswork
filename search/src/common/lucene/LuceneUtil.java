@@ -106,7 +106,10 @@ public class LuceneUtil
 					System.out.println("---------------------\nerror:");
 					return;
 				}
-				String title = document.selectText("title").trim();
+				// ----------------------------------------
+				// 此处读取的信息应该根据不同的项目，截取不同的文档信息
+				// ----------------------------------------
+				String title = document.selectOwnText(".title").trim();
 				String content = document.selectText(".content").trim();
 				if(title.length() > 0 && content.length() > 0)
 				{
@@ -124,7 +127,7 @@ public class LuceneUtil
 		}
 	}
 	private static int count = 0;
-	private static void initIndex() throws IOException
+	private static void initIndex()
 	{
 		IndexWriter iwriter = null;
 		try
@@ -149,6 +152,10 @@ public class LuceneUtil
 				initFile(iwriter, path, files);
 			}
 			
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 		finally
 		{
@@ -261,7 +268,7 @@ public class LuceneUtil
 			System.out.println("------------------");
 			count = 0;
 			initIndex();
-			System.out.println("参与初始化文件个数为：" + count);
+			System.out.println("索引初始化文件个数为：" + count);
 			System.out.println("索引初始化结束");
 		}
 		catch(Exception e)

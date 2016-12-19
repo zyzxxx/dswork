@@ -22,7 +22,6 @@ public class AutoTimerLucene extends Thread
 	{
 		try
 		{
-			toStart();//马上执行
 		}
 		catch(Exception ex)
 		{
@@ -35,14 +34,14 @@ public class AutoTimerLucene extends Thread
 	public void run()
 	{
 		final long index = System.currentTimeMillis();
-		System.out.println("********AutomaticExecute线程启动********");
-		System.out.println("标识号：" + index);
 		if(AutoTimerLucene.getCount() != 0)//上次的任务还没有结束呢，不需要重复执行 了
 		{
 			System.out.println("********AutomaticExecute线程结束 ，因上次线程任务还在运行，本次不执行********");
 			System.out.println("标识号：" + index);
 			return;
 		}
+		System.out.println("********AutomaticExecute线程启动********");
+		System.out.println("标识号：" + index);
 		AutoTimerLucene.setCount(1);//标记任务启动
 		try
 		{
@@ -78,23 +77,13 @@ public class AutoTimerLucene extends Thread
 			_timer.schedule(_timerTask, cal.getTime(), LuceneUtil.Refreshtime);// 从date开始,每period毫秒执行task.
 			
 			//_timer.schedule(_timerTask, 0, 60000);// 从服务器启动开始运行,每period毫秒执行
-			System.out.println("--发送程序执行间隔60000毫秒。--");
+			System.out.println("--发送程序执行间隔" + LuceneUtil.Refreshtime + "毫秒。--");
 		}
 		catch(Exception ex)
 		{
-			try {_timer.cancel();}catch(Exception timerEx) {}//尝试停止进程，即使它未初始化或未启动
 			ex.printStackTrace();
-			System.out.println("********AutomaticExecute线程异常结束 ********");
 			System.out.println("标识号：" + index);
 			AutoTimerLucene.setCount(0);
 		}
-	}
-	/*
-	 * 调用toStart(),启动定时清理程序
-	 */
-	public static final void toStart()
-	{
-		AutoTimerLucene pj = new AutoTimerLucene();
-		pj.start();//启动程序
 	}
 }
