@@ -95,7 +95,6 @@ public class LuceneUtil
 				try
 				{
 					id = Long.parseLong(files.getName().substring(0, files.getName().length() - 5));
-					System.out.println(id);
 				}
 				catch(NumberFormatException e)
 				{
@@ -112,6 +111,7 @@ public class LuceneUtil
 				String content = document.selectText(".content").trim();
 				if(title.length() > 0 && content.length() > 0)
 				{
+					count++;
 					iwriter.addDocument(LuceneUtil.getLuceneDocument(id, url, title, content));
 				}
 			}
@@ -124,8 +124,10 @@ public class LuceneUtil
 			}
 		}
 	}
+	
+	private static int count = 0;
 
-	public static void initIndex() throws IOException
+	public static synchronized void initIndex() throws IOException
 	{
 		IndexWriter iwriter = null;
 		try
@@ -149,6 +151,7 @@ public class LuceneUtil
 				iwriter.deleteAll();
 				initFile(iwriter, path, files);
 			}
+			
 		}
 		finally
 		{
@@ -195,15 +198,6 @@ public class LuceneUtil
 
 			pageModel = new Page<MyDocument>(page, pagesize, scoreDocs.length);
 
-//			// 不使用高亮模式
-//			for(ScoreDoc scoreDoc : scoreDocs)
-//			{
-//				float score = scoreDoc.score;
-//				System.out.println(score);// 相关的得分
-//				Document targetDoc = isearcher.doc(scoreDoc.doc);
-//				ls.add(targetDoc);
-//			}
-			
 			Scorer scorer = new QueryScorer(query);// 封装关键字
 			Highlighter highlighter = new Highlighter(formatter, scorer);
 			// 文档切片
@@ -269,7 +263,9 @@ public class LuceneUtil
 		{
 			System.out.println("索引初始化开始");
 			System.out.println("------------------");
+			count = 0;
 			initIndex();
+			System.out.println("参与初始化文件个数为：" + count);
 			System.out.println("索引初始化结束");
 		}
 		catch(Exception e)
