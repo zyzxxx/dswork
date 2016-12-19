@@ -110,7 +110,7 @@ public class LuceneUtil
 				// 此处读取的信息应该根据不同的项目，截取不同的文档信息
 				// ----------------------------------------
 				String title = document.selectOwnText(".title").trim();
-				String content = document.selectText(".content").trim();
+				String content = document.selectText(".content").trim().replaceAll("&nbsp;", "");
 				if(title.length() > 0 && content.length() > 0)
 				{
 					count++;
