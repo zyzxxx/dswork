@@ -9,6 +9,8 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.FieldType;
+import org.apache.lucene.document.FieldType.NumericType;
+import org.apache.lucene.document.LongField;
 import org.apache.lucene.document.NumericDocValuesField;
 import org.apache.lucene.index.DirectoryReader;
 import org.apache.lucene.index.IndexOptions;
@@ -21,7 +23,8 @@ import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
-import org.apache.lucene.search.TopDocs;
+import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
 import org.apache.lucene.store.Directory;
 
 
@@ -51,7 +54,8 @@ public class LuceneUtil
 	private static Formatter formatter = new SimpleHTMLFormatter("<span class='keyvalue'>", "</span>");// 关键字增加前后缀
 	private static Analyzer analyzer = new BaseAnalyzer(false);
 	private static Directory directory = null;
-	
+
+	private static String SearchSeq = "seq";
 	private static String SearchKey = "search";
 	private static String SearchName = "name";
 	private static String SearchMsg = "msg";
@@ -59,8 +63,14 @@ public class LuceneUtil
 	private static Document getLuceneDocument(long seq, String uri, String name, String msg)
 	{
 		Document doc = new Document();
-		doc.add(new NumericDocValuesField("seq", seq));
 		FieldType fieldType = new FieldType();
+		fieldType.setIndexOptions(IndexOptions.NONE);
+		fieldType.setStored(true);
+		fieldType.setTokenized(false);
+		fieldType.setNumericType(NumericType.LONG);
+		doc.add(new LongField(SearchSeq, seq, fieldType));
+		doc.add(new NumericDocValuesField(SearchSeq, seq));
+		
 		fieldType.setIndexOptions(IndexOptions.NONE);
 		fieldType.setStored(true);
 		fieldType.setTokenized(false);
@@ -196,8 +206,13 @@ public class LuceneUtil
 			QueryParser qp = new QueryParser(SearchKey, analyzer);
 			qp.setDefaultOperator(QueryParser.AND_OPERATOR);
 			Query query = qp.parse(keyword);
+			
+			SortField[] sortField = new SortField[1];
+			sortField[0] = new SortField(SearchSeq, SortField.Type.LONG, true);
+			
 			System.out.println("Query = " + query);
-			TopDocs topDocs = isearcher.search(query, Size);
+			org.apache.lucene.search.TopFieldDocs topDocs = isearcher.search(query, Size, new Sort(sortField));
+			// org.apache.lucene.search.TopDocs topDocs = isearcher.search(query, Size);
 			System.out.println("命中：" + topDocs.totalHits);
 			ScoreDoc[] scoreDocs = topDocs.scoreDocs;
 
@@ -231,7 +246,7 @@ public class LuceneUtil
 				}
 				MyDocument doc = new MyDocument();
 				//doc.setName(name).setMsg(content);
-				doc.setScore(score).setTitle(title).setSummary(summary).setUrl(Domain + uri);
+				doc.setScore(0).setTitle(title).setSummary(summary).setUrl(Domain + uri);
 				ls.add(doc);
 			}
 			pageModel.setResult(ls);
@@ -262,7 +277,7 @@ public class LuceneUtil
 				}
 			}
 		}
-		if(pageModel == null)
+		if(pageModel == null || pageModel.getResult() == null)
 		{
 			pageModel = new Page<MyDocument>(1, pagesize, 0, new ArrayList<MyDocument>());
 		}
