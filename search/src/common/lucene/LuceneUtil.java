@@ -210,7 +210,8 @@ public class LuceneUtil
 			highlighter.setTextFragmenter(fragmenter);
 			
 			List<MyDocument> ls = new ArrayList<MyDocument>();
-			for(int i = pageModel.getFirstResultIndex(); i < scoreDocs.length; i++)
+			int end = pageModel.getFirstResultIndex() + pageModel.getPageSize();
+			for(int i = pageModel.getFirstResultIndex(); i < scoreDocs.length && i < end; i++)
 			{
 				ScoreDoc scoreDoc = scoreDocs[i];
 				float score = scoreDoc.score;
