@@ -56,7 +56,7 @@ public class LuceneUtil
 	private static String SearchName = "name";
 	private static String SearchMsg = "msg";
 	private static String SearchUri = "uri";
-	public static Document getLuceneDocument(long seq, String uri, String name, String msg)
+	private static Document getLuceneDocument(long seq, String uri, String name, String msg)
 	{
 		Document doc = new Document();
 		doc.add(new NumericDocValuesField("seq", seq));
@@ -84,8 +84,7 @@ public class LuceneUtil
 		doc.add(new Field(SearchKey, name+msg, fieldType));
 		return doc;
 	}
-	
-	public static void initFile(IndexWriter iwriter, String rootpath, File files) throws IOException
+	private static void initFile(IndexWriter iwriter, String rootpath, File files) throws IOException
 	{
 		if(files.isFile())
 		{
@@ -124,10 +123,8 @@ public class LuceneUtil
 			}
 		}
 	}
-	
 	private static int count = 0;
-
-	public static synchronized void initIndex() throws IOException
+	private static void initIndex() throws IOException
 	{
 		IndexWriter iwriter = null;
 		try
@@ -168,7 +165,6 @@ public class LuceneUtil
 			}
 		}
 	}
-	
 	
 	public static Page<MyDocument> search(String keyword, int page, int pagesize)
 	{
@@ -256,7 +252,7 @@ public class LuceneUtil
 		return pageModel;
 	}
 	
-	public static void reload()
+	public static synchronized void reload()
 	{
 		System.out.println("------------------");
 		try
