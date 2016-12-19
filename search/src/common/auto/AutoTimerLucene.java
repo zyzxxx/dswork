@@ -55,7 +55,7 @@ public class AutoTimerLucene extends Thread
 					{
 						LuceneUtil.reload();
 						AutoTimerLucene.setCount(0);// 退出
-						System.out.println("--AutomaticExecute定时任务结束，已无待发信息。--");
+						System.out.println("--AutomaticExecute定时任务结束。--");
 						System.out.println("标识号：" + index);
 					}
 					catch(Exception ex)
