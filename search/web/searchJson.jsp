@@ -1,7 +1,8 @@
 <%@page pageEncoding="UTF-8"%><%
 dswork.web.MyRequest req = new dswork.web.MyRequest(request);
 response.addHeader("Access-Control-Allow-Origin", "*");
-String search = java.net.URLDecoder.decode(req.getString("v"), "UTF-8");
+String search = new String(req.getString("v").getBytes("iso-8859-1"), "UTF-8");
+search = java.net.URLDecoder.decode(search, "UTF-8");
 java.util.Map<String, Object> map = new java.util.HashMap<String, Object>();
 try
 {

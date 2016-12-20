@@ -42,7 +42,7 @@ if(_a.length > 1){
 	else{
 		var tpl = document.getElementById('tpl').innerHTML;
 		var u = "searchJson.jsp?v="+v+"&page=";
-		var vv = decodeURI(decodeURI(v));
+		var vv = decodeURIComponent(decodeURIComponent(v));
 		try{parent.$('#vv').val(vv);}catch(ex){}
 		$jskey.page({object:'dpage',template:1,fn:function(e){
 			$.getJSON(u+e.page+"&r="+(new Date().getTime()), function(res){

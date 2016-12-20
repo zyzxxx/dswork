@@ -9,12 +9,12 @@
 <script type="text/javascript">
 function my()
 {
-	top.location.href="/search/search.jsp?v=" + encodeURI(encodeURI(document.getElementById('vv').value));
+	top.location.href="/search/search.jsp?v=" + encodeURIComponent(encodeURIComponent(document.getElementById('vv').value));
 }
 </script>
 </head>
 <body>
-	<input id="vv" type="text" name=vv"" value="" />
+	<input id="vv" type="text" name="vv" value="" />
 	<input type="button" value="搜索" onclick="my();" />
 </body>
 </html>
