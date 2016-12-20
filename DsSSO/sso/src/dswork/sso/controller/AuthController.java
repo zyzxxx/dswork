@@ -37,6 +37,7 @@ public class AuthController
 	public String login(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		response.setHeader("P3P", "CP=CAO PSA OUR");
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		//response.setHeader("P3P", "CP='CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR'");
 		//response.setHeader("P3P", "CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'");
 		MyRequest req = new MyRequest(request);
@@ -71,6 +72,7 @@ public class AuthController
 	public String loginAction(HttpServletRequest request, HttpServletResponse response)
 	{
 		response.setHeader("P3P", "CP=CAO PSA OUR");
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		MyRequest req = new MyRequest(request);
 		String account = req.getString("account").toLowerCase();
 		String password = req.getString("password");
