@@ -192,7 +192,8 @@ public class LuceneUtil
 		{
 			pagesize = 10;
 		}
-		System.out.println("搜索关键字：" + keyword);
+		System.out.println("-------------------------");
+		System.out.println("搜索：" + keyword);
 		IndexReader ireader = null;
 		Page<MyDocument> pageModel = null;
 		try
@@ -210,8 +211,8 @@ public class LuceneUtil
 			SortField[] sortField = new SortField[1];
 			sortField[0] = new SortField(SearchSeq, SortField.Type.LONG, true);
 			
-			System.out.println("Query = " + query);
 			org.apache.lucene.search.TopFieldDocs topDocs = isearcher.search(query, Size, new Sort(sortField));
+			System.out.println(query);
 			// org.apache.lucene.search.TopDocs topDocs = isearcher.search(query, Size);
 			System.out.println("命中：" + topDocs.totalHits);
 			ScoreDoc[] scoreDocs = topDocs.scoreDocs;
@@ -229,7 +230,6 @@ public class LuceneUtil
 			for(int i = pageModel.getFirstResultIndex(); i < scoreDocs.length && i < end; i++)
 			{
 				ScoreDoc scoreDoc = scoreDocs[i];
-				float score = scoreDoc.score;
 				Document targetDoc = isearcher.doc(scoreDoc.doc);
 				String name = targetDoc.get(SearchName);
 				String content = targetDoc.get(SearchMsg);
@@ -246,7 +246,7 @@ public class LuceneUtil
 				}
 				MyDocument doc = new MyDocument();
 				//doc.setName(name).setMsg(content);
-				doc.setScore(0).setTitle(title).setSummary(summary).setUrl(Domain + uri);
+				doc.setTitle(title).setSummary(summary).setUrl(Domain + uri);
 				ls.add(doc);
 			}
 			pageModel.setResult(ls);

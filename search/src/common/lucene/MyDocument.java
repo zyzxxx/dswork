@@ -2,20 +2,10 @@ package common.lucene;
 
 public class MyDocument
 {
-	private float score = 0f;// 得分
 	private String title = "";// 关键字高亮标题
 	private String summary = "";// 关键字高亮摘要
 	private String url = "";// 相对url地址
-	
-	public float getScore()
-	{
-		return score;
-	}
-	public MyDocument setScore(float score)
-	{
-		this.score = score;
-		return this;
-	}
+
 	public String getTitle()
 	{
 		return title;
