@@ -19,7 +19,7 @@
 		<logger level="WARN" additivity="false" name="org.springframework"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="WARN" additivity="false" name="org.springframework.jdbc.core.JdbcTemplate"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="WARN" additivity="false" name="org.springframework.web.servlet.PageNotFound"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
-		<logger level="DEBUG" additivity="false" name="dswork.cas"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="DEBUG" additivity="false" name="dswork.sso"><appender-ref ref="stdout" /></logger>
 		<Root level="WARN"><AppenderRef ref="logfile" /><AppenderRef ref="stdout" /></Root>
 	</Loggers>
 </Configuration>

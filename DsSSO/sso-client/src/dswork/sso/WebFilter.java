@@ -52,9 +52,12 @@ public class WebFilter implements Filter
 //		{
 //			relativeURI = relativeURI.replaceFirst(request.getContextPath(), "");
 //		}
-		if(log.isDebugEnabled())
+		
+		IUser ouser = (IUser)session.getAttribute(LOGINER);
+		if(log.isInfoEnabled())
 		{
-			log.debug(request.getContextPath() + relativeURI);
+			log.info("当前访问地址：" + request.getContextPath() + relativeURI);
+			log.info(ouser != null ? "当前登录用户是：" + ouser.getAccount() : "当前没有登录用户");
 		}
 		
 		// 和sso项目在同一域名情况下，可直接忽略ticket模式
@@ -67,7 +70,7 @@ public class WebFilter implements Filter
 			{
 				if(ssoTicket.equals(String.valueOf(session.getAttribute(TICKET))))// 一样的ticket
 				{
-					if(session.getAttribute(LOGINER) != null)// 已登录
+					if(ouser != null)// 已登录
 					{
 						chain.doFilter(request, response);
 						return;
@@ -96,7 +99,11 @@ public class WebFilter implements Filter
 		String ticket = request.getParameter(TICKET);
 		if(ticket == null)// 如果不经由ticket的链接过来，则进此处判断
 		{
-			if(session.getAttribute(LOGINER) != null)// 已登录
+			if(log.isInfoEnabled())
+			{
+				log.info("request中的ticket为空");
+			}
+			if(ouser != null)// 已登录
 			{
 				chain.doFilter(request, response);
 				return;
@@ -111,6 +118,17 @@ public class WebFilter implements Filter
 				{
 					chain.doFilter(request, response);
 					return;
+				}
+			}
+			else
+			{
+				if(log.isInfoEnabled())
+				{
+					log.info("session和request中的ticket不相等");
+					if("null".equals(String.valueOf(session.getAttribute(TICKET))))
+					{
+						log.info("session中的ticket为空");
+					}
 				}
 			}
 			if(doValidate(session, ticket))
@@ -238,7 +256,7 @@ public class WebFilter implements Filter
 				session.setAttribute(TICKET, ticket);
 				if(log.isDebugEnabled())
 				{
-					log.debug("account=" + user.getAccount() + ", ticket=" + ticket);
+					log.debug("sameDomain=" + (sameDomain) + ", account=" + user.getAccount() + ", ticket=" + ticket);
 				}
 				return true;
 			}
@@ -274,7 +292,7 @@ public class WebFilter implements Filter
 		String hasSameDoamin = String.valueOf(config.getInitParameter("sameDomain")).trim();
 		if(hasSameDoamin.equals("true"))
 		{
-			sameDomain = true;// 和sso在同一域名下时，可跳过ticket远程访问框，直接读取cookie
+			sameDomain = true;// 和sso在同一域名下时，可跳过ticket远程访问，直接读取cookie
 		}
 		
 		
