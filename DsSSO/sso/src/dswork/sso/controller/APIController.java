@@ -76,23 +76,7 @@ public class APIController
 			if(account != null)
 			{
 				IUser m = service.getUserByAccount(account);
-				java.util.Map<String, String> map = new java.util.HashMap<String, String>();
-
-				map.put("id", m.getId() + "");
-				map.put("account", m.getAccount());
-				map.put("name", m.getName());
-				map.put("idcard", m.getIdcard());
-				map.put("workcard", m.getWorkcard());
-				map.put("orgid", m.getOrgid() + "");
-				map.put("orgpid", m.getOrgpid() + "");
-				
-				//IOrg o = service.getOrgByOrgId(m.getOrgid() + "");
-				//map.put("orgname", o.getName());
-				
-				//o = service.getOrgByOrgId(m.getOrgpid() + "");
-				//map.put("unitname", o.getName());
-				
-				out.print(toJson(map));
+				out.print(toJson(m));
 			}
 			else
 			{
