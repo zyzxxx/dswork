@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -15,16 +14,16 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dswork.sso.http.HttpUtil;
+import dswork.sso.model.IUser;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.google.gson.reflect.TypeToken;
 
 public class WebFilter implements Filter
 {
@@ -33,8 +32,13 @@ public class WebFilter implements Filter
 
 	private final static String TICKET = "ticket";// url中传来的sessionKey的变量名
 	public final static String LOGINER = "sso.web.loginer";// sessionUser在session中的key
+
+	private final static String DS_SSO_TICKET = "DS_SSO_TICKET";
+	private final static String DS_SSO_CODE = "DS_SSO_CODE";
+	
 	private static String loginURL = "";// 登入页面
 	private static String logoutURL = "";// 登出页面
+	private static boolean sameDomain = false;
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException
@@ -51,6 +55,41 @@ public class WebFilter implements Filter
 		if(log.isDebugEnabled())
 		{
 			log.debug(request.getContextPath() + relativeURI);
+		}
+		
+		// 和sso项目在同一域名情况下，可直接忽略ticket模式
+		if(sameDomain)
+		{
+			String ssoTicket = getValueByCookie(request, DS_SSO_TICKET);
+			String ssoCode = getValueByCookie(request, DS_SSO_CODE);
+			// 使用cookie模式登录，否则还用原方式
+			if(ssoTicket != null && ssoCode != null)
+			{
+				if(ssoTicket.equals(String.valueOf(session.getAttribute(TICKET))))// 一样的ticket
+				{
+					if(session.getAttribute(LOGINER) != null)// 已登录
+					{
+						chain.doFilter(request, response);
+						return;
+					}
+				}
+				try
+				{
+					String msg = dswork.sso.util.EncryptUtil.decodeDes(ssoCode, ssoTicket);
+					String[] msgs = msg.split("#", -1);
+					if(msgs.length == 2)
+					{
+						if(doValidateAccount(session, AuthFactory.getUser(msgs[0]), ssoTicket))
+						{
+							chain.doFilter(request, response);
+							return;
+						}
+					}
+				}
+				catch(Exception e)
+				{
+				}
+			}
 		}
 		
 		// 判断是否有ticket
@@ -88,6 +127,7 @@ public class WebFilter implements Filter
 			return;
 		}
 		response.setHeader("P3P", "CP=CAO PSA OUR");
+		response.setHeader("Access-Control-Allow-Origin", "*");
 		response.sendRedirect(getLoginURL(request));
 		return;
 	}
@@ -140,17 +180,20 @@ public class WebFilter implements Filter
 	@SuppressWarnings("all")
 	public static Map<String, String> getLoginer(HttpSession session)
 	{
-		Map<String, String> m = null;
+		Map<String, String> m = new java.util.HashMap<String, String>();
 		try
 		{
-			m = (Map<String, String>) session.getAttribute(LOGINER);
+			IUser user = (IUser) session.getAttribute(LOGINER);
+			m.put("id", user.getId() + "");
+			m.put("account", user.getAccount());
+			m.put("name", user.getName());
+			m.put("idcard", user.getIdcard());
+			m.put("workcard", user.getWorkcard());
+			m.put("orgid", user.getOrgid() + "");
+			m.put("orgpid", user.getOrgpid() + "");
 		}
 		catch(Exception e)
 		{
-		}
-		if(m == null)
-		{
-			m = new HashMap<String, String>();
 		}
 		return m;
 	}
@@ -167,6 +210,7 @@ public class WebFilter implements Filter
 
 	private boolean doValidate(HttpSession session, String ticket)
 	{
+		IUser user = null;
 		try
 		{
 			String u = AuthGlobal.getURL() + "/getLoginer?ticket=" + ticket;
@@ -175,22 +219,26 @@ public class WebFilter implements Filter
 			{
 				log.debug("WebFilter:url=" + u + ", json:" + v);
 			}
-			Map<String, String> m = gson.fromJson(v, new TypeToken<Map<String, String>>(){}.getType());
-			//m.get("id");
-			//m.get("account");
-			//m.get("name");
-			//m.get("idcard");
-			//m.get("workcard");
-			//m.get("orgid");
-			//m.get("orgpid");
-			String account = String.valueOf(m.get("account"));
-			if(account.length() > 0 && !account.equals("null"))
+			user = gson.fromJson(v, IUser.class);
+		}
+		catch(Exception e)
+		{
+			log.error(e.getMessage());
+		}
+		return doValidateAccount(session, user, ticket);
+	}
+	
+	private boolean doValidateAccount(HttpSession session, IUser user, String ticket)
+	{
+		try
+		{
+			if(user != null && user.getAccount().length() > 0 && !"null".equals(user.getAccount()))
 			{
-				session.setAttribute(LOGINER, m);
+				session.setAttribute(LOGINER, user);
 				session.setAttribute(TICKET, ticket);
 				if(log.isDebugEnabled())
 				{
-					log.debug("account=" + account + ", ticket=" + ticket);
+					log.debug("account=" + user.getAccount() + ", ticket=" + ticket);
 				}
 				return true;
 			}
@@ -222,6 +270,13 @@ public class WebFilter implements Filter
 		
 		logoutURL = String.valueOf(config.getInitParameter("logoutURL")).trim();
 		logoutURL = logoutURL + (logoutURL.indexOf("?") == -1 ? "?service=" : "&service=");
+		
+		String hasSameDoamin = String.valueOf(config.getInitParameter("sameDomain")).trim();
+		if(hasSameDoamin.equals("true"))
+		{
+			sameDomain = true;// 和sso在同一域名下时，可跳过ticket远程访问框，直接读取cookie
+		}
+		
 		
 		ignoreURLSet.clear();
 		
@@ -273,6 +328,26 @@ public class WebFilter implements Filter
 				else
 				{
 					value += values[i].trim() + ",";
+				}
+			}
+		}
+		return value;
+	}
+	
+	private static String getValueByCookie(HttpServletRequest request, String name)
+	{
+		Cookie cookies[] = request.getCookies();
+		String value = null;
+		if(cookies != null)
+		{
+			Cookie cookie = null;
+			for(int i = 0; i < cookies.length; i++)
+			{
+				cookie = cookies[i];
+				if(cookie.getName().equals(name))
+				{
+					value = cookie.getValue();
+					break;
 				}
 			}
 		}

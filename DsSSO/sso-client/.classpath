@@ -7,7 +7,7 @@
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/gson/gson-2.3.1.jar">
+	<classpathentry kind="lib" path="/Lib/module/gson/gson-2.3.1.jar" sourcepath="C:/Users/skey/.m2/repository/com/google/code/gson/gson/2.3.1/gson-2.3.1-sources.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
