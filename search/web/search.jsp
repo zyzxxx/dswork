@@ -30,45 +30,58 @@ span.summary {line-height:20px;font-size:12px;color:black;}
 {{# } }}
 </script>
 <script type="text/javascript">
-var _a = top.location.href.split("?");
-if(_a.length > 1){
+function searchFn(keyvalue){
 	var v = "";
-	_a = _a[1].split("&");
-	for(var i = 0; i < _a.length; i++){
-		var x = _a[i].split("=");
-		if(x.length > 1 && x[0] == "v"){v = x[1];}
+	var _a = keyvalue.split("?");
+	if(_a.length > 1){
+		_a = _a[1].split("&");
+		for(var i = 0; i < _a.length; i++){
+			var x = _a[i].split("=");
+			if(x.length > 1 && x[0] == "v"){v = x[1];}
+		}
 	}
-	if(v == ""){document.getElementById('search').innerHTML = "请输入关键字";}
-	else{
-		var tpl = document.getElementById('tpl').innerHTML;
-		var u = "searchJson.jsp?v="+v+"&page=";
-		var vv = decodeURIComponent(decodeURIComponent(v));
-		try{parent.$('#vv').val(vv);}catch(ex){}
-		$jskey.page({object:'dpage',template:1,fn:function(e){
-			$.getJSON(u+e.page+"&r="+(new Date().getTime()), function(res){
-				e.size = res.size;
-				e.page = res.page;
-				e.pagesize = res.pagesize;
-				e.redo();
-				res.keyvalue = vv;
-				laytpl(tpl).render(res, function(render){
-					document.getElementById('search').innerHTML = render;
-					<%--
-					var x = document.getElementsByTagName("span");
-					for(var i = 0; i < x.length; i++){
-						if(x[i].className == 'myxx' && typeof (x[i]) != "undefined"){
-							var xt = x[i].innerHTML;
-							var reg = new RegExp(res.keyvalue, "g");
-							xt = xt.replace(reg, "<span style=\"color:red;font-weight:bold;\">" + res.keyvalue + "</span>");
-							x[i].innerHTML = xt;
-						}
+	return v;
+}
+var isTop = top.location.href == location.href;
+var keyvalue = top.location.href;
+keyvalue = searchFn(keyvalue);
+if(keyvalue.length == 0 && !isTop){
+	keyvalue = location.href;
+	keyvalue = searchFn(keyvalue);
+}
+if(keyvalue == ""){document.getElementById('search').innerHTML = "请输入关键字";}
+else{
+	var tpl = document.getElementById('tpl').innerHTML;
+	var u = "searchJson.jsp?v="+keyvalue+"&page=";
+	keyvalue = decodeURIComponent(decodeURIComponent(keyvalue));
+	try{if(!isTop){
+		parent.$('#vv').val(keyvalue);
+	}}catch(ex){
+	}
+	$jskey.page({object:'dpage',template:1,fn:function(e){
+		$.getJSON(u+e.page+"&r="+(new Date().getTime()), function(res){
+			e.size = res.size;
+			e.page = res.page;
+			e.pagesize = res.pagesize;
+			e.redo();
+			res.keyvalue = keyvalue;
+			laytpl(tpl).render(res, function(render){
+				document.getElementById('search').innerHTML = render;
+				<%--
+				var x = document.getElementsByTagName("span");
+				for(var i = 0; i < x.length; i++){
+					if(x[i].className == 'myxx' && typeof (x[i]) != "undefined"){
+						var xt = x[i].innerHTML;
+						var reg = new RegExp(res.keyvalue, "g");
+						xt = xt.replace(reg, "<span style=\"color:red;font-weight:bold;\">" + res.keyvalue + "</span>");
+						x[i].innerHTML = xt;
 					}
-					--%>
-					try{parent.document.getElementById("zwiframe").style.height = ($(document.body).height() + 100) + "px";}catch(ex){}
-				});
+				}
+				--%>
+				try{if(!isTop){parent.document.getElementById("zwiframe").style.height = ($(document.body).height() + 100) + "px";}}catch(ex){}
 			});
-		}});
-	}
+		});
+	}});
 }
 </script>
 </html>
