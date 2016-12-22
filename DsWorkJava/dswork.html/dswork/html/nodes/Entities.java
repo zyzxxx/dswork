@@ -228,7 +228,7 @@ public class Entities
 			{
 				final String name = reader.consumeTo('=');
 				reader.advance();
-				final int cp1 = Integer.parseInt(reader.consumeTo('\n'), 36);
+				final int cp1 = Integer.parseInt(reader.consumeTo('\n').replaceAll("\r", ""), 36);
 				reader.advance();
 				nameVals.add(name);
 				codeVals.add(cp1);
