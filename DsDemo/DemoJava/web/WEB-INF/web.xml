@@ -54,7 +54,7 @@
 	<servlet><servlet-name>xxx</servlet-name><servlet-class>dswork.web.MyAuthCodeServlet</servlet-class></servlet>
 	<servlet-mapping>
 		<servlet-name>xxx</servlet-name>
-		<url-pattern>/ValidCode</url-pattern>
+		<url-pattern>/authcode</url-pattern>
 	</servlet-mapping>
 
 
