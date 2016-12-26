@@ -2,68 +2,116 @@
 <html>
 <head>
 <meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"/>
 <title></title>
 <script type="text/javascript" src="/web/js/jskey/jskey_des.js"></script>
+<link rel="stylesheet" type="text/css" href="/web/themes/share/fonts/dsworkfont.css"/>
 <script type="text/javascript">
-function $(id){return document.getElementById(id);}
+var dd = document, cc = "coo" + "kie";
+function _$(id){return document.getElementById(id);}
+function setCoo(k,v,d){var x=new Date();x.setDate(x.getDate()+d);dd[cc]=k+"="+escape(v)+((d==null)?"":";expires="+x.toGMTString());}
+function getCoo(k){if(dd[cc].length>0){var x1=dd[cc].indexOf(k+"=");if(x1!=-1){x1=x1+k.length+1;x2=dd[cc].indexOf(";",x1);if(x2==-1){x2=dd[cc].length;}return unescape(dd[cc].substring(x1,x2));} }return "";}
 if(top.location != this.location){top.location = this.location;}
 function doclick(){
 var s = "";
-if(!$('account').value){s += "账号不能为空\n";}
-if(!$('password').value){s += "密码不能为空\n";}
-if(!$('authcode').value){s += "验证码不能为空\n";}
+if(!_$('account').value){s += "账号不能为空\n";}
+if(!_$('password').value){s += "密码不能为空\n";}
+if(!_$('authcode').value){s += "验证码不能为空\n";}
 if(s != ""){alert(s);return;}
+if(_$("savename").checked){setCoo('savename',_$('account').value,365);}else{setCoo('savename','',0);}
 $('password').value = $jskey.encodeDes($('password').value, "dswork");
-$('v').submit();
+_$('v').submit();
 }
 </script>
 <style type="text/css">
-html,body{height:100%;margin:0px auto;}*{padding:0px;}
-div, input{font-family:"宋体";font-weight:bold;font-size:20px;line-height:20px;}
-.content{margin:0px auto;position:relative;width:1000px;height:473px;background:url(/web/share/login.gif) no-repeat center center;overflow:hidden;}
-.title{color:#184760;width:100%;font-size:30px;text-align:center;padding:50px 0px;}
-.login{position:absolute;left:545px;top:120px;width:400px;height:300px;overflow:hidden;border:#ccc solid 1px;border-radius:20px 0px;}
+html,body{height:100%;margin:0px auto;}*{padding:0;margin:0;font-family:arial,"宋体";}
+body {background-color:#ffffff;}
+div, input, a{font-weight:bold;font-size:20px;line-height:38px;}
+div, input, label{color:#333;}
+a{text-decoration:underline;outline:none;}
+a:link,a:visited,a:active{color:#0000bb;outline:none;}
+a:hover{color:#0000ff;text-decoration:underline;}
 
-.loginTit{color:#184760;height:50px;line-height:50px;padding:10px 15px 10px 75px;font-size:22px;background:url(/web/share/user.gif) no-repeat 15px center;}
-.box{overflow:hidden;padding:0px 0px 20px 70px;text-align:left;color:#666;}
+.title {color:#003c7b;font-size:38px;font-weight:bold;text-align:center;padding:50px 0px;}
+.login{width:358px;padding:0;margin:0 auto;overflow:hidden;  height:338px;border:#003c7b solid 1px;position:absolute;left:595px;top:138px;}
+.view{padding:10px 0;overflow:hidden;margin:0 auto;width:1000px;height:473px;position:relative;overflow:hidden;background:url(/web/themes/share/img/login.gif) no-repeat center center;}
 
-input{width:180px;height:30px;border:#BAC7D2 solid 1px;vertical-align:middle;background-color:#f9f9f9;}
-.code{width:80px;height:35px;line-height:35px;}
-.button{width:120px;height:40px;line-height:40px;border-radius:4px;cursor:pointer;}
-a {color:#0000ff;font-size:12px;font-weight:normal;line-height:40px;font-family:Arial;}
+.box{overflow:hidden;text-align:center;width:100%;margin:0 auto 15px auto;padding:0;border:none;}
+.box .title{background-color:#003c7b;color:#fff;width:100%;padding:3px 0;line-height:50px;font-size:22px;text-align:center;margin:0 auto;}
+.box .vbox{padding:0;overflow:hidden;text-align:left;vertical-align:middle;margin:0 0 0 45px;}
+.box .vbox span{font-family:dsworkfont;margin:0 10px;}
+.box .vbox input{width:198px;height:35px;margin:0 0 0 3px;padding:0 0 0 8px;vertical-align:middle;background-color:#fff;border:#ccc solid 1px;}
+.box .vbox input.code{width:98px;}
+.box .vbox img{border:none;cursor:pointer;vertical-align:middle;}
+.box .button{background-color:#003c7b;color:#eee;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;}
+.box .button:hover{background-color:#da3b01;color:#fff;}
+.box label{font-weight:bold;font-size:16px;line-height:18px;}
+
+.cp{color:#666;font-size:12px;font-weight:bold;width:80%;overflow:hidden;text-align:center;padding:15px 0;margin:30px auto 0 auto;border-top:solid #ccc 1px;}
+.cp a {font-size:12px;font-weight:normal;font-family:arial;}
 </style>
 </head>
-<body onload="$('account').focus();">
-<div class="content">
+<body>
+<div class="view">
   <div class="title">计算机管理控制程序</div>
   <form id="v" action="loginAction.jsp?logintype=1" method="post">
   <div class="login">
-	<div class="loginTit">个人用户登录</div>
+	<div class="box"><div class="title">个人用户登录</div></div>
+	<div class="box"><div class="vbox">
+		<span>&#xf1001;</span><input type="text" title="账号" id="account" name="account" autocomplete="off" value="" />
+	</div></div>
+	<div class="box"><div class="vbox">
+		<span>&#xf1002;</span><input type="password" title="密码" id="password" name="password" autocomplete="off" value="" />
+	</div></div>
+	<div class="box"><div class="vbox">
+		<span>&#xf1026;</span><input type="text" title="验证码" placeholder="" id="authcode" name="authcode" autocomplete="off" maxlength="4" class="code" value="" />
+		<img id="mycode" alt="请点击" style="width:90px;height:38px;" src="about:blank" onclick="this.src='./authcode?r=' + Math.random();" />
+	</div></div>
 	<div class="box">
-		用户名 <input type="text" title="账号" id="account" name="account" value="" />
+		<input type="button" class="button" value="登 录" onclick="doclick()" />
 	</div>
 	<div class="box">
-		密　码 <input type="password" title="密码" id="password" name="password" value="" />
-	</div>
-	<div class="box">
-		验证码 <input type="text" placeholder="验证码" id="authcode" name="authcode" maxlength="4" class="code" value="" />
-		<img src="./ValidCode?width=90&height=38" style="cursor:pointer;vertical-align:middle;" onclick="this.src='./ValidCode?width=90&height=38&id=' + Math.random();" />
-	</div>
-	<div class="box">
-		<input type="button" class="button" style="background-color:#00a0f0;color:#fff;" value="登 录" onclick="doclick()" />
-		<input type="reset"  class="button" style="background-color:#dadada;color:#000;" value="取消" />
+		<label style="float:right;margin-right:38px;">&nbsp;&nbsp;<input id="savename" type="checkbox" autocomplete="off" class="checkbox" onclick="">&nbsp;记住用户名&nbsp;</label>
 	</div>
   </div>
   </form>
 </div>
-<div style="margin:0px auto;border-top:solid #ccc 1px;width:1000px;color:#333;text-align:center;font-size:12px;font-weight:normal;line-height:40px;font-family:Arial;">
-	<a href="do.jsp?v=1">测试登录【个人】</a>&nbsp;&nbsp; 
-	<a href="passport/pwdPerson.html">忘记密码?</a>&nbsp;&nbsp;
-	Copyright &copy; 2014-2015 skey_chen@163.com
+<div class="cp">
+	<a href="passport/pwdPerson.html">忘记密码?</a>&nbsp;&nbsp;Copyright &copy; 2014-2017 skey_chen@163.com
+	&nbsp;&nbsp;<a href="do.jsp?v=1">测试登录【个人】</a>
 	<br />
-	&nbsp;&nbsp;<a href="login.html">【系统】</a>
-	&nbsp;&nbsp;<a href="loginEp.html">【企业】</a>
-	&nbsp;&nbsp;<a href="loginPerson.html">【个人】</a>
+	&nbsp;&nbsp;<a href="login.html">【系统登录】</a>
+	&nbsp;&nbsp;<a href="loginEp.html">【企业登录】</a>
+	&nbsp;&nbsp;<a href="loginPerson.html">【个人登录】</a>
 </div>
 </body>
+<script type="text/javascript">
+//<c:if test="${errorMsg != ''}">alert("${errorMsg}");</c:if>
+_$('mycode').click();
+var _x = getCoo('savename');
+if(_x.length > 0){
+	_$('account').value = _x;
+	_$('savename').checked = true;
+}
+else {
+	_$('account').value = "";
+	_$('savename').checked = false;
+}
+_$('password').value = "";
+_$('authcode').value = "";
+_$((_$('account').value == "") ? 'account' : 'password').focus();
+</script>
+<script type="text/javascript" src="/web/js/jquery/jquery.js"></script>
+<script type="text/javascript">
+function registKeydown(id) {
+	$("#" + id).keydown(function(event) {
+		if (event.keyCode == 13) {
+			doclick();
+		}
+	});
+}
+registKeydown("account");
+registKeydown("password");
+registKeydown("authcode");
+</script>
 </html>
