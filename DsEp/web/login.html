@@ -19,16 +19,16 @@ if(!_$('password').value){s += "密码不能为空\n";}
 if(!_$('authcode').value){s += "验证码不能为空\n";}
 if(s != ""){alert(s);return;}
 if(_$("savename").checked){setCoo('savename',_$('account').value,365);}else{setCoo('savename','',0);}
-$('password').value = $jskey.encodeDes($('password').value, "dswork");
+_$('password').value = $jskey.encodeDes(_$('password').value, "dswork");
 _$('v').submit();
 }
 </script>
 <style type="text/css">
 html,body{height:100%;margin:0px auto;}*{padding:0;margin:0;font-family:arial,"宋体";}
 body {background-color:#ffffff;}
-div, input, a{font-weight:bold;font-size:20px;line-height:38px;}
+div, input{font-weight:bold;font-size:20px;line-height:38px;}
 div, input, label{color:#333;}
-a{text-decoration:underline;outline:none;}
+a{text-decoration:underline;outline:none;font-size:12px;font-weight:normal;}
 a:link,a:visited,a:active{color:#0000bb;outline:none;}
 a:hover{color:#0000ff;text-decoration:underline;}
 
@@ -46,9 +46,10 @@ a:hover{color:#0000ff;text-decoration:underline;}
 .box .button{background-color:#003c7b;color:#eee;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;}
 .box .button:hover{background-color:#da3b01;color:#fff;}
 .box label{font-weight:bold;font-size:16px;line-height:18px;}
+.box label.left{float:left;margin-left:45px;}
+.box label.right{float:right;margin-right:38px;}
 
 .cp{color:#666;font-size:12px;font-weight:bold;width:80%;overflow:hidden;text-align:center;padding:15px 0;margin:30px auto 0 auto;border-top:solid #ccc 1px;}
-.cp a {font-size:12px;font-weight:normal;font-family:arial;}
 </style>
 </head>
 <body>
@@ -71,7 +72,8 @@ a:hover{color:#0000ff;text-decoration:underline;}
 		<input type="button" class="button" value="登 录" onclick="doclick()" />
 	</div>
 	<div class="box">
-		<label style="float:right;margin-right:38px;">&nbsp;&nbsp;<input id="savename" type="checkbox" autocomplete="off" class="checkbox" onclick="">&nbsp;记住用户名&nbsp;</label>
+		<label class="left"></label>
+		<label class="right">&nbsp;&nbsp;<input id="savename" type="checkbox" autocomplete="off" class="checkbox" onclick="">&nbsp;记住用户名&nbsp;</label>
 	</div>
   </div>
   </form>

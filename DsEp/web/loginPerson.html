@@ -19,7 +19,7 @@ if(!_$('password').value){s += "密码不能为空\n";}
 if(!_$('authcode').value){s += "验证码不能为空\n";}
 if(s != ""){alert(s);return;}
 if(_$("savename").checked){setCoo('savename',_$('account').value,365);}else{setCoo('savename','',0);}
-$('password').value = $jskey.encodeDes($('password').value, "dswork");
+_$('password').value = $jskey.encodeDes(_$('password').value, "dswork");
 _$('v').submit();
 }
 </script>

@@ -16,7 +16,7 @@
 iframe {width:99%;height:100%;overflow:hidden;border:1px solid #ccc;}
 </style>
 </head>
-<body style="background:url(/web/share/index.jpg) no-repeat center bottom fixed;position:relative;overflow:hidden;">
+<body style="background:url(${ctx}/web/themes/share/img/index.jpg) no-repeat center bottom fixed;position:relative;overflow:hidden;">
 <div class="easyui-draggable box" data-options="handle:'#v1'" style="left:0;top:0;position:absolute;">
 	<div id="v1" class="title">通知公告</div>
 	<iframe frameborder="0" src="${ctx}/frame/main.jsp"></iframe>
