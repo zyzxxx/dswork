@@ -11,9 +11,14 @@
 <script type="text/javascript" src="../../jskey/jskey_upload.js"></script>
 <script type="text/javascript">
 var o = new $dswork.upload({sessionKey:<%=JskeyUpload.GetSessionKey(Request)%>, fileKey:<%=DateTime.Now.Ticks %>, ext:"file"});
-window.onload = function()
-{
-	o.init({id:"fjFile", vid:"fjFileNames", ext:"image"});//, uploadone:"false"
+window.onload = function(){
+	o.init({id:"fjFile", vid:"fjFileNames", ext:"image", 
+		// 这是自定义回调函数
+		success:function(p){
+			alert($("#" + p.id).val());
+			alert($("#" + p.vid).val());
+		}
+	});//, uploadone:"false"
 };
 </script>
 </head>
