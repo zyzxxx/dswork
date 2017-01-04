@@ -180,7 +180,7 @@ $dswork.upload = function(o){
 	this.name = o.name || "";
 	this.io = o.io;
 	if(this.io == null){this.io = false;}
-	this.io == this.io ? true : false;
+	this.io = this.io ? true : false;
 	this.url = o.url || "";
 };
 $dswork.upload.prototype = {
@@ -193,25 +193,25 @@ $dswork.upload.prototype = {
 	p.sessionKey = parseInt(p.sessionKey);
 	p.fileKey = parseInt(p.fileKey);
 	p.limit = parseInt(p.limit);
-	p.bid = p.id + "_span";
-	p.sid = p.id + "_showdiv";
+	p.$bid = p.id + "_span";
+	p.$sid = p.id + "_showdiv";
+	p.$input = $("#" + p.id);
+	
+	p.$vInput=null;
+	if(p.vid != ""){p.$vInput=$("#" + p.vid);}
 	if($jskey.upload.swf){
 		if(p.ext == "image"){p.types = "*." + $jskey.$replace(this.image, ",", ";*.");}
 		else if(p.ext == "file"){p.types = "*." + $jskey.$replace(this.file, ",", ";*.");}
 		else{p.types = "*." + $jskey.$replace(p.ext, ",", ";*.");}
-		var myinput = $("#" + p.id),myp = $("#" + p.id).parent(),myv=null;
-		if(p.vid != ""){myv=$("#" + p.vid);}
-		myp.append('<span id="' + p.bid + '"></span>');
-		if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
+		p.$input.parent().append('<span id="' + p.$bid + '"></span>');
+		if(p.show){p.$input.parent().append('<div id="' + p.$sid + '" style="text-align:left;display:inline;"></div>');}
 	}
 	else{
 		if(p.ext == "image"){p.types = this.image;}
 		else if(p.ext == "file"){p.types = this.file;}
 		else{p.types = p.ext;}
-		var myinput = $("#" + p.id),myp = $("#" + p.id).parent(),myv=null;
-		if(p.vid != ""){myv=$("#" + p.vid);}
-		myp.append('<img id="' + p.bid + '" style="cursor:pointer;width:61px;height:22px;border:none;" src="/web/js/jskey/themes/plupload/UploadButton.png"/>');
-		if(p.show){myp.append('<div id="' + p.sid + '" style="text-align:left;display:inline;"></div>');}
+		p.$input.parent().append('<img id="' + p.$bid + '" style="cursor:pointer;width:61px;height:22px;border:none;vertical-align:middle;margin-top:-3px;" src="/web/js/jskey/themes/plupload/UploadButton.png"/>');
+		if(p.show){p.$input.parent().append('<div id="' + p.$sid + '" style="text-align:left;height:22px;display:inline;"></div>');}
 	}
 	if(p.url == ""){
 		if(this.io){
@@ -221,35 +221,37 @@ $dswork.upload.prototype = {
 			p.url = $dswork.uploadURL() + "?sessionkey=" + p.sessionKey + "&filekey=" + p.fileKey + "&ext=" + p.ext + "&uploadone=" + (p.uploadone=="true"?"true":"false");
 		}
 	}
+	p.success = (typeof(p.success) == "function" ? p.success : function(p){});
 	var ps = {
 		url:p.url,
-		browse_button : p.bid,
+		browse_button : p.$bid,
 		unique_names : false,
 		filters : {
 			max_file_size : p.limit + "kb",
 			mime_types: [{title : p.types, extensions : p.types}]
 		},
 		debug:false,
-		settings:{div:p.show?p.sid:"",success:function(data){// {arr:[{id,name,size,state,file,type,msg}],msg:"",err:""}
+		settings:{div:p.show?p.$sid:"",success:function(data){// {arr:[{id,name,size,state,file,type,msg}],msg:"",err:""}
 			if(typeof (data.err) == 'undefined'){alert("upload error");return false;}
 			if(data.err != ''){alert(data.err);}
-			var o,_has = myinput.attr("has") || "";
+			var o,_has = p.$input.attr("has") || "";
 			if(p.vid == ""){
 				var ok = false;
 				for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){ok = true;}}
-				myinput.val(ok ? p.fileKey : _has);
+				p.$input.val(ok ? p.fileKey : _has);
 			}
 			else{
-				var v = myv.val();
-				if(p.uploadone=="true"){
+				var v = p.$vInput.val();
+				if(p.uploadone == "true"){
 					v = "";
 				}
 				for(var i = 0;i < data.arr.length;i++){o = data.arr[i];if(o.state == "1"){v += (v != "" ? "|" : "") + o.file + ":" + o.name;}}
-				myv.val(v);
-				myinput.val(v == "" ? _has : p.fileKey);
+				p.$vInput.val(v);
+				p.$input.val(v == "" ? _has : p.fileKey);
 			}
-			var v = myinput.val();
-			if(v != "" && v != 0){myinput.attr("msg","");if(p.show){var s = $("#" + p.sid), btn = $('<input class="button" type="button" value="取消上传" />');s.append(btn);btn.bind("click", function(){myinput.val(myinput.attr("has") || "");if(p.vid!=""){myv.val("");}s.html("");myinput.attr("msg","请上传文件");});}}
+			var v = p.$input.val();
+			if(v != "" && v != 0){p.$input.attr("msg","");if(p.show){var s = $("#" + p.$sid), btn = $('<input class="button" type="button" value="取消上传" />');s.html('&nbsp;');s.append(btn);btn.bind("click", function(){p.$input.val(p.$input.attr("has") || "");if(p.vid!=""){p.$vInput.val("");}s.html("");p.$input.attr("msg","请上传文件");});}}
+			p.success(p);
 		}}
 	};
 	// 兼容swfupload
@@ -276,5 +278,11 @@ $(function(){
 		var v = o.attr("v");
 		if(v == null || typeof(v)=="undefined"){return false;}
 		try{o.val(v);}catch(e){}
+	});
+	$("input[type='checkbox']").each(function(){
+		var o = $(this);
+		var v = o.attr("v");
+		if(v == null || typeof(v)=="undefined"){return false;}
+		try{if(v == o.val()){o.prop("checked", true);}}catch(e){}
 	});
 });

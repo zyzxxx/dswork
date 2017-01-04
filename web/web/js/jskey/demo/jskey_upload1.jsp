@@ -11,14 +11,18 @@
 <script type="text/javascript" src="../../jskey/jskey_upload.js"></script>
 <script type="text/javascript">
 var o = new $dswork.upload({sessionKey:<%=JskeyUpload.getSessionKey(request)%>, fileKey:<%=System.currentTimeMillis() %>, ext:"file"});
-window.onload = function()
-{
-	o.init({id:"fjFile", vid:"fjFileNames", ext:"image"});//, uploadone:"false"
+window.onload = function(){
+	o.init({id:"fjFile", vid:"fjFileNames", ext:"image", 
+		// 这是自定义回调函数
+		success:function(p){
+			alert($("#" + p.id).val());
+			alert($("#" + p.vid).val());
+		}
+	});//, uploadone:"false"
 };
 </script>
 </head>
 <body>
-<center>
 <form id="dateForm" action="jskey_upload2.jsp" method="post">
 <%--key--%>
 <span><input id="fjFile" name="fjFile" type="hidden" value="" dataType="UploadFile" /></span>
@@ -26,6 +30,5 @@ window.onload = function()
 <br /><br />
 <input type="submit" class="button" id="_submit_" value="提交" />
 </form>
-</center>
 </body>
 </html>
