@@ -193,24 +193,29 @@ $dswork.upload.prototype = {
 	p.sessionKey = parseInt(p.sessionKey);
 	p.fileKey = parseInt(p.fileKey);
 	p.limit = parseInt(p.limit);
-	p.$bid = p.id + "_span";
+	p.buttonid = p.buttonid || "";
+	p.$bid = p.buttonid == "" ? p.id + "_span" : p.buttonid;
 	p.$sid = p.id + "_showdiv";
 	p.$input = $("#" + p.id);
 	
-	p.$vInput=null;
-	if(p.vid != ""){p.$vInput=$("#" + p.vid);}
+	p.$vInput = null;
+	if(p.vid != ""){p.$vInput = $("#" + p.vid);}
 	if($jskey.upload.swf){
 		if(p.ext == "image"){p.types = "*." + $jskey.$replace(this.image, ",", ";*.");}
 		else if(p.ext == "file"){p.types = "*." + $jskey.$replace(this.file, ",", ";*.");}
 		else{p.types = "*." + $jskey.$replace(p.ext, ",", ";*.");}
-		p.$input.parent().append('<span id="' + p.$bid + '"></span>');
+		if(p.buttonid == ""){
+			p.$input.parent().append('<span id="' + p.$bid + '"></span>');
+		}
 		if(p.show){p.$input.parent().append('<div id="' + p.$sid + '" style="text-align:left;display:inline;"></div>');}
 	}
 	else{
 		if(p.ext == "image"){p.types = this.image;}
 		else if(p.ext == "file"){p.types = this.file;}
 		else{p.types = p.ext;}
-		p.$input.parent().append('<img id="' + p.$bid + '" style="cursor:pointer;width:61px;height:22px;border:none;vertical-align:middle;margin-top:-3px;" src="/web/js/jskey/themes/plupload/UploadButton.png"/>');
+		if(p.buttonid == ""){
+			p.$input.parent().append('<img id="' + p.$bid + '" style="cursor:pointer;width:61px;height:22px;border:none;vertical-align:middle;margin-top:-3px;" src="/web/js/jskey/themes/plupload/UploadButton.png"/>');
+		}
 		if(p.show){p.$input.parent().append('<div id="' + p.$sid + '" style="text-align:left;height:22px;display:inline;"></div>');}
 	}
 	if(p.url == ""){
