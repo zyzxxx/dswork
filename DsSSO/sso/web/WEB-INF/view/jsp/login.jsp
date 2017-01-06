@@ -14,11 +14,11 @@ response.setHeader("Pragma","no-cache");
 <script type="text/javascript" src="${ctx}/js/jskey/jskey_md5.js"></script>
 <link rel="stylesheet" type="text/css" href="${ctx}/themes/share/fonts/dsworkfont.css"/>
 <script type="text/javascript">
-var dd = document, cc = "coo" + "kie";
+if(top.location != this.location){top.location = this.location;}
 function _$(id){return document.getElementById(id);}
+var dd = document, cc = "coo" + "kie";
 function setCoo(k,v,d){var x=new Date();x.setDate(x.getDate()+d);dd[cc]=k+"="+escape(v)+((d==null)?"":";expires="+x.toGMTString());}
 function getCoo(k){if(dd[cc].length>0){var x1=dd[cc].indexOf(k+"=");if(x1!=-1){x1=x1+k.length+1;x2=dd[cc].indexOf(";",x1);if(x2==-1){x2=dd[cc].length;}return unescape(dd[cc].substring(x1,x2));} }return "";}
-if(top.location != this.location){top.location = this.location;}
 function doclick(){
 var s = "";
 if(!_$('account').value){s += "账号不能为空\n";}

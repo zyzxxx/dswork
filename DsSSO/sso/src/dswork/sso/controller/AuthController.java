@@ -55,7 +55,14 @@ public class AuthController
 			if(account != null)
 			{
 				// 无需登录，生成ticket给应用去登录
-				response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(cookieTicket));
+				if(serviceURL.startsWith(request.getContextPath() + "/password"))
+				{
+					response.sendRedirect(serviceURL);
+				}
+				else
+				{
+					response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(cookieTicket));
+				}
 				return null;
 			}
 			removeLoginInfo(request, response);// 把相关信息删除
@@ -106,16 +113,24 @@ public class AuthController
 					}
 					else if((EncryptUtil.encryptMd5(user.getPassword()+authcode).equals(password)))
 					{
-						String ticket = putLoginInfo(request, response, user.getAccount(), user.getName());
+						String cookieTicket = putLoginInfo(request, response, user.getAccount(), user.getName());
 						try
 						{
-							service.saveLogLogin(ticket, getClientIp(request), user.getAccount(), user.getName(), true);
+							service.saveLogLogin(cookieTicket, getClientIp(request), user.getAccount(), user.getName(), true);
 						}
 						catch(Exception logex)
 						{
 						}
 						// 成功就跳到切换系统视图
-						response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(ticket));
+						// 无需登录，生成ticket给应用去登录
+						if(serviceURL.startsWith(request.getContextPath() + "/password"))
+						{
+							response.sendRedirect(serviceURL);
+						}
+						else
+						{
+							response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(cookieTicket));
+						}
 						return null;
 					}
 				}
@@ -149,9 +164,9 @@ public class AuthController
 		try
 		{
 			MyCookie cookie = new MyCookie(request, response);
-			String ticket = String.valueOf(cookie.getValue(SessionListener.DS_SSO_TICKET));
-			service.saveLogLogout(String.valueOf(ticket), false, false);
-			if(!ticket.equals("null") && ticket.length() > 0)
+			String cookieTicket = String.valueOf(cookie.getValue(SessionListener.DS_SSO_TICKET));
+			service.saveLogLogout(String.valueOf(cookieTicket), false, false);
+			if(!cookieTicket.equals("null") && cookieTicket.length() > 0)
 			{
 				removeLoginInfo(request, response);// 试着删除
 			}
@@ -164,6 +179,133 @@ public class AuthController
 		String serviceURL = java.net.URLEncoder.encode(req.getString("service", request.getContextPath() + "/ticket.jsp"), "UTF-8");
 		response.sendRedirect(request.getContextPath() + "/login?service=" + String.valueOf(serviceURL));
 		return;
+	}
+	
+	/**
+	 * 已登录用户修改密码的入口
+	 */
+	@RequestMapping("/password")
+	public String password(HttpServletRequest request, HttpServletResponse response) throws IOException
+	{
+		response.setHeader("P3P", "CP=CAO PSA OUR");
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		//response.setHeader("P3P", "CP='CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR'");
+		//response.setHeader("P3P", "CP='IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT'");
+		MyRequest req = new MyRequest(request);
+		String serviceURL = req.getString("service", request.getContextPath() + "/password");
+		if(log.isDebugEnabled())
+		{
+			log.debug(serviceURL);
+		}
+		MyCookie cookie = new MyCookie(request, response);
+		String cookieTicket = cookie.getValue(SessionListener.DS_SSO_TICKET);
+		if(cookieTicket != null)// 有cookie存在
+		{
+			String _account = TicketService.getAccountByTicket(cookieTicket);
+			if(_account != null)
+			{
+				request.setAttribute("account", _account);
+				request.setAttribute("service", serviceURL);
+				request.setAttribute("errorMsg", "");
+				return "/password.jsp";
+			}
+		}
+		removeLoginInfo(request, response);// 把相关信息删除
+		serviceURL = request.getContextPath() + "/password?service=" + java.net.URLEncoder.encode(serviceURL, "UTF-8");// 登录后回来修改页并可以再重定向回原页
+		response.sendRedirect(request.getContextPath() + "/login?service=" + String.valueOf(java.net.URLEncoder.encode(serviceURL, "UTF-8")));
+		return null;
+	}
+
+	/**
+	 * 已登录用户修改密码的处理
+	 */
+	@RequestMapping("/passwordAction")
+	public String passwordAction(HttpServletRequest request, HttpServletResponse response)
+	{
+		response.setHeader("P3P", "CP=CAO PSA OUR");
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		MyRequest req = new MyRequest(request);
+		String account = req.getString("account").toLowerCase();
+		String oldpassword = req.getString("oldpassword");
+		String newpassword = req.getString("password");
+		String authcode = req.getString("authcode");
+		String serviceURL = req.getString("service", request.getContextPath() + "/password");
+		if(log.isDebugEnabled())
+		{
+			log.debug(serviceURL);
+		}
+		try
+		{
+			MyCookie cookie = new MyCookie(request, response);
+			String cookieTicket = cookie.getValue(SessionListener.DS_SSO_TICKET);
+			if(cookieTicket != null)// 有cookie存在
+			{
+				String _account = TicketService.getAccountByTicket(cookieTicket);
+				newpassword = EncryptUtil.decodeDes(newpassword, authcode);// 解密输入的新密码
+				if(_account != null && _account.equals(account))
+				{
+					String msg = "";
+					String randcode = String.valueOf(request.getSession().getAttribute(MyAuthCodeServlet.SessionName_Randcode)).trim();
+					if(randcode.equals("null") || randcode.equals(""))
+					{
+						msg = "验证码已过期";
+					}
+					else if(newpassword == null || newpassword.length() < 1)
+					{
+						msg = "新密码输入错误,请重新输入";
+					}
+					else if(!randcode.toLowerCase().equals(authcode.toLowerCase()))
+					{
+						msg = "验证码输入错误,请重新输入";
+					}
+					else
+					{
+						request.getSession().setAttribute(dswork.web.MyAuthCodeServlet.SessionName_Randcode, "");// 对了再清除
+						LoginUser user = service.getLoginUserByAccount(_account);
+						if(user != null)
+						{
+							if(user.getStatus() != 1)// Status:1允许，0禁止
+							{
+								msg = "用户已禁用，请联系管理员！";
+							}
+							else if((EncryptUtil.encryptMd5(user.getPassword()+authcode).equals(oldpassword)))
+							{
+								service.updatePassword(_account, newpassword);
+								// 成功就跳到切换系统视图
+								if(serviceURL.startsWith(request.getContextPath() + "/password"))
+								{
+									request.setAttribute("serviceURL", serviceURL);
+									request.setAttribute("returnPassword", "true");
+								}
+								else
+								{
+									request.setAttribute("serviceURL", serviceURL + ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(cookieTicket));
+									request.setAttribute("returnPassword", "false");
+								}
+								return "/passwordSuccess.jsp";
+							}
+							else
+							{
+								msg = "原密码输入错误,请重新输入";
+							}
+						}
+					}
+					// 失败则转回来
+					request.setAttribute("account", _account);
+					request.setAttribute("service", serviceURL);
+					request.setAttribute("errorMsg", msg);
+					return "/password.jsp";
+				}
+			}
+			removeLoginInfo(request, response);// 把相关信息删除
+			serviceURL = request.getContextPath() + "/password?service=" + java.net.URLEncoder.encode(serviceURL, "UTF-8");// 登录后回来修改页并可以再重定向回原页
+			response.sendRedirect(request.getContextPath() + "/login?service=" + String.valueOf(java.net.URLEncoder.encode(serviceURL, "UTF-8")));
+		}
+		catch(Exception e)
+		{
+			log.error(e.getMessage());
+		}
+		return null;
 	}
 
 	private String putLoginInfo(HttpServletRequest request, HttpServletResponse response, String account, String name)
@@ -182,8 +324,8 @@ public class AuthController
 	private void removeLoginInfo(HttpServletRequest request, HttpServletResponse response)
 	{
 		MyCookie cookie = new MyCookie(request, response);
-		String ticket = String.valueOf(cookie.getValue(SessionListener.DS_SSO_TICKET));
-		TicketService.removeSession(ticket);//  如果有，删除原cookie带的信息，此处为cookie存在信息时才调用
+		String cookieTicket = String.valueOf(cookie.getValue(SessionListener.DS_SSO_TICKET));
+		TicketService.removeSession(cookieTicket);//  如果有，删除原cookie带的信息，此处为cookie存在信息时才调用
 		cookie.delCookie(SessionListener.DS_SSO_TICKET);
 		cookie.delCookie(SessionListener.DS_SSO_CODE);// 删除账号#姓名
 	}

@@ -1,7 +1,6 @@
 package dswork.sso;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Enumeration;
 import java.util.HashSet;
@@ -38,6 +37,8 @@ public class WebFilter implements Filter
 	
 	private static String loginURL = "";// 登入页面
 	private static String logoutURL = "";// 登出页面
+	private static String passwordURL = "";// 修改密码页面
+	private static String webURL = "";// SSO项目根地址
 	private static boolean sameDomain = false;
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 
@@ -158,7 +159,7 @@ public class WebFilter implements Filter
 	}
 
 	@SuppressWarnings("all")
-	private static String getLoginURL(HttpServletRequest request) throws UnsupportedEncodingException
+	private static String getLoginURL(HttpServletRequest request)
 	{
 		String url = "";
 		try
@@ -187,7 +188,7 @@ public class WebFilter implements Filter
 		{
 			url = "";
 		}
-		return loginURL + URLEncoder.encode(url, "UTF-8");
+		return getLoginURL(url);
 	}
 	
 	/**
@@ -216,13 +217,53 @@ public class WebFilter implements Filter
 		return m;
 	}
 	
-	public static String getLoginURL()
+	public static String getWebURL()
 	{
+		return webURL;
+	}
+	
+	public static String getPasswordURL(String url)
+	{
+		if(url != null && url.length() > 0)
+		{
+			try
+			{
+				return passwordURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+			}
+			catch(Exception e)
+			{
+			}
+		}
+		return passwordURL;
+	}
+	
+	public static String getLoginURL(String url)
+	{
+		if(url != null && url.length() > 0)
+		{
+			try
+			{
+				return loginURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+			}
+			catch(Exception e)
+			{
+			}
+		}
 		return loginURL;
 	}
 	
-	public static String getLogoutURL()
+	public static String getLogoutURL(String url)
 	{
+		if(url != null && url.length() > 0)
+		{
+			try
+			{
+				return logoutURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+			}
+			catch(Exception e)
+			{
+			}
+		}
 		return logoutURL;
 	}
 
@@ -283,11 +324,20 @@ public class WebFilter implements Filter
 		String ssoPassword = String.valueOf(config.getInitParameter("ssoPassword")).trim();
 		AuthGlobal.init(ssoURL, ssoName, ssoPassword);
 		
-		loginURL = String.valueOf(config.getInitParameter("loginURL")).trim();
-		loginURL = loginURL + (loginURL.indexOf("?") == -1 ? "?service=" : "&service=");
-		
-		logoutURL = String.valueOf(config.getInitParameter("logoutURL")).trim();
-		logoutURL = logoutURL + (logoutURL.indexOf("?") == -1 ? "?service=" : "&service=");
+		webURL = String.valueOf(config.getInitParameter("webURL")).trim();
+
+		if("null".equals(webURL))
+		{
+			loginURL = String.valueOf(config.getInitParameter("loginURL")).trim();
+			
+			logoutURL = String.valueOf(config.getInitParameter("logoutURL")).trim();
+		}
+		else
+		{
+			loginURL  = webURL + "/login";
+			logoutURL = webURL + "/logout";
+			passwordURL = webURL + "/password";
+		}
 		
 		String hasSameDoamin = String.valueOf(config.getInitParameter("sameDomain")).trim();
 		if(hasSameDoamin.equals("true"))
