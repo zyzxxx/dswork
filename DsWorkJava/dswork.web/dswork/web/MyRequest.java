@@ -225,9 +225,9 @@ public class MyRequest
 						if(obj == null)
 						{
 							obj = (Class.forName(descritors[i].getReadMethod().getReturnType().getName())).newInstance();
-							descritors[i].getWriteMethod().invoke(o, obj);
 						}
 						this.getFillObject(obj, pre_name+".");
+						descritors[i].getWriteMethod().invoke(o, obj);
 						//descritors[i].getWriteMethod().invoke(o, new Object[]{request.getParameter(pre_name)});
 					}
 				}
