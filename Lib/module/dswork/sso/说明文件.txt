@@ -8,9 +8,9 @@ sso:8888 需要修改成实际对应的sso-server应用的浏览器端访问的�
 		ssoName     #系统别名，在平台中添加的系统别名
 		ssoPassword #系统访问密码，在平台中添加的系统访问密码
 		sameDomain  #接入应用是和sso在同一域名时，设置为true，实现免跳转登录，不在同一域名时可不设置
-		loginURL    #单点登录页面
+		webURL      #单点登录项目根地址
 		ignoreURL   #逗号隔开不需要权限过滤的页面
-	需要在web.xml中增加以下配置，并且需要sso的应用支持，ssoURL为服务器端访问的ip，loginURL，logoutURL为浏览器端访问的ip
+	需要在web.xml中增加以下配置，并且需要sso的应用支持，ssoURL为服务器端访问的ip，webURL为浏览器端访问的ip
 	通过dswork.sso.WebFilter调用getLoginURL和getLogoutURL将取到带着?service=的URL，如：“http://sso-server:8888/sso/login?service=”
 	
 		<filter>
@@ -27,8 +27,8 @@ sso:8888 需要修改成实际对应的sso-server应用的浏览器端访问的�
 			<init-param><param-name>ssoURL</param-name>     <param-value>http://127.0.0.1:8888/sso/api</param-value></init-param>
 			<init-param><param-name>ssoName</param-name>    <param-value>sso-client</param-value></init-param>
 			<init-param><param-name>ssoPassword</param-name><param-value>1</param-value></init-param>
-			<init-param><param-name>loginURL</param-name>   <param-value>https://sso-server/sso/login</param-value></init-param>
-			<init-param><param-name>logoutURL</param-name>  <param-value>https://sso-server/sso/logout</param-value></init-param>
+			
+			<init-param><param-name>webURL</param-name>     <param-value>https://sso-server/sso</param-value></init-param>
 			<init-param><param-name>ignoreURL</param-name>  <param-value>/menu.jsp,/m.jsp</param-value></init-param>
 			
 			<init-param><param-name>sameDomain</param-name> <param-value>false</param-value></init-param>
