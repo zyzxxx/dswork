@@ -37,14 +37,15 @@ function logoutload(o){
 			ok++;
 			$("#x" + o.id).html(o.name + "已退出！");
 			if(ok >= count){
-				if(errmsg.length > 0){alert(errmsg);}
+				//if(errmsg.length > 0){alert(errmsg);}
 				location.href="${ctx}/logoutAction.jsp";
 			}
 		},
 		error:function(){errmsg += ((errmsg.length == 0)?"":"\n") + o.name + "...退出失败，无法访问该服务器！！！";
 			ok++;
+			$("#x" + o.id).html(o.name + "...退出失败，无法访问该服务器！！！");
 			if(ok >= count){
-				if(errmsg.length > 0){alert(errmsg);}
+				//if(errmsg.length > 0){alert(errmsg);}
 				location.href="${ctx}/logoutAction.jsp";
 			}
 		}
