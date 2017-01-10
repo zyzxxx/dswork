@@ -12,7 +12,6 @@ public class Tag
 	private String tagName;
 	private boolean isBlock = true; // block or inline
 	private boolean formatAsBlock = true; // should be formatted as a block
-	private boolean canContainBlock = true; // Can this tag hold block level tags?
 	private boolean canContainInline = true; // only pcdata if not
 	private boolean empty = false; // can hold nothing; e.g. img
 	private boolean selfClosing = false; // can self close (<foo />). used for unknown tags that self close, without forcing them as empty.
@@ -41,7 +40,6 @@ public class Tag
 			{
 				tag = new Tag(tagName);
 				tag.isBlock = false;
-				tag.canContainBlock = true;
 			}
 		}
 		return tag;
@@ -64,7 +62,7 @@ public class Tag
 
 	public boolean canContainBlock()
 	{
-		return canContainBlock;
+		return isBlock();
 	}
 
 	public boolean isInline()
@@ -128,8 +126,6 @@ public class Tag
 		Tag tag = (Tag) o;
 		if(!tagName.equals(tag.tagName))
 			return false;
-		if(canContainBlock != tag.canContainBlock)
-			return false;
 		if(canContainInline != tag.canContainInline)
 			return false;
 		if(empty != tag.empty)
@@ -153,7 +149,6 @@ public class Tag
 		int result = tagName.hashCode();
 		result = 31 * result + (isBlock ? 1 : 0);
 		result = 31 * result + (formatAsBlock ? 1 : 0);
-		result = 31 * result + (canContainBlock ? 1 : 0);
 		result = 31 * result + (canContainInline ? 1 : 0);
 		result = 31 * result + (empty ? 1 : 0);
 		result = 31 * result + (selfClosing ? 1 : 0);
@@ -173,12 +168,12 @@ public class Tag
 	private static final String[] blockTags =
 	{
 			"html", "head", "body", "frameset", "script", "noscript", "style", "meta", "link", "title", "frame", "noframes", "section", "nav", "aside", "hgroup", "header", "footer", "p", "h1", "h2", "h3", "h4", "h5", "h6", "ul", "ol", "pre", "div", "blockquote", "hr", "address", "figure",
-			"figcaption", "form", "fieldset", "ins", "del", "s", "dl", "dt", "dd", "li", "table", "caption", "thead", "tfoot", "tbody", "colgroup", "col", "tr", "th", "td", "video", "audio", "canvas", "details", "menu", "plaintext", "template", "article", "main", "svg", "math"
+			"figcaption", "form", "fieldset", "ins", "del", "dl", "dt", "dd", "li", "table", "caption", "thead", "tfoot", "tbody", "colgroup", "col", "tr", "th", "td", "video", "audio", "canvas", "details", "menu", "plaintext", "template", "article", "main", "svg", "math"
 	};
 	private static final String[] inlineTags =
 	{
 			"object", "base", "font", "tt", "i", "b", "u", "big", "small", "em", "strong", "dfn", "code", "samp", "kbd", "var", "cite", "abbr", "time", "acronym", "mark", "ruby", "rt", "rp", "a", "img", "br", "wbr", "map", "q", "sub", "sup", "bdo", "iframe", "embed", "span", "input", "select",
-			"textarea", "label", "button", "optgroup", "option", "legend", "datalist", "keygen", "output", "progress", "meter", "area", "param", "source", "track", "summary", "command", "device", "area", "basefont", "bgsound", "menuitem", "param", "source", "track", "data", "bdi"
+			"textarea", "label", "button", "optgroup", "option", "legend", "datalist", "keygen", "output", "progress", "meter", "area", "param", "source", "track", "summary", "command", "device", "area", "basefont", "bgsound", "menuitem", "param", "source", "track", "data", "bdi", "s"
 	};
 	private static final String[] emptyTags =
 	{
@@ -212,7 +207,6 @@ public class Tag
 		{
 			Tag tag = new Tag(tagName);
 			tag.isBlock = false;
-			tag.canContainBlock = false;
 			tag.formatAsBlock = false;
 			register(tag);
 		}
@@ -221,7 +215,6 @@ public class Tag
 		for(String tagName : emptyTags)
 		{
 			Tag tag = tags.get(tagName);
-			tag.canContainBlock = false;
 			tag.canContainInline = false;
 			tag.empty = true;
 		}

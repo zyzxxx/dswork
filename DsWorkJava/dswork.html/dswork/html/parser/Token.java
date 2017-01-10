@@ -105,14 +105,18 @@ abstract class Token
 				attributes = new Attributes();
 			if(pendingAttributeName != null)
 			{
-				Attribute attribute;
-				if(hasPendingAttributeValue)
-					attribute = new Attribute(pendingAttributeName, pendingAttributeValue.length() > 0 ? pendingAttributeValue.toString() : pendingAttributeValueS);
-				else if(hasEmptyAttributeValue)
-					attribute = new Attribute(pendingAttributeName, "");
-				else
-					attribute = new AttributeBoolean(pendingAttributeName);
-				attributes.put(attribute);
+				pendingAttributeName = pendingAttributeName.trim();
+				if(pendingAttributeName.length() > 0)
+				{
+					Attribute attribute;
+					if(hasPendingAttributeValue)
+						attribute = new Attribute(pendingAttributeName, pendingAttributeValue.length() > 0 ? pendingAttributeValue.toString() : pendingAttributeValueS);
+					else if(hasEmptyAttributeValue)
+						attribute = new Attribute(pendingAttributeName, "");
+					else
+						attribute = new AttributeBoolean(pendingAttributeName);
+					attributes.put(attribute);
+				}
 			}
 			pendingAttributeName = null;
 			hasEmptyAttributeValue = false;

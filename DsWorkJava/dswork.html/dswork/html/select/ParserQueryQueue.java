@@ -245,7 +245,8 @@ public class ParserQueryQueue
 			last = c;
 		}
 		while(depth > 0);
-		return (end >= 0) ? queue.substring(start, end) : "";
+		final String out = (end >= 0) ? queue.substring(start, end) : "";
+		return out;
 	}
 
 	public static String unescape(String in)
