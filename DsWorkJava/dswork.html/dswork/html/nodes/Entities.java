@@ -46,10 +46,6 @@ public class Entities
 			final int index = Arrays.binarySearch(codeVals, codepoint);
 			if(index >= 0)
 			{
-				//return nameVals[index];
-				// the results are ordered so lower case versions of same codepoint come after uppercase, and we prefer
-				// to emit lower
-				// (and binary search for same item with multi results is undefined
 				return (index < nameVals.length - 1 && codeVals[index + 1] == codepoint) ? nameVals[index + 1] : nameVals[index];
 			}
 			return emptyName;
