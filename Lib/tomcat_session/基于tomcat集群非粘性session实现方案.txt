@@ -1,0 +1,224 @@
+基于Memcached的tomcat集群非粘性session实现方案
+
+***************************************************************************************
+Tomcat配置：
+***************************************************************************************
+$CATALINA_BASE/conf/context.xml添加，也可在$CATALINA_BASE/conf/server.xml配置文件的<Host>...<Host>中添加配置
+	###################################################################################
+	<Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+		memcachedNodes="redis://127.0.0.1:6379"
+		sticky="false"
+		lockingMode="auto"
+		sessionBackupAsync="false"
+		sessionBackupTimeout="100"
+		requestUriIgnorePattern=".*\.(png|gif|jpg|css|js|ico|eot|svg|ttf|woff)$"
+		transcoderFactoryClass="de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory"
+		/>
+	###################################################################################
+	<Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+		memcachedNodes="127.0.0.1:11211"
+		sticky="false"
+		lockingMode="auto"
+		sessionBackupAsync="false"
+		sessionBackupTimeout="100"
+		requestUriIgnorePattern=".*\.(png|gif|jpg|css|js|ico|eot|svg|ttf|woff)$"
+		transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
+		/>
+	###################################################################################
+	<Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
+		memcachedNodes="n1:127.0.0.1:11211,n2:192.168.100.208:11311"
+		sticky="false"
+		lockingMode="auto"
+		sessionBackupAsync="false"
+		sessionBackupTimeout="100"
+		requestUriIgnorePattern=".*\.(png|gif|jpg|css|js|ico|eot|svg|ttf|woff)$"
+		transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
+		/>
+	###################################################################################
+	Manager标签属性说明
+	1.className  必须
+		类名：de.javakaffee.web.msm.MemcachedBackupSessionManager
+	2.memcachedNodes  必须
+		memcached节点：此属性应该包含所有运行的 memcached节点或者membase bucket的uri地址，每一个memcached节点的属性定义格式为<id>:<host>:<port>， 多个节点定义直接使用空格或者逗号分隔，形如：memcachedNodes="n1:app01:11211,n2:app02:11211"，如果只 有单个的memcached节点，则<id>是可选项，只需配置<host>:<port>即可，形如：memcachedNodes="localhost:11211"。
+		    redis节点：此属性包含主redis节点，定义格式为：redis://<host>:<port>，形如：memcachedNodes="redis://127.0.0.1:6379"。
+	3.failoverNodes 可选项
+		故障转移节点：可选项，对非黏性session不可用，属性必须包含memcached节点集群的所有ids。节点id之间用空格或者逗号分隔。
+	4.username 可选项
+		从1.6.0版开始使用，并且是可选的。用来进行membase bucket或者SASL验证，密码可以为空。
+	5.password 可选项
+		从1.6.0版开始使用，并且是可选的。用来进行membase bucket或者SASL验证，密码可以为空。
+	6.memcachedProtocol    可选项
+		定义memcached协议，默认使用text文本，出属性指明memcached使用的存储协议。只支持text或者binary。
+	7.sticky    可选项
+		定义session方式为黏性或非黏性，默认为true，多个tomcat时需使用非黏性
+	8.lockingMode    可选项
+		只有非黏性session才使用，默认值为none
+		none: 从不对session进行锁定
+		all: session将一直被锁定，知道请求结束
+		auto: 对于只读请求，session将不会被锁定，如果是非只读请求，则session会被锁定
+		uriPattern:<regexp>: 通过正则表达式的方式来对请求uri以及查询字符串进行匹配，只有匹配上的才会被锁定。
+	9.requestUriIgnorePattern   可选项
+		此属性是那些不能改备份Session的请求的正则表达式。如果像css,javascript,图片等静态文件被同一个Tomcat和同一个应用 上下文来提供，这些请求也会通过memcached-session-manager。但是这些请求在一个http会话中几乎没什么改变，所以他们没必要 触发Session备份。所以那些静态文件没必要触发Session备份，你就可以使用此属性定义。此属性必须符合java regex正则规范。
+		如：".*\.(png|gif|jpg|css|js)$"   
+	10.sessionBackupAsync   可选项
+		指定Session是否应该被异步保存到Memcached中。 如果被设置为true，backupThreadCount设置起作用，如果设置false，通过sessionBackupTimeout设置的过期时间起作用。
+	11.backupThreadCount    可选项
+		用来异步保存Session的线程数，(如果sessionBackupAsync="true")。默认值为cup的内核数。
+	12.sessionBackupTimeout    可选项
+		设置备份一个Session所用的时间，如果操作超过时间那么保存失败。此属性只在sessionBackupAsync="false"是起作用。默认100毫秒
+	13.operationTimeout    可选项
+		从1.6.0版开始使用， 默认值为1000
+	14.sessionAttributeFilter    可选项
+		此属性是用来控制Session 中的那个属性值保存到Memcached中的正则表达式。郑则表达式被用来匹配Session中属性名称。如 sessionAttributeFilter="^(userName|sessionHistory)$" 指定了只有"userName"和"sessionHistory"属性保存到Memcached中。依赖于选择的序列化策略。
+	15.transcoderFactoryClass    可选项
+		此属性值是创建序列化和反序列化 保存到Memcached中的Session的编码转换器的工厂类名。
+		这个指定的类必须实现了 de.javakaffee.web.msm.TranscoderFactory和提供一个无参的构造方法。
+		默认为 de.javakaffee.web.msm.JavaSerializationTranscoderFactory
+		后续有详细五种序列化方案的详细说明。
+	16.copyCollectionsForSerialization    可选项
+		默认值为false。
+	17.customConverter    可选项
+		自己定义特殊的类注册到kryo自定义转换器中，实现序列化
+	18.enableStatistics    可选项
+		用来指定是否进行统计。 默认值为true。
+	19.enabled   可选项
+		指定Session保存到Memcached中是否可用和是否可以通过JMX进行改变。只用于粘性Session。 默认值为true。
+
+***************************************************************************************
+memcachedNodes对应不同的存储方案，分别为redis和memcached，需要的jar是：
+	***************************************************************************************
+	redis
+		需要的jar包: jedis-2.9.0.jar
+		<dependency><groupId>redis.clients</groupId><artifactId>jedis</artifactId><version>2.9.0</version>
+			<exclusions>
+				<exclusion><groupId>org.apache.commons</groupId><artifactId>commons-pool2</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+	***************************************************************************************
+	memcached
+		需要的jar包: spymemcached-2.12.1.jar
+		<dependency><groupId>net.spy</groupId><artifactId>spymemcached</artifactId><version>2.12.1</version>
+			<exclusions>
+				<exclusion><groupId>com.codahale.metrics</groupId><artifactId>metrics-core</artifactId></exclusion>
+				<exclusion><groupId>log4j</groupId><artifactId>log4j</artifactId></exclusion>
+				<exclusion><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId></exclusion>
+				<exclusion><groupId>org.springframework</groupId><artifactId>spring-beans</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+
+***************************************************************************************
+
+***************************************************************************************
+transcoderFactoryClass对应序列化到memcached中的五种处理方式，都必须的jar有两个：
+***************************************************************************************
+	memcached-session-manager.jar    == > memcached-session-manager-2.1.1.jar
+	memcached-session-manager-tc.jar == > memcached-session-manager-tc(6-8)-2.1.1.jar  【其中tc*，对应tomcat版本6-8】
+		<dependency>
+			<groupId>de.javakaffee.msm</groupId><artifactId>memcached-session-manager</artifactId><version>${de.javakaffee.msm.version}</version>
+			<exclusions>
+				<exclusion><groupId>com.couchbase.client</groupId><artifactId>couchbase-client</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>annotations</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId></exclusion>
+				<exclusion><groupId>net.jcip</groupId><artifactId>jcip-annotations</artifactId></exclusion>
+				<exclusion><groupId>org.jboss.netty</groupId><artifactId>netty</artifactId></exclusion>
+				<exclusion><groupId>net.spy</groupId><artifactId>spymemcached</artifactId></exclusion>
+				<exclusion><groupId>redis.clients</groupId><artifactId>jedis</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+		<dependency><groupId>de.javakaffee.msm</groupId><artifactId>memcached-session-manager-tc8</artifactId><version>${de.javakaffee.msm.version}</version>
+			<exclusions>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>annotations</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId></exclusion>
+				<exclusion><groupId>net.jcip</groupId><artifactId>jcip-annotations</artifactId></exclusion>
+				<exclusion><groupId>org.jboss.netty</groupId><artifactId>netty</artifactId></exclusion>
+				<exclusion><groupId>com.couchbase.client</groupId><artifactId>couchbase-client</artifactId></exclusion>
+				<exclusion><groupId>net.spy</groupId><artifactId>spymemcached</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+		<dependency><groupId>de.javakaffee.msm</groupId><artifactId>memcached-session-manager-tc7</artifactId><version>${de.javakaffee.msm.version}</version>
+			<exclusions>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>annotations</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId></exclusion>
+				<exclusion><groupId>net.jcip</groupId><artifactId>jcip-annotations</artifactId></exclusion>
+				<exclusion><groupId>org.jboss.netty</groupId><artifactId>netty</artifactId></exclusion>
+				<exclusion><groupId>com.couchbase.client</groupId><artifactId>couchbase-client</artifactId></exclusion>
+				<exclusion><groupId>net.spy</groupId><artifactId>spymemcached</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+		<dependency><groupId>de.javakaffee.msm</groupId><artifactId>memcached-session-manager-tc6</artifactId><version>${de.javakaffee.msm.version}</version>
+			<exclusions>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>annotations</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId></exclusion>
+				<exclusion><groupId>net.jcip</groupId><artifactId>jcip-annotations</artifactId></exclusion>
+				<exclusion><groupId>org.jboss.netty</groupId><artifactId>netty</artifactId></exclusion>
+				<exclusion><groupId>com.couchbase.client</groupId><artifactId>couchbase-client</artifactId></exclusion>
+				<exclusion><groupId>net.spy</groupId><artifactId>spymemcached</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+
+***************************************************************************************
+序列化方案：(maven的配置是对的，但在eclipse下不保证能使用【主要是使用的库里没有该版本】，仅验证过javolution和kryo)
+<properties>
+	<de.javakaffee.msm.version>2.1.1</de.javakaffee.msm.version>
+</properties>
+***************************************************************************************
+	java默认序列化无额外依赖jar
+		de.javakaffee.web.msm.JavaSerializationTranscoderFactory
+	***************************************************************************************
+	javolution序列化
+		de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory
+		需要的jar包: msm-javolution-serializer(-2.1.1), javolution-5.5.1
+		因maven库依赖配置为javolution-5.4.3.1版本，但基本没有这样的版本号，会导致配置报错，需这样配置
+		<dependency><scope>runtime</scope><groupId>javolution</groupId><artifactId>javolution</artifactId><version>5.5.1</version>
+		</dependency>
+		<dependency><scope>runtime</scope><groupId>de.javakaffee.msm</groupId><artifactId>msm-javolution-serializer</artifactId><version>${de.javakaffee.msm.version}</version>
+			<exclusions>
+				<exclusion><groupId>javolution</groupId><artifactId>javolution</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>annotations</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId></exclusion>
+				<exclusion><groupId>net.jcip</groupId><artifactId>jcip-annotations</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+	***************************************************************************************
+	kryo序列化
+		de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory
+		需要的jar包: msm-kryo-serializer(-2.1.1), kryo-serializers(-0.41), kryo(-4.0.0), minlog(-1.3.0), reflectasm(-1.11.3), objenesis(-2.4), asm(-5.0.4)
+		<dependency><groupId>org.objenesis</groupId><artifactId>objenesis</artifactId><version>2.4</version></dependency>
+		<dependency><groupId>org.ow2.asm</groupId><artifactId>asm</artifactId><version>5.0.4</version></dependency>
+		<dependency><groupId>com.esotericsoftware</groupId><artifactId>minlog</artifactId><version>1.3.0</version></dependency>
+		<dependency><groupId>com.esotericsoftware</groupId><artifactId>reflectasm</artifactId><version>1.11.3</version>
+			<exclusions><exclusion><groupId>org.ow2.asm</groupId><artifactId>asm</artifactId></exclusion></exclusions>
+		</dependency>
+		<dependency><groupId>com.esotericsoftware</groupId><artifactId>kryo</artifactId><version>4.0.0</version>
+			<exclusions>
+				<exclusion><groupId>com.esotericsoftware</groupId><artifactId>reflectasm</artifactId></exclusion>
+				<exclusion><groupId>org.objenesis</groupId><artifactId>objenesis</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+		<dependency><groupId>de.javakaffee</groupId><artifactId>kryo-serializers</artifactId><version>0.41</version>
+			<exclusions>
+				<exclusion><groupId>com.google.protobuf</groupId><artifactId>protobuf-java</artifactId></exclusion>
+				<exclusion><groupId>org.objenesis</groupId><artifactId>objenesis</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+		<dependency><scope>runtime</scope><groupId>de.javakaffee.msm</groupId><artifactId>msm-kryo-serializer</artifactId><version>${de.javakaffee.msm.version}</version>
+			<exclusions>
+				<exclusion><groupId>de.javakaffee</groupId><artifactId>kryo-serializers</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>annotations</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId></exclusion>
+				<exclusion><groupId>net.jcip</groupId><artifactId>jcip-annotations</artifactId></exclusion>
+				<exclusion><groupId>org.objenesis</groupId><artifactId>objenesis</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+	***************************************************************************************
+	xstream序列化<依赖和maven配置均未验证>
+		de.javakaffee.web.msm.serializer.xstream.XStreamTranscoderFactory
+		需要的jar包: msm-xstream-serializer, xstream, xmlpull, xpp3_min
+		<dependency><groupId>de.javakaffee.msm</groupId><artifactId>msm-xstream-serializer</artifactId><version>2.1.1</version></dependency>
+	***************************************************************************************
+	flexjson序列化<依赖和maven配置均未验证>
+		de.javakaffee.web.msm.serializer.json.JSONTranscoderFactory
+		需要的jar包: msm-flexjson-serializer, flexjson
+		<dependency><groupId>de.javakaffee.msm</groupId><artifactId>msm-flexjson-serializer</artifactId><version>2.1.1</version></dependency>
+
+***************************************************************************************
