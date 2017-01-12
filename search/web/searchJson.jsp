@@ -1,12 +1,29 @@
-<%@page pageEncoding="UTF-8"%><%
-dswork.web.MyRequest req = new dswork.web.MyRequest(request);
+<%@page pageEncoding="UTF-8"%><%!
+public int getInt(HttpServletRequest request, String key, int defaultValue)
+{
+	try
+	{
+		String str = request.getParameter(key);
+		return (str == null || str.trim().equals("")) ? defaultValue : Integer.parseInt(str.trim());
+	}
+	catch(Exception ex)
+	{
+		return defaultValue;
+	}
+}
+public String getString(HttpServletRequest request, String key)
+{
+	String value = request.getParameter(key);
+	return (value == null) ? "" : value;
+}
+%><%
 response.addHeader("Access-Control-Allow-Origin", "*");
-String search = new String(req.getString("v").getBytes("iso-8859-1"), "UTF-8");
+String search = new String(getString(request, "v").getBytes("iso-8859-1"), "UTF-8");
 search = java.net.URLDecoder.decode(search, "UTF-8");
 java.util.Map<String, Object> map = new java.util.HashMap<String, Object>();
 try
 {
-	dswork.core.page.Page<common.lucene.MyDocument> pageModel = common.lucene.LuceneUtil.search(search, req.getInt("page", 1), req.getInt("pagesize", 10));
+	common.lucene.MyPage pageModel = common.lucene.LuceneUtil.search(search, getInt(request, "page", 1), getInt(request, "pagesize", 10));
 	map.put("status", "1");//success
 	map.put("msg", "success");
 	

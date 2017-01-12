@@ -38,7 +38,6 @@ import org.apache.lucene.search.highlight.SimpleFragmenter;
 import org.apache.lucene.search.highlight.SimpleHTMLFormatter;
 
 import dswork.analyzer.BaseAnalyzer;
-import dswork.core.page.Page;
 import dswork.core.util.FileUtil;
 import dswork.html.HtmlUtil;
 
@@ -185,7 +184,7 @@ public class LuceneUtil
 	
 	private static int MaxLength = 300;
 	
-	public static Page<MyDocument> search(String keyword, int page, int pagesize)
+	public static MyPage search(String keyword, int page, int pagesize)
 	{
 		// 太多了，处理一下
 		if(pagesize > 100)
@@ -193,9 +192,10 @@ public class LuceneUtil
 			pagesize = 10;
 		}
 		System.out.println("-------------------------");
-		System.out.println("搜索：" + keyword);
+		System.out.print("搜索《" + keyword);
 		IndexReader ireader = null;
-		Page<MyDocument> pageModel = null;
+		MyPage pageModel = null;
+		int searchSize = 0;
 		try
 		{
 			if(directory == null)
@@ -212,12 +212,20 @@ public class LuceneUtil
 			sortField[0] = new SortField(SearchSeq, SortField.Type.LONG, true);
 			
 			org.apache.lucene.search.TopFieldDocs topDocs = isearcher.search(query, Size, new Sort(sortField));
-			System.out.println(query);
+			searchSize = topDocs.totalHits;
+			
 			// org.apache.lucene.search.TopDocs topDocs = isearcher.search(query, Size);
-			System.out.println("命中：" + topDocs.totalHits);
+
+			System.out.print("》，命中");
+			System.out.print(searchSize);
+			System.out.print("条(");
+			System.out.print(query);
+			System.out.print(")");
+			System.out.println();
+			
 			ScoreDoc[] scoreDocs = topDocs.scoreDocs;
 
-			pageModel = new Page<MyDocument>(page, pagesize, scoreDocs.length);
+			pageModel = new MyPage(page, pagesize, scoreDocs.length, searchSize);
 
 			Scorer scorer = new QueryScorer(query);// 封装关键字
 			Highlighter highlighter = new Highlighter(formatter, scorer);
@@ -245,7 +253,6 @@ public class LuceneUtil
 					summary = (content.length() > MaxLength) ? content.substring(0, 300): content;
 				}
 				MyDocument doc = new MyDocument();
-				//doc.setName(name).setMsg(content);
 				doc.setTitle(title).setSummary(summary).setUrl(Domain + uri);
 				ls.add(doc);
 			}
@@ -279,7 +286,7 @@ public class LuceneUtil
 		}
 		if(pageModel == null || pageModel.getResult() == null)
 		{
-			pageModel = new Page<MyDocument>(1, pagesize, 0, new ArrayList<MyDocument>());
+			pageModel = new MyPage(1, pagesize, 0, searchSize);
 		}
 		return pageModel;
 	}
