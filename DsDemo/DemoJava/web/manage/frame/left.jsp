@@ -13,7 +13,7 @@
 	var jsonData = treedata;
 	$jskey.menu.root = "<%=request.getContextPath()%>";
 	//$jskey.menu.show(jsonData, false);// 可打开多个
-	$jskey.menu.show($jskey.menu.(jsonData), true);// 只能打开一个，<!DOCTYPE html>
+	$jskey.menu.show(jsonData, true);// 只能打开一个，<!DOCTYPE html>
 	$jskey.menu.clickBar(0);
 </script>
 </html>
