@@ -6,9 +6,56 @@ import dswork.html.nodes.Element;
 import dswork.http.HttpUtil;
 public class Test
 {
+	public static void ss()
+	{
+		String[] arr = {
+				"AMP=38"
+				,"COPY=169"
+				,"GT=62"
+				,"LT=60"
+				,"QUOT=34"
+				,"REG=174"
+				,"acute=180"
+				,"amp=38"
+				,"copy=169"
+				,"curren=164"
+				,"deg=176"
+				,"divide=247"
+				,"frac12=189"
+				,"frac14=188"
+				,"frac34=190"
+				,"gt=62"
+				,"laquo=171"
+				,"lt=60"
+				,"middot=183"
+				,"nbsp=160"
+				,"para=182"
+				,"plusmn=177"
+				,"pound=163"
+				,"quot=34"
+				,"raquo=187"
+				,"reg=174"
+				,"sect=167"
+				,"shy=173"
+				,"sup1=185"
+				,"sup2=178"
+				,"sup3=179"
+				,"szlig=223"
+				,"thorn=254"
+				,"times=215"
+				,"uml=168"
+				,"yen=165"
+		};
+		for(String s : arr)
+		{
+			String[] ss = s.split("=", -1);
+			System.out.println(",\"" + ss[0] + "=" + Integer.parseInt(ss[1], 10) + "\"");
+		}
+	}
+	
 	public static void main(String[] argv) throws IOException
 	{
-		String cssQuery = ".container";
+		String cssQuery = "title";
 		String url = "";
 		//url = "http://www.gzly.gov.cn/zw/zwclient/jzxx/jzxx.html";
 		url = "http://www.gzly.gov.cn/a/tzgsgg/2319.html";
