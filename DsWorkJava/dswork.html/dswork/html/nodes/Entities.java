@@ -1,18 +1,14 @@
 package dswork.html.nodes;
 
-import static dswork.html.nodes.Entities.EscapeMode.characters;
+import static dswork.html.nodes.Entities.EscapeMode.mycharacters;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.nio.charset.CharsetEncoder;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
-import dswork.html.parser.HtmlReader;
 import dswork.html.parser.StringUtil;
 
 /**
@@ -26,13 +22,58 @@ public class Entities
 
 	public enum EscapeMode
 	{
-		characters("entities.properties");
+		mycharacters();
 		private int[] codeVals;
 		private String[] nameVals;
 
-		EscapeMode(String file)
+		EscapeMode()
 		{
-			load(this, file);
+			String[] arr = {
+					 "AMP=38"
+					,"COPY=169"
+					,"GT=62"
+					,"LT=60"
+					,"QUOT=34"
+					,"REG=174"
+					,"acute=180"
+					,"amp=38"
+					,"copy=169"
+					,"curren=164"
+					,"deg=176"
+					,"divide=247"
+					,"frac12=189"
+					,"frac14=188"
+					,"frac34=190"
+					,"gt=62"
+					,"laquo=171"
+					,"lt=60"
+					,"middot=183"
+					,"nbsp=160"
+					,"para=182"
+					,"plusmn=177"
+					,"pound=163"
+					,"quot=34"
+					,"raquo=187"
+					,"reg=174"
+					,"sect=167"
+					,"shy=173"
+					,"sup1=185"
+					,"sup2=178"
+					,"sup3=179"
+					,"szlig=223"
+					,"thorn=254"
+					,"times=215"
+					,"uml=168"
+					,"yen=165"
+			};
+			this.nameVals = new String[arr.length];
+			this.codeVals = new int[arr.length];
+			for(int j = 0; j < arr.length; j++)
+			{
+				String[] ss = arr[j].split("=", -1);
+				this.nameVals[j] = ss[0];
+				this.codeVals[j] = Integer.parseInt(ss[1], 10);
+			}
 		}
 
 		int codepointForName(final String name)
@@ -58,12 +99,12 @@ public class Entities
 
 	public static boolean isNamedEntity(final String name)
 	{
-		return characters.codepointForName(name) != empty;
+		return mycharacters.codepointForName(name) != empty;
 	}
 
 	public static String getByName(String name)
 	{
-		int codepoint = characters.codepointForName(name);
+		int codepoint = mycharacters.codepointForName(name);
 		if(codepoint != empty)
 			return new String(new int[]{codepoint}, 0, 1);
 		return emptyName;
@@ -71,7 +112,7 @@ public class Entities
 
 	public static int codepointsForName(final String name, final int[] codepoints)
 	{
-		int codepoint = characters.codepointForName(name);
+		int codepoint = mycharacters.codepointForName(name);
 		if(codepoint != empty)
 		{
 			codepoints[0] = codepoint;
@@ -153,7 +194,7 @@ public class Entities
 
 	private static void appendEncoded(Appendable accum, int codePoint) throws IOException
 	{
-		final String name = characters.nameForCodepoint(codePoint);
+		final String name = mycharacters.nameForCodepoint(codePoint);
 		if(name != emptyName)
 			accum.append('&').append(name).append(';');
 	}
@@ -208,38 +249,5 @@ public class Entities
 			outStream.write(buffer, 0, read);
 		}
 		return ByteBuffer.wrap(outStream.toByteArray());
-	}
-
-	private static void load(EscapeMode e, String file)
-	{
-		List<String> nameVals = new ArrayList<String>();
-		List<Integer> codeVals = new ArrayList<Integer>();
-		InputStream stream = Entities.class.getResourceAsStream(file);
-		try
-		{
-			ByteBuffer bytes = Entities.readToByteBuffer(stream, 0);
-			String contents = Charset.forName("ascii").decode(bytes).toString();
-			HtmlReader reader = new HtmlReader(contents);
-			while(!reader.isEmpty())
-			{
-				final String name = reader.consumeTo('=');
-				reader.advance();
-				final int cp1 = Integer.parseInt(reader.consumeTo('\n').replaceAll("\r", ""), 36);
-				reader.advance();
-				nameVals.add(name);
-				codeVals.add(cp1);
-			}
-		}
-		catch(IOException err)
-		{
-			throw new IllegalStateException("Error reading resource " + file);
-		}
-		e.nameVals = new String[nameVals.size()];
-		e.codeVals = new int[nameVals.size()];
-		for(int j = 0; j < nameVals.size(); j++)
-		{
-			e.nameVals[j] = nameVals.get(j);
-			e.codeVals[j] = codeVals.get(j);
-		}
 	}
 }

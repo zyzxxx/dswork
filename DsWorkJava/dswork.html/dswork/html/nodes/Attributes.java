@@ -44,10 +44,8 @@ public class Attributes implements Iterable<Attribute>, Cloneable
 
 	public void put(String key, boolean value)
 	{
-		if(value)
-			put(new AttributeBoolean(key));
-		else
-			remove(key);
+		Attribute attr = new Attribute(key, (value ? key : ""));// checked="checked"
+		put(attr);
 	}
 
 	public void put(Attribute attribute)

@@ -2,7 +2,6 @@ package dswork.html.parser;
 
 import dswork.html.nodes.Attribute;
 import dswork.html.nodes.Attributes;
-import dswork.html.nodes.AttributeBoolean;
 
 abstract class Token
 {
@@ -113,7 +112,7 @@ abstract class Token
 					else if(hasEmptyAttributeValue)
 						attribute = new Attribute(pendingAttributeName, "");
 					else
-						attribute = new AttributeBoolean(pendingAttributeName);
+						attribute = new Attribute(pendingAttributeName, pendingAttributeName);
 					attributes.put(attribute);
 				}
 			}
