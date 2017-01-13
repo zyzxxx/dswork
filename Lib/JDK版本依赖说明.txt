@@ -1,0 +1,38 @@
+jdk5：
+	Spring版本3.2.x
+	增加
+		jsr173_1.0_api.jar
+		
+	替换
+		commons-dbcp-1.3.jar
+		mybatis-3.1.1.jar
+
+
+
+
+jdk6：
+	commons-dbcp-1.4.jar
+
+
+
+jdk7：
+	commons-dbcp-1.4.jar
+
+
+
+
+
+
+
+###############################################
+以上所有都依赖Spring文件：
+	spring-aop.jar
+	spring-beans.jar
+	spring-context.jar
+	spring-core.jar
+	spring-expression.jar
+	spring-jdbc.jar
+	spring-orm.jar
+	spring-tx.jar
+	spring-web.jar
+	spring-webmvc.jar
