@@ -15,7 +15,7 @@
     </bean>
     -->
 	<!-- 使用Hibernate时使用这个：hibernate的HibernateTransactionManager向下兼容jdbc的事务操作 -->
-	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
     
