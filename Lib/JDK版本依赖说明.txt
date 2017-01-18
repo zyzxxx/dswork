@@ -1,6 +1,7 @@
 jdk5：
 	增加：jsr173_1.0_api.jar (javax.xml.stream.*)
 	替换：
+		Hibernate(3.6.10.Final)
 		Spring (3.2.18)
 		POI (3.10)
 		mybatis-3.1.1.jar
@@ -10,6 +11,7 @@ jdk5：
 		commons-beanutils-1.9.2.jar (commons-collections-3.2.1、commons-logging-1.1.1)
 jdk6：
 	替换：
+		Hibernate(4.2.21.Final)
 		Spring (4.0.9)
 		POI (3.15)
 		mybatis-3.2.8.jar
@@ -19,6 +21,7 @@ jdk6：
 		commons-beanutils-1.9.3.jar (commons-collections-3.2.2、commons-logging-1.2)
 jdk7：
 	替换：
+		Hibernate(4.2.21.Final)
 		Spring (4.0.9)
 		POI (3.15)
 		mybatis-3.2.8.jar
@@ -31,3 +34,14 @@ jdk7：
 以上所有都依赖Spring文件：
 	spring-aop.jar         spring-beans.jar       spring-context.jar     spring-core.jar        spring-expression.jar
 	spring-jdbc.jar        spring-orm.jar         spring-tx.jar          spring-web.jar         spring-webmvc.jar    
+
+
+
+hibernate3：
+	antlr-2.7.6
+	antlr-runtime
+	javassist-3.15.0-GA
+	javax.persistence
+	jta-1.1
+	ognl-2.7.3
+	hibernate3.6.10
