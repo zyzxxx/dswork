@@ -11,7 +11,8 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
-import org.springframework.orm.hibernate3.HibernateCallback;
+// import org.springframework.orm.hibernate3.HibernateCallback;
+import org.springframework.orm.hibernate4.HibernateCallback;
 
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
@@ -132,9 +133,9 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	 */
 	public List<E> queryList(final PageRequest pageRequest)
 	{
-		return (List<E>) getHibernateTemplate().executeFind(new HibernateCallback()
+		return (List<E>) getHibernateTemplate().execute(new HibernateCallback()
 		{
-			public List<E> doInHibernate(Session session) throws HibernateException, SQLException
+			public List<E> doInHibernate(Session session) throws HibernateException// , SQLException
 			{
 				Criteria criteria = session.createCriteria(getEntityClass());
 				if (pageRequest.getFilters() instanceof Map)
@@ -162,7 +163,7 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	{
 		return (Page)getHibernateTemplate().execute(new HibernateCallback()
 		{
-			public Page doInHibernate(Session session) throws HibernateException, SQLException
+			public Page doInHibernate(Session session) throws HibernateException//, SQLException
 			{
 				Criteria criteria = session.createCriteria(getEntityClass());
 				if (pageRequest.getFilters() instanceof Map)
