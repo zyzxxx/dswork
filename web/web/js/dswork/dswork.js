@@ -284,10 +284,14 @@ $(function(){
 		if(v == null || typeof(v)=="undefined"){return false;}
 		try{o.val(v);}catch(e){}
 	});
-	$("input[type='checkbox']").each(function(){
+	$("input[type='radio']").each(function(){
 		var o = $(this);
 		var v = o.attr("v");
+		var n = o.attr("name");
 		if(v == null || typeof(v)=="undefined"){return false;}
-		try{if(v == o.val()){o.prop("checked", true);}}catch(e){}
+		try{var _c = false, _e = $jskey.$byName(n);
+			for(var i = 0;i < _e.length;i++){if(_e[i].value == v){_e[i].checked = true;_c = true;}}
+			if(!_c){_e[0].checked = true;}
+		}catch(e){}
 	});
 });
