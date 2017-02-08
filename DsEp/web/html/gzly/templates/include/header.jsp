@@ -2,6 +2,7 @@
 <script type="text/javascript" src="${ctx}/js/jquery.js"></script>
 
 
+<%--
 <div class="header">
 <embed width="1000" height="335" src="${ctx}/themes/web/banner.swf" type="application/x-shockwave-flash" quality="high" />
 </div>
@@ -17,9 +18,9 @@
         <li class="last"><a target="_blank" href="http://www.visitgz.com/">资讯网</a></li>
     </ul>
 </div>
+--%>
 
 
-<%--
 <script type="text/javascript" src="${ctx}/js/jskey_focus.js"></script>
 <style type="text/css">
 #showid1 img{width:100%;height:100%;margin:0 auto;}
@@ -108,4 +109,3 @@ $(function(){
 	$("#v1").navtool({height:44,bgColor:"#1C72BE",bgColorHover:"#15539C",bgColorMenu:"#15539C"});// 字体颜色需要使用css进行设置
 });
 </script>
---%>
