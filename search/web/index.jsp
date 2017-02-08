@@ -12,13 +12,13 @@ body{margin:0 auto;font-family:Tahoma, Verdana, Arial, sans-serif, 微软雅黑;
 <script type="text/javascript">
 function my()
 {
-	window.frames["zwiframe"].src="/search/search.jsp?v=" + encodeURIComponent(encodeURIComponent(document.getElementById('vv').value));
+	document.getElementById("zwiframe").src="/search/search.jsp?v=" + encodeURIComponent(encodeURIComponent(document.getElementById('vv').value));
 }
 </script>
 </head>
 <body>
 	<input id="vv" type="text" name="vv" value="" />
 	<input type="button" value="搜索" onclick="my();" /><br />
-	<iframe id="zwiframe" src="about:blank;" style="border:none;width:100%;height:80%;"></iframe>
+	<iframe id="zwiframe" src="about:blank" style="border:none;width:100%;height:80%;"></iframe>
 </body>
 </html>
