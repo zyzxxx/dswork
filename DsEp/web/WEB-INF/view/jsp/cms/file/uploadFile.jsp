@@ -28,7 +28,7 @@ $(function(){
 </style>
 </head> 
 <body style="background-color:#FAFAFA;">
-	<span><div id="upBtn" onclick="$dswork.doAjaxObject.autoDelayHide('请稍候', 3000);" style="text-align: center;">点击选择上传文件</div></span>
+	<span style="display:block;"><div id="upBtn" onclick="$dswork.doAjaxObject.autoDelayHide('请稍候', 3000);" style="text-align: center;">点击选择上传文件</div></span>
 	<input id="fjFile" name="fjFile" type="hidden" value="" dataType="UploadFile" /><input id="fjFileNames" name="fjFileNames" type="hidden" value="" />
 	<p style="text-align:left;margin-left:20px;color:red;font-size:16px;">文件上传注意事项</p>
 	<hr style="width:100%;"></hr>
