@@ -1,6 +1,7 @@
 jdk5：
 	增加：jsr173_1.0_api.jar (javax.xml.stream.*)
 	替换：
+		gson-2.3.1
 		Hibernate(3.6.10.Final)
 		Spring (3.2.18)
 		POI (3.10)
@@ -11,6 +12,7 @@ jdk5：
 		commons-beanutils-1.9.2.jar (commons-collections-3.2.1、commons-logging-1.1.1)
 jdk6：
 	替换：
+		gson-2.8.0
 		Hibernate(4.2.21.Final)
 		Spring (4.0.9)
 		POI (3.15)
@@ -21,6 +23,7 @@ jdk6：
 		commons-beanutils-1.9.3.jar (commons-collections-3.2.2、commons-logging-1.2)
 jdk7：
 	替换：
+		gson-2.8.0
 		Hibernate(4.2.21.Final)
 		Spring (4.0.9)
 		POI (3.15)
