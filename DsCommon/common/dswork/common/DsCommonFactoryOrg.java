@@ -1,17 +1,24 @@
 package dswork.common;
 
-import dswork.common.dao.DsCommonDaoIOrg;
+import dswork.common.dao.DsCommonDaoCommonIOrg;
 import dswork.spring.BeanFactory;
 
 public class DsCommonFactoryOrg
 {
-	private static DsCommonDaoIOrg dao;
-	private static void init()
+	private static DsCommonDaoCommonIOrg dao;
+	private DsCommonFactoryOrg()
 	{
 		if(dao == null)
 		{
-			dao = (DsCommonDaoIOrg) BeanFactory.getBean("dsCommonDaoIOrg");
+			dao = (DsCommonDaoCommonIOrg) BeanFactory.getBean("dsCommonDaoCommonIOrg");
 		}
+	}
+	
+	private static final DsCommonFactoryOrg instace = new DsCommonFactoryOrg();
+	
+	public static DsCommonFactoryOrg getInstance()
+	{
+		return instace;
 	}
 	
 	/**
@@ -22,7 +29,6 @@ public class DsCommonFactoryOrg
 	 */
 	public String getOrgJson(Long pid, Integer status)
 	{
-		init();
 		return dao.queryListOrg(pid, status).toString();
 	}
 }

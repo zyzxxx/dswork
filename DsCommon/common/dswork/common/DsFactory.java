@@ -8,16 +8,13 @@ import dswork.spring.BeanFactory;
  */
 public class DsFactory
 {
-	private static DsCommonFactoryDict d = new DsCommonFactoryDict();
 	public static DsCommonFactoryDict getDict()
 	{
-		return d;
+		return DsCommonFactoryDict.getInstance();
 	}
-
-	private static DsCommonFactoryOrg o = new DsCommonFactoryOrg();
 	public static DsCommonFactoryOrg getOrg()
 	{
-		return o;
+		return DsCommonFactoryOrg.getInstance();
 	}
 	
 	private static DsCommonIFlowService service = null;

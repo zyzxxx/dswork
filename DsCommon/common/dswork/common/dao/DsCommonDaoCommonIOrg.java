@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import dswork.common.model.IOrg;
@@ -14,12 +15,32 @@ import dswork.core.db.MyBatisDao;
 
 @Repository
 @SuppressWarnings("all")
-public class DsCommonDaoIOrg extends MyBatisDao
+public class DsCommonDaoCommonIOrg extends MyBatisDao
 {
+	private SqlSessionTemplate sqlSessionTemplateCommon;
+	private static boolean hasCommon = false;
+
+	@Override
+	protected SqlSessionTemplate getSqlSessionTemplate()
+	{
+		if(hasCommon)
+		{
+			return sqlSessionTemplateCommon;
+		}
+		return super.getSqlSessionTemplate();
+	}
+	
+	public void setSqlSessionTemplateCommon(SqlSessionTemplate sqlSessionTemplate)
+	{
+		System.out.println("======== DsCommonDaoCommonIOrg call setSqlSessionTemplateCommon ========");
+		hasCommon = true;
+		this.sqlSessionTemplateCommon = sqlSessionTemplate;
+	}
+	
 	@Override
 	protected Class getEntityClass()
 	{
-		return DsCommonDaoIOrg.class;
+		return DsCommonDaoCommonIOrg.class;
 	}
 	
 	// /////////////////////////////////////////////////////////////////////////

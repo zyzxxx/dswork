@@ -9,12 +9,19 @@ import dswork.spring.BeanFactory;
 public class DsCommonFactoryDict
 {
 	private static DsCommonDaoCommonIDict dao;
-	private static void init()
+	private DsCommonFactoryDict()
 	{
 		if(dao == null)
 		{
-			dao = (DsCommonDaoCommonIDict) BeanFactory.getBean("dsCommonDaoIDict");
+			dao = (DsCommonDaoCommonIDict) BeanFactory.getBean("dsCommonDaoCommonIDict");
 		}
+	}
+	
+	private static final DsCommonFactoryDict instace = new DsCommonFactoryDict();
+	
+	public static DsCommonFactoryDict getInstance()
+	{
+		return instace;
 	}
 
 	public String getSelect(String name, String selectName)
@@ -31,7 +38,6 @@ public class DsCommonFactoryDict
 	}
 	public String getOption(String name, String parentAlias)
 	{
-		init();
 		List<IDict> list = dao.queryListDict(name, parentAlias);
 		StringBuilder sb = new StringBuilder();
 		for(IDict dict : list)
@@ -42,7 +48,6 @@ public class DsCommonFactoryDict
 	}
 	public String getCheckbox(String name, String checkboxName)
 	{
-		init();
 		List<IDict> list = dao.queryListDict(name, "");
 		StringBuilder sb = new StringBuilder();
 		IDict dict;
@@ -56,7 +61,6 @@ public class DsCommonFactoryDict
 	}
 	public String getRadio(String name, String radioName)
 	{
-		init();
 		List<IDict> list = dao.queryListDict(name, "");
 		StringBuilder sb = new StringBuilder();
 		IDict dict;
@@ -77,7 +81,6 @@ public class DsCommonFactoryDict
 	 */
 	public String getDictJson(String name, String parentAlias)
 	{
-		init();
 		return dao.queryListDict(name, parentAlias).toString();
 	}
 	
@@ -89,13 +92,11 @@ public class DsCommonFactoryDict
 	 */
 	public List<IDict> getDict(String name, String parentAlias)
 	{
-		init();
 		return dao.queryListDict(name, parentAlias);
 	}
 
 	public String getLabel(String name, String alias)
 	{
-		init();
 		IDict po = dao.getDict(name, alias);
 		if(po == null)
 		{
