@@ -19,19 +19,22 @@ import dswork.core.util.TimeUtil;
 public class DsCommonDaoCommonIDict extends MyBatisDao
 {
 	private SqlSessionTemplate sqlSessionTemplateCommon;
+	private static boolean hasCommon = false;
 
 	@Override
 	protected SqlSessionTemplate getSqlSessionTemplate()
 	{
-		if(sqlSessionTemplateCommon == null)
+		if(hasCommon)
 		{
-			return super.getSqlSessionTemplate();
+			return sqlSessionTemplateCommon;
 		}
-		return sqlSessionTemplateCommon;
+		return super.getSqlSessionTemplate();
 	}
 	
 	public void setSqlSessionTemplateCommon(SqlSessionTemplate sqlSessionTemplate)
 	{
+		System.out.println("setSqlSessionTemplateCommon被调用");
+		hasCommon = true;
 		this.sqlSessionTemplateCommon = sqlSessionTemplate;
 	}
 	
