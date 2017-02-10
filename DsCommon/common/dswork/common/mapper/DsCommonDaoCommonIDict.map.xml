@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.common.dao.DsCommonDaoIDict">
+<mapper namespace="dswork.common.dao.DsCommonDaoCommonIDict">
 
 <resultMap id="resultDict" type="dswork.common.model.IDict">
 	<result property="label" column="LABEL" />

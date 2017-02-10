@@ -2,18 +2,18 @@ package dswork.common;
 
 import java.util.List;
 
-import dswork.common.dao.DsCommonDaoIDict;
+import dswork.common.dao.DsCommonDaoCommonIDict;
 import dswork.common.model.IDict;
 import dswork.spring.BeanFactory;
 
 public class DsCommonFactoryDict
 {
-	private static DsCommonDaoIDict dao;
+	private static DsCommonDaoCommonIDict dao;
 	private static void init()
 	{
 		if(dao == null)
 		{
-			dao = (DsCommonDaoIDict) BeanFactory.getBean("dsCommonDaoIDict");
+			dao = (DsCommonDaoCommonIDict) BeanFactory.getBean("dsCommonDaoIDict");
 		}
 	}
 

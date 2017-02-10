@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import dswork.common.model.IFlow;
@@ -22,6 +23,27 @@ import dswork.core.util.UniqueId;
 @SuppressWarnings("all")
 public class DsCommonDaoIFlow extends MyBatisDao
 {
+	// 此处这样写法是为了让流程的管理可成独立项目运行，不在同一数据库中
+	//#############################################################
+	@Autowired
+	private DsCommonDaoCommonIFlow daoCommon;
+	private IFlowTask getFlowTask(Long flowid, String talias)
+	{
+		return daoCommon.getFlowTask(flowid, talias);
+	}
+	private IFlow getFlow(String alias)
+	{
+		return daoCommon.getFlow(alias);
+	}
+	
+	public List<IFlowTask> queryFlowTask(Long flowid)
+	{
+		return daoCommon.queryFlowTask(flowid);
+	}
+	//#############################################################
+	
+	
+	
 	@Override
 	protected Class getEntityClass()
 	{
@@ -38,13 +60,6 @@ public class DsCommonDaoIFlow extends MyBatisDao
 			map.put("piend", TimeUtil.getCurrentTime());
 		}
 		executeUpdate("updateFlowPi", map);
-	}
-	private IFlowTask getFlowTask(Long flowid, String talias)
-	{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("flowid", flowid);
-		map.put("talias", talias);
-		return (IFlowTask) executeSelect("selectFlowTask", map);
 	}
 	private void saveFlowWaiting(IFlowWaiting m)
 	{
@@ -75,15 +90,6 @@ public class DsCommonDaoIFlow extends MyBatisDao
 	private List<String> queryFlowWaitingTalias(Long piid)
 	{
 		return executeSelectList("queryFlowWaitingTalias", piid);
-	}
-	
-	
-	
-	
-	
-	public List<IFlowTask> queryFlowTask(Long flowid)
-	{
-		return executeSelectList("queryFlowTask", flowid);
 	}
 	
 	public IFlowPi getFlowPi(String ywlsh)
@@ -127,7 +133,7 @@ public class DsCommonDaoIFlow extends MyBatisDao
 	public IFlowWaiting saveFlowStart(String alias, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		String time = TimeUtil.getCurrentTime();
-		IFlow flow = (IFlow) executeSelect("selectFlow", alias);
+		IFlow flow = this.getFlow(alias);
 		long flowid = 0L;
 		if(flow != null)
 		{

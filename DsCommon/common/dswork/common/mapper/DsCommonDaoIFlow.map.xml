@@ -5,38 +5,6 @@
 
 <mapper namespace="dswork.common.dao.DsCommonDaoIFlow">
 
-<resultMap id="resultFlow" type="dswork.common.model.IFlow">
-	<id property="id" column="ID" />
-	<result property="deployid" column="DEPLOYID" />
-	<result property="name" column="NAME" />
-</resultMap>
-<select id="selectFlow" resultMap="resultFlow">
-	select f2.ID, f2.DEPLOYID, f2.NAME from DS_FLOW f1
-	left join DS_FLOW f2 on f2.DEPLOYID=f1.DEPLOYID and f2.VNUM&gt;0
-	where f1.STATUS=1 and f1.VNUM=0 and f1.ALIAS=#{alias}
-</select>
-<resultMap id="resultFlowTask" type="dswork.common.model.IFlowTask">
-	<id property="id" column="ID" />
-	<result property="flowid" column="FLOWID" />
-	<result property="deployid" column="DEPLOYID" />
-	<result property="talias" column="TALIAS" />
-	<result property="tname" column="TNAME" />
-	<result property="tcount" column="TCOUNT" />
-	<result property="tnext" column="TNEXT" />
-	<result property="tusers" column="TUSERS" />
-	<result property="tmemo" column="TMEMO" />
-</resultMap>
-<select id="selectFlowTask" resultMap="resultFlowTask">
-	select ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO
-	from DS_FLOW_TASK where FLOWID=#{flowid} and TALIAS=#{talias}
-</select>
-<select id="queryFlowTask" resultMap="resultFlowTask">
-	select ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO
-	from DS_FLOW_TASK where FLOWID=#{flowid}
-</select>
-
-
-
 <insert id="insertFlowPi" parameterType="dswork.common.model.IFlowPi">
 	insert into DS_FLOW_PI
 	(ID, YWLSH, SBLSH, ALIAS, FLOWID, DEPLOYID, PIDAY, PIDAYTYPE, PISTART, PIEND, PIUPSTART, PIUPEND, STATUS, CACCOUNT, CNAME, PIALIAS)
