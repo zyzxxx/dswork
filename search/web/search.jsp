@@ -21,7 +21,7 @@ span.summary {line-height:20px;font-size:12px;color:black;}
 <div id="dpage"></div>
 </body>
 <script id="tpl" type="text/tmpl">
-找到关于“<span style="color:red;font-weight:bold;">{{ d.keyvalue }}</span>”的结果约<span style="font-size:14px;font-weight:bold;color:red;"> {{ d.size }} </span>条结果 <br/><br/>
+为您找到关于“<span style="color:red;font-weight:bold;">{{ d.keyvalue }}</span>”的相关结果约<span style="font-size:14px;font-weight:bold;color:red;"> {{ d.size }} </span>个 <br/><br/>
 {{# for(var i=0,len=d.rows.length; i<len; i++){ }}
 <div style="border-top:1px solid #ddd;padding:10px;">
 	<a target="_blank" href="{{ d.rows[i].url }}"><span class="title">{{ d.rows[i].title }}</span></a>
