@@ -27,7 +27,7 @@ a:hover,a:active{color:#00c;}
 .tlink{color:#666;font-weight:bold;}
 .tlink a{color:#666;text-decoration:none;outline:none;}
 .tlink a:link,.tlink a:visited{color:#666;text-decoration:none;outline:none;}
-.tlink a:hover,.tlink a:active{color:#ff0000;text-decoration:underline;}
+.tlink a:active,.tlink a:hover{color:#ff0000;text-decoration:underline;}
 
 /*-20*/
 .nav{width:990px;height:44px;margin:0px auto 5px auto;z-index:10;
@@ -42,7 +42,7 @@ a:hover,a:active{color:#00c;}
 .nav ul{list-style:none;padding:10px 15px 0 0;}
 .nav ul li{list-style-type:none;float:left;font-size:14px;height:23px;line-height:23px;padding:0 24px;background:url(web/nav_line.gif) no-repeat right center;}
 .nav ul li.last{background:none;}
-.nav a,.nav a:link,.nav a:visited{color:#FFF;text-decoration:none;}
+.nav a,.nav a:link,.nav a:active,.nav a:visited{color:#FFF;text-decoration:none;}
 .nav a:hover{color:#ffff00;text-decoration:underline;}
 
 .nav .nav_s{padding:7px 0 0 0;*padding-top:6px;_padding-top:5px;}

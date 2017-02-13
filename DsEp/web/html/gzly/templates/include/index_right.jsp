@@ -2,7 +2,7 @@
 <script type="text/javascript" src="${ctx}/js/tv/flowplayer-3.2.6.min.js"></script>
 
 <%--旅游提示--%>
-<%--
+
 <%
 //旅游提示87
 request.setAttribute("lyts", cms.queryList(1, 4, false, false, true, 87));
@@ -14,7 +14,6 @@ request.setAttribute("lyts", cms.queryList(1, 4, false, false, true, 87));
 	</ul>
 </div>
 <div class="vline">&nbsp;</div>
---%>
 
 
 <div class="r_wsbs">
@@ -43,16 +42,12 @@ request.setAttribute("lyts", cms.queryList(1, 4, false, false, true, 87));
 <%--
 <div class="vline">&nbsp;</div>
 <div class="r_wsbs">
-	<a target="_blank" href="http://121.8.226.112:443/gztbs/enterprise/login.html"><img src="${ctx}/themes/images/s_1.jpg"></a>
-	<a target="_blank" href="http://121.8.226.112:443/gzlycj/enterprise/login.action"><img src="${ctx}/themes/images/s_2.jpg"></a>
-	<%--
-	<a target="_blank" href="http://www.gzly.gov.cn/"><img width="193" border="0" height="36" src="${ctx}/themes/images/s_3.jpg"></a>
-	-- % >
+	<a target="_blank" href="http://121.8.226.113/gzsso/login.jsp?v=2&serviceURL=%2Fpt"><img src="${ctx}/themes/images/s_1.jpg"></a>
+	<a target="_blank" href="http://121.8.226.113/ndtj/enterprise/login.html"><img src="${ctx}/themes/images/s_2.jpg"></a>
 	<a target="_blank" href="http://www.gzlytj.com/Note/note_list.aspx"><img src="${ctx}/themes/images/s_4.jpg"></a>
 	<a target="_blank" href="http://daoyou-chaxun.cnta.gov.cn/single_info/selectlogin_1.asp"><img src="${ctx}/themes/images/s_5.jpg"></a>
-	<a target="_blank" href="http://www.visitgz.gov.cn/contents/48/12800.html"><img src="${ctx}/themes/images/s_6.jpg"></a>
 	<a target="_blank" href="http://112.124.51.37/login.jsp"><img src="${ctx}/themes/images/s_7.jpg"></a>
-	<a target="_blank" href="http://www.visitgz.gov.cn/channels/54.html"><img src="${ctx}/themes/images/s_8.jpg"></a>
+	<a target="_blank" href="http://www.visitgz.com/channels/54.html"><img src="${ctx}/themes/images/s_8.jpg"></a>
 </div>
 --%>
 

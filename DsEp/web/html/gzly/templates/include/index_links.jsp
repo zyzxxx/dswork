@@ -1,4 +1,4 @@
-﻿<%@page language="java" pageEncoding="UTF-8"%>
+﻿﻿<%@page language="java" pageEncoding="UTF-8"%>
 <div class="links">
   <div class="hd">
 	<div class="right">
