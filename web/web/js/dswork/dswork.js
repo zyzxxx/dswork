@@ -283,6 +283,7 @@ $(function(){
 		var v = o.attr("v");
 		if(v == null || typeof(v)=="undefined"){return true;}// false为跳出each循环，true为跳出当前循环
 		try{o.val(v);}catch(e){}
+		try{if(o.val() != v){o.prop("selectedIndex", 0);}}catch(e){}
 	});
 	$("input[type='radio']").each(function(){
 		var o = $(this);
