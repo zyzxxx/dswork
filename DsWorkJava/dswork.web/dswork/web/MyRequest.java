@@ -13,18 +13,91 @@ import java.util.regex.Pattern;
 /**
  * 扩展Request
  */
-@SuppressWarnings("all")
 public class MyRequest
 {
 	private HttpServletRequest request;
-
+	private Map<String, ArrayList<MyFile>> formFiles;
+	private Map<String, ArrayList<String>> formParams = new LinkedHashMap<String, ArrayList<String>>();
+	
+	/**
+	 * 初始化request
+	 * @param request HttpServletRequest
+	 * @param maxFileSize 限制单个文件的大小
+	 * @param totalMaxFileSize 限制所有文件的大小
+	 * @param allowedFilesList 允许上传的文件后缀，以英文逗号分隔，“jpg,jpeg,gif,png”，默认为null
+	 * @param deniedFilesList 拒绝上传的文件后缀，以英文逗号分隔，“jpg,jpeg,gif,png”，默认为null
+	 */
+	public MyRequest(HttpServletRequest request, Long maxFileSize, Long totalMaxFileSize, String allowedFilesList, String deniedFilesList)
+	{
+		this.request = request;
+		Enumeration<String> _enum = request.getParameterNames();
+		String key;
+		String[] values;
+		while(_enum.hasMoreElements())
+		{
+			key = String.valueOf(_enum.nextElement());
+			values = request.getParameterValues(key);
+			if(formParams.get(key) == null)
+			{
+				formParams.put(key, new ArrayList<String>());
+			}
+			ArrayList<String> list = formParams.get(key);
+			if(values != null)
+			{
+				for(int j = 0; j < values.length; j++)
+				{
+					list.add(values[j]);
+				}
+			}
+		}
+		if(request.getContentType().indexOf("multipart/form-data") != -1)
+		{
+			try
+			{
+				MyRequestUpload reqUpload = new MyRequestUpload(request);
+				reqUpload.setMaxFileSize(maxFileSize);
+				reqUpload.setTotalMaxFileSize(totalMaxFileSize);
+				reqUpload.setAllowedFilesList(allowedFilesList);
+				reqUpload.setDeniedFilesList(deniedFilesList);
+				reqUpload.upload();
+				formFiles = reqUpload.getFiles();
+				Iterator<Map.Entry<String, ArrayList<String>>> _iter = reqUpload.getParams().entrySet().iterator();
+				while(_iter.hasNext())
+				{
+					Map.Entry<String, ArrayList<String>> entry = _iter.next();
+					key = entry.getKey();
+					ArrayList<String> val = entry.getValue();
+					if(formParams.get(key) == null)
+					{
+						formParams.put(key, val);
+					}
+					else
+					{
+						formParams.get(key).addAll(val);
+					}
+				}
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();
+			}
+		}
+		else if(request.getContentType().indexOf("application/octet-stream") != -1)
+		{
+		}
+		if(formFiles == null)
+		{
+			formFiles = new LinkedHashMap<String, ArrayList<MyFile>>();
+		}
+	}
+	
 	/**
 	 * 初始化request
 	 * @param request HttpServletRequest
 	 */
 	public MyRequest(HttpServletRequest request)
 	{
-		this.request = request;
+		this(request, 0L, 0L, null, null);
 	}
 
 	/**
@@ -35,23 +108,21 @@ public class MyRequest
 	{
 		StringBuilder urlThisPage = new StringBuilder();
 		urlThisPage.append(request.getRequestURI());
-		Enumeration e = request.getParameterNames();
-		String key;
-		String[] values;
 		urlThisPage.append("?");
-		if(e.hasMoreElements())
+		String key;
+		ArrayList<String> values;
+		Iterator<Map.Entry<String, ArrayList<String>>> _iter = formParams.entrySet().iterator();
+		while(_iter.hasNext())
 		{
-			while(e.hasMoreElements())
+			Map.Entry<String, ArrayList<String>> entry = _iter.next();
+			key = entry.getKey();
+			values = entry.getValue();
+			for(int j = 0; j < values.size(); j++)
 			{
-				key = String.valueOf(e.nextElement());
-				values = getStringArray(key);
-				for(int j = 0; j < values.length; j++)
-				{
-					urlThisPage.append(key);
-					urlThisPage.append("=");
-					urlThisPage.append(values[j]);
-					urlThisPage.append("&");
-				}
+				urlThisPage.append(key);
+				urlThisPage.append("=");
+				urlThisPage.append(values.get(j));
+				urlThisPage.append("&");
 			}
 		}
 		return urlThisPage.substring(0, urlThisPage.length() - 1);
@@ -75,18 +146,21 @@ public class MyRequest
 	{
 		StringBuilder urlThisPage = new StringBuilder();
 		urlThisPage.append(request.getRequestURI());
-		Enumeration e = request.getParameterNames();
-		String key, values;
 		urlThisPage.append("?");
-		if(e.hasMoreElements())
+
+		String key;
+		ArrayList<String> values;
+		Iterator<Map.Entry<String, ArrayList<String>>> _iter = formParams.entrySet().iterator();
+		while(_iter.hasNext())
 		{
-			while(e.hasMoreElements())
+			Map.Entry<String, ArrayList<String>> entry = _iter.next();
+			key = entry.getKey();
+			values = entry.getValue();
+			for(int j = 0; j < values.size(); j++)
 			{
-				key = String.valueOf(e.nextElement());
-				values = getStringValues(key, separator);
 				urlThisPage.append(key);
 				urlThisPage.append("=");
-				urlThisPage.append(values);
+				urlThisPage.append(getStringValues(values.get(j), separator, false));
 				urlThisPage.append("&");
 			}
 		}
@@ -113,7 +187,7 @@ public class MyRequest
 	{
 		try
 		{
-			String str = request.getParameter(key);
+			String str = _getString(key);
 			return (str == null || str.trim().equals("")) ? defaultValue : Double.parseDouble(str.trim());
 		}
 		catch(Exception ex)
@@ -132,8 +206,8 @@ public class MyRequest
 	{
 		try
 		{
-			String[] _v = request.getParameterValues(key);
-			if(_v != null && _v.length > 0)
+			String[] _v = getStringArray(key);
+			if(_v.length > 0)
 			{
 				double[] _numArr = new double[_v.length];
 				for(int i = 0; i < _v.length; i++)
@@ -154,6 +228,52 @@ public class MyRequest
 		{
 		}
 		return new double[0];
+	}
+
+	/**
+	 * 从request中获取文件流信息并自动填充到MyFile对象
+	 * @param key request参数名
+	 * @return MyFile
+	 */
+	public MyFile getFile(String key)
+	{
+		List<MyFile> list = formFiles.get(key);
+		if(list != null && list.size() > 0)
+		{
+			return list.get(0);
+		}
+		return null;
+	}
+	
+	/**
+	 * 返回所有上传的文件
+	 * @return MyFile[]
+	 */
+	public MyFile[] getFileArray()
+	{
+		Iterator<Map.Entry<String, ArrayList<MyFile>>> _iter = formFiles.entrySet().iterator();
+		ArrayList<MyFile> listFile = new ArrayList<MyFile>();
+		while(_iter.hasNext())
+		{
+			Map.Entry<String, ArrayList<MyFile>> entry = _iter.next();
+			listFile.addAll(entry.getValue());
+		}
+		return listFile.toArray(new MyFile[listFile.size()]);
+	}
+	
+	/**
+	 *  从request中获取文件流信息并自动填充到MyFile对象
+	 * @param key request参数名
+	 * @return MyFile[]
+	 */
+	public MyFile[] getFileArray(String key)
+	{
+		List<MyFile> list = formFiles.get(key);
+		if(list != null)
+		{
+			return (MyFile[])list.toArray();
+		}
+		return new MyFile[0];
 	}
 
 	/**
@@ -184,7 +304,7 @@ public class MyRequest
 					name = descritors[i].getName();
 					pre_name = clazzName + name;
 					typeName = descritors[i].getReadMethod().getReturnType().getName();
-					_tmp = String.valueOf(request.getParameter(pre_name)); 
+					_tmp = String.valueOf(_getString(pre_name)); 
 					if(name.equals("class"))
 					{
 						continue;
@@ -263,7 +383,7 @@ public class MyRequest
 	{
 		try
 		{
-			String str = request.getParameter(key);
+			String str = _getString(key);
 			return (str == null || str.trim().equals("")) ? defaultValue : Float.parseFloat(str.trim());
 		}
 		catch(Exception ex)
@@ -282,8 +402,8 @@ public class MyRequest
 	{
 		try
 		{
-			String[] _v = request.getParameterValues(key);
-			if(_v != null && _v.length > 0)
+			String[] _v = getStringArray(key);
+			if(_v.length > 0)
 			{
 				float[] _numArr = new float[_v.length];
 				for(int i = 0; i < _v.length; i++)
@@ -336,7 +456,7 @@ public class MyRequest
 	{
 		try
 		{
-			String str = request.getParameter(key);
+			String str = _getString(key);
 			return (str == null || str.trim().equals("")) ? defaultValue : Integer.parseInt(str.trim());
 		}
 		catch(Exception ex)
@@ -355,7 +475,7 @@ public class MyRequest
 	{
 		try
 		{
-			String[] _v = request.getParameterValues(key);
+			String[] _v = getStringArray(key);
 			if(_v != null && _v.length > 0)
 			{
 				int[] _numArr = new int[_v.length];
@@ -399,7 +519,7 @@ public class MyRequest
 	{
 		try
 		{
-			String str = request.getParameter(key);
+			String str = _getString(key);
 			return (str == null || str.trim().equals("")) ? defaultValue : Long.parseLong(str.trim());
 		}
 		catch(Exception ex)
@@ -418,8 +538,8 @@ public class MyRequest
 	{
 		try
 		{
-			String[] _v = request.getParameterValues(key);
-			if(_v != null && _v.length > 0)
+			String[] _v = getStringArray(key);
+			if(_v.length > 0)
 			{
 				long[] _numArr = new long[_v.length];
 				for(int i = 0; i < _v.length; i++)
@@ -463,23 +583,22 @@ public class MyRequest
 	public Map<String, Object> getParameterValueMap(boolean remainArray, String separator, boolean isSecure)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		String key;
-		Enumeration params = request.getParameterNames();
+		Iterator<Map.Entry<String, ArrayList<String>>> _iter = formParams.entrySet().iterator();
 		// 是否保留为数组
 		if(remainArray)
 		{
-			while(params.hasMoreElements())
+			while(_iter.hasNext())
 			{
-				key = String.valueOf(params.nextElement());
-				map.put(key, getStringArray(key, isSecure));
+				Map.Entry<String, ArrayList<String>> entry = _iter.next();
+				map.put(entry.getKey(), _getStringArray(entry.getValue(), isSecure, false));
 			}
 		}
 		else
 		{
-			while(params.hasMoreElements())
+			while(_iter.hasNext())
 			{
-				key = String.valueOf(params.nextElement());
-				map.put(key, getStringValues(key, separator, isSecure));
+				Map.Entry<String, ArrayList<String>> entry = _iter.next();
+				map.put(entry.getKey(), _getStringValues(entry.getValue(), separator, isSecure));
 			}
 		}
 		return map;
@@ -521,7 +640,7 @@ public class MyRequest
 	 */
 	public String getSecureString(String key, String defaultValue)
 	{
-		String value = request.getParameter(key);
+		String value = _getString(key);
 		return (value == null) ? defaultValue : filterInject(value);
 	}
 
@@ -543,7 +662,7 @@ public class MyRequest
 	 */
 	public String getString(String key, String defaultValue)
 	{
-		String value = request.getParameter(key);
+		String value = _getString(key);
 		return (value == null) ? defaultValue : value;
 	}
 
@@ -556,11 +675,8 @@ public class MyRequest
 	{
 		try
 		{
-			String[] _v = request.getParameterValues(key);
-			if(_v != null && _v.length > 0)
-			{
-				return _v;
-			}
+			ArrayList<String> list = _getParamList(key);
+			return list.toArray(new String[list.size()]);
 		}
 		catch(Exception e)
 		{
@@ -588,37 +704,9 @@ public class MyRequest
 	 */
 	public String[] getStringArray(String key, boolean delEmpty, boolean isSecure)
 	{
-		if(!delEmpty)
-		{
-			return getStringArray(key);
-		}
-		try
-		{
-			String[] _v = request.getParameterValues(key);
-			if(_v != null && _v.length > 0)
-			{
-				List<String> list = new ArrayList<String>();
-				for(int i = 0; i < _v.length; i++)
-				{
-					if(_v[i] == null || _v[i].trim().length() == 0)
-					{
-						continue;
-					}
-					list.add(isSecure ? filterInject(_v[i].trim()) : _v[i].trim());
-				}
-				_v = new String[list.size()];
-				for(int i = 0; i < list.size(); i++)
-				{
-					_v[i] = list.get(i);
-				}
-				return _v;
-			}
-		}
-		catch(Exception e)
-		{
-		}
-		return new String[0];
+		return _getStringArray(_getParamList(key), delEmpty, isSecure);
 	}
+	
 
 	/**
 	 * 以","分隔符取得多个同名参数值
@@ -650,31 +738,10 @@ public class MyRequest
 	 */
 	public String getStringValues(String key, String separator, boolean isSecure)
 	{
-		StringBuilder value = new StringBuilder();
-		String[] _v = request.getParameterValues(key);
-		if(_v != null && _v.length > 0)
-		{
-			if(isSecure)
-			{
-				value.append(filterInject(String.valueOf(_v[0]).replaceAll(separator, "")));
-				for(int i = 1; i < _v.length; i++)
-				{
-					value.append(separator);
-					value.append(filterInject(String.valueOf(_v[i]).replaceAll(separator, "")));
-				}
-			}
-			else
-			{
-				value.append(String.valueOf(_v[0]).replaceAll(separator, ""));
-				for(int i = 1; i < _v.length; i++)
-				{
-					value.append(separator);
-					value.append(String.valueOf(_v[i]).replaceAll(separator, ""));
-				}
-			}
-		}
-		return value.toString();
+		return _getStringValues(_getParamList(key), separator, isSecure);
 	}
+	
+
 
 	/**
 	 * 去掉\\||\\&|\\*|\\?|exec\\s|drop\\s|insert\\s|select\\s|delete\\s|update\\s|truncate\\s字符，替换;&lt;&gt;%为全角字符，替换
@@ -739,5 +806,86 @@ public class MyRequest
 			obj = sdf.parse(value);
 		}
 		return obj;
+	}
+	
+	private ArrayList<String> _getParamList(String key)
+	{
+		ArrayList<String> list = formParams.get(key);
+		if(list != null)
+		{
+			return list;
+		}
+		return new ArrayList<String>();
+	}
+	
+	private String _getString(String key)
+	{
+		ArrayList<String> list = formParams.get(key);
+		if(list != null && list.size() > 0)
+		{
+			return list.get(0);
+		}
+		return null;
+	}
+
+	private String[] _getStringArray(ArrayList<String> list, boolean delEmpty, boolean isSecure)
+	{
+		if(!delEmpty)
+		{
+			return list.toArray(new String[list.size()]);
+		}
+		try
+		{
+			if(list != null && list.size() > 0)
+			{
+				ArrayList<String> listString = new ArrayList<String>();
+				for(int i = 0; i < list.size(); i++)
+				{
+					String _v = list.get(i);
+					if(_v == null)
+					{
+						continue;
+					}
+					_v = _v.trim();
+					if(_v.length() == 0)
+					{
+						continue;
+					}
+					listString.add(isSecure ? filterInject(_v) : _v);
+				}
+				return listString.toArray(new String[listString.size()]);
+			}
+		}
+		catch(Exception e)
+		{
+		}
+		return new String[0];
+	}
+	
+	private String _getStringValues(ArrayList<String> list, String separator, boolean isSecure)
+	{
+		StringBuilder value = new StringBuilder();
+		if(list != null && list.size() > 0)
+		{
+			if(isSecure)
+			{
+				value.append(filterInject(String.valueOf(list.get(0)).replaceAll(separator, "")));
+				for(int i = 1; i < list.size(); i++)
+				{
+					value.append(separator);
+					value.append(filterInject(String.valueOf(list.get(i)).replaceAll(separator, "")));
+				}
+			}
+			else
+			{
+				value.append(String.valueOf(list.get(0)).replaceAll(separator, ""));
+				for(int i = 1; i < list.size(); i++)
+				{
+					value.append(separator);
+					value.append(String.valueOf(list.get(i)).replaceAll(separator, ""));
+				}
+			}
+		}
+		return value.toString();
 	}
 }

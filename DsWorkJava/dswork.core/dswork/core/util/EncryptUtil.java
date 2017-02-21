@@ -44,7 +44,7 @@ public class EncryptUtil
 	 * 处理加密码内置方法
 	 * @param str 加密字符串
 	 * @param type 加密类型
-	 * @return
+	 * @return String
 	 */
 	private static String encrypts(String str, String type)
 	{

@@ -8,9 +8,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
 import java.io.InputStream;
 
 /**
@@ -190,7 +187,7 @@ public class FileUtil
 			{
 				String name = file.getName();
 				int len = name.lastIndexOf(".");
-				return (len != -1) ? name.substring(len + 1) : "";
+				return (len != -1) ? name.substring(len + 1).toLowerCase() : "";
 			}
 		}
 		catch(Exception ex)
@@ -454,48 +451,6 @@ public class FileUtil
 		{
 			e.printStackTrace();
 			return false;
-		}
-	}
-
-	/**
-	 * 序列化对象到文件
-	 * @param obj
-	 * @param filePath 文件名称(全路径)
-	 */
-	@Deprecated
-	public static void serializeToFile(Object obj, String filePath)
-	{
-		try
-		{
-			ObjectOutput out = new ObjectOutputStream(new FileOutputStream(filePath));
-			out.writeObject(obj);
-			out.close();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * 从文件反序列化出对象
-	 * @param filePath 文件名称(全路径)
-	 * @return Object
-	 */
-	@Deprecated
-	public static Object deserializeFromFile(String filePath)
-	{
-		try
-		{
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(new File(filePath)));
-			Object obj = in.readObject();
-			in.close();
-			return obj;
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-			return null;
 		}
 	}
 }
