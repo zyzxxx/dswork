@@ -5,11 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.servlet.http.*;
 
-class MyRequestUpload
+public class MyRequestUpload
 {
 	private long totalMaxFileSize = 0L;
 	private long maxFileSize = 0L;
-	
 	private int m_totalBytes = 0;
 	private int m_currentIndex = 0;
 	private int m_startData = 0;
@@ -18,7 +17,6 @@ class MyRequestUpload
 	private String m_deniedFilesList = null;
 	private String m_allowedFilesList = null;
 	private byte[] m_binArray;
-
 	private HttpServletRequest request = null;
 	private Map<String, ArrayList<MyFile>> formFiles;
 	private Map<String, ArrayList<String>> formParams;
@@ -32,7 +30,7 @@ class MyRequestUpload
 	{
 		return formParams;
 	}
-	
+
 	public MyRequestUpload(HttpServletRequest httpservletrequest)
 	{
 		request = httpservletrequest;
@@ -40,16 +38,37 @@ class MyRequestUpload
 		formParams = new LinkedHashMap<String, ArrayList<String>>();
 	}
 
-	public void upload() throws Exception
+	public void uploadStream() throws Exception
+	{
+		String header = request.getHeader("Content-Disposition");
+		MyFile file = MyRequestUpload.getFileForHeader(header);
+		if(m_deniedFilesList != null || m_allowedFilesList != null)
+		{
+			checkFileExt(file);
+		}
+		int size = request.getContentLength();// 因为只有一个文件，所以判断单个大小即可
+		checkFileSize(file, (long) (size));
+		byte[] byteArray = new byte[size];
+		int j = 0;
+		while(j < size)// 获取表单的上传文件
+		{
+			int k = request.getInputStream().read(byteArray, j, size - j);
+			j += k;
+		}
+		file.setFileData(byteArray);
+		String filedName = file.getFieldName();
+		if(formFiles.get(filedName) == null)
+		{
+			formFiles.put(filedName, new ArrayList<MyFile>());
+		}
+		formFiles.get(filedName).add(file);
+	}
+
+	public void uploadForm() throws Exception
 	{
 		int i = 0;
 		long l = 0L;
 		boolean flag1 = false;
-		String s4 = "";
-		String s5 = "";
-		String s6 = "";
-		String s7 = "";
-		String s8 = "";
 		m_totalBytes = request.getContentLength();
 		m_binArray = new byte[m_totalBytes];
 		int j;
@@ -62,7 +81,7 @@ class MyRequestUpload
 			}
 			catch(Exception exception)
 			{
-				throw new Exception("MyRequestException:Unable to upload.");
+				throw new Exception("MyRequestException:Request流接收异常");
 			}
 		}
 		for(; !flag1 && m_currentIndex < m_totalBytes; m_currentIndex++)
@@ -82,83 +101,46 @@ class MyRequestUpload
 		}
 		for(m_currentIndex++; m_currentIndex < m_totalBytes; m_currentIndex = m_currentIndex + 2)
 		{
-			String s1 = getDataHeader();
+			String header = getDataHeader();
 			m_currentIndex = m_currentIndex + 2;
-			boolean flag3 = s1.indexOf("filename") > 0;
-			String s3 = getDataFieldValue(s1, "name");
-			if(flag3)
-			{
-				s6 = getDataFieldValue(s1, "filename");
-				s7 = getContentType(s1);
-				s8 = getContentDisp(s1);
-				
-				s4 = getFileName(s6);
-				s5 = getFileExt(s4);
-			}
+			MyFile file = getFileForHeader(header);
 			getDataSection();
 			int size = (m_endData - m_startData) + 1;// 单个文件大小
-			if(flag3 && s4.length() > 0)
+			if(m_deniedFilesList != null || m_allowedFilesList != null)
 			{
-				String _ext = "," + s5 + ",";
-				if(m_deniedFilesList != null)
-				{
-					if(m_deniedFilesList.indexOf(_ext) != -1)
-					{
-						throw new Exception("MyRequestException:The extension of the file is denied to be uploaded (1015).");
-					}
-				}
-				if(m_allowedFilesList != null)
-				{
-					if(m_allowedFilesList.indexOf(_ext) == -1)
-					{
-						throw new Exception("MyRequestException:The extension of the file is not allowed to be uploaded (1010).");
-					}
-				}
-				
-				if(maxFileSize > 0L && (long)(size) > maxFileSize)
-				{
-					throw new Exception("MyRequestException:Size exceeded for this file : " + s4 + " (1105).");
-				}
-				l += (m_endData - m_startData) + 1;
-				if(totalMaxFileSize > 0L && l > totalMaxFileSize)
-				{
-					throw new Exception("MyRequestException:Total File Size exceeded (1110).");
-				}
+				checkFileExt(file);
 			}
-			if(flag3)
+			checkFileSize(file, (long) (size));
+			l += (m_endData - m_startData) + 1;
+			if(totalMaxFileSize > 0L && l > totalMaxFileSize)
 			{
-				if(size > 0 || s4.length() > 0)
+				throw new Exception("MyRequestException:所有文件大小超出范围");
+			}
+			String filedName = file.getFieldName();
+			if(header.indexOf("filename") > 0)
+			{
+				if(size > 0 || file.getFileName().length() > 0)
 				{
-					if(s7.indexOf("application/x-macbinary") > 0)
+					if(file.getContentType().indexOf("application/x-macbinary") != -1)
 					{
 						m_startData = m_startData + 128;
 					}
-					if(s5 != null && s4 != null && s5.length() > 0 && s4.length() > 0)
-					{
-						s4 = s4.substring(0, s4.length() - s5.length()) + s5;// 转化后缀名为小写
-					}
-					MyFile file = new MyFile();
-					file.setFieldName(s3);
-					file.setFileName(s4);
-					file.setFileExt(s5);
-					file.setContentType(s7);
-					file.setContentDisp(s8);
 					file.setFileData(new byte[size]);
 					System.arraycopy(m_binArray, m_startData, file.getFileData(), 0, size);
-					if(formFiles.get(s3) == null)
+					if(formFiles.get(filedName) == null)
 					{
-						formFiles.put(s3, new ArrayList<MyFile>());
+						formFiles.put(filedName, new ArrayList<MyFile>());
 					}
-					formFiles.get(s3).add(file);
+					formFiles.get(filedName).add(file);
 				}
 			}
 			else
 			{
-				if(formParams.get(s3) == null)
+				if(formParams.get(filedName) == null)
 				{
-					formParams.put(s3, new ArrayList<String>());
+					formParams.put(filedName, new ArrayList<String>());
 				}
-				formParams.get(s3).add(new String(m_binArray, m_startData, (m_endData - m_startData) + 1, "UTF-8"));
+				formParams.get(filedName).add(new String(m_binArray, m_startData, (m_endData - m_startData) + 1, "UTF-8"));
 			}
 			if((char) m_binArray[m_currentIndex + 1] == '-')
 			{
@@ -168,59 +150,40 @@ class MyRequestUpload
 		m_binArray = null;
 	}
 
-	private String getDataFieldValue(String s, String s1)
+	public void setDeniedFilesList(String s)
 	{
-		String s2 = "";
-		String s3 = "";
-		int i = 0;
-		s2 = s1 + "=" + '"';
-		i = s.indexOf(s2);
-		if(i > 0)
+		if(s != null)
 		{
-			int j = i + s2.length();
-			int k = j;
-			s2 = "\"";
-			int l = s.indexOf(s2, j);
-			if(k > 0 && l > 0)
-			{
-				s3 = s.substring(k, l);
-			}
+			m_deniedFilesList = "," + s.replaceAll(" ", "").toLowerCase() + ",";
 		}
-		return s3;
-	}
-	private String getFileExt(String s)
-	{
-		if(s == null)
+		else
 		{
-			return null;
+			m_deniedFilesList = null;
 		}
-		int i = s.lastIndexOf(46);// 46="."
-		return i != -1 ? s.substring(i+1).toLowerCase() : "";
 	}
-	private String getContentType(String s)
+
+	public void setAllowedFilesList(String s)
 	{
-		String s1 = "";
-		String s2 = "";
-		int i = 0;
-		s1 = "Content-Type:";
-		i = s.indexOf(s1) + s1.length();
-		if(i != -1)
+		if(s != null)
 		{
-			int j = s.length();
-			s2 = s.substring(i, j);
+			m_allowedFilesList = "," + s.replaceAll(" ", "").toLowerCase() + ",";
 		}
-		return s2;
+		else
+		{
+			m_allowedFilesList = null;
+		}
 	}
-	private String getContentDisp(String s)
+
+	public void setTotalMaxFileSize(long l)
 	{
-		String s1 = "";
-		int i = 0;
-		int j = 0;
-		i = s.indexOf(":") + 1;
-		j = s.indexOf(";");
-		s1 = s.substring(i, j);
-		return s1;
+		totalMaxFileSize = l;
 	}
+
+	public void setMaxFileSize(long l)
+	{
+		maxFileSize = l;
+	}
+
 	private void getDataSection()
 	{
 		int i = m_currentIndex;
@@ -248,6 +211,7 @@ class MyRequestUpload
 		}
 		m_currentIndex = m_endData + k + 3;
 	}
+
 	private String getDataHeader()
 	{
 		int i = m_currentIndex;
@@ -276,7 +240,119 @@ class MyRequestUpload
 		}
 		return s;
 	}
-	private String getFileName(String s)
+
+	private void checkFileExt(MyFile file) throws Exception
+	{
+		if(file.getFileExt().length() > 0)
+		{
+			String _ext = "," + file.getFileExt() + ",";
+			if(m_deniedFilesList != null)
+			{
+				if(m_deniedFilesList.indexOf(_ext) != -1)
+				{
+					throw new Exception("MyRequestException:文件扩展名属于拒绝范围");
+				}
+			}
+			if(m_allowedFilesList != null)
+			{
+				if(m_allowedFilesList.indexOf(_ext) == -1)
+				{
+					throw new Exception("MyRequestException:文件扩展名不在允许范围");
+				}
+			}
+		}
+		else
+		{
+			throw new Exception("MyRequestException:文件扩展名无效无法接收");
+		}
+	}
+
+	private void checkFileSize(MyFile file, Long size) throws Exception
+	{
+		if(maxFileSize > 0L && (long) (size) > maxFileSize)
+		{
+			throw new Exception("MyRequestException:文件大小超出范围 : " + file.getFileName());
+		}
+	}
+
+	private static MyFile getFileForHeader(String header)
+	{
+		MyFile file = new MyFile();
+		file.setFieldName(getDataFieldValue(header, "name"));
+		if(header.indexOf("filename") > 0)
+		{
+			file.setContentType(getContentType(header));
+			file.setContentDisp(getContentDisp(header));
+			String fileName = getFileName(getDataFieldValue(header, "filename"));
+			String fileExt = getFileExt(fileName);
+			if(fileName.length() > 0 && fileExt.length() > 0)
+			{
+				fileName = fileName.substring(0, fileName.length() - fileExt.length()) + fileExt;// 转化后缀名为小写
+			}
+			file.setFileName(fileName);
+			file.setFileExt(fileExt);
+		}
+		return file;
+	}
+
+	private static String getDataFieldValue(String s, String s1)
+	{
+		String s2 = "";
+		String s3 = "";
+		int i = 0;
+		s2 = s1 + "=" + '"';
+		i = s.indexOf(s2);
+		if(i > 0)
+		{
+			int j = i + s2.length();
+			int k = j;
+			s2 = "\"";
+			int l = s.indexOf(s2, j);
+			if(k > 0 && l > 0)
+			{
+				s3 = s.substring(k, l);
+			}
+		}
+		return s3;
+	}
+
+	private static String getContentType(String s)
+	{
+		String s1 = "";
+		String s2 = "";
+		int i = 0;
+		s1 = "Content-Type:";
+		i = s.indexOf(s1) + s1.length();
+		if(i != -1)
+		{
+			int j = s.length();
+			s2 = s.substring(i, j);
+		}
+		return s2;
+	}
+
+	private static String getContentDisp(String s)
+	{
+		String s1 = "";
+		int i = 0;
+		int j = 0;
+		i = s.indexOf(":") + 1;
+		j = s.indexOf(";");
+		s1 = s.substring(i, j);
+		return s1;
+	}
+
+	private static String getFileExt(String s)
+	{
+		if(s == null)
+		{
+			return "";
+		}
+		int i = s.lastIndexOf(46);// 46="."
+		return i != -1 ? s.substring(i + 1).toLowerCase() : "";
+	}
+
+	private static String getFileName(String s)
 	{
 		int i = 0;
 		i = s.lastIndexOf(47);
@@ -293,36 +369,5 @@ class MyRequestUpload
 		{
 			return s;
 		}
-	}
-
-	public void setDeniedFilesList(String s)
-	{
-		if(s != null)
-		{
-			m_deniedFilesList = "," + s.replaceAll(" ", "") + ",";
-		}
-		else
-		{
-			m_deniedFilesList = null;
-		}
-	}
-	public void setAllowedFilesList(String s)
-	{
-		if(s != null)
-		{
-			m_allowedFilesList = "," + s.replaceAll(" ", "") + ",";
-		}
-		else
-		{
-			m_allowedFilesList = null;
-		}
-	}
-	public void setTotalMaxFileSize(long l)
-	{
-		totalMaxFileSize = l;
-	}
-	public void setMaxFileSize(long l)
-	{
-		maxFileSize = l;
 	}
 }

@@ -18,7 +18,7 @@ public class MyRequest
 	private HttpServletRequest request;
 	private Map<String, ArrayList<MyFile>> formFiles;
 	private Map<String, ArrayList<String>> formParams = new LinkedHashMap<String, ArrayList<String>>();
-	
+
 	/**
 	 * 初始化request
 	 * @param request HttpServletRequest
@@ -50,16 +50,16 @@ public class MyRequest
 				}
 			}
 		}
-		if(request.getContentType().indexOf("multipart/form-data") != -1)
+		try
 		{
-			try
+			if(request.getContentType().indexOf("multipart/form-data") != -1)
 			{
 				MyRequestUpload reqUpload = new MyRequestUpload(request);
 				reqUpload.setMaxFileSize(maxFileSize);
 				reqUpload.setTotalMaxFileSize(totalMaxFileSize);
 				reqUpload.setAllowedFilesList(allowedFilesList);
 				reqUpload.setDeniedFilesList(deniedFilesList);
-				reqUpload.upload();
+				reqUpload.uploadForm();
 				formFiles = reqUpload.getFiles();
 				Iterator<Map.Entry<String, ArrayList<String>>> _iter = reqUpload.getParams().entrySet().iterator();
 				while(_iter.hasNext())
@@ -77,20 +77,27 @@ public class MyRequest
 					}
 				}
 			}
-			catch(Exception e)
+			else if(request.getContentType().indexOf("application/octet-stream") != -1)
 			{
-				e.printStackTrace();
+				MyRequestUpload reqUpload = new MyRequestUpload(request);
+				reqUpload.setMaxFileSize(maxFileSize);
+				// reqUpload.setTotalMaxFileSize(totalMaxFileSize);
+				reqUpload.setAllowedFilesList(allowedFilesList);
+				reqUpload.setDeniedFilesList(deniedFilesList);
+				reqUpload.uploadStream();
+				formFiles = reqUpload.getFiles();
 			}
 		}
-		else if(request.getContentType().indexOf("application/octet-stream") != -1)
+		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 		if(formFiles == null)
 		{
 			formFiles = new LinkedHashMap<String, ArrayList<MyFile>>();
 		}
 	}
-	
+
 	/**
 	 * 初始化request
 	 * @param request HttpServletRequest
@@ -147,7 +154,6 @@ public class MyRequest
 		StringBuilder urlThisPage = new StringBuilder();
 		urlThisPage.append(request.getRequestURI());
 		urlThisPage.append("?");
-
 		String key;
 		ArrayList<String> values;
 		Iterator<Map.Entry<String, ArrayList<String>>> _iter = formParams.entrySet().iterator();
@@ -244,7 +250,7 @@ public class MyRequest
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 返回所有上传的文件
 	 * @return MyFile[]
@@ -260,9 +266,9 @@ public class MyRequest
 		}
 		return listFile.toArray(new MyFile[listFile.size()]);
 	}
-	
+
 	/**
-	 *  从request中获取文件流信息并自动填充到MyFile对象
+	 * 从request中获取文件流信息并自动填充到MyFile对象
 	 * @param key request参数名
 	 * @return MyFile[]
 	 */
@@ -271,7 +277,7 @@ public class MyRequest
 		List<MyFile> list = formFiles.get(key);
 		if(list != null)
 		{
-			return (MyFile[])list.toArray();
+			return (MyFile[]) list.toArray();
 		}
 		return new MyFile[0];
 	}
@@ -304,40 +310,76 @@ public class MyRequest
 					name = descritors[i].getName();
 					pre_name = clazzName + name;
 					typeName = descritors[i].getReadMethod().getReturnType().getName();
-					_tmp = String.valueOf(_getString(pre_name)); 
+					_tmp = String.valueOf(_getString(pre_name));
 					if(name.equals("class"))
 					{
 						continue;
 					}
 					if(typeName.equals(String.class.getName()))
 					{
-						if(_tmp.equals("null")){continue;}
-						descritors[i].getWriteMethod().invoke(o, new Object[]{_tmp});
+						if(_tmp.equals("null"))
+						{
+							continue;
+						}
+						descritors[i].getWriteMethod().invoke(o, new Object[]
+						{
+								_tmp
+						});
 					}
 					else if(typeName.equals(Long.class.getName()) || typeName.equals("long"))
 					{
-						if(_tmp.equals("null")){continue;}
-						descritors[i].getWriteMethod().invoke(o, new Object[]{Long.parseLong(_tmp)});
+						if(_tmp.equals("null"))
+						{
+							continue;
+						}
+						descritors[i].getWriteMethod().invoke(o, new Object[]
+						{
+								Long.parseLong(_tmp)
+						});
 					}
 					else if(typeName.equals(Integer.class.getName()) || typeName.equals("int"))
 					{
-						if(_tmp.equals("null")){continue;}
-						descritors[i].getWriteMethod().invoke(o, new Object[]{Integer.parseInt(_tmp)});
+						if(_tmp.equals("null"))
+						{
+							continue;
+						}
+						descritors[i].getWriteMethod().invoke(o, new Object[]
+						{
+								Integer.parseInt(_tmp)
+						});
 					}
 					else if(typeName.equals(Float.class.getName()) || typeName.equals("float"))
 					{
-						if(_tmp.equals("null")){continue;}
-						descritors[i].getWriteMethod().invoke(o, new Object[]{Float.parseFloat(_tmp)});
+						if(_tmp.equals("null"))
+						{
+							continue;
+						}
+						descritors[i].getWriteMethod().invoke(o, new Object[]
+						{
+								Float.parseFloat(_tmp)
+						});
 					}
 					else if(typeName.equals(Double.class.getName()) || typeName.equals("double"))
 					{
-						if(_tmp.equals("null")){continue;}
-						descritors[i].getWriteMethod().invoke(o, new Object[]{Double.parseDouble(_tmp)});
+						if(_tmp.equals("null"))
+						{
+							continue;
+						}
+						descritors[i].getWriteMethod().invoke(o, new Object[]
+						{
+								Double.parseDouble(_tmp)
+						});
 					}
 					else if(typeName.equals(Date.class.getName()))
 					{
-						if(_tmp.equals("null")){continue;}
-						descritors[i].getWriteMethod().invoke(o, new Object[]{MyRequest.toDate(_tmp)});
+						if(_tmp.equals("null"))
+						{
+							continue;
+						}
+						descritors[i].getWriteMethod().invoke(o, new Object[]
+						{
+								MyRequest.toDate(_tmp)
+						});
 					}
 					else
 					{
@@ -346,9 +388,9 @@ public class MyRequest
 						{
 							obj = (Class.forName(descritors[i].getReadMethod().getReturnType().getName())).newInstance();
 						}
-						this.getFillObject(obj, pre_name+".");
+						this.getFillObject(obj, pre_name + ".");
 						descritors[i].getWriteMethod().invoke(o, obj);
-						//descritors[i].getWriteMethod().invoke(o, new Object[]{request.getParameter(pre_name)});
+						// descritors[i].getWriteMethod().invoke(o, new Object[]{request.getParameter(pre_name)});
 					}
 				}
 				catch(Exception ex)
@@ -706,7 +748,6 @@ public class MyRequest
 	{
 		return _getStringArray(_getParamList(key), delEmpty, isSecure);
 	}
-	
 
 	/**
 	 * 以","分隔符取得多个同名参数值
@@ -740,8 +781,6 @@ public class MyRequest
 	{
 		return _getStringValues(_getParamList(key), separator, isSecure);
 	}
-	
-
 
 	/**
 	 * 去掉\\||\\&|\\*|\\?|exec\\s|drop\\s|insert\\s|select\\s|delete\\s|update\\s|truncate\\s字符，替换;&lt;&gt;%为全角字符，替换
@@ -764,13 +803,13 @@ public class MyRequest
 		str = str.replace("<", "＜");// 过滤脚本,iframe等html标签
 		str = str.replace(">", "＞");
 		// 某些身份证会带有括号，估不作为基本安全过滤
-		//str = str.replace("(", "（");// 处理调用数据库函数，如mid,substring,substr,chr等
-		//str = str.replace(")", "）");
+		// str = str.replace("(", "（");// 处理调用数据库函数，如mid,substring,substr,chr等
+		// str = str.replace(")", "）");
 		str = str.replace("%", "％");
 		return str;
 	}
-	
-	private static Date toDate(String value) throws Exception 
+
+	private static Date toDate(String value) throws Exception
 	{
 		Date obj = null;
 		if(value != null)
@@ -807,7 +846,7 @@ public class MyRequest
 		}
 		return obj;
 	}
-	
+
 	private ArrayList<String> _getParamList(String key)
 	{
 		ArrayList<String> list = formParams.get(key);
@@ -817,7 +856,7 @@ public class MyRequest
 		}
 		return new ArrayList<String>();
 	}
-	
+
 	private String _getString(String key)
 	{
 		ArrayList<String> list = formParams.get(key);
@@ -861,7 +900,7 @@ public class MyRequest
 		}
 		return new String[0];
 	}
-	
+
 	private String _getStringValues(ArrayList<String> list, String separator, boolean isSecure)
 	{
 		StringBuilder value = new StringBuilder();
