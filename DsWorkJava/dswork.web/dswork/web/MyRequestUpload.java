@@ -41,8 +41,9 @@ public class MyRequestUpload
 	public void uploadStream() throws Exception
 	{
 		String header = request.getHeader("Content-Disposition");
+		boolean flagFileName = header.indexOf("filename") != -1;
 		MyFile file = MyRequestUpload.getFileForHeader(header);
-		if(m_deniedFilesList != null || m_allowedFilesList != null)
+		if(flagFileName && (m_deniedFilesList != null || m_allowedFilesList != null))
 		{
 			checkFileExt(file);
 		}
@@ -76,7 +77,6 @@ public class MyRequestUpload
 		{
 			try
 			{
-				request.getInputStream();
 				j = request.getInputStream().read(m_binArray, i, m_totalBytes - i);
 			}
 			catch(Exception exception)
@@ -102,23 +102,24 @@ public class MyRequestUpload
 		for(m_currentIndex++; m_currentIndex < m_totalBytes; m_currentIndex = m_currentIndex + 2)
 		{
 			String header = getDataHeader();
+			boolean flagFileName = header.indexOf("filename") != -1;
+			String filedName = getDataFieldValue(header, "name");// 字段名称
 			m_currentIndex = m_currentIndex + 2;
-			MyFile file = getFileForHeader(header);
 			getDataSection();
-			int size = (m_endData - m_startData) + 1;// 单个文件大小
-			if(m_deniedFilesList != null || m_allowedFilesList != null)
+			if(flagFileName)
 			{
-				checkFileExt(file);
-			}
-			checkFileSize(file, (long) (size));
-			l += (m_endData - m_startData) + 1;
-			if(totalMaxFileSize > 0L && l > totalMaxFileSize)
-			{
-				throw new Exception("MyRequestException:所有文件大小超出范围");
-			}
-			String filedName = file.getFieldName();
-			if(header.indexOf("filename") > 0)
-			{
+				MyFile file = getFileForHeader(header);
+				int size = (m_endData - m_startData) + 1;// 单个文件大小
+				if(flagFileName && (m_deniedFilesList != null || m_allowedFilesList != null))
+				{
+					checkFileExt(file);
+				}
+				checkFileSize(file, (long) (size));
+				l += (m_endData - m_startData) + 1;
+				if(totalMaxFileSize > 0L && l > totalMaxFileSize)
+				{
+					throw new Exception("MyRequestException:所有文件大小超出范围");
+				}
 				if(size > 0 || file.getFileName().length() > 0)
 				{
 					if(file.getContentType().indexOf("application/x-macbinary") != -1)

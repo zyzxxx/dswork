@@ -81,7 +81,7 @@ public class MyRequest
 			{
 				MyRequestUpload reqUpload = new MyRequestUpload(request);
 				reqUpload.setMaxFileSize(maxFileSize);
-				// reqUpload.setTotalMaxFileSize(totalMaxFileSize);
+				//reqUpload.setTotalMaxFileSize(totalMaxFileSize);
 				reqUpload.setAllowedFilesList(allowedFilesList);
 				reqUpload.setDeniedFilesList(deniedFilesList);
 				reqUpload.uploadStream();
