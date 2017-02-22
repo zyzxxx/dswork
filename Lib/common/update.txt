@@ -71,6 +71,8 @@
 	dswork修改了dswork.core.db中的hibernate模块代码，从hibernate3升级到hibernate4
 	hibernate3.6.10.Final升级到hibernate4.2.21.Final，因为spring再升级的话，将移除hibernate3的依赖
 2017-02-21
-	dswork修改了dswork.web中的MyRequest模块代码，内置ContentType为"multipart/form-data"时的文件流解析，增加了MyFile类来描述文件
+	dswork修改了dswork.web中的MyRequest模块代码，新增ContentType为"multipart/form-data"时的文件流解析，增加了MyFile类来描述文件
 	dswork移除了dswork.core.upload.jspsmart包下的所有类
 	dswork修改了dswork.core.util.FileUtil的小部分逻辑
+2017-02-22
+	dswork修改了dswork.web中的MyRequest模块代码，新增ContentType为"application/octet-stream"时的文件流解析
