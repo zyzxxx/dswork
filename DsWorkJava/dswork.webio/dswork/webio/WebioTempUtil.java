@@ -250,6 +250,36 @@ public class WebioTempUtil extends Thread
 		StringBuffer sb = new StringBuffer(WebioTempUtil.UPLOAD_SAVEPATH).append(sessionKey).append(File.separatorChar).append(fileKey).append(File.separatorChar);
 		return sb.toString();
 	}
+	
+	/**
+	 * 根据参数取得上传的文件列表
+	 * @param sessionKey 用户临时主目录
+	 * @param fileKey 用户临时子目录
+	 * @return File[]
+	 */
+	public static File[] getFile(long sessionKey, long fileKey)
+	{
+		try
+		{
+			if(sessionKey <= 0 || fileKey <= 0)
+			{
+				return null;
+			}
+			StringBuffer sb = new StringBuffer(WebioTempUtil.UPLOAD_SAVEPATH).append(sessionKey).append(File.separatorChar).append(fileKey).append(File.separatorChar);
+			java.io.File f = new java.io.File(sb.toString());
+			sb = null;
+			if(f.isDirectory())//正常情况下只会是文件夹或不存在，而不可能是文件
+			{
+				return f.listFiles();//正常情况下只会是文件列表，不会存在子文件夹
+			}
+			WebioTempUtil.delete(f);//不正常文件，直接删除
+		}
+		catch(Exception ex)
+		{
+		}
+		return null;
+	}
+	
 	/**
 	 * 删除指定的临时子目录
 	 * @param sessionKey 用户临时主目录
@@ -342,34 +372,6 @@ public class WebioTempUtil extends Thread
 	// ################################################################################################
 	// 用户上传目录下的文件操作相关
 	// ################################################################################################
-	/**
-	 * 根据参数取得上传的文件列表
-	 * @param sessionKey 用户临时主目录
-	 * @param fileKey 用户临时子目录
-	 * @return File[]
-	 */
-	public static File[] getFile(long sessionKey, long fileKey)
-	{
-		try
-		{
-			if(sessionKey <= 0 || fileKey <= 0)
-			{
-				return null;
-			}
-			StringBuffer sb = new StringBuffer(WebioTempUtil.UPLOAD_SAVEPATH).append(sessionKey).append(File.separatorChar).append(fileKey).append(File.separatorChar);
-			java.io.File f = new java.io.File(sb.toString());
-			sb = null;
-			if(f.isDirectory())//正常情况下只会是文件夹或不存在，而不可能是文件
-			{
-				return f.listFiles();//正常情况下只会是文件列表，不会存在子文件夹
-			}
-			WebioTempUtil.delete(f);//不正常文件，直接删除
-		}
-		catch(Exception ex)
-		{
-		}
-		return null;
-	}
 	private static final String UPLOAD_KEY = "JSKEY_UPLOAD_KEY";
 	private static long uploadSession = (new java.util.Random().nextInt(Integer.MAX_VALUE));
 	/**
