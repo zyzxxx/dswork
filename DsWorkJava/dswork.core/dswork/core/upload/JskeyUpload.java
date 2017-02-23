@@ -223,16 +223,6 @@ public class JskeyUpload extends Thread
 	// ################################################################################################
 	private static final String UPLOAD_KEY = "JSKEY_UPLOAD_KEY";
 	private static long uploadSession = (new java.util.Random().nextInt(Integer.MAX_VALUE));
-	private static final long getNewSessionKey()
-	{
-		if(uploadSession >= Long.MAX_VALUE || uploadSession < 0)
-		{
-			uploadSession = 0L;// 还原
-		}
-		uploadSession++;
-		return uploadSession;
-	}
-
 	/**
 	 * 获取sessionKey，没有则新创建一个
 	 * @param request HttpServletRequest
@@ -261,7 +251,12 @@ public class JskeyUpload extends Thread
 		{
 			return key;
 		}
-		key = JskeyUpload.getNewSessionKey();
+		if(uploadSession >= Long.MAX_VALUE || uploadSession < 0)
+		{
+			uploadSession = 0L;// 还原
+		}
+		uploadSession++;
+		key = uploadSession;
 		request.getSession().setAttribute(JskeyUpload.UPLOAD_KEY, key);
 		return key;
 	}
