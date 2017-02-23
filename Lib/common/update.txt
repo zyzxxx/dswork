@@ -76,3 +76,7 @@
 	dswork修改了dswork.core.util.FileUtil的小部分逻辑
 2017-02-22
 	dswork修改了dswork.web中的MyRequest模块代码，新增ContentType为"application/octet-stream"时的文件流解析
+2017-02-23
+	dswork移除了dswork.core.upload.JskeyUpload类下处理移除临时文件任务相关的代码
+	dswork修改了dswork.web中的MyRequest模块代码，修复ContentType为null的情况
+	dswork新增了dswork.webio包，仅用于处理web中的文件上传，目前仅用于webio项目
