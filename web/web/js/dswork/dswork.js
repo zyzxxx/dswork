@@ -6,10 +6,10 @@ $dswork.showDate = function(){
 	$jskey.calendar.show(o,{skin:'default', lang:0, format:f, sample:f});
 };
 $dswork.uploadURL = function(){
-	return "/web/upload/jskey_upload." + ($dswork.dotnet ? "aspx" : "jsp");
+	return "/webio/io/upload." + ($dswork.dotnet ? "aspx" : "jsp");
 };
 $dswork.ioURL = function(){
-	return "/webio/io/up.jsp";
+	return "/webio/io/up." + ($dswork.dotnet ? "aspx" : "jsp");
 };
 $dswork.getChoose = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose.html";return $jskey.dialog.show(m);};
 $dswork.getChooseByKey = function(m){m.url = "/web/js/jskey/themes/dialog/jskey_choose_key.html";return $jskey.dialog.show(m);};
