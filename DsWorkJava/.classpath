@@ -10,6 +10,7 @@
 	<classpathentry kind="src" path="dswork.ognl"/>
 	<classpathentry kind="src" path="dswork.spring"/>
 	<classpathentry kind="src" path="dswork.web"/>
+	<classpathentry kind="src" path="dswork.webio"/>
 	<classpathentry kind="src" path="dswork.cs"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
 	<classpathentry kind="src" path="dswork.analyzer"/>
