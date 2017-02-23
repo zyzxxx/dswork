@@ -1,10 +1,10 @@
-﻿<%@Page Language="C#"%><%@Import Namespace="Dswork.Core.Upload" %><%@Import Namespace="System.IO" %><%
+﻿<%@Page Language="C#"%><%@Import Namespace="Dswork.Webio" %><%@Import Namespace="System.IO" %><%
 string ext = "";
 try
 {
 	//以下三个参数均由get方式传递
 	ext = Request["ext"];
-	ext = JskeyUpload.GetUploadExt(ext);
+	ext = WebioTempUtil.GetUploadExt(ext);
 	String s_key = Request["sessionkey"];//经由get方式传递过来的唯一标识
 	String f_key = Request["filekey"];//经由get方式传递过来的唯一标识
 	String uploadone = Request["uploadone"];//经由get方式传递过来的用于判断是否仅上传一个文件（当且仅当uploadone=true）
@@ -32,15 +32,15 @@ try
 		String file_name = System.IO.Path.GetFileName(myFile.FileName);//获取文件名
 		int len = file_name.LastIndexOf(".");
 		String file_ext = (len != -1) ? file_name.Substring(len + 1) : "";//文件类型
-		JskeyUpload.ToStart(sessionKey);
-		if (file_size <= JskeyUpload.UPLOAD_MAXSIZE && ext.IndexOf(file_ext) != -1)
+		WebioTempUtil.ToStart(sessionKey);
+		if (file_size <= WebioTempUtil.UPLOAD_MAXSIZE && ext.IndexOf(file_ext) != -1)
 		{
 			if (uploadone != null && "true" == uploadone)
 			{
-				JskeyUpload.DelFile(sessionKey, filekey);//保存前尝试清除
+				WebioTempUtil.DelFile(sessionKey, filekey);//保存前尝试清除
 			}
 			// 将上传文件保存到指定目录
-			String filePath = JskeyUpload.GetSavePath(sessionKey, filekey);
+			String filePath = WebioTempUtil.GetSavePath(sessionKey, filekey);
 			if (!Directory.Exists(filePath))
 			{
 				Directory.CreateDirectory(filePath);
@@ -59,4 +59,4 @@ try
 catch
 {
 }
-%>{"err":"文件后缀只能为：<%=JskeyUpload.GetUploadExt(ext)%>(小写扩展名)；文件大小不能超过<%=(JskeyUpload.UPLOAD_MAXSIZE/1048576)%>M","msg":""}
+%>{"err":"文件后缀只能为：<%=WebioTempUtil.GetUploadExt(ext)%>(小写扩展名)；文件大小不能超过<%=(WebioTempUtil.UPLOAD_MAXSIZE/1048576)%>M","msg":""}
