@@ -314,7 +314,7 @@ public class DsCmsPageController extends BaseController
 			if(checkOwn(site.getOwn()))
 			{
 				String ext = "";
-				boolean isHTML5 = "application/octet-stream".equals(request.getContentType());
+				boolean isHTML5 = request.getContentType().indexOf("application/octet-stream") != -1;
 				byte[] byteArray = null;
 				if(isHTML5)
 				{
