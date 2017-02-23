@@ -41,7 +41,7 @@ public class WebioUtil extends Thread
 	/**
 	 * 默认允许上传的文件后缀
 	 */
-	public static final String FILE = EnvironmentUtil.getToString("webio.file", "jpg,jpeg,gif,png,bmp,doc,rtf,xls,txt,ppt,pdf,rar,zip,7z,docx,xlsx,pptx").toLowerCase();
+	public static final String FILE = EnvironmentUtil.getToString("webio.file", "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z").toLowerCase();
 	private static final String CHECK = "," + FILE + ",";
 
 	

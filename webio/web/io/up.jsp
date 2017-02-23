@@ -42,6 +42,7 @@ try
 		}
 	}
 	s_name = sb.toString();
+	// temp目录主要用于存储临时文件，就算上传了也会被清除
 	if(s_name.length() == 0){
 		s_name = "webio";
 	}

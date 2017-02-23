@@ -50,47 +50,51 @@ public class MyRequest
 				}
 			}
 		}
-		try
+		String contentType = request.getContentType();
+		if(contentType != null)
 		{
-			if(request.getContentType().indexOf("multipart/form-data") != -1)
+			try
 			{
-				MyRequestUpload reqUpload = new MyRequestUpload(request);
-				reqUpload.setMaxFileSize(maxFileSize);
-				reqUpload.setTotalMaxFileSize(totalMaxFileSize);
-				reqUpload.setAllowedFilesList(allowedFilesList);
-				reqUpload.setDeniedFilesList(deniedFilesList);
-				reqUpload.uploadForm();
-				formFiles = reqUpload.getFiles();
-				Iterator<Map.Entry<String, ArrayList<String>>> _iter = reqUpload.getParams().entrySet().iterator();
-				while(_iter.hasNext())
+				if(contentType.indexOf("multipart/form-data") != -1)
 				{
-					Map.Entry<String, ArrayList<String>> entry = _iter.next();
-					key = entry.getKey();
-					ArrayList<String> val = entry.getValue();
-					if(formParams.get(key) == null)
+					MyRequestUpload reqUpload = new MyRequestUpload(request);
+					reqUpload.setMaxFileSize(maxFileSize);
+					reqUpload.setTotalMaxFileSize(totalMaxFileSize);
+					reqUpload.setAllowedFilesList(allowedFilesList);
+					reqUpload.setDeniedFilesList(deniedFilesList);
+					reqUpload.uploadForm();
+					formFiles = reqUpload.getFiles();
+					Iterator<Map.Entry<String, ArrayList<String>>> _iter = reqUpload.getParams().entrySet().iterator();
+					while(_iter.hasNext())
 					{
-						formParams.put(key, val);
-					}
-					else
-					{
-						formParams.get(key).addAll(val);
+						Map.Entry<String, ArrayList<String>> entry = _iter.next();
+						key = entry.getKey();
+						ArrayList<String> val = entry.getValue();
+						if(formParams.get(key) == null)
+						{
+							formParams.put(key, val);
+						}
+						else
+						{
+							formParams.get(key).addAll(val);
+						}
 					}
 				}
+				else if(contentType.indexOf("application/octet-stream") != -1)
+				{
+					MyRequestUpload reqUpload = new MyRequestUpload(request);
+					reqUpload.setMaxFileSize(maxFileSize);
+					//reqUpload.setTotalMaxFileSize(totalMaxFileSize);
+					reqUpload.setAllowedFilesList(allowedFilesList);
+					reqUpload.setDeniedFilesList(deniedFilesList);
+					reqUpload.uploadStream();
+					formFiles = reqUpload.getFiles();
+				}
 			}
-			else if(request.getContentType().indexOf("application/octet-stream") != -1)
+			catch(Exception e)
 			{
-				MyRequestUpload reqUpload = new MyRequestUpload(request);
-				reqUpload.setMaxFileSize(maxFileSize);
-				//reqUpload.setTotalMaxFileSize(totalMaxFileSize);
-				reqUpload.setAllowedFilesList(allowedFilesList);
-				reqUpload.setDeniedFilesList(deniedFilesList);
-				reqUpload.uploadStream();
-				formFiles = reqUpload.getFiles();
+				e.printStackTrace();
 			}
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
 		}
 		if(formFiles == null)
 		{
