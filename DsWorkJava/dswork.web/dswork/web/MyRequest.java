@@ -281,7 +281,7 @@ public class MyRequest
 		List<MyFile> list = formFiles.get(key);
 		if(list != null)
 		{
-			return (MyFile[]) list.toArray();
+			return list.toArray(new MyFile[list.size()]);
 		}
 		return new MyFile[0];
 	}
