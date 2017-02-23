@@ -3,11 +3,6 @@ package dswork.core.upload;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Calendar;
-import java.util.concurrent.ConcurrentMap;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import dswork.core.util.EnvironmentUtil;
 
@@ -29,15 +24,6 @@ public class JskeyUpload extends Thread
 		}
 		return s;
 	}
-
-	/**
-	 * 是否定时执行临时目录清理工作，建议仅web项目清理
-	 */
-	public static final boolean UPLOAD_CLEAR = EnvironmentUtil.getToBoolean("jskey.upload.clear", false);
-	/**
-	 * 文件保存时长（毫秒）
-	 */
-	public static final long UPLOAD_TIMEOUT = EnvironmentUtil.getToLong("jskey.upload.timeout", 600000L);
 	
 	/**
 	 * 临时上传总目录
@@ -54,147 +40,8 @@ public class JskeyUpload extends Thread
 	/**
 	 * 默认允许上传的文件后缀
 	 */
-	public static final String UPLOAD_FILE = EnvironmentUtil.getToString("jskey.upload.file", "jpg,jpeg,gif,png,bmp,doc,rtf,xls,txt,ppt,pdf,rar,zip,7z,docx,xlsx,pptx").toLowerCase();
+	public static final String UPLOAD_FILE = EnvironmentUtil.getToString("jskey.upload.file", "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z").toLowerCase();
 	private static final String UPLOAD_CHECK = "," + UPLOAD_FILE + ",";
-
-	
-
-
-	// ################################################################################################
-	// 定时任务相关
-	// ################################################################################################
-	private Timer _timer = null;
-	private static int count = 0;
-	private static ConcurrentMap<Long, Long> jskeyUploadMap = new ConcurrentHashMap<Long, Long>();
-	private static synchronized int getCount() {return JskeyUpload.count;}
-	// count仅用于标记是否启动任务，1为启动，0为不启动
-	private static synchronized void setCount(int count) {JskeyUpload.count = count;}
-	static//临时目录初始化，在服务器启动时执行
-	{
-		try
-		{
-			if(JskeyUpload.UPLOAD_CLEAR)
-			{
-				String path = JskeyUpload.UPLOAD_SAVEPATH;
-				java.io.File f = new java.io.File(path);
-				System.out.println(f.getPath());
-				JskeyUpload.delete(f);//删除整个目录
-			}
-		}
-		catch(Exception ex)
-		{
-		}
-	}
-	//判断Map是否有值存在
-	private static synchronized boolean existMapValue()
-	{
-		return JskeyUpload.jskeyUploadMap.size() > 0;
-	}
-	//移除sessionKey
-	private static synchronized void removeSessionKey(long sessionKey)
-	{
-		try
-		{
-			JskeyUpload.jskeyUploadMap.remove(sessionKey);//移除标识
-		}
-		catch(Exception ex)
-		{
-		}
-	}
-	//删除整个临时上传目录
-	private static boolean delSessionKey(long sessionKey)
-	{
-		try
-		{
-			if(sessionKey <= 0)
-			{
-				return false;
-			}
-			StringBuffer sb = new StringBuffer(JskeyUpload.UPLOAD_SAVEPATH);
-			java.io.File f = new java.io.File(sb.append(sessionKey).append(java.io.File.separatorChar).toString());
-			sb = null;
-			JskeyUpload.delete(f);//删除整个目录
-			JskeyUpload.removeSessionKey(sessionKey);//移除标识
-			return true;
-		}
-		catch(Exception ex)
-		{
-			JskeyUpload.removeSessionKey(sessionKey);//移除标识
-		}
-		return false;
-	}
-
-	/**
-	 * 启动线程
-	 */
-	public void run()
-	{
-		if(!JskeyUpload.UPLOAD_CLEAR)
-		{
-			return;
-		}
-		if(JskeyUpload.getCount() != 0)//启动中
-		{
-			return;
-		}
-		if(!JskeyUpload.existMapValue())
-		{
-			return;//同样不需要启动
-		}
-		JskeyUpload.setCount(1);//标记启动
-		try
-		{
-			TimerTask _timerTask = new TimerTask()
-			{
-				public void run()
-				{
-					try
-					{
-						if(JskeyUpload.existMapValue())
-						{
-							long currTime = Calendar.getInstance().getTimeInMillis();//取得当前时间
-							for(ConcurrentMap.Entry<Long, Long> entry: JskeyUpload.jskeyUploadMap.entrySet())
-							{
-								if(currTime - entry.getValue().longValue() > JskeyUpload.UPLOAD_TIMEOUT)
-								{
-									JskeyUpload.delSessionKey(entry.getKey());//超时,移除
-								}
-							}
-						}
-						if(!JskeyUpload.existMapValue())//让再判断一次
-						{
-							_timer.cancel();
-							JskeyUpload.setCount(0);
-							System.out.println("--临时上传目录清理程序结束，清理完毕。--");
-						}
-					}
-					catch(Exception ex)
-					{
-						try
-						{
-							_timer.cancel();
-						}
-						finally
-						{
-							JskeyUpload.setCount(0);
-							System.out.println("--临时上传目录清理程序异常结束。--");
-						}
-					}
-				}
-			};
-			_timer = new Timer(true);
-			// Timer.schedule(TimerTask task, Date date, long period)// 从date开始,每period毫秒执行task.
-			_timer.schedule(_timerTask, 0, JskeyUpload.UPLOAD_TIMEOUT);// 从服务器启动开始运行,每period毫秒执行
-			System.out.println("--临时上传目录清理程序启动，已经添加任务调度表，清理间隔" + JskeyUpload.UPLOAD_TIMEOUT/1000 + "秒。--");
-		}
-		catch(Exception ex)
-		{
-			try {_timer.cancel();}catch(Exception timerEx) {}//尝试停止进程，即使它未初始化或未启动
-			ex.printStackTrace();
-			System.out.println("--临时上传目录清理程序异常结束。--");
-			JskeyUpload.setCount(0);
-		}
-	}
 
 	// ################################################################################################
 	// 文件操作相关
@@ -365,16 +212,6 @@ public class JskeyUpload extends Thread
 		}
 	}
 	
-	/**
-	 * 启动临时上传目录清理程序,在目录生成或文件上传后,才需要将sessionKey加入管理程序
-	 * @param sessionKey 用户临时主目录
-	 */
-	public static final synchronized void toStart(long sessionKey)
-	{
-		JskeyUpload.jskeyUploadMap.put(sessionKey, System.currentTimeMillis());//更新时间标识
-		JskeyUpload clearDao = new JskeyUpload();
-		clearDao.start();//启动临时上传目录清理程序
-	}
 	// ################################################################################################
 	/*
 	 * 简单说明：sessionKey是一次会话对应的值,根据它生成一个sessionKey目录,该目录下有多个fileKey目录,一个fileKey对应一次上传提交
@@ -427,11 +264,5 @@ public class JskeyUpload extends Thread
 		key = JskeyUpload.getNewSessionKey();
 		request.getSession().setAttribute(JskeyUpload.UPLOAD_KEY, key);
 		return key;
-	}
-
-	@Deprecated
-	public static final long refreshSessionKey(javax.servlet.http.HttpServletRequest request)
-	{
-		return getSessionKey(request);
 	}
 }
