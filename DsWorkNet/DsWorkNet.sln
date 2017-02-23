@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spring.Data.IBatis", "Spring.Data.IBatis\Spring.Data.IBatis.csproj", "{28BBE8E9-FCAB-48FA-9C4D-8ED45F402B80}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dswork.Core", "Dswork.Core\Dswork.Core.csproj", "{55962767-6CB2-464E-AE66-CB678D7DD4A7}"
@@ -19,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWork", "TestWork\TestWo
 		{83444DF5-B273-4CDA-A9DD-2B87070FFB3C} = {83444DF5-B273-4CDA-A9DD-2B87070FFB3C}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dswork.Core.Upload", "Dswork.Core.Upload\Dswork.Core.Upload.csproj", "{3A59062F-5E8E-4527-AB15-6CA213378823}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dswork.Mvc", "Dswork.Mvc\Dswork.Mvc.csproj", "{F9036EC1-92C0-443F-BB12-08E153F3601D}"
 	ProjectSection(ProjectDependencies) = postProject
 		{55962767-6CB2-464E-AE66-CB678D7DD4A7} = {55962767-6CB2-464E-AE66-CB678D7DD4A7}
@@ -28,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dswork.Mvc", "Dswork.Mvc\Ds
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dswork.Http", "Dswork.Http\Dswork.Http.csproj", "{7FA5246C-A9A0-4335-8B5D-DBAB40B4EEF8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dswork.Webio", "Dswork.Webio\Dswork.Webio.csproj", "{6EA2F904-44CD-4556-ABFA-196055E95825}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,12 +73,6 @@ Global
 		{8EBBA7C7-0F9A-48CC-B7C4-2A2062F9F4F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EBBA7C7-0F9A-48CC-B7C4-2A2062F9F4F8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8EBBA7C7-0F9A-48CC-B7C4-2A2062F9F4F8}.Release|x86.ActiveCfg = Release|Any CPU
-		{3A59062F-5E8E-4527-AB15-6CA213378823}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3A59062F-5E8E-4527-AB15-6CA213378823}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3A59062F-5E8E-4527-AB15-6CA213378823}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3A59062F-5E8E-4527-AB15-6CA213378823}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3A59062F-5E8E-4527-AB15-6CA213378823}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3A59062F-5E8E-4527-AB15-6CA213378823}.Release|x86.ActiveCfg = Release|Any CPU
 		{F9036EC1-92C0-443F-BB12-08E153F3601D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F9036EC1-92C0-443F-BB12-08E153F3601D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9036EC1-92C0-443F-BB12-08E153F3601D}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -95,6 +87,12 @@ Global
 		{7FA5246C-A9A0-4335-8B5D-DBAB40B4EEF8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7FA5246C-A9A0-4335-8B5D-DBAB40B4EEF8}.Release|x86.ActiveCfg = Release|Any CPU
 		{7FA5246C-A9A0-4335-8B5D-DBAB40B4EEF8}.Release|x86.Build.0 = Release|Any CPU
+		{6EA2F904-44CD-4556-ABFA-196055E95825}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EA2F904-44CD-4556-ABFA-196055E95825}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EA2F904-44CD-4556-ABFA-196055E95825}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6EA2F904-44CD-4556-ABFA-196055E95825}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EA2F904-44CD-4556-ABFA-196055E95825}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EA2F904-44CD-4556-ABFA-196055E95825}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

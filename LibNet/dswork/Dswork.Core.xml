@@ -11,189 +11,6 @@
             <typeparam name="T">对象模型</typeparam>
             <typeparam name="PK">主键类</typeparam>
         </member>
-        <member name="M:Dswork.Core.Db.BaseDao`2.Save(`0)">
-            <summary>
-            新增对象
-            </summary>
-            <param name="entity">需要新增的对象模型</param>
-            <returns>int返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseDao`2.Delete(`1)">
-            <summary>
-            根据主键删除对象
-            </summary>
-            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
-            <returns>int返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseDao`2.Update(`0)">
-            <summary>
-            更新对象
-            </summary>
-            <param name="entity">需要更新的对象模型</param>
-            <returns>int返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseDao`2.Get(`1)">
-            <summary>
-            根据主键primaryKey获取对象
-            </summary>
-            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
-            <returns>T对象模型</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseDao`2.QueryCount(Dswork.Core.Page.PageRequest)">
-            <summary>
-            取得数据条数
-            </summary>
-            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
-            <returns>int</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseDao`2.QueryList(Dswork.Core.Page.PageRequest)">
-            <summary>
-            不分页查询数据
-            </summary>
-            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
-            <returns>IList&lt;T&gt;</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseDao`2.QueryPage(Dswork.Core.Page.PageRequest)">
-            <summary>
-            分页查询数据，statement默认为query
-            </summary>
-            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
-            <returns>Page&lt;T&gt;</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseDao`2.QueryPage(System.String,Dswork.Core.Page.PageRequest)">
-            <summary>
-            分页查询数据
-            </summary>
-            <param name="statementName">查询数据的statement，统计总数的是statement + "Count"</param>
-            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
-            <returns>Page&lt;T&gt;</returns>
-        </member>
-        <member name="T:Dswork.Core.Db.BaseService`2">
-            <summary>
-            服务基础类
-            </summary>
-            <typeparam name="T">对象模型</typeparam>
-            <typeparam name="PK">主键类</typeparam>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.GetEntityDao">
-            <summary>
-            需要被子类覆盖
-            </summary>
-            <returns>EntityDao&lt;T, PK&gt;</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.Save(`0)">
-            <summary>
-            新增对象
-            </summary>
-            <param name="entity">需要新增的对象模型</param>
-            <returns>int返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.Delete(`1)">
-            <summary>
-            根据主键删除对象
-            </summary>
-            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
-            <returns>int返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.DeleteBatch(`1[])">
-            <summary>
-            根据主键批量删除对象
-            </summary>
-            <param name="primaryKeys">主键数组(如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map)</param>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.Update(`0)">
-            <summary>
-            更新对象
-            </summary>
-            <param name="entity">需要更新的对象模型</param>
-            <returns>int返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.Get(`1)">
-            <summary>
-            根据主键primaryKey获取对象
-            </summary>
-            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
-            <returns>T对象模型</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.QueryList(System.Collections.Hashtable)">
-            <summary>
-            取得全部数据
-            </summary>
-            <param name="map">查询参数和条件数据</param>
-            <returns>IList&lt;T&gt;</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.QueryList(Dswork.Core.Page.PageRequest)">
-            <summary>
-            默认列表方法
-            </summary>
-            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
-            <returns>IList&lt;T&gt;</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.QueryPage(System.Int32,System.Int32,System.Collections.Hashtable)">
-            <summary>
-            得到分页模型
-            </summary>
-            <param name="currentPage">当前页码</param>
-            <param name="pageSize">一页显示的条数</param>
-            <param name="map">查询参数和条件数据</param>
-            <returns>Page&lt;T&gt;</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.BaseService`2.QueryPage(Dswork.Core.Page.PageRequest)">
-            <summary>
-            默认分页方法
-            </summary>
-            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
-            <returns>Page&lt;T&gt;</returns>
-        </member>
-        <member name="T:Dswork.Core.Db.EntityDao`2">
-            <summary>
-            基类接口
-            </summary>
-            <typeparam name="T">对象模型</typeparam>
-            <typeparam name="PK">主键类</typeparam>
-        </member>
-        <member name="M:Dswork.Core.Db.EntityDao`2.Save(`0)">
-            <summary>
-            新增对象
-            </summary>
-            <param name="entity">需要新增的对象模型</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.EntityDao`2.Delete(`1)">
-            <summary>
-            删除对象
-            </summary>
-            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.EntityDao`2.Update(`0)">
-            <summary>
-            更新对象
-            </summary>
-            <param name="entity">需要新增的对象模型</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.EntityDao`2.Get(`1)">
-            <summary>
-            查询对象
-            </summary>
-            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
-            <returns>返回执行结果</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.EntityDao`2.QueryList(Dswork.Core.Page.PageRequest)">
-            <summary>
-            默认列表方法
-            </summary>
-            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
-            <returns>IList</returns>
-        </member>
-        <member name="M:Dswork.Core.Db.EntityDao`2.QueryPage(Dswork.Core.Page.PageRequest)">
-            <summary>
-            MyBatis默认分页方法
-            </summary>
-            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
-            <returns>Page</returns>
-        </member>
         <member name="T:Dswork.Core.Db.MyBatisDao">
             <summary>
             IBatisNet的抽象类，不是MyBatis的
@@ -202,16 +19,6 @@
         <member name="F:Dswork.Core.Db.MyBatisDao.log">
             <summary>
             用于写入log4net日志
-            </summary>
-        </member>
-        <member name="P:Dswork.Core.Db.MyBatisDao.SqlSessionTemplate">
-            <summary>
-            注入ISqlMapper对象
-            </summary>
-        </member>
-        <member name="P:Dswork.Core.Db.MyBatisDao.SqlSessionTemplateDialect">
-            <summary>
-            注入IDialect对象
             </summary>
         </member>
         <member name="M:Dswork.Core.Db.MyBatisDao.GetEntityClass">
@@ -356,32 +163,203 @@
             回滚事务
             </summary>
         </member>
+        <member name="P:Dswork.Core.Db.MyBatisDao.SqlSessionTemplate">
+            <summary>
+            注入ISqlMapper对象
+            </summary>
+        </member>
+        <member name="P:Dswork.Core.Db.MyBatisDao.SqlSessionTemplateDialect">
+            <summary>
+            注入IDialect对象
+            </summary>
+        </member>
+        <member name="T:Dswork.Core.Db.EntityDao`2">
+            <summary>
+            基类接口
+            </summary>
+            <typeparam name="T">对象模型</typeparam>
+            <typeparam name="PK">主键类</typeparam>
+        </member>
+        <member name="M:Dswork.Core.Db.EntityDao`2.Save(`0)">
+            <summary>
+            新增对象
+            </summary>
+            <param name="entity">需要新增的对象模型</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.EntityDao`2.Delete(`1)">
+            <summary>
+            删除对象
+            </summary>
+            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.EntityDao`2.Update(`0)">
+            <summary>
+            更新对象
+            </summary>
+            <param name="entity">需要新增的对象模型</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.EntityDao`2.Get(`1)">
+            <summary>
+            查询对象
+            </summary>
+            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
+            <returns>返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.EntityDao`2.QueryList(Dswork.Core.Page.PageRequest)">
+            <summary>
+            默认列表方法
+            </summary>
+            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
+            <returns>IList</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.EntityDao`2.QueryPage(Dswork.Core.Page.PageRequest)">
+            <summary>
+            MyBatis默认分页方法
+            </summary>
+            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
+            <returns>Page</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseDao`2.Save(`0)">
+            <summary>
+            新增对象
+            </summary>
+            <param name="entity">需要新增的对象模型</param>
+            <returns>int返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseDao`2.Delete(`1)">
+            <summary>
+            根据主键删除对象
+            </summary>
+            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
+            <returns>int返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseDao`2.Update(`0)">
+            <summary>
+            更新对象
+            </summary>
+            <param name="entity">需要更新的对象模型</param>
+            <returns>int返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseDao`2.Get(`1)">
+            <summary>
+            根据主键primaryKey获取对象
+            </summary>
+            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
+            <returns>T对象模型</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseDao`2.QueryCount(Dswork.Core.Page.PageRequest)">
+            <summary>
+            取得数据条数
+            </summary>
+            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
+            <returns>int</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseDao`2.QueryList(Dswork.Core.Page.PageRequest)">
+            <summary>
+            不分页查询数据
+            </summary>
+            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
+            <returns>IList&lt;T&gt;</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseDao`2.QueryPage(Dswork.Core.Page.PageRequest)">
+            <summary>
+            分页查询数据，statement默认为query
+            </summary>
+            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
+            <returns>Page&lt;T&gt;</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseDao`2.QueryPage(System.String,Dswork.Core.Page.PageRequest)">
+            <summary>
+            分页查询数据
+            </summary>
+            <param name="statementName">查询数据的statement，统计总数的是statement + "Count"</param>
+            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
+            <returns>Page&lt;T&gt;</returns>
+        </member>
+        <member name="T:Dswork.Core.Db.BaseService`2">
+            <summary>
+            服务基础类
+            </summary>
+            <typeparam name="T">对象模型</typeparam>
+            <typeparam name="PK">主键类</typeparam>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.GetEntityDao">
+            <summary>
+            需要被子类覆盖
+            </summary>
+            <returns>EntityDao&lt;T, PK&gt;</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.Save(`0)">
+            <summary>
+            新增对象
+            </summary>
+            <param name="entity">需要新增的对象模型</param>
+            <returns>int返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.Delete(`1)">
+            <summary>
+            根据主键删除对象
+            </summary>
+            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
+            <returns>int返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.DeleteBatch(`1[])">
+            <summary>
+            根据主键批量删除对象
+            </summary>
+            <param name="primaryKeys">主键数组(如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map)</param>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.Update(`0)">
+            <summary>
+            更新对象
+            </summary>
+            <param name="entity">需要更新的对象模型</param>
+            <returns>int返回执行结果</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.Get(`1)">
+            <summary>
+            根据主键primaryKey获取对象
+            </summary>
+            <param name="primaryKey">如果是单主键的，传入主键数据类型，如果为多主键的，可以用主键类或map</param>
+            <returns>T对象模型</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.QueryList(System.Collections.Hashtable)">
+            <summary>
+            取得全部数据
+            </summary>
+            <param name="map">查询参数和条件数据</param>
+            <returns>IList&lt;T&gt;</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.QueryList(Dswork.Core.Page.PageRequest)">
+            <summary>
+            默认列表方法
+            </summary>
+            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
+            <returns>IList&lt;T&gt;</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.QueryPage(System.Int32,System.Int32,System.Collections.Hashtable)">
+            <summary>
+            得到分页模型
+            </summary>
+            <param name="currentPage">当前页码</param>
+            <param name="pageSize">一页显示的条数</param>
+            <param name="map">查询参数和条件数据</param>
+            <returns>Page&lt;T&gt;</returns>
+        </member>
+        <member name="M:Dswork.Core.Db.BaseService`2.QueryPage(Dswork.Core.Page.PageRequest)">
+            <summary>
+            默认分页方法
+            </summary>
+            <param name="pageRequest">PageRequest.getFilters()查询参数和条件数据</param>
+            <returns>Page&lt;T&gt;</returns>
+        </member>
         <member name="T:Dswork.Core.Mybaits.Dialect.Dialect">
             <summary>
             Dialect
             </summary>
-        </member>
-        <member name="M:Dswork.Core.Mybaits.Dialect.Dialect.SupportsLimitOffset">
-            <summary>
-            默认不支持分页
-            </summary>
-            <returns>Boolean</returns>
-        </member>
-        <member name="M:Dswork.Core.Mybaits.Dialect.Dialect.GetCountSql(System.String)">
-            <summary>
-            获取count语句
-            </summary>
-            <param name="sql">原始sql语句</param>
-            <returns>String</returns>
-        </member>
-        <member name="M:Dswork.Core.Mybaits.Dialect.Dialect.GetLimitString(System.String,System.Int32,System.Int32)">
-            <summary>
-            将sql变成分页sql
-            </summary>
-            <param name="sql">原始sql语句</param>
-            <param name="offset">跳过行数</param>
-            <param name="limit">返回行数</param>
-            <returns>String</returns>
         </member>
         <member name="T:Dswork.Core.Mybaits.Dialect.IDialect">
             <summary>
@@ -402,6 +380,28 @@
             <returns>String</returns>
         </member>
         <member name="M:Dswork.Core.Mybaits.Dialect.IDialect.GetLimitString(System.String,System.Int32,System.Int32)">
+            <summary>
+            将sql变成分页sql
+            </summary>
+            <param name="sql">原始sql语句</param>
+            <param name="offset">跳过行数</param>
+            <param name="limit">返回行数</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Core.Mybaits.Dialect.Dialect.SupportsLimitOffset">
+            <summary>
+            默认不支持分页
+            </summary>
+            <returns>Boolean</returns>
+        </member>
+        <member name="M:Dswork.Core.Mybaits.Dialect.Dialect.GetCountSql(System.String)">
+            <summary>
+            获取count语句
+            </summary>
+            <param name="sql">原始sql语句</param>
+            <returns>String</returns>
+        </member>
+        <member name="M:Dswork.Core.Mybaits.Dialect.Dialect.GetLimitString(System.String,System.Int32,System.Int32)">
             <summary>
             将sql变成分页sql
             </summary>
@@ -562,6 +562,28 @@
             <param name="totalCount">数据总条数</param>
             <param name="result">结果集IList&lt;T&gt;</param>
         </member>
+        <member name="M:Dswork.Core.Page.Page`1.SetResult(System.Collections.IList)">
+            <summary>
+            设置结果集
+            </summary>
+            <param name="value">IList</param>
+        </member>
+        <member name="M:Dswork.Core.Page.Page`1.SetResult(System.Collections.Generic.IList{`0})">
+            <summary>
+            设置结果集
+            </summary>
+            <param name="value">IList&lt;T&gt;</param>
+        </member>
+        <member name="M:Dswork.Core.Page.Page`1.GetResult">
+            <summary>
+            取得结果集，结果集IList
+            </summary>
+        </member>
+        <member name="M:Dswork.Core.Page.Page`1.GetResult``1">
+            <summary>
+            取得结果集，结果集IList&lt;T&gt;
+            </summary>
+        </member>
         <member name="P:Dswork.Core.Page.Page`1.CurrentPage">
             <summary>
             取得当前页页码
@@ -600,28 +622,6 @@
         <member name="P:Dswork.Core.Page.Page`1.PreviousPage">
             <summary>
             取得上一页页码
-            </summary>
-        </member>
-        <member name="M:Dswork.Core.Page.Page`1.SetResult(System.Collections.IList)">
-            <summary>
-            设置结果集
-            </summary>
-            <param name="value">IList</param>
-        </member>
-        <member name="M:Dswork.Core.Page.Page`1.SetResult(System.Collections.Generic.IList{`0})">
-            <summary>
-            设置结果集
-            </summary>
-            <param name="value">IList&lt;T&gt;</param>
-        </member>
-        <member name="M:Dswork.Core.Page.Page`1.GetResult">
-            <summary>
-            取得结果集，结果集IList
-            </summary>
-        </member>
-        <member name="M:Dswork.Core.Page.Page`1.GetResult``1">
-            <summary>
-            取得结果集，结果集IList&lt;T&gt;
             </summary>
         </member>
         <member name="P:Dswork.Core.Page.Page`1.TotalCount">
@@ -742,8 +742,9 @@
             <param name="filters">条件，使用HashTable</param>
         </member>
         <member name="P:Dswork.Core.Page.PageRequest.CurrentPage">
+            <summary>
             取得当前页
-            @return int
+            </summary>
         </member>
         <member name="P:Dswork.Core.Page.PageRequest.Filters">
             <summary>
@@ -770,16 +771,6 @@
             临时文件上传服务类
             </summary>
         </member>
-        <member name="F:Dswork.Core.Upload.JskeyUpload.log">
-            <summary>
-            用于写入log4net日志
-            </summary>
-        </member>
-        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_CLEAR">
-            <summary>
-            是否定时执行临时目录清理工作，建议仅web项目清理
-            </summary>
-        </member>
         <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_SAVEPATH">
             <summary>
             临时上传总目录
@@ -790,11 +781,6 @@
             文件占用最大空间（bit）
             </summary>
         </member>
-        <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_TIMEOUT">
-            <summary>
-            文件保存时长（毫秒）
-            </summary>
-        </member>
         <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_IMAGE">
             <summary>
             默认允许上传的图片后缀
@@ -803,11 +789,6 @@
         <member name="F:Dswork.Core.Upload.JskeyUpload.UPLOAD_FILE">
             <summary>
             默认允许上传的文件后缀
-            </summary>
-        </member>
-        <member name="M:Dswork.Core.Upload.JskeyUpload.Run">
-            <summary>
-            启动定时任务
             </summary>
         </member>
         <member name="M:Dswork.Core.Upload.JskeyUpload.GetToByte(System.String)">
@@ -847,18 +828,6 @@
             </summary>
             <param name="ext">需要过滤的上传文件后缀名，格式为"***,***"</param>
             <returns>String</returns>
-        </member>
-        <member name="M:Dswork.Core.Upload.JskeyUpload.ToStart(System.Int64)">
-            <summary>
-            启动临时上传目录清理程序,在目录生成或文件上传后,才需要将sessionKey加入管理程序
-            </summary>
-            <param name="sessionKey">用户临时主目录</param>
-        </member>
-        <member name="M:Dswork.Core.Upload.JskeyUpload.GetNewSessionKey">
-            <summary>
-            获取一个新的上传文件会话信息
-            </summary>
-            <returns>long</returns>
         </member>
         <member name="M:Dswork.Core.Upload.JskeyUpload.GetSessionKey(System.Web.HttpRequest)">
             <summary>

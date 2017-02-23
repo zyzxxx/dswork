@@ -114,6 +114,41 @@
             <param name="name">cookie参数名</param>
             <returns>存在返回true，不存在返回false</returns>
         </member>
+        <member name="T:Dswork.Web.MyFile">
+            <summary>
+            Request表单文件
+            </summary>
+        </member>
+        <member name="P:Dswork.Web.MyFile.FieldName">
+            <summary>
+            文件的字段名
+            </summary>
+        </member>
+        <member name="P:Dswork.Web.MyFile.FileName">
+            <summary>
+            文件的文件名
+            </summary>
+        </member>
+        <member name="P:Dswork.Web.MyFile.FileExt">
+            <summary>
+            文件的扩展名
+            </summary>
+        </member>
+        <member name="P:Dswork.Web.MyFile.ContentType">
+            <summary>
+            文件的Content-Type
+            </summary>
+        </member>
+        <member name="P:Dswork.Web.MyFile.ContentDisp">
+            <summary>
+            文件的Content-Disposition
+            </summary>
+        </member>
+        <member name="P:Dswork.Web.MyFile.FileData">
+            <summary>
+            文件的字节流
+            </summary>
+        </member>
         <member name="T:Dswork.Web.MyRequest">
             <summary>
             扩展Request的功能
@@ -156,6 +191,29 @@
             <param name="separator">分隔符</param>
             <returns>String</returns>
         </member>
+        <member name="M:Dswork.Web.MyRequest.GetDouble(System.String)">
+            <summary>
+            从Request中取得double值，如果取得的值为null，则返回0D
+            </summary>
+            <param name="key">request参数名</param>
+            <returns>double</returns>
+        </member>
+        <member name="M:Dswork.Web.MyRequest.GetDouble(System.String,System.Double)">
+            <summary>
+            从Request中取得double值，如果取得的值为null，则使用默认值
+            </summary>
+            <param name="key">request参数名</param>
+            <param name="defaultValue">默认值</param>
+            <returns>double</returns>
+        </member>
+        <member name="M:Dswork.Web.MyRequest.GetDoubleArray(System.String,System.Double)">
+            <summary>
+            返回数组取得多个同名参数值，如果取得的值为null，则使用默认值
+            </summary>
+            <param name="key">request参数名</param>
+            <param name="defaultValue">默认值</param>
+            <returns>double[]</returns>
+        </member>
         <member name="M:Dswork.Web.MyRequest.GetFillObject(System.Object)">
             <summary>
             从Request中获取值并自动填充到Object
@@ -183,29 +241,6 @@
             <typeparam name="T">Object</typeparam>
             <param name="o">T</param>
             <param name="clazzName">request中获取类的属性key为clazzName加上属性名，即clazzName为key的前缀</param>
-        </member>
-        <member name="M:Dswork.Web.MyRequest.GetDouble(System.String)">
-            <summary>
-            从Request中取得double值，如果取得的值为null，则返回0D
-            </summary>
-            <param name="key">request参数名</param>
-            <returns>double</returns>
-        </member>
-        <member name="M:Dswork.Web.MyRequest.GetDouble(System.String,System.Double)">
-            <summary>
-            从Request中取得double值，如果取得的值为null，则使用默认值
-            </summary>
-            <param name="key">request参数名</param>
-            <param name="defaultValue">默认值</param>
-            <returns>double</returns>
-        </member>
-        <member name="M:Dswork.Web.MyRequest.GetDoubleArray(System.String,System.Double)">
-            <summary>
-            返回数组取得多个同名参数值，如果取得的值为null，则使用默认值
-            </summary>
-            <param name="key">request参数名</param>
-            <param name="defaultValue">默认值</param>
-            <returns>double[]</returns>
         </member>
         <member name="M:Dswork.Web.MyRequest.GetFloat(System.String)">
             <summary>

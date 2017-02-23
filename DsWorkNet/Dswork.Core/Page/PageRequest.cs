@@ -52,10 +52,9 @@ namespace Dswork.Core.Page
 			this.Filters = filters;
 		}
 
-		/**
-		 * 取得当前页
-		 * @return int
-		 */
+		/// <summary>
+		/// 取得当前页
+		/// </summary>
 		public int CurrentPage
 		{
 			get

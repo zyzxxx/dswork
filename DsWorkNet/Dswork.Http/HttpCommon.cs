@@ -57,7 +57,7 @@ namespace Dswork.Http
 						result.Append(encodedValue);
 					}
 				}
-				catch (Exception e)
+				catch
 				{
 				}
 			}

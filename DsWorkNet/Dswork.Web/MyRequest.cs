@@ -111,114 +111,6 @@ namespace Dswork.Web
 		}
 
 		/// <summary>
-		/// 从Request中获取值并自动填充到Object
-		/// </summary>
-		/// <param name="o">Object</param>
-		public void GetFillObject(Object o)
-		{
-			try
-			{
-				foreach(PropertyInfo properInfo in o.GetType().GetProperties())
-				{
-					try
-					{
-						properInfo.SetValue(o, Convert.ChangeType(GetParameter(properInfo.Name), properInfo.PropertyType), null);
-					}
-					catch(Exception ex)
-					{
-						Console.WriteLine(ex.Message);
-					}
-				}
-			}
-			catch(Exception e)
-			{
-				Console.WriteLine(e.Message);
-			}
-		}
-
-		/// <summary>
-		/// 从Request中获取值并自动填充到Object
-		/// </summary>
-		/// <typeparam name="T">Object</typeparam>
-		/// <param name="o">T</param>
-		public void GetFillObject<T>(T o)
-		{
-			try
-			{
-				foreach(PropertyInfo properInfo in o.GetType().GetProperties())
-				{
-					try
-					{
-						properInfo.SetValue(o, Convert.ChangeType(GetParameter(properInfo.Name), properInfo.PropertyType), null);
-					}
-					catch(Exception ex)
-					{
-						Console.WriteLine(ex.Message);
-					}
-				}
-			}
-			catch(Exception e)
-			{
-				Console.WriteLine(e.Message);
-			}
-		}
-
-		/// <summary>
-		/// 从Request中获取值并自动填充到Object
-		/// </summary>
-		/// <param name="o">Object</param>
-		/// <param name="clazzName">request中获取类的属性key为clazzName加上属性名，即clazzName为key的前缀</param>
-		public void GetFillObject(Object o, String clazzName)
-		{
-			try
-			{
-				foreach (PropertyInfo properInfo in o.GetType().GetProperties())
-				{
-					try
-					{
-						properInfo.SetValue(o, Convert.ChangeType(GetParameter(clazzName + properInfo.Name), properInfo.PropertyType), null);
-					}
-					catch (Exception ex)
-					{
-						Console.WriteLine(ex.Message);
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.Message);
-			}
-		}
-
-		/// <summary>
-		/// 从Request中获取值并自动填充到Object
-		/// </summary>
-		/// <typeparam name="T">Object</typeparam>
-		/// <param name="o">T</param>
-		/// <param name="clazzName">request中获取类的属性key为clazzName加上属性名，即clazzName为key的前缀</param>
-		public void GetFillObject<T>(T o, String clazzName)
-		{
-			try
-			{
-				foreach (PropertyInfo properInfo in o.GetType().GetProperties())
-				{
-					try
-					{
-						properInfo.SetValue(o, Convert.ChangeType(GetParameter(clazzName + properInfo.Name), properInfo.PropertyType), null);
-					}
-					catch (Exception ex)
-					{
-						Console.WriteLine(ex.Message);
-					}
-				}
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e.Message);
-			}
-		}
-
-		/// <summary>
 		/// 从Request中取得double值，如果取得的值为null，则返回0D
 		/// </summary>
 		/// <param name="key">request参数名</param>
@@ -279,6 +171,132 @@ namespace Dswork.Web
 			{
 			}
 			return new double[0];
+		}
+
+		/// <summary>
+		/// 从Request中获取值并自动填充到Object
+		/// </summary>
+		/// <param name="o">Object</param>
+		public void GetFillObject(Object o)
+		{
+			try
+			{
+				foreach (PropertyInfo properInfo in o.GetType().GetProperties())
+				{
+					try
+					{
+						properInfo.SetValue(o, Convert.ChangeType(GetParameter(properInfo.Name), properInfo.PropertyType), null);
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine(ex.Message);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
+		}
+		/*
+		/// <summary>
+		/// 从request中获取文件流信息并自动填充到MyFile对象
+		/// </summary>
+		/// <param name="key">request参数名</param>
+		/// <returns>MyFile</returns>
+		public MyFile GetFile(String key)
+		{
+			MyFile file = new MyFile();
+			if(_isBase)
+			{
+				if(filesBase != null)
+				{
+					HttpPostedFileBase _f = filesBase["key"];
+				}
+			}
+
+		}
+		*/
+		/// <summary>
+		/// 从Request中获取值并自动填充到Object
+		/// </summary>
+		/// <typeparam name="T">Object</typeparam>
+		/// <param name="o">T</param>
+		public void GetFillObject<T>(T o)
+		{
+			try
+			{
+				foreach (PropertyInfo properInfo in o.GetType().GetProperties())
+				{
+					try
+					{
+						properInfo.SetValue(o, Convert.ChangeType(GetParameter(properInfo.Name), properInfo.PropertyType), null);
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine(ex.Message);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
+		}
+
+		/// <summary>
+		/// 从Request中获取值并自动填充到Object
+		/// </summary>
+		/// <param name="o">Object</param>
+		/// <param name="clazzName">request中获取类的属性key为clazzName加上属性名，即clazzName为key的前缀</param>
+		public void GetFillObject(Object o, String clazzName)
+		{
+			try
+			{
+				foreach (PropertyInfo properInfo in o.GetType().GetProperties())
+				{
+					try
+					{
+						properInfo.SetValue(o, Convert.ChangeType(GetParameter(clazzName + properInfo.Name), properInfo.PropertyType), null);
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine(ex.Message);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
+		}
+
+		/// <summary>
+		/// 从Request中获取值并自动填充到Object
+		/// </summary>
+		/// <typeparam name="T">Object</typeparam>
+		/// <param name="o">T</param>
+		/// <param name="clazzName">request中获取类的属性key为clazzName加上属性名，即clazzName为key的前缀</param>
+		public void GetFillObject<T>(T o, String clazzName)
+		{
+			try
+			{
+				foreach (PropertyInfo properInfo in o.GetType().GetProperties())
+				{
+					try
+					{
+						properInfo.SetValue(o, Convert.ChangeType(GetParameter(clazzName + properInfo.Name), properInfo.PropertyType), null);
+					}
+					catch (Exception ex)
+					{
+						Console.WriteLine(ex.Message);
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e.Message);
+			}
 		}
 
 		/// <summary>
