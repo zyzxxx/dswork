@@ -94,18 +94,22 @@ init:function(s){
 	s.max_retries = 0;//错误时重试次数，0为不重试
 	s.init.OptionChanged = s.init.OptionChanged || function(up, name, value, oldValue){};
 	s.init.BeforeUpload = s.init.BeforeUpload || function(up, file){
-		try{document.getElementById(up.customSettings.div).innerHTML = file.name + "开始上传...";}catch(ex){}
+		try{if(up.customSettings.div != ""){
+			document.getElementById(up.customSettings.div).innerHTML = file.name + "开始上传...";
+		}}catch(ex){}
 		return true;
 	};
 	s.init.UploadProgress = s.init.UploadProgress || function(up, file){try{
 		var p = up.customSettings;
-		var allPercent = Math.ceil((p.uploadSize+file.loaded)/p.allSize*100);
-		if(allPercent == 100){
-			document.getElementById(p.div).innerHTML = "上传已完成：" + "100% (" + $jskey.formatBytes(p.allSize) + ")";
-		}
-		else{
-			var percentText = $jskey.formatBytes(p.uploadSize+file.loaded)+' / '+$jskey.formatBytes(p.allSize);
-			document.getElementById(p.div).innerHTML = "上传已完成：" + allPercent + "% (" + percentText + ")<br />" + file.name + "上传了：" + file.percent + "%";
+		if(p.div != ""){
+			var allPercent = Math.ceil((p.uploadSize+file.loaded)/p.allSize*100);
+			if(allPercent == 100){
+				document.getElementById(p.div).innerHTML = "上传已完成：" + "100% (" + $jskey.formatBytes(p.allSize) + ")";
+			}
+			else{
+				var percentText = $jskey.formatBytes(p.uploadSize+file.loaded)+' / '+$jskey.formatBytes(p.allSize);
+				document.getElementById(p.div).innerHTML = "上传已完成：" + allPercent + "% (" + percentText + ")<br />" + file.name + "上传了：" + file.percent + "%";
+			}
 		}
 	}catch(ex){}};
 	s.init.FilesAdded = s.init.FilesAdded || function(up, files){
@@ -113,8 +117,10 @@ init:function(s){
 			var arr = up.customSettings.uploadArray;
 			up.customSettings.allSize+=file.size;
 			//id,name,size,state,file,type,msg
-			arr[arr.length] = {"id":file.id,"name":file.name,"size":file.size,"state":"0","file":"","type":file.type,"msg":""},
-			document.getElementById(up.customSettings.div).innerHTML = "等待中...";
+			arr[arr.length] = {"id":file.id,"name":file.name,"size":file.size,"state":"0","file":"","type":file.type,"msg":""};
+			if(p.div != ""){
+				document.getElementById(up.customSettings.div).innerHTML = "等待中...";
+			}
 		}catch(ex){}});
 		up.start();
 	};
