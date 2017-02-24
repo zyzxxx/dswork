@@ -8,10 +8,7 @@
 <%@include file="/commons/include/upd.jsp" %>
 <script type="text/javascript" src="/web/js/jskey/jskey_upload.js"></script>
 <script type="text/javascript">
-var o = new $dswork.upload({
-	url:"uploadFile2.htm?siteid=${siteid}&path=${path}",
-	sessionKey:"${v_session}",fileKey:"${v_file}",ext:"zip,ZIP"
-});
+var o = new $dswork.upload({url:"uploadFile2.htm?siteid=${siteid}&path=${path}",ext:"zip,ZIP"});
 $(function(){
 	o.init({id:"fjFile", vid:"fjFileNames", show:false, 
 		buttonid:"upBtn",

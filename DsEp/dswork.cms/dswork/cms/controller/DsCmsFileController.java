@@ -262,11 +262,11 @@ public class DsCmsFileController extends BaseController
 					}
 				}
 			}
-			print(1);
+			print("{\"err\":\"\",\"msg\":\"x.zip\"}");
 		}
 		catch(Exception ex)
 		{
-			print(0);
+			print("{\"err\":\"上传失败\",\"msg\":\"\"}");
 		}
 	}
 	
