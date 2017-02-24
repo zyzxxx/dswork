@@ -4,7 +4,6 @@
 package dswork.cms.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
@@ -24,8 +23,10 @@ import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsSiteService;
 import dswork.core.page.PageRequest;
 import dswork.core.upload.JskeyUpload;
+import dswork.core.util.FileUtil;
 import dswork.core.util.UniqueId;
 import dswork.mvc.BaseController;
+import dswork.web.MyFile;
 
 @Scope("prototype")
 @Controller
@@ -236,7 +237,12 @@ public class DsCmsFileController extends BaseController
 		{
 			long siteid = req.getLong("siteid", -1);
 			String uriPath = req.getString("path", "");
-			if(siteid >= 0 && uriPath.indexOf("..") == -1)// 防止读取上级目录
+			MyFile zipFile = null;
+			if(req.getFileArray().length > 0)
+			{
+				zipFile = (req.getFileArray())[0];
+			}
+			if(siteid >= 0 && uriPath.indexOf("..") == -1 && zipFile != null && zipFile.getFileData() != null)// 防止读取上级目录
 			{
 				DsCmsSite site = service.get(siteid);
 				if(site != null)
@@ -252,24 +258,7 @@ public class DsCmsFileController extends BaseController
 					// 限制为只能读取根目录下的信息
 					if(f.isDirectory() && (f.getPath().startsWith(froot.getPath())))
 					{
-						// 文件keyID
-						String f_key = req.getString("f_key");
-						if(!f_key.equals(""))
-						{
-							long fj = Long.parseLong(f_key);
-							try
-							{
-								File file = JskeyUpload.getFile(JskeyUpload.getSessionKey(request), fj)[0];
-								if(file != null)
-								{
-									unzipFile(file.getPath(), resPath + uriPath);
-									file.delete();
-								}
-							}
-							catch(Exception exx)
-							{
-							}
-						}
+						unzipFile(zipFile.getFileData(), resPath + uriPath);
 					}
 				}
 			}
@@ -290,13 +279,13 @@ public class DsCmsFileController extends BaseController
 	 * @param zipFilePath //要解压得文件路径
 	 * @param targetPath //要解压得目标路径
 	 */
-	public void unzipFile(String zipFilePath, String targetPath)
+	public void unzipFile(byte[] dataArray, String targetPath)
 	{
 		try
 		{
-			File zipFile = new File(zipFilePath);
-			//ZipFile zipFile = new ZipFile(file);
-			InputStream is = new FileInputStream(zipFile);
+			//File zipFile = new File(zipFilePath);
+			//InputStream is = new FileInputStream(zipFile);
+			InputStream is = FileUtil.getToInputStream(dataArray);
 			ZipInputStream zis = new ZipInputStream(is, Charset.forName("GBK"));
 			ZipEntry entry = null;
 			outer:

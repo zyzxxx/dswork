@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
+import dswork.web.MyFile;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
@@ -21,9 +22,6 @@ import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
 import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
-
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Scope("prototype")
 @Controller
@@ -245,33 +243,12 @@ public class DsCmsPageController extends BaseController
 			if(checkOwn(site.getOwn()))
 			{
 				String ext = "";
-				boolean isHTML5 = request.getContentType().indexOf("application/octet-stream") != -1;
 				byte[] byteArray = null;
-				if(isHTML5)
+				if(req.getFileArray().length > 0)
 				{
-					String header = request.getHeader("Content-Disposition");
-					int iStart = header.indexOf("filename=\"") + 10;
-					int iEnd = header.indexOf("\"", iStart);
-					String fileName = header.substring(iStart, iEnd);
-					int len = fileName.lastIndexOf(".");
-					ext = (len != -1) ? fileName.substring(len + 1) : "";
-					int i = request.getContentLength();
-					byteArray = new byte[i];
-					int j = 0;
-					while(j < i)// 获取表单的上传文件
-					{
-						int k = request.getInputStream().read(byteArray, j, i - j);
-						j += k;
-					}
-				}
-				else
-				{
-					MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-					MultipartFile file = multipartRequest.getFile("filedata");
-					String fileName = file.getOriginalFilename();
-					int len = fileName.lastIndexOf(".");
-					ext = (len != -1) ? fileName.substring(len + 1) : "";
-					byteArray = file.getBytes();
+					MyFile file = req.getFileArray()[0];
+					byteArray = file.getFileData();
+					ext = file.getFileExt();
 				}
 				if(!ext.equals("") && "jpg,jpeg,gif,png".indexOf(ext) != -1)
 				{
@@ -314,33 +291,12 @@ public class DsCmsPageController extends BaseController
 			if(checkOwn(site.getOwn()))
 			{
 				String ext = "";
-				boolean isHTML5 = request.getContentType().indexOf("application/octet-stream") != -1;
 				byte[] byteArray = null;
-				if(isHTML5)
+				if(req.getFileArray().length > 0)
 				{
-					String header = request.getHeader("Content-Disposition");
-					int iStart = header.indexOf("filename=\"") + 10;
-					int iEnd = header.indexOf("\"", iStart);
-					String fileName = header.substring(iStart, iEnd);
-					int len = fileName.lastIndexOf(".");
-					ext = (len != -1) ? fileName.substring(len + 1) : "";
-					int i = request.getContentLength();
-					byteArray = new byte[i];
-					int j = 0;
-					while(j < i)// 获取表单的上传文件
-					{
-						int k = request.getInputStream().read(byteArray, j, i - j);
-						j += k;
-					}
-				}
-				else
-				{
-					MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-					MultipartFile file = multipartRequest.getFile("filedata");
-					String fileName = file.getOriginalFilename();
-					int len = fileName.lastIndexOf(".");
-					ext = (len != -1) ? fileName.substring(len + 1) : "";
-					byteArray = file.getBytes();
+					MyFile file = req.getFileArray()[0];
+					byteArray = file.getFileData();
+					ext = file.getFileExt();
 				}
 				if(!ext.equals("") && "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z".indexOf(ext) != -1)
 				{
