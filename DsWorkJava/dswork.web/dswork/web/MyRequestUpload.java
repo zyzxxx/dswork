@@ -50,10 +50,9 @@ public class MyRequestUpload
 		int size = request.getContentLength();// 因为只有一个文件，所以判断单个大小即可
 		checkFileSize(file, (long) (size));
 		byte[] byteArray = new byte[size];
-		int j = 0;
-		while(j < size)// 获取表单的上传文件
+		int j = 0, k = 0;
+		while(j < size && (k = request.getInputStream().read(byteArray, j, size - j)) != -1)
 		{
-			int k = request.getInputStream().read(byteArray, j, size - j);
 			j += k;
 		}
 		file.setFileData(byteArray);
@@ -78,6 +77,10 @@ public class MyRequestUpload
 			try
 			{
 				j = request.getInputStream().read(m_binArray, i, m_totalBytes - i);
+				if(j == -1)
+				{
+					break;
+				}
 			}
 			catch(Exception exception)
 			{
