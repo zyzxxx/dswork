@@ -80,3 +80,5 @@
 	dswork移除了dswork.core.upload.JskeyUpload类下处理移除临时文件任务相关的代码
 	dswork修改了dswork.web中的MyRequest模块代码，修复ContentType为null的情况
 	dswork新增了dswork.webio包，仅用于处理web中的文件上传，目前仅用于webio项目
+2017-02-24
+	dswork修改了dswork.web中的MyRequestUplaod模块代码，修复用于dswork框架时，如果增加了spring上传插件后，request流被处理过时，MyRequestUpload中加载request流时的死循环问题
