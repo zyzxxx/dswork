@@ -8,7 +8,7 @@
 <%@include file="/commons/include/updAjax.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getForum.htm?siteid=${param.siteid}";
+	location.href = "getForum.htm?siteid=${fn:escapeXml(param.siteid)}";
 }};
 </script>
 </head>
@@ -18,7 +18,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="title">修改</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getForum.htm?siteid=${param.siteid}">返回</a>
+			<a class="back" href="getForum.htm?siteid=${fn:escapeXml(param.siteid)}">返回</a>
 		</td>
 	</tr>
 </table>

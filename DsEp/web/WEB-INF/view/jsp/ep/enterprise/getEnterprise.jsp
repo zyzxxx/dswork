@@ -17,8 +17,8 @@ $dswork.page.join = function(td, menu, id){
 };
 $(function(){
 	$dswork.page.menu("", "", "getEnterpriseById.htm", "${pageModel.currentPage}");
-	$("#status").val("${param.status}");
-	$("#type").val("${param.type}");
+	$("#status").val("${fn:escapeXml(param.status)}");
+	$("#type").val("${fn:escapeXml(param.type)}");
 	$("#dataTable>tbody>tr>td.status").each(function(){
 		$(this).text($(this).text()=="1"?"正常运营":$(this).text()=="0"?"禁用":$(this).text()=="2"?"待审":"已注销");
 	});

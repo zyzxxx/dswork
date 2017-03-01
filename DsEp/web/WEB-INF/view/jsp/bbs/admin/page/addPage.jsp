@@ -9,11 +9,11 @@
 <%@include file="/commons/include/editor.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getPage.htm?id=${param.forumid}";
+	location.href = "getPage.htm?id=${fn:escapeXml(param.forumid)}";
 }};
 $(function(){
 	try{$(".form_title").css("width", "8%");}catch(e){}
-	$('#content').xheditor({html5Upload:true,upMultiple:1,upImgUrl:"${ctx}/uploadImage.jsp?forumid=${param.forumid}"});
+	$('#content').xheditor({html5Upload:true,upMultiple:1,upImgUrl:"${ctx}/uploadImage.jsp?forumid=${fn:escapeXml(param.forumid)}"});
 });
 </script>
 </head>
@@ -23,12 +23,12 @@ $(function(){
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getPage.htm?id=${param.forumid}&page=${param.page}">返回</a>
+			<a class="back" href="getPage.htm?id=${fn:escapeXml(param.forumid)}&page=${fn:escapeXml(param.page)}">返回</a>
 		</td>
 	</tr>
 </table>
 <div class="line"></div>
-<form id="dataForm" method="post" action="addPage2.htm?forumid=${param.forumid}">
+<form id="dataForm" method="post" action="addPage2.htm?forumid=${fn:escapeXml(param.forumid)}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">标题</td>
