@@ -54,9 +54,9 @@ public class AuthLogin
 		return re;
 	}
 
-	private boolean login(Auth auth, String validCode)
+	private boolean login(Auth auth, String authcode)
 	{
-		if(!this.isCode(validCode))
+		if(!this.isCode(authcode))
 		{
 			return false;
 		}
@@ -108,16 +108,16 @@ public class AuthLogin
 	 * @param account 用户帐号
 	 * @param password 密码
 	 * @param logintype 用户类型
-	 * @param validCode 验证码
+	 * @param authcode 验证码
 	 * @return boolean
 	 */
-	public boolean login(String account, String password, int logintype, String validCode)
+	public boolean login(String account, String password, int logintype, String authcode)
 	{
 		Auth auth = new Auth();
 		auth.setAccount(account);
 		auth.setPassword(password);
 		auth.setLogintype(logintype);
-		return login(auth, validCode);
+		return login(auth, authcode);
 	}
 
 	/**
