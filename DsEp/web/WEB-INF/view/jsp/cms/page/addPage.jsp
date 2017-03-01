@@ -9,11 +9,11 @@
 <%@include file="/commons/include/editor.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getPage.htm?id=${param.categoryid}";
+	location.href = "getPage.htm?id=${fn:escapeXml(param.categoryid)}";
 }};
 $(function(){
 	try{$(".form_title").css("width", "8%");}catch(e){}
-	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${param.categoryid}",upImgUrl:"uploadImage.htm?categoryid=${param.categoryid}"});
+	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${fn:escapeXml(param.categoryid)}",upImgUrl:"uploadImage.htm?categoryid=${fn:escapeXml(param.categoryid)}"});
 });
 </script>
 </head>
@@ -23,12 +23,12 @@ $(function(){
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getPage.htm?id=${param.categoryid}&page=${param.page}">返回</a>
+			<a class="back" href="getPage.htm?id=${fn:escapeXml(param.categoryid)}&page=${fn:escapeXml(param.page)}">返回</a>
 		</td>
 	</tr>
 </table>
 <div class="line"></div>
-<form id="dataForm" method="post" action="addPage2.htm?categoryid=${param.categoryid}">
+<form id="dataForm" method="post" action="addPage2.htm?categoryid=${fn:escapeXml(param.categoryid)}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">标题</td>

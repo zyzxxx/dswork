@@ -8,7 +8,7 @@
 <%@include file="/commons/include/addAjax.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getCategory.htm?siteid=${param.siteid}";
+	location.href = "getCategory.htm?siteid=${fn:escapeXml(param.siteid)}";
 }};
 $(function(){
 	$("#status").bind("click", function(){
@@ -49,7 +49,7 @@ $(function(){
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getCategory.htm?siteid=${param.siteid}">返回</a>
+			<a class="back" href="getCategory.htm?siteid=${fn:escapeXml(param.siteid)}">返回</a>
 		</td>
 	</tr>
 </table>
@@ -105,7 +105,7 @@ $(function(){
 	</tr>
 	</tbody>
 </table>
-<input type="hidden" name="siteid" value="${param.siteid}" />
+<input type="hidden" name="siteid" value="${fn:escapeXml(param.siteid)}" />
 </form>
 </body>
 </html>
