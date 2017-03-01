@@ -113,18 +113,18 @@ public class MyRequestUpload
 			{
 				MyFile file = getFileForHeader(header);
 				int size = (m_endData - m_startData) + 1;// 单个文件大小
-				if(flagFileName && (m_deniedFilesList != null || m_allowedFilesList != null))
-				{
-					checkFileExt(file);
-				}
-				checkFileSize(file, (long) (size));
-				l += (m_endData - m_startData) + 1;
-				if(totalMaxFileSize > 0L && l > totalMaxFileSize)
-				{
-					throw new Exception("MyRequestException:所有文件大小超出范围");
-				}
 				if(size > 0 || file.getFileName().length() > 0)
 				{
+					if(m_deniedFilesList != null || m_allowedFilesList != null)
+					{
+						checkFileExt(file);
+					}
+					checkFileSize(file, (long) (size));
+					l += (m_endData - m_startData) + 1;
+					if(totalMaxFileSize > 0L && l > totalMaxFileSize)
+					{
+						throw new Exception("MyRequestException:所有文件大小超出范围");
+					}
 					if(file.getContentType().indexOf("application/x-macbinary") != -1)
 					{
 						m_startData = m_startData + 128;
