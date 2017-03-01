@@ -21,11 +21,9 @@ $(function(){
 		}
 	});
 });
-$dswork.callback = function()
-{
-	if($dswork.result.type == 1)
-	{
-		location.href = "getMark.htm?page=${param.page}&keyIndex=${po.id}";
+$dswork.callback = function(){
+	if($dswork.result.type == 1){
+		location.href = "getMark.htm?page=${fn:escapeXml(param.page)}&keyIndex=${po.id}";
 	}
 }
 </script>
@@ -36,7 +34,7 @@ $dswork.callback = function()
 		<td class="title">评论</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getDemo.htm?page=${param.page}">返回</a>
+			<a class="back" href="getDemo.htm?page=${fn:escapeXml(param.page)}">返回</a>
 		</td>
 	</tr>
 </table>
