@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsSiteService;
 import dswork.core.page.PageRequest;
-import dswork.core.upload.JskeyUpload;
 import dswork.core.util.FileUtil;
 import dswork.core.util.UniqueId;
 import dswork.mvc.BaseController;
@@ -217,8 +216,6 @@ public class DsCmsFileController extends BaseController
 						put("path", uriPath);
 						put("siteid", siteid);
 						put("hz", hz);
-						put("v_file", System.currentTimeMillis());
-						put("v_session", JskeyUpload.getSessionKey(request));
 						return "/cms/file/uploadFile.jsp";
 					}
 				}
