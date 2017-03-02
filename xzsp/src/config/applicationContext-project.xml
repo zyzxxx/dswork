@@ -8,7 +8,7 @@
 			http://www.springframework.org/schema/context 
 			http://www.springframework.org/schema/context/spring-context-3.0.xsd"
 	   default-autowire="byName" default-lazy-init="false">
-	<!-- 使用MyBatis时使用这个：spring代理jdbc事务 -->
+
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"/>
     </bean>
