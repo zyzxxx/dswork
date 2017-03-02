@@ -21,6 +21,7 @@ public class AuthLogin
 	private HttpServletRequest request;
 	//private HttpServletResponse response;
 	private String msg = "";
+	private AuthService authService = null;
 	
 	/**
 	 * 构造方法
@@ -29,11 +30,13 @@ public class AuthLogin
 	{
 		this.request = (HttpServletRequest)context.getRequest();
 		//this.response = (HttpServletResponse)context.getResponse();
+		authService = (AuthService)BeanFactory.getBean("authService");
 	}
 	public AuthLogin(HttpServletRequest request, HttpServletResponse response)
 	{
 		this.request = request;
 		//this.response = response;
+		authService = (AuthService)BeanFactory.getBean("authService");
 	}
 
 	private boolean isCode(String authcode)
@@ -65,15 +68,15 @@ public class AuthLogin
 			Auth loginUser = null;
 			if(auth.isAdmin())
 			{
-				loginUser = ((AuthService)BeanFactory.getBean("authService")).getUserByAccount(auth.getAccount());
+				loginUser = authService.getUserByAccount(auth.getAccount());
 			}
 			else if(auth.isEnterprise())
 			{
-				loginUser = ((AuthService)BeanFactory.getBean("authService")).getEpByAccount(auth.getAccount());
+				loginUser = authService.getEpByAccount(auth.getAccount());
 			}
 			else if(auth.isUser())
 			{
-				loginUser = ((AuthService)BeanFactory.getBean("authService")).getPersonByAccount(auth.getAccount());
+				loginUser = authService.getPersonByAccount(auth.getAccount());
 			}
 			if(loginUser != null)
 			{
@@ -147,7 +150,7 @@ public class AuthLogin
 		{
 			if(usertype == 0)
 			{
-				List<Auth> authList = ((AuthService)BeanFactory.getBean("authService")).queryEpList(account, email);
+				List<Auth> authList = authService.queryEpList(account, email);
 				if(authList.size() == 0)
 				{
 					this.msg = "找不到相关的用户！";
@@ -166,7 +169,7 @@ public class AuthLogin
 			}
 			else if(usertype == 1)
 			{
-				List<Auth> authList = ((AuthService)BeanFactory.getBean("authService")).queryPersonList(account, email);
+				List<Auth> authList = authService.queryPersonList(account, email);
 				if(authList.size() == 0)
 				{
 					this.msg = "找不到相关的用户！";
