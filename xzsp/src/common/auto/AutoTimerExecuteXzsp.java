@@ -1,11 +1,11 @@
-package common.automatic;
+package common.auto;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
 import common.gov.DsXzspDao;
 
-public class AutomaticExecuteXzsp extends Thread
+public class AutoTimerExecuteXzsp extends Thread
 {
 	private static final int time = (int) dswork.core.util.EnvironmentUtil.getToLong("gov.xzsp.time", 300000L);// 每300秒尝试调用接口
 	// ################################################################################################
@@ -14,19 +14,11 @@ public class AutomaticExecuteXzsp extends Thread
 	// boolean retry = false;// 用于判断是否有定时发送，但未到时间
 	private Timer _timer = null;
 	private static int count = 0;
-
-	private static synchronized int getCount()
-	{
-		return AutomaticExecuteXzsp.count;
-	}
-
-	private static synchronized void setCount(int count)
-	{
-		AutomaticExecuteXzsp.count = count;
-	}// count仅用于标记是否启动任务，1为启动，0为不启动
+	private static synchronized int getCount(){return AutoTimerExecuteXzsp.count;}
+	private static synchronized void setCount(int count){AutoTimerExecuteXzsp.count = count;}// count仅用于标记是否启动任务，1为启动，0为不启动
 
 	/**
-	 * 启动线程
+	 * 启动线程，该线程仅负责定时器的运行
 	 */
 	@SuppressWarnings("unchecked")
 	public void run()
@@ -38,12 +30,12 @@ public class AutomaticExecuteXzsp extends Thread
 			{
 				public void run()
 				{
-					if(AutomaticExecuteXzsp.getCount() != 0)// 启动中，即上次的任务还没执行完
+					if(AutoTimerExecuteXzsp.getCount() != 0)// 启动中，即上次的任务还没执行完
 					{
 						System.out.println("--上次发送线程未结束，本次不执行。--");
 						return;
 					}
-					AutomaticExecuteXzsp.setCount(1);// 标记启动
+					AutoTimerExecuteXzsp.setCount(1);// 标记启动
 					System.out.println("--发送线程启动。--");
 					try
 					{
@@ -99,11 +91,11 @@ public class AutomaticExecuteXzsp extends Thread
 					}
 					catch(Exception ex)
 					{
-						AutomaticExecuteXzsp.setCount(0);// 退出
+						AutoTimerExecuteXzsp.setCount(0);// 退出
 						System.out.println("--发送程序异常。--");
 						ex.printStackTrace();
 					}
-					AutomaticExecuteXzsp.setCount(0);// 退出
+					AutoTimerExecuteXzsp.setCount(0);// 退出
 					System.out.println("--发送线程结束。--");
 				}
 			};
@@ -114,7 +106,7 @@ public class AutomaticExecuteXzsp extends Thread
 		}
 		catch(Exception ex)
 		{
-			AutomaticExecuteXzsp.setCount(0);
+			AutoTimerExecuteXzsp.setCount(0);
 			// try {_timer.cancel();}catch(Exception timerEx) {}//尝试停止进程，即使它未初始化或未启动
 			ex.printStackTrace();
 			System.out.println("--发送程序异常结束。--");
@@ -126,7 +118,7 @@ public class AutomaticExecuteXzsp extends Thread
 	 */
 	public static final void toStart()
 	{
-		AutomaticExecuteXzsp pj = new AutomaticExecuteXzsp();
+		AutoTimerExecuteXzsp pj = new AutoTimerExecuteXzsp();
 		pj.start();// 启动程序
 	}
 	public static Object outputObject(String v, int i)
