@@ -3,6 +3,10 @@ package common.auth;
 // 根据实际的需要，可以增减里面的属性
 public class Auth
 {
+	public static final int ADMIN = -1;
+	public static final int USER = 1;
+	public static final int ENTERPRISE = 2;
+	
 	private Long id;
 	private String account;
 	private String password;
@@ -36,15 +40,15 @@ public class Auth
 	}
 	public boolean isAdmin()
 	{
-		return logintype.intValue() <= 0;
+		return logintype.intValue() == ADMIN;
 	}
 	public boolean isUser()
 	{
-		return logintype.intValue() == 1;
+		return logintype.intValue() == USER;
 	}
 	public boolean isEnterprise()
 	{
-		return logintype.intValue() == 2;
+		return logintype.intValue() == ENTERPRISE;
 	}
 
 	// 用于判断cms、bbs的拥有者
