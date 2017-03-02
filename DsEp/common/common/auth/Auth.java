@@ -42,13 +42,13 @@ public class Auth
 	{
 		return logintype.intValue() == ADMIN;
 	}
-	public boolean isUser()
-	{
-		return logintype.intValue() == USER;
-	}
 	public boolean isEnterprise()
 	{
 		return logintype.intValue() == ENTERPRISE;
+	}
+	public boolean isUser()
+	{
+		return logintype.intValue() == USER;
 	}
 
 	// 用于判断cms、bbs的拥有者
