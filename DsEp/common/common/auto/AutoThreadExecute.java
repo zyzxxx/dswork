@@ -17,17 +17,7 @@ public class AutoThreadExecute extends Thread
 	private static int count = 0;
 	private static synchronized int getCount() {return AutoThreadExecute.count;}
 	private static synchronized void setCount(int count) {AutoThreadExecute.count = count;}// count仅用于标记是否启动任务，1为启动，0为不启动
-	static//临时目录初始化，在服务器启动时执行
-	{
-		try
-		{
-			//toStart();//马上执行
-		}
-		catch(Exception ex)
-		{
-			System.out.println("未知错误");
-		}
-	}
+
 	/**
 	 * 启动线程，该线程仅负责业务的运行
 	 */
