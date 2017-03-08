@@ -26,3 +26,17 @@ CSharpWeb项目，使用IISExpress时，需要在applicationhost.config的sites�
                     <binding protocol="http" bindingInformation="*:7070:localhost" />
                 </bindings>
             </site>
+
+
+新增web/js/ztree/zTreeStyle/v/*下三个图片文件
+修改web/js/ztree/zTreeStyle/zTreeStyle.css文件，在最后面追加了以下样式代码
+	.ztree li span.button.groups_ico_open,
+	.ztree li span.button.groups_ico_close,
+	.ztree li span.button.groups_ico_docu{margin-right:2px; background: url(v/groups.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+	.ztree li span.button.group_ico_open,
+	.ztree li span.button.group_ico_close,
+	.ztree li span.button.group_ico_docu{margin-right:2px; background: url(v/group.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+	.ztree li span.button.user_ico_open,
+	.ztree li span.button.user_ico_close,
+	.ztree li span.button.user_ico_docu{margin-right:2px; background: url(v/user.png) no-repeat scroll 0 0 transparent; vertical-align:top; *vertical-align:middle}
+
