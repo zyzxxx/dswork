@@ -10,7 +10,7 @@ response.setHeader("Pragma","no-cache");
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"/>
-<title></title>
+<title>统一身份认证平台</title>
 <script type="text/javascript" src="${ctx}/js/jskey/jskey_md5.js"></script>
 <link rel="stylesheet" type="text/css" href="${ctx}/themes/share/fonts/dsworkfont.css"/>
 <script type="text/javascript">
@@ -41,7 +41,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 
 .title {color:#003c7b;font-size:38px;font-weight:bold;text-align:center;padding:50px 0px;}
 .login{width:358px;padding:0;margin:0 auto;overflow:hidden;  height:338px;border:#003c7b solid 1px;position:absolute;left:595px;top:138px;}
-.view{padding:10px 0;overflow:hidden;margin:0 auto;width:1000px;height:473px;position:relative;overflow:hidden;background:url(${ctx}/img/login.gif) no-repeat center center;}
+.view{padding:10px 0;overflow:hidden;margin:0 auto;width:1000px;height:473px;position:relative;overflow:hidden;background:url(${ctx}/themes/share/bg/login.gif) no-repeat center center;}
 
 .box{overflow:hidden;text-align:center;width:100%;margin:0 auto 15px auto;padding:0;border:none;}
 .box .title{background-color:#003c7b;color:#fff;width:100%;padding:3px 0;line-height:50px;font-size:22px;text-align:center;margin:0 auto;}
@@ -61,7 +61,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 </head>
 <body>
 <div class="view">
-  <div class="title">统一认证平台</div>
+  <div class="title">统一身份认证平台</div>
   <form id="v" action="loginAction" method="post">
   <div class="login">
 	<div class="box"><div class="title">用户登录</div></div>
