@@ -680,7 +680,7 @@ public class Element extends Node
 
 	public boolean hasClass(String className)
 	{
-		final String classAttr = attributes.get("class");
+		final String classAttr = attributes.getIgnoreCase("class");
 		final int len = classAttr.length();
 		final int wantLen = className.length();
 		if(len == 0 || len < wantLen)
