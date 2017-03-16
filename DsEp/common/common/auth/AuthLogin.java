@@ -66,16 +66,20 @@ public class AuthLogin
 		try
 		{
 			Auth loginUser = null;
+			boolean hasUserType = false;
 			if(auth.isAdmin())
 			{
+				hasUserType = true;
 				loginUser = authService.getUserByAccount(auth.getAccount());
 			}
 			else if(auth.isEnterprise())
 			{
+				hasUserType = true;
 				loginUser = authService.getEpByAccount(auth.getAccount());
 			}
 			else if(auth.isUser())
 			{
+				hasUserType = true;
 				loginUser = authService.getPersonByAccount(auth.getAccount());
 			}
 			if(loginUser != null)
@@ -97,7 +101,7 @@ public class AuthLogin
 			}
 			else
 			{
-				this.msg = "用户名或者密码错误，请检查输入！";
+				this.msg = hasUserType ? "用户名或者密码错误，请检查输入！" : "非法用户类型";
 			}
 		}
 		catch(Exception ex)
