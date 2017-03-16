@@ -1,36 +1,29 @@
-<%@page language="java" contentType="text/html;charset=UTF-8" import="dswork.web.*,common.auth.AuthLogin"%><%
+<%@page language="java" contentType="text/html;charset=UTF-8" import="dswork.web.*,common.auth.*"%><%
 String path = request.getContextPath();
 MyRequest req = new MyRequest(request);
 String account = req.getString("account");
 String password = req.getString("password");
 String authcode = req.getString("authcode");
-int logintype = req.getInt("logintype", 0);
+int logintype = req.getInt("logintype");
 AuthLogin login = new AuthLogin(pageContext);
 String s = "about:blank", m = "";
-if(logintype > -2 && logintype < 2)
+if(login.login(account, password, logintype, authcode))
 {
-	if(login.login(account, password, logintype, authcode))
-	{
-		response.sendRedirect("manage/frame/index.html");
-	}
-	if(logintype == 2)
-	{
-		s = "loginEp.html";
-	}
-	else if(logintype == 1)
-	{
-		s = "loginPerson.html";
-	}
-	else// if(logintype == 0)
-	{
-		s = "login.html";
-	}
-	m = login.getMsg();
+	response.sendRedirect("manage/frame/index.html");
+}
+if(logintype == Auth.ENTERPRISE)
+{
+	s = "loginEp.html";
+}
+else if(logintype == Auth.USER)
+{
+	s = "loginPerson.html";
 }
 else
 {
-	m = "非法访问";
+	s = "login.html";
 }
+m = login.getMsg();
 %>
 <!DOCTYPE html>
 <html>
