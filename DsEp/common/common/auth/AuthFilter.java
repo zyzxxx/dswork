@@ -35,7 +35,7 @@ public class AuthFilter implements Filter
 		//String currentUrl = req.getRequestURI().replaceAll(req.getContextPath(), "");// 取得当前路径
 		try
 		{
-			Auth model = AuthLogin.getLoginUser(req, res);
+			Auth model = AuthLogin.getLoginUser(req);
 			// 没有登录
 			if(model == null || model.getAccount() == null)
 			{

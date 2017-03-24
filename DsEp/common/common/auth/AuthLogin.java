@@ -266,7 +266,7 @@ public class AuthLogin
 	/**
 	 * 所有方法通过此函数获取当前用户信息
 	 */
-	public static Auth getLoginUser(HttpServletRequest request, HttpServletResponse response)
+	public static Auth getLoginUser(HttpServletRequest request)
 	{
 		Auth user = (Auth) request.getSession().getAttribute(SessionName_LoginUser);
 		if(user != null)

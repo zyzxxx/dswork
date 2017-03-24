@@ -390,6 +390,6 @@ public class DsCmsFileController extends BaseController
 	}
 	private String getOwn()
 	{
-		return common.auth.AuthLogin.getLoginUser(request, response).getOwn();
+		return common.auth.AuthLogin.getLoginUser(request).getOwn();
 	}
 }

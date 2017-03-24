@@ -678,6 +678,6 @@ public class DsCmsPageController extends BaseController
 	
 	private String getOwn()
 	{
-		return common.auth.AuthLogin.getLoginUser(request, response).getOwn();
+		return common.auth.AuthLogin.getLoginUser(request).getOwn();
 	}
 }

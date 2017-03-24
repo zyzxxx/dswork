@@ -46,7 +46,7 @@ public class DsEpUserController extends BaseController
 			}
 			else
 			{
-				Auth user = AuthLogin.getLoginUser(request, response);
+				Auth user = AuthLogin.getLoginUser(request);
 				po.setId(UniqueId.genId());
 				po.setQybm(user.getQybm());
 				po.setUsertype(0);// 非企业管理员
@@ -185,7 +185,7 @@ public class DsEpUserController extends BaseController
 	@RequestMapping("/getUser")
 	public String getUser()
 	{
-		Auth user = AuthLogin.getLoginUser(request, response);
+		Auth user = AuthLogin.getLoginUser(request);
 		PageRequest rq = getPageRequest();
 		rq.getFilters().put("qybm", user.getQybm());
 		Page<DsEpUser> pageModel = service.queryPage(rq);
@@ -207,7 +207,7 @@ public class DsEpUserController extends BaseController
 	{
 		try
 		{
-			return service.get(userid).getQybm().equals(common.auth.AuthLogin.getLoginUser(request, response).getQybm());
+			return service.get(userid).getQybm().equals(common.auth.AuthLogin.getLoginUser(request).getQybm());
 		}
 		catch(Exception ex)
 		{
