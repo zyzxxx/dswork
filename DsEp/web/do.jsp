@@ -9,7 +9,7 @@ if(v.equals("0"))
 	auth.setAccount("admin");
 	auth.setName("系统管理");
 	auth.setQybm("000000");
-	auth.setLogintype(0);
+	auth.setLogintype(common.auth.Auth.ADMIN);
 }
 else if(v.equals("2"))
 {
@@ -17,7 +17,7 @@ else if(v.equals("2"))
 	auth.setAccount("useradmin");
 	auth.setName("企业管理");
 	auth.setQybm("100000");
-	auth.setLogintype(2);
+	auth.setLogintype(common.auth.Auth.ENTERPRISE);
 	
 	auth.setUsertype(1);//企业管理员
 }
@@ -27,7 +27,7 @@ else
 	auth.setAccount("user");
 	auth.setName("个人用户");
 	auth.setQybm("111111");
-	auth.setLogintype(1);
+	auth.setLogintype(common.auth.Auth.USER);
 }
 auth.setSsdw("银江股份有限公司");
 auth.setSsbm("技术部");
