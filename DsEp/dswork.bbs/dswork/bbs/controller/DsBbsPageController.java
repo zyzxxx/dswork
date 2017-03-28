@@ -342,6 +342,6 @@ public class DsBbsPageController extends BaseController
 	
 	private String getOwn()
 	{
-		return common.auth.AuthLogin.getLoginUser(request).getOwn();
+		return common.auth.AuthUtil.getLoginUser(request).getOwn();
 	}
 }

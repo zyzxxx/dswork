@@ -5,7 +5,7 @@ String account = req.getString("account");
 String password = req.getString("password");
 String authcode = req.getString("authcode");
 int logintype = req.getInt("logintype");
-AuthLogin login = new AuthLogin(pageContext);
+AuthUtil login = new AuthUtil(pageContext);
 String s = "about:blank", m = "";
 if(login.login(account, password, logintype, authcode))
 {

@@ -31,6 +31,6 @@ else
 }
 auth.setSsdw("银江股份有限公司");
 auth.setSsbm("技术部");
-request.getSession().setAttribute(common.auth.AuthLogin.SessionName_LoginUser, auth);
+request.getSession().setAttribute(common.auth.AuthUtil.SessionName_LoginUser, auth);
 response.sendRedirect(path + "/index.jsp");
 %>

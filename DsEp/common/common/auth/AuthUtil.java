@@ -14,7 +14,7 @@ import dswork.web.*;
  * 用户登录类
  * @author skey
  */
-public class AuthLogin
+public class AuthUtil
 {
 	public static boolean canSendMsg = true;
 	public static final String SessionName_LoginUser = "COMMON_LOGIN_USER";
@@ -26,13 +26,13 @@ public class AuthLogin
 	/**
 	 * 构造方法
 	 */
-	public AuthLogin(PageContext context)
+	public AuthUtil(PageContext context)
 	{
 		this.request = (HttpServletRequest)context.getRequest();
 		//this.response = (HttpServletResponse)context.getResponse();
 		authService = (AuthService)BeanFactory.getBean("authService");
 	}
-	public AuthLogin(HttpServletRequest request, HttpServletResponse response)
+	public AuthUtil(HttpServletRequest request, HttpServletResponse response)
 	{
 		this.request = request;
 		//this.response = response;

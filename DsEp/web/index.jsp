@@ -1,6 +1,6 @@
 <%@page language="java" pageEncoding="UTF-8" import="common.auth.*"%><%
 String path = request.getContextPath();
-Auth model = AuthLogin.getLoginUser(request, response);
+Auth model = AuthUtil.getLoginUser(request);
 if(model == null)
 {
 	out.println("<script>top.location.href='" + path + "/login.html';</script>");
