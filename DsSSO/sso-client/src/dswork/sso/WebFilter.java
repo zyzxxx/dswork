@@ -306,15 +306,14 @@ public class WebFilter implements Filter
 		{
 			log.error(e.getMessage());
 		}
-		session.removeAttribute(LOGINER);
-		session.removeAttribute(TICKET);
+		logout(session);
 		return false;
 	}
 
 	public static void logout(HttpSession session)
 	{
-		session.setAttribute(LOGINER, "");
 		session.removeAttribute(LOGINER);
+		session.removeAttribute(TICKET);
 	}
 
 	public void init(FilterConfig config) throws ServletException
