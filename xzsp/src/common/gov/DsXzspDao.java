@@ -25,4 +25,9 @@ public class DsXzspDao extends BaseDao<DsXzsp, Long>
 	{
 		return 0;
 	}
+	
+	public int updateData(DsXzsp po)
+	{
+		return executeUpdate("updateData", po);
+	}
 }
