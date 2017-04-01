@@ -51,5 +51,6 @@
 <select id="queryCount" resultType="int">
 	select count(1) from DS_XZSP
 	<include refid="dynamicWhere" />
+	<if test="@Ognl@isNotEmpty(desc_id)"> order by ID desc </if>
 </select>
 </mapper>
