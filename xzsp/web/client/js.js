@@ -1,0 +1,39 @@
+;!function(){
+	myJs = window.myJs || {};
+	myJs.iframe = myJs.iframe || {};
+	var browserVersion = window.navigator.userAgent.toUpperCase();
+	var isOpera = browserVersion.indexOf("OPERA") > -1? true: false;
+	var isFireFox = browserVersion.indexOf("FIREFOX") > -1? true: false;
+	var isChrome = browserVersion.indexOf("CHROME") > -1? true: false;
+	var isSafari = browserVersion.indexOf("SAFARI") > -1? true: false;
+	var isIE = (!!window.ActiveXObject || "ActiveXObject" in window);
+	var isIE9More = (! -[1, ] == false);
+	myJs.iframe.resetHeight = function(iframeId, minHeight){
+		try{
+			var iframe = document.getElementById(iframeId);
+			var bHeight = 0;
+			var dHeight = 0;
+			if(isChrome == false && isSafari == false) bHeight = iframe.contentWindow.document.body.scrollHeight;
+			if(isFireFox == true) dHeight = iframe.contentWindow.document.documentElement.offsetHeight + 2;
+			else if(isIE == false && isOpera == false) dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+			else if(isIE == true && isIE9More){//ie9+
+				var heightDeviation = bHeight - eval("window.IE9MoreRealHeight" + iframeId);
+				if(heightDeviation == 0) bHeight += 3;
+				else if(heightDeviation != 3){
+					eval("window.IE9MoreRealHeight" + iframeId + "=" + bHeight);
+					bHeight += 3;
+				}
+			}else{//ie[6-8]、OPERA
+				dHeight = iframe.contentWindow.document.documentElement.scrollHeight; 
+			}
+			var height = Math.max(bHeight, dHeight);
+			if(height < minHeight) height = minHeight;
+			iframe.style.height = height + "px";
+		}catch(e){}
+	};
+	myJs.iframe.setHeight = function(iframeId, minHeight){
+		minHeight = minHeight || 600;
+		eval("window.IE9MoreRealHeight" + iframeId + "=0");
+		window.setInterval("myJs.iframe.resetHeight('" + iframeId + "'," + minHeight + ")", 100);
+	};
+}();

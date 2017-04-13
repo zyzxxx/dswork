@@ -15,7 +15,7 @@
 </update>
 
 <update id="updateData">
-	update DS_XZSP set SPOBJECT=#{spobject} where ID=#{id}
+	update DS_XZSP set FSZT=#{fszt}, FSCS=#{fscs}, SPOBJECT=#{spobject} where ID=#{id}
 </update>
 
 <resultMap id="result" type="common.gov.DsXzsp">
@@ -46,11 +46,11 @@
 <select id="query" resultMap="result">
 	select <include refid="columns" /> from DS_XZSP
 	<include refid="dynamicWhere" />
+	<if test="@Ognl@isNotEmpty(desc_id)"> order by ID desc </if>
 </select>
 
 <select id="queryCount" resultType="int">
 	select count(1) from DS_XZSP
 	<include refid="dynamicWhere" />
-	<if test="@Ognl@isNotEmpty(desc_id)"> order by ID desc </if>
 </select>
 </mapper>
