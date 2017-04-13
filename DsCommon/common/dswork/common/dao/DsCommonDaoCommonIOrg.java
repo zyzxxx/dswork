@@ -48,26 +48,22 @@ public class DsCommonDaoCommonIOrg extends MyBatisDao
 	// /////////////////////////////////////////////////////////////////////////
 	/**
 	 * 根据上级组织机构主键取得列表数据
-	 * @param pid 上级组织机构主键
-	 * @param status 0-2为指定分类（2单位，1部门，0岗位），超出0-2范围则不过滤
+	 * @param pid 上级组织机构主键，为null时获取所有组织机构数据
+	 * @param status 0-2为指定分类（2单位，1部门，0岗位），超出0-2范围则不过滤，pid为null时也不过滤
 	 * @return List&lt;IOrg&gt;
 	 */
 	public List<IOrg> queryListOrg(Long pid, Integer status)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("pid", pid);
-		if(status != null && status.intValue() > -1 && status.intValue() < 3)
+		if(pid != null)
 		{
-			map.put("status", status);
-		}
-		List<IOrg> list = executeSelectList("queryOrg", map);
-		if(pid == 0)
-		{
-			for(IOrg po : list)
+			map.put("pid", pid);
+			if(status != null && status.intValue() > -1 && status.intValue() < 3)
 			{
-				po.setPid("0");
+				map.put("status", status);
 			}
 		}
+		List<IOrg> list = executeSelectList("queryOrg", map);
 		return list;
 	}
 }

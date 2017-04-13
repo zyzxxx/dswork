@@ -59,11 +59,11 @@ public class DsCommonFlowCategory
 	{
 		try
 		{
-			return new StringBuilder().append("{id:").append(id).append(",pid:").append(pid).append(",isParent:true").append(",name:\"").append(name.trim().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
+			return new StringBuilder().append("{\"id\":").append(id).append(",\"pid\":").append(pid).append(",\"isParent\":true").append(",\"name\":\"").append(name.trim().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
 		}
 		catch(Exception e)
 		{
-			return "{id:0,pid:-1,isParent:false,name:\"\"}";
+			return "{\"id\":0,\"pid\":-1,\"isParent\":false,\"name\":\"\"}";
 		}
 	}
 }

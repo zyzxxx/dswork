@@ -119,11 +119,11 @@ public class DsCommonSystem
 	{
 		try
 		{
-			return new StringBuilder().append("{id:").append(id).append(",pid:-1,isParent:true,status:").append(status).append(",name:\"").append(name.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
+			return new StringBuilder().append("{\"id\":").append(id).append(",\"pid\":-1,\"isParent\":true,\"status\":").append(status).append(",\"name\":\"").append(name.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
 		}
 		catch(Exception e)
 		{
-			return "{id:0,pid:-1,isParent:true,status:0,name:\"\"}";
+			return "{\"id\":0,\"pid\":-1,\"isParent\":true,\"status\":0,\"name\":\"\"}";
 		}
 	}
 }

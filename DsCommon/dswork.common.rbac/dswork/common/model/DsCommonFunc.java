@@ -211,11 +211,11 @@ public class DsCommonFunc
 	{
 		try
 		{
-			return new StringBuilder().append("{id:").append(id).append(",pid:").append(pid).append(",status:").append(status).append(",isParent:").append((status == 0)?"false":"true").append(",checked:").append(isChecked()).append(",name:\"").append(name.trim().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\",uri:\"").append(uri.trim().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
+			return new StringBuilder().append("{\"id\":").append(id).append(",\"pid\":").append(pid).append(",\"status\":").append(status).append(",\"isParent\":").append((status == 0)?"false":"true").append(",\"checked\":").append(isChecked()).append(",\"name\":\"").append(name.trim().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\",\"uri\":\"").append(uri.trim().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
 		}
 		catch (Exception e)
 		{
-			return "{id:0,pid:-1,status:0,isParent:true,checked:false,name:\"\",uri:\"\"}";
+			return "{\"id\":0,\"pid\":-1,\"status\":0,\"isParent\":true,\"checked\":false,\"name\":\"\",\"uri\":\"\"}";
 		}
 	}
 }

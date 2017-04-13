@@ -32,4 +32,36 @@ public class CommonShareOrgController
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping("/getJsonOrgTree")
+	public void getJsonOrgTree(HttpServletRequest request, HttpServletResponse response)
+	{
+		response.setCharacterEncoding("UTF-8");
+		MyRequest req = new MyRequest(request);
+		long pid = req.getLong("pid", -100L);
+		try
+		{
+			response.getWriter().print(DsFactory.getOrg().getJsonOrgTree(pid == -100 ? null : pid));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("/getJsonOrgList")
+	public void getJsonOrgList(HttpServletRequest request, HttpServletResponse response)
+	{
+		response.setCharacterEncoding("UTF-8");
+		MyRequest req = new MyRequest(request);
+		long pid = req.getLong("pid", -100L);
+		try
+		{
+			response.getWriter().print(DsFactory.getOrg().getJsonOrgList(pid == -100 ? null : pid));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

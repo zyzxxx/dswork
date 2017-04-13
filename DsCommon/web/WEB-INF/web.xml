@@ -62,9 +62,21 @@
 		<init-param><param-name>ignoreURL</param-name>  <param-value>/menu.jsp</param-value></init-param>
 		<init-param><param-name>sameDomain</param-name> <param-value>true</param-value></init-param>
 	</filter>
-	<filter-mapping>
-		<filter-name>websso</filter-name>
-		<url-pattern>/common/*</url-pattern>
-	</filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/dict/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/flow/*</url-pattern></filter-mapping>
+	
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/system/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/func/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/role/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/rolechoose/*</url-pattern></filter-mapping>
+	
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/org/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/orgrole/*</url-pattern></filter-mapping>
+	
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/user/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/userrole/*</url-pattern></filter-mapping>
+	
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/userorg/*</url-pattern></filter-mapping>
+
 
 </web-app>
