@@ -130,7 +130,7 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		return executeSelectList("queryFlowWaiting", "," + account + ",");
 	}
 
-	public IFlowWaiting saveFlowStart(String alias, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting saveFlowStart(String alias, String users, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
 	{
 		String time = TimeUtil.getCurrentTime();
 		IFlow flow = this.getFlow(alias);
@@ -173,15 +173,31 @@ public class DsCommonDaoIFlow extends MyBatisDao
 			m.setTstart(time);
 			m.setTmemo(task.getTmemo());
 			m.setTinterface(taskInterface);
-			if(task.getTusers().split(",", -1).length > 1)
+			if(users != null)
 			{
-				m.setTusers("," + task.getTusers() + ",");// 多人，候选人
-				m.setTuser("");
+				if(users.split(",", -1).length > 1)
+				{
+					m.setTusers("," + users + ",");// 多人，候选人
+					m.setTuser("");
+				}
+				else
+				{
+					m.setTusers("");// 候选人
+					m.setTuser("," + users + ",");// 单人
+				}
 			}
 			else
 			{
-				m.setTusers("");// 候选人
-				m.setTuser("," + task.getTusers() + ",");// 单人
+				if(task.getTusers().split(",", -1).length > 1)
+				{
+					m.setTusers("," + task.getTusers() + ",");// 多人，候选人
+					m.setTuser("");
+				}
+				else
+				{
+					m.setTusers("");// 候选人
+					m.setTuser("," + task.getTusers() + ",");// 单人
+				}
 			}
 			this.saveFlowWaiting(m);
 			return m;
@@ -189,9 +205,9 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		return null;
 	}
 
-	public String saveStart(String alias, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
+	public String saveStart(String alias, String users, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
 	{
-		IFlowWaiting w = saveFlowStart(alias, ywlsh, sblsh, account, name, piDay, isWorkDay, taskInterface);
+		IFlowWaiting w = saveFlowStart(alias, users, ywlsh, sblsh, account, name, piDay, isWorkDay, taskInterface);
 		if(w != null)
 		{
 			return String.valueOf(w.getPiid());
@@ -205,7 +221,7 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		this.updateFlowPi(piid, 0, "");// 结束
 	}
 
-	public boolean saveProcess(Long waitid, String[] nextTalias, String account, String name, String resultType, String resultMsg)
+	public boolean saveProcess(Long waitid, String[] nextTalias, String[] nextTusers, String account, String name, String resultType, String resultMsg)
 	{
 		IFlowWaiting m = this.getFlowWaiting(waitid);
 		if(m != null && m.getTcount() <= 1)
@@ -257,16 +273,33 @@ public class DsCommonDaoIFlow extends MyBatisDao
 						newm.setTname(t.getTname());
 						newm.setTcount(t.getTcount());
 						newm.setTnext(t.getTnext());
-						String[] s = t.getTusers().split(",", -1);
-						if(s.length > 1)
+						if(nextTusers != null)
 						{
-							newm.setTusers("," + t.getTusers() + ",");// 多人，候选人
-							newm.setTuser("");
+							String[] s = nextTusers[i].split(",", -1);
+							if(s.length > 1)
+							{
+								newm.setTusers("," + nextTusers[i] + ",");// 多人，候选人
+								newm.setTuser("");
+							}
+							else
+							{
+								newm.setTusers("");// 候选人
+								newm.setTuser("," + nextTusers[i] + ",");// 单人
+							}
 						}
 						else
 						{
-							newm.setTusers("");// 候选人
-							newm.setTuser("," + t.getTusers() + ",");// 单人
+							String[] s = t.getTusers().split(",", -1);
+							if(s.length > 1)
+							{
+								newm.setTusers("," + t.getTusers() + ",");// 多人，候选人
+								newm.setTuser("");
+							}
+							else
+							{
+								newm.setTusers("");// 候选人
+								newm.setTuser("," + t.getTusers() + ",");// 单人
+							}
 						}
 						newm.setTmemo(t.getTmemo());
 						this.saveFlowWaiting(newm);
