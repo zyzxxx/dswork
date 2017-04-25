@@ -2,181 +2,136 @@
 	<tr>
 		<td>BLRGH</td>
 		<td>办理人工号</td>
-		<td><input style="width:90%;" type="text" name="BLRGH" value="${ob.BLRGH}" /></td>
+		<td><input style="width:90%;" type="text" name="BLRGH" value="${po.BLRGH}" /></td>
 	</tr>
 	<tr>
 		<td>BLRXM</td>
 		<td>办理人姓名</td>
-		<td><input style="width:90%;" type="text" name="BLRXM" value="${ob.BLRXM}" /></td>
+		<td><input style="width:90%;" type="text" name="BLRXM" value="${po.BLRXM}" /></td>
 	</tr>
 	<tr>
 		<td>BSLYY</td>
 		<td>不受理原因</td>
-		<td><input style="width:90%;" type="text" name="BSLYY" value="${ob.BSLYY}" /></td>
-	</tr>
-	<tr>
-		<td>BYZDA</td>
-		<td>备用字段A</td>
-		<td><input style="width:90%;" type="text" name="BYZDA" value="${ob.BYZDA}" /></td>
-	</tr>
-	<tr>
-		<td>BYZDB</td>
-		<td>备用字段B</td>
-		<td><input style="width:90%;" type="text" name="BYZDB" value="${ob.BYZDB}" /></td>
-	</tr>
-	<tr>
-		<td>BYZDC</td>
-		<td>备用字段C</td>
-		<td><input style="width:90%;" type="text" name="BYZDC" value="${ob.BYZDC}" /></td>
-	</tr>
-	<tr>
-		<td>BYZDD</td>
-		<td>备用字段D</td>
-		<td><input style="width:90%;" type="text" name="BYZDD" value="${ob.BYZDD}" /></td>
-	</tr>
-	<tr>
-		<td>BZ</td>
-		<td>备注</td>
-		<td><input style="width:90%;" type="text" name="BZ" value="${ob.BZ}" /></td>
+		<td><input style="width:90%;" type="text" name="BSLYY" value="${po.BSLYY}" /></td>
 	</tr>
 	<tr>
 		<td>CXMM</td>
 		<td>查询密码</td>
-		<td><input style="width:90%;" type="text" name="CXMM" value="${ob.CXMM}" /></td>
+		<td><input style="width:90%;" type="text" name="CXMM" value="${po.CXMM}" /></td>
 	</tr>
 	<tr>
 		<td>GDBLSX</td>
 		<td>规定办理时限</td>
-		<td><input style="width:90%;" type="text" name="GDBLSX" value="${ob.GDBLSX}" /></td>
+		<td><input style="width:90%;" type="text" name="GDBLSX" value="${po.GDBLSX}" /></td>
 	</tr>
 	<tr>
 		<td>GDBLSXDDW</td>
 		<td>规定办理时限的单位</td>
-		<td><input style="width:90%;" type="text" name="GDBLSXDDW" value="${ob.GDBLSXDDW}" /></td>
+		<td><input style="width:90%;" type="text" name="GDBLSXDDW" value="${po.GDBLSXDDW}" /></td>
 	</tr>
 	<tr>
 		<td>GDSF</td>
 		<td>规定收费</td>
-		<td><input style="width:90%;" type="text" name="GDSF" value="${ob.GDSF}" /></td>
+		<td><input style="width:90%;" type="text" name="GDSF" value="${po.GDSF}" /></td>
 	</tr>
 	<tr>
 		<td>GXDXZQHDM</td>
 		<td>发生业务管辖地行政区划代码</td>
-		<td><input style="width:90%;" type="text" name="GXDXZQHDM" value="${ob.GXDXZQHDM}" /></td>
+		<td><input style="width:90%;" type="text" name="GXDXZQHDM" value="${po.GXDXZQHDM}" /></td>
 	</tr>
 	<tr>
 		<td>LXWH</td>
 		<td>立项批复文号</td>
-		<td><input style="width:90%;" type="text" name="LXWH" value="${ob.LXWH}" /></td>
+		<td><input style="width:90%;" type="text" name="LXWH" value="${po.LXWH}" /></td>
 	</tr>
 	<tr>
 		<td>PDH</td>
 		<td>排队号</td>
-		<td><input style="width:90%;" type="text" name="PDH" value="${ob.PDH}" /></td>
-	</tr>
-	<tr>
-		<td>SBLSH</td>
-		<td>申办流水号</td>
-		<td><input style="width:90%;" type="text" name="SBLSH" value="${ob.SBLSH}" /></td>
-	</tr>
-	<tr>
-		<td>SJBBH</td>
-		<td>数据版本号</td>
-		<td><input style="width:90%;" type="text" name="SJBBH" value="${ob.SJBBH}" /></td>
+		<td><input style="width:90%;" type="text" name="PDH" value="${po.PDH}" /></td>
 	</tr>
 	<tr>
 		<td>SLBMMC</td>
 		<td>受理部门名称</td>
-		<td><input style="width:90%;" type="text" name="SLBMMC" value="${ob.SLBMMC}" /></td>
+		<td><input style="width:90%;" type="text" name="SLBMMC" value="${po.SLBMMC}" /></td>
 	</tr>
 	<tr>
 		<td>SLBMZZJDDM</td>
 		<td>受理部门组织机构代码</td>
-		<td><input style="width:90%;" type="text" name="SLBMZZJDDM" value="${ob.SLBMZZJDDM}" /></td>
+		<td><input style="width:90%;" type="text" name="SLBMZZJDDM" value="${po.SLBMZZJDDM}" /></td>
 	</tr>
 	<tr>
 		<td>SLHZH</td>
 		<td>受理回执号</td>
-		<td><input style="width:90%;" type="text" name="SLHZH" value="${ob.SLHZH}" /></td>
+		<td><input style="width:90%;" type="text" name="SLHZH" value="${po.SLHZH}" /></td>
 	</tr>
 	<tr>
 		<td>SLJTDD</td>
 		<td>受理具体地点</td>
-		<td><input style="width:90%;" type="text" name="SLJTDD" value="${ob.SLJTDD}" /></td>
+		<td><input style="width:90%;" type="text" name="SLJTDD" value="${po.SLJTDD}" /></td>
 	</tr>
 	<tr>
 		<td>SLSJ</td>
 		<td>受理时间</td>
-		<td><input style="width:90%;" type="text" name="SLSJ" value="${ob.SLSJ}" /></td>
+		<td><input style="width:90%;" type="text" name="SLSJ" value="${po.SLSJ}" /></td>
 	</tr>
 	<tr>
 		<td>SLZLQD</td>
 		<td>受理资料清单</td>
-		<td><input style="width:90%;" type="text" name="SLZLQD" value="${ob.SLZLQD}" /></td>
+		<td><input style="width:90%;" type="text" name="SLZLQD" value="${po.SLZLQD}" /></td>
 	</tr>
 	<tr>
 		<td>SLZTDM</td>
 		<td>受理状态代码</td>
-		<td><input style="width:90%;" type="text" name="SLZTDM" value="${ob.SLZTDM}" /></td>
+		<td><input style="width:90%;" type="text" name="SLZTDM" value="${po.SLZTDM}" /></td>
 	</tr>
 	<tr>
 		<td>SPSXMC</td>
 		<td>审批事项名称</td>
-		<td><input style="width:90%;" type="text" name="SPSXMC" value="${ob.SPSXMC}" /></td>
+		<td><input style="width:90%;" type="text" name="SPSXMC" value="${po.SPSXMC}" /></td>
 	</tr>
 	<tr>
 		<td>SQDWHSQRXM</td>
 		<td>申请单位或申请人名称</td>
-		<td><input style="width:90%;" type="text" name="SQDWHSQRXM" value="${ob.SQDWHSQRXM}" /></td>
+		<td><input style="width:90%;" type="text" name="SQDWHSQRXM" value="${po.SQDWHSQRXM}" /></td>
 	</tr>
 	<tr>
 		<td>SQDWJBRSJ</td>
 		<td>申请单位经办人手机</td>
-		<td><input style="width:90%;" type="text" name="SQDWJBRSJ" value="${ob.SQDWJBRSJ}" /></td>
+		<td><input style="width:90%;" type="text" name="SQDWJBRSJ" value="${po.SQDWJBRSJ}" /></td>
 	</tr>
 	<tr>
 		<td>SQDWJBRXM</td>
 		<td>申请单位经办人姓名</td>
-		<td><input style="width:90%;" type="text" name="SQDWJBRXM" value="${ob.SQDWJBRXM}" /></td>
+		<td><input style="width:90%;" type="text" name="SQDWJBRXM" value="${po.SQDWJBRXM}" /></td>
 	</tr>
 	<tr>
 		<td>SQDWJBRYJ</td>
 		<td>申请单位经办人邮件</td>
-		<td><input style="width:90%;" type="text" name="SQDWJBRYJ" value="${ob.SQDWJBRYJ}" /></td>
+		<td><input style="width:90%;" type="text" name="SQDWJBRYJ" value="${po.SQDWJBRYJ}" /></td>
 	</tr>
 	<tr>
 		<td>SQDWLXDH</td>
 		<td>申请单位联系电话</td>
-		<td><input style="width:90%;" type="text" name="SQDWLXDH" value="${ob.SQDWLXDH}" /></td>
-	</tr>
-	<tr>
-		<td>SXBM</td>
-		<td>事项编码</td>
-		<td><input style="width:90%;" type="text" name="SXBM" value="${ob.SXBM}" /></td>
+		<td><input style="width:90%;" type="text" name="SQDWLXDH" value="${po.SQDWLXDH}" /></td>
 	</tr>
 	<tr>
 		<td>TJFS</td>
 		<td>提交方式</td>
-		<td><input style="width:90%;" type="text" name="TJFS" value="${ob.TJFS}" /></td>
+		<td><input style="width:90%;" type="text" name="TJFS" value="${po.TJFS}" /></td>
 	</tr>
 	<tr>
 		<td>XMHGCBH</td>
 		<td>项目/工程编号</td>
-		<td><input style="width:90%;" type="text" name="XMHGCBH" value="${ob.XMHGCBH}" /></td>
+		<td><input style="width:90%;" type="text" name="XMHGCBH" value="${po.XMHGCBH}" /></td>
 	</tr>
 	<tr>
 		<td>XMMC</td>
 		<td>项目名称</td>
-		<td><input style="width:90%;" type="text" name="XMMC" value="${ob.XMMC}" /></td>
+		<td><input style="width:90%;" type="text" name="XMMC" value="${po.XMMC}" /></td>
 	</tr>
 	<tr>
 		<td>XZQHDM</td>
 		<td>受理部门所在行政区划代码</td>
-		<td><input style="width:90%;" type="text" name="XZQHDM" value="${ob.XZQHDM}" /></td>
-	</tr>
-	<tr>
-		<td>YWLSH</td>
-		<td>业务流水号</td>
-		<td><input style="width:90%;" type="text" name="YWLSH" value="${ob.YWLSH}" /></td>
+		<td><input style="width:90%;" type="text" name="XZQHDM" value="${po.XZQHDM}" /></td>
 	</tr>
 

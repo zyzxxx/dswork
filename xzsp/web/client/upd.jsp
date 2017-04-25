@@ -1,5 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
 <%@page pageEncoding="UTF-8" import="
 MQAPI.*,
 common.gov.JSONUtil,
@@ -38,20 +39,52 @@ $("#dataFormSaveSend").click(function(){
 </script>
 </head>
 <body>
-<div style="width:90%;float:left">
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">修改</td>
+		<td class="menuTool">
+			<a class="save" id="dataFormSave" href="#">保存</a>
+			<a class="submit" id="dataFormSaveSend" href="#">保存并重发</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
 <form id="dataForm" method="post" action="updAction.jsp">
-<table class="zwtable" border="0" cellspacing="1" cellpadding="0">
+<table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td style="width:10%;">字段名</td>
 		<td style="width:10%;">注释</td>
 		<td>内容</td>
 	</tr>
-	<%
+<%
 try
 {
 	MyRequest req = new MyRequest(request);
 	DsXzspService service = (DsXzspService) BeanFactory.getBean("dsXzspService");
 	DsXzsp po = service.get(req.getLong("keyIndex"));
+	
+	request.setAttribute("po", po);
+	Object ob = null;
+	switch(po.getSptype())
+	{
+		case 0: ob = new ApplicationOB(); break;
+		case 1: ob = new PreAcceptOB(); break;
+		case 2: ob = new AcceptOB(); break;
+		case 3: ob = new SubmitOB(); break;
+		case 4: ob = new CompleteOB(); break;
+		case 5: ob = new BlockOB(); break;
+		case 6: ob = new ResumeOB(); break;
+		case 7: ob = new SupplyOB(); break;
+		case 8: ob = new SupplyAcceptOB(); break;
+		case 9: ob = new ReceiveRegOB(); break;
+	}
+	request.setAttribute("ob", JSONUtil.toBean(po.getSpobject(), ob.getClass()));
+%>
+	<tr><td>SXBM</td> <td>事项编码</td>  <td><input style="width:90%;" type="text" name="SXBM" value="${ob.SXBM}" /></td></tr>
+	<tr><td>YWLSH</td><td>业务流水号</td><td><input style="width:90%;" type="text" name="YWLSH" value="${ob.YWLSH}" /></td></tr>
+	<tr><td>SBLSH</td><td>申办流水号</td><td><input style="width:90%;" type="text" name="SBLSH" value="${ob.SBLSH}" /></td></tr>
+	<tr><td>SJBBH</td><td>数据版本号</td><td><input style="width:90%;" type="text" name="SJBBH" value="${ob.SJBBH}" /></td></tr>
+<%
 	switch(po.getSptype())
 	{
 		case 0: %><%@include file="0.jsp" %><%; break;
@@ -65,21 +98,22 @@ try
 		case 8: %><%@include file="8.jsp" %><%; break;
 		case 9: %><%@include file="9.jsp" %><%; break;
 	}
-	request.setAttribute("po", po);
+%>
+	<tr><td>BYZDA</td><td>备用字段A</td><td><input style="width:90%;" type="text" name="BYZDA" value="${ob.BYZDA}" /></td></tr>
+	<tr><td>BYZDB</td><td>备用字段B</td><td><input style="width:90%;" type="text" name="BYZDB" value="${ob.BYZDB}" /></td></tr>
+	<tr><td>BYZDC</td><td>备用字段C</td><td><input style="width:90%;" type="text" name="BYZDC" value="${ob.BYZDC}" /></td></tr>
+	<tr><td>BYZDD</td><td>备用字段D</td><td><input style="width:90%;" type="text" name="BYZDD" value="${ob.BYZDD}" /></td></tr>
+	<tr><td>BZ</td><td>备注</td><td><input style="width:90%;" type="text" name="BZ" value="${ob.BZ}" /></td></tr>
+<%
 }
 catch(Exception e)
 {
 	out.print(e.getMessage());
 }
 %>
-	<tr>
-		<td colspan="3" class="menuTool"><a class="save" id="dataFormSave" href="#">保存</a></td>
-		<td colspan="3" class="menuTool"><a class="save" id="dataFormSaveSend" href="#">保存并重发</a></td>
-	<tr>
 </table>
 <input type="hidden" name="keyIndex" value="${po.id}" />
 <input type="hidden" id="resend" name="resend" value="0" />
 </form>
-</div>
 </body>
 </html>

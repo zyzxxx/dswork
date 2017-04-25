@@ -1,30 +1,5 @@
 <%@page pageEncoding="UTF-8"%>
 	<tr>
-		<td>BYZDA</td>
-		<td>备用字段A</td>
-		<td><input style="width:90%;" type="text" name="BYZDA" value="${ob.BYZDA}" /></td>
-	</tr>
-	<tr>
-		<td>BYZDB</td>
-		<td>备用字段B</td>
-		<td><input style="width:90%;" type="text" name="BYZDB" value="${ob.BYZDB}" /></td>
-	</tr>
-	<tr>
-		<td>BYZDC</td>
-		<td>备用字段C</td>
-		<td><input style="width:90%;" type="text" name="BYZDC" value="${ob.BYZDC}" /></td>
-	</tr>
-	<tr>
-		<td>BYZDD</td>
-		<td>备用字段D</td>
-		<td><input style="width:90%;" type="text" name="BYZDD" value="${ob.BYZDD}" /></td>
-	</tr>
-	<tr>
-		<td>BZ</td>
-		<td>备注</td>
-		<td><input style="width:90%;" type="text" name="BZ" value="${ob.BZ}" /></td>
-	</tr>
-	<tr>
 		<td>FSXBM</td>
 		<td>父事项编码</td>
 		<td><input style="width:90%;" type="text" name="FSXBM" value="${ob.FSXBM}" /></td>
@@ -80,11 +55,6 @@
 		<td><input style="width:90%;" type="text" name="SBJTWD" value="${ob.SBJTWD}" /></td>
 	</tr>
 	<tr>
-		<td>SBLSH</td>
-		<td>申办流水号</td>
-		<td><input style="width:90%;" type="text" name="SBLSH" value="${ob.SBLSH}" /></td>
-	</tr>
-	<tr>
 		<td>SBSJ</td>
 		<td>申办时间</td>
 		<td><input style="width:90%;" type="text" name="SBSJ" value="${ob.SBSJ}" /></td>
@@ -93,11 +63,6 @@
 		<td>SBXMMC</td>
 		<td>申办项目名称</td>
 		<td><input style="width:90%;" type="text" name="SBXMMC" value="${ob.SBXMMC}" /></td>
-	</tr>
-	<tr>
-		<td>SJBBH</td>
-		<td>数据版本号</td>
-		<td><input style="width:90%;" type="text" name="SJBBH" value="${ob.SJBBH}" /></td>
 	</tr>
 	<tr>
 		<td>SQRDH</td>
@@ -125,11 +90,6 @@
 		<td><input style="width:90%;" type="text" name="SQRZJLX" value="${ob.SQRZJLX}" /></td>
 	</tr>
 	<tr>
-		<td>SXBM</td>
-		<td>事项编码</td>
-		<td><input style="width:90%;" type="text" name="SXBM" value="${ob.SXBM}" /></td>
-	</tr>
-	<tr>
 		<td>SXMC</td>
 		<td>事项名称</td>
 		<td><input style="width:90%;" type="text" name="SXMC" value="${ob.SXMC}" /></td>
@@ -153,10 +113,5 @@
 		<td>YSBLSH</td>
 		<td>原申办流水号</td>
 		<td><input style="width:90%;" type="text" name="YSBLSH" value="${ob.YSBLSH}" /></td>
-	</tr>
-	<tr>
-		<td>YWLSH</td>
-		<td>null</td>
-		<td><input style="width:90%;" type="text" name="YWLSH" value="${ob.YWLSH}" /></td>
 	</tr>
 

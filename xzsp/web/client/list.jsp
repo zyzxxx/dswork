@@ -54,36 +54,57 @@ function resend(id){
 }
 $(function(){
 	myJs.iframe.setHeight("iframe", 400);
+	$("td.sptype").each(function(){
+		var s = "";
+		switch($(this).val())
+		{
+			case "0":s="ApplicationOB"; break;
+			case "1":s="PreAcceptOB"; break;
+			case "2":s="AcceptOB"; break;
+			case "3":s="SubmitOB"; break;
+			case "4":s="CompleteOB"; break;
+			case "5":s="BlockOB"; break;
+			case "6":s="ResumeOB"; break;
+			case "7":s="SupplyOB"; break;
+			case "8":s="SupplyAcceptOB"; break;
+			case "9":s="ReceiveRegOB"; break;
+			default:
+				break;
+		}
+		$(this).val(s);
+	});
 });
 </script>
 </head>
 <body>
-<div style="width:50%;float:left">
-<table class="zwtable" border="0" cellspacing="1" cellpadding="0">
-	<tr>
-		<td style="width:18.557794273595%;">申办流水号</td>
-		<td style="width:6.1505832449629%;">发送状态</td>
-		<td style="width:6.1505832449629%;">发送次数</td>
-		<td style="width:14.74019088017%;">发送时间</td>
-		<td style="width:39.190880169671%;">备注</td>
-		<td style="width:8.1049840933192%;">操作</td>
+<div style="width:50%;height:100%;float:left;background-color:#00ff00;">
+<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr class="list_title">
+		<td style="width:5%">类型</td>
+		<td style="width:15%;">申办流水号</td>
+		<td style="width:3%;">发送<br />状态</td>
+		<td style="width:3%;">发送<br />次数</td>
+		<td style="width:8%;">发送时间</td>
+		<td style="width:50%;">备注</td>
+		<td style="width:auto;">操作</td>
 	</tr>
 <c:forEach items="${list}" var="d">
 	<tr>
+		<td clsas="sptype">${d.sptype}</td>
 		<td>${d.sblsh}</td>
 		<td>${d.fszt}</td>
 		<td>${d.fscs}</td>
 		<td>${d.fssj}</td>
 		<td>${d.memo}</td>
 		<td class="menuTool">
-			<a href="javascript:void(0);" onclick="resend(${d.id});">重发</a>
-			<a href="javascript:void(0);" onclick="showUpd(${d.id});">修改</a>
+			<a class="refresh" onclick="resend(${d.id});return false;">重发</a>
+			<a class="edit" onclick="showUpd(${d.id});return false;">修改</a>
 		</td>
 	</tr>
 </c:forEach>
 </table>
 </div>
-<div style="width:50%;float:left">
+<div style="width:50%;height:100%;float:left;overflow:scroll;">
 	<iframe id="iframe" style="width:100%;border:0;"></iframe>
 </div>
 </body>
