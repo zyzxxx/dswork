@@ -1,8 +1,3 @@
-<%@page import="java.security.Provider.Service"%>
-<%@page import="com.mysql.fabric.Server"%>
-<%@page import="dswork.core.page.PageRequest"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@page pageEncoding="UTF-8" import="
 MQAPI.*,
 common.gov.DsXzsp,
@@ -12,8 +7,11 @@ dswork.web.MyRequest,
 dswork.core.util.UniqueId,
 dswork.core.page.PageRequest,
 java.util.List,
-common.gov.JSONUtil
-"%><%
+common.gov.JSONUtil,
+java.security.Provider.Service,
+com.mysql.fabric.Server,
+dswork.core.page.PageRequest
+"%><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%><%
 try
 {
 	MyRequest req = new MyRequest(request);

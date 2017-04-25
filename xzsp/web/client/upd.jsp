@@ -30,16 +30,12 @@ java.util.List
 <script type="text/javascript" src="/web/js/dswork/dswork.js"></script>
 <script type="text/javascript" src="/web/js/dswork/form.js"></script>
 <script type="text/javascript">
-$dswork.callback = function(){
-	if($dswork.result.type == 1){
-		alert("操作成功！");
-	}else{
-		alert("操作失败！");
-	}
-};
-$("#mySave")    .click(function(){$("#resend").val("0");$("#dataFormSave").click();return false;});
-$("#mySend")    .click(function(){$("#resend").val("1");$("#dataFormSave").click();return false;});
-$("#mySaveSend").click(function(){$("#resend").val("2");$("#dataFormSave").click();return false;});
+$dswork.doAjax = true;
+$(function(){
+	$("#mySave")    .click(function(){$("#resend").val("0");$("#dataFormSave").click();return false;});
+	$("#mySend")    .click(function(){$("#resend").val("1");$("#dataFormSave").click();return false;});
+	$("#mySaveSend").click(function(){$("#resend").val("2");$("#dataFormSave").click();return false;});
+});
 </script>
 </head>
 <body>
@@ -47,7 +43,7 @@ $("#mySaveSend").click(function(){$("#resend").val("2");$("#dataFormSave").click
 	<tr>
 		<td class="title">修改[${po.sptype}]</td>
 		<td class="menuTool">
-			<a style="display:hidden;" id="dataFormSave" href="#">保存</a>
+			<a style="display:none;" id="dataFormSave" href="#">保存</a>
 			<a class="save" id="mySave" href="#">保存</a>
 			<a class="submit" id="mySend" href="#">重发</a>
 			<a class="submit" id="mySaveSend" href="#">保存并重发</a>
