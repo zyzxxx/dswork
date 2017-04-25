@@ -72,7 +72,7 @@
 	<tr>
 		<td>SLSJ</td>
 		<td>受理时间</td>
-		<td><input style="width:90%;" type="text" name="SLSJ" value="${ob.SLSJ}" /></td>
+		<td><input style="width:90%;" type="text" name="SLSJ" value="<fmt:formatDate value='${ob.SLSJ}' pattern='yyyy-MM-dd HH:mm:ss'/>" /></td>
 	</tr>
 	<tr>
 		<td>SLZLQD</td>
