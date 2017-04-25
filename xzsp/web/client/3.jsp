@@ -52,7 +52,7 @@
 	<tr>
 		<td>SPSJ</td>
 		<td>审批时间</td>
-		<td><input style="width:90%;" type="text" name="SPSJ" value="${ob.SPSJ}" /></td>
+		<td><input style="width:90%;" type="text" name="SPSJ" value="<fmt:formatDate value='${ob.SPSJ}' pattern='yyyy-MM-dd HH:mm:ss'/>" /></td>
 	</tr>
 	<tr>
 		<td>SPYJ</td>

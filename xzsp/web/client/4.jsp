@@ -22,7 +22,7 @@
 	<tr>
 		<td>BJSJ</td>
 		<td>办结时间</td>
-		<td><input style="width:90%;" type="text" name="BJSJ" value="${ob.BJSJ}" /></td>
+		<td><input style="width:90%;" type="text" name="BJSJ" value="<fmt:formatDate value='${ob.BJSJ}' pattern='yyyy-MM-dd HH:mm:ss'/>" /></td>
 	</tr>
 	<tr>
 		<td>FZGZDW</td>

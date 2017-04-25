@@ -1,6 +1,6 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@page pageEncoding="UTF-8" import="
 MQAPI.*,
 common.gov.JSONUtil,
@@ -11,7 +11,13 @@ dswork.web.MyRequest,
 dswork.core.util.UniqueId,
 dswork.core.page.PageRequest,
 java.util.List
-"%>
+"%><%
+	MyRequest req = new MyRequest(request);
+	DsXzspService service = (DsXzspService) BeanFactory.getBean("dsXzspService");
+	DsXzsp po = service.get(req.getLong("keyIndex"));
+	
+	request.setAttribute("po", po);
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,21 +36,21 @@ $dswork.callback = function(){
 	}else{
 		alert("操作失败！");
 	}
-	location.href = "about:blank";
 };
-$("#dataFormSaveSend").click(function(){
-	$("#resend").val("1");
-	$("#dataFormSave").click();
-});
+$("#mySave")    .click(function(){$("#resend").val("0");$("#dataFormSave").click();return false;});
+$("#mySend")    .click(function(){$("#resend").val("1");$("#dataFormSave").click();return false;});
+$("#mySaveSend").click(function(){$("#resend").val("2");$("#dataFormSave").click();return false;});
 </script>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">修改</td>
+		<td class="title">修改[${po.sptype}]</td>
 		<td class="menuTool">
-			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="submit" id="dataFormSaveSend" href="#">保存并重发</a>
+			<a style="display:hidden;" id="dataFormSave" href="#">保存</a>
+			<a class="save" id="mySave" href="#">保存</a>
+			<a class="submit" id="mySend" href="#">重发</a>
+			<a class="submit" id="mySaveSend" href="#">保存并重发</a>
 		</td>
 	</tr>
 </table>
@@ -52,18 +58,13 @@ $("#dataFormSaveSend").click(function(){
 <form id="dataForm" method="post" action="updAction.jsp">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td style="width:10%;">字段名</td>
-		<td style="width:10%;">注释</td>
+		<td style="width:18%;">字段名</td>
+		<td style="width:18%;">注释</td>
 		<td>内容</td>
 	</tr>
 <%
 try
 {
-	MyRequest req = new MyRequest(request);
-	DsXzspService service = (DsXzspService) BeanFactory.getBean("dsXzspService");
-	DsXzsp po = service.get(req.getLong("keyIndex"));
-	
-	request.setAttribute("po", po);
 	Object ob = null;
 	switch(po.getSptype())
 	{
@@ -102,7 +103,7 @@ try
 	<tr><td>BYZDA</td><td>备用字段A</td><td><input style="width:90%;" type="text" name="BYZDA" value="${ob.BYZDA}" /></td></tr>
 	<tr><td>BYZDB</td><td>备用字段B</td><td><input style="width:90%;" type="text" name="BYZDB" value="${ob.BYZDB}" /></td></tr>
 	<tr><td>BYZDC</td><td>备用字段C</td><td><input style="width:90%;" type="text" name="BYZDC" value="${ob.BYZDC}" /></td></tr>
-	<tr><td>BYZDD</td><td>备用字段D</td><td><input style="width:90%;" type="text" name="BYZDD" value="${ob.BYZDD}" /></td></tr>
+	<tr><td>BYZDD</td><td>备用字段D</td><td><input style="width:90%;" type="text" name="BYZDD" value="<fmt:formatDate value='${ob.BYZDD}' pattern='yyyy-MM-dd HH:mm:ss'/>" /></td></tr>
 	<tr><td>BZ</td><td>备注</td><td><input style="width:90%;" type="text" name="BZ" value="${ob.BZ}" /></td></tr>
 <%
 }

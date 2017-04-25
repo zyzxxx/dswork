@@ -57,7 +57,7 @@
 	<tr>
 		<td>SBSJ</td>
 		<td>申办时间</td>
-		<td><input style="width:90%;" type="text" name="SBSJ" value="${ob.SBSJ}" /></td>
+		<td><input style="width:90%;" type="text" name="SBSJ" value="<fmt:formatDate value='${ob.SBSJ}' pattern='yyyy-MM-dd HH:mm:ss'/>" /></td>
 	</tr>
 	<tr>
 		<td>SBXMMC</td>

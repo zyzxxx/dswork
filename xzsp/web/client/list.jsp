@@ -17,6 +17,7 @@ try
 	DsXzspService service = (DsXzspService) BeanFactory.getBean("dsXzspService");
 	Map<String, Object> filters = new HashMap<String, Object>();
 	filters.put("desc_id", "desc_id");
+	filters.put("fszt", "0");
 	List<DsXzsp> list = service.queryList(filters);
 	request.setAttribute("list", list);
 }
@@ -38,25 +39,14 @@ catch(Exception e)
 <script type="text/javascript" src="/web/js/dswork/form.js"></script>
 <script src="js.js"></script>
 <script type="text/javascript">
-$dswork.callback = function(){
-	if($dswork.result.type == 1){
-		alert("重发成功！");
-	}else{
-		alert("重发失败！");
-	}
-	location.reload();
-};
+
 function showUpd(id){
 	$("#iframe").attr("src", "upd.jsp?keyIndex=" + id);
 }
-function resend(id){
-	$('<form method="post" action="listAction.jsp"></form>').append($('<input name="keyIndex">').val(id)).ajaxSubmit($dswork.doAjaxOption);
-}
 $(function(){
-	myJs.iframe.setHeight("iframe", 400);
 	$("td.sptype").each(function(){
-		var s = "";
-		switch($(this).val())
+		var s = "";console.log($(this).html());
+		switch($(this).html())
 		{
 			case "0":s="ApplicationOB"; break;
 			case "1":s="PreAcceptOB"; break;
@@ -71,41 +61,37 @@ $(function(){
 			default:
 				break;
 		}
-		$(this).val(s);
+		$(this).html(s);
 	});
 });
 </script>
+<style type="text/css">td.sptype,td.TL{text-align:left;} td.menuTool{text-align:center;}</style>
 </head>
 <body>
-<div style="width:50%;height:100%;float:left;background-color:#00ff00;">
+<div style="width:50%;height:100%;float:left;overflow:scroll;background-color:#00ff00;">
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td style="width:5%">类型</td>
-		<td style="width:15%;">申办流水号</td>
-		<td style="width:3%;">发送<br />状态</td>
-		<td style="width:3%;">发送<br />次数</td>
-		<td style="width:8%;">发送时间</td>
-		<td style="width:50%;">备注</td>
+		<td style="width:20%">类型</td>
+		<td style="width:10%;">发送<br/>状态</td>
+		<td style="width:10%;">发送<br/>次数</td>
+		<td style="width:50%;">申办流水号<br />备注</td>
 		<td style="width:auto;">操作</td>
 	</tr>
 <c:forEach items="${list}" var="d">
 	<tr>
-		<td clsas="sptype">${d.sptype}</td>
-		<td>${d.sblsh}</td>
+		<td class="sptype">${d.sptype}</td>
 		<td>${d.fszt}</td>
 		<td>${d.fscs}</td>
-		<td>${d.fssj}</td>
-		<td>${d.memo}</td>
+		<td class="TL"><span style="color:#ff0000;">${d.sblsh}</span><br />${d.memo}</td>
 		<td class="menuTool">
-			<a class="refresh" onclick="resend(${d.id});return false;">重发</a>
 			<a class="edit" onclick="showUpd(${d.id});return false;">修改</a>
 		</td>
 	</tr>
 </c:forEach>
 </table>
 </div>
-<div style="width:50%;height:100%;float:left;overflow:scroll;">
-	<iframe id="iframe" style="width:100%;border:0;"></iframe>
+<div style="width:50%;height:100%;float:left;overflow:hidden;">
+	<iframe id="iframe" style="width:100%;height:100%;border:0;"></iframe>
 </div>
 </body>
 </html>
