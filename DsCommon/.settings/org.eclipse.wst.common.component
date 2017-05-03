@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
 	<wb-module deploy-name="DsCommon">
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/common"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
@@ -12,6 +11,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.user.org"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.flow"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.user.role"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.flow"/>
 		<property name="context-root" value="DsCommon"/>
 		<property name="java-output-path" value="/DsCommon/web/WEB-INF/classes"/>
 	</wb-module>

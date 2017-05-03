@@ -22,6 +22,8 @@ public class DsCommonFlow
 	private String name = "";
 	// 状态(1启用,0禁用)
 	private Integer status = 0;
+	// 流程图配置XML
+	private String flowxml = "";
 	private List<DsCommonFlowTask> taskList = null;
 
 	public Long getId()
@@ -92,6 +94,16 @@ public class DsCommonFlow
 	public void setStatus(Integer status)
 	{
 		this.status = status;
+	}
+
+	public String getFlowxml()
+	{
+		return flowxml;
+	}
+
+	public void setFlowxml(String flowxml)
+	{
+		this.flowxml = flowxml;
 	}
 
 	public List<DsCommonFlowTask> getTaskList()

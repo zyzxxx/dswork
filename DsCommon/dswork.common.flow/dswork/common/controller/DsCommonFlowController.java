@@ -14,6 +14,8 @@ import dswork.common.model.DsCommonFlowTask;
 import dswork.common.service.DsCommonFlowService;
 import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
+import dswork.flow.MyFlow;
+import dswork.flow.dom.MyNode;
 import dswork.mvc.BaseController;
 
 @Scope("prototype")
@@ -46,23 +48,43 @@ public class DsCommonFlowController extends BaseController
 				{
 					if(!service.isExistsByAlias(po.getAlias()))
 					{
-						String[] taliasArr = req.getStringArray("talias");
-						String[] tnameArr = req.getStringArray("tname");
-						int[] tcountArr = req.getIntArray("tcount", 0);
-						String[] tnextArr = req.getStringArray("tnext");
-						String[] tusersArr = req.getStringArray("tusers");
-						String[] tmemoArr = req.getStringArray("tmemo");
 						List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
-						for(int i = 0; i < taliasArr.length; i++)
+						if(po.getFlowxml().length() < 47)
 						{
-							DsCommonFlowTask m = new DsCommonFlowTask();
-							m.setTname(tnameArr[i]);
-							m.setTalias(taliasArr[i]);
-							m.setTcount(tcountArr[i]);
-							m.setTnext(tnextArr[i]);
-							m.setTusers(tusersArr[i]);
-							m.setTmemo(tmemoArr[i]);
-							taskList.add(m);
+							String[] taliasArr = req.getStringArray("talias");
+							String[] tnameArr = req.getStringArray("tname");
+							int[] tcountArr = req.getIntArray("tcount", 0);
+							String[] tnextArr = req.getStringArray("tnext");
+							String[] tusersArr = req.getStringArray("tusers");
+							String[] tmemoArr = req.getStringArray("tmemo");
+							for(int i = 0; i < taliasArr.length; i++)
+							{
+								DsCommonFlowTask m = new DsCommonFlowTask();
+								m.setTname(tnameArr[i]);
+								m.setTalias(taliasArr[i]);
+								m.setTcount(tcountArr[i]);
+								m.setTnext(tnextArr[i]);
+								m.setTusers(tusersArr[i]);
+								m.setTmemo(tmemoArr[i]);
+								taskList.add(m);
+							}
+						}
+						else
+						{
+							MyFlow flow = new MyFlow(po.getFlowxml());
+							List<MyNode> list = flow.getTasks();
+							for(int i = 0; i < list.size(); i++)
+							{
+								MyNode node = list.get(i);
+								DsCommonFlowTask m = new DsCommonFlowTask();
+								m.setTname(node.getName());
+								m.setTalias(node.getAlias());
+								m.setTcount(node.getCount());
+								m.setTnext(flow.getNextTask(node.getAlias()));
+								m.setTusers(node.getUsers());
+								m.setTmemo("");
+								taskList.add(m);
+							}
 						}
 						print(service.saveFlow(po, taskList));
 					}
@@ -118,23 +140,43 @@ public class DsCommonFlowController extends BaseController
 	{
 		try
 		{
-			String[] taliasArr = req.getStringArray("talias");
-			String[] tnameArr = req.getStringArray("tname");
-			int[] tcountArr = req.getIntArray("tcount", 1);
-			String[] tnextArr = req.getStringArray("tnext");
-			String[] tusersArr = req.getStringArray("tusers");
-			String[] tmemoArr = req.getStringArray("tmemo");
 			List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
-			for(int i = 0; i < taliasArr.length; i++)
+			if(po.getFlowxml().length() < 47)
 			{
-				DsCommonFlowTask m = new DsCommonFlowTask();
-				m.setTname(tnameArr[i]);
-				m.setTalias(taliasArr[i]);
-				m.setTcount(tcountArr[i]);
-				m.setTnext(tnextArr[i]);
-				m.setTusers(tusersArr[i]);
-				m.setTmemo(tmemoArr[i]);
-				taskList.add(m);
+				String[] taliasArr = req.getStringArray("talias");
+				String[] tnameArr = req.getStringArray("tname");
+				int[] tcountArr = req.getIntArray("tcount", 0);
+				String[] tnextArr = req.getStringArray("tnext");
+				String[] tusersArr = req.getStringArray("tusers");
+				String[] tmemoArr = req.getStringArray("tmemo");
+				for(int i = 0; i < taliasArr.length; i++)
+				{
+					DsCommonFlowTask m = new DsCommonFlowTask();
+					m.setTname(tnameArr[i]);
+					m.setTalias(taliasArr[i]);
+					m.setTcount(tcountArr[i]);
+					m.setTnext(tnextArr[i]);
+					m.setTusers(tusersArr[i]);
+					m.setTmemo(tmemoArr[i]);
+					taskList.add(m);
+				}
+			}
+			else
+			{
+				MyFlow flow = new MyFlow(po.getFlowxml());
+				List<MyNode> list = flow.getTasks();
+				for(int i = 0; i < list.size(); i++)
+				{
+					MyNode node = list.get(i);
+					DsCommonFlowTask m = new DsCommonFlowTask();
+					m.setTname(node.getName());
+					m.setTalias(node.getAlias());
+					m.setTcount(node.getCount());
+					m.setTnext(flow.getNextTask(node.getAlias()));
+					m.setTusers(node.getUsers());
+					m.setTmemo("");
+					taskList.add(m);
+				}
 			}
 			service.updateFlow(po, taskList);
 			print(1);
