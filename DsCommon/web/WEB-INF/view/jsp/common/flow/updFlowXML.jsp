@@ -6,9 +6,9 @@
 <head>
 <title></title>
 <%@include file="/commons/include/updAjax.jsp"%>
-<script type="text/javascript" src="${ctx}/js/dswork.flow.js"></script>
-<script type="text/javascript" src="${ctx}/js/dswork.flow.check.js"></script>
-<script type="text/javascript" src="${ctx}/js/dswork.flow.event.js"></script>
+<script type="text/javascript" src="/web/js/flow/dswork.flow.js"></script>
+<script type="text/javascript" src="/web/js/flow/dswork.flow.check.js"></script>
+<script type="text/javascript" src="/web/js/flow/dswork.flow.event.js"></script>
 <style type="text/css">
 .calias{width:80%;}
 .cname{width:80%;}
