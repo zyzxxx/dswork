@@ -18,7 +18,7 @@ tr.list td {text-align:left;padding-left:1px;}
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getFlow.htm?categoryid=${fn:escapeXml(param.categoryid)}";
 }};
-$dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
+$dswork.deleteRow = function(obj){$(obj).parent().parent().remove();};
 </script>
 </head>
 <body>
