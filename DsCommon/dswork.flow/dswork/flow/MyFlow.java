@@ -161,7 +161,7 @@ public class MyFlow
 			Map<String, String> map = new LinkedHashMap<String, String>();
 			for(int i = 0; i < list.size(); i++)
 			{
-				MyLine line = lines.get(i);
+				MyLine line = list.get(i);
 				if(map.get(line.getForks()) == null)
 				{
 					map.put(line.getForks(), line.getTo().getAlias());

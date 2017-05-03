@@ -29,7 +29,7 @@ public class DsCommonFlowController extends BaseController
 	@RequestMapping("/addFlow1")
 	public String addFlow1()
 	{
-		return "/common/flow/addFlow.jsp";
+		return "/common/flow/addFlowXML.jsp";
 	}
 
 	@RequestMapping("/addFlow2")
@@ -49,7 +49,7 @@ public class DsCommonFlowController extends BaseController
 					if(!service.isExistsByAlias(po.getAlias()))
 					{
 						List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
-						if(po.getFlowxml().length() < 47)
+						if(po.getFlowxml().length() < 50)
 						{
 							String[] taliasArr = req.getStringArray("talias");
 							String[] tnameArr = req.getStringArray("tname");
@@ -132,7 +132,7 @@ public class DsCommonFlowController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.getFlow(id));
-		return "/common/flow/updFlow.jsp";
+		return "/common/flow/updFlowXML.jsp";
 	}
 
 	@RequestMapping("/updFlow2")
@@ -141,7 +141,7 @@ public class DsCommonFlowController extends BaseController
 		try
 		{
 			List<DsCommonFlowTask> taskList = new ArrayList<DsCommonFlowTask>();
-			if(po.getFlowxml().length() < 47)
+			if(po.getFlowxml().length() < 50)
 			{
 				String[] taliasArr = req.getStringArray("talias");
 				String[] tnameArr = req.getStringArray("tname");

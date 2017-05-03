@@ -265,16 +265,19 @@ $(function(){
 		}
 		$dswork.flow.set(null);
 	});
-	$("#btn_submit").click(function(){
+	$("#btn_check").click(function(){
 		$dswork.flow.set(null);
-		if($dswork.flow.check($dswork.flow.p.flow)){
+		var msg = $dswork.flow.check($dswork.flow.p.flow);
+		if(msg == ""){
 			console.log($dswork.flow.p.flow.toXml(true));
+		}else{
+			alert(msg);
 		}
 	});
 	
 
-	var flow = $dswork.flow.parse(document.getElementById("flowxml").innerHTML);
-	document.getElementById("svg1").appendChild(flow.toDom());
+	var flow = $dswork.flow.parse(document.getElementById("myFlowXML").innerHTML);
+	document.getElementById("myFlowSVG").appendChild(flow.toDom());
 	flow.left = $(flow.dom).offset().left;
 	flow.top = $(flow.dom).offset().top;
 	$f.line.flow = $f.p.flow = flow;

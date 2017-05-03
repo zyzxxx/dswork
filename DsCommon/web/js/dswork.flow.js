@@ -145,17 +145,23 @@ $dswork.flow.MyFlow.prototype = {
 		var nt = "", n = "";
 		if(prettyPrint){nt = "\n\t";n = "\n";};
 		var s = '<flow>';
+		var endTask = null;
 		for(var i = 0; i < e.tasks.length; i++){
-			var x = "";
-			for(var j = 0; j < e.lines.length; j++){
-				if(e.lines[j].from.alias == e.tasks[i].alias){
-					x += nt + e.lines[j].toXml();
-				}
+			if("end" == e.tasks[i].alias){
+				endTask = e.tasks[i];
 			}
-			x += n;
-			s += n + e.tasks[i].toXml(x);
+			else{
+				var x = "";
+				for(var j = 0; j < e.lines.length; j++){
+					if(e.lines[j].from.alias == e.tasks[i].alias){
+						x += nt + e.lines[j].toXml();
+					}
+				}
+				x += n;
+				s += n + e.tasks[i].toXml(x);
+			}
 		}
-		s += n + '</flow>';
+		s += n + (endTask!=null?endTask.toXml('')+n:'') + '</flow>';
 		return s;
 	}
 	,toDom:function(){
