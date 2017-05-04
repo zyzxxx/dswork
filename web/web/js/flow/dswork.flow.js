@@ -63,7 +63,7 @@ $dswork.flow.MyLine.prototype = {
 		var p = _lineInfo(e.from, e.to, e.points, 3);
 		return '<polyline fill="#ffffff" fill-opacity="0" stroke="#'+e.color+'" stroke-width="3" points="'+_pointsToString(p.points)+'"></polyline>'
 		+'<polygon fill="#'+e.color+'" points="'+_pointsToString(p.arrows)+'"></polygon>'
-		+("svg"!=xx && e.forks!=''?'<text font-size="14" x="'+(p.points[p.points.length-1].x-20)+'" y="'+p.points[p.points.length-1].y+'" dy="4">['+e.forks+']</text>':'');
+		+("svg"!=xx && e.forks!=''?'<text font-size="14" x="'+p.labelXY.x+'" y="'+p.labelXY.y+'" dy="4">['+e.forks+']</text>':'');
 	}
 	,redraw:function(){var e = this;e.dom.innerHTML = e.innerHTML();}
 	,selected:function(){this.color = $LL;this.redraw();}
@@ -339,6 +339,12 @@ function __crossPoint(node, point){
 		x = Math.ceil(c.x + mw);
 		y = Math.ceil(c.y + mh);
 	}
+	// 从交点转为侧边中心点
+//	if(node.x == x || node.x == x - node.width){
+//		y = node.y+node.height/2;
+//	}else if(node.y == y || node.y == y - node.height){
+//		x = node.x+node.width/2;
+//	}
 	return new $dswork.flow.MyPoint(x, y);
 }
 // 根据两个点画箭头
@@ -376,6 +382,7 @@ function __arrow(start, end, strokeWidth){
 }
 // 计算两个任务节点（如果存在）和线的交点并为线增加交点坐标
 function _lineInfo(from, to, points, strokeWidth){
+	//计算线的路径
 	var arr = [];
 	if(points.length == 0){
 		if(from != null && to != null){
@@ -391,7 +398,17 @@ function _lineInfo(from, to, points, strokeWidth){
 		rs = __arrow(arr[arr.length-2], arr[arr.length-1], strokeWidth);
 		arr[arr.length - 1] = rs[3];
 	}
-	return {points:arr, arrows:rs};
+	//计算label位置
+	var labelXY = null;
+	if(arr.length % 2 == 1){
+		var p = arr[(arr.length - 1) / 2];
+		labelXY = new $dswork.flow.MyPoint(p.x, p.y);
+	}else{
+		var p1 = arr[(arr.length - 2) / 2];
+		var p2 = arr[(arr.length) / 2];
+		labelXY = new $dswork.flow.MyPoint(parseInt((p1.x + p2.x) / 2), parseInt((p1.y + p2.y) / 2))
+	}
+	return {points:arr, arrows:rs, labelXY:labelXY};
 }
 
 
