@@ -74,36 +74,33 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <input type="hidden" id="flowxml" name="flowxml" value="" />
 </form>
 <div class="line"></div>
-<div style="margin:0 auto;width:99%;text-align:left;height:68px;border:1px solid #999;">
-	<div style="float:left;width:72px;height:68px;padding:0 3px;">
-		<div style="float:left;width:72px;padding:8px 0 0 0;">
+<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr>
+		<td class="form_input" style="width:68px;padding:3px;">
 			<input id="btn_edit" type="button" class="button" style="padding:14px 10px;" style="display:none;" value="取消绘线" 
 			/><input id="btn_line" type="button" class="button" style="padding:14px 10px;" value="绘制线路" />
-		</div>
-	</div>
-	<div style="float:left;width:550px;height:68px;padding:0 3px;border-left:1px solid #999;">
-		<div style="float:left;width:385px;padding:8px 0 0 0;">
-			<div style="margin-bottom:5px;">
-				标识：<input id="txt_alias" type="text" class="text" style="width:116px;" value="" />&nbsp;
-				用户：<input id="txt_users" type="text" class="text" style="width:180px;" value="" />
+		</td>
+		<td class="form_input" style="width:438px;padding:3px 0 3px 3px;">
+			<div style="float:left;width:365px;">
+				<div style="margin-bottom:5px;">
+					标识 <input id="txt_alias" type="text" class="text" style="width:108px;" value="" />&nbsp;&nbsp;
+					用户 <input id="txt_users" type="text" class="text" style="width:180px;" value="" />
+				</div>
+				<div>
+					合并 <input id="txt_count" type="number" min="1" max="100" step="1" class="text" style="width:72px;" value="" />个任务&nbsp;&nbsp;
+					名称 <input id="txt_name" type="text" class="text" style="width:180px;" value="" />
+				</div>
 			</div>
-			<div>
-				合并：<input id="txt_count" type="number" min="1" max="100" step="1" class="text" style="width:80px;" value="" />个任务&nbsp;
-				名称：<input id="txt_name" type="text" class="text" style="width:180px;" value="" />
+			<div style="float:left;width:68px;padding:3px 0;">
+				<input id="btn_save" type="button" class="button" style="padding:14px 10px;" value="增改任务" />
 			</div>
-		</div>
-		<div style="float:left;width:80px;padding:8px 0 0 0;">
-			<input id="btn_save" type="button" class="button" value="增改任务" />
-			<div style="padding:6px 0 0 0;">
-				<input id="btn_delete" type="button" class="button" value="不可操作" />
-			</div>
-		</div>
-		<div style="float:left;width:72px;padding:8px 0;">
-			<div style="margin-bottom:5px;">
-				<input id="btn_check" type="button" class="button" value="校验流程" />
-			</div>
-			<div>
-				<select id="txt_forks"><option value="">默认分支</option>
+		</td>
+		<td class="form_input" style="width:68px;padding:3px;">
+			<input id="btn_delete" type="button" class="button" style="padding:14px 10px;" value="不可操作" />
+		</td>
+		<td class="form_input" style="width:78px;padding:3px;">
+			流程分支设置
+			<select id="txt_forks"><option value="">默认分支</option>
 				<option value="A">分支组A</option>
 				<option value="B">分支组B</option>
 				<option value="C">分支组C</option>
@@ -111,12 +108,16 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 				<option value="E">分支组E</option>
 				<option value="F">分支组F</option>
 				<option value="G">分支组G</option>
-				</select>
-			</div>
-		</div>
-	</div>
-	<div class="clearfix"></div>
-</div>
+			</select>
+		</td>
+		<td class="form_input">
+			&nbsp;
+		</td>
+		<td class="form_input" style="width:68px;padding:3px;">
+			<input id="btn_check" type="button" class="button" style="padding:14px 10px;" value="校验流程" />
+		</td>
+	</tr>
+</table>
 <div id="myFlowSVG"></div>
 <script type="text/xml" id="myFlowXML">
 <flow>
