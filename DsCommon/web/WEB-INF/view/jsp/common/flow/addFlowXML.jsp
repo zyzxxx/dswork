@@ -76,27 +76,27 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
-		<td class="form_input" style="width:68px;padding:3px;">
-			<input id="btn_edit" type="button" class="button" style="padding:14px 10px;" style="display:none;" value="取消绘线" 
-			/><input id="btn_line" type="button" class="button" style="padding:14px 10px;" value="绘制线路" />
+		<td class="form_input" style="width:60px;padding:3px;">
+			<input id="btn_edit" type="button" class="button" style="padding:14px 6px;" style="display:none;" value="取消绘线" 
+			/><input id="btn_line" type="button" class="button" style="padding:14px 6px;" value="绘制线路" />
 		</td>
-		<td class="form_input" style="width:438px;padding:3px 0 3px 3px;">
-			<div style="float:left;width:365px;">
+		<td class="form_input" style="width:475px;padding:3px 0;overflow:hidden;">
+			<div style="float:left;width:345px;">
 				<div style="margin-bottom:5px;">
-					标识 <input id="txt_alias" type="text" class="text" style="width:108px;" value="" />&nbsp;&nbsp;
-					用户 <input id="txt_users" type="text" class="text" style="width:180px;" value="" />
+					&nbsp;标识 <input id="txt_alias" type="text" class="text" style="width:108px;" value="" />
+					&nbsp;用户 <input id="txt_users" type="text" class="text" style="width:168px;" value="" />
 				</div>
 				<div>
-					合并 <input id="txt_count" type="number" min="1" max="100" step="1" class="text" style="width:72px;" value="" />个任务&nbsp;&nbsp;
-					名称 <input id="txt_name" type="text" class="text" style="width:180px;" value="" />
+					&nbsp;合并 <input id="txt_count" type="number" min="1" max="100" step="1" class="text" style="width:72px;" value="" />个任务
+					&nbsp;名称 <input id="txt_name" type="text" class="text" style="width:168px;" value="" />
 				</div>
 			</div>
-			<div style="float:left;width:68px;padding:3px 0;">
-				<input id="btn_save" type="button" class="button" style="padding:14px 10px;" value="增改任务" />
+			<div style="float:left;width:60px;padding:3px 0 3px 3px">
+				<input id="btn_save" type="button" class="button" style="padding:14px 6px;" value="增改任务" />
 			</div>
-		</td>
-		<td class="form_input" style="width:68px;padding:3px;">
-			<input id="btn_delete" type="button" class="button" style="padding:14px 10px;" value="不可操作" />
+			<div style="float:left;width:60px;padding:3px 0 3px 3px">
+				<input id="btn_delete" type="button" class="button" style="padding:14px 6px;" value="不可操作" />
+			</div>
 		</td>
 		<td class="form_input" style="width:78px;padding:3px;">
 			流程分支设置
@@ -110,11 +110,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 				<option value="G">分支组G</option>
 			</select>
 		</td>
-		<td class="form_input">
-			&nbsp;
-		</td>
-		<td class="form_input" style="width:68px;padding:3px;">
-			<input id="btn_check" type="button" class="button" style="padding:14px 10px;" value="校验流程" />
+		<td class="form_input" style="text-align:right;padding:3px;">
+			<input id="btn_check" type="button" class="button" style="padding:14px 6px;" value="校验流程" />
 		</td>
 	</tr>
 </table>
