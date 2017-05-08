@@ -9,6 +9,8 @@ public class IFlowPiData
 	private Long id = 0L;
 	// 流程实例ID
 	private Long piid = 0L;
+	// 上级任务(从哪过来的)
+	private String tprev = "";
 	// 任务标识
 	private String talias = "";
 	// 任务名称
@@ -44,6 +46,16 @@ public class IFlowPiData
 	public void setPiid(Long piid)
 	{
 		this.piid = piid;
+	}
+
+	public String getTprev()
+	{
+		return tprev;
+	}
+
+	public void setTprev(String tprev)
+	{
+		this.tprev = tprev;
 	}
 
 	public String getTalias()

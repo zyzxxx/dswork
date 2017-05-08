@@ -38,16 +38,21 @@
 	select ID, YWLSH, SBLSH, ALIAS, FLOWID, DEPLOYID, PIDAY, PIDAYTYPE, PISTART, PIEND, PIUPSTART, PIUPEND, STATUS, CACCOUNT, CNAME, PIALIAS
 	from DS_FLOW_PI where YWLSH=#{ywlsh}
 </select>
+<select id="queryFlowPiByPiid" resultMap="resultFlowPi">
+	select ID, YWLSH, SBLSH, ALIAS, FLOWID, DEPLOYID, PIDAY, PIDAYTYPE, PISTART, PIEND, PIUPSTART, PIUPEND, STATUS, CACCOUNT, CNAME, PIALIAS
+	from DS_FLOW_PI where ID=#{piid}
+</select>
 
 <insert id="insertFlowPiData" parameterType="dswork.common.model.IFlowPiData">
 	insert into DS_FLOW_PI_DATA
-	(ID, PIID, TALIAS, TNAME, STATUS, PACCOUNT, PNAME, PTIME, PTYPE, MEMO)
+	(ID, PIID, TPREV, TALIAS, TNAME, STATUS, PACCOUNT, PNAME, PTIME, PTYPE, MEMO)
 	values
-	(#{id}, #{piid}, #{talias}, #{tname}, #{status}, #{paccount}, #{pname}, #{ptime}, #{ptype}, #{memo})
+	(#{id}, #{piid}, #{tprev}, #{talias}, #{tname}, #{status}, #{paccount}, #{pname}, #{ptime}, #{ptype}, #{memo})
 </insert>
 <resultMap id="resultFlowPiData" type="dswork.common.model.IFlowPiData">
 	<id property="id" column="ID" />
 	<result property="piid" column="PIID" />
+	<result property="tprev" column="TPREV" />
 	<result property="talias" column="TALIAS" />
 	<result property="tname" column="TNAME" />
 	<result property="status" column="STATUS" />
@@ -58,20 +63,20 @@
 	<result property="memo" column="MEMO" />
 </resultMap>
 <select id="queryFlowPiData" resultMap="resultFlowPiData">
-	select ID, PIID, TALIAS, TNAME, STATUS, PACCOUNT, PNAME, PTIME, PTYPE, MEMO
+	select ID, PIID, TPREV, TALIAS, TNAME, STATUS, PACCOUNT, PNAME, PTIME, PTYPE, MEMO
 	from DS_FLOW_PI_DATA
 	where PIID=#{piid}
 </select>
 
 
 <sql id="sqlFlowWaiting">
-	ID, PIID, YWLSH, SBLSH, FLOWID, FLOWNAME, TALIAS, TNAME, TCOUNT, TNEXT, TSTART, TUSER, TUSERS, TMEMO, TINTERFACE
+	ID, PIID, YWLSH, SBLSH, FLOWID, FLOWNAME, TALIAS, TNAME, TCOUNT, TPREV, TNEXT, TSTART, TUSER, TUSERS, TMEMO, TINTERFACE
 </sql>
 <insert id="insertFlowWaiting" parameterType="dswork.common.model.IFlowWaiting">
 	insert into DS_FLOW_PI_WAITING
 	(<include refid="sqlFlowWaiting" />)
 	values
-	(#{id}, #{piid}, #{ywlsh}, #{sblsh}, #{flowid}, #{flowname}, #{talias}, #{tname}, #{tcount}, #{tnext}, #{tstart},
+	(#{id}, #{piid}, #{ywlsh}, #{sblsh}, #{flowid}, #{flowname}, #{talias}, #{tname}, #{tcount}, #{tprev}, #{tnext}, #{tstart},
 		<if test="@Ognl@isEmpty(tuser)">null</if><if test="@Ognl@isNotEmpty(tuser)">#{tuser}</if>,
 		<if test="@Ognl@isEmpty(tusers)">null</if><if test="@Ognl@isNotEmpty(tusers)">#{tusers}</if>,
 		#{tmemo}, #{tinterface})
@@ -99,6 +104,7 @@
 	<result property="talias" column="TALIAS" />
 	<result property="tname" column="TNAME" />
 	<result property="tcount" column="TCOUNT" />
+	<result property="tprev" column="TPREV" />
 	<result property="tnext" column="TNEXT" />
 	<result property="tstart" column="TSTART" />
 	<result property="tuser" column="TUSER" />

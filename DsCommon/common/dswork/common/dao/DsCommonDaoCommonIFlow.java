@@ -53,6 +53,11 @@ public class DsCommonDaoCommonIFlow extends MyBatisDao
 		IFlow flow = (IFlow) executeSelect("selectFlow", alias);
 		return flow;
 	}
+	protected IFlow getFlowById(long id)
+	{
+		IFlow flow = (IFlow) executeSelect("selectFlowById", id);
+		return flow;
+	}
 	protected IFlowTask getFlowTask(Long flowid, String talias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();

@@ -9,6 +9,7 @@ public class IFlow
 	private Long id = 0L;
 	private String deployid = "";
 	private String name = "";
+	private String flowxml = "";
 
 	public Long getId()
 	{
@@ -38,5 +39,15 @@ public class IFlow
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public String getFlowxml()
+	{
+		return flowxml;
+	}
+
+	public void setFlowxml(String flowxml)
+	{
+		this.flowxml = flowxml;
 	}
 }

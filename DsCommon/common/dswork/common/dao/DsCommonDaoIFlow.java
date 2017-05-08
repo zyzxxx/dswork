@@ -24,31 +24,37 @@ import dswork.core.util.UniqueId;
 public class DsCommonDaoIFlow extends MyBatisDao
 {
 	// 此处这样写法是为了让流程的管理可成独立项目运行，不在同一数据库中
-	//#############################################################
+	// #############################################################
 	@Autowired
 	private DsCommonDaoCommonIFlow daoCommon;
+
 	private IFlowTask getFlowTask(Long flowid, String talias)
 	{
 		return daoCommon.getFlowTask(flowid, talias);
 	}
+
 	private IFlow getFlow(String alias)
 	{
 		return daoCommon.getFlow(alias);
 	}
 	
+	public IFlow getFlowById(long id)
+	{
+		return daoCommon.getFlowById(id);
+	}
+
 	public List<IFlowTask> queryFlowTask(Long flowid)
 	{
 		return daoCommon.queryFlowTask(flowid);
 	}
-	//#############################################################
-	
-	
-	
+	// #############################################################
+
 	@Override
 	protected Class getEntityClass()
 	{
 		return DsCommonDaoIFlow.class;
 	}
+
 	private void updateFlowPi(Long id, int status, String pialias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -61,18 +67,22 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		}
 		executeUpdate("updateFlowPi", map);
 	}
+
 	private void saveFlowWaiting(IFlowWaiting m)
 	{
 		executeInsert("insertFlowWaiting", m);
 	}
+
 	private void deleteFlowWaiting(Long id)
 	{
 		executeDelete("deleteFlowWaiting", id);
 	}
+
 	private void deleteFlowWaitingByPiid(Long piid)
 	{
 		executeDelete("deleteFlowWaitingByPiid", piid);
 	}
+
 	private void updateFlowWaiting(Long id, String tstart)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -80,6 +90,7 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		map.put("tstart", tstart);
 		executeUpdate("updateFlowWaiting", map);
 	}
+
 	private IFlowWaiting getFlowWaitingByPiid(Long piid, String talias)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -87,11 +98,26 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		map.put("talias", talias);
 		return (IFlowWaiting) executeSelect("selectFlowWaitingByPiid", map);
 	}
+
+	public List<IFlowWaiting> queryFlowWaitingByPiid(Long piid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("piid", piid);
+		return executeSelectList("selectFlowWaitingByPiid", map);
+	}
+
 	private List<String> queryFlowWaitingTalias(Long piid)
 	{
 		return executeSelectList("queryFlowWaitingTalias", piid);
 	}
-	
+
+	public IFlowPi getFlowPiByPiid(String piid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("piid", piid);
+		return (IFlowPi) executeSelect("queryFlowPiByPiid", map);
+	}
+
 	public IFlowPi getFlowPi(String ywlsh)
 	{
 		List<IFlowPi> list = executeSelectList("queryFlowPi", ywlsh);
@@ -101,17 +127,17 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		}
 		return list.get(0);
 	}
-	
+
 	public List<IFlowPi> queryFlowPi(String ywlsh)
 	{
 		return executeSelectList("queryFlowPi", ywlsh);
 	}
-	
+
 	public List<IFlowPiData> queryFlowPiData(Long piid)
 	{
 		return executeSelectList("queryFlowPiData", piid);
 	}
-	
+
 	public void updateFlowWaitingUser(Long id, String tuser)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -119,18 +145,20 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		map.put("tuser", "," + tuser + ",");
 		executeUpdate("updateFlowWaitingUser", map);
 	}
+
 	public IFlowWaiting getFlowWaiting(Long id)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		return (IFlowWaiting) executeSelect("selectFlowWaiting", map);
 	}
+
 	public List<IFlowWaiting> queryFlowWaiting(String account)
 	{
 		return executeSelectList("queryFlowWaiting", "," + account + ",");
 	}
 
-	public IFlowWaiting saveFlowStart(String alias, String users, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting saveFlowStart(String alias, String users, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay)
 	{
 		String time = TimeUtil.getCurrentTime();
 		IFlow flow = this.getFlow(alias);
@@ -166,13 +194,13 @@ public class DsCommonDaoIFlow extends MyBatisDao
 			m.setSblsh(sblsh);
 			m.setFlowid(flowid);
 			m.setFlowname(flow.getName());
+			m.setTprev("");// 没有上级节点
 			m.setTalias(task.getTalias());// "start"
 			m.setTname(task.getTname());
 			m.setTcount(1);// task.getTcount()，start没有上级节点，不需要等待
 			m.setTnext(task.getTnext());
 			m.setTstart(time);
 			m.setTmemo(task.getTmemo());
-			m.setTinterface(taskInterface);
 			if(users != null)
 			{
 				if(users.split(",", -1).length > 1)
@@ -205,16 +233,16 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		return null;
 	}
 
-	public String saveStart(String alias, String users, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay, String taskInterface)
+	public String saveStart(String alias, String users, String ywlsh, String sblsh, String account, String name, int piDay, boolean isWorkDay)
 	{
-		IFlowWaiting w = saveFlowStart(alias, users, ywlsh, sblsh, account, name, piDay, isWorkDay, taskInterface);
+		IFlowWaiting w = saveFlowStart(alias, users, ywlsh, sblsh, account, name, piDay, isWorkDay);
 		if(w != null)
 		{
 			return String.valueOf(w.getPiid());
 		}
 		return "";
 	}
-	
+
 	public void saveStop(Long piid)
 	{
 		this.deleteFlowWaitingByPiid(piid);
@@ -230,6 +258,7 @@ public class DsCommonDaoIFlow extends MyBatisDao
 			IFlowPiData pd = new IFlowPiData();
 			pd.setId(UniqueId.genUniqueId());
 			pd.setPiid(m.getPiid());
+			pd.setTprev(m.getTprev());
 			pd.setTalias(m.getTalias());
 			pd.setTname(m.getTname());
 			pd.setStatus(0);// 状态(0已处理,1代办,2挂起,3取消挂起)
@@ -239,7 +268,6 @@ public class DsCommonDaoIFlow extends MyBatisDao
 			pd.setPtype(resultType);
 			pd.setMemo(resultMsg);
 			executeInsert("insertFlowPiData", pd);
-			
 			boolean isEnd = false;
 			if(nextTalias == null)
 			{
@@ -266,8 +294,7 @@ public class DsCommonDaoIFlow extends MyBatisDao
 						newm.setFlowid(m.getFlowid());
 						newm.setFlowname(m.getFlowname());
 						newm.setTstart(time);
-						newm.setTinterface(m.getTinterface());
-						
+						newm.setTprev(m.getTalias());
 						IFlowTask t = this.getFlowTask(m.getFlowid(), talias);
 						newm.setTalias(t.getTalias());
 						newm.setTname(t.getTname());

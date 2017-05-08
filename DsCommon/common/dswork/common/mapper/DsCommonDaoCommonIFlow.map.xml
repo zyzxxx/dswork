@@ -9,11 +9,15 @@
 	<id property="id" column="ID" />
 	<result property="deployid" column="DEPLOYID" />
 	<result property="name" column="NAME" />
+	<result property="flowxml" column="FLOWXML" />
 </resultMap>
 <select id="selectFlow" resultMap="resultFlow">
-	select f2.ID, f2.DEPLOYID, f2.NAME from DS_FLOW f1
+	select f2.ID, f2.DEPLOYID, f2.NAME, f2.FLOWXML from DS_FLOW f1
 	left join DS_FLOW f2 on f2.DEPLOYID=f1.DEPLOYID and f2.VNUM&gt;0
 	where f1.STATUS=1 and f1.VNUM=0 and f1.ALIAS=#{alias}
+</select>
+<select id="selectFlowById" resultMap="resultFlow">
+	select f2.ID, f2.DEPLOYID, f2.NAME, f2.FLOWXML from DS_FLOW f2 where f2.ID=#{id}
 </select>
 <resultMap id="resultFlowTask" type="dswork.common.model.IFlowTask">
 	<id property="id" column="ID" />

@@ -23,6 +23,8 @@ public class IFlowWaiting
 	private String tname = "";
 	// 合并任务个数(只有一个任务时等于1，其余大于1)
 	private Integer tcount = 0;
+	// 上级任务(从哪过来的)
+	private String tprev = "";
 	// 下级任务（以逗号分隔节点标识，以|线分隔分支任务）翻译成代码可理解为：[(可选1 || 可选2 || 可选3) && (可选A || 可选B)]
 	private String tnext = "";
 	// 任务开始时间
@@ -124,6 +126,16 @@ public class IFlowWaiting
 	public void setTcount(Integer tcount)
 	{
 		this.tcount = tcount;
+	}
+
+	public String getTprev()
+	{
+		return tprev;
+	}
+
+	public void setTprev(String tprev)
+	{
+		this.tprev = tprev;
 	}
 
 	public String getTnext()

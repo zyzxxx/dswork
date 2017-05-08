@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.common.dao.DsCommonDaoIFlow;
+import dswork.common.model.IFlow;
 import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowTask;
@@ -31,11 +32,11 @@ public class DsCommonIFlowService
 	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例ID
 	 */
-	public String start(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public String start(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay)
 	{
 		try
 		{
-			return dao.saveStart(alias, null, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+			return dao.saveStart(alias, null, ywlsh, sblsh, caccount, cname, piDay, isWorkDay);
 		}
 		catch(Exception e)
 		{
@@ -57,11 +58,11 @@ public class DsCommonIFlowService
 	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例ID
 	 */
-	public String start(String alias, String users, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public String start(String alias, String users, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay)
 	{
 		try
 		{
-			return dao.saveStart(alias, users, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+			return dao.saveStart(alias, users, ywlsh, sblsh, caccount, cname, piDay, isWorkDay);
 		}
 		catch(Exception e)
 		{
@@ -81,9 +82,9 @@ public class DsCommonIFlowService
 	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例的start待办信息或null
 	 */
-	public IFlowWaiting startFlow(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting startFlow(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay)
 	{
-		return dao.saveFlowStart(alias, null, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+		return dao.saveFlowStart(alias, null, ywlsh, sblsh, caccount, cname, piDay, isWorkDay);
 	}
 
 	/**
@@ -98,9 +99,9 @@ public class DsCommonIFlowService
 	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例的start待办信息或null
 	 */
-	public IFlowWaiting startFlow(String alias, String users, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting startFlow(String alias, String users, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay)
 	{
-		return dao.saveFlowStart(alias, users, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+		return dao.saveFlowStart(alias, users, ywlsh, sblsh, caccount, cname, piDay, isWorkDay);
 	}
 	
 	public void stop(String piid)
@@ -173,6 +174,16 @@ public class DsCommonIFlowService
 		return map;
 	}
 
+	public IFlow getFlowById(long flowid)
+	{
+		return dao.getFlowById(flowid);
+	}
+
+	public IFlowPi getFlowPiByPiid(String piid)
+	{
+		return dao.getFlowPiByPiid(piid);
+	}
+
 	public List<IFlowPi> queryFlowPi(String ywlsh)
 	{
 		return dao.queryFlowPi(ywlsh);
@@ -186,5 +197,9 @@ public class DsCommonIFlowService
 	public List<IFlowPiData> queryFlowPiData(String piid)
 	{
 		return dao.queryFlowPiData(Long.parseLong(piid));
+	}
+	public List<IFlowWaiting> queryFlowWaitingByPiid(String piid)
+	{
+		return dao.queryFlowWaitingByPiid(Long.parseLong(piid));
 	}
 }

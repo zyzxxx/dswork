@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import dswork.common.dao.DsCommonDaoIFlow;
+import dswork.common.model.IFlow;
 import dswork.common.model.IFlowPi;
 import dswork.common.model.IFlowPiData;
 import dswork.common.model.IFlowTask;
@@ -32,16 +33,14 @@ public class DsCommonIFlowUtil
 	 * @param cname 提交人姓名
 	 * @param piDay 时限天数
 	 * @param isWorkDay 时限天数类型(false日历日,true工作日)
-	 * 
-	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例ID
 	 */
-	public String start(String alias, String users, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public String start(String alias, String users, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay)
 	{
 		try
 		{
 			init();
-			return dao.saveStart(alias, users, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+			return dao.saveStart(alias, users, ywlsh, sblsh, caccount, cname, piDay, isWorkDay);
 		}
 		catch(Exception e)
 		{
@@ -58,13 +57,11 @@ public class DsCommonIFlowUtil
 	 * @param cname 提交人姓名
 	 * @param piDay 时限天数
 	 * @param isWorkDay 时限天数类型(false日历日,true工作日)
-	 * 
-	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例ID
 	 */
-	public String start(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public String start(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay)
 	{
-		return start(alias, null, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+		return start(alias, null, ywlsh, sblsh, caccount, cname, piDay, isWorkDay);
 	}
 
 	/**
@@ -76,15 +73,14 @@ public class DsCommonIFlowUtil
 	 * @param cname 提交人姓名
 	 * @param piDay 时限天数
 	 * @param isWorkDay 时限天数类型(false日历日,true工作日)
-	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例的start待办信息或null
 	 */
-	public IFlowWaiting startFlow(String alias, String users, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting startFlow(String alias, String users, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay)
 	{
 		try
 		{
 			init();
-			return dao.saveFlowStart(alias, users, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+			return dao.saveFlowStart(alias, users, ywlsh, sblsh, caccount, cname, piDay, isWorkDay);
 		}
 		catch(Exception e)
 		{
@@ -101,12 +97,11 @@ public class DsCommonIFlowUtil
 	 * @param cname 提交人姓名
 	 * @param piDay 时限天数
 	 * @param isWorkDay 时限天数类型(false日历日,true工作日)
-	 * @param taskInterface 接口类（暂时无用）
 	 * @return 流程实例的start待办信息或null
 	 */
-	public IFlowWaiting startFlow(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay, String taskInterface)
+	public IFlowWaiting startFlow(String alias, String ywlsh, String sblsh, String caccount, String cname, int piDay, boolean isWorkDay)
 	{
-		return startFlow(alias, null, ywlsh, sblsh, caccount, cname, piDay, isWorkDay, taskInterface);
+		return startFlow(alias, null, ywlsh, sblsh, caccount, cname, piDay, isWorkDay);
 	}
 	
 	public void stop(String piid)
@@ -231,6 +226,34 @@ public class DsCommonIFlowUtil
 		return map;
 	}
 
+	public IFlow getFlowById(long flowid)
+	{
+		try
+		{
+			init();
+			return dao.getFlowById(flowid);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public IFlowPi getFlowPiByPiid(String piid)
+	{
+		try
+		{
+			init();
+			return dao.getFlowPiByPiid(piid);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public List<IFlowPi> queryFlowPi(String ywlsh)
 	{
 		try
@@ -265,6 +288,19 @@ public class DsCommonIFlowUtil
 		{
 			init();
 			return dao.queryFlowPiData(Long.parseLong(piid));
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	public List<IFlowWaiting> queryFlowWaitingByPiid(String piid)
+	{
+		try
+		{
+			init();
+			return dao.queryFlowWaitingByPiid(Long.parseLong(piid));
 		}
 		catch(Exception e)
 		{
