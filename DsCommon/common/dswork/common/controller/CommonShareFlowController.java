@@ -78,7 +78,10 @@ public class CommonShareFlowController
 								{
 									n.getFrom().setColor("0055AA");
 								}
-								n.getTo().setColor("0055AA");
+								if(!n.getTo().getAlias().equals("end"))
+								{
+									n.getFrom().setColor("0055AA");
+								}
 							}
 						}
 					}
