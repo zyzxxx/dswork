@@ -40,7 +40,7 @@ public class CommonShareFlowController
 				{
 					dswork.flow.MyFlow flow = new dswork.flow.MyFlow(f.getFlowxml());
 					//flow.prettyPrint(false);
-					response.getWriter().print(flow.toSvg());
+					response.getWriter().print("<html><head><meta charset=\"UTF-8\"/></head><body>"+flow.toSvg()+"</body></html>");
 				}
 			}
 		}
@@ -65,9 +65,8 @@ public class CommonShareFlowController
 				if(f.getFlowxml() != null && f.getFlowxml().length() > 50)
 				{
 					dswork.flow.MyFlow flow = new dswork.flow.MyFlow(f.getFlowxml());
-					java.util.List<IFlowPiData> doneList = service.queryFlowPiData(piid+"");
-					java.util.List<IFlowWaiting> doingList = service.queryFlowWaitingByPiid(piid+"");
 					java.util.List<dswork.flow.dom.MyLine> lineList = flow.getLines();
+					java.util.List<IFlowPiData> doneList = service.queryFlowPiData(piid+"");
 					for(IFlowPiData m : doneList)
 					{
 						for(dswork.flow.dom.MyLine n : lineList)
@@ -75,23 +74,30 @@ public class CommonShareFlowController
 							if(n.getFrom().getAlias().equals(m.getTprev()) && n.getTo().getAlias().equals(m.getTalias()))
 							{
 								n.setColor("0055AA");
-								n.getFrom().setColor("0055AA");
+								if(!n.getFrom().getAlias().equals("start"))
+								{
+									n.getFrom().setColor("0055AA");
+								}
 								n.getTo().setColor("0055AA");
 							}
 						}
 					}
-					for(IFlowWaiting m : doingList)
+					if(pi.getStatus() != 0)
 					{
-						for(dswork.flow.dom.MyLine n : lineList)
+						java.util.List<IFlowWaiting> doingList = service.queryFlowWaitingByPiid(piid+"");
+						for(IFlowWaiting m : doingList)
 						{
-							if(n.getFrom().getAlias().equals(m.getTprev()) && n.getTo().getAlias().equals(m.getTalias()))
+							for(dswork.flow.dom.MyLine n : lineList)
 							{
-								n.setColor("FF0000");// 当前的，变亮
-								n.getTo().setColor("FF0000");// 当前的，变亮
+								if(n.getFrom().getAlias().equals(m.getTprev()) && n.getTo().getAlias().equals(m.getTalias()))
+								{
+									n.setColor("FF0000");// 当前的，变亮
+									n.getTo().setColor("FF0000");// 当前的，变亮
+								}
 							}
 						}
 					}
-					response.getWriter().print(flow.toSvg());
+					response.getWriter().print("<html><head></head><meta charset=\"UTF-8\"/><body>"+flow.toSvg()+"</body></html>");
 				}
 			}
 		}

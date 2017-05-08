@@ -341,6 +341,21 @@ public class DsCommonDaoIFlow extends MyBatisDao
 			{
 				this.deleteFlowWaitingByPiid(m.getPiid());// 已经结束，清空所有待办事项
 				this.updateFlowPi(m.getPiid(), 0, "");// 结束
+
+				// 记录最后一步流向
+				IFlowPiData pdEnd = new IFlowPiData();
+				pdEnd.setId(UniqueId.genUniqueId());
+				pdEnd.setPiid(m.getPiid());
+				pdEnd.setTprev(m.getTalias());
+				pdEnd.setTalias("end");
+				pdEnd.setTname(m.getTname());
+				pdEnd.setStatus(0);// 状态(0已处理,1代办,2挂起,3取消挂起)
+				pdEnd.setPaccount(account);
+				pdEnd.setPname(name);
+				pdEnd.setPtime(time);
+				pdEnd.setPtype(resultType);
+				pdEnd.setMemo(resultMsg);
+				executeInsert("insertFlowPiData", pdEnd);
 			}
 			else
 			{
