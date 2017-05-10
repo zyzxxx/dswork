@@ -74,7 +74,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_input" style="width:60px;padding:3px;">
-			<input id="btn_edit" type="button" class="button" style="padding:14px 6px;" style="display:none;" value="取消绘线" 
+			<input id="btn_edit" type="button" class="button" style="padding:14px 6px;display:none;" value="取消绘线" 
 			/><input id="btn_line" type="button" class="button" style="padding:14px 6px;" value="绘制线路" />
 		</td>
 		<td class="form_input" style="width:475px;padding:3px 0;overflow:hidden;">
@@ -112,7 +112,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		</td>
 	</tr>
 </table>
-<div id="myFlowSVG"></div>
+<div id="myFlowSVG" style="clear:both;"></div>
 <script type="text/xml" id="myFlowXML">
 <c:if test="${po.flowxml == ''}">
 <flow>
