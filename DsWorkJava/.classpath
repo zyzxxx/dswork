@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="dswork.test"/>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="dswork.analyzer"/>
 	<classpathentry kind="src" path="dswork.config"/>
-	<classpathentry excluding="dswork/core/upload/jspsmart/" kind="src" path="dswork.core"/>
+	<classpathentry kind="src" path="dswork.core"/>
+	<classpathentry kind="src" path="dswork.cs"/>
+	<classpathentry kind="src" path="dswork.flow"/>
+	<classpathentry kind="src" path="dswork.html"/>
 	<classpathentry kind="src" path="dswork.http"/>
 	<classpathentry kind="src" path="dswork.jdbc"/>
 	<classpathentry kind="src" path="dswork.mvc"/>
@@ -11,10 +16,7 @@
 	<classpathentry kind="src" path="dswork.spring"/>
 	<classpathentry kind="src" path="dswork.web"/>
 	<classpathentry kind="src" path="dswork.webio"/>
-	<classpathentry kind="src" path="dswork.cs"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
-	<classpathentry kind="src" path="dswork.analyzer"/>
-	<classpathentry kind="src" path="dswork.html"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -35,7 +37,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="src" path="dswork.test"/>
 	<classpathentry kind="lib" path="/Lib/module/lucene/lucene-core-5.5.3.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
