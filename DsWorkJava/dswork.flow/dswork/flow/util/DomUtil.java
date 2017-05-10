@@ -1,7 +1,6 @@
 package dswork.flow.util;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,7 +12,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import dswork.flow.dom.MyLine;
 import dswork.flow.dom.MyNode;
@@ -61,23 +59,15 @@ public class DomUtil
 	private Map<String, MyNode> taskMap = new HashMap<String, MyNode>();
 	private Map<MyLine, String> toMap = new HashMap<MyLine, String>();
 	
-	public DomUtil(String xmlString)
+	public DomUtil(String xmlString) throws Exception
 	{
 		try
 		{
 			parseFlow((Element)parseBuilder().parse(new ByteArrayInputStream(xmlString.getBytes("UTF-8"))).getElementsByTagName("flow").item(0));
 		}
-		catch(SAXException e)
+		catch(Exception e)
 		{
-			e.printStackTrace();
-		}
-		catch(IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch(ParserConfigurationException e)
-		{
-			e.printStackTrace();
+			throw e;
 		}
 	}
 	

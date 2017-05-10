@@ -19,7 +19,7 @@ public class MyFlow
 	private int height = 0;
 	private boolean prettyPrint = false;
 	
-	public MyFlow(String xmlString)
+	public MyFlow(String xmlString) throws Exception
 	{
 		DomUtil util = new DomUtil(xmlString);
 		this.tasks = util.getTasks();
