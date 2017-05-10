@@ -83,11 +83,12 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		executeDelete("deleteFlowWaitingByPiid", piid);
 	}
 
-	private void updateFlowWaiting(Long id, String tstart)
+	private void updateFlowWaiting(Long id, String tstart, String tprev)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("tstart", tstart);
+		map.put("tprev", tprev);
 		executeUpdate("updateFlowWaiting", map);
 	}
 
@@ -282,7 +283,7 @@ public class DsCommonDaoIFlow extends MyBatisDao
 					IFlowWaiting w = this.getFlowWaitingByPiid(m.getPiid(), talias);
 					if(w != null && w.getId().longValue() != 0)
 					{
-						this.updateFlowWaiting(w.getId(), time);// 等待数减1
+						this.updateFlowWaiting(w.getId(), time, w.getTprev() + "," + m.getTalias());// 等待数减1, 上经节点增加一个
 					}
 					else
 					{

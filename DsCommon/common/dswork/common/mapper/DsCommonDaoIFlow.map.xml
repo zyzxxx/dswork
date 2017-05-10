@@ -88,7 +88,7 @@
 	delete from DS_FLOW_PI_WAITING where PIID=#{piid}
 </delete>
 <update id="updateFlowWaiting">
-	update DS_FLOW_PI_WAITING set TCOUNT=TCOUNT-1, TSTART=#{tstart}
+	update DS_FLOW_PI_WAITING set TCOUNT=TCOUNT-1, TSTART=#{tstart}, TPRVE=#{tprev}
 	where ID=#{id} and TCOUNT&gt;1
 </update>
 <update id="updateFlowWaitingUser">

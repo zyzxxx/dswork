@@ -71,16 +71,20 @@ public class CommonShareFlowController
 					{
 						for(dswork.flow.dom.MyLine n : lineList)
 						{
-							if(n.getFrom().getAlias().equals(m.getTprev()) && n.getTo().getAlias().equals(m.getTalias()))
+							String[] prevArray = m.getTprev().split(",", -1);
+							for(String prev : prevArray)
 							{
-								n.setColor("0055AA");
-								if(!n.getFrom().getAlias().equals("start"))
+								if(n.getFrom().getAlias().equals(prev) && n.getTo().getAlias().equals(m.getTalias()))
 								{
-									n.getFrom().setColor("0055AA");
-								}
-								if(!n.getTo().getAlias().equals("end"))
-								{
-									n.getFrom().setColor("0055AA");
+									n.setColor("0055AA");
+									if(!n.getFrom().getAlias().equals("start"))
+									{
+										n.getFrom().setColor("0055AA");
+									}
+									if(!n.getTo().getAlias().equals("end"))
+									{
+										n.getTo().setColor("0055AA");
+									}
 								}
 							}
 						}
@@ -92,10 +96,14 @@ public class CommonShareFlowController
 						{
 							for(dswork.flow.dom.MyLine n : lineList)
 							{
-								if(n.getFrom().getAlias().equals(m.getTprev()) && n.getTo().getAlias().equals(m.getTalias()))
+								String[] prevArray = m.getTprev().split(",", -1);
+								for(String prev : prevArray)
 								{
-									n.setColor("FF0000");// 当前的，变亮
-									n.getTo().setColor("FF0000");// 当前的，变亮
+									if(n.getFrom().getAlias().equals(prev) && n.getTo().getAlias().equals(m.getTalias()))
+									{
+										n.setColor("FF0000");// 当前的，变亮
+										n.getTo().setColor("FF0000");// 当前的，变亮
+									}
 								}
 							}
 						}
