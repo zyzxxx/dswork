@@ -161,7 +161,10 @@ $f.initEventFlow = function(dom){
 					if($f.p.o instanceof $dswork.flow.MyPoint){if($f.p.o.line != null){$f.p.o.line.redraw();}}
 				}
 			}else if($f.p.state == $f.p.LINE){
-				var now = new $f.MyPoint(event.clientX-$f.p.flow.left, event.clientY-$f.p.flow.top);
+				var scrollTop = window.pageYOffset||document.documentElement.scrollTop||document.body.scrollTop||0;
+				var scrollLeft = window.pageXOffset||document.documentElement.scrollLeft||document.body.scrollLeft||0;
+				var now = new $f.MyPoint(event.clientX-$f.p.flow.left+scrollLeft, event.clientY-$f.p.flow.top+scrollTop);
+				if(now.x<0){now.x=0;}if(now.y<0){now.y=0;}
 				var to = $f.line.to;
 				if(to != null){// 判断是否还在to里面，比如刚刚从to里面出来
 					if(now.x >= to.x && now.y >= to.y && now.x-to.x<=to.width && now.y-to.y<=to.height){$f.line.points = [];}
@@ -269,7 +272,7 @@ $(function(){
 		$dswork.flow.set(null);
 		var msg = $dswork.flow.check($dswork.flow.p.flow);
 		if(msg == ""){
-			console.log($dswork.flow.p.flow.toXml(true));
+			try{console.log($dswork.flow.p.flow.toXml(true));}catch(ex){}
 		}else{
 			alert(msg);
 		}
@@ -278,10 +281,12 @@ $(function(){
 
 	var flow = $dswork.flow.parse(document.getElementById("myFlowXML").innerHTML);
 	document.getElementById("myFlowSVG").appendChild(flow.toDom());
-	flow.left = $(flow.dom).offset().left;
-	flow.top = $(flow.dom).offset().top;
+	flow.left = $(flow.dom).position().left;
+	flow.top = $(flow.dom).position().top;
 	$f.line.flow = $f.p.flow = flow;
 	$("#btn_edit").click();
+	flow.left = $(flow.dom).position().left;
+	flow.top = $(flow.dom).position().top;
 });
 
 
