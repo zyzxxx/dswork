@@ -35,6 +35,16 @@ public class DsCmsPageController extends BaseController
 	{
 		return request.getSession().getServletContext().getRealPath("/") + "/";
 	}
+	
+	private String getLocalAddr()
+	{
+		String addr = request.getLocalAddr();
+		if(addr != null && addr.indexOf(":") != -1)
+		{
+			addr = "[" + addr + "]";
+		}
+		return addr;
+	}
 
 	// 添加
 	@RequestMapping("/addPage1")
@@ -382,7 +392,7 @@ public class DsCmsPageController extends BaseController
 				}
 				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 				{
-					String path = "http://" + request.getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
+					String path = "http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
 					//首页：categoryid==-1，pageid==-1
 					//全部栏目：categoryid==0，pageid==-1
 					//指定栏目：categoryid>0，pageid==-1
