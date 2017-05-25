@@ -8,14 +8,14 @@ import java.sql.SQLException;
 import org.apache.ibatis.type.JdbcType;
 
 @SuppressWarnings("all")
-public class LikeTypeHandler extends org.apache.ibatis.type.BaseTypeHandler
+public class LikePrefixTypeHandler extends org.apache.ibatis.type.BaseTypeHandler
 {
 	static final String like = "%";
 
 	@Override
 	public void setNonNullParameter(PreparedStatement ps, int i, Object parameter, JdbcType jdbcType) throws SQLException
 	{
-		ps.setString(i, like + parameter + like);
+		ps.setString(i, parameter + like);
 	}
 
 	@Override
