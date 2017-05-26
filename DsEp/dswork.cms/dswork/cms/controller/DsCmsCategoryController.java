@@ -160,7 +160,7 @@ public class DsCmsCategoryController extends BaseController
 						return;
 					}
 				}
-				if(po.getStatus() != 2)
+				if(m.getStatus() != 2)
 				{
 					po.setUrl("/a/" + po.getFolder() + "/index.html");
 				}
