@@ -1,3 +1,5 @@
+INSERT INTO DS_COMMON_DICT(ID, NAME, LABEL, STATUS, SEQ) VALUES ('2','GMJJHY','国民经济行业','1','2');
+
 insert into DS_COMMON_DICT_DATA(ID, PID, NAME, LABEL, ALIAS, STATUS, SEQ, MEMO) values (6500000, null,    'GMJJHY', '农、林、牧、渔业', 'A0000', 1, 0, '本门类包括01～05大类');
 insert into DS_COMMON_DICT_DATA(ID, PID, NAME, LABEL, ALIAS, STATUS, SEQ, MEMO) values (6500001, 6500000, 'GMJJHY', '农业', 'A0100', 1, 1, '指对各种农作物的种植');
 insert into DS_COMMON_DICT_DATA(ID, PID, NAME, LABEL, ALIAS, STATUS, SEQ, MEMO) values (6500011, 6500001, 'GMJJHY', '谷物种植', 'A0110', 1, 11, '指以收获籽实为主，供人类食用的农作物的种植，如稻谷、小麦、玉米等农作物的种植');
