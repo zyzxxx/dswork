@@ -3,7 +3,7 @@ INSERT INTO ds_ep_user (ID, QYBM, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, USERT
 INSERT INTO ds_person_user (ID, IDCARD, ACCOUNT, PASSWORD, NAME, STATUS, EMAIL, MOBILE, PHONE, CAKEY, CREATETIME, USERTYPE) VALUES (1, '440111180012310004', '440111180012310004', 'E3BA7E699F89B594FA58268130725BE2', '屌爆天逗比技术特攻队', 1, '', '', NULL, NULL, NULL, '1');
 INSERT INTO gx_user (ID, ALIAS, NAME, PASSWORD, TYPE, STATE, MEMO, VJSON) VALUES (17, '100000', '屌爆天逗比技术特攻队', '', '1', 1, '', '');
 
-
+INSERT INTO ds_cms_site (ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE) VALUES (0, 'adminadmin', '默认', 'site', '/DsEp/html/site/html', NULL, 'index.jsp');
 INSERT INTO ds_cms_site (ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE) VALUES (5, 'ep100000', '单位LY', 'gzly', '/DsEp/html/gzly/html', NULL, 'index.jsp');
 INSERT INTO ds_cms_site (ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE) VALUES (6, 'ep100000', '单位STEA', 'gdstea', '/DsEp/html/gdstea/html', NULL, 'index.jsp');
 INSERT INTO ds_cms_site (ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE) VALUES (7, 'adminadmin', '默认', 'site', '/DsEp/html/site/html', NULL, 'index.jsp');
