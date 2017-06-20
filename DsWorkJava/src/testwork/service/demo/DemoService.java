@@ -26,4 +26,12 @@ public class DemoService extends BaseService<Demo, java.lang.Long>
 	{
 		return this.dao;
 	}
+//	public Demo get(Long primaryKey)
+//	{
+//		System.out.println(org.springframework.transaction.support.TransactionSynchronizationManager.isSynchronizationActive());
+//		Demo x = (Demo) dao.get(primaryKey);
+//		x.setId(dswork.core.util.UniqueId.genId());
+//		dao.save(x);
+//		return (Demo) dao.get(primaryKey);
+//	}
 }
