@@ -39,9 +39,7 @@
 		<result property="foundtime" column="FOUNDTIME" />
 	</resultMap>
 
-	<sql id="columns">
-		ID, TITLE, CONTENT, FOUNDTIME
-	</sql>
+	<sql id="columns">ID, TITLE, CONTENT, FOUNDTIME</sql>
 	
 	<sql id="dynamicWhere">
 		<where>
@@ -56,13 +54,11 @@
 	</select>
 
 	<select id="query" resultMap="result">
-		select <include refid="columns" /> from DEMO
-		<include refid="dynamicWhere" />
+		select <include refid="columns" /> from DEMO <include refid="dynamicWhere" />
 	</select>
 
 	<select id="queryCount" resultType="int">
-		select count(1) from DEMO
-		<include refid="dynamicWhere" />
+		select count(1) from DEMO <include refid="dynamicWhere" />
 	</select>
 
 </mapper>
