@@ -1,5 +1,7 @@
 package dswork.core.datasource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionDefinition;
 
 /**
@@ -8,6 +10,7 @@ import org.springframework.transaction.TransactionDefinition;
  */
 public class DataSourceTransactionManager extends org.springframework.jdbc.datasource.DataSourceTransactionManager
 {
+	private final static Logger log = LoggerFactory.getLogger("jdbc.sqlonly");
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -18,12 +21,12 @@ public class DataSourceTransactionManager extends org.springframework.jdbc.datas
 	{
 		if(definition.isReadOnly())
 		{
-			System.out.println("doBegin slave");
+			log.debug("DataSourceTransactionManager set slave");
 			DataSourceHolder.setSlave();
 		}
 		else
 		{
-			System.out.println("doBegin master");
+			log.debug("DataSourceTransactionManager set master");
 			DataSourceHolder.setMaster();
 		}
 		super.doBegin(transaction, definition);
