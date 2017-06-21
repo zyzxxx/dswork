@@ -21,12 +21,18 @@ public class DataSourceTransactionManager extends org.springframework.jdbc.datas
 	{
 		if(definition.isReadOnly())
 		{
-			log.debug("DataSourceTransactionManager set slave");
+			if(log.isDebugEnabled())
+			{
+				log.debug("DataSourceTransactionManager set slave");
+			}
 			DataSourceHolder.setSlave();
 		}
 		else
 		{
-			log.debug("DataSourceTransactionManager set master");
+			if(log.isDebugEnabled())
+			{
+				log.debug("DataSourceTransactionManager set master");
+			}
 			DataSourceHolder.setMaster();
 		}
 		super.doBegin(transaction, definition);

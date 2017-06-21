@@ -17,7 +17,10 @@ public class DataSourceHolder
 	 */
 	public static void setMaster()
 	{
-		log.info("set master datasource");
+		if(log.isInfoEnabled())
+		{
+			log.info("set master datasource");
+		}
 		chooseDataSource.set(MASTER);
 	}
 	
@@ -26,7 +29,10 @@ public class DataSourceHolder
 	 */
 	public static void setSlave()
 	{
-		log.info("set slave datasource");
+		if(log.isInfoEnabled())
+		{
+			log.info("set slave datasource");
+		}
 		chooseDataSource.set(SLAVE);
 	}
 	
