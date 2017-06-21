@@ -10,6 +10,7 @@ import org.springframework.dao.support.DaoSupport;
 import org.springframework.util.Assert;
 import org.mybatis.spring.SqlSessionTemplate;
 
+import dswork.core.datasource.DataSourceHolder;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
 
@@ -62,6 +63,11 @@ public abstract class MyDataDao extends DaoSupport
 	 */
 	public int executeInsert(String statementName, Object parameter)
 	{
+		// if(DataSourceHolder.isNull()){DataSourceHolder.setMaster();}// 没有设置默认就是主库数据源
+		if(DataSourceHolder.isSlave())
+		{
+			throw new org.springframework.dao.InvalidDataAccessApiUsageException("Write operations are not allowed in read-only mode");
+		}
 		return getSqlSessionTemplate().insert(statementName, parameter);
 	}
 
@@ -73,6 +79,11 @@ public abstract class MyDataDao extends DaoSupport
 	 */
 	public int executeDelete(String statementName, Object parameter)
 	{
+		// if(DataSourceHolder.isNull()){DataSourceHolder.setMaster();}// 没有设置默认就是主库数据源
+		if(DataSourceHolder.isSlave())
+		{
+			throw new org.springframework.dao.InvalidDataAccessApiUsageException("Write operations are not allowed in read-only mode");
+		}
 		return getSqlSessionTemplate().delete(statementName, parameter);
 	}
 
@@ -84,6 +95,11 @@ public abstract class MyDataDao extends DaoSupport
 	 */
 	public int executeUpdate(String statementName, Object parameter)
 	{
+		// if(DataSourceHolder.isNull()){DataSourceHolder.setMaster();}// 没有设置默认就是主库数据源
+		if(DataSourceHolder.isSlave())
+		{
+			throw new org.springframework.dao.InvalidDataAccessApiUsageException("Write operations are not allowed in read-only mode");
+		}
 		return getSqlSessionTemplate().update(statementName, parameter);
 	}
 
@@ -95,6 +111,7 @@ public abstract class MyDataDao extends DaoSupport
 	 */
 	public Object executeSelect(String statementName, Object parameter)
 	{
+		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 		return getSqlSessionTemplate().selectOne(statementName, parameter);
 	}
 
@@ -106,6 +123,7 @@ public abstract class MyDataDao extends DaoSupport
 	 */
 	public List executeSelectList(String statementName, Object parameter)
 	{
+		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 		return getSqlSessionTemplate().selectList(statementName, parameter);
 	}
 
@@ -117,6 +135,7 @@ public abstract class MyDataDao extends DaoSupport
 	 */
 	public List queryList(String statementName, PageRequest pageRequest)
 	{
+		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 		return getSqlSessionTemplate().selectList(statementName, pageRequest.getFilters());
 	}
 
@@ -130,6 +149,7 @@ public abstract class MyDataDao extends DaoSupport
 	 */
 	public Page queryPage(String statementName, PageRequest pageRequest, String statementNameCount, PageRequest pageRequestCount)
 	{
+		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 		int totalCount = queryCount(statementNameCount, pageRequestCount);
 		Page page = new Page(pageRequest.getCurrentPage(), pageRequest.getPageSize(), totalCount);
 		// if(page.getTotalCount() <= 0){page.setResult(new ArrayList(0));}else{}//没数据的话不影响性能，而实际上又不可能没有数据
@@ -146,6 +166,7 @@ public abstract class MyDataDao extends DaoSupport
 	 */
 	public int queryCount(String statementNameCount, PageRequest pageRequestCount)
 	{
+		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 		Object o = this.getSqlSessionTemplate().selectOne(statementNameCount, pageRequestCount.getFilters());
 		return MyDataDao.queryCountProcess(o);// xml里配置是int或long都可以
 	}
