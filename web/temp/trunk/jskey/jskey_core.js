@@ -1326,7 +1326,7 @@
 					case 4://弹出提示并显示错误信息
 						alert(this.$AlertMsg.join("\n"));
 					case 3://显示错误信息
-						var _temp = (typeof (jQuery)=="function" && $jskey.tooltip);
+						var _temp = (typeof(jQuery)=="function" && $jskey.tooltip);
 						for(var i = 1;i < _c;i++)
 						{
 							try
