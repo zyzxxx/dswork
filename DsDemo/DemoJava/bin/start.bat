@@ -4,7 +4,6 @@ setlocal
 title "我的应用程序"
 
 call sconfig.bat
-set classpath=%classpath%;%BAT_HOME%\lib\dswork.cs.Start.jar
 
 #for /R %BAT_HOME%\lib %%i in (*.jar) do (
 #    SET classpath=%classpath%;%%i  
