@@ -1,8 +1,8 @@
 /*!
  * jQuery Form Plugin
- * version: 3.50.0-2014.02.05
+ * version: 3.51.0-2014.06.20
  * Requires jQuery v1.5 or later
- * Copyright (c) 2013 M. Alsup
+ * Copyright (c) 2014 M. Alsup
  * Examples and documentation at: http://malsup.com/jquery/form/
  * Project repository: https://github.com/malsup/form
  * Dual licensed under the MIT and GPL licenses.
@@ -34,6 +34,7 @@ return this.attr.apply(this, arguments);
 };
 $.fn.ajaxSubmit = function(options) {
 if (!this.length) {
+log('ajaxSubmit: skipping submit process - no element selected');
 return this;
 }
 var method, action, url, $form = this;
@@ -59,9 +60,11 @@ iframeSrc: /^https/i.test(window.location.href || '') ? 'javascript:false' : 'ab
 var veto = {};
 this.trigger('form-pre-serialize', [this, options, veto]);
 if (veto.veto) {
+log('ajaxSubmit: submit vetoed via form-pre-serialize trigger');
 return this;
 }
 if (options.beforeSerialize && options.beforeSerialize(this, options) === false) {
+log('ajaxSubmit: submit aborted via beforeSerialize callback');
 return this;
 }
 var traditional = options.traditional;
@@ -75,10 +78,12 @@ options.extraData = options.data;
 qx = $.param(options.data, traditional);
 }
 if (options.beforeSubmit && options.beforeSubmit(a, this, options) === false) {
+log('ajaxSubmit: submit aborted via beforeSubmit callback');
 return this;
 }
 this.trigger('form-submit-validate', [a, this, options, veto]);
 if (veto.veto) {
+log('ajaxSubmit: submit vetoed via form-submit-validate trigger');
 return this;
 }
 var q = $.param(a, traditional);
@@ -134,6 +139,7 @@ var hasFileInputs = fileInputs.length > 0;
 var mp = 'multipart/form-data';
 var multipart = ($form.attr('enctype') == mp || $form.attr('encoding') == mp);
 var fileAPI = feature.fileapi && feature.formdata;
+log("fileAPI :" + fileAPI);
 var shouldUseFrame = (hasFileInputs || multipart) && !fileAPI;
 var jqxhr;
 if (options.iframe !== false && (options.iframe || shouldUseFrame)) {
@@ -268,6 +274,7 @@ getResponseHeader: function() {},
 setRequestHeader: function() {},
 abort: function(status) {
 var e = (status === 'timeout' ? 'timeout' : 'aborted');
+log('aborting upload... ' + e);
 this.aborted = 1;
 try {
 if (io.contentWindow.document.execCommand) {
@@ -323,12 +330,12 @@ var SERVER_ABORT = 2;
 
 function getDoc(frame) {
 var doc = null;
-
 try {
 if (frame.contentWindow) {
 doc = frame.contentWindow.document;
 }
 } catch(err) {
+log('cannot get iframe.contentWindow document: ' + err);
 }
 if (doc) {
 return doc;
@@ -336,6 +343,7 @@ return doc;
 try {
 doc = frame.contentDocument ? frame.contentDocument : frame.document;
 } catch(err) {
+log('cannot get iframe.contentDocument: ' + err);
 doc = frame.document;
 }
 return doc;
@@ -347,8 +355,8 @@ s.extraData = s.extraData || {};
 s.extraData[csrf_param] = csrf_token;
 }
 function doSubmit() {
-var t = $form.attr2('target'), 
-a = $form.attr2('action'), 
+var t = $form.attr2('target'),
+a = $form.attr2('action'),
 mp = 'multipart/form-data',
 et = $form.attr('enctype') || $form.attr('encoding') || mp;
 form.setAttribute('target',id);
@@ -370,11 +378,13 @@ timeoutHandle = setTimeout(function() { timedOut = true; cb(CLIENT_TIMEOUT_ABORT
 function checkState() {
 try {
 var state = getDoc(io).readyState;
+log('state = ' + state);
 if (state && state.toLowerCase() == 'uninitialized') {
 setTimeout(checkState,50);
 }
 }
 catch(e) {
+log('Server abort: ' , e, ' (', e.name, ')');
 cb(SERVER_ABORT);
 if (timeoutHandle) {
 clearTimeout(timeoutHandle);
@@ -418,7 +428,7 @@ submitFn.apply(form);
 }
 finally {
 form.setAttribute('action',a);
-form.setAttribute('enctype', et);
+form.setAttribute('enctype', et); // #380
 if(t) {
 form.setAttribute('target', t);
 } else {
@@ -431,15 +441,17 @@ if (s.forceSync) {
 doSubmit();
 }
 else {
-setTimeout(doSubmit, 10); 
+setTimeout(doSubmit, 10);
 }
 var data, doc, domCheckCount = 50, callbackProcessed;
 function cb(e) {
 if (xhr.aborted || callbackProcessed) {
 return;
 }
+
 doc = getDoc(io);
 if(!doc) {
+log('cannot access response document');
 e = SERVER_ABORT;
 }
 if (e === CLIENT_TIMEOUT_ABORT && xhr) {
@@ -469,8 +481,10 @@ if (timedOut) {
 throw 'timeout';
 }
 var isXml = s.dataType == 'xml' || doc.XMLDocument || $.isXMLDoc(doc);
+log('isXml='+isXml);
 if (!isXml && window.opera && (doc.body === null || !doc.body.innerHTML)) {
 if (--domCheckCount) {
+log('requeing onLoad callback, DOM not available');
 setTimeout(cb, 250);
 return;
 }
@@ -521,10 +535,12 @@ xhr.error = errMsg = (err || status);
 }
 }
 catch (err) {
+log('error caught: ',err);
 status = 'error';
 xhr.error = errMsg = (err || status);
 }
 if (xhr.aborted) {
+log('upload aborted');
 status = null;
 }
 if (xhr.status) {
@@ -574,7 +590,7 @@ $io.attr('src', s.iframeSrc);
 xhr.responseXML = null;
 }, 100);
 }
-var toXml = $.parseXML || function(s, doc) { 
+var toXml = $.parseXML || function(s, doc) {
 if (window.ActiveXObject) {
 doc = new ActiveXObject('Microsoft.XMLDOM');
 doc.async = 'false';
@@ -618,11 +634,13 @@ options.delegation = options.delegation && $.isFunction($.fn.on);
 if (!options.delegation && this.length === 0) {
 var o = { s: this.selector, c: this.context };
 if (!$.isReady && o.s) {
+log('DOM not ready, queuing ajaxForm');
 $(function() {
 $(o.s,o.c).ajaxForm(options);
 });
 return this;
 }
+log('terminating; zero elements found by selector' + ($.isReady ? '' : ' (DOM not ready)'));
 return this;
 }
 if ( options.delegation ) {
@@ -686,15 +704,12 @@ var els2;
 if (els && !/MSIE [678]/.test(navigator.userAgent)) {
 els = $(els).get();
 }
-//fix ie10 flash object
-try{
 if ( formId ) {
-els2 = $(':input[form=' + formId + ']').get();
+els2 = $(':input[form="' + formId + '"]').get();
 if ( els2.length ) {
 els = (els || []).concat(els2);
 }
 }
-}catch(e){}
 if (!els || !els.length) {
 return a;
 }
@@ -832,7 +847,7 @@ $('input,select,textarea', this).clearFields(includeHidden);
 });
 };
 $.fn.clearFields = $.fn.clearInputs = function(includeHidden) {
-var re = /^(?:color|date|datetime|email|month|number|password|range|search|tel|text|time|url|week)$/i; // 'hidden' is not in this list
+var re = /^(?:color|date|datetime|email|month|number|password|range|search|tel|text|time|url|week)$/i;
 return this.each(function() {
 var t = this.type, tag = this.tagName.toLowerCase();
 if (re.test(t) || tag == 'textarea') {
@@ -892,4 +907,17 @@ this.selected = select;
 }
 });
 };
+$.fn.ajaxSubmit.debug = false;
+function log() {
+if (!$.fn.ajaxSubmit.debug) {
+return;
+}
+var msg = '[jquery.form] ' + Array.prototype.join.call(arguments,'');
+if (window.console && window.console.log) {
+window.console.log(msg);
+}
+else if (window.opera && window.opera.postError) {
+window.opera.postError(msg);
+}
+}
 }));
