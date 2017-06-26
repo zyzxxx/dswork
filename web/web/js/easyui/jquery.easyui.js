@@ -1,5 +1,5 @@
-﻿//jquery1.9.x
-$.browser = {msie:/msie/.test(navigator.userAgent.toLowerCase())};
+﻿//jquery1.9.x+
+$.browser = $.extend($.browser, {msie:/msie/.test(navigator.userAgent.toLowerCase())});
 /**
  * jQuery EasyUI 1.3.2
  */
