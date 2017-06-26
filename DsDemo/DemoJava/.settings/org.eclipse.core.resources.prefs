@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
+encoding//bin/sconfig.bat=GBK
 encoding//bin/start.bat=GBK
+encoding//bin/startOLD.bat=GBK
 encoding//bin/stop.bat=GBK
 encoding/<project>=UTF-8
