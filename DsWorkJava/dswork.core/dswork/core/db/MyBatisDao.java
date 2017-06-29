@@ -90,7 +90,6 @@ public abstract class MyBatisDao extends DaoSupport
 	 */
 	protected int executeInsert(String statementName, Object parameter)
 	{
-		// if(DataSourceHolder.isNull()){DataSourceHolder.setMaster();}// 没有设置默认就是主库数据源
 		if(DataSourceHolder.isSlave())
 		{
 			throw new org.springframework.dao.InvalidDataAccessApiUsageException("Write operations are not allowed in read-only mode");
@@ -106,7 +105,6 @@ public abstract class MyBatisDao extends DaoSupport
 	 */
 	protected int executeDelete(String statementName, Object parameter)
 	{
-		// if(DataSourceHolder.isNull()){DataSourceHolder.setMaster();}// 没有设置默认就是主库数据源
 		if(DataSourceHolder.isSlave())
 		{
 			throw new org.springframework.dao.InvalidDataAccessApiUsageException("Write operations are not allowed in read-only mode");
@@ -122,7 +120,6 @@ public abstract class MyBatisDao extends DaoSupport
 	 */
 	protected int executeUpdate(String statementName, Object parameter)
 	{
-		// if(DataSourceHolder.isNull()){DataSourceHolder.setMaster();}// 没有设置默认就是主库数据源
 		if(DataSourceHolder.isSlave())
 		{
 			throw new org.springframework.dao.InvalidDataAccessApiUsageException("Write operations are not allowed in read-only mode");
@@ -138,7 +135,6 @@ public abstract class MyBatisDao extends DaoSupport
 	 */
 	protected Object executeSelect(String statementName, Object parameter)
 	{
-		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 		return getSqlSessionTemplate().selectOne(getStatementName(statementName), parameter);
 	}
 
@@ -150,7 +146,6 @@ public abstract class MyBatisDao extends DaoSupport
 	 */
 	protected List executeSelectList(String statementName, Object parameter)
 	{
-		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 		return getSqlSessionTemplate().selectList(getStatementName(statementName), parameter);
 	}
 
@@ -174,7 +169,6 @@ public abstract class MyBatisDao extends DaoSupport
 	 */
 	protected List queryList(String statementName, PageRequest pageRequest)
 	{
-		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 		return getSqlSessionTemplate().selectList(getStatementName(statementName), pageRequest.getFilters());
 	}
 
@@ -188,7 +182,6 @@ public abstract class MyBatisDao extends DaoSupport
 	 */
 	protected Page queryPage(String statementName, PageRequest pageRequest, String statementNameCount, PageRequest pageRequestCount)
 	{
-		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 //		if (!(pageRequest.getFilters() instanceof Map))
 //		{
 //			Map parameterObject = BeanUtils.describe(pageRequest.getFilters());
@@ -217,7 +210,6 @@ public abstract class MyBatisDao extends DaoSupport
 	 */
 	protected int queryCount(String statementNameCount, PageRequest pageRequestCount)
 	{
-		if(DataSourceHolder.isNull()){DataSourceHolder.setSlave();}// 没有设置默认使用从库数据源
 		Object o = this.getSqlSessionTemplate().selectOne(getStatementName(statementNameCount), pageRequestCount.getFilters());
 		return MyBatisDao.queryCountProcess(o);// xml里配置是int或long都可以
 	}
