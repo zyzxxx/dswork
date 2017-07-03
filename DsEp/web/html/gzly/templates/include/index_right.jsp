@@ -1,5 +1,6 @@
 <%@page language="java" pageEncoding="UTF-8"%>
-<script type="text/javascript" src="${ctx}/js/tv/flowplayer-3.2.6.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/tv/skin/skin.css">
+<script type="text/javascript" src="${ctx}/js/tv/flowplayer.min.js"></script>
 
 <%--旅游提示--%>
 
@@ -18,10 +19,11 @@ request.setAttribute("lyts", cms.queryList(1, 4, false, false, true, 87));
 
 <div class="r_wsbs">
 <!--网页flv,mp4视频播放器PlayerLite/代码开始-->
-    <div id="my52player" style="width: 240px; height: 180px;">    </div>
-    <script>
-	flowplayer("my52player", "${ctx}/js/tv/flowplayer-3.2.7.swf", { clip: { url: "${ctx}/f/res/tv/index.flv",    autoPlay: false, autoBuffering: true} });
-    </script>
+	<div class="flowplayer" data-swf="/js/tv/flowplayer.swf" style="width:240px;height:180px;">
+		<video>
+			<source type="video/flv" src="/f/res/tv/index.flv">
+		</video>
+	</div>
 	<div class="vline">&nbsp;</div>
 <!--网页flv,mp4视频播放器PlayerLite/代码结束-->
 	<a target="_blank" href="${ctx}/a/jzxx/index.html"><img src="${ctx}/themes/images/jzxx.png"></a>
