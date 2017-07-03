@@ -32,10 +32,10 @@
   content: "\e007"; }
 
 .fp-share:before {
-  content: "\e009"; }
+  content: ""; }
 
 .fp-share2:before {
-  content: "\e00a"; }
+  content: ""; }
 
 .fp-twitter:before {
   content: "\e00c";
