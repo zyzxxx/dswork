@@ -29,7 +29,7 @@ public class PageNav<T>
 		String formId = PAGEFORMID + pageName;
 		try
 		{
-			StringBuilder sb = new StringBuilder("<script language=\"javascript\">if(typeof($jskey)!=\"object\"){$jskey={};}$jskey.page={go:function(pn,page,pagesize){pn=\"" + PAGEFORMID + "\"+pn;page=parseInt(page)||1;page=(page<1)?1:page;document.getElementById(pn+\"_page\").value=page;pagesize=parseInt(pagesize||" + page.getPageSize() + ")||10;pagesize=(pagesize<1)?10:pagesize;document.getElementById(pn+\"_pagesize\").value=pagesize;document.getElementById(pn).submit();}};</script>\n");
+			StringBuilder sb = new StringBuilder("<script language=\"javascript\">if(typeof($jskey)!=\"object\"){$jskey={};}$jskey.pageview={go:function(pn,page,pagesize){pn=\"" + PAGEFORMID + "\"+pn;page=parseInt(page)||1;page=(page<1)?1:page;document.getElementById(pn+\"_page\").value=page;pagesize=parseInt(pagesize||" + page.getPageSize() + ")||10;pagesize=(pagesize<1)?10:pagesize;document.getElementById(pn+\"_pagesize\").value=pagesize;document.getElementById(pn).submit();}};</script>\n");
 			sb.append("<form id=\"").append(formId).append("\" method=\"post\" style=\"display:none;\" action=\"").append(request.getRequestURI().toString()).append("\">\n");
 			sb.append("<input id=\"").append(formId).append("_page\" name=\"").append(pageName).append("\" type=\"hidden\" value=\"1\"/>\n");
 			sb.append("<input id=\"").append(formId).append("_pagesize\" name=\"").append(pageSizeName).append("\" type=\"hidden\" value=\"").append(page.getPageSize()).append("\"/>\n");
@@ -113,10 +113,10 @@ public class PageNav<T>
 		}
 		if(isShowLink)
 		{
-			sb.append("<a class=\"first\"" + ((page.getTotalPage() > 1 && page.getCurrentPage() > 1) ? " onclick=\"$jskey.page.go('" + page.getPageName()+ "','1');return false;\" href=\"#\"" : "") + ">首页</a>&nbsp;");
-			sb.append("<a class=\"prev\"" + ((page.isHasPreviousPage()) ? " onclick=\"$jskey.page.go('" + page.getPageName()+ "','" + page.getPreviousPage() + "');return false;\" href=\"#\"" : "") + ">上页</a>&nbsp;");
-			sb.append("<a class=\"next\"" + ((page.isHasNextPage()) ? " onclick=\"$jskey.page.go('" + page.getPageName()+ "','" + page.getNextPage() + "');return false;\" href=\"#\"" : "") + ">下页</a>&nbsp;");
-			sb.append("<a class=\"last\"" + ((page.getTotalPage() > 1 && page.getCurrentPage() < page.getTotalPage()) ? " onclick=\"$jskey.page.go('" + page.getPageName()+ "','" + page.getTotalPage() + "');return false;\" href=\"#\"" : "") + ">尾页</a>&nbsp;");
+			sb.append("<a class=\"first\"" + ((page.getTotalPage() > 1 && page.getCurrentPage() > 1) ? " onclick=\"$jskey.pageview.go('" + page.getPageName()+ "','1');return false;\" href=\"#\"" : "") + ">首页</a>&nbsp;");
+			sb.append("<a class=\"prev\"" + ((page.isHasPreviousPage()) ? " onclick=\"$jskey.pageview.go('" + page.getPageName()+ "','" + page.getPreviousPage() + "');return false;\" href=\"#\"" : "") + ">上页</a>&nbsp;");
+			sb.append("<a class=\"next\"" + ((page.isHasNextPage()) ? " onclick=\"$jskey.pageview.go('" + page.getPageName()+ "','" + page.getNextPage() + "');return false;\" href=\"#\"" : "") + ">下页</a>&nbsp;");
+			sb.append("<a class=\"last\"" + ((page.getTotalPage() > 1 && page.getCurrentPage() < page.getTotalPage()) ? " onclick=\"$jskey.pageview.go('" + page.getPageName()+ "','" + page.getTotalPage() + "');return false;\" href=\"#\"" : "") + ">尾页</a>&nbsp;");
 		}
 		if(isShowJump || isShowJumpSize)
 		{
@@ -124,16 +124,16 @@ public class PageNav<T>
 			String pid = PAGEFORMID + page.getPageName() + "_go" + i;
 			if(isShowJump)
 			{
-				sb.append("转到第 <input type=\"text\" class=\"input\" id=\"").append(pid).append("\" value=\"").append(page.getCurrentPage()).append("\" /> 页 ").append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.page.go('").append(page.getPageName()).append("', document.getElementById('").append(pid).append("').value);\" />");
+				sb.append("转到第 <input type=\"text\" class=\"input\" id=\"").append(pid).append("\" value=\"").append(page.getCurrentPage()).append("\" /> 页 ").append("<input type=\"button\" class=\"go\" value=\"GO\" onclick=\"$jskey.pageview.go('").append(page.getPageName()).append("', document.getElementById('").append(pid).append("').value);\" />");
 			}
 			if(isShowJumpSize)
 			{
-				sb.append(" <select onchange=\"$jskey.page.go('").append(page.getPageName()).append("',1,this.value);\">");
+				sb.append(" 每页<select onchange=\"$jskey.pageview.go('").append(page.getPageName()).append("',1,this.value);\">");
 				for(int j : sizeArray)
 				{
 					sb.append("<option value=\"").append(j).append((page.getPageSize() == j)?"\" selected=\"selected\">":"\">").append(j).append("</option>");
 				}
-				sb.append("</select>");
+				sb.append("</select>条记录");
 			}
 		}
 		sb.append("</div>");
