@@ -105,7 +105,7 @@ public class PageNav<T>
 		sb.append("<div class=\"pageview\">");
 		if(isViewTotal)
 		{
-			sb.append(" 共").append(page.getTotalCount()).append("条记录 ");
+			sb.append(" 共").append(page.getTotalCount()).append("条 ");
 		}
 		if(isViewPageInfo)
 		{
@@ -128,12 +128,12 @@ public class PageNav<T>
 			}
 			if(isShowJumpSize)
 			{
-				sb.append(" 每页<select onchange=\"$jskey.pageview.go('").append(page.getPageName()).append("',1,this.value);\">");
+				sb.append(" 每页 <select onchange=\"$jskey.pageview.go('").append(page.getPageName()).append("',1,this.value);\">");
 				for(int j : sizeArray)
 				{
 					sb.append("<option value=\"").append(j).append((page.getPageSize() == j)?"\" selected=\"selected\">":"\">").append(j).append("</option>");
 				}
-				sb.append("</select>条记录");
+				sb.append("</select> 条");
 			}
 		}
 		sb.append("</div>");
