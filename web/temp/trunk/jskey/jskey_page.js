@@ -81,7 +81,7 @@ $jskey.Page.prototype.sizeArray_ = function(){return [5, 10, 15, 20, 25, 30, 50,
 $jskey.Page.prototype.tempArray_ = [""
 	,"{prev}{pagelist}{next}"
 	,"{prev}{pageview}{next}<span>&nbsp;\u8F6C\u5230\u7B2C</span>{skip}<span>\u9875</span>{go}"
-	,"<span>\u5171{size}\u6761\u8BB0\u5F55&nbsp;\u7B2C{page}/{totalpage}\u9875&nbsp;</span>{first}{prev}{next}{last}<span>&nbsp;\u8F6C\u5230\u7B2C</span>{skip}<span>\u9875</span>{go}<span>&nbsp;\u6BCF\u9875</span>{pagesize}<span>\u6761\u8BB0\u5F55</span>"
+	,"<span>\u5171{size}\u6761&nbsp;\u7B2C{page}/{totalpage}\u9875&nbsp;</span>{first}{prev}{next}{last}<span>&nbsp;\u8F6C\u5230\u7B2C</span>{skip}<span>\u9875</span>{go}<span>&nbsp;\u6BCF\u9875</span>{pagesize}<span>\u6761</span>"
 	,"{prev}{next}"
 ];
 $jskey.Page.prototype.view_ = function(){
