@@ -10,9 +10,10 @@
 	//{
 	//	return this.replace(/(^\s*)|(\s*$)/g, "");//移除首尾空格
 	//};
-	$jskey.on = function($e, et, fn){
+	$jskey.on = function($e, et, fn)
+	{
 		$e.attachEvent ? 
-			$e.attachEvent('on' + et, function(){fn.call($e, window.event);})
+			$e.attachEvent('on' + et, fn)
 			:
 			$e.addEventListener(et, fn, false);
 		return $jskey;

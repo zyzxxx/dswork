@@ -4,22 +4,19 @@ var $jskey = $jskey || {};
 
 $jskey.on = function($e, et, fn){
 	$e.attachEvent ? 
-		$e.attachEvent('on' + et, function(){fn.call($e, window.event);})
+		$e.attachEvent('on' + et, fn)
 		:
 		$e.addEventListener(et, fn, false);
 	return $jskey;
 };
-$jskey.$ = function(id)
-{
+$jskey.$ = function(id){
 	return document.getElementById(id);
 };
-$jskey.$replace = function(str, t, u)
-{
+$jskey.$replace = function(str, t, u){
 	str = str + "";
 	var i = str.indexOf(t);
 	var r = "";
-	while(i != -1)
-	{
+	while(i != -1){
 		r += str.substring(0, i) + u;// 已经匹配完的部分+替换后的字符串
 		str = str.substring(i + t.length, str.length);// 未匹配的字符串内容
 		i = str.indexOf(t);// 其余部分是否还包含原来的str
