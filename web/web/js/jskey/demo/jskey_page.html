@@ -67,7 +67,7 @@ $jskey.page({
 <br /><div id="p5"></div>
 <script type="text/javascript">
 $jskey.page({
-	template:"{pageview}<span>共{size}条记录&nbsp;第{page}/{totalpage}页&nbsp;</span>{prev}{first}{pagelist}{last}{next}<span>&nbsp;转到第</span>{skip}<span>页</span>{go}<span>&nbsp;每页</span>{pagesize}",
+	template:"{pageview}<span>共{size}条&nbsp;第{page}/{totalpage}页&nbsp;</span>{prev}{first}{pagelist}{last}{next}<span>&nbsp;转到第</span>{skip}<span>页</span>{go}<span>&nbsp;每页</span>{pagesize}条",
 	object:'p5',// 放置翻页控件信息的html的DOM的id
 	pagesize:10,// 一页数量，默认为10
 	size:20000,// 总数据量，初始化时可以不设置，默认为0
@@ -91,7 +91,7 @@ $jskey.page({
 			e.redo();
 		}
 		else{
-			var s = "{pageview}<span>共{size}条记录&nbsp;第{page}/{totalpage}页&nbsp;</span>{prev}{first}{pagelist}{last}{next}<span>&nbsp;转到第</span>{skip}<span>页</span>{go}<span>&nbsp;每页</span>{pagesize}";
+			var s = "{pageview}<span>共{size}条&nbsp;第{page}/{totalpage}页&nbsp;</span>{prev}{first}{pagelist}{last}{next}<span>&nbsp;转到第</span>{skip}<span>页</span>{go}<span>&nbsp;每页</span>{pagesize}条";
 			if(e.template != s){
 				e.template = s;
 				e.redo();
