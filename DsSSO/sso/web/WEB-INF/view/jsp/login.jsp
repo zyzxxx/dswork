@@ -11,29 +11,12 @@ response.setHeader("Pragma","no-cache");
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"/>
 <title>统一身份认证平台</title>
-<script type="text/javascript" src="${ctx}/js/jskey/jskey_md5.js"></script>
+<script type="text/javascript">if(top.location != this.location){top.location = this.location;}</script>
 <link rel="stylesheet" type="text/css" href="${ctx}/themes/share/fonts/dsworkfont.css"/>
-<script type="text/javascript">
-if(top.location != this.location){top.location = this.location;}
-function _$(id){return document.getElementById(id);}
-var dd = document, cc = "coo" + "kie";
-function setCoo(k,v,d){var x=new Date();x.setDate(x.getDate()+d);dd[cc]=k+"="+escape(v)+((d==null)?"":";expires="+x.toGMTString());}
-function getCoo(k){if(dd[cc].length>0){var x1=dd[cc].indexOf(k+"=");if(x1!=-1){x1=x1+k.length+1;x2=dd[cc].indexOf(";",x1);if(x2==-1){x2=dd[cc].length;}return unescape(dd[cc].substring(x1,x2));} }return "";}
-function doclick(){
-var s = "";
-if(!_$('account').value){s += "账号不能为空\n";}
-if(!_$('password').value){s += "密码不能为空\n";}
-if(!_$('authcode').value){s += "验证码不能为空\n";}
-if(s != ""){alert(s);return;}
-if(_$("savename").checked){setCoo('savename',_$('account').value,365);}else{setCoo('savename','',0);}
-try{_$('password').value = $jskey.md5($jskey.md5(_$('password').value)+_$('authcode').value);}catch(e){}
-_$('v').submit();
-}
-</script>
 <style type="text/css">
-html,body{height:100%;margin:0px auto;}*{padding:0;margin:0;font-family:arial,"宋体";}
+html,body{height:100%;margin:0px auto;}*{padding:0;margin:0;font-family:arial,"microsoft yahei","宋体";}
 body {background-color:#ffffff;}
-div, input{font-weight:bold;font-size:20px;line-height:38px;}
+div, input{font-size:20px;line-height:38px;}
 div, input, label{color:#333;}
 a{text-decoration:underline;outline:none;font-size:12px;font-weight:normal;}
 a:link,a:visited,a:active{color:#0000bb;outline:none;}
@@ -46,11 +29,11 @@ a:hover{color:#0000ff;text-decoration:underline;}
 .box{overflow:hidden;text-align:center;width:100%;margin:0 auto 15px auto;padding:0;border:none;}
 .box .title{background-color:#003c7b;color:#fff;width:100%;padding:3px 0;line-height:50px;font-size:22px;text-align:center;margin:0 auto;}
 .box .vbox{padding:0;overflow:hidden;text-align:left;vertical-align:middle;margin:0 0 0 45px;}
-.box .vbox span{font-family:dsworkfont;margin:0 10px;}
+.box .vbox span{font-weight:bold;font-family:dsworkfont;margin:0 10px;}
 .box .vbox input{width:198px;height:35px;margin:0 0 0 3px;padding:0 0 0 8px;vertical-align:middle;background-color:#fff;border:#ccc solid 1px;}
 .box .vbox input.code{width:98px;}
 .box .vbox img{border:none;cursor:pointer;vertical-align:middle;}
-.box .button{background-color:#003c7b;color:#eee;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;}
+.box .button{font-weight:bold;background-color:#003c7b;color:#eee;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;}
 .box .button:hover{background-color:#da3b01;color:#fff;}
 .box label{font-weight:bold;font-size:16px;line-height:18px;}
 .box label.left{float:left;margin-left:45px;}
@@ -60,19 +43,20 @@ a:hover{color:#0000ff;text-decoration:underline;}
 </style>
 </head>
 <body>
+<script type="text/javascript"><c:if test="${errorMsg != ''}">alert("${errorMsg}");</c:if></script>
 <div class="view">
   <div class="title">统一身份认证平台</div>
-  <form id="v" action="loginAction" method="post">
+  <form id="w" action="loginAction" method="post">
   <div class="login">
 	<div class="box"><div class="title">用户登录</div></div>
 	<div class="box"><div class="vbox">
-		<span>&#xf1001;</span><input type="text" title="账号" id="account" name="account" autocomplete="off" value="" />
+		<span>&#xf1001;</span><input type="text" id="account" name="account" autocomplete="off" value="" title="账号" placeholder="账号" />
 	</div></div>
 	<div class="box"><div class="vbox">
-		<span>&#xf1002;</span><input type="password" title="密码" id="password" name="password" autocomplete="off" value="" />
+		<span>&#xf1002;</span><input type="password" id="password" name="password" autocomplete="off" value="" title="密码" placeholder="密码" />
 	</div></div>
 	<div class="box"><div class="vbox">
-		<span>&#xf1026;</span><input type="text" title="验证码" placeholder="" id="authcode" name="authcode" autocomplete="off" maxlength="4" class="code" value="" />
+		<span>&#xf1026;</span><input type="text" id="authcode" name="authcode" autocomplete="off" maxlength="4" class="code" value="" title="验证码" placeholder="" />
 		<img id="mycode" alt="请点击" style="width:90px;height:38px;" src="about:blank" onclick="this.src='${ctx}/authcode?r=' + Math.random();" />
 	</div></div>
 	<div class="box">
@@ -89,31 +73,37 @@ a:hover{color:#0000ff;text-decoration:underline;}
 	Copyright &copy; 2014-2017 skey_chen@163.com
 </div>
 </body>
+<script type="text/javascript" src="${ctx}/js/jskey/jskey_md5.js"></script>
 <script type="text/javascript">
-<c:if test="${errorMsg != ''}">alert("${errorMsg}");</c:if>
-_$('mycode').click();
-var _x = getCoo('savename');
+function _$(id){return document.getElementById(id);}
+var dd = document, cc = "coo" + "kie";
+function setCoo(k,v,d){var x=new Date();x.setDate(x.getDate()+d);dd[cc]=k+"="+escape(v)+((d==null)?"":";expires="+x.toGMTString());}
+function getCoo(k){if(dd[cc].length>0){var x1=dd[cc].indexOf(k+"=");if(x1!=-1){x1=x1+k.length+1;x2=dd[cc].indexOf(";",x1);if(x2==-1){x2=dd[cc].length;}return unescape(dd[cc].substring(x1,x2));}}return "";}
+function doclick(){
+	var s = "";
+	if(!_$("account").value){s += "账号不能为空\n";}
+	if(!_$("password").value){s += "密码不能为空\n";}
+	if(!_$("authcode").value){s += "验证码不能为空\n";}
+	if(s != ""){alert(s);return;}
+	if(_$("savename").checked){setCoo("savename",_$("account").value,365);}else{setCoo("savename","",0);}
+	try{_$("password").value = $jskey.md5($jskey.md5(_$("password").value)+_$("authcode").value);}catch(e){}
+	_$("w").submit();
+}
+_$("mycode").click();
+var _x = getCoo("savename");
 if(_x.length > 0){
-	_$('account').value = _x;
-	_$('savename').checked = true;
+	_$("account").value = _x;
+	_$("savename").checked = true;
+}else {
+	_$("account").value = "";
+	_$("savename").checked = false;
 }
-else {
-	_$('account').value = "";
-	_$('savename').checked = false;
-}
-_$('password').value = "";
-_$('authcode').value = "";
-_$((_$('account').value == "") ? 'account' : 'password').focus();
-</script>
-<script type="text/javascript" src="${ctx}/js/jquery/jquery.js"></script>
-<script type="text/javascript">
-function registKeydown(id) {
-	$("#" + id).keydown(function(event) {
-		if (event.keyCode == 13) {
-			doclick();
-		}
-	});
-}
+_$("password").value = "";
+_$("authcode").value = "";
+_$((_$("account").value == "")?"account":"password").focus();
+
+function registEvent($e, et, fn){$e.attachEvent ? $e.attachEvent("on"+et, fn) : $e.addEventListener(et, fn, false);}
+function registKeydown(id){registEvent(_$(id), "keydown", function(event){if(event.keyCode == 13){doclick();}});}
 registKeydown("account");
 registKeydown("password");
 registKeydown("authcode");
