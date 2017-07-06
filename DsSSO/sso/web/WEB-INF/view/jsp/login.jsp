@@ -35,8 +35,9 @@ a:hover{color:#0000ff;text-decoration:underline;}
 .box .button{background-color:#003c7b;color:#eee;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;}
 .box .button:hover{background-color:#da3b01;color:#fff;}
 .box label{font-weight:bold;font-size:16px;line-height:18px;}
-.box label.left{float:left;margin-left:45px;}
+.box label.left{float:left;margin-left:38px;}
 .box label.right{float:right;margin-right:38px;}
+.box label a{font-size:16px;line-height:18px;text-decoration:none;}
 
 .cp{color:#666;font-size:12px;width:80%;overflow:hidden;text-align:center;padding:15px 0;margin:30px auto 0 auto;border-top:solid #ccc 1px;}
 .cp a {font-size:12px;font-weight:normal;font-family:arial;}
@@ -63,7 +64,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 </style>
 </head>
 <body>
-<script type="text/javascript"><c:if test="${errorMsg != ''}">alert("${errorMsg}");</c:if></script>
+<c:if test="${errorMsg != ''}"><script type="text/javascript">alert("${errorMsg}");</script></c:if>
 <div class="view">
   <div class="title">统一身份认证平台</div>
   <form id="w" action="loginAction" method="post">
