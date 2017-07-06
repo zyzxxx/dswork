@@ -14,32 +14,52 @@ response.setHeader("Pragma","no-cache");
 <script type="text/javascript">if(top.location != this.location){top.location = this.location;}</script>
 <link rel="stylesheet" type="text/css" href="${ctx}/themes/share/fonts/dsworkfont.css"/>
 <style type="text/css">
-html,body{height:100%;margin:0px auto;}*{padding:0;margin:0;font-family:arial,"microsoft yahei","宋体";}
-body {background-color:#ffffff;}
-div, input{font-size:20px;line-height:38px;}
-div, input, label{color:#333;}
-a{text-decoration:underline;outline:none;font-size:12px;font-weight:normal;}
+html,body{height:100%;margin:0px auto;}
+body {background-color:#fff;}
+*{padding:0;margin:0;font-family:arial,"microsoft yahei","宋体";}
+div,input,a{font-weight:bold;font-size:20px;line-height:38px;}
+div,input,label{color:#333;}
+a{text-decoration:underline;outline:none;}
 a:link,a:visited,a:active{color:#0000bb;outline:none;}
 a:hover{color:#0000ff;text-decoration:underline;}
-
+.view{overflow:hidden;margin:0 auto;overflow:hidden;width:1000px;}
 .title {color:#003c7b;font-size:38px;font-weight:bold;text-align:center;padding:50px 0px;}
-.login{width:358px;padding:0;margin:0 auto;overflow:hidden;  height:338px;border:#003c7b solid 1px;position:absolute;left:595px;top:138px;}
-.view{padding:10px 0;overflow:hidden;margin:0 auto;width:1000px;height:473px;position:relative;overflow:hidden;background:url(${ctx}/themes/share/bg/login.gif) no-repeat center center;}
-
-.box{overflow:hidden;text-align:center;width:100%;margin:0 auto 15px auto;padding:0;border:none;}
+.login{border:#003c7b solid 1px;padding:0;overflow:hidden;}
+.box{overflow:hidden;text-align:center;width:100%;margin:0 auto 12px auto;padding:0;border:none;}
 .box .title{background-color:#003c7b;color:#fff;width:100%;padding:3px 0;line-height:50px;font-size:22px;text-align:center;margin:0 auto;}
-.box .vbox{padding:0;overflow:hidden;text-align:left;vertical-align:middle;margin:0 0 0 45px;}
-.box .vbox span{font-weight:bold;font-family:dsworkfont;margin:0 10px;}
-.box .vbox input{width:198px;height:35px;margin:0 0 0 3px;padding:0 0 0 8px;vertical-align:middle;background-color:#fff;border:#ccc solid 1px;}
+.box .vbox{margin:0 auto;padding:0;overflow:hidden;text-align:left;vertical-align:middle;width:250px;}
+.box .vbox span{font-family:dsworkfont;margin:0 10px;}
+.box .vbox input{width:198px;height:35px;padding-left:8px;vertical-align:middle;background-color:inherit;border:#ccc solid 1px;}
 .box .vbox input.code{width:98px;}
 .box .vbox img{border:none;cursor:pointer;vertical-align:middle;}
-.box .button{font-weight:bold;background-color:#003c7b;color:#eee;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;}
+.box .button{background-color:#003c7b;color:#eee;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;}
 .box .button:hover{background-color:#da3b01;color:#fff;}
 .box label{font-weight:bold;font-size:16px;line-height:18px;}
 .box label.left{float:left;margin-left:45px;}
 .box label.right{float:right;margin-right:38px;}
 
-.cp{color:#666;font-size:12px;font-weight:bold;width:80%;overflow:hidden;text-align:center;padding:15px 0;margin:30px auto 0 auto;border-top:solid #ccc 1px;}
+.cp{color:#666;font-size:12px;width:80%;overflow:hidden;text-align:center;padding:15px 0;margin:30px auto 0 auto;border-top:solid #ccc 1px;}
+.cp a {font-size:12px;font-weight:normal;font-family:arial;}
+
+.view{background:url(${ctx}/themes/share/bg/login.gif) no-repeat center center;}
+.login{float:right;margin:0 47px 0 auto;width:360px;max-width:360px;}
+@media only screen and (max-width:480px){
+.view{background:none;width:100%;min-width:300px;}
+.title {font-size:20px;padding:30px 0px;}
+.login{float:none;margin:0 auto;width:100%;}
+.box .title{font-size:20px;}
+}
+@media only screen and (max-width:361px){
+.login{border-left:none;border-right:none;}
+}
+@media only screen and (min-width:481px) and (max-width:767px){
+.view{background:none;width:100%;}
+.title {font-size:28px;padding:30px 0px;}
+.login{float:none;margin:0 auto;width:60%;min-width:340px;}
+}
+@media only screen and (min-width:768px) and (max-width:999px){
+.view{width:100%;}
+}
 </style>
 </head>
 <body>
@@ -70,7 +90,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
   </form>
 </div>
 <div class="cp">
-	Copyright &copy; 2014-2017 skey_chen@163.com
+	Copyright &copy; 2014-2017
 </div>
 </body>
 <script type="text/javascript" src="${ctx}/js/jskey/jskey_md5.js"></script>
