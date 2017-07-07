@@ -1,9 +1,9 @@
 <%@page language="java" pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="${ctx}/js/tv/skin/skin.css">
+<!--7.0.4-->
 <script type="text/javascript" src="${ctx}/js/tv/flowplayer.min.js"></script>
 
-<%--旅游提示--%>
-
+<%--旅游提示
 <%
 //旅游提示87
 request.setAttribute("lyts", cms.queryList(1, 4, false, false, true, 87));
@@ -15,17 +15,16 @@ request.setAttribute("lyts", cms.queryList(1, 4, false, false, true, 87));
 	</ul>
 </div>
 <div class="vline">&nbsp;</div>
+--%>
 
+ <div class="flowplayer" data-swf="${ctx}/js/tv/flowplayer.swf" style="width: 240px; height: 180px;">
+	<video>
+		<source type="video/flv" src="http://www.visitgz.com/zt/lizhuo/flv/201702151710fqztc.flv">
+	</video>
+</div>
 
 <div class="r_wsbs">
-<!--网页flv,mp4视频播放器PlayerLite/代码开始-->
-	<div class="flowplayer" data-swf="/js/tv/flowplayer.swf" style="width:240px;height:180px;">
-		<video>
-			<source type="video/flv" src="/f/res/tv/index.flv">
-		</video>
-	</div>
 	<div class="vline">&nbsp;</div>
-<!--网页flv,mp4视频播放器PlayerLite/代码结束-->
 	<a target="_blank" href="${ctx}/a/jzxx/index.html"><img src="${ctx}/themes/images/jzxx.png"></a>
 	<a target="_blank" href="${ctx}/a/gkyjx/index.html"><img src="${ctx}/themes/images/gkyjx.png"></a>
  	<a target="_blank" href="http://wsbs.gz.gov.cn/gz/zwgk/zqqd.jsp?orgId=10052"><img src="${ctx}/themes/images/ad_qzqd.jpg"></a>
@@ -82,29 +81,12 @@ request.setAttribute("xcsp", cms.queryList(1, 3, false, false, true, 94));
 <div class="vline">&nbsp;</div>
 <div class="r_logo"><span style="float:right;"><a href="${ctx}/a/spzs/index.html" style="font-size:12px;font-weight:100;color:#fff;margin-right:10px;" target="_blank">更多&gt;&gt;</a></span><span>宣传视频</span></div>
 <div class="box" style="text-align:center;">
-	<script type="text/javascript" src="${ctx}/js/tv/swfobject.js"></script>
-	<div id="xcsp_first" style="padding-top:10px;"></div>
 	<c:forEach items="${xcsp_top}" var="d">
-	<script type="text/javascript">
-		var so = new SWFObject("${ctx}/js/tv/CuPlayerMiniV20_Black_S.swf","xcsp_first","220","180","9","#000000");
-		so.addParam("allowfullscreen","true");
-		so.addParam("allowscriptaccess","always");
-		so.addParam("wmode","opaque");
-		so.addParam("quality","high");
-		so.addParam("salign","lt");
-		so.addVariable("CuPlayerFile","${d.releasesource}");
-		so.addVariable("CuPlayerImage","${d.img}");
-		so.addVariable("CuPlayerShowImage","true");
-		so.addVariable("CuPlayerWidth","220");
-		so.addVariable("CuPlayerHeight","180");
-		so.addVariable("CuPlayerAutoPlay","false");
-		so.addVariable("CuPlayerAutoRepeat","true");
-		so.addVariable("CuPlayerShowControl","true");
-		so.addVariable("CuPlayerAutoHideControl","false");
-		so.addVariable("CuPlayerAutoHideTime","6");
-		so.addVariable("CuPlayerVolume","80");
-		so.write("xcsp_first");	
-	</script>
+ 	<div class="flowplayer" data-swf="${ctx}/js/tv/flowplayer.swf" style="width: 240px; height: 180px;padding-top:10px;">
+		<video>
+			<source type="video/flv" src="${d.releasesource}">
+		</video>
+	</div>
 	</c:forEach>
 	<ul class="list">
 	<c:forEach items="${xcsp}" var="d">
