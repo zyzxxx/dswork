@@ -24,7 +24,7 @@ $(function(){
 #upBtn{margin:30px auto;background-color:#00A2D4;color:#fff;width:300px;padding:20px 0;border:0px;font-size:32px;font-weight:bold;cursor:pointer;}
 #upBtn:hover{background-color:#0192D0;}
 </style>
-</head> 
+</head>
 <body style="background-color:#FAFAFA;">
 	<span style="display:block;"><div id="upBtn" onclick="$dswork.doAjaxObject.autoDelayHide('请稍候', 3000);" style="text-align: center;">点击选择上传文件</div></span>
 	<input id="fjFile" name="fjFile" type="hidden" value="" dataType="UploadFile" /><input id="fjFileNames" name="fjFileNames" type="hidden" value="" />
