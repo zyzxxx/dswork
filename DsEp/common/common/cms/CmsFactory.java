@@ -19,14 +19,6 @@ public class CmsFactory
 {
 	private static DsCmsDao dao = null;
 
-	private static void init()
-	{
-		if(dao == null)
-		{
-			dao = (DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsDao");
-		}
-	}
-
 	private static Long toLong(Object v)
 	{
 		try
@@ -45,7 +37,10 @@ public class CmsFactory
 	{
 		try
 		{
-			init();
+			if(dao == null)
+			{
+				dao = (DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsDao");
+			}
 			String tmp = String.valueOf(request.getParameter("siteid"));
 			siteid = toLong(tmp);
 			site = dao.getSite(siteid);
@@ -62,19 +57,16 @@ public class CmsFactory
 
 	public Map<String, Object> getCategory(Object categoryid)
 	{
-		init();
 		return dao.getCategory(siteid, toLong(categoryid));
 	}
 
 	public Map<String, Object> get(String pageid)
 	{
-		init();
 		return dao.get(siteid, toLong(pageid));
 	}
 
 	public List<Map<String, Object>> queryList(int currentPage, int pageSize, boolean onlyImage, boolean onlyPage, boolean isDesc, Object... categoryids)
 	{
-		init();
 		StringBuilder idArray = new StringBuilder();
 		idArray.append("0");
 		for(int i = 0; i < categoryids.length; i++)
@@ -87,7 +79,6 @@ public class CmsFactory
 
 	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean onlyImage, boolean onlyPage, boolean isDesc, String url, Object categoryid)
 	{
-		init();
 		if(currentPage <= 0){currentPage = 1;}
 		if(pageSize <= 0){pageSize = 25;}
 		StringBuilder idArray = new StringBuilder();
@@ -166,7 +157,6 @@ public class CmsFactory
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
 		{
-			init();
 			StringBuilder idArray = new StringBuilder();
 			if(categoryids.length > 0)
 			{
@@ -217,7 +207,6 @@ public class CmsFactory
 	 */
 	public List<Map<String, Object>> queryCategory(Object categoryid)
 	{
-		init();
 		String pid = String.valueOf(toLong(categoryid));
 		List<Map<String, Object>> list = dao.queryCategory(siteid);
 		Map<String, Object> map = new HashMap<String, Object>();
