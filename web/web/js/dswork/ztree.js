@@ -1,4 +1,5 @@
 //ztree
+if(typeof($dswork)!="object"){$dswork={};}
 $dswork.ztree = {
 	id:"mytree", menuName:"divMenu", tree:null, menu:null, dataName:"divTree",
 	tid:-1, tpid:-1//异步加载前选中的节点id和父节点id
