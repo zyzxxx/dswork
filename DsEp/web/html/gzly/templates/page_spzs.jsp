@@ -15,7 +15,8 @@
 </head>
 <body>
 <%@include file="include/header.jsp"%>
-<script type="text/javascript" src="${ctx}/js/tv/flowplayer-3.2.6.min.js"></script>
+<link rel="stylesheet" href="${ctx}/js/tv/skin/skin.css">
+<script type="text/javascript" src="${ctx}/js/tv/flowplayer.min.js"></script>
 <div class="container w990 clear">
   <div class="w990">
 	<div class="listpage hei1 view">
@@ -25,13 +26,7 @@
 			<div class="subtitle">${releasetime}</div>
 		</div>
 		<div class="content">
-			<dt id="myplayer${id}" style="width:480px;height:270px;padding:5px;margin-left:150px;">
-			</dt>
-			<script type="text/javascript">
-			flowplayer("myplayer${id}", "${ctx}/js/tv/flowplayer-3.2.7.swf", {
-				  clip: { url: "${releasesource}", autoPlay: false, autoBuffering: true, accelerated: true}
-			});
-		    </script>
+			<dt class="flowplayer" data-swf="${ctx}/js/tv/flowplayer.swf" style="width:480px;height:270px;padding:5px;margin-left:150px;"><video><source type="video/flv" src="${releasesource}"></video></dt>
 		</div>
 	</div>
   </div>
