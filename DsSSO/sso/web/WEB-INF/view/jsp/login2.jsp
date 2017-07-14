@@ -16,15 +16,17 @@ response.setHeader("Pragma","no-cache");
 <style type="text/css">
 html,body{height:100%;margin:0px auto;}
 body {background-color:#83060E;}
-*{padding:0;margin:0;font-family:arial,"microsoft yahei","宋体";}
+*{-webkit-appearance:none;padding:0;margin:0;font-family:arial,"microsoft yahei","宋体";border-radius:0;}
 div,input,a{font-weight:bold;font-size:20px;line-height:38px;}
 div,input,label{color:#bc0015;}
 a{text-decoration:underline;outline:none;}
 a:link,a:visited,a:active{color:#b71d29;outline:none;}
 a:hover{color:#0000ff;text-decoration:underline;}
-.view{overflow:hidden;margin:0 auto;overflow:hidden;}
-.title {color:#bc0015;font-size:38px;font-weight:bold;text-align:center;}
-.login{border:#ccc solid 1px;padding:0;overflow:hidden;background-color:#fff;}
+.bg{width:100%;height:730px;position:absolute;top:0px;left:0;z-index:-1;background:url(${ctx}/themes/share/bg/biggold.jpg) no-repeat top center;}
+.view{position:relative;width:100%;min-width:300px;overflow:hidden;margin:0 auto;overflow:hidden;}
+.title {color:#bc0015;font-size:38px;font-weight:bold;text-align:left;padding:80px 50px 38px 50px;}
+.title img{height:60px;vertical-align:middle;}
+.login{border:#ccc solid 1px;padding:0;overflow:hidden;background-color:#fff;float:right;margin:0 50px 0 auto;width:360px;}
 .box{overflow:hidden;text-align:center;width:100%;margin:0 auto 12px auto;padding:0;border:none;}
 .box .title{background-color:#fff;border-bottom:#ccc solid 1px;color:#bc0015;width:100%;padding:3px 0;line-height:50px;font-size:22px;text-align:center;margin:0 auto;}
 .box .vbox{margin:0 auto;padding:0;overflow:hidden;text-align:left;vertical-align:middle;width:250px;}
@@ -34,46 +36,24 @@ a:hover{color:#0000ff;text-decoration:underline;}
 .box .vbox img{border:none;cursor:pointer;vertical-align:middle;}
 .box .button{background-color:#bc0015;color:#fff;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;}
 .box .button:hover{background-color:#ff0000;color:#fff;}
+.box .checkbox{vertical-align:middle;}
 .box label{font-weight:bold;font-size:16px;line-height:18px;}
 .box label.left{float:left;margin-left:38px;}
 .box label.right{float:right;margin-right:38px;}
 .box label a{font-size:16px;line-height:18px;text-decoration:none;}
-
-.cp{color:#fff;font-size:12px;width:80%;overflow:hidden;text-align:center;padding:15px 0;margin:20px auto 0 auto;border-top:solid #ccc 1px;border:none;}
+.cp{color:#fff;font-size:12px;width:80%;overflow:hidden;text-align:center;padding:15px 0;margin:20px auto 0 auto;border:none;}
 .cp a {font-size:12px;font-weight:normal;font-family:arial;}
 
-.view{width:1000px;position:relative;}
-.title{padding:80px 0 35px 0;text-align:left;padding-left:50px;}
-.title img{height:60px;}
-.bg{width:100%;height:730px;position:absolute;top:0px;left:0;z-index:-1;background:url(${ctx}/themes/share/bg/biggold.jpg) no-repeat top center;}/*:url(${ctx}/themes/share/bg/bg.jpg) no-repeat center center;*/
-.login{float:right;margin:0 auto;width:360px;max-width:360px;}
-@media only screen and (max-width:480px){
-.view{width:100%;min-width:300px;}
-.title{text-align:center;padding:40px 0 35px 0;}
-.bg{background:none;}
-.login{float:none;margin:0 auto;width:100%;}
-.box .title{font-size:20px;}
-}
-@media only screen and (max-width:361px){
-.title{text-align:center;padding-left:0;}
-.login{border-left:none;border-right:none;}
-}
-@media only screen and (min-width:481px) and (max-width:767px){
-.view{width:100%;}
-.title{text-align:center;padding-left:0;}
-.login{float:none;margin:0 auto;width:60%;min-width:340px;}
-}
-@media only screen and (min-width:768px) and (max-width:999px){
-.title{text-align:center;padding-left:0;}
-.view{width:100%;}
-}
+@media only screen and (min-width:768px) and (max-width:999px){.title{text-align:center;}}
+@media only screen and (max-width:767px){.bg{background:none;}.title{font-size:22px;text-align:center;padding:40px 0 35px 0;}.login{float:none;margin:0 auto;}}
+@media only screen and (max-width:480px){.bg{background:none;}.title{text-align:center;}.login{float:none;margin:0 auto;}}
+@media only screen and (max-width:361px){.login{border-left:none;border-right:none;}}
 </style>
 </head>
 <body>
-<c:if test="${errorMsg != ''}"><script type="text/javascript">alert("${errorMsg}");</script></c:if>
 <div class="bg"></div>
 <div class="view">
-  <div class="title"><img src="${ctx}/themes/share/bg/mall.png" /></div>
+  <div class="title">&nbsp;<img src="${ctx}/themes/share/bg/mall.png" />&nbsp;</div>
   <form id="w" action="loginAction" method="post">
   <div class="login">
 	<div class="box"><div class="title">用户登录</div></div>
@@ -100,6 +80,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 <div class="cp">
 	&copy; 2016-2017 深圳市九五至尊珠宝有限公司
 </div>
+<c:if test="${errorMsg != ''}"><script type="text/javascript">alert("${errorMsg}");</script></c:if>
 </body>
 <script type="text/javascript" src="${ctx}/js/jskey/jskey_md5.js"></script>
 <script type="text/javascript">
