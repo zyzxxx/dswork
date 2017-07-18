@@ -18,15 +18,6 @@ import dswork.core.page.Page;
 public class CmsFactory
 {
 	private static DsCmsDao dao = null;
-	
-	private DsCmsDao getDao()
-	{
-		return dao;
-	}
-	private DsCmsDao setDao(DsCmsDao dao)
-	{
-		return dao;
-	}
 
 	private static Long toLong(Object v)
 	{
@@ -46,16 +37,24 @@ public class CmsFactory
 	{
 		try
 		{
-			if(getDao() == null)
-			{
-				setDao((DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsDao"));
-			}
+			init();
 			String tmp = String.valueOf(request.getParameter("siteid"));
 			siteid = toLong(tmp);
 			site = getDao().getSite(siteid);
 		}
 		catch(Exception ex)
 		{
+		}
+	}
+	protected DsCmsDao getDao()
+	{
+		return dao;
+	}
+	protected void init()
+	{
+		if(getDao() == null)
+		{
+			dao = (DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsDao");
 		}
 	}
 
