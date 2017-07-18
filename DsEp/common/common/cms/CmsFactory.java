@@ -18,6 +18,15 @@ import dswork.core.page.Page;
 public class CmsFactory
 {
 	private static DsCmsDao dao = null;
+	
+	private DsCmsDao getDao()
+	{
+		return dao;
+	}
+	private DsCmsDao setDao(DsCmsDao dao)
+	{
+		return dao;
+	}
 
 	private static Long toLong(Object v)
 	{
@@ -37,13 +46,13 @@ public class CmsFactory
 	{
 		try
 		{
-			if(dao == null)
+			if(getDao() == null)
 			{
-				dao = (DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsDao");
+				setDao((DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsDao"));
 			}
 			String tmp = String.valueOf(request.getParameter("siteid"));
 			siteid = toLong(tmp);
-			site = dao.getSite(siteid);
+			site = getDao().getSite(siteid);
 		}
 		catch(Exception ex)
 		{
@@ -57,12 +66,12 @@ public class CmsFactory
 
 	public Map<String, Object> getCategory(Object categoryid)
 	{
-		return dao.getCategory(siteid, toLong(categoryid));
+		return getDao().getCategory(siteid, toLong(categoryid));
 	}
 
 	public Map<String, Object> get(String pageid)
 	{
-		return dao.get(siteid, toLong(pageid));
+		return getDao().get(siteid, toLong(pageid));
 	}
 
 	public List<Map<String, Object>> queryList(int currentPage, int pageSize, boolean onlyImage, boolean onlyPage, boolean isDesc, Object... categoryids)
@@ -73,7 +82,7 @@ public class CmsFactory
 		{
 			idArray.append(",").append(toLong(categoryids[i]));
 		}
-		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage, null);
+		Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage, null);
 		return page.getResult();
 	}
 
@@ -83,7 +92,7 @@ public class CmsFactory
 		if(pageSize <= 0){pageSize = 25;}
 		StringBuilder idArray = new StringBuilder();
 		idArray.append(toLong(categoryid));
-		Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage, null);
+		Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage, null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		currentPage = page.getCurrentPage();// 更新当前页
 		map.put("list", page.getResult());
@@ -166,7 +175,7 @@ public class CmsFactory
 					idArray.append(",").append(toLong(categoryids[i]));
 				}
 			}
-			Page<Map<String, Object>> page = dao.queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, false, false, keyvalue);
+			Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, false, false, keyvalue);
 			
 			map.put("status", "1");//success
 			map.put("msg", "success");
@@ -208,7 +217,7 @@ public class CmsFactory
 	public List<Map<String, Object>> queryCategory(Object categoryid)
 	{
 		String pid = String.valueOf(toLong(categoryid));
-		List<Map<String, Object>> list = dao.queryCategory(siteid);
+		List<Map<String, Object>> list = getDao().queryCategory(siteid);
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
 		for(Map<String, Object> m : list)
