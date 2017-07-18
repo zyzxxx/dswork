@@ -46,10 +46,12 @@ public class CmsFactory
 		{
 		}
 	}
+	
 	protected DsCmsDao getDao()
 	{
 		return dao;
 	}
+	
 	protected void init()
 	{
 		if(getDao() == null)
