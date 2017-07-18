@@ -37,7 +37,10 @@ public class CmsFactory
 	{
 		try
 		{
-			init();
+			if(getDao() == null)
+			{
+				init();
+			}
 			String tmp = String.valueOf(request.getParameter("siteid"));
 			siteid = toLong(tmp);
 			site = getDao().getSite(siteid);
@@ -54,10 +57,7 @@ public class CmsFactory
 	
 	protected void init()
 	{
-		if(getDao() == null)
-		{
-			dao = (DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsDao");
-		}
+		dao = (DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsDao");
 	}
 
 	public Map<String, Object> getSite()
