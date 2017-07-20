@@ -4,7 +4,7 @@ MyRequest req = new MyRequest(request);
 String account = req.getString("account");
 String password = req.getString("password");
 String authcode = req.getString("authcode");
-int logintype = req.getInt("logintype");
+int logintype = req.getInt("logintype", -1);
 AuthUtil login = new AuthUtil(pageContext);
 String s = "about:blank", m = "";
 if(login.login(account, password, logintype, authcode))
