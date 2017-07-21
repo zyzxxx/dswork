@@ -16,7 +16,7 @@ response.setHeader("Pragma","no-cache");
 <style type="text/css">
 html,body{height:100%;margin:0px auto;}
 body {background-color:#fff;}
-*{-webkit-appearance:none;padding:0;margin:0;font-family:arial,"microsoft yahei","宋体";border-radius:0;}
+*{padding:0;margin:0;font-family:arial,"microsoft yahei","宋体";border-radius:0;}
 div,input,a{font-weight:bold;font-size:20px;line-height:38px;}
 div,input,label{color:#333;}
 a{text-decoration:underline;outline:none;}
@@ -34,7 +34,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 .box .vbox input{width:198px;height:35px;padding-left:8px;vertical-align:middle;background-color:inherit;border:#ccc solid 1px;}
 .box .vbox input.code{width:98px;}
 .box .vbox img{border:none;cursor:pointer;vertical-align:middle;}
-.box .button{background-color:#003c7b;color:#eee;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;}
+.box .button{background-color:#003c7b;color:#eee;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;-webkit-appearance:none;}
 .box .button:hover{background-color:#da3b01;color:#fff;}
 .box .checkbox{vertical-align:middle;}
 .box label{font-weight:bold;font-size:16px;line-height:18px;}
