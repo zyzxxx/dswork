@@ -53,7 +53,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 <body>
 <div class="bg"></div>
 <div class="view">
-  <div class="title">&nbsp;<img src="${ctx}/themes/share/bg/mall.png" />&nbsp;</div>
+  <div class="title">&nbsp;<img src="${ctx}/themes/share/bg/logo.png" />&nbsp;</div>
   <form id="w" action="loginAction" method="post">
   <div class="login">
 	<div class="box"><div class="title">用户登录</div></div>
