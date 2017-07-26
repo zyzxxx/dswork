@@ -1,7 +1,7 @@
 /**
  * CMSService
  */
-package common.cms.factory;
+package common.cms;
 
 import javax.servlet.http.HttpServletRequest;
 import dswork.cms.dao.DsCmsDao;

@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="common.cms.dao.DsCmsPreviewDao">
+<mapper namespace="common.cms.DsCmsDao">
 
 <sql id="c_site">
 	id, own, name, folder, url, img, viewsite
@@ -20,21 +20,18 @@
 	where ID=#{id}
 </select>
 <select id="getCategory" resultType="java.util.Map">
-	select <include refid="common.top" />
-	a.id, a.pid, a.siteid, a.name, a.folder, a.status, a.url, a.viewsite, a.pageviewsite,
-	b.metakeywords, b.metadescription, b.summary, b.releasetime, b.releasesource, b.releaseuser, b.img, b.content
-	from DS_CMS_CATEGORY a left join DS_CMS_AUDIT_CATEGORY b on a.ID=b.ID
-	where a.ID=#{id} and a.SITEID=#{siteid}
-	order by a.SEQ
+	select <include refid="common.top" /><include refid="c_category" /> from DS_CMS_CATEGORY
+	where ID=#{id} and SITEID=#{siteid}
+	order by SEQ
 </select>
 <select id="get" resultType="java.util.Map">
-	select <include refid="c_page" /> from DS_CMS_AUDIT_PAGE
+	select <include refid="c_page" /> from DS_CMS_PAGE
 	where ID=#{id} and SITEID=#{siteid}
 </select>
 
 <select id="query" resultType="java.util.Map">
-	select <include refid="common.top" /><include refid="c_page" /> from DS_CMS_AUDIT_PAGE
-	where SITEID=#{siteid}
+	select <include refid="common.top" /><include refid="c_page" /> from DS_CMS_PAGE
+	where SITEID=#{siteid} 
 		<if test="@Ognl@isNotEmpty(idArray)"> and CATEGORYID in (${idArray}) </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
@@ -44,8 +41,8 @@
 	order by RELEASETIME ${order}
 </select>
 <select id="queryCount" resultType="int">
-	select count(1) from DS_CMS_AUDIT_PAGE
-	where SITEID=#{siteid}
+	select count(1) from DS_CMS_PAGE
+	where SITEID=#{siteid} 
 		<if test="@Ognl@isNotEmpty(idArray)"> and CATEGORYID in (${idArray}) </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
