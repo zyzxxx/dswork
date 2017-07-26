@@ -9,12 +9,9 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
 
-import dswork.cms.DsCmsDao;
 import dswork.core.page.Page;
 
-//@SuppressWarnings("all")
 public class CmsFactory
 {
 	private static DsCmsDao dao = null;
@@ -49,12 +46,12 @@ public class CmsFactory
 		{
 		}
 	}
-	
+
 	protected DsCmsDao getDao()
 	{
 		return dao;
 	}
-	
+
 	protected void init()
 	{
 		dao = (DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsDao");
@@ -89,62 +86,71 @@ public class CmsFactory
 
 	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean onlyImage, boolean onlyPage, boolean isDesc, String url, Object categoryid)
 	{
-		if(currentPage <= 0){currentPage = 1;}
-		if(pageSize <= 0){pageSize = 25;}
+		if(currentPage <= 0)
+		{
+			currentPage = 1;
+		}
+		if(pageSize <= 0)
+		{
+			pageSize = 25;
+		}
 		StringBuilder idArray = new StringBuilder();
 		idArray.append(toLong(categoryid));
 		Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage, null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		currentPage = page.getCurrentPage();// 更新当前页
 		map.put("list", page.getResult());
-
 		Map<String, Object> pagemap = new HashMap<String, Object>();
 		pagemap.put("page", currentPage);
 		pagemap.put("pagesize", pageSize);
-
 		pagemap.put("first", 1);
 		pagemap.put("firsturl", url);
-		int tmp = initpage(currentPage-1, page.getLastPage());
+		int tmp = initpage(currentPage - 1, page.getLastPage());
 		pagemap.put("prev", tmp);
 		pagemap.put("prevurl", (tmp == 1 ? url : (url.replaceAll("\\.html", "_" + tmp + ".html"))));
-		
-		tmp = initpage(currentPage+1, page.getLastPage());
+		tmp = initpage(currentPage + 1, page.getLastPage());
 		pagemap.put("next", tmp);
 		pagemap.put("nexturl", (tmp == 1 ? url : (url.replaceAll("\\.html", "_" + tmp + ".html"))));
-		
 		tmp = page.getLastPage();
 		pagemap.put("last", tmp);
 		pagemap.put("lasturl", (tmp == 1 ? url : (url.replaceAll("\\.html", "_" + tmp + ".html"))));
-
 		map.put("datauri", url.replaceAll("\\.html", ""));
 		map.put("datapage", pagemap);
-		
-
 		StringBuilder sb = new StringBuilder();
 		int viewpage = 3, temppage = 1;// 左右显示个数
-		
 		sb.append("<a");
-		if(currentPage == 1){sb.append(" class=\"selected\"");}else{sb.append(" href=\"").append(site.get("url")).append(url).append("\"");}
+		if(currentPage == 1)
+		{
+			sb.append(" class=\"selected\"");
+		}
+		else
+		{
+			sb.append(" href=\"").append(site.get("url")).append(url).append("\"");
+		}
 		sb.append(">1</a>");
-		
-		temppage = currentPage - viewpage -1;
+		temppage = currentPage - viewpage - 1;
 		if(temppage > 1)
 		{
 			String u = url.replaceAll("\\.html", "_" + temppage + ".html");
 			sb.append("<a href=\"").append(site.get("url")).append(u).append("\">...</a>");
 		}
-
 		for(int i = currentPage - viewpage; i <= currentPage + viewpage && i < page.getLastPage(); i++)
 		{
 			if(i > 1)
 			{
 				String u = (i == 1 ? url : (url.replaceAll("\\.html", "_" + i + ".html")));
 				sb.append("<a");
-				if(currentPage == i){sb.append(" class=\"selected\"");}else{sb.append(" href=\"").append(site.get("url")).append(u).append("\"");}
+				if(currentPage == i)
+				{
+					sb.append(" class=\"selected\"");
+				}
+				else
+				{
+					sb.append(" href=\"").append(site.get("url")).append(u).append("\"");
+				}
 				sb.append(">").append(i).append("</a>");
 			}
 		}
-
 		temppage = currentPage + viewpage + 1;
 		if(temppage < page.getLastPage())
 		{
@@ -155,7 +161,14 @@ public class CmsFactory
 		{
 			String u = url.replaceAll("\\.html", "_" + page.getLastPage() + ".html");
 			sb.append("<a");
-			if(currentPage == page.getLastPage()){sb.append(" class=\"selected\"");}else{sb.append(" href=\"").append(site.get("url")).append(u).append("\"");}
+			if(currentPage == page.getLastPage())
+			{
+				sb.append(" class=\"selected\"");
+			}
+			else
+			{
+				sb.append(" href=\"").append(site.get("url")).append(u).append("\"");
+			}
 			sb.append(">").append(page.getLastPage()).append("</a>");
 		}
 		map.put("datapageview", sb.toString());// 翻页字符串
@@ -177,14 +190,11 @@ public class CmsFactory
 				}
 			}
 			Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, false, false, keyvalue);
-			
-			map.put("status", "1");//success
+			map.put("status", "1");// success
 			map.put("msg", "success");
-			
 			map.put("size", page.getTotalCount());
 			map.put("page", page.getCurrentPage());
 			map.put("pagesize", page.getPageSize());
-			
 			map.put("totalpage", page.getTotalPage());
 			map.put("rows", page.getResult());
 		}
@@ -195,7 +205,7 @@ public class CmsFactory
 		}
 		return map;
 	}
-	
+
 	private int initpage(int page, int total)
 	{
 		if(page < 0)
