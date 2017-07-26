@@ -38,12 +38,24 @@ public class DsCmsCategoryDao extends BaseDao<DsCmsCategory, Long>
 
 	/**
 	 * 更新单页栏目内容
-	 * @param id 主键
-	 * @param keywords 关键词
-	 * @param content 内容
+	 * @param po 更新内容及发布状态
 	 */
 	public void updateContent(DsCmsCategory po)
 	{
 		executeUpdate("updateContent", po);
+	}
+
+	/**
+	 * 更新发布状态
+	 * @param id 
+	 * @param status 
+	 * @return int
+	 */
+	public int updateStatus(Long id, int status)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("status", status);
+		return executeUpdate("updateStatus", map);
 	}
 }

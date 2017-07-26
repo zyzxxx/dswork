@@ -3,26 +3,27 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.cms.model.DsCmsPage">
+<mapper namespace="dswork.cms.model.DsCmsAuditPage">
 
-<insert id="insert" parameterType="dswork.cms.model.DsCmsPage">
+<insert id="insert" parameterType="dswork.cms.model.DsCmsAuditPage">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
 		<include refid="common.rowid" />
 	</selectKey>
-	insert into DS_CMS_PAGE
-	(<if test="id&gt;0">ID, </if>SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT)
+	insert into DS_CMS_AUDIT_PAGE
+	(SITEID, CATEGORYID, STATUS, TITLE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, USERACCOUNT, MSG)
 	values
-	(<if test="id&gt;0">#{id}, </if>#{siteid}, #{categoryid}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{url}, #{content})
+	(#{siteid}, #{categoryid}, #{status}, #{title}, #{url}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content}, #{useraccount}, #{msg})
 </insert>
 
 <delete id="delete">
-	delete from DS_CMS_PAGE where ID=#{id}
+	delete from DS_CMS_AUDIT_PAGE where ID=#{id} and STATUS in (4, 2)
 </delete>
 
-<update id="update" parameterType="dswork.cms.model.DsCmsPage">
-	update DS_CMS_PAGE set
+<update id="update" parameterType="dswork.cms.model.DsCmsAuditPage">
+	update DS_CMS_AUDIT_PAGE set
 		STATUS=#{status},
 		TITLE=#{title},
+		URL=#{url},
 		METAKEYWORDS=#{metakeywords},
 		METADESCRIPTION=#{metadescription},
 		SUMMARY=#{summary},
@@ -32,24 +33,19 @@
 		IMG=#{img},
 		IMGTOP=#{imgtop},
 		PAGETOP=#{pagetop},
-		CONTENT=#{content}
+		CONTENT=#{content},
+		USERACCOUNT=#{useraccount},
+		MSG=#{msg}
 	where ID=#{id}
 </update>
 
-<update id="updateURL">
-	update DS_CMS_PAGE set URL=#{url} where ID=#{id}
-</update>
-
-<update id="updateStatus">
-	update DS_CMS_PAGE set STATUS=#{status} where ID=#{id}
-</update>
-
-<resultMap id="result" type="dswork.cms.model.DsCmsPage">
+<resultMap id="result" type="dswork.cms.model.DsCmsAuditPage">
 	<id property="id" column="ID" />
 	<result property="siteid" column="SITEID" />
 	<result property="categoryid" column="CATEGORYID" />
 	<result property="status" column="STATUS" />
 	<result property="title" column="TITLE" />
+	<result property="url" column="URL" />
 	<result property="metakeywords" column="METAKEYWORDS" />
 	<result property="metadescription" column="METADESCRIPTION" />
 	<result property="summary" column="SUMMARY" />
@@ -59,42 +55,35 @@
 	<result property="img" column="IMG" />
 	<result property="imgtop" column="IMGTOP" />
 	<result property="pagetop" column="PAGETOP" />
-	<result property="url" column="URL" />
 	<result property="content" column="CONTENT" />
+	<result property="useraccount" column="USERACCOUNT" />
+	<result property="msg" column="MSG" />
 </resultMap>
 
-<sql id="columns">
-	ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT
-</sql>
-
+<sql id="columns">ID, SITEID, CATEGORYID, STATUS, TITLE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, USERACCOUNT, MSG</sql>
+	
 <sql id="dynamicWhere">
 	<where>
-		SITEID=#{siteid}
+		<if test="@Ognl@isNotEmpty(id)"> ID=#{id} </if>
+		<if test="@Ognl@isNotEmpty(siteid)"> SITEID=#{siteid} </if>
 		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-		<if test="@Ognl@isNotEmpty(keyvalue)"> and (
-			 TITLE like #{keyvalue, typeHandler=LikeTypeHandler}
-			 or METAKEYWORDS like #{keyvalue, typeHandler=LikeTypeHandler}
-			 or METADESCRIPTION like #{keyvalue, typeHandler=LikeTypeHandler}
-			 or SUMMARY like #{keyvalue, typeHandler=LikeTypeHandler}
-			 or CONTENT like #{keyvalue, typeHandler=LikeTypeHandler}
-		 )
-		</if>
-		<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME&lt;=#{releasetime} </if>
+		<if test="@Ognl@isNotEmpty(useraccount)"> and USERACCOUNT=#{useraccount} </if>
+		<if test="@Ognl@isNotEmpty(audit)"> and STATUS=1 </if>
 	</where>
 </sql>
 
 <select id="select" resultMap="result">
-	select <include refid="columns" /> from DS_CMS_PAGE where ID=#{id}
+	select <include refid="columns" /> from DS_CMS_AUDIT_PAGE where ID=#{id}
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="columns" /> from DS_CMS_PAGE
+	select <include refid="common.top" /><include refid="columns" /> from DS_CMS_AUDIT_PAGE
 	<include refid="dynamicWhere" />
 </select>
 
 <select id="queryCount" resultType="int">
-	select count(1) from DS_CMS_PAGE
+	select count(1) from DS_CMS_AUDIT_PAGE
 	<include refid="dynamicWhere" />
 </select>
 

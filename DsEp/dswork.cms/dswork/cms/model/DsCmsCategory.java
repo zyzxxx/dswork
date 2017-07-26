@@ -20,6 +20,8 @@ public class DsCmsCategory
 	private String folder = "";
 	// 类型(0列表,1单页,2外链)
 	private Integer status = 0;
+	// 发布状态
+	private int publishstatus = 0;
 	// 链接
 	private String url = "";
 	// 栏目模板
@@ -109,6 +111,16 @@ public class DsCmsCategory
 	public void setStatus(Integer status)
 	{
 		this.status = status;
+	}
+
+	public int getPublishstatus()
+	{
+		return publishstatus;
+	}
+
+	public void setPublishstatus(int publishstatus)
+	{
+		this.publishstatus = publishstatus;
 	}
 
 	public String getUrl()

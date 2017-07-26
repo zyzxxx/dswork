@@ -35,7 +35,7 @@ public class DsCmsPageController extends BaseController
 	{
 		return request.getSession().getServletContext().getRealPath("/") + "/";
 	}
-	
+
 	private String getLocalAddr()
 	{
 		String addr = request.getLocalAddr();
@@ -369,7 +369,7 @@ public class DsCmsPageController extends BaseController
 		int pagesize = req.getInt("pagesize", 25);
 		_building(false, siteid, categoryid, pageid, pagesize);
 	}
-	
+
 	/**
 	 * 生成或删除信息
 	 * @param isCreateOrDelete true生成，false删除
@@ -380,7 +380,10 @@ public class DsCmsPageController extends BaseController
 	 */
 	private void _building(boolean isCreateOrDelete, long siteid, long categoryid, long pageid, int pagesize)
 	{
-		if(pagesize <= 0){pagesize = 25;}
+		if(pagesize <= 0)
+		{
+			pagesize = 25;
+		}
 		try
 		{
 			if(siteid >= 0)
@@ -393,12 +396,12 @@ public class DsCmsPageController extends BaseController
 				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 				{
 					String path = "http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
-					//首页：categoryid==-1，pageid==-1
-					//全部栏目：categoryid==0，pageid==-1
-					//指定栏目：categoryid>0，pageid==-1
-					//全部内容：categoryid==0，pageid==0
-					//栏目内容：categoryid>0，pageid==0
-					//指定内容：pageid>0
+					// 首页：categoryid==-1，pageid==-1
+					// 全部栏目：categoryid==0，pageid==-1
+					// 指定栏目：categoryid>0，pageid==-1
+					// 全部内容：categoryid==0，pageid==0
+					// 栏目内容：categoryid>0，pageid==0
+					// 指定内容：pageid>0
 					if(pageid > 0)// 指定内容
 					{
 						DsCmsPage p = service.get(pageid);
@@ -444,7 +447,6 @@ public class DsCmsPageController extends BaseController
 								if(isCreateOrDelete && c.getSiteid() == siteid)
 								{
 									_buildFile(path + "&categoryid=" + c.getId() + "&page=1&pagesize=" + pagesize, c.getUrl(), site.getFolder());
-									
 									Map<String, Object> _m = new HashMap<String, Object>();
 									_m.put("siteid", site.getId());
 									_m.put("categoryid", c.getId());
@@ -545,7 +547,7 @@ public class DsCmsPageController extends BaseController
 			print(isCreateOrDelete ? "0:生成失败" : "0:删除失败");
 		}
 	}
-	
+
 	private void deleteFile(String siteFolder, String categoryFolder, boolean deleteCategory, boolean deletePage)
 	{
 		// 这部分处理不当，全把整个站点的都删除的
@@ -587,10 +589,12 @@ public class DsCmsPageController extends BaseController
 		try
 		{
 			String p = getCmsRoot().replaceAll("\\\\", "/") + "html/" + siteFolder + "/html/" + urlpath;
-			if(getpath == null){
+			if(getpath == null)
+			{
 				FileUtil.delete(p);
 			}
-			else{
+			else
+			{
 				java.net.URL url = new java.net.URL(getpath);
 				// java.net.URLConnection conn = url.openConnection();
 				// conn.setRequestProperty("Cookie", cookie);
@@ -637,39 +641,8 @@ public class DsCmsPageController extends BaseController
 				}
 			}
 		}
-		List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();// 按顺序放入
-		for(int i = 0; i < tlist.size(); i++)
-		{
-			DsCmsCategory m = tlist.get(i);
-			m.setLevel(0);
-			m.setLabel("");
-			list.add(m);
-			categorySettingList(m, list);
-		}
+		List<DsCmsCategory> list = DsCmsUtil.categorySettingList(tlist);
 		return list;
-	}
-
-	private void categorySettingList(DsCmsCategory m, List<DsCmsCategory> list)
-	{
-		int size = m.getList().size();
-		for(int i = 0; i < size; i++)
-		{
-			DsCmsCategory n = m.getList().get(i);
-			n.setLevel(m.getLevel() + 1);
-			n.setLabel(m.getLabel());
-			if(m.getLabel().endsWith("├"))
-			{
-				n.setLabel(m.getLabel().substring(0, m.getLabel().length() - 2) + "│");
-			}
-			else if(m.getLabel().endsWith("└"))
-			{
-				n.setLabel(m.getLabel().substring(0, m.getLabel().length() - 2) + "　");
-			}
-			n.setLabel(n.getLabel() + "&nbsp;&nbsp;");
-			n.setLabel(n.getLabel() + (i == size - 1 ? "└" : "├"));
-			list.add(n);
-			categorySettingList(n, list);
-		}
 	}
 
 	private boolean checkOwn(Long siteid)
@@ -695,7 +668,7 @@ public class DsCmsPageController extends BaseController
 		}
 		return false;
 	}
-	
+
 	private String getOwn()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getOwn();

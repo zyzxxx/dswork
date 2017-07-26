@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.cms.model.DsCmsPermission">
+
+<insert id="insert" parameterType="dswork.cms.model.DsCmsPermission">
+	insert into DS_CMS_PERMISSION
+	(ID, OWN, ACCOUNT, AUDIT, EDITALL, EIDTOWN, PUBLISH)
+	values
+	(#{id}, #{own}, #{account}, #{audit}, #{editall}, #{editown}, #{publish})
+</insert>
+
+<delete id="delete">
+	delete from DS_CMS_PERMISSION where ID=#{id}
+</delete>
+
+<update id="update" parameterType="dswork.cms.model.DsCmsPermission">
+	update DS_CMS_PERMISSION set
+		AUDIT=#{audit},
+		EDITALL=#{editall},
+		EDITOWN=#{editown},
+		PUBLISH=#{publish}
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="dswork.cms.model.DsCmsPermission">
+	<id property="id" column="ID" />
+	<result property="own" column="OWN" />
+	<result property="account" column="ACCOUNT" />
+	<result property="audit" column="AUDIT" />
+	<result property="editall" column="EDITALL" />
+	<result property="editown" column="EDITOWN" />
+	<result property="publish" column="PUBLISH" />
+</resultMap>
+
+<sql id="columns">ID, OWN, ACCOUNT, AUDIT, EDITALL, EDITOWN, PUBLISH</sql>
+	
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(id)"> and ID=#{id} </if>
+		<if test="@Ognl@isNotEmpty(own)"> and OWN=#{own} </if>
+		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT=#{account} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from DS_CMS_PERMISSION where ID=#{id}
+</select>
+<select id="selectByOwnAccount" resultMap="result">
+	select <include refid="columns" /> from DS_CMS_PERMISSION where OWN=#{own} and ACCOUNT=#{account}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="common.top" /><include refid="columns" /> from DS_CMS_PERMISSION
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from DS_CMS_PERMISSION
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>

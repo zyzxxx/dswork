@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.cms.dao.DsCmsUserDao">
+
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT like #{account, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(mobile)"> and MOBILE like #{mobile, typeHandler=LikeTypeHandler}</if>
+		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
+	</where>
+</sql>
+
+<select id="queryCommonUser" resultType="java.util.Map">
+	select id, account, name, email, mobile, status, 1 as usertype from DS_COMMON_USER
+	<include refid="dynamicWhere" />
+</select>
+<select id="queryCommonUserCount" resultType="int">
+	select count(1) from DS_COMMON_USER
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryEpUser" resultType="java.util.Map">
+	select id, account, name, email, mobile, status, usertype from DS_EP_USER
+	<include refid="dynamicWhere" />
+</select>
+<select id="queryEpUserCount" resultType="int">
+	select count(1) from DS_EP_USER
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryPersonUser" resultType="java.util.Map">
+	select id, account, name, email, mobile, status, usertype from DS_PERSON_USER
+	<include refid="dynamicWhere" />
+</select>
+<select id="queryPersonUserCount" resultType="int">
+	select count(1) from DS_PERSON_USER
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>

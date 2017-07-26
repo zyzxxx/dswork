@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.cms.model.DsCmsAuditCategory">
+
+<insert id="insert" parameterType="dswork.cms.model.DsCmsAuditCategory">
+	insert into DS_CMS_AUDIT_CATEGORY
+	(ID, SITEID, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT, URL, STATUS, MSG)
+	values
+	(#{id}, #{siteid}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content}, #{url}, #{status}, #{msg})
+</insert>
+
+<delete id="delete">
+	delete from DS_CMS_AUDIT_CATEGORY where ID=#{id}
+</delete>
+
+<update id="update" parameterType="dswork.cms.model.DsCmsAuditCategory">
+	update DS_CMS_AUDIT_CATEGORY set
+		METAKEYWORDS=#{metakeywords},
+		METADESCRIPTION=#{metadescription},
+		SUMMARY=#{summary},
+		RELEASETIME=#{releasetime},
+		RELEASESOURCE=#{releasesource},
+		RELEASEUSER=#{releaseuser},
+		IMG=#{img},
+		CONTENT=#{content},
+		URL=#{url},
+		STATUS=#{status},
+		MSG=#{msg}
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="dswork.cms.model.DsCmsAuditCategory">
+	<id property="id" column="ID" />
+	<result property="siteid" column="SITEID" />
+	<result property="metakeywords" column="METAKEYWORDS" />
+	<result property="metadescription" column="METADESCRIPTION" />
+	<result property="summary" column="SUMMARY" />
+	<result property="releasetime" column="RELEASETIME" />
+	<result property="releasesource" column="RELEASESOURCE" />
+	<result property="releaseuser" column="RELEASEUSER" />
+	<result property="img" column="IMG" />
+	<result property="content" column="CONTENT" />
+	<result property="status" column="STATUS" />
+	<result property="url" column="URL" />
+	<result property="msg" column="MSG" />
+</resultMap>
+
+<sql id="columns">ID, SITEID, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT, URL, STATUS, MSG</sql>
+	
+<sql id="dynamicWhere">
+	<where>
+		<if test="@Ognl@isNotEmpty(id)"> and ID like #{id, typeHandler=LikeTypeHandler} </if>
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from DS_CMS_AUDIT_CATEGORY where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="common.top" /><include refid="columns" /> from DS_CMS_AUDIT_CATEGORY
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from DS_CMS_AUDIT_CATEGORY
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>
