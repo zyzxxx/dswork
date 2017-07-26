@@ -1,7 +1,7 @@
 /**
  * CMSService
  */
-package common.cms;
+package common.cms.factory;
 
 import java.util.ArrayList;
 import java.util.HashMap;

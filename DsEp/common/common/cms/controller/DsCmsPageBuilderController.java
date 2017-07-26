@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.cms.CmsFactory;
+import common.cms.factory.CmsFactory;
 import dswork.mvc.BaseController;
 
 @Scope("prototype")
@@ -19,7 +19,7 @@ public class DsCmsPageBuilderController extends BaseController
 		//Long siteid = req.getLong("siteid");
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
-		common.cms.CmsFactory cms = new CmsFactory(request);
+		CmsFactory cms = new CmsFactory(request);
 		put("cms", cms);
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
