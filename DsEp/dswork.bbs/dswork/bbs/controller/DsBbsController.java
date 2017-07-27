@@ -76,9 +76,9 @@ public class DsBbsController extends BaseController
 
 	private List<DsBbsForum> querySiteForum(long siteid)
 	{
-		PageRequest rq = getPageRequest();
-		rq.getFilters().put("siteid", siteid);
-		List<DsBbsForum> clist = forumService.queryList(rq);
+		Map<String, Object> mapFilters = req.getParameterValueMap(false, false);
+		mapFilters.put("siteid", siteid);
+		List<DsBbsForum> clist = forumService.queryList(mapFilters);
 		Map<Long, DsBbsForum> map = new HashMap<Long, DsBbsForum>();
 		for(DsBbsForum m : clist)
 		{

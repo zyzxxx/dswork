@@ -56,9 +56,7 @@ public class DsEpEnterpriseService extends BaseService<DsEpEnterprise, Long>
 
 	public List<DsEpUser> queryListUser(Map map)
 	{
-		PageRequest rq = new PageRequest();
-		rq.setFilters(map);
-		return userDao.queryList(rq);
+		return userDao.queryList(map);
 	}
 
 	public DsEpUser getUser(Long id)

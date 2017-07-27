@@ -2,7 +2,7 @@ package dswork.core.db;
 
 import java.util.List;
 //import java.util.Map;
-
+import java.util.Map;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.dao.support.DaoSupport;
@@ -164,12 +164,24 @@ public abstract class MyBatisDao extends DaoSupport
 	/**
 	 * 不分页查询数据
 	 * @param statementName SQL的ID(不包含namespace)
+	 * @param filters Map&lt;String, Object&gt;查询参数和条件数据
+	 * @return List
+	 */
+	protected List queryList(String statementName, Map<String, Object> filters)
+	{
+		return getSqlSessionTemplate().selectList(getStatementName(statementName), filters);
+	}
+
+	/**
+	 * 分页查询数据
+	 * @param statementName SQL的ID(不包含namespace)
 	 * @param pageRequest PageRequest.getFilters()查询参数和条件数据
 	 * @return List
 	 */
 	protected List queryList(String statementName, PageRequest pageRequest)
 	{
-		return getSqlSessionTemplate().selectList(getStatementName(statementName), pageRequest.getFilters());
+		int first = (pageRequest.getCurrentPage() - 1) * pageRequest.getPageSize();
+		return getSqlSessionTemplate().selectList(getStatementName(statementName), pageRequest.getFilters(), new RowBounds(first, pageRequest.getPageSize()));
 	}
 
 	/**

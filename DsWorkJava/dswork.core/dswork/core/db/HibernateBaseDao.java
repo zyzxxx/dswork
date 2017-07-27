@@ -11,6 +11,7 @@ import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 // import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.orm.hibernate4.HibernateCallback;
 
@@ -127,21 +128,18 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 	
 	/**
 	 * 不分页查询数据
-	 * @param pageRequest <Map>PageRequest.getFilters()查询参数和条件数据<br />
+	 * @param filters Map&lt;String, Object&gt;查询参数和条件数据<br />
 	 * &nbsp; &nbsp; 需要重写queryParam(Criteria criteria)方法
 	 * @return List&lt;E&gt;
 	 */
-	public List<E> queryList(final PageRequest pageRequest)
+	public List<E> queryList(final Map filters)
 	{
 		return (List<E>) getHibernateTemplate().execute(new HibernateCallback()
 		{
 			public List<E> doInHibernate(Session session) throws HibernateException// , SQLException
 			{
 				Criteria criteria = session.createCriteria(getEntityClass());
-				if (pageRequest.getFilters() instanceof Map)
-				{
-					queryParam((Map)pageRequest.getFilters(), criteria);
-				}
+				queryParam(filters, criteria);
 				return criteria.list();
 			}
 		});
@@ -151,6 +149,28 @@ public abstract class HibernateBaseDao<E, PK extends Serializable> extends Hiber
 //			queryParam((Map)pageRequest.getFilters(), criteria);
 //		}
 //		return criteria.list();
+	}
+
+	/**
+	 * 分页查询数据
+	 * @param filters Map&lt;String, Object&gt;查询参数和条件数据<br />
+	 * &nbsp; &nbsp; 需要重写queryParam(Criteria criteria)方法
+	 * @return Page
+	 */
+	public List<E> queryList(final PageRequest pageRequest)
+	{
+		return (List<E>)getHibernateTemplate().execute(new HibernateCallback()
+		{
+			public List<E> doInHibernate(Session session) throws HibernateException//, SQLException
+			{
+				Criteria criteria = session.createCriteria(getEntityClass());
+				if (pageRequest.getFilters() instanceof Map)
+				{
+					queryParam((Map)pageRequest.getFilters(), criteria);
+				}
+				return queryList(criteria, pageRequest);
+			}
+		});
 	}
 
 	/**

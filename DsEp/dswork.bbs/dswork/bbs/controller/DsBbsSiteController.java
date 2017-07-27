@@ -108,8 +108,7 @@ public class DsBbsSiteController extends BaseController
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("own", getOwn());
-		PageRequest rq = new PageRequest(map);
-		put("list", service.queryList(rq));
+		put("list", service.queryList(map));
 		return "/bbs/admin/site/getSite.jsp";
 	}
 

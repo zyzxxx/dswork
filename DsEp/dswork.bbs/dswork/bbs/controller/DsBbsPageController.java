@@ -130,8 +130,7 @@ public class DsBbsPageController extends BaseController
 			Long id = req.getLong("siteid", -1), siteid = -1L;
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("own", getOwn());
-			PageRequest rq = new PageRequest(map);
-			List<DsBbsSite> siteList = service.queryListSite(rq);
+			List<DsBbsSite> siteList = service.queryListSite(map);
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);

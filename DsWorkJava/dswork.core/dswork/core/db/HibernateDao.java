@@ -94,6 +94,19 @@ public abstract class HibernateDao extends HibernateDaoSupport
 	}
 
 	/**
+	 * QBC方式分页查询数据
+	 * @param criteria Criteria对象
+	 * @param pageRequest 仅使用page和pageSize属性，不使用Filters属性
+	 * @return List
+	 */
+	protected List queryList(Criteria criteria, PageRequest pageRequest)
+	{
+		int first = (pageRequest.getCurrentPage() - 1) * pageRequest.getPageSize();
+		List results = criteria.setProjection(null).setFirstResult(first).setMaxResults(pageRequest.getPageSize()).list();
+		return results;
+	}
+
+	/**
 	 * 分页查询函数
 	 * @param hql HQL语句
 	 * @param hqlCount 与hql“?”个数、顺序一致

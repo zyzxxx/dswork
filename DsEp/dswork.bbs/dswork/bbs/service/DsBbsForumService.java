@@ -85,8 +85,8 @@ public class DsBbsForumService extends BaseService<DsBbsForum, Long>
 		return (DsBbsSite) siteDao.get(siteid);
 	}
 
-	public List<DsBbsSite> queryListSite(PageRequest rq)
+	public List<DsBbsSite> queryListSite(Map<String, Object> map)
 	{
-		return siteDao.queryList(rq);
+		return siteDao.queryList(map);
 	}
 }

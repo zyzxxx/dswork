@@ -41,7 +41,7 @@ public class DsBbsPageService extends BaseService<DsBbsPage, Long>
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		return forumDao.queryList(new PageRequest(map));
+		return forumDao.queryList(map);
 	}
 
 	public DsBbsForum getForum(Long forumid)
@@ -54,8 +54,8 @@ public class DsBbsPageService extends BaseService<DsBbsPage, Long>
 		return (DsBbsSite) siteDao.get(siteid);
 	}
 
-	public List<DsBbsSite> queryListSite(PageRequest rq)
+	public List<DsBbsSite> queryListSite(Map<String, Object> map)
 	{
-		return siteDao.queryList(rq);
+		return siteDao.queryList(map);
 	}
 }

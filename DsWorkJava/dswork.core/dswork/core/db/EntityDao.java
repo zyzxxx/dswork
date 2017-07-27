@@ -2,6 +2,7 @@ package dswork.core.db;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
@@ -42,6 +43,13 @@ public interface EntityDao<T, PK extends Serializable>
 	 * @return Object
 	 */
 	public Object get(PK primaryKey);
+	
+	/**
+	 * 默认列表方法
+	 * @param filters Map&lt;String, Object&gt;查询参数和条件数据
+	 * @return List&lt;T&gt;
+	 */
+	public List<T> queryList(Map<String, Object> filters);
 	
 	/**
 	 * 默认列表方法

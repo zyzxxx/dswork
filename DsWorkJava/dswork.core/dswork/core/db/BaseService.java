@@ -92,9 +92,7 @@ public abstract class BaseService<T, PK extends Serializable>
 	 */
 	public List<T> queryList(Map map)
 	{
-		PageRequest request = new PageRequest();
-		request.setFilters(map);
-		List<T> list = getEntityDao().queryList(request);
+		List<T> list = getEntityDao().queryList(map);
 		return list;
 	}
 

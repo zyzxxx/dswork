@@ -170,7 +170,7 @@ public class DsBbsForumController extends BaseController
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("own", getOwn());
 			PageRequest rq = new PageRequest(map);
-			List<DsBbsSite> siteList = service.queryListSite(rq);
+			List<DsBbsSite> siteList = service.queryListSite(rq.getFilters());
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);
@@ -203,9 +203,9 @@ public class DsBbsForumController extends BaseController
 
 	private List<DsBbsForum> queryForum(long siteid, long excludeId)
 	{
-		PageRequest rq = getPageRequest();
-		rq.getFilters().put("siteid", siteid);
-		List<DsBbsForum> clist = service.queryList(rq);
+		Map<String, Object> mapFilters = req.getParameterValueMap(false, false);
+		mapFilters.put("siteid", siteid);
+		List<DsBbsForum> clist = service.queryList(mapFilters);
 		Map<Long, DsBbsForum> map = new HashMap<Long, DsBbsForum>();
 		for(DsBbsForum m : clist)
 		{

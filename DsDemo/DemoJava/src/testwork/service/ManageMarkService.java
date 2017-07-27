@@ -42,11 +42,9 @@ public class ManageMarkService
 	
 	public List<Mark> queryListMark(Long demoid)
 	{
-		PageRequest rq = new PageRequest();
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("demoid", demoid);
-		rq.setFilters(map);
-		return markDao.queryList(rq);
+		return markDao.queryList(map);
 	}
 	public int save(List<Mark> list)
 	{

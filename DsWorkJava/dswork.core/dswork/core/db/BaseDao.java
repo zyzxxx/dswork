@@ -2,6 +2,7 @@ package dswork.core.db;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
@@ -71,6 +72,16 @@ public abstract class BaseDao<T, PK extends Serializable> extends MyBatisDao imp
 
 	/**
 	 * 不分页查询数据
+	 * @param pageRequest Map&lt;String, Object&gt;查询参数和条件数据
+	 * @return List
+	 */
+	public List queryList(Map<String, Object> filters)
+	{
+		return queryList(statement, filters);
+	}
+
+	/**
+	 * 分页查询数据
 	 * @param pageRequest &lt;Map&gt;PageRequest.getFilters()查询参数和条件数据
 	 * @return List
 	 */
