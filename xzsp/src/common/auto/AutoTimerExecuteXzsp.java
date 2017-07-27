@@ -43,7 +43,7 @@ public class AutoTimerExecuteXzsp extends Thread
 						java.util.Map<String, Object> map = new java.util.HashMap<String, Object>();
 						map.put("fszt", "0");// 待发送
 						map.put("fscs_end", "10");// 发送次数少于n次的
-						java.util.List<common.gov.DsXzsp> list = dao.queryList(new dswork.core.page.PageRequest(map));
+						java.util.List<common.gov.DsXzsp> list = dao.queryList(map);
 						for(common.gov.DsXzsp m : list)
 						{
 							m.setFscs(m.getFscs() + 1);
