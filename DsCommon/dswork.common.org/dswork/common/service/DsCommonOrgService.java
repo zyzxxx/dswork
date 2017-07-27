@@ -100,7 +100,7 @@ public class DsCommonOrgService
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pid", pid);
-		return orgDao.queryList(new PageRequest(map));
+		return orgDao.queryList(map);
 	}
 
 	/**

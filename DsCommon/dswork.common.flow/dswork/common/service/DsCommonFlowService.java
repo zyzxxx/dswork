@@ -72,9 +72,9 @@ public class DsCommonFlowService
 		return 1;
 	}
 
-	public List<DsCommonFlow> queryListFlow(PageRequest request)
+	public List<DsCommonFlow> queryListFlow(Map<String, Object> map)
 	{
-		return flowDao.queryList(request);
+		return flowDao.queryList(map);
 	}
 
 	public void updateStatus(Long id, int status)
@@ -210,7 +210,7 @@ public class DsCommonFlowService
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pid", pid);
-		return categoryDao.queryList(new PageRequest(map));
+		return categoryDao.queryList(map);
 	}
 
 	/**

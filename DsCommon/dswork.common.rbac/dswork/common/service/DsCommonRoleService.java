@@ -139,11 +139,9 @@ public class DsCommonRoleService
 	public List<DsCommonRole> queryList(Long systemid, Long pid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		PageRequest request = new PageRequest();
 		map.put("systemid", systemid);
 		map.put("pid", pid);
-		request.setFilters(map);
-		return roleDao.queryList(request);
+		return roleDao.queryList(map);
 	}
 
 	/**
@@ -168,11 +166,9 @@ public class DsCommonRoleService
 	public List<DsCommonFunc> queryFuncList(Long systemid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		PageRequest request = new PageRequest();
 		map.put("systemid", systemid);
 		map.put("pid", null);
-		request.setFilters(map);
-		return funcDao.queryList(request);
+		return funcDao.queryList(map);
 	}
 
 	/**

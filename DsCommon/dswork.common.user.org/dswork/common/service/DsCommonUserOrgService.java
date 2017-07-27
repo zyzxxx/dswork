@@ -112,7 +112,7 @@ public class DsCommonUserOrgService
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pid", pid);
 		map.put("status", 0);
-		return orgDao.queryList(new PageRequest(map));
+		return orgDao.queryList(map);
 	}
 	
 	/**
@@ -124,6 +124,6 @@ public class DsCommonUserOrgService
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("orgid", pid);
-		return userDao.queryList(new PageRequest(map));
+		return userDao.queryList(map);
 	}
 }

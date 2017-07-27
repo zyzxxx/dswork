@@ -101,10 +101,8 @@ public class DsCommonUserRoleService
 	public List<DsCommonRole> queryRoleList(Long systemid, Long pid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
-		PageRequest request = new PageRequest();
 		map.put("systemid", systemid);
 		map.put("pid", pid);
-		request.setFilters(map);
-		return roleDao.queryList(request);
+		return roleDao.queryList(map);
 	}
 }
