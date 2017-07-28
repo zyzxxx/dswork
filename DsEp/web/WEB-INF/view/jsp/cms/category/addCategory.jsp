@@ -11,8 +11,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getCategory.htm?siteid=${fn:escapeXml(param.siteid)}";
 }};
 $(function(){
-	$("#status").bind("click", function(){
-		if($("#status").val() == 2){
+	$("#scope").bind("click", function(){
+		if($("#scope").val() == 2){
 			$("#mylink").show();
 			$("#myfolder").hide();
 			$("#template_category").hide();
@@ -21,7 +21,7 @@ $(function(){
 			$("#pageviewsite").val("");
 			$("#url").attr("require", "true");
 		}
-		else if($("#status").val() == 1){
+		else if($("#scope").val() == 1){
 			$("#mylink").hide();
 			$("#myfolder").show();
 			$("#template_category").show();
@@ -37,9 +37,9 @@ $(function(){
 			$("#url").attr("require", "false");
 		}
 	}).bind("change", function(){
-		$("#status").click();
+		$("#scope").click();
 	});
-	$("#status").click();
+	$("#scope").click();
 });
 </script>
 </head>
@@ -76,7 +76,7 @@ $(function(){
 	</tbody>
 	<tr>
 		<td class="form_title">类型</td>
-		<td class="form_input"><select id="status" name="status" style="width:100px;">
+		<td class="form_input"><select id="scope" name="scope" style="width:100px;">
 			<option value="0">列表</option>
 			<option value="1">单页</option>
 			<option value="2">外链</option>

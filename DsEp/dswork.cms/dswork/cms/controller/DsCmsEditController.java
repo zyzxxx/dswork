@@ -2,7 +2,6 @@ package dswork.cms.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -37,65 +36,44 @@ public class DsCmsEditController extends BaseController
 	{
 		try
 		{
-			long siteid = req.getLong("siteid", -1);
-			DsCmsPermission permission = service.getPermissionByOwnAccount(getOwn(), getAccount());
-			List<DsCmsSite> siteList = null;
-			List<DsCmsCategory> cateList = null;
-			if(permission != null)
+			Long id = req.getLong("siteid", -1), siteid = -1L;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("own", getOwn());
+			map.put("account", getAccount());
+			List<DsCmsSite> siteList = service.queryListSite(map);
+			if(siteList != null && siteList.size() > 0)
 			{
-				if(siteid == -1)
+				put("siteList", siteList);
+				if(id >= 0)
 				{
-					cateList = service.queryListCategory(null);
-				}
-				else
-				{
-					cateList = service.queryListCategory(siteid);
-				}
-				Map<Long, Long> map = new HashMap<Long, Long>();
-				Iterator<DsCmsCategory> cateListIter = cateList.iterator();
-				while(cateListIter.hasNext())
-				{
-					DsCmsCategory cate = cateListIter.next();
-					if(permission.checkEditall(cate.getId()) || permission.checkEditown(cate.getId()))
+					for(DsCmsSite m : siteList)
 					{
-						map.put(cate.getSiteid(), cate.getSiteid());
-					}
-					else
-					{
-						cateListIter.remove();
-					}
-				}
-				siteList = service.queryListSite(getPageRequest());
-				Iterator<DsCmsSite> siteListIter = siteList.iterator();
-				while(siteListIter.hasNext())
-				{
-					if(map.get(siteListIter.next().getId()) == null)
-					{
-						siteListIter.remove();
-					}
-				}
-				if(siteid == -1 && cateList.size() > 0)
-				{
-					siteid = cateList.get(0).getSiteid();
-					cateListIter = cateList.iterator();
-					while(cateListIter.hasNext())
-					{
-						if(cateListIter.next().getSiteid() != siteid)
+						if(m.getId().longValue() == id)
 						{
-							cateListIter.remove();
+							siteid = m.getId();
+							break;
 						}
 					}
 				}
+				if(siteid == -1)
+				{
+					siteid = siteList.get(0).getId();
+				}
 			}
-			else
+			if(siteid >= 0)
 			{
-				siteList = new ArrayList<DsCmsSite>();
-				cateList = new ArrayList<DsCmsCategory>();
+				DsCmsPermission permission = service.getPermission(siteid, getAccount());
+				List<DsCmsCategory> cateList = new ArrayList<DsCmsCategory>();
+				if(permission != null)
+				{
+					List<DsCmsCategory> _cateList = service.queryListCategory(siteid);
+					cateList = DsCmsUtil.categoryAccess(_cateList, permission.getEditall() + permission.getEditown());
+				}
+				service.saveAuditCategoryList(cateList);
+				put("siteList", siteList);
+				put("cateList", cateList);
 			}
-			service.saveAuditCategoryList(cateList);
 			put("siteid", siteid);
-			put("siteList", siteList);
-			put("cateList", cateList);
 			return "/cms/edit/getCategoryTree.jsp";
 		}
 		catch(Exception e)
@@ -129,7 +107,7 @@ public class DsCmsEditController extends BaseController
 			Long categoryid = req.getLong("categoryid");
 			DsCmsCategory m = service.getCategory(categoryid);
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getStatus() == 0 && checkOwn(s.getOwn()))
+			if(m.getScope() == 0 && checkOwn(s.getOwn()))
 			{
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
@@ -161,22 +139,25 @@ public class DsCmsEditController extends BaseController
 	{
 		Long categoryid = req.getLong("id");
 		DsCmsCategory m = service.getCategory(categoryid);
-		if(m.getStatus() == 0 && checkOwn(m.getSiteid()))// 列表
+		DsCmsPermission permission = service.getPermission(m.getSiteid(), getAccount());
+		if(permission.checkEditall(m.getId()) || permission.checkEditown(m.getId()))
 		{
-			PageRequest pr = getPageRequest();
-			pr.getFilters().remove("id");
-			pr.getFilters().put("siteid", m.getSiteid());
-			pr.getFilters().put("categoryid", m.getId());
-			DsCmsPermission permission = service.getPermissionByOwnAccount(getOwn(), getAccount());
-			if(permission.checkEditown(categoryid))
+			if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
 			{
-				pr.getFilters().put("useraccount", getAccount());
+				PageRequest pr = getPageRequest();
+				pr.getFilters().remove("id");
+				pr.getFilters().put("siteid", m.getSiteid());
+				pr.getFilters().put("categoryid", m.getId());
+				if(permission.checkEditown(categoryid))
+				{
+					pr.getFilters().put("useraccount", getAccount());
+				}
+				Page<DsCmsAuditPage> pageModel = service.queryPage(pr);
+				put("pageModel", pageModel);
+				put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
+				put("po", m);
+				return "/cms/edit/getPage.jsp";
 			}
-			Page<DsCmsAuditPage> pageModel = service.queryPage(pr);
-			put("pageModel", pageModel);
-			put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
-			put("po", m);
-			return "/cms/edit/getPage.jsp";
 		}
 		return null;
 	}
@@ -189,7 +170,7 @@ public class DsCmsEditController extends BaseController
 		{
 			Long categoryid = req.getLong("id");
 			DsCmsCategory po = service.getCategory(categoryid);
-			if(po.getStatus() == 0 && checkOwn(po.getSiteid()))
+			if(po.getScope() == 0 && checkOwn(po.getSiteid()))
 			{
 				service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
 				print(1);
@@ -249,12 +230,17 @@ public class DsCmsEditController extends BaseController
 	{
 		Long id = req.getLong("id");
 		DsCmsAuditCategory po = service.getAuditCategory(id);
-		if(po.getReleasetime().isEmpty())
+		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
+		if(permission.checkEditall(po.getId()) || permission.checkEditown(po.getId()))
 		{
-			po.setReleasetime(TimeUtil.getCurrentTime());
+			if(po.getReleasetime().isEmpty())
+			{
+				po.setReleasetime(TimeUtil.getCurrentTime());
+			}
+			put("po", po);
+			return "/cms/edit/updCategory.jsp";
 		}
-		put("po", po);
-		return "/cms/edit/updCategory.jsp";
+		return null;
 	}
 
 	// 采编栏目URL
@@ -263,12 +249,17 @@ public class DsCmsEditController extends BaseController
 	{
 		Long id = req.getLong("id");
 		DsCmsAuditCategory po = service.getAuditCategory(id);
-		if(po.getReleasetime().isEmpty())
+		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
+		if(permission.checkEditall(po.getId()) || permission.checkEditown(po.getId()))
 		{
-			po.setReleasetime(TimeUtil.getCurrentTime());
+			if(po.getReleasetime().isEmpty())
+			{
+				po.setReleasetime(TimeUtil.getCurrentTime());
+			}
+			put("po", po);
+			return "/cms/edit/updCategoryUrl.jsp";
 		}
-		put("po", po);
-		return "/cms/edit/updCategoryUrl.jsp";
+		return null;
 	}
 
 	@RequestMapping("/updCategory2")
@@ -277,7 +268,7 @@ public class DsCmsEditController extends BaseController
 		try
 		{
 			DsCmsCategory m = service.getCategory(po.getId());
-			if(m.getStatus() != 0 && checkOwn(m.getSiteid()))
+			if(m.getScope() != 0 && checkOwn(m.getSiteid()))
 			{
 				DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
 				if(_po.getStatus() != 1)

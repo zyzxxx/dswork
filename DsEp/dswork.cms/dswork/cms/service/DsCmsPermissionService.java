@@ -24,7 +24,7 @@ import dswork.core.page.PageRequest;
 
 @Service
 @SuppressWarnings("all")
-public class DsCmsPermissionService extends BaseService<DsCmsPermission, Long>
+public class DsCmsPermissionService
 {
 	@Autowired
 	private DsCmsPermissionDao dao;
@@ -32,31 +32,36 @@ public class DsCmsPermissionService extends BaseService<DsCmsPermission, Long>
 	private DsCmsSiteDao siteDao;
 	@Autowired
 	private DsCmsCategoryDao cateDao;
-
 	@Autowired
 	private DsCmsUserDao userDao;
 
-	@Override
-	protected EntityDao getEntityDao()
+	public int save(DsCmsPermission po)
 	{
-		return dao;
+		return dao.save(po);
+	}
+	public int delete(long siteid, String account)
+	{
+		return dao.delete(siteid, account);
+	}
+	public int update(DsCmsPermission po)
+	{
+		return dao.update(po);
+	}
+	public DsCmsPermission get(Long siteid, String account)
+	{
+		return dao.get(siteid, account);
 	}
 
-	public DsCmsPermission getByOwnAccount(String own, String account)
+	public List<DsCmsSite> queryListSite(Map<String, Object> map)
 	{
-		return dao.getByOwnAccount(own, account);
-	}
-	public List<DsCmsSite> queryListSite(PageRequest rq)
-	{
-		return siteDao.queryList(rq);
+		return siteDao.queryList(map);
 	}
 	public List<DsCmsCategory> queryListCategory(Long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		return cateDao.queryList(new PageRequest(map));
+		return cateDao.queryList(map);
 	}
-
 
 	public Page<Map<String, Object>> queryPageCommonUser(PageRequest pr)
 	{

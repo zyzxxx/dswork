@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsSiteService;
-import dswork.core.page.PageRequest;
 import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
 import dswork.core.util.UniqueId;
@@ -43,8 +42,7 @@ public class DsCmsTemplateController extends BaseController
 			Long id = req.getLong("siteid"), siteid = -1L;
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("own", getOwn());
-			PageRequest rq = new PageRequest(map);
-			List<DsCmsSite> siteList = service.queryList(rq);
+			List<DsCmsSite> siteList = service.queryList(map);
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);

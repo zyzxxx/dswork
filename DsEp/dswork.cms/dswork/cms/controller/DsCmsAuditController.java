@@ -2,7 +2,6 @@ package dswork.cms.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -35,64 +34,44 @@ public class DsCmsAuditController extends BaseController
 	{
 		try
 		{
-			long siteid = req.getLong("siteid", -1);
-			DsCmsPermission permission = service.getPermissionByOwnAccount(getOwn(), getAccount());
-			List<DsCmsSite> siteList = null;
-			List<DsCmsCategory> cateList = null;
-			if(permission != null)
+			Long id = req.getLong("siteid", -1), siteid = -1L;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("own", getOwn());
+			map.put("account", getAccount());
+			List<DsCmsSite> siteList = service.queryListSite(map);
+			if(siteList != null && siteList.size() > 0)
 			{
-				if(siteid == -1)
+				put("siteList", siteList);
+				if(id >= 0)
 				{
-					cateList = service.queryListCategory(null);
-				}
-				else
-				{
-					cateList = service.queryListCategory(siteid);
-				}
-				Map<Long, Long> map = new HashMap<Long, Long>();
-				Iterator<DsCmsCategory> cateListIter = cateList.iterator();
-				while(cateListIter.hasNext())
-				{
-					DsCmsCategory cate = cateListIter.next();
-					if(permission.checkAudit(cate.getId()))
+					for(DsCmsSite m : siteList)
 					{
-						map.put(cate.getSiteid(), cate.getSiteid());
-					}
-					else
-					{
-						cateListIter.remove();
-					}
-				}
-				siteList = service.queryListSite(getPageRequest());
-				Iterator<DsCmsSite> siteListIter = siteList.iterator();
-				while(siteListIter.hasNext())
-				{
-					if(map.get(siteListIter.next().getId()) == null)
-					{
-						siteListIter.remove();
-					}
-				}
-				if(siteid == -1 && cateList.size() > 0)
-				{
-					siteid = cateList.get(0).getSiteid();
-					cateListIter = cateList.iterator();
-					while(cateListIter.hasNext())
-					{
-						if(cateListIter.next().getSiteid() != siteid)
+						if(m.getId().longValue() == id)
 						{
-							cateListIter.remove();
+							siteid = m.getId();
+							break;
 						}
 					}
 				}
+				if(siteid == -1)
+				{
+					siteid = siteList.get(0).getId();
+				}
 			}
-			else
+			if(siteid >= 0)
 			{
-				siteList = new ArrayList<DsCmsSite>();
-				cateList = new ArrayList<DsCmsCategory>();
+				DsCmsPermission permission = service.getPermission(siteid, getAccount());
+				List<DsCmsCategory> cateList = new ArrayList<DsCmsCategory>();
+				if(permission != null)
+				{
+					List<DsCmsCategory> _cateList = service.queryListCategory(siteid);
+					cateList = DsCmsUtil.categoryAccess(_cateList, permission.getAudit());
+				}
+				service.saveAuditCategoryList(cateList);
+				put("siteList", siteList);
+				put("cateList", cateList);
 			}
 			put("siteid", siteid);
-			put("siteList", siteList);
-			put("cateList", cateList);
 			return "/cms/audit/getCategoryTree.jsp";
 		}
 		catch(Exception e)
@@ -107,13 +86,13 @@ public class DsCmsAuditController extends BaseController
 	public String updCategory1()
 	{
 		DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
-		if(po == null)
+		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
+		if(permission.checkAudit(po.getId()))
 		{
-			po = new DsCmsAuditCategory();
-			po.setStatus(0);
+			put("po", po);
+			return "/cms/audit/auditCategory.jsp";
 		}
-		put("po", po);
-		return "/cms/audit/auditCategory.jsp";
+		return null;
 	}
 
 	// 修改
@@ -121,13 +100,13 @@ public class DsCmsAuditController extends BaseController
 	public String updCategory3()
 	{
 		DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
-		if(po == null)
+		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
+		if(permission.checkAudit(po.getId()))
 		{
-			po = new DsCmsAuditCategory();
-			po.setStatus(0);
+			put("po", po);
+			return "/cms/audit/auditCategoryUrl.jsp";
 		}
-		put("po", po);
-		return "/cms/audit/auditCategoryUrl.jsp";
+		return null;
 	}
 
 	@RequestMapping("/auditCategory2")
@@ -136,7 +115,7 @@ public class DsCmsAuditController extends BaseController
 		try
 		{
 			DsCmsCategory m = service.getCategory(po.getId());
-			if(m.getStatus() != 0 && checkOwn(m.getSiteid()))
+			if(m.getScope() != 0 && checkOwn(m.getSiteid()))
 			{
 				DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
 				if(_po.getStatus() == 1)
@@ -165,18 +144,22 @@ public class DsCmsAuditController extends BaseController
 	{
 		Long categoryid = req.getLong("id");
 		DsCmsCategory m = service.getCategory(categoryid);
-		if(m.getStatus() == 0 && checkOwn(m.getSiteid()))// 列表
+		DsCmsPermission permission = service.getPermission(m.getSiteid(), getAccount());
+		if(permission.checkAudit(m.getId()))
 		{
-			PageRequest pr = getPageRequest();
-			pr.getFilters().remove("id");
-			pr.getFilters().put("siteid", m.getSiteid());
-			pr.getFilters().put("categoryid", m.getId());
-			pr.getFilters().put("audit", "audit");
-			Page<DsCmsAuditPage> pageModel = service.queryPage(pr);
-			put("pageModel", pageModel);
-			put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
-			put("po", m);
-			return "/cms/audit/getPage.jsp";
+			if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
+			{
+				PageRequest pr = getPageRequest();
+				pr.getFilters().remove("id");
+				pr.getFilters().put("siteid", m.getSiteid());
+				pr.getFilters().put("categoryid", m.getId());
+				pr.getFilters().put("audit", "audit");
+				Page<DsCmsAuditPage> pageModel = service.queryPage(pr);
+				put("pageModel", pageModel);
+				put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
+				put("po", m);
+				return "/cms/audit/getPage.jsp";
+			}
 		}
 		return null;
 	}

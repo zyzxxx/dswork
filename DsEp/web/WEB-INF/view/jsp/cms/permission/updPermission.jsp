@@ -17,6 +17,9 @@
 <c:if test="${siteid>=0}">
 <head>
 <title></title>
+<style type="text/css">
+
+</style>
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
 function checkSelf(n){
@@ -26,52 +29,11 @@ function checkSelf(n){
 		var _n = $("#" + ss[0] + "_" + (ss[1]=="all"?"own":"all"));
 		if(_n.prop("checked")){
 			uncheckSelf(_n);
-			uncheckParent(_n);
-			uncheckChild(_n);
 		}
 	}
 }
 function uncheckSelf(n){
 	n.prop("checked", false);
-}
-function checkParent(self){
-	var parent = $("#" + self.attr("pid"));
-	if(parent[0]){
-		parent.prop("checked", true);;
-		checkParent(parent);
-	}
-}
-function uncheckParent(self){
-	var parent = $("#" + self.attr("pid"));
-	if(parent[0] && parent.prop("checked")){
-		var brother = $("input[pid='" + self.attr("pid") + "']");
-		var flag = false;
-		brother.each(function(){
-			flag = flag || $(this).prop("checked");
-		});
-		if(!flag){
-			uncheckSelf(parent);
-			uncheckParent(parent);
-		}
-	}
-}
-function checkChild(self){
-	var child = $("input[pid='" + self.attr("id") + "']")
-	if(child[0]){
-		child.each(function(){
-			checkSelf($(this));
-			checkChild($(this));
-		});
-	}
-}
-function uncheckChild(self){
-	var child = $("input[pid='" + self.attr("id") + "']")
-	if(child[0]){
-		child.each(function(){
-			uncheckSelf($(this));
-			uncheckChild($(this));
-		});
-	}
 }
 $(function(){
 	$("#site").change(function(){
@@ -97,12 +59,8 @@ $(function(){
 		var self = $(this);
 		if(self.prop("checked")){
 			checkSelf(self);
-			checkParent(self);
-			checkChild(self);
 		}else{
 			uncheckSelf(self);
-			uncheckParent(self);
-			uncheckChild(self);
 		}
 	});
 });
@@ -125,6 +83,7 @@ function submit(){
 	.append('<input name="editown" value="' + editown + '">')
 	.append('<input name="audit" value="' + audit + '">')
 	.append('<input name="publish" value="' + publish + '">')
+	.append('<input name="siteid" value="${siteid}">')
 	.append('<input name="account" value="${fn:escapeXml(param.account)}">')
 	.ajaxSubmit($dswork.doAjaxOption);
 }
@@ -135,6 +94,7 @@ function submit(){
 	<tr>
 		<td class="title">
 			切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
+			<label style="color:red">备注：采编权【个人】表示只能采编用户本人发布的信息</label>
 		</td>
 		<td class="menuTool">
 			<a class="user" href="javascript:void(0);" onclick="submit()">确定授权</a>
@@ -144,28 +104,34 @@ function submit(){
 <div class="line"></div>
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td>栏目ID</td>
+		<td style="width:8%">栏目ID</td>
 		<td>栏目名称</td>
-		<td>采编权限</td>
-		<td>审核权限</td>
-		<td>发布权限</td>
+		<td style="width:50%">权限</td>
+		<td style="width:5%">备注</td>
 	</tr>
 <c:forEach items="${categoryList}" var="d">
 	<tr>
 		<td>${d.id}</td>
 		<td style="text-align:left;">
-			${d.label}${fn:escapeXml(d.name)}<c:if test="${d.status>0}">&nbsp;<a href="javascript:void(0);" title="${fn:escapeXml(d.url)}">[${d.status==1?"单页":"外链"}]</a></c:if>
+			&nbsp;${d.label}${fn:escapeXml(d.name)}<c:if test="${d.scope>0}">&nbsp;<a href="javascript:void(0);" title="${fn:escapeXml(d.url)}">[${d.scope==1?"单页":"外链"}]</a></c:if>
 		</td>
+	<c:if test="${fn:length(d.list)==0}">
 		<td style="text-align:left;">
-			${d.label}<label><input class="empower" id="${d.id}_all" pid="${d.pid}_all" name="editall" type="checkbox" />所有采编权限</label>
-			<label><input class="empower" id="${d.id}_own" pid="${d.pid}_own" name="editown" type="checkbox" />部分采编权限</label>
+			&nbsp;<label style="color:blue"><input id="${d.id}_aud" pid="${d.pid}_aud" name="audit" type="checkbox" />审核权</label>
+			&nbsp;-&nbsp;
+			<label style="color:green"><input id="${d.id}_pub" pid="${d.pid}_pub" name="publish" type="checkbox" />发布权</label>
+			&nbsp;-&nbsp;
+			<label><input id="${d.id}_all" pid="${d.pid}_all" name="editall" type="checkbox" />采编权</label>
+			<label style="color:red"><input id="${d.id}_own" pid="${d.pid}_own" name="editown" type="checkbox" />采编权【个人】</label>
 		</td>
-		<td style="text-align:left;">
-			${d.label}<label><input class="empower" id="${d.id}_aud" pid="${d.pid}_aud" name="audit" type="checkbox" />审核权限</label>
+		<td>
+			${d.scope<=0?"列表":(d.scope==1?"单页":"外链")}
 		</td>
-		<td style="text-align:left;">
-			${d.label}<label><input class="empower" id="${d.id}_pub" pid="${d.pid}_pub" name="publish" type="checkbox" />发布权限</label>
-		</td>
+	</c:if>
+	<c:if test="${fn:length(d.list)>0}">
+		<td></td>
+		<td>分类</td>
+	</c:if>
 	</tr>
 </c:forEach>
 </table>

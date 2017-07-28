@@ -9,17 +9,15 @@
 <%@include file="/commons/include/get.jsp" %>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
-	<tr>
-		<td class="title">信息发布：没有可管理的站点</td>
-	</tr>
+	<tr><td class="title">信息发布：没有可管理的站点</td></tr>
 </table>
 </body>
 </c:if>
 <c:if test="${siteid>=0}">
 <head>
-	<title></title>
-	<%@include file="/commons/include/get.jsp"%>
-	<%@include file="/commons/include/ztree.jsp"%>
+<title></title>
+<%@include file="/commons/include/get.jsp"%>
+<%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 $dswork.callback = null;
 $dswork.ztree.click = function(){
@@ -28,9 +26,11 @@ $dswork.ztree.click = function(){
 		if(node.scope == 0){
 			attachUrl("getPage.htm?id=" + node.id);
 			return false;
-		}
-		else if(node.scope == 1){
-			attachUrl("updCategory1.htm?id=" + node.id);
+		}else if(node.scope == 1){
+			attachUrl("getCategoryById.htm?id=" + node.id);
+			return false;
+		}else if(node.scope == 2){
+			attachUrl("getCategoryUrlById.htm?id=" + node.id);
 			return false;
 		}
 	}
@@ -38,20 +38,20 @@ $dswork.ztree.click = function(){
 	return false;
 };
 function build(categoryid, pageid){
-	$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
+	$dswork.doAjaxObject.show("发布中");
 	$.post("build.htm",{"siteid":"${siteid}", "categoryid":categoryid, "pageid":pageid},function(data){
 		$dswork.doAjaxShow(data, function(){});
 	});
 }
 function unbuild(categoryid, pageid){
-	$dswork.doAjaxObject.autoDelayHide("删除中", 2000);
+	$dswork.doAjaxObject.show("删除中");
 	$.post("unbuild.htm",{"siteid":"${siteid}", "categoryid":categoryid, "pageid":pageid},function(data){
 		$dswork.doAjaxShow(data, function(){});
 	});
 }
 $(function(){
 	var v = [];
-	<c:forEach items="${list}" var="d">
+	<c:forEach items="${cateList}" var="d">
 	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}"});
 	</c:forEach>
 	$dswork.ztree.nodeArray = v;
@@ -67,7 +67,6 @@ $(function(){
 	$("#btn_site").bind("click", function(){
 		if(confirm("是否发布首页")){build(-1, -1);}
 	});
-	
 	$("#category").bind("click", function(){
 		$(this).val()!="0" ? $("#view").show() : $("#view").hide();
 	});
@@ -82,7 +81,7 @@ $(function(){
 	$("#view").bind("click", function(){
 		var v = $('#category').find('option:selected').val();
 		if(v!="0"){
-			window.open('buildHTML.chtml?view=true&siteid=${siteid}&categoryid='+v);
+			window.open('${ctx}/cms/page/buildHTML.chtml?view=true&siteid=${siteid}&categoryid='+v);
 		}
 	});
 	$("#btn_category_d").bind("click", function(){
@@ -102,9 +101,9 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
 		<td class="title">切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
-			<input id="btn_site" type="button" class="button" value="发布首页" /> <input type="button" class="button" value="预览首页" onclick="window.open('buildHTML.chtml?view=true&siteid=${siteid}');" />
+			<input id="btn_site" type="button" class="button" value="发布首页" />&nbsp;<input type="button" class="button" value="预览首页" onclick="window.open('${ctx}/cms/page/buildHTML.chtml?view=true&siteid=${siteid}');" />
 			&nbsp;&nbsp;
-			选择需要发布的栏目：<select id="category"><option value="0">全部栏目</option><c:forEach items="${list}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
+			选择需要发布的栏目：<select id="category"><option value="0">全部栏目</option><c:forEach items="${cateList}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
 			<input id="btn_category" type="button" class="button" value="发布栏目首页" />
 			<input id="btn_page" type="button" class="button" value="发布栏目内容" />
 			<input id="view" type="button" class="button" value="预览栏目" />
@@ -116,7 +115,7 @@ $(function(){
 </div>
 <div region="west" split="true" style="width:255px;">
 	<div class="treediv">
-		<ul id="mytree" class="ztree tree" />
+		<ul id="mytree" class="ztree tree"></ul>
 	</div>
 </div>
 <div region="center" style="overflow:hidden;">

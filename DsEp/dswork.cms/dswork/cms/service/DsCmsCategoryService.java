@@ -87,8 +87,8 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 		return (DsCmsSite) siteDao.get(siteid);
 	}
 
-	public List<DsCmsSite> queryListSite(PageRequest rq)
+	public List<DsCmsSite> queryListSite(Map<String, Object> map)
 	{
-		return siteDao.queryList(rq);
+		return siteDao.queryList(map);
 	}
 }

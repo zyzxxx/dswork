@@ -11,11 +11,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.mvc.BaseController;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsCategoryService;
-import dswork.core.page.PageRequest;
+import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
@@ -71,7 +70,7 @@ public class DsCmsCategoryController extends BaseController
 				DsCmsSite s = service.getSite(po.getSiteid());
 				if(checkOwn(s.getOwn()))
 				{
-					if(po.getStatus() != 2)
+					if(po.getScope() != 2)
 					{
 						po.setUrl("/a/" + po.getFolder() + "/index.html");
 					}
@@ -152,7 +151,7 @@ public class DsCmsCategoryController extends BaseController
 			DsCmsSite s = service.getSite(m.getSiteid());
 			if(m.getSiteid() == s.getId() && checkOwn(s.getOwn()))
 			{
-				if(m.getStatus() == 0 && !po.getFolder().equals(m.getFolder()))//列表栏目存在内容时，不可修改目录名称
+				if(m.getScope() == 0 && !po.getFolder().equals(m.getFolder()))//列表栏目存在内容时，不可修改目录名称
 				{
 					if(service.getCountByCategoryid(m.getSiteid(), m.getId()) > 0)
 					{
@@ -160,7 +159,7 @@ public class DsCmsCategoryController extends BaseController
 						return;
 					}
 				}
-				if(m.getStatus() != 2)
+				if(m.getScope() != 2)
 				{
 					po.setUrl("/a/" + po.getFolder() + "/index.html");
 				}
@@ -216,8 +215,7 @@ public class DsCmsCategoryController extends BaseController
 			Long id = req.getLong("siteid"), siteid = -1L;
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("own", getOwn());
-			PageRequest rq = new PageRequest(map);
-			List<DsCmsSite> siteList = service.queryListSite(rq);
+			List<DsCmsSite> siteList = service.queryListSite(map);
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);
@@ -256,9 +254,9 @@ public class DsCmsCategoryController extends BaseController
 	 */
 	private List<DsCmsCategory> queryCategory(long siteid, boolean exclude, long excludeId)
 	{
-		PageRequest rq = getPageRequest();
-		rq.getFilters().put("siteid", siteid);
-		List<DsCmsCategory> clist = service.queryList(rq);
+		Map<String, Object> filters = new HashMap<String, Object>();
+		filters.put("siteid", siteid);
+		List<DsCmsCategory> clist = service.queryList(filters);
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		for(DsCmsCategory m : clist)
 		{
@@ -273,7 +271,7 @@ public class DsCmsCategoryController extends BaseController
 				{
 					try
 					{
-						if(m.getStatus() == 0 || exclude)
+						if(m.getScope() == 0 || exclude)
 						{
 							map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
 						}
@@ -285,7 +283,7 @@ public class DsCmsCategoryController extends BaseController
 				}
 				else if(m.getPid() == 0)
 				{
-					if(m.getStatus() == 0 || exclude)
+					if(m.getScope() == 0 || exclude)
 					{
 						tlist.add(m);// 只把根节点放入list
 					}

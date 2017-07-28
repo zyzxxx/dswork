@@ -70,4 +70,34 @@ class DsCmsUtil
 		}
 		return categorySettingList(_list);
 	}
+	
+	static List<DsCmsCategory> categoryAccess(List<DsCmsCategory> list, String ids)
+	{
+		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
+		List<DsCmsCategory> _list = new ArrayList<DsCmsCategory>();
+		for(DsCmsCategory c : list)
+		{
+			if(ids.indexOf("," + c.getId() + ",") != -1)
+			{
+				_list.add(c);
+			}
+			else
+			{
+				map.put(c.getId(), c);
+			}
+		}
+		List<DsCmsCategory> __list = new ArrayList<DsCmsCategory>();
+		for(DsCmsCategory c : _list)
+		{
+			__list.add(c);
+			DsCmsCategory p = null;
+			while(c.getPid() != 0 && (p = map.get(c.getPid())) != null)
+			{
+				__list.add(p);
+				map.remove(p.getId());
+				c = p;
+			}
+		}
+		return categorySetting(__list);
+	}
 }

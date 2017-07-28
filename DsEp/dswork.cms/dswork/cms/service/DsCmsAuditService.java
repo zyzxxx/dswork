@@ -24,7 +24,6 @@ import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.core.db.BaseService;
 import dswork.core.db.EntityDao;
-import dswork.core.page.PageRequest;
 
 @Service
 public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
@@ -59,10 +58,9 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 		return (DsCmsCategory) cateDao.get(categoryid);
 	}
 
-	@SuppressWarnings("unchecked")
-	public List<DsCmsSite> queryListSite(PageRequest rq)
+	public List<DsCmsSite> queryListSite(Map<String, Object> map)
 	{
-		return siteDao.queryList(rq);
+		return permissionDao.queryListSite(map);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -70,12 +68,12 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		return cateDao.queryList(new PageRequest(map));
+		return cateDao.queryList(map);
 	}
 
-	public DsCmsPermission getPermissionByOwnAccount(String own, String account)
+	public DsCmsPermission getPermission(Long siteid, String account)
 	{
-		return permissionDao.getByOwnAccount(own, account);
+		return permissionDao.get(siteid, account);
 	}
 
 	public DsCmsAuditCategory getAuditCategory(Long id)
@@ -87,7 +85,7 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 	{
 		if(po.getStatus() == 4)//通过
 		{
-			if(cate.getStatus() == 1)
+			if(cate.getScope() == 1)
 			{
 				cate.setSummary(po.getSummary());
 				cate.setMetakeywords(po.getMetakeywords());
@@ -104,7 +102,7 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 				cate.setUrl(po.getUrl());
 				cateDao.update(cate);
 			}
-			if(cate.getPublishstatus() != 0)
+			if(cate.getStatus() != 0)
 			{
 				cateDao.updateStatus(cate.getId(), 1); //更改至更新未发布状态
 			}
@@ -155,5 +153,10 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 			}
 		}
 		return auditPageDao.update(po);
+	}
+
+	public int saveAuditCategoryList(List<DsCmsCategory> cateList)
+	{
+		return auditCateDao.saveFromCategoryList(cateList);
 	}
 }

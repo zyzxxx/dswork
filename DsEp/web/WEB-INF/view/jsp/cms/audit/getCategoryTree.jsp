@@ -23,13 +23,13 @@ $dswork.callback = null;
 $dswork.ztree.click = function(){
 	var node = $dswork.ztree.getSelectedNode();
 	if(!node.isParent){
-		if(node.status == 0){
+		if(node.scope == 0){
 			attachUrl("getPage.htm?id=" + node.id);
 			return false;
-		}else if(node.status == 1){
+		}else if(node.scope == 1){
 			attachUrl("auditCategory1.htm?id=" + node.id);
 			return false;
-		}else if(node.status == 2){
+		}else if(node.scope == 2){
 			attachUrl("auditCategory3.htm?id=" + node.id);
 			return false;
 		}
@@ -40,7 +40,7 @@ $dswork.ztree.click = function(){
 $(function(){
 	var v = [];
 	<c:forEach items="${cateList}" var="d">
-	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "status":"${d.status}"});
+	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}"});
 	</c:forEach>
 	$dswork.ztree.nodeArray = v;
 	$dswork.ztree.config.async.enable = false;

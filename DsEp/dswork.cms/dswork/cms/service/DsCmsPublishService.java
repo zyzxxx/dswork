@@ -10,38 +10,33 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dswork.cms.dao.DsCmsAuditCategoryDao;
-import dswork.cms.dao.DsCmsAuditPageDao;
 import dswork.cms.dao.DsCmsCategoryDao;
+import dswork.cms.dao.DsCmsPageDao;
 import dswork.cms.dao.DsCmsPermissionDao;
 import dswork.cms.dao.DsCmsSiteDao;
-import dswork.cms.model.DsCmsAuditCategory;
-import dswork.cms.model.DsCmsAuditPage;
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.core.db.BaseService;
 import dswork.core.db.EntityDao;
 
 @Service
-public class DsCmsEditService extends BaseService<DsCmsAuditPage, Long>
+public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 {
 	@Autowired
-	private DsCmsAuditPageDao auditPageDao;
-	@Autowired
-	private DsCmsAuditCategoryDao auditCateDao;
-	@Autowired
-	private DsCmsPermissionDao permissionDao;
-
+	private DsCmsPageDao pageDao;
 	@Autowired
 	private DsCmsCategoryDao cateDao;
 	@Autowired
 	private DsCmsSiteDao siteDao;
+	@Autowired
+	private DsCmsPermissionDao permissionDao;
 
 	@Override
-	protected EntityDao<DsCmsAuditPage, Long> getEntityDao()
+	protected EntityDao<DsCmsPage, Long> getEntityDao()
 	{
-		return auditPageDao;
+		return pageDao;
 	}
 
 	public DsCmsSite getSite(Long siteid)
@@ -72,23 +67,13 @@ public class DsCmsEditService extends BaseService<DsCmsAuditPage, Long>
 		return permissionDao.get(siteid, account);
 	}
 
-	public DsCmsAuditCategory getAuditCategory(Long id)
+	public void updatePageStatus(Long id, int status)
 	{
-		return (DsCmsAuditCategory) auditCateDao.get(id);
+		pageDao.updateStatus(id, status);
 	}
 
-	public int updateAuditCategory(DsCmsAuditCategory po)
+	public void updateCategoryStatus(Long id, int status)
 	{
-		return auditCateDao.update(po);
-	}
-	
-	public int updateAuditPage(DsCmsAuditPage po)
-	{
-		return auditPageDao.update(po);
-	}
-
-	public int saveAuditCategoryList(List<DsCmsCategory> cateList)
-	{
-		return auditCateDao.saveFromCategoryList(cateList);
+		cateDao.updateStatus(id, status);
 	}
 }

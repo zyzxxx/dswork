@@ -44,7 +44,7 @@ $(function(){
 		<td class="form_title">栏目名称</td>
 		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="${fn:escapeXml(po.name)}" /></td>
 	</tr>
-	<c:if test="${po.status!=2}">
+	<c:if test="${po.scope!=2}">
 	<tr>
 		<td class="form_title">目录名称</td>
 		<td class="form_input"><input type="text" name="folder" maxlength="100" dataType="Char" value="${fn:escapeXml(po.folder)}" /></td>
@@ -52,28 +52,28 @@ $(function(){
 	</c:if>
 	<tr>
 		<td class="form_title">类型</td>
-		<td class="form_input">${po.status==2?"外链":po.status==1?"单页":"列表"}</td>
+		<td class="form_input">${po.scope==2?"外链":po.scope==1?"单页":"列表"}</td>
 	</tr>
-	<c:if test="${po.status==2}">
+	<c:if test="${po.scope==2}">
 	<tr>
 		<td class="form_title">链接</td>
 		<td class="form_input"><input type="text" name="url" maxlength="100" style="width:400px;" dataType="Require" require="false" value="${fn:escapeXml(po.url)}" /></td>
 	</tr>
 	</c:if>
-	<c:if test="${po.status!=2}">
+	<c:if test="${po.scope!=2}">
 	<tr>
 		<td class="form_title">链接</td>
 		<td class="form_input">${fn:escapeXml(po.url)}</td>
 	</tr>
 	</c:if>
-	<c:if test="${po.status!=2}">
+	<c:if test="${po.scope!=2}">
 	<tr>
 		<td class="form_title">栏目模板</td>
 		<td class="form_input"><select id="viewsite" name="viewsite" style="width:400px;"><option value=""></option>
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
-	<c:if test="${po.status==0}">
+	<c:if test="${po.scope==0}">
 	<tr>
 		<td class="form_title">内容模板</td>
 		<td class="form_input"><select id="pageviewsite" name="pageviewsite" style="width:400px;"><option value=""></option>

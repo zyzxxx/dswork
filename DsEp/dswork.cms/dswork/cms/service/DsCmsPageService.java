@@ -59,20 +59,30 @@ public class DsCmsPageService extends BaseService<DsCmsPage, Long>
 		return (DsCmsCategory) catDao.get(categoryid);
 	}
 
-	public List<DsCmsSite> queryListSite(PageRequest rq)
+	public List<DsCmsSite> queryListSite(Map<String, Object> map)
 	{
-		return siteDao.queryList(rq);
+		return siteDao.queryList(map);
 	}
 
 	public List<DsCmsCategory> queryListCategory(Long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		return catDao.queryList(new PageRequest(map));
+		return catDao.queryList(map);
 	}
 	
 	public void updateCategory(DsCmsCategory po)
 	{
 		catDao.updateContent(po);
+	}
+
+	public void updatePageStatus(Long id, int status)
+	{
+		dao.updateStatus(id, status);
+	}
+
+	public void updateCategoryStatus(Long id, int status)
+	{
+		catDao.updateStatus(id, status);
 	}
 }

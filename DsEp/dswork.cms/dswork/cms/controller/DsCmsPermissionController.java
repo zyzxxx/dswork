@@ -1,6 +1,7 @@
 package dswork.cms.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -74,9 +75,10 @@ public class DsCmsPermissionController extends BaseController
 			{
 				return null;
 			}
-			PageRequest pr = getPageRequest();
-			pr.getFilters().put("own", getOwn());
-			List<DsCmsSite> siteList = service.queryListSite(pr);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("siteid", siteid);
+			map.put("own", getOwn());
+			List<DsCmsSite> siteList = service.queryListSite(map);
 			List<DsCmsCategory> categoryList = null;
 			if(siteList != null && siteList.size() > 0)
 			{
@@ -86,7 +88,7 @@ public class DsCmsPermissionController extends BaseController
 				}
 				categoryList = service.queryListCategory(siteid);
 			}
-			DsCmsPermission permission = service.getByOwnAccount(getOwn(), account);
+			DsCmsPermission permission = service.get(siteid, account);
 			if(permission == null)
 			{
 				permission = new DsCmsPermission();
@@ -109,18 +111,19 @@ public class DsCmsPermissionController extends BaseController
 		try
 		{
 			String account = req.getString("account", null);
-			if(account == null)
+			Long siteid = req.getLong("siteid", -1);
+			if(account == null || siteid == -1)
 			{
 				throw new Exception("参数错误");
 			}
 			boolean isSave = false;
-			DsCmsPermission permission = service.getByOwnAccount(getOwn(), account);
+			DsCmsPermission permission = service.get(siteid, account);
 			if(permission == null)
 			{
 				isSave = true;
 				permission = new DsCmsPermission();
 				permission.setId(UniqueId.genId());
-				permission.setOwn(getOwn());
+				permission.setSiteid(siteid);
 				permission.setAccount(account);
 			}
 			permission.setEditall(req.getString("editall", ""));

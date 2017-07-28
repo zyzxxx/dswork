@@ -6,38 +6,38 @@ package dswork.cms.model;
 public class DsCmsPermission
 {
 	// 数据ID
-	private long id = 0L;
-	// 所有者
-	private String own = "";
+	private Long id = 0L;
+	// 站点ID
+	private Long siteid = 0L;
 	// 用户账号
 	private String account = "";
+	// 可采编栏目
+	private String editall = "";
+	// 可采编栏目（限个人）
+	private String editown = "";
 	// 可审核栏目
 	private String audit = "";
-	// 可采编栏目（包括栏目内所有页面）
-	private String editall = "";
-	// 可采编栏目（包括栏目内自己创建的页面）
-	private String editown = "";
 	// 可发布栏目
 	private String publish = "";
 
-	public long getId()
+	public Long getId()
 	{
 		return id;
 	}
 
-	public void setId(long id)
+	public void setId(Long id)
 	{
 		this.id = id;
 	}
 
-	public String getOwn()
+	public Long getSiteid()
 	{
-		return own;
+		return siteid;
 	}
 
-	public void setOwn(String own)
+	public void setSiteid(Long siteid)
 	{
-		this.own = own;
+		this.siteid = siteid;
 	}
 
 	public String getAccount()
@@ -48,16 +48,6 @@ public class DsCmsPermission
 	public void setAccount(String account)
 	{
 		this.account = account;
-	}
-
-	public String getAudit()
-	{
-		return audit;
-	}
-
-	public void setAudit(String audit)
-	{
-		this.audit = audit;
 	}
 
 	public String getEditall()
@@ -78,6 +68,16 @@ public class DsCmsPermission
 	public void setEditown(String editown)
 	{
 		this.editown = editown;
+	}
+
+	public String getAudit()
+	{
+		return audit;
+	}
+
+	public void setAudit(String audit)
+	{
+		this.audit = audit;
 	}
 
 	public String getPublish()

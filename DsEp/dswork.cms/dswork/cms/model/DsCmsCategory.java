@@ -14,14 +14,14 @@ public class DsCmsCategory
 	private Long pid = 0L;
 	// 站点ID
 	private Long siteid = 0L;
+	// 状态(0新增待发,1更新待发,8已发)
+	private int status = 0;
 	// 栏目名称
 	private String name = "";
 	// 目录名称
 	private String folder = "";
 	// 类型(0列表,1单页,2外链)
-	private Integer status = 0;
-	// 发布状态
-	private int publishstatus = 0;
+	private Integer scope = 0;
 	// 链接
 	private String url = "";
 	// 栏目模板
@@ -83,6 +83,16 @@ public class DsCmsCategory
 		this.siteid = siteid;
 	}
 
+	public int getStatus()
+	{
+		return status;
+	}
+
+	public void setStatus(int status)
+	{
+		this.status = status;
+	}
+
 	public String getName()
 	{
 		return name;
@@ -103,24 +113,14 @@ public class DsCmsCategory
 		this.folder = folder;
 	}
 
-	public Integer getStatus()
+	public Integer getScope()
 	{
-		return status;
+		return scope;
 	}
 
-	public void setStatus(Integer status)
+	public void setScope(Integer scope)
 	{
-		this.status = status;
-	}
-
-	public int getPublishstatus()
-	{
-		return publishstatus;
-	}
-
-	public void setPublishstatus(int publishstatus)
-	{
-		this.publishstatus = publishstatus;
+		this.scope = scope;
 	}
 
 	public String getUrl()
