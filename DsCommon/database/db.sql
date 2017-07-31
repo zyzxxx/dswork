@@ -156,9 +156,11 @@ CREATE TABLE DS_CMS_AUDIT_CATEGORY
    URL                  VARCHAR(255) COMMENT '外链URL',
    EDITID               VARCHAR(64) COMMENT '编辑人员ID',
    EDITNAME             VARCHAR(30) COMMENT '编辑人员名称',
+   EDITTIME             VARCHAR(19) COMMENT '编辑时间',
    AUDITSTATUS          INT COMMENT '状态(0草稿,1未审核,2不通过,4通过)',
    AUDITID              VARCHAR(64) COMMENT '审核人员ID',
    AUDITNAME            VARCHAR(30) COMMENT '审核人员名称',
+   AUDITTIME            VARCHAR(19) COMMENT '审核时间',
    CONTENT              TEXT COMMENT '内容',
    PRIMARY KEY (ID),
    CONSTRAINT FK_DS_CMS_AUDIT_CATEGORY_SITE FOREIGN KEY (SITEID)
@@ -186,9 +188,11 @@ CREATE TABLE DS_CMS_AUDIT_PAGE
    PAGETOP              INT COMMENT '首页推荐(0否,1是)',
    EDITID               VARCHAR(64) COMMENT '编辑人员ID',
    EDITNAME             VARCHAR(30) COMMENT '编辑人员名称',
+   EDITTIME             VARCHAR(19) COMMENT '编辑时间',
    AUDITSTATUS          INT COMMENT '状态(0草稿,1未审核,2不通过,4通过)',
    AUDITID              VARCHAR(64) COMMENT '审核人员ID',
    AUDITNAME            VARCHAR(30) COMMENT '审核人员名称',
+   AUDITTIME            VARCHAR(19) COMMENT '审核时间',
    CONTENT              TEXT COMMENT '内容',
    PRIMARY KEY (ID),
    CONSTRAINT FK_DS_CMS_AUDIT_PAGE_SITE FOREIGN KEY (SITEID)
