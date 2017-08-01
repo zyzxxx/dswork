@@ -19,6 +19,7 @@ import dswork.cms.service.DsCmsAuditService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
+import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 
 @Scope("prototype")
@@ -118,10 +119,13 @@ public class DsCmsAuditController extends BaseController
 			if(m.getScope() != 0 && checkOwn(m.getSiteid()))
 			{
 				DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
-				if(_po.getStatus() == 1)
+				if(_po.isAudit())
 				{
 					_po.setMsg(po.getMsg());
-					_po.setStatus(po.getStatus());
+					_po.setAuditstatus(po.getAuditstatus());
+					_po.setAuditid(getAccount());
+					_po.setAuditname(getName());
+					_po.setAudittime(TimeUtil.getCurrentTime());
 					service.updateAuditCategory(_po, m);
 				}
 				print(1);
@@ -153,7 +157,7 @@ public class DsCmsAuditController extends BaseController
 				pr.getFilters().remove("id");
 				pr.getFilters().put("siteid", m.getSiteid());
 				pr.getFilters().put("categoryid", m.getId());
-				pr.getFilters().put("audit", "audit");
+				pr.getFilters().put("auditstatus", DsCmsAuditPage.AUDIT);
 				Page<DsCmsAuditPage> pageModel = service.queryPage(pr);
 				put("pageModel", pageModel);
 				put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
@@ -180,10 +184,13 @@ public class DsCmsAuditController extends BaseController
 		try
 		{
 			DsCmsAuditPage _po = service.get(po.getId());
-			if(_po.getStatus() == 1)
+			if(_po.getAuditstatus() == 1)
 			{
-				_po.setStatus(po.getStatus());
+				_po.setAuditstatus(po.getAuditstatus());
 				_po.setMsg(po.getMsg());
+				_po.setAuditid(getAccount());
+				_po.setAuditname(getName());
+				_po.setAudittime(TimeUtil.getCurrentTime());
 				service.updateAuditPage(_po);
 			}
 			print(1);
@@ -217,5 +224,10 @@ public class DsCmsAuditController extends BaseController
 	private String getAccount()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getAccount();
+	}
+	
+	private String getName()
+	{
+		return common.auth.AuthUtil.getLoginUser(request).getName();
 	}
 }

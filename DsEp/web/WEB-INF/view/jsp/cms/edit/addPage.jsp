@@ -29,13 +29,13 @@ $(function(){
 			$(function(){
 				$("#_save").click(function(){
 					if(confirm("确认保存吗？")){
-						$("input[name='status']").val(0);
+						$("input[name='auditstatus']").val(0);
 						$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
 					}
 				})
 				$("#_submit").click(function(){
 					if(confirm("确认提交吗？")){
-						$("input[name='status']").val(1);
+						$("input[name='auditstatus']").val(1);
 						$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
 					}
 				});
@@ -87,6 +87,7 @@ $(function(){
 		</td>
 	</tr>
 </table>
+<input type="hidden" name="auditstatus" value="0" />
 </form>
 </body>
 </html>

@@ -111,12 +111,14 @@ public class DsCmsEditController extends BaseController
 			{
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
-				po.setUseraccount(getAccount());
+				po.setEditid(getAccount());
+				po.setEditname(getName());
+				po.setEdittime(TimeUtil.getCurrentTime());
 				if(po.getReleasetime().trim().equals(""))
 				{
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
-				po.setStatus(0); //草稿
+				po.setAuditstatus(0); //草稿
 				po.setUrl("/a/" + m.getFolder() + "/" + m.getId() + ".html");
 				service.save(po);// url拼接/id.html
 				print(1);
@@ -202,17 +204,32 @@ public class DsCmsEditController extends BaseController
 		try
 		{
 			DsCmsAuditPage _po = service.get(po.getId());
-			po.setUseraccount(getAccount());
-			if(_po.getStatus() != 1)
+			if(_po.isDraft() || _po.isNopass() || _po.isPass())
 			{
-				po.setSiteid(_po.getSiteid());
-				po.setUrl(_po.getUrl());
-				po.setCategoryid(_po.getCategoryid());
-				service.updateAuditPage(po);
+				_po.setTitle(po.getTitle());
+				_po.setMetakeywords(po.getMetakeywords());
+				_po.setMetadescription(po.getMetadescription());
+				_po.setSummary(po.getSummary());
+				_po.setReleasetime(po.getReleasetime());
+				_po.setReleasesource(po.getReleasesource());
+				_po.setReleaseuser(po.getReleaseuser());
+				_po.setImg(po.getImg());
+				_po.setImgtop(po.getImgtop());
+				_po.setPagetop(po.getPagetop());
+				_po.setContent(po.getContent());
+				_po.setAuditstatus(po.getAuditstatus());
+
+				_po.setEditid(getAccount());
+				_po.setEditname(getName());
+				_po.setEdittime(TimeUtil.getCurrentTime());
+				_po.setAuditid("");
+				_po.setAuditname("");
+				_po.setAudittime("");
+				service.updateAuditPage(_po);
 			}
-			else if(_po.getStatus() == 1)
+			else if(_po.isAudit())
 			{
-				_po.setStatus(po.getStatus());
+				_po.setAuditstatus(po.getAuditstatus());
 				service.updateAuditPage(_po);
 			}
 			print(1);
@@ -271,13 +288,30 @@ public class DsCmsEditController extends BaseController
 			if(m.getScope() != 0 && checkOwn(m.getSiteid()))
 			{
 				DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
-				if(_po.getStatus() != 1)
+				if(_po.isDraft() || _po.isNopass() || _po.isPass())
 				{
-					service.updateAuditCategory(po);
+					_po.setMetakeywords(po.getMetakeywords());
+					_po.setMetadescription(po.getMetadescription());
+					_po.setSummary(po.getSummary());
+					_po.setReleasetime(po.getReleasetime());
+					_po.setReleasesource(po.getReleasesource());
+					_po.setReleaseuser(po.getReleaseuser());
+					_po.setImg(po.getImg());
+					_po.setContent(po.getContent());
+					_po.setUrl(po.getUrl());
+					_po.setAuditstatus(po.getAuditstatus());
+
+					_po.setEditid(getAccount());
+					_po.setEditname(getName());
+					_po.setEdittime(TimeUtil.getCurrentTime());
+					_po.setAuditid("");
+					_po.setAuditname("");
+					_po.setAudittime("");
+					service.updateAuditCategory(_po);
 				}
-				else if(_po.getStatus() == 1)
+				else if(_po.isAudit())
 				{
-					_po.setStatus(po.getStatus());
+					_po.setAuditstatus(po.getAuditstatus());
 					service.updateAuditCategory(_po);
 				}
 				print(1);
@@ -331,5 +365,10 @@ public class DsCmsEditController extends BaseController
 	private String getAccount()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getAccount();
+	}
+	
+	private String getName()
+	{
+		return common.auth.AuthUtil.getLoginUser(request).getName();
 	}
 }

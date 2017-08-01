@@ -43,7 +43,7 @@ public class DsCmsAuditCategoryDao extends BaseDao<DsCmsAuditCategory, Long>
 					_c.setContent(c.getContent());
 					_c.setReleasetime(c.getReleasetime());
 					_c.setUrl(c.getUrl());
-					_c.setStatus(0); //草稿
+					_c.setStatus(DsCmsAuditCategory.DRAFT); //草稿
 					super.save(_c);
 				}
 			}

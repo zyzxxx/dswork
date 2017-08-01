@@ -83,7 +83,7 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 
 	public int updateAuditCategory(DsCmsAuditCategory po, DsCmsCategory cate)
 	{
-		if(po.getStatus() == 4)//通过
+		if(po.isPass())//通过
 		{
 			if(cate.getScope() == 1)
 			{
@@ -105,6 +105,7 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 			if(cate.getStatus() != 0)
 			{
 				cateDao.updateStatus(cate.getId(), 1); //更改至更新未发布状态
+				po.setStatus(1);
 			}
 		}
 		return auditCateDao.update(po);
@@ -112,7 +113,7 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 	
 	public int updateAuditPage(DsCmsAuditPage po)
 	{
-		if(po.getStatus() == 4)//通过
+		if(po.isPass())//通过
 		{
 			DsCmsPage page = (DsCmsPage) pageDao.get(po.getId());
 			boolean isSave = false;
@@ -140,6 +141,7 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 			if(isSave)
 			{
 				page.setStatus(0); //更新至新建未发布状态
+				po.setStatus(0);
 				pageDao.save(page);
 				pageDao.updateURL(po.getId(), po.getUrl());
 			}
@@ -148,6 +150,7 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 				if(page.getStatus() != 0)
 				{
 					page.setStatus(1); //更新至更新未发布状态
+					po.setStatus(1);
 				}
 				pageDao.update(page);
 			}

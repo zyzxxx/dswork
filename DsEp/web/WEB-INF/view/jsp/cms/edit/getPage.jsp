@@ -51,7 +51,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
 		<td>
-		<c:if test="${d.status!=1}">
+		<c:if test="${d.auditstatus!=1}">
 			<input name="keyIndex" type="checkbox" value="${d.id}" />
 		</c:if>
 		</td>
@@ -59,7 +59,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td>${fn:escapeXml(d.title)}</td>
 		<td>${fn:escapeXml(d.releasetime)}</td>
 		<td>${d.pagetop == 1 ? "是" : "否"}</td>
-		<td>${d.status==0?'未提交':d.status==1?'审核中':d.status==2?'未通过':d.status==4?'已通过':''}</td>
+		<td>${d.auditstatus==0?'未提交':d.auditstatus==1?'审核中':d.auditstatus==2?'未通过':d.auditstatus==4?'已通过':''}</td>
 	</tr>
 </c:forEach>
 </table>

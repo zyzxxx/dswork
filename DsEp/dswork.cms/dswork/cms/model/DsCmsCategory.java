@@ -14,7 +14,7 @@ public class DsCmsCategory
 	private Long pid = 0L;
 	// 站点ID
 	private Long siteid = 0L;
-	// 状态(0新增待发,1更新待发,8已发)
+	// 状态(-1删除,0新增,1修改,8已发)
 	private int status = 0;
 	// 栏目名称
 	private String name = "";

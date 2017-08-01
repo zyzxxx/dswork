@@ -54,7 +54,7 @@ $dswork.page.join = function(td, menu, id){
 		<td>${fn:escapeXml(d.title)}</td>
 		<td>${fn:escapeXml(d.releasetime)}</td>
 		<td>${d.pagetop==1?"是":"否"}</td>
-		<td>${d.status==0?'未提交':d.status==1?'审核中':d.status==2?'未通过':d.status==4?'已通过':''}</td>
+		<td>${d.auditstatus==0?'未提交':d.auditstatus==1?'审核中':d.auditstatus==2?'未通过':d.auditstatus==4?'已通过':''}</td>
 	</tr>
 </c:forEach>
 </table>

@@ -20,7 +20,7 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
 		<td class="title">审核页面</td>
-	<c:if test="${po.status==1}">
+	<c:if test="${po.audit}">
 	</c:if>
 		<td class="menuTool">
 			<a class="submit" id="_pass" href="javascript:void(0);">通过</a>
@@ -29,13 +29,13 @@ $(function(){
 			<script type="text/javascript">
 			$("#_pass").click(function(){
 				if(confirm("确认通过？")){
-					$("input[name='status']").val(4);
+					$("input[name='auditstatus']").val(4);
 					$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
 				}
 			});
 			$("#_nopass").click(function(){
 				if(confirm("确认不通过？")){
-					$("input[name='status']").val(2);
+					$("input[name='auditstatus']").val(2);
 					$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
 				}
 			})
@@ -44,12 +44,12 @@ $(function(){
 	</tr>
 </table>
 <div class="line"></div>
-<c:if test="${po.status!=1}">
+<c:if test="${!po.audit}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr><td class="form_input" style="color:red;text-align:center;">没有新提交的页面</td></tr>
 </table>
 </c:if>
-<c:if test="${po.status==1}">
+<c:if test="${po.audit}">
 <form id="dataForm" method="post" action="auditPage2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
@@ -105,7 +105,7 @@ $(function(){
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />
-<input type="hidden" name="status" value="${po.status}" />
+<input type="hidden" name="auditstatus" value="${po.auditstatus}" />
 </form>
 </c:if>
 </body>

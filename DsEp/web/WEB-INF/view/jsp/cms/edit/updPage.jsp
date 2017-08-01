@@ -23,33 +23,33 @@ $(function(){
 		<td class="title">修改页面</td>
 		<td class="menuTool">
 			<a class="look" target="_blank" href="${ctx}/cms/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">预览页面</a>
-		<c:if test="${po.status!=1}">
+		<c:if test="${!po.audit}">
 			<a class="save" id="_save" href="javascript:void(0);">保存</a>
 			<a class="submit" id="_submit" href="javascript:void(0);">提交</a>
 			<script type="text/javascript">
 			$(function(){
 				$("#_save").click(function(){
 					if(confirm("确认保存吗？")){
-						$("input[name='status']").val(0);
+						$("input[name='auditstatus']").val(0);
 						$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
 					}
 				})
 				$("#_submit").click(function(){
 					if(confirm("确认提交吗？")){
-						$("input[name='status']").val(1);
+						$("input[name='auditstatus']").val(1);
 						$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
 					}
 				});
 			});
 			</script>
 		</c:if>
-		<c:if test="${po.status==1}">
+		<c:if test="${po.audit}">
 			<a class="back" target="_blank" id="_back" href="javascript:void(0);">撤回审核</a>
 			<script type="text/javascript">
 			$(function(){
 				$("#_back").click(function(){
 					if(confirm("确认撤回吗？")){
-						$("input[name='status']").val(0);
+						$("input[name='auditstatus']").val(0);
 						$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
 					}
 				});
@@ -63,12 +63,12 @@ $(function(){
 </table>
 <div class="line"></div>
 <form id="dataForm" method="post" action="updPage2.htm">
-<c:if test="${po.status==3}">
+<c:if test="${po.audit}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr><td class="form_input" style="color:red;text-align:center;">信息审核中，如需修改需先撤回</td></tr>
 </table>
 </c:if>
-<c:if test="${po.status!=3}">
+<c:if test="${!po.audit}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">标题</td>
@@ -110,12 +110,12 @@ $(function(){
 		</td>
 	</tr>
 </table>
-<c:if test="${po.status==2 || po.status==4}">
+<c:if test="${po.nopass || po.pass}">
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">审核结果</td>
-		<td class="form_input" style="color:${po.status==4?'green':'red'}">${po.status==4?'通过':'不通过'}</td>
+		<td class="form_input" style="color:${po.pass?'green':'red'}">${po.pass?'通过':'不通过'}</td>
 	</tr>
 	<tr>
 		<td class="form_title">审核意见</td>
@@ -125,7 +125,7 @@ $(function(){
 </c:if>
 </c:if>
 <input type="hidden" name="id" value="${po.id}" />
-<input type="hidden" name="status" value="${po.status}" />
+<input type="hidden" name="auditstatus" value="${po.auditstatus}" />
 </form>
 </body>
 </html>
