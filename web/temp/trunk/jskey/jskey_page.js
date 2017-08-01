@@ -44,7 +44,7 @@ document.write(
 		".jskey_page .page{height:28px;line-height:28px;margin:0 3px 6px 3px;padding:0 10px;width:auto;}" +
 		".jskey_page input, .jskey_page button, .jskey_page select{border:1px solid #ccc;background-color:#ffffff;}" +
 		".jskey_page input {height:24px;line-height:24px;margin:0 5px;padding:0 5px;width:28px;}" +
-		".jskey_page button{height:26px;line-height:26px;margin:0 0px;padding:0 5px;}" +
+		".jskey_page button{height:26px;line-height:26px;margin:0 0px;padding:0 5px;cursor:pointer;}" +
 		".jskey_page select{height:26px;line-height:26px;margin:0 5px;padding:0;width:50px;}" +
 		".jskey_page_skin_default a    {border:1px solid #ccc;background-color:#ffffff;color:#333333;}" +
 		".jskey_page_skin_default span {color:#333333;}" +
