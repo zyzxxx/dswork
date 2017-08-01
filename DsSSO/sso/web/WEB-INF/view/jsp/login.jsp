@@ -23,7 +23,7 @@ a{text-decoration:underline;outline:none;}
 a:link,a:visited,a:active{color:#0000bb;outline:none;}
 a:hover{color:#0000ff;text-decoration:underline;}
 .bg{width:100%;height:730px;position:absolute;top:70px;left:0;z-index:-1;background:url(${ctx}/themes/share/bg/login.gif) no-repeat top center;}
-.view{position:relative;width:100%;min-width:300px;overflow:hidden;margin:0 auto;overflow:hidden;}
+.view{position:relative;width:100%;min-width:300px;max-width:1000px;overflow:hidden;margin:0 auto;overflow:hidden;}
 .title {color:#003c7b;font-size:38px;font-weight:bold;text-align:center;padding:80px 0 38px 0;}
 .title img{height:60px;vertical-align:middle;}
 .login{border:#003c7b solid 1px;padding:0;overflow:hidden;background-color:#fff;float:right;margin:0 50px 0 auto;width:360px;}
