@@ -16,7 +16,7 @@
 </insert>
 
 <delete id="delete">
-	delete from DS_CMS_AUDIT_PAGE where ID=#{id} and STATUS in (4, 2)
+	delete from DS_CMS_AUDIT_PAGE where ID=#{id}
 </delete>
 
 <update id="update" parameterType="dswork.cms.model.DsCmsAuditPage">

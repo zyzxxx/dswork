@@ -95,25 +95,26 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 				cate.setImg(po.getImg());
 				cate.setContent(po.getContent());
 				cate.setReleasetime(po.getReleasetime());
+				if(cate.getStatus() != 0)
+				{
+					cate.setStatus(1);;
+				}
 				cateDao.updateContent(cate);
 			}
 			else
 			{
 				cate.setUrl(po.getUrl());
+				cate.setStatus(8);// 更改至已发布状态（因为外链不需要发布操作）
 				cateDao.update(cate);
 			}
-			if(cate.getStatus() != 0)
-			{
-				cateDao.updateStatus(cate.getId(), 1); //更改至更新未发布状态
-				po.setStatus(1);
-			}
+			po.setStatus(1);// 审核栏目设置为修改状态
 		}
 		return auditCateDao.update(po);
 	}
 	
 	public int updateAuditPage(DsCmsAuditPage po)
 	{
-		if(po.isPass())//通过
+		if(po.isPass())// 通过
 		{
 			DsCmsPage page = (DsCmsPage) pageDao.get(po.getId());
 			boolean isSave = false;
@@ -137,11 +138,9 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 			page.setImg(po.getImg());
 			page.setImgtop(po.getImgtop());
 			page.setPagetop(po.getPagetop());
-//			page.setUrl(po.getUrl());
 			if(isSave)
 			{
-				page.setStatus(0); //更新至新建未发布状态
-				po.setStatus(0);
+				page.setStatus(0);// 内容设置为新建未发布状态
 				pageDao.save(page);
 				pageDao.updateURL(po.getId(), po.getUrl());
 			}
@@ -149,13 +148,32 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 			{
 				if(page.getStatus() != 0)
 				{
-					page.setStatus(1); //更新至更新未发布状态
-					po.setStatus(1);
+					page.setStatus(1);// 更新至更新未发布状态
 				}
 				pageDao.update(page);
 			}
+			po.setStatus(1);// 审核内容设置为修改状态
 		}
 		return auditPageDao.update(po);
+	}
+
+	public int deleteAuditPage(DsCmsAuditPage po)
+	{
+		if(po.isPass())// 通过
+		{
+			DsCmsPage page = (DsCmsPage) pageDao.get(po.getId());
+			if(page != null)
+			{
+				page.setStatus(-1);
+				pageDao.update(page);
+			}
+			return auditPageDao.delete(po.getId());
+		}
+		else
+		{
+			po.setStatus(1);// 更新为修改状态
+			return auditPageDao.update(po);
+		}
 	}
 
 	public int saveAuditCategoryList(List<DsCmsCategory> cateList)

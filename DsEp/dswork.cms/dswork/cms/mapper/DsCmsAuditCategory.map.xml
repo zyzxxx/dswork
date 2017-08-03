@@ -18,7 +18,7 @@
 
 <update id="update" parameterType="dswork.cms.model.DsCmsAuditCategory">
 	update DS_CMS_AUDIT_CATEGORY set
-		STATUS=#{status}
+		STATUS=#{status},
 		METAKEYWORDS=#{metakeywords},
 		METADESCRIPTION=#{metadescription},
 		SUMMARY=#{summary},

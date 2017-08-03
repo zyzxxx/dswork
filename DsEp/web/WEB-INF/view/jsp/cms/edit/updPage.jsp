@@ -42,9 +42,21 @@ $(function(){
 				});
 			});
 			</script>
+		<c:if test="${po.status>0 && (po.draft || po.nopass)}">
+			<a class="back" id="_restore" href="javascript:void(0);">还原</a>
+			<script type="text/javascript">
+			$(function(){
+				$("#_restore").click(function(){
+					if(confirm("确认还原吗？")){
+						$('<form method="post" action="updPageRestore.htm">').append('<input name="id" value="${po.id}">').ajaxSubmit($dswork.doAjaxOption);
+					}
+				})
+			});
+			</script>
+		</c:if>
 		</c:if>
 		<c:if test="${po.audit}">
-			<a class="back" target="_blank" id="_back" href="javascript:void(0);">撤回审核</a>
+			<a class="back" id="_back" href="javascript:void(0);">撤回审核</a>
 			<script type="text/javascript">
 			$(function(){
 				$("#_back").click(function(){
@@ -64,6 +76,12 @@ $(function(){
 <div class="line"></div>
 <form id="dataForm" method="post" action="updPage2.htm">
 <c:if test="${po.audit}">
+<c:if test="${po.status==-1}">
+<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr><td class="form_input" style="color:red;text-align:center;">删除操作审核中，审核通过后将删除本条目</td></tr>
+</table>
+<div class="line"></div>
+</c:if>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr><td class="form_input" style="color:red;text-align:center;">信息审核中，如需修改需先撤回</td></tr>
 </table>
@@ -117,10 +135,12 @@ $(function(){
 		<td class="form_title">审核结果</td>
 		<td class="form_input" style="color:${po.pass?'green':'red'}">${po.pass?'通过':'不通过'}</td>
 	</tr>
+<c:if test="${po.nopass}">
 	<tr>
 		<td class="form_title">审核意见</td>
 		<td class="form_input">${fn:escapeXml(po.msg)}</td>
 	</tr>
+</c:if>
 </table>
 </c:if>
 </c:if>

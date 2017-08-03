@@ -13,7 +13,7 @@ import dswork.mvc.BaseController;
 public class DsCmsPreviewController extends BaseController
 {
 	@RequestMapping("/cms/preview")
-	public String buildHTML()
+	public String preview()
 	{
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);

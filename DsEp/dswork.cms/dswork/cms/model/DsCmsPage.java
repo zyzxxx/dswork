@@ -11,7 +11,7 @@ public class DsCmsPage
 	private Long siteid = 0L;
 	// 栏目ID
 	private Long categoryid = 0L;
-	// 状态(-1删除,0新增,1修改,8已发)
+	// 状态(-1待删除,0待发布,1待更新,8已发布)
 	private Integer status = 0;
 	// 标题
 	private String title = "";

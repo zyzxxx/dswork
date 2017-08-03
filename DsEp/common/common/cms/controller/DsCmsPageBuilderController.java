@@ -55,7 +55,7 @@ public class DsCmsPageBuilderController extends BaseController
 			int page = req.getInt("page", 1);
 			int pagesize = req.getInt("pagesize", 25);
 			Map<String, Object> c = cms.getCategory(categoryid + "");
-			if(String.valueOf(c.get("status")).equals("2"))
+			if(String.valueOf(c.get("scope")).equals("2"))
 			{
 				return null;// 外链
 			}

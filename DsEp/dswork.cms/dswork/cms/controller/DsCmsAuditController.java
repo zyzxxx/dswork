@@ -81,7 +81,6 @@ public class DsCmsAuditController extends BaseController
 		}
 	}
 
-
 	// 修改
 	@RequestMapping("/auditCategory1")
 	public String updCategory1()
@@ -191,7 +190,14 @@ public class DsCmsAuditController extends BaseController
 				_po.setAuditid(getAccount());
 				_po.setAuditname(getName());
 				_po.setAudittime(TimeUtil.getCurrentTime());
-				service.updateAuditPage(_po);
+				if(_po.getStatus() == -1)
+				{
+					service.deleteAuditPage(_po);
+				}
+				else
+				{
+					service.updateAuditPage(_po);
+				}
 			}
 			print(1);
 		}

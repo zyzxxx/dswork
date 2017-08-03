@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dswork.cms.model.DsCmsAuditCategory;
 import dswork.cms.model.DsCmsAuditPage;
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsEditService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
-import dswork.core.util.CollectionUtil;
 import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 
@@ -82,15 +82,6 @@ public class DsCmsEditController extends BaseController
 		}
 	}
 
-
-
-
-
-
-
-
-
-
 	// 添加页面
 	@RequestMapping("/addPage1")
 	public String addPage1()
@@ -118,7 +109,7 @@ public class DsCmsEditController extends BaseController
 				{
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
-				po.setAuditstatus(0); //草稿
+				po.setStatus(0); //新增
 				po.setUrl("/a/" + m.getFolder() + "/" + m.getId() + ".html");
 				service.save(po);// url拼接/id.html
 				print(1);
@@ -174,7 +165,27 @@ public class DsCmsEditController extends BaseController
 			DsCmsCategory po = service.getCategory(categoryid);
 			if(po.getScope() == 0 && checkOwn(po.getSiteid()))
 			{
-				service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+				long[] idArray = req.getLongArray("keyIndex", 0);
+				List<DsCmsAuditPage> updList = new ArrayList<DsCmsAuditPage>();
+				List<DsCmsAuditPage> delList = new ArrayList<DsCmsAuditPage>();
+				for(long id : idArray)
+				{
+					DsCmsAuditPage page = service.get(id);
+					if(page != null)
+					{
+						if(page.getStatus() == 0)// 新增的数据，直接删除
+						{
+							delList.add(page);
+						}
+						else// 非新增的数据，需审核后才能删除
+						{
+							page.setStatus(-1);
+							page.setAuditstatus(DsCmsAuditPage.AUDIT);
+							updList.add(page);
+						}
+					}
+				}
+				service.updateAndDeleteList(updList, delList);
 				print(1);
 			}
 			else
@@ -222,15 +233,49 @@ public class DsCmsEditController extends BaseController
 				_po.setEditid(getAccount());
 				_po.setEditname(getName());
 				_po.setEdittime(TimeUtil.getCurrentTime());
-				_po.setAuditid("");
-				_po.setAuditname("");
-				_po.setAudittime("");
-				service.updateAuditPage(_po);
+				service.update(_po);
 			}
-			else if(_po.isAudit())
+			else if(_po.isAudit())// 撤回操作
 			{
 				_po.setAuditstatus(po.getAuditstatus());
-				service.updateAuditPage(_po);
+				if(_po.getStatus() == -1)// 撤回删除
+				{
+					_po.setStatus(1);
+				}
+				service.update(_po);
+			}
+			print(1);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
+	//还原内容
+	@RequestMapping("/updPageRestore")
+	public void updPageRestore(DsCmsAuditPage po)
+	{
+		try
+		{
+			DsCmsAuditPage _po = service.get(po.getId());
+			if(_po.getStatus() > 0 && (_po.isDraft() || _po.isNopass()))
+			{
+				DsCmsPage page = service.getPage(po.getId());
+				_po.setTitle(page.getTitle());
+				_po.setMetakeywords(page.getMetakeywords());
+				_po.setMetadescription(page.getMetadescription());
+				_po.setSummary(page.getSummary());
+				_po.setContent(page.getContent());
+				_po.setReleasetime(page.getReleasetime());
+				_po.setReleasesource(page.getReleasesource());
+				_po.setReleaseuser(page.getReleaseuser());
+				_po.setImg(page.getImg());
+				_po.setImgtop(page.getImgtop());
+				_po.setPagetop(page.getPagetop());
+//				_po.setStatus(page.getStatus());
+				_po.setAuditstatus(DsCmsAuditPage.PASS);
+				service.update(_po);
 			}
 			print(1);
 		}
@@ -304,9 +349,6 @@ public class DsCmsEditController extends BaseController
 					_po.setEditid(getAccount());
 					_po.setEditname(getName());
 					_po.setEdittime(TimeUtil.getCurrentTime());
-					_po.setAuditid("");
-					_po.setAuditname("");
-					_po.setAudittime("");
 					service.updateAuditCategory(_po);
 				}
 				else if(_po.isAudit())
@@ -320,6 +362,37 @@ public class DsCmsEditController extends BaseController
 			{
 				print("0:站点不存在");
 			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
+	//还原栏目
+	@RequestMapping("/updCategoryRestore")
+	public void updCategoryRestore(DsCmsAuditCategory po)
+	{
+		try
+		{
+			DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
+			if(_po.getStatus() > 0 && (_po.isDraft() || _po.isNopass()))
+			{
+				DsCmsCategory c = service.getCategory(po.getId());
+				_po.setMetakeywords(c.getMetakeywords());
+				_po.setMetadescription(c.getMetadescription());
+				_po.setSummary(c.getSummary());
+				_po.setContent(c.getContent());
+				_po.setReleasetime(c.getReleasetime());
+				_po.setReleasesource(c.getReleasesource());
+				_po.setReleaseuser(c.getReleaseuser());
+				_po.setImg(c.getImg());
+				_po.setUrl(c.getUrl());
+//				_po.setStatus(c.getStatus());
+				_po.setAuditstatus(DsCmsAuditCategory.PASS);
+				service.updateAuditCategory(_po);
+			}
+			print(1);
 		}
 		catch(Exception e)
 		{
@@ -344,6 +417,8 @@ public class DsCmsEditController extends BaseController
 			return false;
 		}
 	}
+
+
 
 	private boolean checkOwn(String own)
 	{

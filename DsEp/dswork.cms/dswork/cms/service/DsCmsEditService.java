@@ -13,11 +13,13 @@ import org.springframework.stereotype.Service;
 import dswork.cms.dao.DsCmsAuditCategoryDao;
 import dswork.cms.dao.DsCmsAuditPageDao;
 import dswork.cms.dao.DsCmsCategoryDao;
+import dswork.cms.dao.DsCmsPageDao;
 import dswork.cms.dao.DsCmsPermissionDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsAuditCategory;
 import dswork.cms.model.DsCmsAuditPage;
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.core.db.BaseService;
@@ -37,6 +39,8 @@ public class DsCmsEditService extends BaseService<DsCmsAuditPage, Long>
 	private DsCmsCategoryDao cateDao;
 	@Autowired
 	private DsCmsSiteDao siteDao;
+	@Autowired
+	private DsCmsPageDao pageDao;
 
 	@Override
 	protected EntityDao<DsCmsAuditPage, Long> getEntityDao()
@@ -81,14 +85,32 @@ public class DsCmsEditService extends BaseService<DsCmsAuditPage, Long>
 	{
 		return auditCateDao.update(po);
 	}
-	
-	public int updateAuditPage(DsCmsAuditPage po)
-	{
-		return auditPageDao.update(po);
-	}
 
 	public int saveAuditCategoryList(List<DsCmsCategory> cateList)
 	{
 		return auditCateDao.saveFromCategoryList(cateList);
+	}
+
+	public void updateAndDeleteList(List<DsCmsAuditPage> updList, List<DsCmsAuditPage> delList)
+	{
+		if(updList != null)
+		{
+			for(DsCmsAuditPage p : updList)
+			{
+				auditPageDao.update(p);
+			}
+		}
+		if(delList != null)
+		{
+			for(DsCmsAuditPage p : delList)
+			{
+				auditPageDao.delete(p.getId());
+			}
+		}
+	}
+
+	public DsCmsPage getPage(Long id)
+	{
+		return (DsCmsPage) pageDao.get(id);
 	}
 }

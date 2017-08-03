@@ -7,6 +7,11 @@
 <title></title>
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
+// $dswork.page.join = function(td, menu, id){
+// 	$(menu).append($('<div iconCls="menuTool-edit">操作</div>').bind("click", function(){
+// 		location.href = "updPage1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
+// 	}));
+// };
 $(function(){
 	$dswork.page.menu("", "updPage1.htm", "", "${pageModel.currentPage}");
 });
@@ -43,23 +48,25 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
-		<td style="width:50%">标题</td>
-		<td style="width:25%">发布时间</td>
+		<td style="width:48%">标题</td>
+		<td style="width:15%">发布时间</td>
 		<td style="width:10%">首页推荐</td>
-		<td>状态</td>
+		<td style="width:10%">焦点图</td>
+		<td style="width:10%">状态</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
 		<td>
-		<c:if test="${d.auditstatus!=1}">
+		<c:if test="${(d.status==0 && (d.draft || d.nopass)) || d.pass}">
 			<input name="keyIndex" type="checkbox" value="${d.id}" />
 		</c:if>
 		</td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.title)}</td>
 		<td>${fn:escapeXml(d.releasetime)}</td>
-		<td>${d.pagetop == 1 ? "是" : "否"}</td>
-		<td>${d.auditstatus==0?'未提交':d.auditstatus==1?'审核中':d.auditstatus==2?'未通过':d.auditstatus==4?'已通过':''}</td>
+		<td>${d.pagetop==1?'是':'否'}</td>
+		<td>${d.imgtop==1?'是':'否'}</td>
+		<td>${d.draft?'未提交':d.audit?'审核中':d.nopass?'未通过':d.pass?'已通过':''}</td>
 	</tr>
 </c:forEach>
 </table>

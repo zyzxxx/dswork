@@ -44,8 +44,9 @@ $dswork.page.join = function(td, menu, id){
 	<tr class="list_title">
 		<td style="width:5%">操作</td>
 		<td style="width:50%">标题</td>
-		<td style="width:25%">发布时间</td>
+		<td style="width:15%">发布时间</td>
 		<td style="width:10%">首页推荐</td>
+		<td style="width:10%">焦点图</td>
 		<td style="width:10%">状态</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
@@ -53,8 +54,9 @@ $dswork.page.join = function(td, menu, id){
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.title)}</td>
 		<td>${fn:escapeXml(d.releasetime)}</td>
-		<td>${d.pagetop==1?"是":"否"}</td>
-		<td>${d.auditstatus==0?'未提交':d.auditstatus==1?'审核中':d.auditstatus==2?'未通过':d.auditstatus==4?'已通过':''}</td>
+		<td>${d.pagetop==1?'是':'否'}</td>
+		<td>${d.imgtop==1?'是':'否'}</td>
+		<td>${d.draft?'未提交':d.audit?'审核中':d.nopass?'未通过':d.pass?'已通过':''}</td>
 	</tr>
 </c:forEach>
 </table>
