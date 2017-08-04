@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.mvc.BaseController;
-import dswork.web.MyFile;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
@@ -22,6 +20,9 @@ import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
 import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
+import dswork.http.HttpUtil;
+import dswork.mvc.BaseController;
+import dswork.web.MyFile;
 
 @Scope("prototype")
 @Controller
@@ -369,6 +370,8 @@ public class DsCmsPageController extends BaseController
 		_building(false, siteid, categoryid, pageid, pagesize);
 	}
 
+	private HttpUtil httpUtil = new HttpUtil();
+
 	/**
 	 * 生成或删除信息
 	 * @param isCreateOrDelete true生成，false删除
@@ -405,8 +408,16 @@ public class DsCmsPageController extends BaseController
 						{
 							try
 							{
-								_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
-								service.updatePageStatus(p.getId(), 8);
+								if(p.getStatus() == -1)
+								{
+									_buildFile(null, p.getUrl(), site.getFolder());
+									service.delete(p.getId());
+								}
+								else
+								{
+									_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
+									service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
+								}
 								print("1");
 							}
 							catch (Exception e)
@@ -429,7 +440,10 @@ public class DsCmsPageController extends BaseController
 						else if(categoryid > 0)// 指定栏目首页
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
-							list.add(c);
+							if(c.getSiteid() == siteid)
+							{
+								list.add(c);
+							}
 						}
 						if(categoryid >= 0)// 栏目首页，这里不能用list.size，因为可能长度就是0
 						{
@@ -440,11 +454,10 @@ public class DsCmsPageController extends BaseController
 									if(c.getScope() == 2)// 外链没有东西生成的
 									{
 										_deleteFile(site.getFolder(), c.getFolder(), true, true);
-										service.updateCategoryStatus(c.getId(), 8);
 										continue;
 									}
 									_deleteFile(site.getFolder(), c.getFolder(), true, false);// 删除栏目首页
-									if(isCreateOrDelete && c.getSiteid() == siteid)
+									if(isCreateOrDelete)
 									{
 										_buildFile(path + "&categoryid=" + c.getId() + "&page=1&pagesize=" + pagesize, c.getUrl(), site.getFolder());
 										Map<String, Object> map = new HashMap<String, Object>();
@@ -459,8 +472,8 @@ public class DsCmsPageController extends BaseController
 										{
 											_buildFile(path + "&categoryid=" + c.getId() + "&page=" + i + "&pagesize=" + pagesize, c.getUrl().replaceAll("\\.html", "_" + i + ".html"), site.getFolder());
 										}
-										service.updateCategoryStatus(c.getId(), 8);
 									}
+									service.updateCategoryStatus(c.getId(), isCreateOrDelete ? 8 : 0);
 								}
 								catch (Exception e)
 								{
@@ -483,7 +496,10 @@ public class DsCmsPageController extends BaseController
 						else if(categoryid > 0)// 指定栏目内容
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
-							list.add(c);
+							if(c.getSiteid() == siteid)
+							{
+								list.add(c);
+							}
 						}
 						for(DsCmsCategory c : list)
 						{
@@ -505,8 +521,16 @@ public class DsCmsPageController extends BaseController
 								{
 									try
 									{
-										_buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder());
-										service.updatePageStatus(p.getId(), 8);
+										if(p.getStatus() == -1)
+										{
+											_buildFile(null, p.getUrl(), site.getFolder());
+											service.delete(p.getId());
+										}
+										else
+										{
+											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
+											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
+										}
 									}
 									catch (Exception e)
 									{
@@ -521,13 +545,21 @@ public class DsCmsPageController extends BaseController
 									rq.setFilters(map);
 									rq.setPageSize(pagesize);
 									rq.setCurrentPage(i);
-									Page<DsCmsPage> n = service.queryPage(rq);
-									for(DsCmsPage p : n.getResult())
+									List<DsCmsPage> pageList = service.queryList(rq);
+									for(DsCmsPage p : pageList)
 									{
 										try
 										{
-											_buildFile(path + "&pageid=" + p.getId(), p.getUrl(), site.getFolder());
-											service.updatePageStatus(p.getId(), 8);
+											if(p.getStatus() == -1)
+											{
+												_buildFile(null, p.getUrl(), site.getFolder());
+												service.delete(p.getId());
+											}
+											else
+											{
+												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
+												service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
+											}
 										}
 										catch (Exception e)
 										{
@@ -557,6 +589,10 @@ public class DsCmsPageController extends BaseController
 		{
 			e.printStackTrace();
 			print(isCreateOrDelete ? "0:生成失败" : "0:删除失败");
+		}
+		finally
+		{
+			httpUtil.create("http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildAfter.chtml").connect();
 		}
 	}
 
@@ -596,25 +632,21 @@ public class DsCmsPageController extends BaseController
 		}
 	}
 
-	private void _buildFile(String getpath, String urlpath, String siteFolder)
+	private void _buildFile(String path, String urlpath, String siteFolder)
 	{
 		try
 		{
 			String p = getCmsRoot().replaceAll("\\\\", "/") + "html/" + siteFolder + "/html/" + urlpath;
-			if(getpath == null)
+			if(path == null)
 			{
 				FileUtil.delete(p);
 			}
 			else
 			{
-				java.net.URL url = new java.net.URL(getpath);
-				// java.net.URLConnection conn = url.openConnection();
-				// conn.setRequestProperty("Cookie", cookie);
-				// conn.connect();
-				FileUtil.writeFile(p, url.openStream(), true);
+				FileUtil.writeFile(p, httpUtil.create(path).connectStream(), true);
 			}
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
 		}
 	}

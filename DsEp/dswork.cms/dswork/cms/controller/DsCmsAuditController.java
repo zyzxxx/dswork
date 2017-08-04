@@ -67,6 +67,9 @@ public class DsCmsAuditController extends BaseController
 				{
 					List<DsCmsCategory> _cateList = service.queryListCategory(siteid);
 					cateList = DsCmsUtil.categoryAccess(_cateList, permission.getAudit());
+					put("edit", permission.getEditall().length() > 2 || permission.getEditown().length() > 2);
+					put("audit", permission.getAudit().length() > 2);
+					put("publish", permission.getPublish().length() > 2);
 				}
 				service.saveAuditCategoryList(cateList);
 				put("siteList", siteList);

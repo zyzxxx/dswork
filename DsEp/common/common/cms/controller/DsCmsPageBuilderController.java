@@ -13,13 +13,27 @@ import dswork.mvc.BaseController;
 @Controller
 public class DsCmsPageBuilderController extends BaseController
 {
+	private static final String CMS_FACTORY_KEY = "CMS_FACTORY_KEY";
+
+	@RequestMapping("/cms/page/buildAfter")
+	public void buildAfter()
+	{
+		request.getSession().setAttribute(CMS_FACTORY_KEY, null);
+	}
+
 	@RequestMapping("/cms/page/buildHTML")
 	public String buildHTML()
 	{
-		//Long siteid = req.getLong("siteid");
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
-		CmsFactory cms = new CmsFactory(request);
+		
+		CmsFactory cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY);
+		if(cms == null)
+		{
+			cms = new CmsFactory(request);
+			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
+		}
+		
 		put("cms", cms);
 		Map<String, Object> s = cms.getSite();
 		put("site", s);

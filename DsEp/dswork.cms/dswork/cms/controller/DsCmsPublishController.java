@@ -20,6 +20,7 @@ import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
+import dswork.http.HttpUtil;
 import dswork.mvc.BaseController;
 
 @Scope("prototype")
@@ -168,6 +169,8 @@ public class DsCmsPublishController extends BaseController
 		_building(false, siteid, categoryid, pageid, pagesize);
 	}
 	
+	private HttpUtil httpUtil = new HttpUtil();
+	
 	/**
 	 * 生成或删除信息
 	 * @param isCreateOrDelete true生成，false删除
@@ -197,10 +200,11 @@ public class DsCmsPublishController extends BaseController
 					//全部内容：categoryid==0，pageid==0
 					//栏目内容：categoryid>0，pageid==0
 					//指定内容：pageid>0
+					DsCmsPermission permission = service.getPermission(siteid, getAccount());
 					if(pageid > 0)// 指定内容
 					{
 						DsCmsPage p = service.get(pageid);
-						if(p.getSiteid() == siteid)
+						if(p.getSiteid() == siteid && permission.checkPublish(p.getCategoryid()))
 						{
 							try
 							{
@@ -232,7 +236,6 @@ public class DsCmsPublishController extends BaseController
 						if(categoryid == 0)// 全部栏目首页
 						{
 							List<DsCmsCategory> _list = service.queryListCategory(siteid);
-							DsCmsPermission permission = service.getPermission(siteid, getAccount());
 							for(DsCmsCategory c : _list)
 							{
 								if(permission.checkPublish(c.getId()))
@@ -244,7 +247,7 @@ public class DsCmsPublishController extends BaseController
 						else if(categoryid > 0)// 指定栏目首页
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
-							if(c.getSiteid() == siteid)
+							if(c.getSiteid() == siteid && permission.checkPublish(c.getId()))
 							{
 								list.add(c);
 							}
@@ -296,7 +299,6 @@ public class DsCmsPublishController extends BaseController
 						if(categoryid == 0)// 全部栏目内容
 						{
 							List<DsCmsCategory> _list = service.queryListCategory(siteid);
-							DsCmsPermission permission = service.getPermission(siteid, getAccount());
 							for(DsCmsCategory c : _list)
 							{
 								if(permission.checkPublish(c.getId()))
@@ -308,7 +310,7 @@ public class DsCmsPublishController extends BaseController
 						else if(categoryid > 0)// 指定栏目内容
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
-							if(c.getSiteid() == siteid)
+							if(c.getSiteid() == siteid && permission.checkPublish(c.getId()))
 							{
 								list.add(c);
 							}
@@ -357,8 +359,8 @@ public class DsCmsPublishController extends BaseController
 									rq.setFilters(map);
 									rq.setPageSize(pagesize);
 									rq.setCurrentPage(i);
-									Page<DsCmsPage> n = service.queryPage(rq);
-									for(DsCmsPage p : n.getResult())
+									List<DsCmsPage> pageList = service.queryList(rq);
+									for(DsCmsPage p : pageList)
 									{
 										try
 										{
@@ -402,76 +404,11 @@ public class DsCmsPublishController extends BaseController
 			e.printStackTrace();
 			print(isCreateOrDelete ? "0:生成失败" : "0:删除失败");
 		}
+		finally
+		{
+			httpUtil.create("http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildAfter.chtml").connect();
+		}
 	}
-//	private void _building(boolean isCreateOrDelete, long siteid, long categoryid, long pageid, int pagesize)
-//	{
-//		pagesize = (pagesize<=0) ? 25 : pagesize;
-//		try
-//		{
-//			if(siteid >= 0)
-//			{
-//				DsCmsSite site = service.getSite(siteid);
-//				if(site != null)
-//				{
-//					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
-//				}
-//				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
-//				{
-//					String path = "http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cms/page/buildHTML.chtml?siteid=" + siteid;
-//					//首页：categoryid==-1，pageid==-1
-//					//全部栏目：categoryid==0，pageid==-1
-//					//指定栏目：categoryid>0，pageid==-1
-//					//全部内容：categoryid==0，pageid==0
-//					//栏目内容：categoryid>0，pageid==0
-//					//指定内容：pageid>0
-//					if(pageid > 0)
-//					{
-//						//TODO 查询指定的内容页
-//					}
-//					else
-//					{
-//						if(categoryid >= 0)
-//						{
-//							if(categoryid > 0)
-//							{
-//								//TODO 查询指定栏目
-//							}
-//							else if(categoryid == 0)
-//							{
-//								//TODO 查询全部栏目
-//							}
-//							if(pageid == 0)
-//							{
-//								//TODO 查询栏目下的内容页并清空栏目列表
-//								//TODO 循环内容列表、生成并更新状态
-//							}
-//						}
-//						else
-//						{
-//							if(pageid == -1)
-//							{
-//								//TODO 生成首页
-//							}
-//						}
-//					}
-//					//TODO 循环栏目列表、生成并更新状态
-//				}
-//				else
-//				{
-//					print("0");
-//				}
-//			}
-//			else
-//			{
-//				print("0");
-//			}
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//			print(isCreateOrDelete ? "0:生成失败" : "0:删除失败");
-//		}
-//	}
 
 	private void _deleteFile(String siteFolder, String categoryFolder, boolean deleteCategory, boolean deletePage)
 	{
@@ -520,11 +457,7 @@ public class DsCmsPublishController extends BaseController
 			}
 			else
 			{
-				java.net.URL url = new java.net.URL(path);
-				// java.net.URLConnection conn = url.openConnection();
-				// conn.setRequestProperty("Cookie", cookie);
-				// conn.connect();
-				FileUtil.writeFile(p, url.openStream(), true);
+				FileUtil.writeFile(p, httpUtil.create(path).connectStream(), true);
 			}
 		}
 		catch(Exception e)
