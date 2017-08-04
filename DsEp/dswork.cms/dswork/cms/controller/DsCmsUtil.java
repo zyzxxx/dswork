@@ -86,18 +86,18 @@ class DsCmsUtil
 				map.put(c.getId(), c);
 			}
 		}
-		List<DsCmsCategory> __list = new ArrayList<DsCmsCategory>();
+		list.clear();
 		for(DsCmsCategory c : _list)
 		{
-			__list.add(c);
+			list.add(c);
 			DsCmsCategory p = null;
 			while(c.getPid() != 0 && (p = map.get(c.getPid())) != null)
 			{
-				__list.add(p);
+				list.add(p);
 				map.remove(p.getId());
 				c = p;
 			}
 		}
-		return categorySetting(__list);
+		return categorySetting(list);
 	}
 }

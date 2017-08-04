@@ -68,6 +68,9 @@ public class DsCmsPublishController extends BaseController
 				{
 					List<DsCmsCategory> _cateList = service.queryListCategory(siteid);
 					cateList = DsCmsUtil.categoryAccess(_cateList, permission.getPublish());
+					put("edit", permission.getEditall().length() > 2 || permission.getEditown().length() > 2);
+					put("audit", permission.getAudit().length() > 2);
+					put("publish", permission.getPublish().length() > 2);
 				}
 				put("siteList", siteList);
 				put("cateList", cateList);
