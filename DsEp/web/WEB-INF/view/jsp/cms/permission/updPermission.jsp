@@ -42,7 +42,7 @@ $(function(){
 		.append('<input name="account" value="${fn:escapeXml(param.account)}">')
 		.submit();
 	});
-	$(".empower").each(function(){
+	$("#dataTable input[type='checkbox']").each(function(){
 		var self = $(this);
 		var ss = self.attr("id").split("_");
 		var power = "";
