@@ -5,7 +5,7 @@ package dswork.cms.model;
 
 public class DsCmsPermission
 {
-	// 数据ID
+	// 主键
 	private Long id = 0L;
 	// 站点ID
 	private Long siteid = 0L;
