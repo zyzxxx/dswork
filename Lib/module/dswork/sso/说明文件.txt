@@ -7,9 +7,10 @@ sso:8888 需要修改成实际对应的sso-server应用的浏览器端访问的�
 		ssoURL      #需要sso的应用支持，调用api的访问地址的配置信息。使用服务器端访问的ip
 		ssoName     #系统别名，在平台中添加的系统别名
 		ssoPassword #系统访问密码，在平台中添加的系统访问密码
-		sameDomain  #接入应用是和sso在同一域名时，设置为true，实现免跳转登录，不在同一域名时可不设置
 		webURL      #单点登录项目根地址
 		ignoreURL   #逗号隔开不需要权限过滤的页面
+		sameDomain  #接入应用是和sso在同一域名时，设置为true，实现免跳转登录，不在同一域名时可不设置
+		systemURL   #系统主页面，当系统没登录时，登录后回来的页面，如果想重定向回来时直接回到访问页面则访问地址需要带上&ssoroot=false，这样将会回到原访问页面，一般适用于portal集成类的
 	需要在web.xml中增加以下配置，并且需要sso的应用支持，ssoURL为服务器端访问的ip，webURL为浏览器端访问的ip
 	通过dswork.sso.WebFilter调用getLoginURL和getLogoutURL将取到带着?service=的URL，如：“http://sso-server:8888/sso/login?service=”
 	
@@ -32,6 +33,8 @@ sso:8888 需要修改成实际对应的sso-server应用的浏览器端访问的�
 			<init-param><param-name>ignoreURL</param-name>  <param-value>/menu.jsp,/m.jsp</param-value></init-param>
 			
 			<init-param><param-name>sameDomain</param-name> <param-value>false</param-value></init-param>
+			
+			<init-param><param-name>systemURL</param-name> <param-value>http://127.0.0.1/sso-client</param-value></init-param>
 		</filter>
 		<filter-mapping>
 			<filter-name>websso</filter-name>
