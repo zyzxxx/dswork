@@ -40,6 +40,7 @@ public class WebFilter implements Filter
 	private static String passwordURL = "";// 修改密码页面
 	private static String webURL = "";// SSO项目根地址
 	private static boolean sameDomain = false;
+	private static String systemURL = "";// 设置全局重定向地址
 	private static Set<String> ignoreURLSet = new HashSet<String>();// 无需验证页面
 
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException
@@ -147,6 +148,11 @@ public class WebFilter implements Filter
 		}
 		response.setHeader("P3P", "CP=CAO PSA OUR");
 		response.setHeader("Access-Control-Allow-Origin", "*");
+		if("XMLHttpRequest".equals(String.valueOf(request.getHeader("X-Requested-With"))))
+		{
+			response.getWriter().print("{\"status\":0,\"code\":\"401\",msg:\"Unauthorized\"}");// status：0失败，1成功
+			return;
+		}
 		response.sendRedirect(getLoginURL(request));
 		return;
 	}
@@ -161,6 +167,11 @@ public class WebFilter implements Filter
 	@SuppressWarnings("all")
 	private static String getLoginURL(HttpServletRequest request)
 	{
+		String ssoroot = request.getParameter("ssoroot");
+		if((ssoroot == null || !"false".equals(ssoroot)) && systemURL.length() > 0)
+		{
+			return getLoginURL("");
+		}
 		String url = "";
 		try
 		{
@@ -224,47 +235,74 @@ public class WebFilter implements Filter
 	
 	public static String getPasswordURL(String url)
 	{
-		if(url != null && url.length() > 0)
+		String _url = passwordURL;
+		try
 		{
-			try
+			if(url == null || url.length() == 0)
 			{
-				return passwordURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+				if(systemURL.length() > 0)
+				{
+					_url = passwordURL + "?service=" + URLEncoder.encode(systemURL, "UTF-8");
+				}
 			}
-			catch(Exception e)
+			else
 			{
+				_url = passwordURL + "?service=" + URLEncoder.encode(url, "UTF-8");
 			}
 		}
-		return passwordURL;
+		catch(Exception e)
+		{
+			_url = passwordURL;
+		}
+		return _url;
 	}
 	
 	public static String getLoginURL(String url)
 	{
-		if(url != null && url.length() > 0)
+		String _url = loginURL;
+		try
 		{
-			try
+			if(url == null || url.length() == 0)
 			{
-				return loginURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+				if(systemURL.length() > 0)
+				{
+					_url = loginURL + "?service=" + URLEncoder.encode(systemURL, "UTF-8");
+				}
 			}
-			catch(Exception e)
+			else
 			{
+				_url = loginURL + "?service=" + URLEncoder.encode(url, "UTF-8");
 			}
 		}
-		return loginURL;
+		catch(Exception e)
+		{
+			_url = loginURL;
+		}
+		return _url;
 	}
 	
 	public static String getLogoutURL(String url)
 	{
-		if(url != null && url.length() > 0)
+		String _url = logoutURL;
+		try
 		{
-			try
+			if(url == null || url.length() == 0)
 			{
-				return logoutURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+				if(systemURL.length() > 0)
+				{
+					_url = logoutURL + "?service=" + URLEncoder.encode(systemURL, "UTF-8");
+				}
 			}
-			catch(Exception e)
+			else
 			{
+				_url = logoutURL + "?service=" + URLEncoder.encode(url, "UTF-8");
 			}
 		}
-		return logoutURL;
+		catch(Exception e)
+		{
+			_url = logoutURL;
+		}
+		return _url;
 	}
 
 	private boolean doValidate(HttpSession session, String ticket)
@@ -337,13 +375,17 @@ public class WebFilter implements Filter
 			logoutURL = webURL + "/logout";
 			passwordURL = webURL + "/password";
 		}
+		systemURL = String.valueOf(config.getInitParameter("systemURL")).trim();
+		if("null".equals(systemURL))
+		{
+			systemURL = "";
+		}
 		
 		String hasSameDoamin = String.valueOf(config.getInitParameter("sameDomain")).trim();
 		if(hasSameDoamin.equals("true"))
 		{
 			sameDomain = true;// 和sso在同一域名下时，可跳过ticket远程访问，直接读取cookie
 		}
-		
 		
 		ignoreURLSet.clear();
 		

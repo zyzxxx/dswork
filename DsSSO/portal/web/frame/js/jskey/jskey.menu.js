@@ -298,6 +298,7 @@ $jskey.menu.changeURL = function(parentname, nodename, url){
 		}
 	}
 	if(url != ""){try{
+		url += (url.indexOf("?") == -1) ? "?ssoroot=false" : "&ssoroot=false";
 		var s = nodename;//parentname + '-'+nodename;
 		if(parent.$('#tt').tabs('exists', s)){
 			parent.$('#tt').tabs('select', s);
@@ -326,6 +327,7 @@ $jskey.menu.reChangeURL = function(parentname, nodename, url){
 		}
 	}
 	if(url != ""){try{
+		url += (url.indexOf("?") == -1) ? "?ssoroot=false" : "&ssoroot=false";
 		var s = nodename;//parentname + '-'+nodename;
 		var tab = null;
 		if(parent.$('#tt').tabs('exists', s)){

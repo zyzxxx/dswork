@@ -26,9 +26,10 @@
 		<init-param><param-name>ssoName</param-name>    <param-value>sso-client</param-value></init-param>
 		<init-param><param-name>ssoPassword</param-name><param-value>1</param-value></init-param>
 		
-		<init-param><param-name>webURL</param-name>     <param-value>https://sso-server/sso</param-value></init-param>
+		<init-param><param-name>webURL</param-name>     <param-value>http://sso-server/sso</param-value></init-param>
 		<init-param><param-name>ignoreURL</param-name>  <param-value>/menu.jsp,/m.jsp</param-value></init-param>
 		<init-param><param-name>sameDomain</param-name> <param-value>true</param-value></init-param>
+		<init-param><param-name>systemURL</param-name>  <param-value></param-value></init-param>
 	</filter>
 	<filter-mapping>
 		<filter-name>websso</filter-name>
