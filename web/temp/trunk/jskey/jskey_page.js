@@ -61,7 +61,26 @@ var count = 0;
 $jskey.Page=function(p){
 	this.config = p || {};
 	this.config.i = count++;
+	this.arr = p.arr || [];// 多个翻页实体[{每一个的参数设置全部都可独立存在，但不能设置fn}]
+	this.pageArray = [];
+	var _E = this;
+	var _C = this.config;
 	this.render();
+	for(var j=0; j<this.arr.length; j++){
+		var m = this.arr[j];
+		m.E = _E;
+		m.page = _C.page;
+		m.pagesize = _C.pagesize;
+		m.size = _C.size;
+		m.fn = function(e){
+			e.E.config.page = e.page;
+			e.E.config.pagesize = e.pagesize;
+			e.E.config.size = e.size;
+			e.E.go(e.page);
+			e.E.other();
+		};
+		this.pageArray[j] = new $jskey.Page(m);
+	}
 };
 $jskey.Page.prototype.pageview_ = function(C, v, txt, btn){
 	var s = "",my=/^#/.test(C.skin),x=['#ffffff'];
@@ -239,6 +258,24 @@ $jskey.Page.prototype.render = function(){
 	if(C.jump){C.fn = C.jump;C.jump = null;}
 	if(!C.redo){C.redo = function(){E.redo();};}
 	C.fn && C.fn(C);
+	E.other();
+};
+
+$jskey.Page.prototype.go = function(page){
+	var E = this, C = E.config;
+	C.page = page;
+	E.render();
+};
+
+$jskey.Page.prototype.other = function(){
+	var E = this, C = E.config;
+	for(var j=0; j<E.pageArray.length; j++){
+		var m = E.pageArray[j];
+		m.config.page = C.page;
+		m.config.pagesize = C.pagesize;
+		m.config.size = C.size;
+		m.redo();
+	}
 };
 
 
