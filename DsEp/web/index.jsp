@@ -32,6 +32,7 @@ a:hover {background-color:#0f9ae0;}
 .level1 {margin:8px 0 0 8px;}
 .level2 {margin:2px 0 0 48px;}
 .level3 {margin:2px 0 0 88px;}
+.level4 {margin:2px 0 0 128px;}
 </style>
 <script type="text/javascript">
 <%if(model.isEnterprise()){%>
@@ -60,9 +61,22 @@ var treedata = [
 var nn = [
 	{id:10, name:"CMS", img:"", imgOpen:"", url:"", items:[
 		 {id:12,name:"栏目管理", img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
+		,{id:11,name:"模板编辑", img:"", imgOpen:"", url:'/cms/template/getTemplateTree.htm', items:[]}
+		,{id:12,name:"附件管理", img:"", imgOpen:"", url:'/cms/file/getFileTree.htm', items:[]}
+		
 		,{id:13,name:"信息发布", img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
-		,{id:14,name:"模板编辑", img:"", imgOpen:"", url:'/cms/template/getTemplateTree.htm', items:[]}
-		,{id:14,name:"附件管理", img:"", imgOpen:"", url:'/cms/file/getFileTree.htm', items:[]}
+		
+		,{id:15, name:"采编审核发布", img:"", imgOpen:"", url:"", items:[
+	   		 {id:151,name:'信息采编', img:"023.png", imgOpen:"023.png", url:'/cms/edit/getCategoryTree.htm', items:[]}
+			,{id:152,name:'信息审核', img:"023.png", imgOpen:"023.png", url:'/cms/audit/getCategoryTree.htm', items:[]}
+			,{id:153,name:'信息发布', img:"023.png", imgOpen:"023.png", url:'/cms/publish/getCategoryTree.htm', items:[]}
+			,{id:154,name:'采编审核发布', img:"023.png", imgOpen:"023.png", url:'/cms/edit/getCategoryTree.htm', items:[]}
+			,{id:16, name:"权限管理", img:"", imgOpen:"", url:"", items:[
+				 {id:161,name:'系统用户授权', img:"", imgOpen:"", url:'/cms/permission/getCommonUser.htm', items:[]}
+				,{id:162,name:'企业用户授权', img:"", imgOpen:"", url:'/cms/permission/getEpUser.htm', items:[]}
+				,{id:163,name:'个人用户授权', img:"", imgOpen:"", url:'/cms/permission/getPersonUser.htm', items:[]}
+			]}
+		]}
 	]}
 	,{id:20, name:"BBS", img:"", imgOpen:"", url:"", items:[
 	     {id:21,name:"站点管理", img:"", imgOpen:"", url:'/bbs/admin/site/getSite.htm', items:[]}
@@ -102,7 +116,16 @@ for(var i = 0; i < treedata.length; i++){
 		
 		for(var k = 0; k < m.items.length; k++){
 			var mm = m.items[k];
-			document.write("<a class='level3' target='main' href='<%=path%>" + mm.url + "'>" + mm.name + "</a><br />");
+			if(mm.url == "" || mm.url == "#"){
+				document.write("<label class='level3'>" + mm.name + "</label><br />");
+			}
+			else{
+				document.write("<a class='level3' target='main' href='<%=path%>" + mm.url + "'>" + mm.name + "</a><br />");
+			}
+			for(var l = 0; l < mm.items.length; l++){
+				var mmm = mm.items[l];
+				document.write("<a class='level4' target='main' href='<%=path%>" + mmm.url + "'>" + mmm.name + "</a><br />");
+			}
 		}
 	}
 }

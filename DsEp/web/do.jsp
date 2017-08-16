@@ -14,7 +14,7 @@ if(v.equals("0"))
 else if(v.equals("2"))
 {
 	auth.setId(100000L);
-	auth.setAccount("useradmin");
+	auth.setAccount("100000");
 	auth.setName("企业管理");
 	auth.setQybm("100000");
 	auth.setLogintype(common.auth.Auth.ENTERPRISE);
