@@ -74,6 +74,7 @@ public class DsCmsCategoryController extends BaseController
 					{
 						po.setUrl("/a/" + po.getFolder() + "/index.html");
 					}
+					po.setStatus(0);// 没有新增状态，直接就是修改状态
 					service.save(po);
 					print(1);
 					return;
