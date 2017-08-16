@@ -72,7 +72,6 @@ public class DsCmsEditController extends BaseController
 					put("audit", permission.getAudit().length() > 2);
 					put("publish", permission.getPublish().length() > 2);
 				}
-				service.saveAuditCategoryList(cateList);
 				put("siteList", siteList);
 				put("cateList", cateList);
 			}
@@ -293,38 +292,50 @@ public class DsCmsEditController extends BaseController
 	@RequestMapping("/updCategory1")
 	public String updCategory1()
 	{
-		Long id = req.getLong("id");
-		DsCmsAuditCategory po = service.getAuditCategory(id);
-		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-		if(permission.checkEditall(po.getId()) || permission.checkEditown(po.getId()))
+		try
 		{
-			if(po.getReleasetime().isEmpty())
+			DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
+			DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
+			if(permission.checkEditall(po.getId()) || permission.checkEditown(po.getId()))
 			{
-				po.setReleasetime(TimeUtil.getCurrentTime());
+				if(po.getReleasetime().isEmpty())
+				{
+					po.setReleasetime(TimeUtil.getCurrentTime());
+				}
+				put("po", po);
+				return "/cms/edit/updCategory.jsp";
 			}
-			put("po", po);
-			return "/cms/edit/updCategory.jsp";
+			return null;
 		}
-		return null;
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	// 采编栏目URL
 	@RequestMapping("/updCategory3")
 	public String updCategory3()
 	{
-		Long id = req.getLong("id");
-		DsCmsAuditCategory po = service.getAuditCategory(id);
-		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-		if(permission.checkEditall(po.getId()) || permission.checkEditown(po.getId()))
+		try
 		{
-			if(po.getReleasetime().isEmpty())
+			DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
+			DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
+			if(permission.checkEditall(po.getId()) || permission.checkEditown(po.getId()))
 			{
-				po.setReleasetime(TimeUtil.getCurrentTime());
+				if(po.getReleasetime().isEmpty())
+				{
+					po.setReleasetime(TimeUtil.getCurrentTime());
+				}
+				put("po", po);
+				return "/cms/edit/updCategoryUrl.jsp";
 			}
-			put("po", po);
-			return "/cms/edit/updCategoryUrl.jsp";
+			return null;
 		}
-		return null;
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	@RequestMapping("/updCategory2")

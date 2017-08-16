@@ -78,7 +78,30 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 
 	public DsCmsAuditCategory getAuditCategory(Long id)
 	{
-		return (DsCmsAuditCategory) auditCateDao.get(id);
+		DsCmsAuditCategory po = (DsCmsAuditCategory) auditCateDao.get(id);
+		if(po == null)
+		{
+			po = new DsCmsAuditCategory();
+			DsCmsCategory _po = (DsCmsCategory) cateDao.get(id);
+			if(_po.getScope() != 0) //非列表
+			{
+				po.setId(_po.getId());
+				po.setSiteid(_po.getSiteid());
+				po.setSummary(_po.getSummary());
+				po.setMetakeywords(_po.getMetakeywords());
+				po.setMetadescription(_po.getMetadescription());
+				po.setReleasesource(_po.getReleasesource());
+				po.setReleaseuser(_po.getReleaseuser());
+				po.setImg(_po.getImg());
+				po.setContent(_po.getContent());
+				po.setReleasetime(_po.getReleasetime());
+				po.setUrl(_po.getUrl());
+				po.setAuditstatus(DsCmsAuditCategory.DRAFT);// 草稿
+				po.setStatus(0);// 初始设置为新增状态
+				auditCateDao.save(po);
+			}
+		}
+		return po;
 	}
 
 	public int updateAuditCategory(DsCmsAuditCategory po, DsCmsCategory cate)
@@ -174,10 +197,5 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 			po.setStatus(1);// 更新为修改状态
 			return auditPageDao.update(po);
 		}
-	}
-
-	public int saveAuditCategoryList(List<DsCmsCategory> cateList)
-	{
-		return auditCateDao.saveFromCategoryList(cateList);
 	}
 }

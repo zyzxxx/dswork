@@ -71,7 +71,6 @@ public class DsCmsAuditController extends BaseController
 					put("audit", permission.getAudit().length() > 2);
 					put("publish", permission.getPublish().length() > 2);
 				}
-				service.saveAuditCategoryList(cateList);
 				put("siteList", siteList);
 				put("cateList", cateList);
 			}
@@ -88,28 +87,42 @@ public class DsCmsAuditController extends BaseController
 	@RequestMapping("/auditCategory1")
 	public String updCategory1()
 	{
-		DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
-		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-		if(permission.checkAudit(po.getId()))
+		try
 		{
-			put("po", po);
-			return "/cms/audit/auditCategory.jsp";
+			DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
+			DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
+			if(permission.checkAudit(po.getId()))
+			{
+				put("po", po);
+				return "/cms/audit/auditCategory.jsp";
+			}
+			return null;
 		}
-		return null;
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	// 修改
 	@RequestMapping("/auditCategory3")
 	public String updCategory3()
 	{
-		DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
-		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-		if(permission.checkAudit(po.getId()))
+		try
 		{
-			put("po", po);
-			return "/cms/audit/auditCategoryUrl.jsp";
+			DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
+			DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
+			if(permission.checkAudit(po.getId()))
+			{
+				put("po", po);
+				return "/cms/audit/auditCategoryUrl.jsp";
+			}
+			return null;
 		}
-		return null;
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	@RequestMapping("/auditCategory2")
