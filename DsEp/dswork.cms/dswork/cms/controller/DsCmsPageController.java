@@ -29,6 +29,8 @@ import dswork.web.MyFile;
 @RequestMapping("/cms/page")
 public class DsCmsPageController extends BaseController
 {
+	private HttpUtil httpUtil = new HttpUtil();// 单例模式下，用来保持session会话
+	
 	@Autowired
 	private DsCmsPageService service;
 
@@ -368,8 +370,6 @@ public class DsCmsPageController extends BaseController
 		int pagesize = req.getInt("pagesize", 25);
 		_building(false, siteid, categoryid, pageid, pagesize);
 	}
-
-	private HttpUtil httpUtil = new HttpUtil();
 
 	/**
 	 * 生成或删除信息
