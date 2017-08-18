@@ -97,7 +97,7 @@ function MaskControl(){
 $dswork.doAjax = false;
 $dswork.doAjaxObject = new MaskControl();
 $dswork.showRequest = function(formData, jqForm, options){
-	$dswork.doAjaxObject.show("正在保存<img src='/web/js/dswork/loading.gif' />");return true;
+	$dswork.doAjaxObject.show("正在处理，请稍候<img src='/web/js/dswork/loading.gif' />");return true;
 };
 $dswork.showResponse = function(data, status, xhr){
 	$dswork.doAjaxObject.autoDelayHide($dswork.checkResult(data), 2000);
