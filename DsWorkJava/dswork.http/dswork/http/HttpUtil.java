@@ -204,9 +204,9 @@ public class HttpUtil
 		{
 			c = new URL(url);
 			isHttps = c.getProtocol().toLowerCase().equals("https");
+			this.http = (HttpURLConnection) c.openConnection();
 			if(isHttps)
 			{
-				this.http = (HttpURLConnection) c.openConnection();
 				HttpsURLConnection https = (HttpsURLConnection) this.http;
 				if(this.sslSocketFactory != null)
 				{
