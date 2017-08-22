@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +26,11 @@ public class HttpUtil
 {
 	static Logger log = LoggerFactory.getLogger(HttpUtil.class.getName());
 	private HttpURLConnection http;
+	private SSLSocketFactory sslSocketFactory;
 	private boolean isHttps = false;
 	private int connectTimeout = 10000;
 	private int readTimeout = 30000;
-	private String userAgent = "Mozilla/5.0 (compatible; MSIE 11; Windows NT 6.1; Win64; x64;)";// Gecko/20150123
+	private String userAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104";
 
 	/**
 	 * 返回当前是否https请求
@@ -135,6 +137,17 @@ public class HttpUtil
 	}
 
 	/**
+	 * 设置sslSocketFactory
+	 * @param sslSocketFactory SslSocketFactory
+	 * @return HttpUtil
+	 */
+	public HttpUtil setSslSocketFactory(SSLSocketFactory sslSocketFactory)
+	{
+		this.sslSocketFactory = sslSocketFactory;
+		return this;
+	}
+
+	/**
 	 * 设置useCaches
 	 * @param usecaches boolean
 	 * @return HttpUtil
@@ -191,16 +204,18 @@ public class HttpUtil
 		{
 			c = new URL(url);
 			isHttps = c.getProtocol().toLowerCase().equals("https");
-			if(isHostnameVerifier && isHttps)
+			if(isHttps)
 			{
-				HttpsURLConnection.setDefaultSSLSocketFactory(HttpCommon.getSocketFactory());
 				this.http = (HttpURLConnection) c.openConnection();
-				((HttpsURLConnection) this.http).setHostnameVerifier(HttpCommon.HV);// 不进行主机名确认
-			}
-			else
-			{
-				HttpsURLConnection.setDefaultSSLSocketFactory(HttpCommon.getSocketFactoryDefault());
-				this.http = (HttpURLConnection) c.openConnection();
+				HttpsURLConnection https = (HttpsURLConnection) this.http;
+				if(this.sslSocketFactory != null)
+				{
+					https.setSSLSocketFactory(this.sslSocketFactory);
+				}
+				if(isHostnameVerifier)
+				{
+					https.setHostnameVerifier(HttpCommon.HV);// 不进行主机名确认
+				}
 			}
 			this.http.setDoInput(true);
 			this.http.setDoOutput(false);

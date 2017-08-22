@@ -11,8 +11,9 @@ import java.util.Map;
 import java.util.TimeZone;
 
 import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSession;
+//import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.TrustManager;
 
 /**
  * HttpCommon主要供HttpUtil内部调用
@@ -46,16 +47,30 @@ public class HttpCommon
 			return null;
 		}
 	}
-	private static javax.net.ssl.SSLSocketFactory socketFactoryDefault;
-	private static javax.net.ssl.SSLSocketFactory socketFactory;
+//	private static SSLSocketFactory socketFactoryForSSL;
+//	private static SSLSocketFactory socketFactoryForTLS;
+	private static final TrustManager tm = new TM();
 	static
 	{
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
 		sdffull.setTimeZone(TimeZone.getTimeZone("GMT"));
-		initSocketFactoryDefault();
+//		try
+//		{
+//			javax.net.ssl.SSLContext scSSL = javax.net.ssl.SSLContext.getInstance("SSL");
+//			scSSL.init(null, new TrustManager[]{tm}, null);
+//			socketFactoryForSSL = scSSL.getSocketFactory();
+//			
+//			javax.net.ssl.SSLContext scTLS = javax.net.ssl.SSLContext.getInstance("TLS");
+//			scTLS.init(null, new TrustManager[]{tm}, null);
+//			socketFactoryForSSL = scTLS.getSocketFactory();
+//		}
+//		catch(Exception e)
+//		{
+//			e.printStackTrace();
+//		}
 	}
 
-	private static class TM implements javax.net.ssl.TrustManager, javax.net.ssl.X509TrustManager
+	private static class TM implements TrustManager, javax.net.ssl.X509TrustManager
 	{
 		public java.security.cert.X509Certificate[] getAcceptedIssuers()
 		{
@@ -72,24 +87,7 @@ public class HttpCommon
 			return;
 		}
 	}
-
-	private static void initSocketFactoryDefault()
-	{
-		try
-		{
-			socketFactoryDefault = HttpsURLConnection.getDefaultSSLSocketFactory();
-			javax.net.ssl.TrustManager[] trustAllCerts = new javax.net.ssl.TrustManager[1];
-			javax.net.ssl.TrustManager tm = new TM();
-			trustAllCerts[0] = tm;
-			javax.net.ssl.SSLContext sc = javax.net.ssl.SSLContext.getInstance("SSL");
-			sc.init(null, trustAllCerts, null);
-			socketFactory = sc.getSocketFactory();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+	
 	public final static HostnameVerifier HV = new HostnameVerifier()
 	{
 		public boolean verify(String urlHostName, SSLSession session)
@@ -268,13 +266,18 @@ public class HttpCommon
 		return list;
 	}
 
-	public static javax.net.ssl.SSLSocketFactory getSocketFactoryDefault()
+//	public static SSLSocketFactory getSocketFactoryForSSL()
+//	{
+//		return socketFactoryForSSL;
+//	}
+//
+//	public static SSLSocketFactory getSocketFactoryForTLS()
+//	{
+//		return socketFactoryForTLS;
+//	}
+	
+	public static TrustManager getTrustManager()
 	{
-		return socketFactoryDefault;
-	}
-
-	public static javax.net.ssl.SSLSocketFactory getSocketFactory()
-	{
-		return socketFactory;
+		return tm;
 	}
 }
