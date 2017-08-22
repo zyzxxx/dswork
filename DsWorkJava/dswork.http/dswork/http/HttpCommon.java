@@ -25,8 +25,7 @@ public class HttpCommon
 	private static final String NAME_VALUE_SEPARATOR = "=";
 	private static final String PARAMETER_SEPARATOR = "&";
 
-	private static final SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd-MMM-yy HH:mm:ss 'GMT'", Locale.US);
-	private static final SimpleDateFormat sdffull = new SimpleDateFormat("EEE, dd-MMM-yyyy HH:mm:ss 'GMT'", Locale.US);
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("EEE, dd MMM y HH:mm:ss 'GMT'", Locale.US);
 	private static Date convertGMT(String value)
 	{
 		if(value == null)
@@ -35,9 +34,13 @@ public class HttpCommon
 		}
 		try
 		{
-			if(value.length() == 29)
+			if(value.indexOf("-") == 7)
 			{
-				return sdffull.parse(value);
+				value = value.substring(0, 7) + " " + value.substring(8, 11) + " " + value.substring(12, value.length());
+			}
+			if(!value.endsWith("GMT") && value.lastIndexOf(" ") >= 23)
+			{
+				value = value.substring(0, value.lastIndexOf(" ")) + " GMT";
 			}
 			return sdf.parse(value);
 		}
@@ -53,7 +56,6 @@ public class HttpCommon
 	static
 	{
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-		sdffull.setTimeZone(TimeZone.getTimeZone("GMT"));
 //		try
 //		{
 //			javax.net.ssl.SSLContext scSSL = javax.net.ssl.SSLContext.getInstance("SSL");
