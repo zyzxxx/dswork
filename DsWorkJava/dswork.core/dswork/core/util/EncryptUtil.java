@@ -92,7 +92,7 @@ public class EncryptUtil
 			}
 			catch(ClassNotFoundException ex)
 			{
-				System.out.println("EncryptUtil ignore java.util.Base64 Class");
+				// System.out.println("EncryptUtil ignore java.util.Base64 Class");
 			}
 			return (new sun.misc.BASE64Encoder()).encode(str.getBytes("UTF-8")).replaceAll("\r", "").replaceAll("\n", "");
 		}
@@ -121,7 +121,7 @@ public class EncryptUtil
 				}
 				catch(ClassNotFoundException ex)
 				{
-					System.out.println("EncryptUtil ignore java.util.Base64 Class");
+					// .out.println("EncryptUtil ignore java.util.Base64 Class");
 				}
 				return new String((new sun.misc.BASE64Decoder()).decodeBuffer(str), "UTF-8");
 			}
@@ -149,7 +149,7 @@ public class EncryptUtil
 			}
 			catch(ClassNotFoundException ex)
 			{
-				System.out.println("EncryptUtil ignore java.util.Base64 Class");
+				// System.out.println("EncryptUtil ignore java.util.Base64 Class");
 			}
 			return (new sun.misc.BASE64Encoder()).encode(byteArray);
 		}
@@ -178,7 +178,7 @@ public class EncryptUtil
 				}
 				catch(ClassNotFoundException ex)
 				{
-					System.out.println("EncryptUtil ignore java.util.Base64 Class");
+					// System.out.println("EncryptUtil ignore java.util.Base64 Class");
 				}
 				return (new sun.misc.BASE64Decoder()).decodeBuffer(str);
 			}
