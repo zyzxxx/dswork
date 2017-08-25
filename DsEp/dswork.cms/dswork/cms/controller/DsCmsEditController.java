@@ -302,6 +302,8 @@ public class DsCmsEditController extends BaseController
 				{
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
+				DsCmsCategory m = service.getCategory(po.getId());
+				put("scope", m.getScope());
 				put("po", po);
 				return "/cms/edit/updCategory.jsp";
 			}

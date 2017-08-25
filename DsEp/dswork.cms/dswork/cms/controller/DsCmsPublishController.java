@@ -127,6 +127,8 @@ public class DsCmsPublishController extends BaseController
 		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
 		if(permission.checkPublish(po.getId()))
 		{
+			DsCmsCategory m = service.getCategory(po.getId());
+			put("scope", m.getScope());
 			put("po", po);
 			return "/cms/publish/getCategoryById.jsp";
 		}

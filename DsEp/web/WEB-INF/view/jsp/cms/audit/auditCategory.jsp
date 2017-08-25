@@ -50,7 +50,7 @@ $(function(){
 <c:if test="${po.audit}">
 <form id="dataForm" method="post" action="auditCategory2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-<c:if test="${po.folder!=null}">
+<c:if test="${scope==1}">
 	<tr>
 		<td class="form_title">摘要</td>
 		<td class="form_input">${fn:escapeXml(po.summary)}</td>
@@ -88,7 +88,7 @@ $(function(){
 		</td>
 	</tr>
 </c:if>
-<c:if test="${po.folder==null}">
+<c:if test="${scope==2}">
 	<tr>
 		<td class="form_title">URL</td>
 		<td class="form_input">${fn:escapeXml(po.url)}</td>

@@ -93,6 +93,8 @@ public class DsCmsAuditController extends BaseController
 			DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
 			if(permission.checkAudit(po.getId()))
 			{
+				DsCmsCategory m = service.getCategory(po.getId());
+				put("scope", m.getScope());
 				put("po", po);
 				return "/cms/audit/auditCategory.jsp";
 			}

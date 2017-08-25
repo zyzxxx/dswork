@@ -13,7 +13,7 @@ $dswork.callback = function(){if($dswork.result.type==1){
 }}
 $(function(){
 	$(".form_title").css("width", "8%");
-<c:if test="${po.folder!=''}">
+<c:if test="${scope==1}">
 	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"${ctx}/cms/page/uploadFile.htm?categoryid=${po.id}",upImgUrl:"${ctx}/cms/page/uploadImage.htm?categoryid=${po.id}"});
 </c:if>
 });
@@ -24,10 +24,10 @@ $(function(){
 	<tr>
 		<td class="title">修改栏目</td>
 		<td class="menuTool">
-		<c:if test="${po.folder!=''}">
+		<c:if test="${scope==1}">
 			<a class="look" target="_blank" href="${ctx}/cms/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
 		</c:if>
-		<c:if test="${po.folder==''}">
+		<c:if test="${scope==2}">
 			<a class="look" target="_blank" href="${po.url}">预览外链</a>
 		</c:if>
 		<c:if test="${!po.audit}">
@@ -88,7 +88,7 @@ $(function(){
 </c:if>
 <c:if test="${!po.audit}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-<c:if test="${po.folder!=''}">
+<c:if test="${scope==1}">
 	<tr>
 		<td class="form_title">摘要</td>
 		<td class="form_input"><input type="text" name="summary" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.summary)}" /></td>
@@ -124,7 +124,7 @@ $(function(){
 		</td>
 	</tr>
 </c:if>
-<c:if test="${po.folder==''}">
+<c:if test="${scope==2}">
 	<tr>
 		<td class="form_title">URL</td>
 		<td class="form_input"><input type="text" name="url" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.url)}" /></td>

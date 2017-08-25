@@ -10,7 +10,7 @@
 <script type="text/javascript">
 $(function(){
 	$(".form_title").css("width", "8%");
-<c:if test="${po.folder!=''}">
+<c:if test="${scope==1}">
 	$("#btn_category").bind("click", function(){
 		if(confirm("是否发布栏目\"${fn:escapeXml(po.name)}\"")){
 			$dswork.doAjaxObject.show("发布中");
@@ -36,11 +36,11 @@ $(function(){
 	<tr>
 		<td class="title">栏目明细</td>
 		<td class="menuTool">
-		<c:if test="${po.folder!=''}">
+		<c:if test="${scope==1}">
 			<a class="graph" id="btn_category" href="javascript:void(0);">发布本栏目</a>
 			<a class="look" target="_blank" href="${ctx}/cms/page/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
 		</c:if>
-		<c:if test="${po.folder==''}">
+		<c:if test="${scope==2}">
 			<a class="look" target="_blank" href="${po.url}">预览本栏目</a>
 		</c:if>
 			<a class="graph" id="btn_site" href="javascript:void(0);">发布首页</a>
@@ -50,7 +50,7 @@ $(function(){
 </table>
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-<c:if test="${po.folder!=''}">
+<c:if test="${scope==1}">
 	<tr>
 		<td class="form_title">摘要</td>
 		<td class="form_input">${fn:escapeXml(po.summary)}</td>
@@ -84,7 +84,7 @@ $(function(){
 		<td class="form_input">发布时间：${fn:escapeXml(po.releasetime)}</td>
 	</tr>
 </c:if>
-<c:if test="${po.folder==''}">
+<c:if test="${scope==2}">
 	<tr>
 		<td class="form_title">URL</td>
 		<td class="form_input">${fn:escapeXml(po.url)}</td>
