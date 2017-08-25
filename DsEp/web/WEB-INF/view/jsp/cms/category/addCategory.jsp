@@ -14,23 +14,23 @@ $(function(){
 	$("#scope").bind("click", function(){
 		if($("#scope").val() == 2){
 			$("#mylink").show();
-			$("#myfolder").hide();
-			$("#template_category").hide();
-			$("#template_page").hide();
+			$("#myfolder").val("").hide();
+			$("#template_category").val("").hide();
+			$("#template_page").val("").hide();
 			$("#viewsite").val("");
 			$("#pageviewsite").val("");
 			$("#url").attr("require", "true");
 		}
 		else if($("#scope").val() == 1){
-			$("#mylink").hide();
+			$("#mylink").val("").hide();
 			$("#myfolder").show();
 			$("#template_category").show();
-			$("#template_page").hide();
+			$("#template_page").val("").hide();
 			$("#pageviewsite").val("");
 			$("#url").attr("require", "false");
 		}
 		else{
-			$("#mylink").hide();
+			$("#mylink").val("").hide();
 			$("#myfolder").show();
 			$("#template_category").show();
 			$("#template_page").show();

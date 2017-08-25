@@ -50,6 +50,7 @@ $(function(){
 <c:if test="${po.audit}">
 <form id="dataForm" method="post" action="auditCategory2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
+<c:if test="${po.folder!=null}">
 	<tr>
 		<td class="form_title">摘要</td>
 		<td class="form_input">${fn:escapeXml(po.summary)}</td>
@@ -86,6 +87,19 @@ $(function(){
 			发布时间：${fn:escapeXml(po.releasetime)}
 		</td>
 	</tr>
+</c:if>
+<c:if test="${po.folder==null}">
+	<tr>
+		<td class="form_title">URL</td>
+		<td class="form_input">${fn:escapeXml(po.url)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">预览</td>
+		<td class="form_input menuTool">
+			<a class="look" target="_blank" href="${po.url}">查看栏目内容</a>
+		</td>
+	</tr>
+</c:if>
 </table>
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">

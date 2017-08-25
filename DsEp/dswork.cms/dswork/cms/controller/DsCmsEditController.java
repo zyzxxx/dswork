@@ -313,31 +313,6 @@ public class DsCmsEditController extends BaseController
 		}
 	}
 
-	// 采编栏目URL
-	@RequestMapping("/updCategory3")
-	public String updCategory3()
-	{
-		try
-		{
-			DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
-			DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-			if(permission.checkEditall(po.getId()) || permission.checkEditown(po.getId()))
-			{
-				if(po.getReleasetime().isEmpty())
-				{
-					po.setReleasetime(TimeUtil.getCurrentTime());
-				}
-				put("po", po);
-				return "/cms/edit/updCategoryUrl.jsp";
-			}
-			return null;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
 	@RequestMapping("/updCategory2")
 	public void updCategory2(DsCmsAuditCategory po)
 	{

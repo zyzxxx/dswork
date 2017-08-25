@@ -104,27 +104,6 @@ public class DsCmsAuditController extends BaseController
 		}
 	}
 
-	// 修改
-	@RequestMapping("/auditCategory3")
-	public String updCategory3()
-	{
-		try
-		{
-			DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
-			DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-			if(permission.checkAudit(po.getId()))
-			{
-				put("po", po);
-				return "/cms/audit/auditCategoryUrl.jsp";
-			}
-			return null;
-		}
-		catch(Exception e)
-		{
-			return null;
-		}
-	}
-
 	@RequestMapping("/auditCategory2")
 	public void updCategory2(DsCmsAuditCategory po)
 	{

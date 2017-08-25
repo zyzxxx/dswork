@@ -132,21 +132,6 @@ public class DsCmsPublishController extends BaseController
 		}
 		return null;
 	}
-	
-	// 获取外链category明细
-	@RequestMapping("/getCategoryUrlById")
-	public String getCategoryUrlById()
-	{
-		Long id = req.getLong("id");
-		DsCmsCategory po = service.getCategory(id);
-		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-		if(permission.checkPublish(po.getId()))
-		{
-			put("po", po);
-			return "/cms/publish/getCategoryUrlById.jsp";
-		}
-		return null;
-	}
 
 
 

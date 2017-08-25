@@ -26,11 +26,8 @@ $dswork.ztree.click = function(){
 		if(node.scope == 0){
 			attachUrl("getPage.htm?id=" + node.id);
 			return false;
-		}else if(node.scope == 1){
+		}else{
 			attachUrl("getCategoryById.htm?id=" + node.id);
-			return false;
-		}else if(node.scope == 2){
-			attachUrl("getCategoryUrlById.htm?id=" + node.id);
 			return false;
 		}
 	}
