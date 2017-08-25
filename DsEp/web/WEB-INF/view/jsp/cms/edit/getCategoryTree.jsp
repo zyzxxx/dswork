@@ -61,18 +61,6 @@ $(function(){
 	<tr>
 		<td class="title">
 			切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
-			&nbsp;&nbsp;操作：
-			<select onchange="location.href=$(this).val();">
-			<c:if test="${edit==true}">
-				<option value="${ctx}/cms/edit/getCategoryTree.htm" selected="selected">采编</option>
-			</c:if>
-			<c:if test="${audit==true}">
-				<option value="${ctx}/cms/audit/getCategoryTree.htm">审核</option>
-			</c:if>
-			<c:if test="${publish==true}">
-				<option value="${ctx}/cms/publish/getCategoryTree.htm">发布</option>
-			</c:if>
-			</select>
 		</td>
 	</tr>
 </table>
