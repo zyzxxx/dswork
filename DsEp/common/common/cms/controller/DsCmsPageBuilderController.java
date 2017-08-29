@@ -33,6 +33,9 @@ public class DsCmsPageBuilderController extends BaseController
 		CmsFactory cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY);
 		if(cms == null)
 		{
+			cms = new CmsFactory(request);
+			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
+			request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
 		}
 		else
 		{
