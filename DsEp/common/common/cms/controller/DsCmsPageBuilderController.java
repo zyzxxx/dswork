@@ -14,24 +14,35 @@ import dswork.mvc.BaseController;
 public class DsCmsPageBuilderController extends BaseController
 {
 	private static final String CMS_FACTORY_KEY = "CMS_FACTORY_KEY";
+	private static final String CMS_FACTORY_KEY_SITEID = "CMS_FACTORY_KEY_SITEID";
 
-	@RequestMapping("/cms/page/buildAfter")
+	@RequestMapping("/cmsbulid/buildAfter")
 	public void buildAfter()
 	{
 		request.getSession().setAttribute(CMS_FACTORY_KEY, null);
+		request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, null);
 	}
 
-	@RequestMapping("/cms/page/buildHTML")
+	@RequestMapping("/cmsbulid/buildHTML")
 	public String buildHTML()
 	{
+		Long siteid = req.getLong("siteid", -1);
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
 		
 		CmsFactory cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY);
 		if(cms == null)
 		{
-			cms = new CmsFactory(request);
-			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
+		}
+		else
+		{
+			String siteidstr = String.valueOf(request.getSession().getAttribute(CMS_FACTORY_KEY_SITEID));
+			if(!siteidstr.equals(cms.getSite().get("id")))
+			{
+				cms = new CmsFactory(request);
+				request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
+				request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
+			}
 		}
 		
 		put("cms", cms);
