@@ -16,14 +16,14 @@ public class DsCmsPageBuilderController extends BaseController
 	private static final String CMS_FACTORY_KEY = "CMS_FACTORY_KEY";
 	private static final String CMS_FACTORY_KEY_SITEID = "CMS_FACTORY_KEY_SITEID";
 
-	@RequestMapping("/cmsbulid/buildAfter")
+	@RequestMapping("/cmsbuild/buildAfter")
 	public void buildAfter()
 	{
 		request.getSession().setAttribute(CMS_FACTORY_KEY, null);
 		request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, null);
 	}
 
-	@RequestMapping("/cmsbulid/buildHTML")
+	@RequestMapping("/cmsbuild/buildHTML")
 	public String buildHTML()
 	{
 		Long siteid = req.getLong("siteid", -1);
@@ -96,9 +96,9 @@ public class DsCmsPageBuilderController extends BaseController
 				Map<String, Object> categoryparent = cms.getCategory(c.get("pid"));
 				put("categoryparent", categoryparent);
 			}
-			catch(Exception ex)
+			catch (Exception e)
 			{
-				
+				e.printStackTrace();
 			}
 			put("categoryid", categoryid);
 			put("category", c);

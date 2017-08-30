@@ -78,7 +78,7 @@ $(function(){
 	$("#view").bind("click", function(){
 		var v = $('#category').find('option:selected').val();
 		if(v!="0"){
-			window.open('${ctx}/cmsbulid/buildHTML.chtml?view=true&siteid=${siteid}&categoryid='+v);
+			window.open('${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${siteid}&categoryid='+v);
 		}
 	});
 	$("#btn_category_d").bind("click", function(){
@@ -98,7 +98,7 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
 		<td class="title">切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
-			<input id="btn_site" type="button" class="button" value="发布首页" />&nbsp;<input type="button" class="button" value="预览首页" onclick="window.open('${ctx}/cmsbulid/buildHTML.chtml?view=true&siteid=${siteid}');" />
+			<input id="btn_site" type="button" class="button" value="发布首页" />&nbsp;<input type="button" class="button" value="预览首页" onclick="window.open('${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${siteid}');" />
 			&nbsp;&nbsp;
 			选择需要发布的栏目：<select id="category"><option value="0">全部栏目</option><c:forEach items="${cateList}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
 			<input id="btn_category" type="button" class="button" value="发布栏目首页" />

@@ -27,7 +27,7 @@ function unbuild(pageid){
 }
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-graph">预览</div>').bind("click", function(){
-		window.open("${ctx}/cmsbulid/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&pageid=" + id);
+		window.open("${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&pageid=" + id);
 	}));
 	$(menu).append($('<div iconCls="menuTool-graph">发布</div>').bind("click", function(){
 		if(confirm("是否发布内容")){build(id);}
@@ -76,12 +76,12 @@ $(function(){
 			<a class="delete" id="btn_page_d" href="#">删除发布内容</a>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_category" href="#">发布栏目首页</a>
-			<a class="look" target="_blank" href="${ctx}/cmsbulid/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览栏目首页</a>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览栏目首页</a>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_page" href="#">发布栏目内容</a>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_site" href="#">发布首页</a>
-			<a class="look" target="_blank" href="${ctx}/cmsbulid/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="insert" href="addPage1.htm?categoryid=${po.id}&page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>

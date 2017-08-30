@@ -78,7 +78,7 @@ $(function(){
 	<tr>
 		<td class="form_title">预览</td>
 		<td class="form_input menuTool">
-			<a class="look" target="_blank" href="${ctx}/cmsbulid/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">查看栏目内容</a>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">查看栏目内容</a>
 		</td>
 	</tr>
 	<tr>

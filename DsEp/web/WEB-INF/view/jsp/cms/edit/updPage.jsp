@@ -22,7 +22,7 @@ $(function(){
 	<tr>
 		<td class="title">修改页面</td>
 		<td class="menuTool">
-			<a class="look" target="_blank" href="${ctx}/cmsbulid/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">预览页面</a>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">预览页面</a>
 		<c:if test="${!po.audit}">
 			<a class="save" id="_save" href="javascript:void(0);">保存</a>
 			<a class="submit" id="_submit" href="javascript:void(0);">提交</a>

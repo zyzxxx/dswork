@@ -48,9 +48,9 @@ $(function(){
 		<td class="title">修改</td>
 		<td class="menuTool">
 			<a class="graph" id="btn_category" href="#">发布本栏目</a>
-			<a class="look" target="_blank" href="${ctx}/cmsbulid/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
 			<a class="graph" id="btn_site" href="#">发布首页</a>
-			<a class="look" target="_blank" href="${ctx}/cmsbulid/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
 			<a class="save" id="dataFormSave" href="#">保存</a>
 		</td>
 	</tr>
