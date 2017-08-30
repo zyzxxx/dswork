@@ -11,17 +11,10 @@ import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
-public class DsCmsPageBuilderController extends BaseController
+public class DsCmsbuildController extends BaseController
 {
 	private static final String CMS_FACTORY_KEY = "CMS_FACTORY_KEY";
 	private static final String CMS_FACTORY_KEY_SITEID = "CMS_FACTORY_KEY_SITEID";
-
-	@RequestMapping("/cmsbuild/buildAfter")
-	public void buildAfter()
-	{
-		request.getSession().setAttribute(CMS_FACTORY_KEY, null);
-		request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, null);
-	}
 
 	@RequestMapping("/cmsbuild/buildHTML")
 	public String buildHTML()

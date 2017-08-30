@@ -10,7 +10,7 @@ import common.cms.DsCmsPreview;
 import dswork.mvc.BaseController;
 @Scope("prototype")
 @Controller
-public class DsCmsPreviewController extends BaseController
+public class DsCmsbuildPreviewController extends BaseController
 {
 	@RequestMapping("/cmsbuild/preview")
 	public String preview()
