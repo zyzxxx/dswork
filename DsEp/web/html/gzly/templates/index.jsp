@@ -14,8 +14,6 @@
 </head>
 <body>
 <%@include file="include/header.jsp"%>
-
-
 <!--浮动二维码-->
 <div class="floatPanel">
 	<div class="ctrolPanel">

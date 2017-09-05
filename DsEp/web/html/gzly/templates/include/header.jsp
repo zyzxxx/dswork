@@ -1,7 +1,5 @@
-﻿﻿<%@page language="java" pageEncoding="UTF-8"%>
+﻿<%@page language="java" pageEncoding="UTF-8"%>
 <script type="text/javascript" src="${ctx}/js/jquery.js"></script>
-
-
 <%--
 <div class="header">
 <embed width="1000" height="335" src="${ctx}/themes/web/banner.swf" type="application/x-shockwave-flash" quality="high" />
@@ -19,11 +17,9 @@
     </ul>
 </div>
 --%>
-
-
 <script type="text/javascript" src="${ctx}/js/jskey_focus.js"></script>
 <style type="text/css">
-#showid1 img{width:100%;height:100%;margin:0 auto;}
+#showid1 img{width:auto;height:100%;margin:0 auto;}
 </style>
 <div style="width:990px;height:0px;margin:0 auto;position:relative;background:none;z-index:999;">
 	<div style="position:absolute;top:40px;left:5px;">
