@@ -84,3 +84,5 @@
 	dswork修改了dswork.web中的MyRequestUplaod模块代码，修复用于dswork框架时，如果增加了spring上传插件后，request流被处理过时，MyRequestUpload中加载request流时的死循环问题
 2017-08-22
 	dswork完善了dswork.http中的SSLSocketFactory，移除了全局的相关设置及静态变量，增加了setSslSocketFactory方法
+2017-09-05
+	dswork修改了dswork.core中的EncryptUtil，增加了SHA-256加密方法encryptSha256(String)

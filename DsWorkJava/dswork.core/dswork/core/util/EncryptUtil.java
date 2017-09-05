@@ -41,6 +41,21 @@ public class EncryptUtil
 	}
 	
 	/**
+	 * SHA-256加密
+	 * @param str 需要加密的String
+	 * @return SHA-1的String，失败返回null
+	 */
+	public static String encryptSha256(String str)
+	{
+		String code = encrypts(str, "SHA-256");
+		if(code != null)
+		{
+			return code.toUpperCase(Locale.ENGLISH);
+		}
+		return null;
+	}
+	
+	/**
 	 * 处理加密码内置方法
 	 * @param str 加密字符串
 	 * @param type 加密类型
