@@ -20,7 +20,7 @@ document.write(
 ".nav-down dd{margin-bottom:1px;padding-bottom:1px;}" +
 ".nav-down dd a{font-weight:normal;display:block;min-width:66px;}" +
 
-".nav-up{height:38px;background-color:#222;}" +
+".nav-up{height:38px;}" +
 ".nav-up li{float:left;background-color:inherit;}" +
 ".nav-up a{line-height:38px;height:38px;padding:0 26px;font-weight:normal;font-size:14px;}" +
 ".nav-up .nav-up-hover a{}" +
