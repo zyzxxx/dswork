@@ -14,6 +14,26 @@ $(function(){
 	try{$("#pid").val("${po.pid}");}catch(e){}
 	try{$(".form_title").css("width", "8%");}catch(e){}
 	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${po.id}",upImgUrl:"uploadImage.htm?categoryid=${po.id}"});
+	function show(){
+		var i = new Image();
+		i.src = $("#inputImg").val();
+		i.onload = function(){$("#imgShow").attr("src",this.src).show()};
+		i.onerror = function(){$("#imgShow").hide()};
+	}
+	function fill(){
+		var v = $("#inputImg").val();
+		var list = [], count = -1;
+		$('<div>'+$('#content').val()+'</div>').find("img").each(function(){list.push($(this).attr("src"));});
+		$.unique(list);
+		for(var i = 0; i < list.length; i++){if(v == "" || v == list[i]){count = i;break;}}
+		count = (count + 1) % list.length;
+		$("#inputImg").val(list[count]);
+		show();
+	}
+	$("#btnFill").on("click", fill);
+	$("#btnClean").on("click", function(){$("#inputImg").val("");show();});
+	$("#inputImg").on("keyup", show);
+	show();
 });
 function build(categoryid)
 {
@@ -80,7 +100,13 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" /></td>
+		<td class="form_input">
+			<input type="text" name="img" id="inputImg" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" />
+			&nbsp; <input type="button" class="button" id="btnFill" value="识别图片">
+			&nbsp; <input type="button" class="button" id="btnClean" value="清空">
+			<br />
+			<img id="imgShow" style="width:100px">
+		</td>
 	</tr>
 	<tr>
 		<td class="form_title">内容</td>

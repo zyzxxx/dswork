@@ -7,14 +7,35 @@
 <title></title>
 <%@include file="/commons/include/updAjax.jsp" %>
 <%@include file="/commons/include/editor.jsp" %>
+<script type="text/javascript" src="${ctx}/js/smartImgAdd.js"></script>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type==1){
 	location.reload();
 }}
 $(function(){
 	$(".form_title").css("width", "8%");
-<c:if test="${scope==1}">
+<c:if test="${scope==1&&!po.audit}">
 	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"${ctx}/cms/page/uploadFile.htm?categoryid=${po.id}",upImgUrl:"${ctx}/cms/page/uploadImage.htm?categoryid=${po.id}"});
+	function show(){
+		var i = new Image();
+		i.src = $("#inputImg").val();
+		i.onload = function(){$("#imgShow").attr("src",this.src).show()};
+		i.onerror = function(){$("#imgShow").hide()};
+	}
+	function fill(){
+		var v = $("#inputImg").val();
+		var list = [], count = -1;
+		$('<div>'+$('#content').val()+'</div>').find("img").each(function(){list.push($(this).attr("src"));});
+		$.unique(list);
+		for(var i = 0; i < list.length; i++){if(v == "" || v == list[i]){count = i;break;}}
+		count = (count + 1) % list.length;
+		$("#inputImg").val(list[count]);
+		show();
+	}
+	$("#btnFill").on("click", fill);
+	$("#btnClean").on("click", function(){$("#inputImg").val("");show();});
+	$("#inputImg").on("keyup", show);
+	show();
 </c:if>
 });
 </script>
@@ -111,7 +132,13 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">图片</td>
-		<td class="form_input"><input type="text" name="img" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" /></td>
+		<td class="form_input">
+			<input type="text" name="img" id="inputImg" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" />
+			&nbsp; <input type="button" class="button" id="btnFill" value="识别图片">
+			&nbsp; <input type="button" class="button" id="btnClean" value="清空">
+			<br />
+			<img id="imgShow" style="width:100px">
+		</td>
 	</tr>
 	<tr>
 		<td class="form_title">内容</td>
