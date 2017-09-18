@@ -7,7 +7,6 @@
 <title></title>
 <%@include file="/commons/include/updAjax.jsp" %>
 <%@include file="/commons/include/editor.jsp" %>
-<script type="text/javascript" src="${ctx}/js/smartImgAdd.js"></script>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getPage.htm?id=${po.categoryid}&page=${param.page}";
@@ -23,11 +22,9 @@ $(function(){
 		i.onerror = function(){$("#imgShow").hide()};
 	}
 	function fill(){
-		var v = $("#inputImg").val();
-		var list = [], count = -1;
-		$('<div>'+$('#content').val()+'</div>').find("img").each(function(){list.push($(this).attr("src"));});
-		$.unique(list);
-		for(var i = 0; i < list.length; i++){if(v == "" || v == list[i]){count = i;break;}}
+		var v = $("#inputImg").val(), m = {}, list = [], count = -1;
+		$('<div>'+$('#content').val()+'</div>').find("img").each(function(){var s = $(this).attr("src");if(!m[s]){list.push(s);m[s] = s;}});
+		for(var i = 0; i < list.length; i++){if(v == list[i]){count = i;break;}}
 		count = (count + 1) % list.length;
 		$("#inputImg").val(list[count]);
 		show();
