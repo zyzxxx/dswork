@@ -32,7 +32,7 @@ $(function(){
 	$("#btnClean").on("click", function(){$("#inputImg").val("");show();});
 	$("#inputImg").on("keyup", show);
 	show();
-	$dswork.readySubmit = fill;
+	$dswork.readySubmit = function(){if($("#inputImg").val()==""){fill();}};
 });
 </script>
 </head>

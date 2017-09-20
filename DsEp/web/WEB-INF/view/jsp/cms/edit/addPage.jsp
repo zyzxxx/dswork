@@ -7,6 +7,7 @@
 <title></title>
 <%@include file="/commons/include/addAjax.jsp" %>
 <%@include file="/commons/include/editor.jsp" %>
+<script type="text/javascript" src="${ctx}/js/smartImgAdd.js"></script>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getPage.htm?id=${fn:escapeXml(param.categoryid)}";
@@ -32,7 +33,7 @@ $(function(){
 	$("#btnClean").on("click", function(){$("#inputImg").val("");show();});
 	$("#inputImg").on("keyup", show);
 	show();
-	$dswork.readySubmit = fill;
+	$dswork.readySubmit = function(){if($("#inputImg").val()==""){fill();}};
 });
 </script>
 </head>
