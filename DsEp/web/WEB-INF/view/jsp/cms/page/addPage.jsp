@@ -60,7 +60,6 @@ $(function(){
 				if($(e).val()=="2"){$("#spanUrl").show();}
 				else{$("#spanUrl").hide();}
 			}
-			showUrl();
 			</script>
 		</td>
 	</tr>
