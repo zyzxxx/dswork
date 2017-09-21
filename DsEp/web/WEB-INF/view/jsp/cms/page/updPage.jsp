@@ -51,13 +51,12 @@ $(function(){
 	<tr>
 		<td class="form_title">是否外链</td>
 		<td class="form_input">
-			<label><input type="radio" name="scope" value="2" />是</label>
-			<label><input type="radio" name="scope" value="1" v="${po.scope}" />否</label>
-			<span id="spanUrl">&nbsp;&nbsp;链接<input type="text" name="url" value="" /></span>
+			<label><input type="radio" name="scope" value="2" onclick="showUrl(this);" />是</label>
+			<label><input type="radio" name="scope" value="1" onclick="showUrl(this);" v="${po.scope}" />否</label>
+			<span id="spanUrl">&nbsp;&nbsp;链接&nbsp;<input id="xurl" type="text" name="url" style="width:400px;" value="${fn:escapeXml(po.url)}" /></span>
 			<script type="text/javascript">
-			$("input[name='scope']").click=showUrl;
-			function showUrl(){
-				if($("input[name='scope']:checked").val()=="2"){$("#spanUrl").show();}
+			function showUrl(e){
+				if($(e).val()=="2"){$("#spanUrl").show();$("#xurl").val("${fn:escapeXml(po.url)}");}
 				else{$("#spanUrl").hide();}
 			}
 			showUrl();
