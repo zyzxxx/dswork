@@ -36,11 +36,15 @@ public class DsCmsPageService extends BaseService<DsCmsPage, Long>
 	{
 		return dao;
 	}
-	
+
+	@Override
 	public int save(DsCmsPage m)
 	{
 		dao.save(m);
-		dao.updateURL(m.getId(), m.getUrl() + "/" + m.getId() + ".html");
+		if(m.getScope() != 2) //不为外链
+		{
+			dao.updateURL(m.getId(), m.getUrl() + "/" + m.getId() + ".html");
+		}
 		return 1;
 	}
 	public int updateStatus(Long id, Integer status)

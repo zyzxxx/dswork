@@ -73,8 +73,11 @@ public class DsCmsPageController extends BaseController
 				{
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
+				if(po.getScope() != 2) //不为外链
+				{
+					po.setUrl("/a/" + m.getFolder());
+				}
 				po.setStatus(0);
-				po.setUrl("/a/" + m.getFolder());
 				service.save(po);// url拼接/id.html
 				print(1);
 				return;
@@ -127,6 +130,11 @@ public class DsCmsPageController extends BaseController
 		try
 		{
 			po.setStatus(1);
+			if(po.getScope() != 2) //不为外链
+			{
+				DsCmsCategory m = service.getCategory(po.getCategoryid());
+				po.setUrl("/a/" + m.getFolder() + "/" + m.getId() + ".html");
+			}
 			service.update(po);
 			print(1);
 		}
@@ -523,7 +531,7 @@ public class DsCmsPageController extends BaseController
 								{
 									try
 									{
-										if(p.getStatus() == -1)
+										if(p.getStatus() == -1 && p.getScope() == 2)
 										{
 											_buildFile(null, p.getUrl(), site.getFolder());
 											service.delete(p.getId());

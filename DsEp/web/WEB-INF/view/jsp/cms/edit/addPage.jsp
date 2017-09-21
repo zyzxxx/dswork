@@ -68,6 +68,22 @@ $(function(){
 <form id="dataForm" method="post" action="addPage2.htm?categoryid=${fn:escapeXml(param.categoryid)}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
+		<td class="form_title">是否外链</td>
+		<td class="form_input">
+			<label><input type="radio" name="scope" value="2" />是</label>
+			<label><input type="radio" name="scope" value="1" v="1" />否</label>
+			<span id="spanUrl">&nbsp;&nbsp;链接<input type="text" name="url" value="" /></span>
+			<script type="text/javascript">
+			$("input[name='scope']").click=showUrl;
+			function showUrl(){
+				if($("input[name='scope']:checked").val()=="2"){$("#spanUrl").show();}
+				else{$("#spanUrl").hide();}
+			}
+			showUrl();
+			</script>
+		</td>
+	</tr>
+	<tr>
 		<td class="form_title">标题</td>
 		<td class="form_input"><input type="text" name="title" maxlength="100" style="width:400px;" dataType="Require" value="" /></td>
 	</tr>
@@ -98,12 +114,12 @@ $(function(){
 	<tr>
 		<td class="form_title">图片</td>
 		<td class="form_input">
+			<label>&nbsp;<input type="checkbox" name="imgtop" value="1" /> 焦点图</label>
 			<input type="text" name="img" id="inputImg" maxlength="100" style="width:400px;" value="" />
 			&nbsp; <input type="button" class="button" id="btnFill" value="识别图片">
 			&nbsp; <input type="button" class="button" id="btnClean" value="清空">
 			<br />
 			<img id="imgShow" style="width:100px">
-			<label>&nbsp;<input type="checkbox" name="imgtop" value="1" /> 焦点图</label>
 		</td>
 	</tr>
 	<tr>

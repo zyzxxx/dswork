@@ -15,6 +15,8 @@ public class DsCmsPage
 	private Integer status = 0;
 	// 标题
 	private String title = "";
+	// 类型(1单页,2外链)
+	private Integer scope = 1;
 	// meta关键词
 	private String metakeywords = "";
 	// meta描述
@@ -86,6 +88,16 @@ public class DsCmsPage
 	public void setTitle(String title)
 	{
 		this.title = title;
+	}
+
+	public Integer getScope()
+	{
+		return scope;
+	}
+
+	public void setScope(Integer scope)
+	{
+		this.scope = scope;
 	}
 
 	public String getMetakeywords()

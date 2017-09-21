@@ -35,6 +35,8 @@ public class DsCmsAuditPage
 	private Integer imgtop = 0;
 	// 首页推荐(0否,1是)
 	private Integer pagetop = 0;
+	// 类型(1单页,2外链)
+	private Integer scope = 1;
 	// 链接
 	private String url = "";
 
@@ -225,6 +227,16 @@ public class DsCmsAuditPage
 	public void setPagetop(Integer pagetop)
 	{
 		this.pagetop = pagetop;
+	}
+
+	public Integer getScope()
+	{
+		return scope;
+	}
+
+	public void setScope(Integer scope)
+	{
+		this.scope = scope;
 	}
 
 	public String getUrl()

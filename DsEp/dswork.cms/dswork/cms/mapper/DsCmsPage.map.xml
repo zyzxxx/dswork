@@ -10,9 +10,9 @@
 		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(<if test="id&gt;0">ID, </if>SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT)
+	(<if test="id&gt;0">ID, </if>SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, SCOPE, URL, CONTENT)
 	values
-	(<if test="id&gt;0">#{id}, </if>#{siteid}, #{categoryid}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{url}, #{content})
+	(<if test="id&gt;0">#{id}, </if>#{siteid}, #{categoryid}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{scope}, #{url}, #{content})
 </insert>
 
 <delete id="delete">
@@ -23,6 +23,7 @@
 	update DS_CMS_PAGE set
 		STATUS=#{status},
 		TITLE=#{title},
+		SCOPE=#{scope},
 		METAKEYWORDS=#{metakeywords},
 		METADESCRIPTION=#{metadescription},
 		SUMMARY=#{summary},
@@ -59,12 +60,13 @@
 	<result property="img" column="IMG" />
 	<result property="imgtop" column="IMGTOP" />
 	<result property="pagetop" column="PAGETOP" />
+	<result property="scope" column="SCOPE" />
 	<result property="url" column="URL" />
 	<result property="content" column="CONTENT" />
 </resultMap>
 
 <sql id="columns">
-	ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT
+	ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, SCOPE, URL, CONTENT
 </sql>
 
 <sql id="dynamicWhere">

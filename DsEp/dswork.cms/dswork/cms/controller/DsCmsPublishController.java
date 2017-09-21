@@ -325,7 +325,7 @@ public class DsCmsPublishController extends BaseController
 								{
 									try
 									{
-										if(p.getStatus() == -1)
+										if(p.getStatus() == -1 && p.getScope() == 2)
 										{
 											_buildFile(null, p.getUrl(), site.getFolder());
 											service.delete(p.getId());

@@ -161,6 +161,7 @@ public class DsCmsAuditService extends BaseService<DsCmsAuditPage, Long>
 			page.setImg(po.getImg());
 			page.setImgtop(po.getImgtop());
 			page.setPagetop(po.getPagetop());
+			page.setScope(po.getScope());
 			if(isSave)
 			{
 				page.setStatus(0);// 内容设置为新建未发布状态

@@ -112,7 +112,10 @@ public class DsCmsEditController extends BaseController
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
 				po.setStatus(0); //新增
-				po.setUrl("/a/" + m.getFolder() + "/" + m.getId() + ".html");
+				if(po.getScope() != 2) //不为外链
+				{
+					po.setUrl("/a/" + m.getFolder());
+				}
 				service.save(po);// url拼接/id.html
 				print(1);
 			}
@@ -231,6 +234,16 @@ public class DsCmsEditController extends BaseController
 				_po.setPagetop(po.getPagetop());
 				_po.setContent(po.getContent());
 				_po.setAuditstatus(po.getAuditstatus());
+				_po.setScope(po.getScope());
+				if(po.getScope() == 2)
+				{
+					_po.setUrl(po.getUrl());
+				}
+				else
+				{
+					DsCmsCategory m = service.getCategory(po.getCategoryid());
+					_po.setUrl("/a/" + m.getFolder() + "/" + m.getId() + ".html");
+				}
 
 				_po.setEditid(getAccount());
 				_po.setEditname(getName());

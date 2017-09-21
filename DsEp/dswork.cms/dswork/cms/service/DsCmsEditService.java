@@ -48,6 +48,18 @@ public class DsCmsEditService extends BaseService<DsCmsAuditPage, Long>
 		return auditPageDao;
 	}
 
+	@Override
+	public int save(DsCmsAuditPage po)
+	{
+		auditPageDao.save(po);
+		if(po.getScope() != 2) //不为外链
+		{
+			po.setUrl(po.getUrl() + "/" + po.getId() + ".html");
+			auditPageDao.update(po);
+		}
+		return 1;
+	}
+
 	public DsCmsSite getSite(Long siteid)
 	{
 		return (DsCmsSite) siteDao.get(siteid);

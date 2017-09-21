@@ -10,9 +10,9 @@
 		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_CMS_AUDIT_PAGE
-	(SITEID, CATEGORYID, STATUS, TITLE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG)
+	(SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG)
 	values
-	(#{siteid}, #{categoryid}, #{status}, #{title}, #{url}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg})
+	(#{siteid}, #{categoryid}, #{status}, #{title}, #{scope}, #{url}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg})
 </insert>
 
 <delete id="delete">
@@ -23,6 +23,7 @@
 	update DS_CMS_AUDIT_PAGE set
 		STATUS=#{status},
 		TITLE=#{title},
+		SCOPE=#{scope},
 		URL=#{url},
 		METAKEYWORDS=#{metakeywords},
 		METADESCRIPTION=#{metadescription},
@@ -51,6 +52,7 @@
 	<result property="categoryid" column="CATEGORYID" />
 	<result property="status" column="STATUS" />
 	<result property="title" column="TITLE" />
+	<result property="scope" column="SCOPE" />
 	<result property="url" column="URL" />
 	<result property="metakeywords" column="METAKEYWORDS" />
 	<result property="metadescription" column="METADESCRIPTION" />
@@ -72,7 +74,7 @@
 	<result property="msg" column="MSG" />
 </resultMap>
 
-<sql id="columns">ID, SITEID, CATEGORYID, STATUS, TITLE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG</sql>
+<sql id="columns">ID, SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG</sql>
 	
 <sql id="dynamicWhere">
 	<where>
