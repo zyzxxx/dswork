@@ -271,17 +271,20 @@ public class DsCmsPageController extends BaseController
 					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
 					try
 					{
-						// 压缩图片使尺寸最多不超过800*800
-						byte[] arr = dswork.core.util.ImageUtil.resize(FileUtil.getToInputStream(byteArray), 800, 800);
-						if(arr == null)
+						if("jpg,jpeg,png".indexOf(ext) != -1)
 						{
-							arr = byteArray;
+							// 压缩图片使尺寸最多不超过800*800
+							byte[] arr = dswork.core.util.ImageUtil.resize(FileUtil.getToInputStream(byteArray), 800, 800);
+							if(arr == null)
+							{
+								arr = byteArray;
+							}
+							FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(arr), true);
 						}
-						else
+						else// gif
 						{
-							ext = "jpg";
+							FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(byteArray), true);
 						}
-						FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(arr), true);
 						print("{\"err\":\"\",\"msg\":\"!" + webpath + v + "\"}");
 						return;
 					}
