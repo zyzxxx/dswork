@@ -33,6 +33,7 @@
 		IMG=#{img},
 		IMGTOP=#{imgtop},
 		PAGETOP=#{pagetop},
+		URL=#{url},
 		CONTENT=#{content}
 	where ID=#{id}
 </update>
