@@ -83,9 +83,18 @@ $(function(){
 		<td class="form_input">${fn:escapeXml(po.releaseuser)}</td>
 	</tr>
 	<tr>
+		<td class="form_title">是否外链</td>
+		<td class="form_input">${po.scope==2?'是'.concat(' 链接:').concat(po.url):'否'}</td>
+	</tr>
+	<tr>
 		<td class="form_title">操作</td>
 		<td class="form_input menuTool">
+		<c:if test="${po.scope==2}">
+			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">查看栏目内容</a>
+		</c:if>
+		<c:if test="${po.scope!=2}">
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">查看栏目内容</a>
+		</c:if>
 		</td>
 	</tr>
 	<tr>

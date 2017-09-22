@@ -27,7 +27,9 @@ function unbuild(pageid){
 }
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-graph">预览</div>').bind("click", function(){
-		window.open("${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&pageid=" + id);
+		var url = td.attr("url");
+		if(!url){url = "${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&pageid=" + id;}
+		window.open(url);
 	}));
 	$(menu).append($('<div iconCls="menuTool-graph">发布</div>').bind("click", function(){
 		if(confirm("是否发布内容")){build(id);}
@@ -105,17 +107,19 @@ $(function(){
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
-		<td style="width:60%">标题</td>
+		<td style="width:50%">标题</td>
 		<td style="width:22%">发布时间</td>
+		<td>是否外链</td>
 		<td>首页推荐</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
 		<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
-		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
+		<td class="menuTool" keyIndex="${d.id}"${d.scope==2?' url="'.concat(d.url).concat('"'):''}>&nbsp;</td>
 		<td>${fn:escapeXml(d.title)}</td>
 		<td>${fn:escapeXml(d.releasetime)}</td>
-		<td>${d.pagetop == 1 ? "是" : "否"}</td>
+		<td>${d.scope==2?'是':'否'}</td>
+		<td>${d.pagetop==1?'是':'否'}</td>
 	</tr>
 </c:forEach>
 </table>

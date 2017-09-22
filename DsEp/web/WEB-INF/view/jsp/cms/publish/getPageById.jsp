@@ -27,7 +27,12 @@ $(function(){
 	<tr>
 		<td class="title">页面明细</td>
 		<td class="menuTool">
+		<c:if test="${po.scope==2}">
+			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">预览</a>
+		</c:if>
+		<c:if test="${po.scope!=2}">
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">预览</a>
+		</c:if>
 			<a class="graph" id="btn_category" href="javascript:void(0);">发布</a>
 			<a class="back" href="getPage.htm?id=${po.categoryid}&page=${page}">返回</a>
 		</td>
@@ -64,6 +69,10 @@ $(function(){
 	<tr>
 		<td class="form_title">作者</td>
 		<td class="form_input">${fn:escapeXml(po.releaseuser)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">是否外链</td>
+		<td class="form_input">${po.scope==2?'是'.concat(' 链接:').concat(po.url):'否'}</td>
 	</tr>
 	<tr>
 		<td class="form_title">图片</td>

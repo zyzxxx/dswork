@@ -60,6 +60,7 @@ $(function(){
 				else{$("#spanUrl").hide();}
 			}
 			<c:if test="${po.scope==2}">$("#spanUrl").show();$("#xurl").val("${fn:escapeXml(po.url)}");</c:if>
+			<c:if test="${po.scope!=2}">$("#spanUrl").hide();</c:if>
 			</script>
 		</td>
 	</tr>
@@ -111,6 +112,7 @@ $(function(){
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />
+<input type="hidden" name="categoryid" value="${po.categoryid}" />
 </form>
 </body>
 </html>

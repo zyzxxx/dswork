@@ -49,10 +49,11 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
 		<td style="width:48%">标题</td>
-		<td style="width:15%">发布时间</td>
-		<td style="width:10%">首页推荐</td>
-		<td style="width:10%">焦点图</td>
-		<td style="width:10%">状态</td>
+		<td style="width:13%">发布时间</td>
+		<td style="width:8%">是否外链</td>
+		<td style="width:8%">首页推荐</td>
+		<td style="width:8%">焦点图</td>
+		<td style="width:8%">状态</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
@@ -64,6 +65,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.title)}</td>
 		<td>${fn:escapeXml(d.releasetime)}</td>
+		<td>${d.scope==2?'是':'否'}</td>
 		<td>${d.pagetop==1?'是':'否'}</td>
 		<td>${d.imgtop==1?'是':'否'}</td>
 		<td>${d.draft?'未提交':d.audit?'审核中':d.nopass?'未通过':d.pass?'已通过':''}</td>

@@ -133,7 +133,7 @@ public class DsCmsPageController extends BaseController
 			if(po.getScope() != 2) //不为外链
 			{
 				DsCmsCategory m = service.getCategory(po.getCategoryid());
-				po.setUrl("/a/" + m.getFolder() + "/" + m.getId() + ".html");
+				po.setUrl("/a/" + m.getFolder() + "/" + po.getId() + ".html");
 			}
 			service.update(po);
 			print(1);
@@ -423,6 +423,11 @@ public class DsCmsPageController extends BaseController
 									_buildFile(null, p.getUrl(), site.getFolder());
 									service.delete(p.getId());
 								}
+								else if(p.getScope() == 2)
+								{
+									DsCmsCategory c = service.getCategory(p.getCategoryid());
+									_buildFile(null, "/a/" + c.getFolder() + "/" + p.getId() + ".html", site.getFolder());
+								}
 								else
 								{
 									_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
@@ -531,12 +536,11 @@ public class DsCmsPageController extends BaseController
 								{
 									try
 									{
-										if(p.getStatus() == -1 && p.getScope() == 2)
+										if(p.getStatus() == -1)
 										{
-											_buildFile(null, p.getUrl(), site.getFolder());
 											service.delete(p.getId());
 										}
-										else
+										else if(p.getScope() != 2)
 										{
 											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
@@ -562,10 +566,9 @@ public class DsCmsPageController extends BaseController
 										{
 											if(p.getStatus() == -1)
 											{
-												_buildFile(null, p.getUrl(), site.getFolder());
 												service.delete(p.getId());
 											}
-											else
+											else if(p.getScope() != 2)
 											{
 												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 												service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);

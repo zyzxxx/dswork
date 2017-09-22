@@ -42,7 +42,12 @@ $(function(){
 	<tr>
 		<td class="title">修改页面</td>
 		<td class="menuTool">
+		<c:if test="${po.scope==2}">
+			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">预览页面</a>
+		</c:if>
+		<c:if test="${po.scope!=2}">
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">预览页面</a>
+		</c:if>
 		<c:if test="${!po.audit}">
 			<a class="save" id="_save" href="javascript:void(0);">保存</a>
 			<a class="submit" id="_submit" href="javascript:void(0);">提交</a>
@@ -111,16 +116,16 @@ $(function(){
 	<tr>
 		<td class="form_title">是否外链</td>
 		<td class="form_input">
-			<label><input type="radio" name="scope" value="2" />是</label>
-			<label><input type="radio" name="scope" value="1" v="${po.scope}" />否</label>
-			<span id="spanUrl">&nbsp;&nbsp;链接<input type="text" name="url" value="" /></span>
+			<label><input type="radio" name="scope" value="2" onclick="showUrl(this);" />是</label>
+			<label><input type="radio" name="scope" value="1" onclick="showUrl(this);" v="${po.scope}" />否</label>
+			<span id="spanUrl">&nbsp;&nbsp;链接&nbsp;<input id="xurl" type="text" name="url" style="width:400px;" value="" /></span>
 			<script type="text/javascript">
-			$("input[name='scope']").click=showUrl;
-			function showUrl(){
-				if($("input[name='scope']:checked").val()=="2"){$("#spanUrl").show();}
+			function showUrl(e){
+				if($(e).val()=="2"){$("#spanUrl").show();$("#xurl").val("${fn:escapeXml(po.url)}");}
 				else{$("#spanUrl").hide();}
 			}
-			showUrl();
+			<c:if test="${po.scope==2}">$("#spanUrl").show();$("#xurl").val("${fn:escapeXml(po.url)}");</c:if>
+			<c:if test="${po.scope!=2}">$("#spanUrl").hide();</c:if>
 			</script>
 		</td>
 	</tr>
@@ -187,6 +192,7 @@ $(function(){
 </c:if>
 </c:if>
 <input type="hidden" name="id" value="${po.id}" />
+<input type="hidden" name="categoryid" value="${po.categoryid}" />
 <input type="hidden" name="auditstatus" value="${po.auditstatus}" />
 </form>
 </body>

@@ -242,7 +242,7 @@ public class DsCmsEditController extends BaseController
 				else
 				{
 					DsCmsCategory m = service.getCategory(po.getCategoryid());
-					_po.setUrl("/a/" + m.getFolder() + "/" + m.getId() + ".html");
+					_po.setUrl("/a/" + m.getFolder() + "/" + _po.getId() + ".html");
 				}
 
 				_po.setEditid(getAccount());
@@ -288,6 +288,8 @@ public class DsCmsEditController extends BaseController
 				_po.setImg(page.getImg());
 				_po.setImgtop(page.getImgtop());
 				_po.setPagetop(page.getPagetop());
+				_po.setScope(page.getScope());
+				_po.setUrl(page.getUrl());
 //				_po.setStatus(page.getStatus());
 				_po.setAuditstatus(DsCmsAuditPage.PASS);
 				service.update(_po);

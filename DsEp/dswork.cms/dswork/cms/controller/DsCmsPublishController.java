@@ -203,6 +203,11 @@ public class DsCmsPublishController extends BaseController
 									_buildFile(null, p.getUrl(), site.getFolder());
 									service.delete(p.getId());
 								}
+								else if(p.getScope() == 2)
+								{
+									DsCmsCategory c = service.getCategory(p.getCategoryid());
+									_buildFile(null, "/a/" + c.getFolder() + "/" + p.getId() + ".html", site.getFolder());
+								}
 								else
 								{
 									_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
@@ -325,12 +330,11 @@ public class DsCmsPublishController extends BaseController
 								{
 									try
 									{
-										if(p.getStatus() == -1 && p.getScope() == 2)
+										if(p.getStatus() == -1)
 										{
-											_buildFile(null, p.getUrl(), site.getFolder());
 											service.delete(p.getId());
 										}
-										else
+										else if(p.getScope() != 2)
 										{
 											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
@@ -356,10 +360,9 @@ public class DsCmsPublishController extends BaseController
 										{
 											if(p.getStatus() == -1)
 											{
-												_buildFile(null, p.getUrl(), site.getFolder());
 												service.delete(p.getId());
 											}
-											else
+											else if(p.getScope() != 2)
 											{
 												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 												service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
