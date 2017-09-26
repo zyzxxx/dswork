@@ -44,7 +44,10 @@ doDraw();
 
 function $id(id){return document.getElementById(id);}
 function reload(){
-	try{$('iframe', $("#tt").tabs("getSelected"))[0].contentWindow.location.reload();}catch(e){alert(e.message);}
+	try{var iframe = $('iframe', $("#tt").tabs("getSelected"))[0];
+		try{iframe.contentWindow.location.reload();
+		}catch(ee){iframe.src = iframe.src;}
+	}catch(e){alert(e.message);}
 }
 function doDraw(){
 	var v = $id("titleDIV").className != "title";
