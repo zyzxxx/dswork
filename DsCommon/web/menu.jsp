@@ -8,7 +8,7 @@ public static dswork.sso.model.IFunc[] getFuncByUser(String account){
 		}return list.toArray(new dswork.sso.model.IFunc[list.size()]);
 	}return null;
 }
-static{dswork.sso.AuthGlobal.init("https://127.0.0.1/sso/api", "DsCommon", "1");}
+//static{dswork.sso.AuthGlobal.init("https://127.0.0.1/sso/api", "DsCommon", "1");}
 %><%
 String jsoncallback  = String.valueOf(request.getParameter("jsoncallback")).replaceAll("<", "").replaceAll(">", "").replaceAll("\"", "").replaceAll("'", "");
 String user = String.valueOf(request.getParameter("user"));
