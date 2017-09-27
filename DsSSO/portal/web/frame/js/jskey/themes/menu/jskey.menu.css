@@ -1,11 +1,20 @@
 /*IE6背景图片不缓存BUG*/
 * {filter:expression(document.execCommand("BackgroundImageCache", false, true));}
-html {height:100%;margin:0;padding:0px;border:0px;overflow:auto;}
-body {height:100%;margin:0;padding:0px;border:0px;font-size:12px;font-weight:bold;background-color:#FEFEFE;text-align:center;overflow:auto;}
+html {height:100%;margin:0;padding:0;border:none;overflow:auto;}
+body {height:100%;margin:0;padding:0;border:none;font-size:12px;font-weight:bold;background-color:#FEFEFE;text-align:center;overflow:auto;}
 a {font-size:12px;}
 td {font-size:12px;}
-
-.jskeymenu {width:100%;height:100%;border:0px;}
+@font-face {
+	font-family:"treefont";
+	src:url("font/tree.eot");/* IE9+ */
+	src:url('font/tree.eot?#iefix') format('embedded-opentype'),/* IE6-IE8 */
+		url('font/tree.woff') format('woff'),/* chrome,firefox */
+		url('font/tree.ttf') format('truetype'),/* chrome,firefox,opera,Safari,Android,iOS4.2+ */
+		url('font/tree.svg#dsworkfont') format('svg');/* iOS4.1- */
+	font-weight:normal;
+	font-style:normal;
+}
+.jskeymenu {width:100%;height:100%;border:0px;font-family:Helvetica;}
 
 /*分层菜单的样式设置*/
 .jskeymenu .menuOpen,
@@ -22,7 +31,10 @@ td {font-size:12px;}
 	color:#333333;text-align:left;font-weight:bold;
 	border-bottom:solid #95B8E7 1px;
 }
-
+.jskeymenu .menuOpen span,
+.jskeymenu .menuClose span {
+	font-family:"treefont";font-size:inherit;font-style:normal;font-weight:normal;outline:0;display:inline-block;margin-right:5px;
+}
 .jskeymenu .cellOpen {width:100%;height:100%;}
 .jskeymenu .cellClose {width:100%;height:0%;}
 .jskeymenu .cellContent {width:100%;height:100%;overflow-y:auto;overflow-x:hidden;}
@@ -46,14 +58,16 @@ td {font-size:12px;}
 .jskeymenu .overfont {color:#ff0000;text-decoration:underline;}
 
 /*树状菜单的样式设置*/
-/*父节点*/
-div.treenodes {display:block;width:95%;white-space:nowrap;vertical-align:top;text-align:left;}
+div.treenodes i,
+div.treenode i {font-family:"treefont";color:#000;font-size:22px;line-height:22px;height:22px;width:22px;font-style:normal;font-weight:normal;outline:0;display:inline-block;}
+/*节点块容器*/
+div.treenodes {display:block;width:95%;white-space:nowrap;vertical-align:top;text-align:left;padding:0;margin:0;}
 div.treenodeout, div.treenodeover {font-size:12px;display:inline;}
 div.treenodeout {color:#333333;}
 div.treenodeover {color:#ff0000;}
-/*子节点*/
+/*节点*/
 div.treenode {cursor:pointer;display:block;width:95%;padding-left:3px;white-space:nowrap;vertical-align:top;text-align:left;}
-div.treenode .img {border:0px;width:18px;height:18px;}
-div.treedivout, div.treedivover {height:18px;padding-left:3px;font-size:12px;padding-top:3px;display:inline;line-height:18px;}
+div.treenode .img {border:0px;width:20px;height:20px;vertical-align:text-bottom;}
+div.treedivout, div.treedivover {height:22px;line-height:22px;font-size:12px;}
 div.treedivout {color:#333333;}
 div.treedivover {color:#333333;}

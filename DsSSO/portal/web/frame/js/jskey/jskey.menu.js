@@ -19,7 +19,7 @@ put:function(i, title, id, html){
 createCell:function(obj, c){
 	var html = '<tr>';
 	html += '<td id="JskeyMT_' + c + '" class="menuClose" onclick="$jskey.menu.clickBar(' + c + ')"' + ((c == this.list.length)?' style="display:none;"':'') + '>';
-	html += '<span id="JskeyI' + 'JskeyMT_' + c + '" class="arrow">+</span>';
+	html += '<span id="JskeyI' + 'JskeyMT_' + c + '" class="arrow">&#xf1016;</span>';
 	html += obj.title + '</td>';
 	html += '</tr><tr>';
 	html += '<td id="JskeyMC_' + c + '" valign="top" class="cellClose" style="' + ((c == this.list.length)?'display:;height:100%':'display:none;height:') + '">';
@@ -69,7 +69,7 @@ clickBar:function(c){
 			this.$("JskeyMT_" + c).className = "menuClose";
 			this.$("JskeyMC_" + c).className = "cellClose";
 			//this.$("JskeyI" + "JskeyMT_" + c).src = this.imgPath + "right.gif";
-			this.$("JskeyI" + "JskeyMT_" + c).innerHTML = "+";
+			this.$("JskeyI" + "JskeyMT_" + c).innerHTML = "&#xf1016;";
 			if(this.hidden){
 				this.$("JskeyMC_" + this.list.length).style.display = "";
 				this.smoothMenu(this.list.length, c, 0);// 需要将最后一个展开
@@ -81,13 +81,13 @@ clickBar:function(c){
 		else{
 			this.$("JskeyMT_" + c).className = "menuOpen";
 			this.$("JskeyMC_" + c).className = "cellOpen";
-			this.$("JskeyI" + "JskeyMT_" + c).innerHTML = "&minus;";
+			this.$("JskeyI" + "JskeyMT_" + c).innerHTML = "&#xf1017;";
 			if(this.hidden){
 				for(var i = 0;i < this.list.length;i++){
 					if(i != c && this.$("JskeyMC_" + i).style.display == ""){// 找到有其他被打开的就直接关掉并返回
 						this.$("JskeyMT_" + i).className = "menuClose";
 						this.$("JskeyMC_" + i).className = "cellClose";
-						this.$("JskeyI" + "JskeyMT_" + i).innerHTML = "+";
+						this.$("JskeyI" + "JskeyMT_" + i).innerHTML = "&#xf1016;";
 						this.smoothMenu(c, i, 0);
 						return;
 					}
@@ -125,14 +125,15 @@ imgMouse:function(obj, v, imgpath, over){
 },
 //树父级节点
 expandNode:function(imgid, oid, img, imgOpen){
+	var m = this.$(imgid);
 	if(this.$(oid).style.display == 'none'){
 		this.$(oid).style.display = '';
-		this.$(imgid).src = this.imgPath + "jian.gif";
+		m.innerHTML = m.getAttribute("x")=="0" ? "&#xf1044;" : "&#xf1047;";
 		this.$(imgid + "_node").src = imgOpen;
 	}
 	else{
 		this.$(oid).style.display = 'none';
-		this.$(imgid).src = this.imgPath + "jia.gif";
+		m.innerHTML = m.getAttribute("x")=="0" ? "&#xf1043;" : "&#xf1046;";
 		this.$(imgid + "_node").src = img;
 	}
 },
@@ -161,9 +162,10 @@ getTreeHtml:function(obj, pnodeName, icoString){
 	if(icoString.length == 1 && items.length == 0){
 		var _timg = this.path + ((obj.img == null || obj.img == "") ? "default.gif" : obj.img);
 		html += "<div class='treenode' ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\">";
-		html += "<img style='border:0px;' align='absmiddle' src='" + this.imgPath + ((icoString.charAt(len - 1) == '1') ? "L" : "T") + ".gif' />";
+		html += "<div class='treenodeout' onmouseover='this.className = \"treenodeover\"' onmouseout='this.className = \"treenodeout\"'>";
+		html += "<i>" + (icoString.charAt(len - 1)=='1' ? "&#xf1042;" : "&#xf1045;") + "</i>";
 		html += "<img class='img' align='absmiddle' src='" + _timg + "' />";
-		html += "<div class='treenodeout' onmouseover='this.className = \"treenodeover\"' onmouseout='this.className = \"treenodeout\"'>" + obj.name + "</div>";
+		html += "" + obj.name + "</div>";
 		html += "</div>";
 	}
 	else{
@@ -171,14 +173,21 @@ getTreeHtml:function(obj, pnodeName, icoString){
 		// 父节点的图标是否由json来决定
 		var _img = ((obj.img == null || obj.img == "")?(this.imgPath + "close.gif"):(this.path + obj.img));
 		var _imgOpen = ((obj.imgOpen == null || obj.imgOpen == "")?(this.imgPath + "open.gif"):(this.path + obj.imgOpen));
-		html += "<div class='treenode'" + ">";
-		// 处理上级节点
+		html += "<div class='treenode'>";
+		
+		html += "<div class='treedivout' onmouseover='this.className = \"treedivover\"' onmouseout='this.className = \"treedivout\"' onclick='$jskey.menu.expandNode(\"JskeyI"+v+"\", \"DIV"+v+"\", \"" + _img + "\", \"" + _imgOpen + "\");'>";
 		for(var i = 0;i < len - 1;i++){
-			html += "<img style='border:0px;' align='absmiddle' src='" + this.imgPath + ((icoString.charAt(i) == '0') ? "I" : "N") + ".gif' />";
+			html += "<i>" + (icoString.charAt(i)=='0' ? "&#xf1041;" : "&nbsp;") + "</i>";
 		}
-		html += "<img id='JskeyI"+v+"' align='absmiddle' src='" + this.imgPath + "jian.gif' onclick='$jskey.menu.expandNode(\"JskeyI"+v+"\", \"DIV"+v+"\", \"" + _img + "\", \"" + _imgOpen + "\");' />";
+		if(icoString && icoString.charAt(len - 1) == '0'){
+			html += "<i id='JskeyI"+v+"' x='1'>&#xf1047;</i>";
+		}
+		else{
+			html += "<i id='JskeyI"+v+"' x='0'>&#xf1044;</i>";
+		}
 		html += "<img id='JskeyI"+v+"_node' class='img' align='absmiddle' src='" + _imgOpen + "' onclick='$jskey.menu.expandNode(\"JskeyI"+v+"\", \"DIV"+v+"\", \"" + _img + "\", \"" + _imgOpen + "\");'/>";
-		html += "<div class='treedivout' onmouseover='this.className = \"treedivover\"' onmouseout='this.className = \"treedivout\"' onclick='$jskey.menu.expandNode(\"JskeyI"+v+"\", \"DIV"+v+"\", \"" + _img + "\", \"" + _imgOpen + "\");'>" + obj.name + "</div>";
+		html += "" + obj.name + "</div>";
+		
 		html += "</div>";
 		html += "<div class='treenodes' id='DIV"+v+"' style='display:;'>";
 		var last = items.length - 1;
@@ -188,12 +197,13 @@ getTreeHtml:function(obj, pnodeName, icoString){
 			if(item.items.length == 0){
 				var _timg = this.path + ((item.img == null || item.img == "") ? "default.gif" : item.img);
 				tmpHTML += "<div class='treenode' ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + item.name + "','" + item.url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + item.name + "','" + item.url + "')\">";
+				tmpHTML += "<div class='treenodeout' onmouseover='this.className = \"treenodeover\"' onmouseout='this.className = \"treenodeout\"'>";
 				for(var c = 0;c < len;c++){
-					tmpHTML += "<img style='border:0px;' align='absmiddle' src='" + this.imgPath + ((icoString.charAt(c) == '0') ? "I" : "N") + ".gif' />";
+					tmpHTML += "<i>" + (icoString.charAt(c)=='0' ? "&#xf1041;" : "&nbsp;") + "</i>";
 				}
-				tmpHTML += "<img style='border:0px;' align='absmiddle' src='" + this.imgPath + ((i == last) ? "L" : "T") + ".gif' />";
+				tmpHTML += "<i>" + (i==last ? "&#xf1042;" : "&#xf1045;") + "</i>";
 				tmpHTML += "<img id='JskeyI" + item.id + "_node' class='img' align='absmiddle' src='" + _timg + "'/>";
-				tmpHTML += "<div class='treenodeout' onmouseover='this.className = \"treenodeover\"' onmouseout='this.className = \"treenodeout\"'>" + item.name + "</div>";
+				tmpHTML += "" + item.name + "</div>";
 				tmpHTML += "</div>";
 			}
 			else{
@@ -298,7 +308,6 @@ $jskey.menu.changeURL = function(parentname, nodename, url){
 		}
 	}
 	if(url != ""){try{
-		url += (url.indexOf("?") == -1) ? "?ssoroot=false" : "&ssoroot=false";
 		var s = nodename;//parentname + '-'+nodename;
 		if(parent.$('#tt').tabs('exists', s)){
 			parent.$('#tt').tabs('select', s);
@@ -327,7 +336,6 @@ $jskey.menu.reChangeURL = function(parentname, nodename, url){
 		}
 	}
 	if(url != ""){try{
-		url += (url.indexOf("?") == -1) ? "?ssoroot=false" : "&ssoroot=false";
 		var s = nodename;//parentname + '-'+nodename;
 		var tab = null;
 		if(parent.$('#tt').tabs('exists', s)){
