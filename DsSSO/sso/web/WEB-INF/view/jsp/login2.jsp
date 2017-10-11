@@ -79,6 +79,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 </div>
 <div class="cp">
 	&copy; 2016-2017 深圳市九五至尊珠宝有限公司
+	&nbsp;&nbsp;<a href="/jxc/user/login.jsp">展厅端登录</a>
 </div>
 <c:if test="${errorMsg != ''}"><script type="text/javascript">alert("${errorMsg}");</script></c:if>
 </body>
