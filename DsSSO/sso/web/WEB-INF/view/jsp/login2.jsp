@@ -22,7 +22,7 @@ div,input,label{color:#bc0015;}
 a{text-decoration:underline;outline:none;}
 a:link,a:visited,a:active{color:#b71d29;outline:none;}
 a:hover{color:#0000ff;text-decoration:underline;}
-.bg{width:100%;height:730px;position:absolute;top:0px;left:0;z-index:-1;background:url(${ctx}/themes/share/bg/biggold.jpg) no-repeat top center;}
+.bg{width:100%;height:730px;position:absolute;top:0px;left:0;z-index:-1;background:url(/mall/themes/share/bg/biggold.jpg) no-repeat top center;}
 .view{position:relative;width:100%;min-width:300px;max-width:1000px;overflow:hidden;margin:0 auto;overflow:hidden;}
 .title {color:#bc0015;font-size:38px;font-weight:bold;text-align:left;padding:80px 50px 38px 50px;}
 .title img{height:60px;vertical-align:middle;}
@@ -53,7 +53,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 <body>
 <div class="bg"></div>
 <div class="view">
-  <div class="title">&nbsp;<img src="${ctx}/themes/share/bg/logo.png" />&nbsp;</div>
+  <div class="title">&nbsp;<img src="/mall/themes/img/logo.png" />&nbsp;</div>
   <form id="w" action="loginAction" method="post">
   <div class="login">
 	<div class="box"><div class="title">用户登录</div></div>
