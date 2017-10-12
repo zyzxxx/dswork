@@ -21,7 +21,7 @@ div,input,a{font-weight:bold;font-size:20px;line-height:38px;}
 div,input,label{color:#bc0015;}
 a{text-decoration:underline;outline:none;}
 a:link,a:visited,a:active{color:#b71d29;outline:none;}
-a:hover{color:#0000ff;text-decoration:underline;}
+a:hover{color:#ff0000;text-decoration:underline;}
 .bg{width:100%;height:730px;position:absolute;top:0px;left:0;z-index:-1;background:#cc0000 url(/mall/themes/img/login_bg.png) no-repeat top center;}
 .view{position:relative;width:100%;min-width:300px;max-width:1000px;overflow:hidden;margin:0 auto;overflow:hidden;}
 .title {color:#bc0015;font-size:38px;font-weight:bold;text-align:left;padding:80px 50px 38px 50px;}
