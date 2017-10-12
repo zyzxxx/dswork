@@ -15,17 +15,17 @@ response.setHeader("Pragma","no-cache");
 <link rel="stylesheet" type="text/css" href="${ctx}/themes/share/fonts/dsworkfont.css"/>
 <style type="text/css">
 html,body{height:100%;margin:0px auto;}
-body {background-color:#83060E;}
+body {background-color:#cc0000;}
 *{padding:0;margin:0;font-family:arial,"microsoft yahei","宋体";border-radius:0;}
 div,input,a{font-weight:bold;font-size:20px;line-height:38px;}
 div,input,label{color:#bc0015;}
 a{text-decoration:underline;outline:none;}
 a:link,a:visited,a:active{color:#b71d29;outline:none;}
 a:hover{color:#0000ff;text-decoration:underline;}
-.bg{width:100%;height:730px;position:absolute;top:0px;left:0;z-index:-1;background:url(/mall/themes/share/bg/biggold.jpg) no-repeat top center;}
+.bg{width:100%;height:730px;position:absolute;top:0px;left:0;z-index:-1;background:#cc0000 url(/mall/themes/img/login_bg.png) no-repeat top center;}
 .view{position:relative;width:100%;min-width:300px;max-width:1000px;overflow:hidden;margin:0 auto;overflow:hidden;}
 .title {color:#bc0015;font-size:38px;font-weight:bold;text-align:left;padding:80px 50px 38px 50px;}
-.title img{height:60px;vertical-align:middle;}
+.title img{height:67px;vertical-align:middle;}
 .login{border:#ccc solid 1px;padding:0;overflow:hidden;background-color:#fff;float:right;margin:0 50px 0 auto;width:360px;}
 .box{overflow:hidden;text-align:center;width:100%;margin:0 auto 12px auto;padding:0;border:none;}
 .box .title{background-color:#fff;border-bottom:#ccc solid 1px;color:#bc0015;width:100%;padding:3px 0;line-height:50px;font-size:22px;text-align:center;margin:0 auto;}
@@ -37,11 +37,11 @@ a:hover{color:#0000ff;text-decoration:underline;}
 .box .button{background-color:#bc0015;color:#fff;width:280px;height:50px;line-height:50px;cursor:pointer;border:none;-webkit-appearance:none;}
 .box .button:hover{background-color:#ff0000;color:#fff;}
 .box .checkbox{vertical-align:middle;}
-.box label{font-weight:bold;font-size:16px;line-height:18px;}
+.box label{font-weight:bold;font-size:16px;line-height:18px;cursor:pointer;}
 .box label.left{float:left;margin-left:38px;}
 .box label.right{float:right;margin-right:38px;}
 .box label a{font-size:16px;line-height:18px;text-decoration:none;}
-.cp{color:#fff;font-size:12px;width:80%;overflow:hidden;text-align:center;padding:15px 0;margin:20px auto 0 auto;border:none;}
+.cp{display:none;color:#fff;font-size:12px;width:80%;overflow:hidden;text-align:center;padding:15px 0;margin:20px auto 0 auto;border:none;}
 .cp a {font-size:12px;font-weight:normal;font-family:arial;}
 
 @media only screen and (min-width:768px) and (max-width:999px){.title{text-align:center;}}
@@ -53,10 +53,10 @@ a:hover{color:#0000ff;text-decoration:underline;}
 <body>
 <div class="bg"></div>
 <div class="view">
-  <div class="title">&nbsp;<img src="/mall/themes/img/logo.png" />&nbsp;</div>
+  <div class="title">&nbsp;<img src="/mall/themes/img/logo.png" /></div>
   <form id="w" action="loginAction" method="post">
   <div class="login">
-	<div class="box"><div class="title">用户登录</div></div>
+	<div class="box"><div class="title">统一身份认证平台登录</div></div>
 	<div class="box"><div class="vbox">
 		<span>&#xf1001;</span><input type="text" id="account" name="account" autocomplete="off" value="" title="账号" placeholder="账号" />
 	</div></div>
@@ -72,6 +72,9 @@ a:hover{color:#0000ff;text-decoration:underline;}
 	</div>
 	<div class="box">
 		<label class="right">&nbsp;&nbsp;<input id="savename" type="checkbox" autocomplete="off" class="checkbox" onclick="">&nbsp;记住用户名&nbsp;</label>
+		<label class="left">
+		<a href="/jxc/user/login.jsp">展厅端登录</a>
+		</label>
 	</div>
   </div>
   <input type="hidden" name="service" value="${fn:escapeXml(service)}" />
@@ -79,7 +82,6 @@ a:hover{color:#0000ff;text-decoration:underline;}
 </div>
 <div class="cp">
 	&copy; 2016-2017 深圳市九五至尊珠宝有限公司
-	&nbsp;&nbsp;<a href="/jxc/user/login.jsp">展厅端登录</a>
 </div>
 <c:if test="${errorMsg != ''}"><script type="text/javascript">alert("${errorMsg}");</script></c:if>
 </body>
