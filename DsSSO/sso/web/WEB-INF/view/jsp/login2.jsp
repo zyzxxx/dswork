@@ -53,7 +53,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 <body>
 <div class="bg"></div>
 <div class="view">
-  <div class="title">&nbsp;<img src="/mall/themes/img/logo.png" /></div>
+  <div class="title"><img src="/mall/themes/img/logo.png" /></div>
   <form id="w" action="loginAction" method="post">
   <div class="login">
 	<div class="box"><div class="title">统一身份认证平台登录</div></div>
@@ -73,7 +73,7 @@ a:hover{color:#0000ff;text-decoration:underline;}
 	<div class="box">
 		<label class="right">&nbsp;&nbsp;<input id="savename" type="checkbox" autocomplete="off" class="checkbox" onclick="">&nbsp;记住用户名&nbsp;</label>
 		<label class="left">
-		<a href="/jxc/user/login.jsp">展厅端登录</a>
+		<a href="/jxc/user/login.jsp">展厅用户登录</a>
 		</label>
 	</div>
   </div>
