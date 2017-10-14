@@ -6,6 +6,10 @@ if(obj == null)
 	response.sendRedirect(path + "/logout.jsp");
 	return;
 }
+if(null != request.getParameter("ticket"))
+{
+	response.sendRedirect(path + "/frame/index.jsp");// 去掉ticket的显示
+}
 %><!DOCTYPE html>
 <html>
 <head>
