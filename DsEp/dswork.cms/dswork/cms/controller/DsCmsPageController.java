@@ -282,7 +282,7 @@ public class DsCmsPageController extends BaseController
 						if("jpg,jpeg,png".indexOf(ext) != -1)
 						{
 							// 压缩图片使尺寸最多不超过800*800
-							byte[] arr = dswork.core.util.ImageUtil.resize(FileUtil.getToInputStream(byteArray), 800, 800);
+							byte[] arr = dswork.core.util.ImageUtil.resize(FileUtil.getToInputStream(byteArray), 1000, 1000);
 							if(arr == null)
 							{
 								arr = byteArray;
@@ -418,12 +418,12 @@ public class DsCmsPageController extends BaseController
 						{
 							try
 							{
-								if(p.getStatus() == -1)
+								if(p.getStatus().intValue() == -1)
 								{
 									_buildFile(null, p.getUrl(), site.getFolder());
 									service.delete(p.getId());
 								}
-								else if(p.getScope() == 2)
+								else if(p.getScope().intValue() == 2)
 								{
 									DsCmsCategory c = service.getCategory(p.getCategoryid());
 									_buildFile(null, "/a/" + c.getFolder() + "/" + p.getId() + ".html", site.getFolder());
@@ -466,7 +466,7 @@ public class DsCmsPageController extends BaseController
 							{
 								try
 								{
-									if(c.getScope() == 2)// 外链没有东西生成的
+									if(c.getScope().intValue() == 2)// 外链没有东西生成的
 									{
 										_deleteFile(site.getFolder(), c.getFolder(), true, true);
 										continue;
@@ -518,7 +518,7 @@ public class DsCmsPageController extends BaseController
 						}
 						for(DsCmsCategory c : list)
 						{
-							if(c.getScope() == 2)// 外链没有东西生成的
+							if(c.getScope().intValue() == 2)// 外链没有东西生成的
 							{
 								_deleteFile(site.getFolder(), c.getFolder(), true, true);
 								continue;
@@ -536,11 +536,11 @@ public class DsCmsPageController extends BaseController
 								{
 									try
 									{
-										if(p.getStatus() == -1)
+										if(p.getStatus().intValue() == -1)
 										{
 											service.delete(p.getId());
 										}
-										else if(p.getScope() != 2)
+										else if(p.getScope().intValue() != 2)
 										{
 											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
@@ -564,11 +564,11 @@ public class DsCmsPageController extends BaseController
 									{
 										try
 										{
-											if(p.getStatus() == -1)
+											if(p.getStatus().intValue() == -1)
 											{
 												service.delete(p.getId());
 											}
-											else if(p.getScope() != 2)
+											else if(p.getScope().intValue() != 2)
 											{
 												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 												service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
@@ -680,7 +680,7 @@ public class DsCmsPageController extends BaseController
 			{
 				try
 				{
-					if(m.getScope() == 0 || m.getScope() == 1)// 过滤外链栏目
+					if(m.getScope().intValue() == 0 || m.getScope().intValue() == 1)// 过滤外链栏目
 					{
 						map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
 					}
@@ -692,7 +692,7 @@ public class DsCmsPageController extends BaseController
 			}
 			else if(m.getPid() == 0)
 			{
-				if(m.getScope() == 0 || m.getScope() == 1)// 过滤外链栏目
+				if(m.getScope().intValue() == 0 || m.getScope().intValue() == 1)// 过滤外链栏目
 				{
 					tlist.add(m);// 只把根节点放入list
 				}
