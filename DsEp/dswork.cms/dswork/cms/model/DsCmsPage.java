@@ -8,15 +8,15 @@ public class DsCmsPage
 	// 主键
 	private Long id = 0L;
 	// 站点ID
-	private Long siteid = 0L;
+	private long siteid = 0L;
 	// 栏目ID
-	private Long categoryid = 0L;
+	private long categoryid = 0L;
 	// 状态(-1待删除,0待发布,1待更新,8已发布)
-	private Integer status = 0;
+	private int status = 0;
 	// 标题
 	private String title = "";
 	// 类型(1单页,2外链)
-	private Integer scope = 1;
+	private int scope = 1;
 	// meta关键词
 	private String metakeywords = "";
 	// meta描述
@@ -34,9 +34,9 @@ public class DsCmsPage
 	// 图片
 	private String img = "";
 	// 焦点图(0否,1是)
-	private Integer imgtop = 0;
+	private int imgtop = 0;
 	// 首页推荐(0否,1是)
-	private Integer pagetop = 0;
+	private int pagetop = 0;
 	// 链接
 	private String url = "";
 
@@ -50,32 +50,32 @@ public class DsCmsPage
 		this.id = id;
 	}
 
-	public Long getSiteid()
+	public long getSiteid()
 	{
 		return siteid;
 	}
 
-	public void setSiteid(Long siteid)
+	public void setSiteid(long siteid)
 	{
 		this.siteid = siteid;
 	}
 
-	public Long getCategoryid()
+	public long getCategoryid()
 	{
 		return categoryid;
 	}
 
-	public void setCategoryid(Long categoryid)
+	public void setCategoryid(long categoryid)
 	{
 		this.categoryid = categoryid;
 	}
 
-	public Integer getStatus()
+	public int getStatus()
 	{
 		return status;
 	}
 
-	public void setStatus(Integer status)
+	public void setStatus(int status)
 	{
 		this.status = status;
 	}
@@ -90,12 +90,12 @@ public class DsCmsPage
 		this.title = title;
 	}
 
-	public Integer getScope()
+	public int getScope()
 	{
 		return scope;
 	}
 
-	public void setScope(Integer scope)
+	public void setScope(int scope)
 	{
 		this.scope = scope;
 	}
@@ -180,22 +180,22 @@ public class DsCmsPage
 		this.img = img;
 	}
 
-	public Integer getImgtop()
+	public int getImgtop()
 	{
 		return imgtop;
 	}
 
-	public void setImgtop(Integer imgtop)
+	public void setImgtop(int imgtop)
 	{
 		this.imgtop = imgtop;
 	}
 
-	public Integer getPagetop()
+	public int getPagetop()
 	{
 		return pagetop;
 	}
 
-	public void setPagetop(Integer pagetop)
+	public void setPagetop(int pagetop)
 	{
 		this.pagetop = pagetop;
 	}

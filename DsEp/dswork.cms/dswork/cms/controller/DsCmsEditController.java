@@ -32,7 +32,7 @@ public class DsCmsEditController extends BaseController
 	private DsCmsEditService service;
 
 	@RequestMapping("getCategoryTree")
-	public String getCategoryEditTree()
+	public String getCategoryTree()
 	{
 		try
 		{
@@ -48,7 +48,7 @@ public class DsCmsEditController extends BaseController
 				{
 					for(DsCmsSite m : siteList)
 					{
-						if(m.getId().longValue() == id)
+						if(m.getId() == id)
 						{
 							siteid = m.getId();
 							break;
@@ -63,17 +63,14 @@ public class DsCmsEditController extends BaseController
 			if(siteid >= 0)
 			{
 				DsCmsPermission permission = service.getPermission(siteid, getAccount());
-				List<DsCmsCategory> cateList = new ArrayList<DsCmsCategory>();
+				List<DsCmsCategory> categoryList = new ArrayList<DsCmsCategory>();
 				if(permission != null)
 				{
-					List<DsCmsCategory> _cateList = service.queryListCategory(siteid);
-					cateList = DsCmsUtil.categoryAccess(_cateList, permission.getEditall() + permission.getEditown());
-					put("edit", permission.getEditall().length() > 2 || permission.getEditown().length() > 2);
-					put("audit", permission.getAudit().length() > 2);
-					put("publish", permission.getPublish().length() > 2);
+					List<DsCmsCategory> _categoryList = service.queryListCategory(siteid);
+					categoryList = DsCmsUtil.categoryAccess(_categoryList, permission.getEditall() + permission.getEditown());
 				}
 				put("siteList", siteList);
-				put("cateList", cateList);
+				put("categoryList", categoryList);
 			}
 			put("siteid", siteid);
 			return "/cms/edit/getCategoryTree.jsp";
@@ -98,31 +95,32 @@ public class DsCmsEditController extends BaseController
 		try
 		{
 			Long categoryid = req.getLong("categoryid");
-			DsCmsCategory m = service.getCategory(categoryid);
-			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getScope() == 0 && checkOwn(s.getOwn()))
+			DsCmsCategory c = service.getCategory(categoryid);
+			DsCmsSite s = service.getSite(c.getSiteid());
+			if(c.getScope() == 0 && checkOwn(s.getOwn()))
 			{
-				po.setSiteid(m.getSiteid());
-				po.setCategoryid(m.getId());
-				po.setEditid(getAccount());
-				po.setEditname(getName());
-				po.setEdittime(TimeUtil.getCurrentTime());
-				if(po.getReleasetime().trim().equals(""))
+				if(checkEditCategory(s.getId(), c.getId()))
 				{
-					po.setReleasetime(TimeUtil.getCurrentTime());
+					po.setSiteid(c.getSiteid());
+					po.setCategoryid(c.getId());
+					po.setEditid(getAccount());
+					po.setEditname(getName());
+					po.setEdittime(TimeUtil.getCurrentTime());
+					if(po.getReleasetime().trim().equals(""))
+					{
+						po.setReleasetime(TimeUtil.getCurrentTime());
+					}
+					po.setStatus(0); // 新增
+					if(po.getScope() != 2) // 不为外链
+					{
+						po.setUrl("/a/" + c.getFolder());
+					}
+					service.saveAuditPage(po, s.isEnablelog());// url拼接/id.html
+					print(1);
+					return;
 				}
-				po.setStatus(0); //新增
-				if(po.getScope() != 2) //不为外链
-				{
-					po.setUrl("/a/" + m.getFolder());
-				}
-				service.save(po);// url拼接/id.html
-				print(1);
 			}
-			else
-			{
-				print("0:站点不存在");
-			}
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -135,27 +133,36 @@ public class DsCmsEditController extends BaseController
 	@RequestMapping("/getPage")
 	public String getPage()
 	{
-		Long categoryid = req.getLong("id");
-		DsCmsCategory m = service.getCategory(categoryid);
-		DsCmsPermission permission = service.getPermission(m.getSiteid(), getAccount());
-		if(permission.checkEditall(m.getId()) || permission.checkEditown(m.getId()))
+		try
 		{
-			if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
+			Long categoryid = req.getLong("id");
+			DsCmsCategory c = service.getCategory(categoryid);
+			if(c.getScope() == 0 && checkOwn(c.getSiteid()))
 			{
-				PageRequest pr = getPageRequest();
-				pr.getFilters().remove("id");
-				pr.getFilters().put("siteid", m.getSiteid());
-				pr.getFilters().put("categoryid", m.getId());
-				if(permission.checkEditown(categoryid))
+				DsCmsPermission permission = service.getPermission(c.getSiteid(), getAccount());
+				if(permission.checkEdit(c.getId()))
 				{
-					pr.getFilters().put("useraccount", getAccount());
+					if(c.getScope() == 0 && checkOwn(c.getSiteid()))// 列表
+					{
+						PageRequest pr = getPageRequest();
+						pr.getFilters().remove("id");
+						pr.getFilters().put("siteid", c.getSiteid());
+						pr.getFilters().put("categoryid", c.getId());
+						if(permission.checkEditown(categoryid))
+						{
+							pr.getFilters().put("editid", getAccount());
+						}
+						Page<DsCmsAuditPage> pageModel = service.queryPageAuditPage(pr);
+						put("pageModel", pageModel);
+						put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
+						put("po", c);
+						return "/cms/edit/getPage.jsp";
+					}
 				}
-				Page<DsCmsAuditPage> pageModel = service.queryPage(pr);
-				put("pageModel", pageModel);
-				put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
-				put("po", m);
-				return "/cms/edit/getPage.jsp";
 			}
+		}
+		catch(Exception e)
+		{
 		}
 		return null;
 	}
@@ -166,37 +173,41 @@ public class DsCmsEditController extends BaseController
 	{
 		try
 		{
-			Long categoryid = req.getLong("id");
-			DsCmsCategory po = service.getCategory(categoryid);
-			if(po.getScope() == 0 && checkOwn(po.getSiteid()))
+			DsCmsCategory c = service.getCategory(req.getLong("id"));
+			DsCmsSite s = service.getSite(c.getSiteid());
+			if(c.getScope() == 0 && checkOwn(s.getOwn()))
 			{
-				long[] idArray = req.getLongArray("keyIndex", 0);
-				List<DsCmsAuditPage> updList = new ArrayList<DsCmsAuditPage>();
-				List<DsCmsAuditPage> delList = new ArrayList<DsCmsAuditPage>();
-				for(long id : idArray)
+				DsCmsPermission permission = service.getPermission(c.getSiteid(), getAccount());
+				if(permission.checkEdit(c.getId()))
 				{
-					DsCmsAuditPage page = service.get(id);
-					if(page != null)
+					boolean own = permission.checkEditown(c.getId());
+					long[] idArray = req.getLongArray("keyIndex", 0);
+					for(long id : idArray)
 					{
-						if(page.getStatus() == 0)// 新增的数据，直接删除
+						DsCmsAuditPage p = service.getAuditPage(id);
+						if(c.getId() == p.getCategoryid())
 						{
-							delList.add(page);
-						}
-						else// 非新增的数据，需审核后才能删除
-						{
-							page.setStatus(-1);
-							page.setAuditstatus(DsCmsAuditPage.AUDIT);
-							updList.add(page);
+							if(own && !getAccount().equals(p.getEditid()))
+							{
+								continue;
+							}
+							if(p.getStatus() == 0)// 新增的数据，直接删除
+							{
+								service.deleteAuditPage(p.getId());
+							}
+							else// 非新增的数据，需审核后才能删除
+							{
+								p.setStatus(-1);
+								p.setAuditstatus(DsCmsAuditPage.AUDIT);
+								service.updateAuditPage(p, s.isEnablelog());
+							}
 						}
 					}
+					print(1);
+					return;
 				}
-				service.updateAndDeleteList(updList, delList);
-				print(1);
 			}
-			else
-			{
-				print("0:站点不存在");
-			}
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -209,9 +220,23 @@ public class DsCmsEditController extends BaseController
 	@RequestMapping("/updPage1")
 	public String updPage1()
 	{
-		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		return "/cms/edit/updPage.jsp";
+		try
+		{
+			Long id = req.getLong("keyIndex");
+			DsCmsAuditPage po = service.getAuditPage(id);
+			if(checkOwn(po.getSiteid()))
+			{
+				if(checkEditPage(po.getSiteid(), po.getCategoryid(), po.getEditid()))
+				{
+					put("po", po);
+					return "/cms/edit/updPage.jsp";
+				}
+			}
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
 	}
 
 	@RequestMapping("/updPage2")
@@ -219,47 +244,37 @@ public class DsCmsEditController extends BaseController
 	{
 		try
 		{
-			DsCmsAuditPage _po = service.get(po.getId());
-			if(_po.isDraft() || _po.isNopass() || _po.isPass())
+			DsCmsAuditPage _po = service.getAuditPage(po.getId());
+			DsCmsSite s = service.getSite(_po.getSiteid());
+			if(checkOwn(s.getOwn()))
 			{
-				_po.setTitle(po.getTitle());
-				_po.setMetakeywords(po.getMetakeywords());
-				_po.setMetadescription(po.getMetadescription());
-				_po.setSummary(po.getSummary());
-				_po.setReleasetime(po.getReleasetime());
-				_po.setReleasesource(po.getReleasesource());
-				_po.setReleaseuser(po.getReleaseuser());
-				_po.setImg(po.getImg());
-				_po.setImgtop(po.getImgtop());
-				_po.setPagetop(po.getPagetop());
-				_po.setContent(po.getContent());
-				_po.setAuditstatus(po.getAuditstatus());
-				_po.setScope(po.getScope());
-				if(po.getScope() == 2)
+				if(checkEditPage(s.getId(), _po.getCategoryid(), _po.getEditid()))
 				{
-					_po.setUrl(po.getUrl());
+					if(_po.isEdit() || _po.isNopass() || _po.isPass()) // 普通采编操作
+					{
+						if(po.getScope() == 2)
+						{
+							po.setUrl(po.getUrl());
+						}
+						else
+						{
+							DsCmsCategory c = service.getCategory(po.getCategoryid());
+							po.setUrl("/a/" + c.getFolder() + "/" + _po.getId() + ".html");
+						}
+						po.setEditid(getAccount());
+						po.setEditname(getName());
+						po.setEdittime(TimeUtil.getCurrentTime());
+						service.updateAuditPage(po, s.isEnablelog());
+					}
+					else if(_po.isAudit())// 撤回操作
+					{
+						service.updateRevokeAuditPage(_po, s.isEnablelog());
+					}
+					print(1);
+					return;
 				}
-				else
-				{
-					DsCmsCategory m = service.getCategory(po.getCategoryid());
-					_po.setUrl("/a/" + m.getFolder() + "/" + _po.getId() + ".html");
-				}
-
-				_po.setEditid(getAccount());
-				_po.setEditname(getName());
-				_po.setEdittime(TimeUtil.getCurrentTime());
-				service.update(_po);
 			}
-			else if(_po.isAudit())// 撤回操作
-			{
-				_po.setAuditstatus(po.getAuditstatus());
-				if(_po.getStatus() == -1)// 撤回删除
-				{
-					_po.setStatus(1);
-				}
-				service.update(_po);
-			}
-			print(1);
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -267,34 +282,44 @@ public class DsCmsEditController extends BaseController
 			print("0:" + e.getMessage());
 		}
 	}
-	//还原内容
+
+	// 还原内容
 	@RequestMapping("/updPageRestore")
 	public void updPageRestore(DsCmsAuditPage po)
 	{
 		try
 		{
-			DsCmsAuditPage _po = service.get(po.getId());
-			if(_po.getStatus() > 0 && (_po.isDraft() || _po.isNopass()))
+			DsCmsAuditPage _po = service.getAuditPage(po.getId());
+			DsCmsSite s = service.getSite(_po.getSiteid());
+			if(checkOwn(s.getOwn()))
 			{
-				DsCmsPage page = service.getPage(po.getId());
-				_po.setTitle(page.getTitle());
-				_po.setMetakeywords(page.getMetakeywords());
-				_po.setMetadescription(page.getMetadescription());
-				_po.setSummary(page.getSummary());
-				_po.setContent(page.getContent());
-				_po.setReleasetime(page.getReleasetime());
-				_po.setReleasesource(page.getReleasesource());
-				_po.setReleaseuser(page.getReleaseuser());
-				_po.setImg(page.getImg());
-				_po.setImgtop(page.getImgtop());
-				_po.setPagetop(page.getPagetop());
-				_po.setScope(page.getScope());
-				_po.setUrl(page.getUrl());
-//				_po.setStatus(page.getStatus());
-				_po.setAuditstatus(DsCmsAuditPage.PASS);
-				service.update(_po);
+				if(checkEditPage(s.getId(), _po.getCategoryid(), _po.getEditid()))
+				{
+					if(_po.getStatus() > 0 && (_po.isEdit() || _po.isNopass()))
+					{
+						DsCmsPage page = service.getPage(po.getId());
+						_po.setTitle(page.getTitle());
+						_po.setMetakeywords(page.getMetakeywords());
+						_po.setMetadescription(page.getMetadescription());
+						_po.setSummary(page.getSummary());
+						_po.setContent(page.getContent());
+						_po.setReleasetime(page.getReleasetime());
+						_po.setReleasesource(page.getReleasesource());
+						_po.setReleaseuser(page.getReleaseuser());
+						_po.setImg(page.getImg());
+						_po.setImgtop(page.getImgtop());
+						_po.setPagetop(page.getPagetop());
+						_po.setScope(page.getScope());
+						_po.setUrl(page.getUrl());
+						// _po.setStatus(page.getStatus());
+						_po.setAuditstatus(DsCmsAuditPage.PASS);
+						service.updateAuditPage(_po, s.isEnablelog());
+					}
+					print(1);
+					return;
+				}
 			}
-			print(1);
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -309,18 +334,25 @@ public class DsCmsEditController extends BaseController
 	{
 		try
 		{
-			DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
-			DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-			if(permission.checkEditall(po.getId()) || permission.checkEditown(po.getId()))
+			long id = req.getLong("id");
+			DsCmsAuditCategory po = service.getAuditCategory(id);
+			if(po == null)
 			{
-				if(po.getReleasetime().isEmpty())
+				po = service.saveAuditCategory(id);
+			}
+			if(checkOwn(po.getSiteid()))
+			{
+				if(checkEditCategory(po.getSiteid(), po.getId()))
 				{
-					po.setReleasetime(TimeUtil.getCurrentTime());
+					if(po.getReleasetime().isEmpty())
+					{
+						po.setReleasetime(TimeUtil.getCurrentTime());
+					}
+					DsCmsCategory c = service.getCategory(po.getId());
+					put("scope", c.getScope());
+					put("po", po);
+					return "/cms/edit/updCategory.jsp";
 				}
-				DsCmsCategory m = service.getCategory(po.getId());
-				put("scope", m.getScope());
-				put("po", po);
-				return "/cms/edit/updCategory.jsp";
 			}
 			return null;
 		}
@@ -335,39 +367,40 @@ public class DsCmsEditController extends BaseController
 	{
 		try
 		{
-			DsCmsCategory m = service.getCategory(po.getId());
-			if(m.getScope() != 0 && checkOwn(m.getSiteid()))
+			DsCmsCategory c = service.getCategory(po.getId());
+			DsCmsSite s = service.getSite(c.getSiteid());
+			if(c.getScope() != 0 && checkOwn(s.getOwn()))
 			{
-				DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
-				if(_po.isDraft() || _po.isNopass() || _po.isPass())
+				if(checkEditCategory(s.getId(), c.getId()))
 				{
-					_po.setMetakeywords(po.getMetakeywords());
-					_po.setMetadescription(po.getMetadescription());
-					_po.setSummary(po.getSummary());
-					_po.setReleasetime(po.getReleasetime());
-					_po.setReleasesource(po.getReleasesource());
-					_po.setReleaseuser(po.getReleaseuser());
-					_po.setImg(po.getImg());
-					_po.setContent(po.getContent());
-					_po.setUrl(po.getUrl());
-					_po.setAuditstatus(po.getAuditstatus());
-
-					_po.setEditid(getAccount());
-					_po.setEditname(getName());
-					_po.setEdittime(TimeUtil.getCurrentTime());
-					service.updateAuditCategory(_po);
+					DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
+					if(_po.isEdit() || _po.isNopass() || _po.isPass())
+					{
+						_po.setMetakeywords(po.getMetakeywords());
+						_po.setMetadescription(po.getMetadescription());
+						_po.setSummary(po.getSummary());
+						_po.setReleasetime(po.getReleasetime());
+						_po.setReleasesource(po.getReleasesource());
+						_po.setReleaseuser(po.getReleaseuser());
+						_po.setImg(po.getImg());
+						_po.setContent(po.getContent());
+						_po.setUrl(po.getUrl());
+						_po.setAuditstatus(po.getAuditstatus());
+						_po.setEditid(getAccount());
+						_po.setEditname(getName());
+						_po.setEdittime(TimeUtil.getCurrentTime());
+						service.updateAuditCategory(_po, s.isEnablelog());
+					}
+					else if(_po.isAudit())
+					{
+						_po.setAuditstatus(po.getAuditstatus());
+						service.updateRevokeAuditCategory(_po, s.isEnablelog());
+					}
+					print(1);
+					return;
 				}
-				else if(_po.isAudit())
-				{
-					_po.setAuditstatus(po.getAuditstatus());
-					service.updateAuditCategory(_po);
-				}
-				print(1);
 			}
-			else
-			{
-				print("0:站点不存在");
-			}
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -375,30 +408,41 @@ public class DsCmsEditController extends BaseController
 			print("0:" + e.getMessage());
 		}
 	}
-	//还原栏目
+
+	// 还原栏目
 	@RequestMapping("/updCategoryRestore")
 	public void updCategoryRestore(DsCmsAuditCategory po)
 	{
 		try
 		{
-			DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
-			if(_po.getStatus() > 0 && (_po.isDraft() || _po.isNopass()))
+			DsCmsCategory m = service.getCategory(po.getId());
+			DsCmsSite s = service.getSite(m.getSiteid());
+			if(m.getScope() != 0 && checkOwn(s.getOwn()))
 			{
-				DsCmsCategory c = service.getCategory(po.getId());
-				_po.setMetakeywords(c.getMetakeywords());
-				_po.setMetadescription(c.getMetadescription());
-				_po.setSummary(c.getSummary());
-				_po.setContent(c.getContent());
-				_po.setReleasetime(c.getReleasetime());
-				_po.setReleasesource(c.getReleasesource());
-				_po.setReleaseuser(c.getReleaseuser());
-				_po.setImg(c.getImg());
-				_po.setUrl(c.getUrl());
-//				_po.setStatus(c.getStatus());
-				_po.setAuditstatus(DsCmsAuditCategory.PASS);
-				service.updateAuditCategory(_po);
+				if(checkEditCategory(s.getId(), m.getId()))
+				{
+					DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
+					if(_po.getStatus() > 0 && (_po.isEdit() || _po.isNopass()))
+					{
+						DsCmsCategory c = service.getCategory(po.getId());
+						_po.setMetakeywords(c.getMetakeywords());
+						_po.setMetadescription(c.getMetadescription());
+						_po.setSummary(c.getSummary());
+						_po.setContent(c.getContent());
+						_po.setReleasetime(c.getReleasetime());
+						_po.setReleasesource(c.getReleasesource());
+						_po.setReleaseuser(c.getReleaseuser());
+						_po.setImg(c.getImg());
+						_po.setUrl(c.getUrl());
+						// _po.setStatus(c.getStatus());
+						_po.setAuditstatus(DsCmsAuditCategory.PASS);
+						service.updateAuditCategory(_po, s.isEnablelog());
+					}
+					print(1);
+					return;
+				}
 			}
-			print(1);
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -406,11 +450,6 @@ public class DsCmsEditController extends BaseController
 			print("0:" + e.getMessage());
 		}
 	}
-
-
-
-
-
 
 	private boolean checkOwn(Long siteid)
 	{
@@ -424,8 +463,6 @@ public class DsCmsEditController extends BaseController
 		}
 	}
 
-
-
 	private boolean checkOwn(String own)
 	{
 		try
@@ -437,17 +474,42 @@ public class DsCmsEditController extends BaseController
 			return false;
 		}
 	}
-	
+
+	private boolean checkEditPage(long siteid, long categoryid, String editid)
+	{
+		try
+		{
+			DsCmsPermission permission = service.getPermission(siteid, getAccount());
+			return permission.checkEditall(categoryid) || (permission.checkEditown(categoryid) && getAccount().equals(editid));
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
+
+	private boolean checkEditCategory(long siteid, long categoryid)
+	{
+		try
+		{
+			return service.getPermission(siteid, getAccount()).checkEdit(categoryid);
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
+
 	private String getOwn()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getOwn();
 	}
-	
+
 	private String getAccount()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getAccount();
 	}
-	
+
 	private String getName()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getName();

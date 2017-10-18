@@ -34,33 +34,54 @@ public class DsCmsPermissionController extends BaseController
 	@RequestMapping("getCommonUser")
 	public String getCommonUser()
 	{
-		Page<Map<String, Object>> pageModel = service.queryPageCommonUser(getPageRequest());
-		put("pageModel", pageModel);
-		put("pageNav",  new PageNav<Map<String, Object>>(request, pageModel));
-		return "/cms/permission/getCommonUser.jsp";
+		try
+		{
+			Page<Map<String, Object>> pageModel = service.queryPageCommonUser(getPageRequest());
+			put("pageModel", pageModel);
+			put("pageNav", new PageNav<Map<String, Object>>(request, pageModel));
+			return "/cms/permission/getCommonUser.jsp";
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
 	}
 
 	// 获取企业用户分页
 	@RequestMapping("getEpUser")
 	public String getEpUser()
 	{
-		Auth user = AuthUtil.getLoginUser(request);
-		PageRequest pr = getPageRequest();
-		pr.getFilters().put("qybm", user.getQybm());
-		Page<Map<String, Object>> pageModel = service.queryPageEpUser(pr);
-		put("pageModel", pageModel);
-		put("pageNav", new PageNav<Map<String, Object>>(request, pageModel));
-		return "/cms/permission/getEpUser.jsp";
+		try
+		{
+			Auth user = AuthUtil.getLoginUser(request);
+			PageRequest pr = getPageRequest();
+			pr.getFilters().put("qybm", user.getQybm());
+			Page<Map<String, Object>> pageModel = service.queryPageEpUser(pr);
+			put("pageModel", pageModel);
+			put("pageNav", new PageNav<Map<String, Object>>(request, pageModel));
+			return "/cms/permission/getEpUser.jsp";
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
 	}
 
 	// 获取个人用户分页
 	@RequestMapping("getPersonUser")
 	public String getPersonUser()
 	{
-		Page<Map<String, Object>> pageModel = service.queryPagePersonUser(getPageRequest());
-		put("pageModel", pageModel);
-		put("pageNav", new PageNav<Map<String, Object>>(request, pageModel));
-		return "/cms/permission/getPersonUser.jsp";
+		try
+		{
+			Page<Map<String, Object>> pageModel = service.queryPagePersonUser(getPageRequest());
+			put("pageModel", pageModel);
+			put("pageNav", new PageNav<Map<String, Object>>(request, pageModel));
+			return "/cms/permission/getPersonUser.jsp";
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
 	}
 
 	// 用户权限
@@ -104,7 +125,7 @@ public class DsCmsPermissionController extends BaseController
 			return null;
 		}
 	}
-	
+
 	@RequestMapping("/updPermission2")
 	public void updPermission2()
 	{

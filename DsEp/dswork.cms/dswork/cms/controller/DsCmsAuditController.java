@@ -31,7 +31,7 @@ public class DsCmsAuditController extends BaseController
 	private DsCmsAuditService service;
 
 	@RequestMapping("getCategoryTree")
-	public String getCategoryAuditTree()
+	public String getCategoryTree()
 	{
 		try
 		{
@@ -47,7 +47,7 @@ public class DsCmsAuditController extends BaseController
 				{
 					for(DsCmsSite m : siteList)
 					{
-						if(m.getId().longValue() == id)
+						if(m.getId() == id)
 						{
 							siteid = m.getId();
 							break;
@@ -62,17 +62,14 @@ public class DsCmsAuditController extends BaseController
 			if(siteid >= 0)
 			{
 				DsCmsPermission permission = service.getPermission(siteid, getAccount());
-				List<DsCmsCategory> cateList = new ArrayList<DsCmsCategory>();
+				List<DsCmsCategory> categoryList = new ArrayList<DsCmsCategory>();
 				if(permission != null)
 				{
-					List<DsCmsCategory> _cateList = service.queryListCategory(siteid);
-					cateList = DsCmsUtil.categoryAccess(_cateList, permission.getAudit());
-					put("edit", permission.getEditall().length() > 2 || permission.getEditown().length() > 2);
-					put("audit", permission.getAudit().length() > 2);
-					put("publish", permission.getPublish().length() > 2);
+					List<DsCmsCategory> _categoryList = service.queryListCategory(siteid);
+					categoryList = DsCmsUtil.categoryAccess(_categoryList, permission.getAudit());
 				}
 				put("siteList", siteList);
-				put("cateList", cateList);
+				put("categoryList", categoryList);
 			}
 			put("siteid", siteid);
 			return "/cms/audit/getCategoryTree.jsp";
@@ -89,21 +86,27 @@ public class DsCmsAuditController extends BaseController
 	{
 		try
 		{
-			DsCmsAuditCategory po = service.getAuditCategory(req.getLong("id"));
-			DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-			if(permission.checkAudit(po.getId()))
+			long id = req.getLong("id");
+			DsCmsAuditCategory po = service.getAuditCategory(id);
+			if(po == null)
 			{
-				DsCmsCategory m = service.getCategory(po.getId());
-				put("scope", m.getScope());
-				put("po", po);
-				return "/cms/audit/auditCategory.jsp";
+				po = service.saveAuditCategory(id);
 			}
-			return null;
+			if(checkOwn(po.getSiteid()))
+			{
+				if(checkAudit(po.getSiteid(), po.getId()))
+				{
+					DsCmsCategory m = service.getCategory(po.getId());
+					put("scope", m.getScope());
+					put("po", po);
+					return "/cms/audit/auditCategory.jsp";
+				}
+			}
 		}
 		catch(Exception e)
 		{
-			return null;
 		}
+		return null;
 	}
 
 	@RequestMapping("/auditCategory2")
@@ -112,24 +115,26 @@ public class DsCmsAuditController extends BaseController
 		try
 		{
 			DsCmsCategory m = service.getCategory(po.getId());
-			if(m.getScope() != 0 && checkOwn(m.getSiteid()))
+			DsCmsSite s = service.getSite(m.getSiteid());
+			if(m.getScope() != 0 && checkOwn(s.getOwn()))
 			{
-				DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
-				if(_po.isAudit())
+				if(checkAudit(s.getId(), m.getId()))
 				{
-					_po.setMsg(po.getMsg());
-					_po.setAuditstatus(po.getAuditstatus());
-					_po.setAuditid(getAccount());
-					_po.setAuditname(getName());
-					_po.setAudittime(TimeUtil.getCurrentTime());
-					service.updateAuditCategory(_po, m);
+					DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
+					if(_po.isAudit())
+					{
+						_po.setMsg(po.getMsg());
+						_po.setAuditstatus(po.getAuditstatus());
+						_po.setAuditid(getAccount());
+						_po.setAuditname(getName());
+						_po.setAudittime(TimeUtil.getCurrentTime());
+						service.updateAuditCategory(_po, m, s.isEnablelog());
+					}
+					print(1);
+					return;
 				}
-				print(1);
 			}
-			else
-			{
-				print("0:站点不存在");
-			}
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -142,61 +147,94 @@ public class DsCmsAuditController extends BaseController
 	@RequestMapping("/getPage")
 	public String getPage()
 	{
-		Long categoryid = req.getLong("id");
-		DsCmsCategory m = service.getCategory(categoryid);
-		DsCmsPermission permission = service.getPermission(m.getSiteid(), getAccount());
-		if(permission.checkAudit(m.getId()))
+		try
 		{
-			if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
+			Long categoryid = req.getLong("id");
+			DsCmsCategory m = service.getCategory(categoryid);
+			DsCmsSite s = service.getSite(m.getSiteid());
+			if(checkOwn(s.getOwn()))
 			{
-				PageRequest pr = getPageRequest();
-				pr.getFilters().remove("id");
-				pr.getFilters().put("siteid", m.getSiteid());
-				pr.getFilters().put("categoryid", m.getId());
-				pr.getFilters().put("auditstatus", DsCmsAuditPage.AUDIT);
-				Page<DsCmsAuditPage> pageModel = service.queryPage(pr);
-				put("pageModel", pageModel);
-				put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
-				put("po", m);
-				return "/cms/audit/getPage.jsp";
+				if(checkAudit(s.getId(), m.getId()))
+				{
+					if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
+					{
+						PageRequest pr = getPageRequest();
+						pr.getFilters().remove("id");
+						pr.getFilters().put("siteid", m.getSiteid());
+						pr.getFilters().put("categoryid", m.getId());
+						pr.getFilters().put("auditstatus", DsCmsAuditPage.AUDIT);
+						Page<DsCmsAuditPage> pageModel = service.queryPageAuditPage(pr);
+						put("pageModel", pageModel);
+						put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
+						put("po", m);
+						return "/cms/audit/getPage.jsp";
+					}
+				}
 			}
+		}
+		catch(Exception e)
+		{
 		}
 		return null;
 	}
 
 	// 审核
 	@RequestMapping("/auditPage1")
-	public String updPage1()
-	{
-		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		put("page", req.getInt("page", 1));
-		return "/cms/audit/auditPage.jsp";
-	}
-
-	@RequestMapping("/auditPage2")
-	public void updPage2(DsCmsAuditPage po)
+	public String auditPage1()
 	{
 		try
 		{
-			DsCmsAuditPage _po = service.get(po.getId());
-			if(_po.getAuditstatus() == 1)
+			Long id = req.getLong("keyIndex");
+			DsCmsAuditPage po = service.getAuditPage(id);
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkOwn(s.getOwn()))
 			{
-				_po.setAuditstatus(po.getAuditstatus());
-				_po.setMsg(po.getMsg());
-				_po.setAuditid(getAccount());
-				_po.setAuditname(getName());
-				_po.setAudittime(TimeUtil.getCurrentTime());
-				if(_po.getStatus() == -1)
+				if(checkAudit(s.getId(), po.getCategoryid()))
 				{
-					service.deleteAuditPage(_po);
-				}
-				else
-				{
-					service.updateAuditPage(_po);
+					put("po", po);
+					put("page", req.getInt("page", 1));
+					return "/cms/audit/auditPage.jsp";
 				}
 			}
-			print(1);
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
+	}
+
+	@RequestMapping("/auditPage2")
+	public void auditPage2(DsCmsAuditPage po)
+	{
+		try
+		{
+			DsCmsAuditPage _po = service.getAuditPage(po.getId());
+			DsCmsSite s = service.getSite(_po.getSiteid());
+			if(checkOwn(s.getOwn()))
+			{
+				if(checkAudit(s.getId(), _po.getCategoryid()))
+				{
+					if(_po.getAuditstatus() == 1)
+					{
+						_po.setAuditstatus(po.getAuditstatus());
+						_po.setMsg(po.getMsg());
+						_po.setAuditid(getAccount());
+						_po.setAuditname(getName());
+						_po.setAudittime(TimeUtil.getCurrentTime());
+						if(_po.getStatus() == -1)
+						{
+							service.deleteAuditPage(_po, s.isEnablelog());
+						}
+						else
+						{
+							service.updateAuditPage(_po, s.isEnablelog());
+						}
+					}
+					print(1);
+					return;
+				}
+			}
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -204,8 +242,6 @@ public class DsCmsAuditController extends BaseController
 			print("0:" + e.getMessage());
 		}
 	}
-
-
 
 	private boolean checkOwn(Long siteid)
 	{
@@ -218,17 +254,41 @@ public class DsCmsAuditController extends BaseController
 			return false;
 		}
 	}
-	
+
+	private boolean checkOwn(String own)
+	{
+		try
+		{
+			return own.equals(getOwn());
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
+
+	private boolean checkAudit(long siteid, long categoryid)
+	{
+		try
+		{
+			return service.getPermission(siteid, getAccount()).checkAudit(categoryid);
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
+
 	private String getOwn()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getOwn();
 	}
-	
+
 	private String getAccount()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getAccount();
 	}
-	
+
 	private String getName()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getName();

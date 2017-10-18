@@ -58,7 +58,7 @@ $dswork.page.join = function(td, menu, id){
 		<td>${d.scope==2?'是':'否'}</td>
 		<td>${d.pagetop==1?'是':'否'}</td>
 		<td>${d.imgtop==1?'是':'否'}</td>
-		<td>${d.draft?'未提交':d.audit?'审核中':d.nopass?'未通过':d.pass?'已通过':''}</td>
+		<td>${d.edit?'未提交':d.audit?'审核中':d.nopass?'未通过':d.pass?'已通过':''}</td>
 	</tr>
 </c:forEach>
 </table>

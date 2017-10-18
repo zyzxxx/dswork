@@ -83,6 +83,7 @@
 		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
 		<if test="@Ognl@isNotEmpty(auditstatus)"> and AUDITSTATUS=#{auditstatus} </if>
 		<if test="@Ognl@isNotEmpty(editid)"> and EDITID=#{editid} </if>
+		<if test="@Ognl@isNotEmpty(editname)"> and EDITNAME=#{editname} </if>
 	</where>
 </sql>
 

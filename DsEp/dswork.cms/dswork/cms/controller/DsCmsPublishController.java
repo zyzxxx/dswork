@@ -32,7 +32,7 @@ public class DsCmsPublishController extends BaseController
 	private DsCmsPublishService service;
 
 	@RequestMapping("getCategoryTree")
-	public String getCategoryEditTree()
+	public String getCategoryTree()
 	{
 		try
 		{
@@ -48,7 +48,7 @@ public class DsCmsPublishController extends BaseController
 				{
 					for(DsCmsSite m : siteList)
 					{
-						if(m.getId().longValue() == id)
+						if(m.getId() == id)
 						{
 							siteid = m.getId();
 							break;
@@ -63,17 +63,14 @@ public class DsCmsPublishController extends BaseController
 			if(siteid >= 0)
 			{
 				DsCmsPermission permission = service.getPermission(siteid, getAccount());
-				List<DsCmsCategory> cateList = new ArrayList<DsCmsCategory>();
+				List<DsCmsCategory> categoryList = new ArrayList<DsCmsCategory>();
 				if(permission != null)
 				{
-					List<DsCmsCategory> _cateList = service.queryListCategory(siteid);
-					cateList = DsCmsUtil.categoryAccess(_cateList, permission.getPublish());
-					put("edit", permission.getEditall().length() > 2 || permission.getEditown().length() > 2);
-					put("audit", permission.getAudit().length() > 2);
-					put("publish", permission.getPublish().length() > 2);
+					List<DsCmsCategory> _categoryList = service.queryListCategory(siteid);
+					categoryList = DsCmsUtil.categoryAccess(_categoryList, permission.getPublish());
 				}
 				put("siteList", siteList);
-				put("cateList", cateList);
+				put("categoryList", categoryList);
 			}
 			put("siteid", siteid);
 			return "/cms/publish/getCategoryTree.jsp";
@@ -90,10 +87,9 @@ public class DsCmsPublishController extends BaseController
 	{
 		Long categoryid = req.getLong("id");
 		DsCmsCategory m = service.getCategory(categoryid);
-		DsCmsPermission permission = service.getPermission(m.getSiteid(), getAccount());
-		if(permission.checkPublish(m.getId()))
+		if(m.getScope() == 0 && checkOwn(m.getSiteid()))
 		{
-			if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
+			if(checkPublish(m.getSiteid(), m.getId()))
 			{
 				PageRequest pr = getPageRequest();
 				pr.getFilters().remove("id");
@@ -108,34 +104,54 @@ public class DsCmsPublishController extends BaseController
 		}
 		return null;
 	}
-	
+
 	// 获取page明细
 	@RequestMapping("/getPageById")
 	public String getPageById()
 	{
-		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		return "/cms/publish/getPageById.jsp";
-	}
-	
-	// 获取category明细
-	@RequestMapping("/getCategoryById")
-	public String getCategoryById()
-	{
-		Long id = req.getLong("id");
-		DsCmsCategory po = service.getCategory(id);
-		DsCmsPermission permission = service.getPermission(po.getSiteid(), getAccount());
-		if(permission.checkPublish(po.getId()))
+		try
 		{
-			DsCmsCategory m = service.getCategory(po.getId());
-			put("scope", m.getScope());
-			put("po", po);
-			return "/cms/publish/getCategoryById.jsp";
+			Long id = req.getLong("keyIndex");
+			DsCmsPage po = service.get(id);
+			if(checkOwn(po.getSiteid()))
+			{
+				if(checkPublish(po.getSiteid(), po.getCategoryid()))
+				{
+					put("po", po);
+					return "/cms/publish/getPageById.jsp";
+				}
+			}
+		}
+		catch(Exception e)
+		{
 		}
 		return null;
 	}
 
-
+	// 获取category明细
+	@RequestMapping("/getCategoryById")
+	public String getCategoryById()
+	{
+		try
+		{
+			Long id = req.getLong("id");
+			DsCmsCategory po = service.getCategory(id);
+			if(checkOwn(po.getSiteid()))
+			{
+				if(checkPublish(po.getSiteid(), po.getId()))
+				{
+					DsCmsCategory m = service.getCategory(po.getId());
+					put("scope", m.getScope());
+					put("po", po);
+					return "/cms/publish/getCategoryById.jsp";
+				}
+			} 
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
+	}
 
 	// 发布指定的信息
 	@RequestMapping("/build")
@@ -158,9 +174,8 @@ public class DsCmsPublishController extends BaseController
 		int pagesize = req.getInt("pagesize", 25);
 		_building(false, siteid, categoryid, pageid, pagesize);
 	}
-	
 	private HttpUtil httpUtil = new HttpUtil();
-	
+
 	/**
 	 * 生成或删除信息
 	 * @param isCreateOrDelete true生成，false删除
@@ -171,7 +186,7 @@ public class DsCmsPublishController extends BaseController
 	 */
 	private void _building(boolean isCreateOrDelete, long siteid, long categoryid, long pageid, int pagesize)
 	{
-		pagesize = (pagesize<=0) ? 25 : pagesize;
+		pagesize = (pagesize <= 0) ? 25 : pagesize;
 		try
 		{
 			if(siteid >= 0)
@@ -184,12 +199,12 @@ public class DsCmsPublishController extends BaseController
 				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 				{
 					String path = "http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cmsbuild/buildHTML.chtml?siteid=" + siteid;
-					//首页：categoryid==-1，pageid==-1
-					//全部栏目：categoryid==0，pageid==-1
-					//指定栏目：categoryid>0，pageid==-1
-					//全部内容：categoryid==0，pageid==0
-					//栏目内容：categoryid>0，pageid==0
-					//指定内容：pageid>0
+					// 首页：categoryid==-1，pageid==-1
+					// 全部栏目：categoryid==0，pageid==-1
+					// 指定栏目：categoryid>0，pageid==-1
+					// 全部内容：categoryid==0，pageid==0
+					// 栏目内容：categoryid>0，pageid==0
+					// 指定内容：pageid>0
 					DsCmsPermission permission = service.getPermission(siteid, getAccount());
 					if(pageid > 0)// 指定内容
 					{
@@ -215,7 +230,7 @@ public class DsCmsPublishController extends BaseController
 								}
 								print("1");
 							}
-							catch (Exception e)
+							catch(Exception e)
 							{
 								print("0");
 							}
@@ -277,7 +292,7 @@ public class DsCmsPublishController extends BaseController
 									}
 									service.updateCategoryStatus(c.getId(), isCreateOrDelete ? 8 : 0);
 								}
-								catch (Exception e)
+								catch(Exception e)
 								{
 								}
 							}
@@ -340,7 +355,7 @@ public class DsCmsPublishController extends BaseController
 											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 										}
 									}
-									catch (Exception e)
+									catch(Exception e)
 									{
 									}
 								}
@@ -368,7 +383,7 @@ public class DsCmsPublishController extends BaseController
 												service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 											}
 										}
-										catch (Exception e)
+										catch(Exception e)
 										{
 										}
 									}
@@ -396,10 +411,6 @@ public class DsCmsPublishController extends BaseController
 		{
 			e.printStackTrace();
 			print(isCreateOrDelete ? "0:生成失败" : "0:删除失败");
-		}
-		finally
-		{
-			httpUtil.create("http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cmsbuild/buildAfter.chtml").connect();
 		}
 	}
 
@@ -462,7 +473,7 @@ public class DsCmsPublishController extends BaseController
 	{
 		return request.getSession().getServletContext().getRealPath("/") + "/";
 	}
-	
+
 	private String getLocalAddr()
 	{
 		String addr = request.getLocalAddr();
@@ -472,8 +483,6 @@ public class DsCmsPublishController extends BaseController
 		}
 		return addr;
 	}
-
-
 
 	private boolean checkOwn(Long siteid)
 	{
@@ -498,12 +507,24 @@ public class DsCmsPublishController extends BaseController
 			return false;
 		}
 	}
-	
+
+	private boolean checkPublish(long siteid, long categoryid)
+	{
+		try
+		{
+			return service.getPermission(siteid, getAccount()).checkPublish(categoryid);
+		}
+		catch(Exception e)
+		{
+			return false;
+		}
+	}
+
 	private String getOwn()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getOwn();
 	}
-	
+
 	private String getAccount()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getAccount();

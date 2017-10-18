@@ -8,7 +8,7 @@ public class DsCmsPermission
 	// 主键
 	private Long id = 0L;
 	// 站点ID
-	private Long siteid = 0L;
+	private long siteid = 0L;
 	// 用户账号
 	private String account = "";
 	// 可采编栏目
@@ -30,12 +30,12 @@ public class DsCmsPermission
 		this.id = id;
 	}
 
-	public Long getSiteid()
+	public long getSiteid()
 	{
 		return siteid;
 	}
 
-	public void setSiteid(Long siteid)
+	public void setSiteid(long siteid)
 	{
 		this.siteid = siteid;
 	}
@@ -100,11 +100,16 @@ public class DsCmsPermission
 		return getEditown().indexOf("," + categoryid + ",") != -1;
 	}
 
+	public boolean checkEdit(long categoryid)
+	{
+		return checkEditall(categoryid) || checkEditown(categoryid);
+	}
+
 	public boolean checkAudit(long categoryid)
 	{
 		return getAudit().indexOf("," + categoryid + ",") != -1;
 	}
-	
+
 	public boolean checkPublish(long categoryid)
 	{
 		return getPublish().indexOf("," + categoryid + ",") != -1;

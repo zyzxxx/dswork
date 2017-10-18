@@ -19,6 +19,8 @@ public class DsCmsSite
 	private String img = "";
 	// 网站模板
 	private String viewsite = "";
+	// 开始日志(0否,1是)
+	private int enablelog = 0;
 
 	public Long getId()
 	{
@@ -88,5 +90,15 @@ public class DsCmsSite
 	public void setViewsite(String viewsite)
 	{
 		this.viewsite = viewsite;
+	}
+
+	public void setEnablelog(boolean enablelog)
+	{
+		this.enablelog = enablelog ? 1 : 0;
+	}
+
+	public boolean isEnablelog()
+	{
+		return this.enablelog == 1;
 	}
 }

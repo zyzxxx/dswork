@@ -58,7 +58,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
 		<td>
-		<c:if test="${(d.status==0 && (d.draft || d.nopass)) || d.pass}">
+		<c:if test="${(d.status==0 && (d.edit || d.nopass)) || d.pass}">
 			<input name="keyIndex" type="checkbox" value="${d.id}" />
 		</c:if>
 		</td>
@@ -68,7 +68,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td>${d.scope==2?'是':'否'}</td>
 		<td>${d.pagetop==1?'是':'否'}</td>
 		<td>${d.imgtop==1?'是':'否'}</td>
-		<td>${d.draft?'未提交':d.audit?'审核中':d.nopass?'未通过':d.pass?'已通过':''}</td>
+		<td>${d.edit?'未提交':d.audit?'审核中':d.nopass?'未通过':d.pass?'已通过':''}</td>
 	</tr>
 </c:forEach>
 </table>

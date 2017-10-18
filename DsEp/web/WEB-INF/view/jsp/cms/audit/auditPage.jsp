@@ -21,7 +21,6 @@ $(function(){
 	<tr>
 		<td class="title">审核页面</td>
 	<c:if test="${po.audit}">
-	</c:if>
 		<td class="menuTool">
 			<a class="submit" id="_pass" href="javascript:void(0);">通过</a>
 			<a class="close" id="_nopass" href="javascript:void(0);">不通过</a>
@@ -41,6 +40,7 @@ $(function(){
 			})
 			</script>
 		</td>
+	</c:if>
 	</tr>
 </table>
 <div class="line"></div>

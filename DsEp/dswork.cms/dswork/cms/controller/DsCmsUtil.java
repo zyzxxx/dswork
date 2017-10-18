@@ -31,7 +31,7 @@ class DsCmsUtil
 			categorySettingList(n, list);
 		}
 	}
-	
+
 	static List<DsCmsCategory> categorySettingList(List<DsCmsCategory> list)
 	{
 		List<DsCmsCategory> _list = new ArrayList<DsCmsCategory>();// 按顺序放入
@@ -45,7 +45,7 @@ class DsCmsUtil
 		}
 		return _list;
 	}
-	
+
 	static List<DsCmsCategory> categorySetting(List<DsCmsCategory> list)
 	{
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
@@ -70,7 +70,7 @@ class DsCmsUtil
 		}
 		return categorySettingList(_list);
 	}
-	
+
 	static List<DsCmsCategory> categoryAccess(List<DsCmsCategory> list, String ids)
 	{
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
@@ -86,18 +86,18 @@ class DsCmsUtil
 				map.put(c.getId(), c);
 			}
 		}
-		list.clear();
+		List<DsCmsCategory> __list = new ArrayList<DsCmsCategory>();
 		for(DsCmsCategory c : _list)
 		{
-			list.add(c);
+			__list.add(c);
 			DsCmsCategory p = null;
 			while(c.getPid() != 0 && (p = map.get(c.getPid())) != null)
 			{
-				list.add(p);
+				__list.add(p);
 				map.remove(p.getId());
 				c = p;
 			}
 		}
-		return categorySetting(list);
+		return categorySetting(__list);
 	}
 }

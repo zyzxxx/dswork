@@ -30,7 +30,6 @@ import dswork.web.MyFile;
 public class DsCmsPageController extends BaseController
 {
 	private HttpUtil httpUtil = new HttpUtil();// 单例模式下，用来保持session会话
-	
 	@Autowired
 	private DsCmsPageService service;
 
@@ -73,12 +72,12 @@ public class DsCmsPageController extends BaseController
 				{
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
-				if(po.getScope() != 2) //不为外链
+				if(po.getScope() != 2) // 不为外链
 				{
 					po.setUrl("/a/" + m.getFolder());
 				}
 				po.setStatus(0);
-				service.save(po);// url拼接/id.html
+				service.savePage(po, s.isEnablelog(), getOwn(), getName());// url拼接/id.html
 				print(1);
 				return;
 			}
@@ -101,7 +100,7 @@ public class DsCmsPageController extends BaseController
 			DsCmsCategory po = service.getCategory(categoryid);
 			if(po.getScope() == 0 && checkOwn(po.getSiteid()))
 			{
-				service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+				service.deleteBatchPage(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
 				print(1);
 				return;
 			}
@@ -118,10 +117,17 @@ public class DsCmsPageController extends BaseController
 	@RequestMapping("/updPage1")
 	public String updPage1()
 	{
-		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
-		put("page", req.getInt("page", 1));
-		return "/cms/page/updPage.jsp";
+		try
+		{
+			Long id = req.getLong("keyIndex");
+			put("po", service.getPage(id));
+			put("page", req.getInt("page", 1));
+			return "/cms/page/updPage.jsp";
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
 	}
 
 	@RequestMapping("/updPage2")
@@ -129,14 +135,21 @@ public class DsCmsPageController extends BaseController
 	{
 		try
 		{
-			po.setStatus(1);
-			if(po.getScope() != 2) //不为外链
+			DsCmsPage p = service.getPage(po.getId());
+			DsCmsSite s = service.getSite(p.getSiteid());
+			if(checkOwn(s.getOwn()))
 			{
-				DsCmsCategory m = service.getCategory(po.getCategoryid());
-				po.setUrl("/a/" + m.getFolder() + "/" + po.getId() + ".html");
+				po.setStatus(1);
+				if(po.getScope() != 2) // 不为外链
+				{
+					DsCmsCategory m = service.getCategory(p.getCategoryid());
+					po.setUrl("/a/" + m.getFolder() + "/" + po.getId() + ".html");
+				}
+				service.updatePage(po, s.isEnablelog(), getOwn(), getName());
+				print(1);
+				return;
 			}
-			service.update(po);
-			print(1);
+			print("0:站点不存在");
 		}
 		catch(Exception e)
 		{
@@ -149,21 +162,24 @@ public class DsCmsPageController extends BaseController
 	@RequestMapping("/updCategory1")
 	public String updCategory1()
 	{
-		Long id = req.getLong("id");
-		DsCmsCategory po = service.getCategory(id);
-		if(po.getScope() == 1)// 单页栏目
+		try
 		{
-			if(po.getReleasetime() == null || po.getReleasetime().length() == 0)
+			Long id = req.getLong("id");
+			DsCmsCategory po = service.getCategory(id);
+			if(po.getScope() == 1)// 单页栏目
 			{
-				po.setReleasetime(TimeUtil.getCurrentTime());
-			}
-			put("po", po);
-			return "/cms/page/updCategory.jsp";
+				if(po.getReleasetime() == null || po.getReleasetime().length() == 0)
+				{
+					po.setReleasetime(TimeUtil.getCurrentTime());
+				}
+				put("po", po);
+				return "/cms/page/updCategory.jsp";
+			} 
 		}
-		else
+		catch(Exception e)
 		{
-			return null;
 		}
+		return null;
 	}
 
 	@RequestMapping("/updCategory2")
@@ -172,10 +188,14 @@ public class DsCmsPageController extends BaseController
 		try
 		{
 			DsCmsCategory m = service.getCategory(po.getId());
+			DsCmsSite s = service.getSite(m.getSiteid());
 			if(m.getScope() == 1 && checkOwn(m.getSiteid()))
 			{
 				po.setStatus(1);
-				service.updateCategory(po);
+				po.setSiteid(m.getSiteid());
+				po.setName(m.getName());
+				po.setScope(m.getScope());
+				service.updateCategory(po, s.isEnablelog(), getOwn(), getName());
 				print(1);
 				return;
 			}
@@ -205,7 +225,7 @@ public class DsCmsPageController extends BaseController
 				{
 					for(DsCmsSite m : siteList)
 					{
-						if(m.getId().longValue() == id)
+						if(m.getId() == id)
 						{
 							siteid = m.getId();
 							break;
@@ -234,19 +254,25 @@ public class DsCmsPageController extends BaseController
 	@RequestMapping("/getPage")
 	public String getPage()
 	{
-		Long categoryid = req.getLong("id");
-		DsCmsCategory m = service.getCategory(categoryid);
-		if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
+		try
 		{
-			PageRequest rq = getPageRequest();
-			rq.getFilters().put("siteid", m.getSiteid());
-			rq.getFilters().put("categoryid", m.getId());
-			rq.getFilters().put("keyvalue", req.getString("keyvalue"));
-			Page<DsCmsPage> pageModel = service.queryPage(rq);
-			put("pageModel", pageModel);
-			put("pageNav", new PageNav<DsCmsPage>(request, pageModel));
-			put("po", m);
-			return "/cms/page/getPage.jsp";
+			Long categoryid = req.getLong("id");
+			DsCmsCategory m = service.getCategory(categoryid);
+			if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
+			{
+				PageRequest rq = getPageRequest();
+				rq.getFilters().put("siteid", m.getSiteid());
+				rq.getFilters().put("categoryid", m.getId());
+				rq.getFilters().put("keyvalue", req.getString("keyvalue"));
+				Page<DsCmsPage> pageModel = service.queryPagePage(rq);
+				put("pageModel", pageModel);
+				put("pageNav", new PageNav<DsCmsPage>(request, pageModel));
+				put("po", m);
+				return "/cms/page/getPage.jsp";
+			} 
+		}
+		catch(Exception e)
+		{
 		}
 		return null;
 	}
@@ -281,7 +307,7 @@ public class DsCmsPageController extends BaseController
 					{
 						if("jpg,jpeg,png".indexOf(ext) != -1)
 						{
-							// 压缩图片使尺寸最多不超过800*800
+							// 压缩图片使尺寸最多不超过1000*1000
 							byte[] arr = dswork.core.util.ImageUtil.resize(FileUtil.getToInputStream(byteArray), 1000, 1000);
 							if(arr == null)
 							{
@@ -392,7 +418,7 @@ public class DsCmsPageController extends BaseController
 	 */
 	private void _building(boolean isCreateOrDelete, long siteid, long categoryid, long pageid, int pagesize)
 	{
-		pagesize = (pagesize<=0) ? 25 : pagesize;
+		pagesize = (pagesize <= 0) ? 25 : pagesize;
 		try
 		{
 			if(siteid >= 0)
@@ -405,25 +431,25 @@ public class DsCmsPageController extends BaseController
 				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 				{
 					String path = "http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cmsbuild/buildHTML.chtml?siteid=" + siteid;
-					//首页：categoryid==-1，pageid==-1
-					//全部栏目：categoryid==0，pageid==-1
-					//指定栏目：categoryid>0，pageid==-1
-					//全部内容：categoryid==0，pageid==0
-					//栏目内容：categoryid>0，pageid==0
-					//指定内容：pageid>0
+					// 首页：categoryid==-1，pageid==-1
+					// 全部栏目：categoryid==0，pageid==-1
+					// 指定栏目：categoryid>0，pageid==-1
+					// 全部内容：categoryid==0，pageid==0
+					// 栏目内容：categoryid>0，pageid==0
+					// 指定内容：pageid>0
 					if(pageid > 0)// 指定内容
 					{
-						DsCmsPage p = service.get(pageid);
+						DsCmsPage p = service.getPage(pageid);
 						if(p.getSiteid() == siteid)
 						{
 							try
 							{
-								if(p.getStatus().intValue() == -1)
+								if(p.getStatus() == -1)
 								{
 									_buildFile(null, p.getUrl(), site.getFolder());
-									service.delete(p.getId());
+									service.deletePage(p.getId());
 								}
-								else if(p.getScope().intValue() == 2)
+								else if(p.getScope() == 2)
 								{
 									DsCmsCategory c = service.getCategory(p.getCategoryid());
 									_buildFile(null, "/a/" + c.getFolder() + "/" + p.getId() + ".html", site.getFolder());
@@ -435,7 +461,7 @@ public class DsCmsPageController extends BaseController
 								}
 								print("1");
 							}
-							catch (Exception e)
+							catch(Exception e)
 							{
 								print("0");
 							}
@@ -466,7 +492,7 @@ public class DsCmsPageController extends BaseController
 							{
 								try
 								{
-									if(c.getScope().intValue() == 2)// 外链没有东西生成的
+									if(c.getScope() == 2)// 外链没有东西生成的
 									{
 										_deleteFile(site.getFolder(), c.getFolder(), true, true);
 										continue;
@@ -482,7 +508,7 @@ public class DsCmsPageController extends BaseController
 										PageRequest rq = new PageRequest(map);
 										rq.setPageSize(pagesize);
 										rq.setCurrentPage(1);
-										Page<DsCmsPage> pageModel = service.queryPage(rq);
+										Page<DsCmsPage> pageModel = service.queryPagePage(rq);
 										for(int i = 2; i <= pageModel.getLastPage(); i++)
 										{
 											_buildFile(path + "&categoryid=" + c.getId() + "&page=" + i + "&pagesize=" + pagesize, c.getUrl().replaceAll("\\.html", "_" + i + ".html"), site.getFolder());
@@ -490,7 +516,7 @@ public class DsCmsPageController extends BaseController
 									}
 									service.updateCategoryStatus(c.getId(), isCreateOrDelete ? 8 : 0);
 								}
-								catch (Exception e)
+								catch(Exception e)
 								{
 								}
 							}
@@ -518,7 +544,7 @@ public class DsCmsPageController extends BaseController
 						}
 						for(DsCmsCategory c : list)
 						{
-							if(c.getScope().intValue() == 2)// 外链没有东西生成的
+							if(c.getScope() == 2)// 外链没有东西生成的
 							{
 								_deleteFile(site.getFolder(), c.getFolder(), true, true);
 								continue;
@@ -531,22 +557,22 @@ public class DsCmsPageController extends BaseController
 								map.put("releasetime", TimeUtil.getCurrentTime());
 								map.put("categoryid", c.getId());
 								PageRequest rq = new PageRequest(1, pagesize, map);
-								Page<DsCmsPage> pageModel = service.queryPage(rq);
+								Page<DsCmsPage> pageModel = service.queryPagePage(rq);
 								for(DsCmsPage p : pageModel.getResult())
 								{
 									try
 									{
-										if(p.getStatus().intValue() == -1)
+										if(p.getStatus() == -1)
 										{
-											service.delete(p.getId());
+											service.deletePage(p.getId());
 										}
-										else if(p.getScope().intValue() != 2)
+										else if(p.getScope() != 2)
 										{
 											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 										}
 									}
-									catch (Exception e)
+									catch(Exception e)
 									{
 									}
 								}
@@ -559,22 +585,22 @@ public class DsCmsPageController extends BaseController
 									rq.setFilters(map);
 									rq.setPageSize(pagesize);
 									rq.setCurrentPage(i);
-									List<DsCmsPage> pageList = service.queryList(rq);
+									List<DsCmsPage> pageList = service.queryListPage(rq);
 									for(DsCmsPage p : pageList)
 									{
 										try
 										{
-											if(p.getStatus().intValue() == -1)
+											if(p.getStatus() == -1)
 											{
-												service.delete(p.getId());
+												service.deletePage(p.getId());
 											}
-											else if(p.getScope().intValue() != 2)
+											else if(p.getScope() != 2)
 											{
 												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 												service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 											}
 										}
-										catch (Exception e)
+										catch(Exception e)
 										{
 										}
 									}
@@ -602,10 +628,6 @@ public class DsCmsPageController extends BaseController
 		{
 			e.printStackTrace();
 			print(isCreateOrDelete ? "0:生成失败" : "0:删除失败");
-		}
-		finally
-		{
-			httpUtil.create("http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cmsbuild/buildAfter.chtml").connect();
 		}
 	}
 
@@ -680,7 +702,7 @@ public class DsCmsPageController extends BaseController
 			{
 				try
 				{
-					if(m.getScope().intValue() == 0 || m.getScope().intValue() == 1)// 过滤外链栏目
+					if(m.getScope() == 0 || m.getScope() == 1)// 过滤外链栏目
 					{
 						map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
 					}
@@ -692,7 +714,7 @@ public class DsCmsPageController extends BaseController
 			}
 			else if(m.getPid() == 0)
 			{
-				if(m.getScope().intValue() == 0 || m.getScope().intValue() == 1)// 过滤外链栏目
+				if(m.getScope() == 0 || m.getScope() == 1)// 过滤外链栏目
 				{
 					tlist.add(m);// 只把根节点放入list
 				}
@@ -729,5 +751,10 @@ public class DsCmsPageController extends BaseController
 	private String getOwn()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getOwn();
+	}
+
+	private String getName()
+	{
+		return common.auth.AuthUtil.getLoginUser(request).getName();
 	}
 }

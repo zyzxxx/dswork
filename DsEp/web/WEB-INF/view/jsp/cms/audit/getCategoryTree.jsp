@@ -36,7 +36,7 @@ $dswork.ztree.click = function(){
 };
 $(function(){
 	var v = [];
-	<c:forEach items="${cateList}" var="d">
+	<c:forEach items="${categoryList}" var="d">
 	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}"});
 	</c:forEach>
 	$dswork.ztree.nodeArray = v;

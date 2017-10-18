@@ -11,9 +11,9 @@ public class DsCmsCategory
 	// 主键
 	private Long id = 0L;
 	// 父ID
-	private Long pid = 0L;
+	private Long pid = null;
 	// 站点ID
-	private Long siteid = 0L;
+	private long siteid = 0L;
 	// 状态(-1待删除,0待发布,1待更新,8已发布)
 	private int status = 0;
 	// 栏目名称
@@ -21,7 +21,7 @@ public class DsCmsCategory
 	// 目录名称
 	private String folder = "";
 	// 类型(0列表,1单页,2外链)
-	private Integer scope = 0;
+	private int scope = 0;
 	// 链接
 	private String url = "";
 	// 栏目模板
@@ -29,7 +29,7 @@ public class DsCmsCategory
 	// 内容模板
 	private String pageviewsite = "";
 	// 排序
-	private Integer seq = 0;
+	private int seq = 0;
 	// meta关键词
 	private String metakeywords = "";
 	// meta描述
@@ -65,7 +65,7 @@ public class DsCmsCategory
 
 	public Long getPid()
 	{
-		return pid;
+		return (pid == null || pid <= 0) ? 0 : pid;
 	}
 
 	public void setPid(Long pid)
@@ -73,12 +73,12 @@ public class DsCmsCategory
 		this.pid = (pid == null || pid <= 0) ? 0 : pid;
 	}
 
-	public Long getSiteid()
+	public long getSiteid()
 	{
 		return siteid;
 	}
 
-	public void setSiteid(Long siteid)
+	public void setSiteid(long siteid)
 	{
 		this.siteid = siteid;
 	}
@@ -113,12 +113,12 @@ public class DsCmsCategory
 		this.folder = folder;
 	}
 
-	public Integer getScope()
+	public int getScope()
 	{
 		return scope;
 	}
 
-	public void setScope(Integer scope)
+	public void setScope(int scope)
 	{
 		this.scope = scope;
 	}
@@ -153,12 +153,12 @@ public class DsCmsCategory
 		this.pageviewsite = pageviewsite;
 	}
 
-	public Integer getSeq()
+	public int getSeq()
 	{
 		return seq;
 	}
 
-	public void setSeq(Integer seq)
+	public void setSeq(int seq)
 	{
 		this.seq = seq;
 	}

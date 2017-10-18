@@ -67,18 +67,18 @@ $(function(){
 				});
 			});
 			</script>
-		<c:if test="${po.status>0 && (po.draft || po.nopass)}">
-			<a class="back" id="_restore" href="javascript:void(0);">还原</a>
-			<script type="text/javascript">
-			$(function(){
-				$("#_restore").click(function(){
-					if(confirm("确认还原吗？")){
-						$('<form method="post" action="updCategoryRestore.htm">').append('<input name="id" value="${po.id}">').ajaxSubmit($dswork.doAjaxOption);
-					}
-				})
-			});
-			</script>
-		</c:if>
+			<c:if test="${po.status>0 && (po.edit || po.nopass)}">
+				<a class="back" id="_restore" href="javascript:void(0);">还原</a>
+				<script type="text/javascript">
+				$(function(){
+					$("#_restore").click(function(){
+						if(confirm("确认还原吗？")){
+							$('<form method="post" action="updCategoryRestore.htm">').append('<input name="id" value="${po.id}">').ajaxSubmit($dswork.doAjaxOption);
+						}
+					})
+				});
+				</script>
+			</c:if>
 		</c:if>
 		<c:if test="${po.audit}">
 			<a class="back" id="_back" href="javascript:void(0);">撤回提交</a>

@@ -24,7 +24,7 @@ import dswork.core.page.PageRequest;
 public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 {
 	@Autowired
-	private DsCmsCategoryDao catDao;
+	private DsCmsCategoryDao categoryDao;
 	@Autowired
 	private DsCmsSiteDao siteDao;
 	@Autowired
@@ -33,7 +33,7 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	@Override
 	protected EntityDao getEntityDao()
 	{
-		return catDao;
+		return categoryDao;
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	{
 		for(int i = 0; i < idArr.length && i < seqArr.length; i++)
 		{
-			catDao.updateSeq(idArr[i], seqArr[i], siteid);
+			categoryDao.updateSeq(idArr[i], seqArr[i], siteid);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("pid", pid);
-		return catDao.queryCount(new PageRequest(map));
+		return categoryDao.queryCount(new PageRequest(map));
 	}
 
 	/**

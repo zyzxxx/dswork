@@ -48,7 +48,7 @@ function unbuild(categoryid, pageid){
 }
 $(function(){
 	var v = [];
-	<c:forEach items="${cateList}" var="d">
+	<c:forEach items="${categoryList}" var="d">
 	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}"});
 	</c:forEach>
 	$dswork.ztree.nodeArray = v;
@@ -100,7 +100,7 @@ $(function(){
 		<td class="title">切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
 			<input id="btn_site" type="button" class="button" value="发布首页" />&nbsp;<input type="button" class="button" value="预览首页" onclick="window.open('${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${siteid}');" />
 			&nbsp;&nbsp;
-			选择需要发布的栏目：<select id="category"><option value="0">全部栏目</option><c:forEach items="${cateList}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
+			选择需要发布的栏目：<select id="category"><option value="0">全部栏目</option><c:forEach items="${categoryList}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
 			<input id="btn_category" type="button" class="button" value="发布栏目首页" />
 			<input id="btn_page" type="button" class="button" value="发布栏目内容" />
 			<input id="view" type="button" class="button" value="预览栏目" />

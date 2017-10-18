@@ -27,7 +27,7 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 	@Autowired
 	private DsCmsPageDao pageDao;
 	@Autowired
-	private DsCmsCategoryDao cateDao;
+	private DsCmsCategoryDao categoryDao;
 	@Autowired
 	private DsCmsSiteDao siteDao;
 	@Autowired
@@ -46,7 +46,7 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 
 	public DsCmsCategory getCategory(Long categoryid)
 	{
-		return (DsCmsCategory) cateDao.get(categoryid);
+		return (DsCmsCategory) categoryDao.get(categoryid);
 	}
 
 	public List<DsCmsSite> queryListSite(Map<String, Object> map)
@@ -59,7 +59,7 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		return cateDao.queryList(map);
+		return categoryDao.queryList(map);
 	}
 
 	public DsCmsPermission getPermission(Long siteid, String account)
@@ -74,6 +74,6 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 
 	public void updateCategoryStatus(Long id, int status)
 	{
-		cateDao.updateStatus(id, status);
+		categoryDao.updateStatus(id, status);
 	}
 }

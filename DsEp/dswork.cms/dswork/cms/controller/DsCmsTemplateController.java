@@ -27,7 +27,7 @@ public class DsCmsTemplateController extends BaseController
 {
 	@Autowired
 	private DsCmsSiteService service;
-	
+
 	private String getCmsRoot()
 	{
 		return request.getSession().getServletContext().getRealPath("/html") + "/";
@@ -50,7 +50,7 @@ public class DsCmsTemplateController extends BaseController
 				{
 					for(DsCmsSite m : siteList)
 					{
-						if(m.getId().longValue() == id)
+						if(m.getId() == id)
 						{
 							siteid = m.getId();
 							put("site", m);
@@ -129,8 +129,8 @@ public class DsCmsTemplateController extends BaseController
 		System.out.println(sb.toString());
 		print(sb.toString());
 	}
-	
-	//内容编辑
+
+	// 内容编辑
 	@RequestMapping("/editTemplate1")
 	public String editTemplate1()
 	{
@@ -151,7 +151,6 @@ public class DsCmsTemplateController extends BaseController
 					File froot = new File(filePath);
 					File finclude = new File(filePath + "include");
 					File f = new File(filePath + uriPath);
-
 					// 限制为只能读取根目录和include目录下的文件
 					if(f.isFile() && (f.getParent().equals(froot.getPath()) || f.getParent().equals(finclude.getPath())))
 					{
@@ -193,20 +192,19 @@ public class DsCmsTemplateController extends BaseController
 					bak.mkdirs();
 					File finclude = new File(filePath + "include");
 					File f = new File(filePath + uriPath);
-
 					// 限制为只能读取根目录和include目录下的文件
 					if(f.isFile() && (f.getParent().equals(froot.getPath()) || f.getParent().equals(finclude.getPath())))
 					{
 						try
 						{
-							FileUtil.copy(f.getPath(), bak.getPath() + "/" + TimeUtil.getCurrentTime("yyyyMMddHHmmss")+f.getName());
+							FileUtil.copy(f.getPath(), bak.getPath() + "/" + TimeUtil.getCurrentTime("yyyyMMddHHmmss") + f.getName());
 						}
 						catch(Exception e)
 						{
 							print("0:文件备份失败，请重试");
 							return;
 						}
-						FileUtil.writeFile(f.getPath(), content,  "UTF-8", true);
+						FileUtil.writeFile(f.getPath(), content, "UTF-8", true);
 						print("1");
 					}
 				}
@@ -230,6 +228,7 @@ public class DsCmsTemplateController extends BaseController
 		}
 		return false;
 	}
+
 	private String getOwn()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getOwn();

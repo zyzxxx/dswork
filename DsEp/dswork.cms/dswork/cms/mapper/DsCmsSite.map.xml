@@ -10,9 +10,9 @@
 		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_CMS_SITE
-	(OWN, NAME, FOLDER, URL, IMG, VIEWSITE)
+	(OWN, NAME, FOLDER, URL, IMG, VIEWSITE, ENABLELOG)
 	values
-	(#{own}, #{name}, #{folder}, #{url}, #{img}, #{viewsite})
+	(#{own}, #{name}, #{folder}, #{url}, #{img}, #{viewsite}, #{enablelog})
 </insert>
 
 <delete id="delete">
@@ -24,7 +24,8 @@
 		NAME=#{name},
 		URL=#{url},
 		IMG=#{img},
-		VIEWSITE=#{viewsite}
+		VIEWSITE=#{viewsite},
+		ENABLELOG=#{enablelog}
 	where ID=#{id}
 </update>
 
@@ -36,10 +37,11 @@
 	<result property="url" column="URL" />
 	<result property="img" column="IMG" />
 	<result property="viewsite" column="VIEWSITE" />
+	<result property="enablelog" column="ENABLELOG" />
 </resultMap>
 
 <sql id="columns">
-	ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE
+	ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE, ENABLELOG
 </sql>
 
 <sql id="dynamicWhere">

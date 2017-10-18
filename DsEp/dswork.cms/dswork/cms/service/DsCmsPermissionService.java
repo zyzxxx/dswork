@@ -31,7 +31,7 @@ public class DsCmsPermissionService
 	@Autowired
 	private DsCmsSiteDao siteDao;
 	@Autowired
-	private DsCmsCategoryDao cateDao;
+	private DsCmsCategoryDao categoryDao;
 	@Autowired
 	private DsCmsUserDao userDao;
 
@@ -39,14 +39,17 @@ public class DsCmsPermissionService
 	{
 		return dao.save(po);
 	}
+
 	public int delete(long siteid, String account)
 	{
 		return dao.delete(siteid, account);
 	}
+
 	public int update(DsCmsPermission po)
 	{
 		return dao.update(po);
 	}
+
 	public DsCmsPermission get(Long siteid, String account)
 	{
 		return dao.get(siteid, account);
@@ -56,21 +59,24 @@ public class DsCmsPermissionService
 	{
 		return siteDao.queryList(map);
 	}
+
 	public List<DsCmsCategory> queryListCategory(Long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		return cateDao.queryList(map);
+		return categoryDao.queryList(map);
 	}
 
 	public Page<Map<String, Object>> queryPageCommonUser(PageRequest pr)
 	{
 		return userDao.queryPageCommonUser(pr);
 	}
+
 	public Page<Map<String, Object>> queryPageEpUser(PageRequest pr)
 	{
 		return userDao.queryPageEpUser(pr);
 	}
+
 	public Page<Map<String, Object>> queryPagePersonUser(PageRequest pr)
 	{
 		return userDao.queryPagePersonUser(pr);

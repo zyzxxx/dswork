@@ -33,7 +33,7 @@ public class DsCmsFileController extends BaseController
 {
 	@Autowired
 	private DsCmsSiteService service;
-	
+
 	private String getCmsRoot()
 	{
 		return request.getSession().getServletContext().getRealPath("/html") + "/";
@@ -55,7 +55,7 @@ public class DsCmsFileController extends BaseController
 				{
 					for(DsCmsSite m : siteList)
 					{
-						if(m.getId().longValue() == id)
+						if(m.getId() == id)
 						{
 							siteid = m.getId();
 							put("site", m);
@@ -244,7 +244,7 @@ public class DsCmsFileController extends BaseController
 				{
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				//List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+				// List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
 				{
 					String resPath = getCmsRoot() + site.getFolder() + "/html/f/res/";
@@ -264,7 +264,6 @@ public class DsCmsFileController extends BaseController
 			print("{\"err\":\"上传失败\",\"msg\":\"\"}");
 		}
 	}
-	
 	private static String hz = "avi,bmp,css,doc,docx,flv,gif,jpeg,jpg,mp3,mp4,pdf,png,ppt,pptx,rtf,swf,txt,xls,xlsx";
 	private static String cc = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ-_0123456789.";
 	private static String[] hzArr = hz.split(",");
@@ -278,25 +277,22 @@ public class DsCmsFileController extends BaseController
 	{
 		try
 		{
-			//File zipFile = new File(zipFilePath);
-			//InputStream is = new FileInputStream(zipFile);
+			// File zipFile = new File(zipFilePath);
+			// InputStream is = new FileInputStream(zipFile);
 			InputStream is = FileUtil.getToInputStream(dataArray);
 			ZipInputStream zis = new ZipInputStream(is, Charset.forName("GBK"));
 			ZipEntry entry = null;
-			outer:
-			while((entry = zis.getNextEntry()) != null)
+			outer:while((entry = zis.getNextEntry()) != null)
 			{
-				System.out.println("解压缩文件" + (entry.isDirectory()?"夹：":"：") + entry.getName());
+				System.out.println("解压缩文件" + (entry.isDirectory() ? "夹：" : "：") + entry.getName());
 				String zfilepath = entry.getName().replaceAll("\\\\", "/");
 				if(zfilepath.endsWith("/"))
 				{
 					zfilepath = zfilepath.substring(0, zfilepath.length() - 1);
 					System.out.println(zfilepath);
 				}
-				
-				
 				int zi = zfilepath.lastIndexOf("/");
-				String zfilename = zi == -1 ? zfilepath : zfilepath.substring(zi+1);
+				String zfilename = zi == -1 ? zfilepath : zfilepath.substring(zi + 1);
 				try
 				{
 					int i = zfilename.lastIndexOf(".");
@@ -309,7 +305,7 @@ public class DsCmsFileController extends BaseController
 					{
 						if(cc.indexOf(zfilename.charAt(j) + "") == -1)
 						{
-							continue outer;//非法文件名
+							continue outer;// 非法文件名
 						}
 					}
 					if(entry.isDirectory())// 文件夹会先于文件解压缩
@@ -343,8 +339,9 @@ public class DsCmsFileController extends BaseController
 								continue;// 后缀名不匹配
 							}
 							File zFile = new File(targetPath + File.separator + zfilepath);
-							if(zFile.getParentFile().exists()){
-				            	zFile.createNewFile();
+							if(zFile.getParentFile().exists())
+							{
+								zFile.createNewFile();
 								FileOutputStream fos = new FileOutputStream(zFile);
 								int bread;
 								while((bread = zis.read()) != -1)
@@ -353,7 +350,7 @@ public class DsCmsFileController extends BaseController
 								}
 								fos.close();
 								System.out.println("成功解压文件:" + zFile.getPath());
-				            }
+							}
 							// 不存在上级目录，代表目录名不合法
 						}
 					}
@@ -374,7 +371,6 @@ public class DsCmsFileController extends BaseController
 		}
 	}
 
-
 	private boolean checkOwn(String own)
 	{
 		try
@@ -386,6 +382,7 @@ public class DsCmsFileController extends BaseController
 		}
 		return false;
 	}
+
 	private String getOwn()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getOwn();

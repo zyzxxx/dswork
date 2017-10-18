@@ -99,7 +99,7 @@ $(function(){
 			<input type="text" name="img" id="inputImg" maxlength="100" style="width:300px;" value="${fn:escapeXml(po.img)}" />
 			&nbsp; <input type="button" class="button" id="btnFill" value="识别图片">
 			&nbsp; <input type="button" class="button" id="btnClean" value="清空">
-			<br />
+			<br>
 			<img id="imgShow" style="width:100px">
 		</td>
 	</tr>
@@ -112,7 +112,6 @@ $(function(){
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />
-<input type="hidden" name="categoryid" value="${po.categoryid}" />
 </form>
 </body>
 </html>

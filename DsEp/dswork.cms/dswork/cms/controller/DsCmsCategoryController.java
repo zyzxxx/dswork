@@ -53,11 +53,18 @@ public class DsCmsCategoryController extends BaseController
 	@RequestMapping("/addCategory1")
 	public String addCategory1()
 	{
-		Long siteid = req.getLong("siteid");
-		DsCmsSite site = service.getSite(siteid);
-		put("templates", getTemplateName(site.getFolder()));
-		put("list", queryCategory(siteid, false, 0));
-		return "/cms/category/addCategory.jsp";
+		try
+		{
+			Long siteid = req.getLong("siteid");
+			DsCmsSite site = service.getSite(siteid);
+			put("templates", getTemplateName(site.getFolder()));
+			put("list", queryCategory(siteid, false, 0));
+			return "/cms/category/addCategory.jsp";
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
 	}
 
 	@RequestMapping("/addCategory2")
@@ -126,21 +133,24 @@ public class DsCmsCategoryController extends BaseController
 	@RequestMapping("/updCategory1")
 	public String updCategory1()
 	{
-		Long siteid = req.getLong("siteid");
-		Long id = req.getLong("keyIndex");
-		DsCmsCategory po = service.get(id);
-		if(siteid == po.getSiteid())
+		try
 		{
-			put("po", po);
-			put("list", queryCategory(po.getSiteid(), false, id));
-			DsCmsSite site = service.getSite(siteid);
-			put("templates", getTemplateName(site.getFolder()));
-			return "/cms/category/updCategory.jsp";
+			Long siteid = req.getLong("siteid");
+			Long id = req.getLong("keyIndex");
+			DsCmsCategory po = service.get(id);
+			if(siteid == po.getSiteid() && checkOwn(po.getSiteid()))
+			{
+				put("po", po);
+				put("list", queryCategory(po.getSiteid(), false, id));
+				DsCmsSite site = service.getSite(siteid);
+				put("templates", getTemplateName(site.getFolder()));
+				return "/cms/category/updCategory.jsp";
+			}
 		}
-		else
+		catch(Exception e)
 		{
-			return null;
 		}
+		return null;
 	}
 
 	@RequestMapping("/updCategory2")
@@ -152,7 +162,7 @@ public class DsCmsCategoryController extends BaseController
 			DsCmsSite s = service.getSite(m.getSiteid());
 			if(m.getSiteid() == s.getId() && checkOwn(s.getOwn()))
 			{
-				if(m.getScope() == 0 && !po.getFolder().equals(m.getFolder()))//列表栏目存在内容时，不可修改目录名称
+				if(m.getScope() == 0 && !po.getFolder().equals(m.getFolder()))// 列表栏目存在内容时，不可修改目录名称
 				{
 					if(service.getCountByCategoryid(m.getSiteid(), m.getId()) > 0)
 					{
@@ -224,7 +234,7 @@ public class DsCmsCategoryController extends BaseController
 				{
 					for(DsCmsSite m : siteList)
 					{
-						if(m.getId().longValue() == id)
+						if(m.getId() == id)
 						{
 							siteid = m.getId();
 							put("list", queryCategory(siteid, true, 0));
@@ -329,7 +339,7 @@ public class DsCmsCategoryController extends BaseController
 		}
 		return false;
 	}
-	
+
 	private String getOwn()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getOwn();
