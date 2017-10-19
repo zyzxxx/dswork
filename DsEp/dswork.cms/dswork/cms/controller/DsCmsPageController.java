@@ -77,7 +77,7 @@ public class DsCmsPageController extends BaseController
 					po.setUrl("/a/" + m.getFolder());
 				}
 				po.setStatus(0);
-				service.savePage(po, s.isEnablelog(), getOwn(), getName());// url拼接/id.html
+				service.savePage(po, s.isEnablelog(), getAccount(), getName());// url拼接/id.html
 				print(1);
 				return;
 			}
@@ -96,7 +96,7 @@ public class DsCmsPageController extends BaseController
 	{
 		try
 		{
-			Long categoryid = req.getLong("id");
+			long categoryid = req.getLong("id");
 			DsCmsCategory po = service.getCategory(categoryid);
 			if(po.getScope() == 0 && checkOwn(po.getSiteid()))
 			{
@@ -111,6 +111,53 @@ public class DsCmsPageController extends BaseController
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
+	}
+
+	// 拷贝
+	@RequestMapping("/copyPage1")
+	public String copyPage1()
+	{
+		try
+		{
+			long categoryid = req.getLong("id");
+			DsCmsCategory po = service.getCategory(categoryid);
+			if(po.getScope() == 0 && checkOwn(po.getSiteid()))
+			{
+				put("list", queryCategory(po.getSiteid(), false, categoryid));
+				return "/cms/page/copyPage.jsp";
+			}
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
+	}
+
+	@RequestMapping("/copyPage2")
+	public void copyPage2()
+	{
+		try
+		{
+			long categoryid = req.getLong("id");
+			DsCmsCategory po = service.getCategory(categoryid);
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(po.getScope() == 0 && checkOwn(s.getId()))
+			{
+				DsCmsPage page = service.getPage(req.getLong("keyIndex"));
+				if(page.getCategoryid() != categoryid)
+				{
+					page.setId(0L);
+					page.setCategoryid(categoryid);
+					service.savePage(page, s.isEnablelog(), getAccount(), getName());
+					print("1:拷贝成功");
+					return;
+				}
+			}
+		}
+		catch(Exception e)
+		{
+		}
+		print("0:拷贝失败");
 	}
 
 	// 修改
@@ -145,7 +192,7 @@ public class DsCmsPageController extends BaseController
 					DsCmsCategory m = service.getCategory(p.getCategoryid());
 					po.setUrl("/a/" + m.getFolder() + "/" + po.getId() + ".html");
 				}
-				service.updatePage(po, s.isEnablelog(), getOwn(), getName());
+				service.updatePage(po, s.isEnablelog(), getAccount(), getName());
 				print(1);
 				return;
 			}
@@ -195,7 +242,7 @@ public class DsCmsPageController extends BaseController
 				po.setSiteid(m.getSiteid());
 				po.setName(m.getName());
 				po.setScope(m.getScope());
-				service.updateCategory(po, s.isEnablelog(), getOwn(), getName());
+				service.updateCategory(po, s.isEnablelog(), getAccount(), getName());
 				print(1);
 				return;
 			}
@@ -406,6 +453,61 @@ public class DsCmsPageController extends BaseController
 		Long pageid = req.getLong("pageid", -1);
 		int pagesize = req.getInt("pagesize", 25);
 		_building(false, siteid, categoryid, pageid, pagesize);
+	}
+
+	/**
+	 * 取出当前登录用户的栏目
+	 * @param exclude 是否包括非List的栏目
+	 * @param excludeId 需要清空指定id的子栏目
+	 * @return List
+	 */
+	private List<DsCmsCategory> queryCategory(long siteid, boolean exclude, long excludeId)
+	{
+		List<DsCmsCategory> list = service.queryListCategory(siteid);
+		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
+		for(DsCmsCategory m : list)
+		{
+			map.put(m.getId(), m);
+		}
+		List<DsCmsCategory> _list = new ArrayList<DsCmsCategory>();
+		for(DsCmsCategory m : list)
+		{
+			if(m.getId() != excludeId)
+			{
+				if(m.getPid() > 0)
+				{
+					try
+					{
+						if(m.getScope() == 0 || exclude)
+						{
+							map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
+						}
+					}
+					catch(Exception ex)// 找不到对应的父栏目
+					{
+					}
+				}
+				else if(m.getPid() == 0)
+				{
+					if(m.getScope() == 0 || exclude)
+					{
+						_list.add(m);// 只把根节点放入list
+					}
+				}
+			}
+		}
+		if(excludeId > 0)
+		{
+			try
+			{
+				map.get(excludeId).clearList();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();// 找不到对应的栏目
+			}
+		}
+		return DsCmsUtil.categorySettingList(_list);
 	}
 
 	/**
@@ -751,6 +853,11 @@ public class DsCmsPageController extends BaseController
 	private String getOwn()
 	{
 		return common.auth.AuthUtil.getLoginUser(request).getOwn();
+	}
+
+	private String getAccount()
+	{
+		return common.auth.AuthUtil.getLoginUser(request).getAccount();
 	}
 
 	private String getName()
