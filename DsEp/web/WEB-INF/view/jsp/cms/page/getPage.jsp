@@ -40,9 +40,11 @@ $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-delete">删除发布</div>').bind("click", function(){
 		if(confirm("是否删除已发布内容")){unbuild(id);}
 	}));
+	<c:if test="${po.siteid==0}">
 	$(menu).append($('<div iconCls="menuTool-graph">同步到栏目</div>').bind("click", function(){
 		$jskey.dialog.showDialog({title:'同步到栏目',fit:true,url:'copyPage1.htm?id=${po.id}&keyIndex='+id});
 	}));
+	</c:if>
 };
 $(function(){
 	$dswork.page.menu("delPage.htm?id=${po.id}", "updPage1.htm", "", "${pageModel.currentPage}");
