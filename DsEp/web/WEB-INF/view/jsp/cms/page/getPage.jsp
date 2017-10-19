@@ -68,7 +68,7 @@ $(function(){
 	});
 });
 </script>
-</head> 
+</head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
