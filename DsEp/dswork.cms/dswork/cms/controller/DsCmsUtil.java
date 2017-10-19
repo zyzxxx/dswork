@@ -7,7 +7,7 @@ import java.util.Map;
 
 import dswork.cms.model.DsCmsCategory;
 
-class DsCmsUtil
+public class DsCmsUtil
 {
 	private static void categorySettingList(DsCmsCategory m, List<DsCmsCategory> list)
 	{
@@ -32,7 +32,12 @@ class DsCmsUtil
 		}
 	}
 
-	static List<DsCmsCategory> categorySettingList(List<DsCmsCategory> list)
+	/**
+	 *  接受整理成树形的栏目list
+	 * @param list
+	 * @return
+	 */
+	public static List<DsCmsCategory> categorySettingList(List<DsCmsCategory> list)
 	{
 		List<DsCmsCategory> _list = new ArrayList<DsCmsCategory>();// 按顺序放入
 		for(int i = 0; i < list.size(); i++)
@@ -46,7 +51,12 @@ class DsCmsUtil
 		return _list;
 	}
 
-	static List<DsCmsCategory> categorySetting(List<DsCmsCategory> list)
+	/**
+	 *  接受关系完整的栏目list
+	 * @param list
+	 * @return
+	 */
+	public static List<DsCmsCategory> categorySetting(List<DsCmsCategory> list)
 	{
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		for(DsCmsCategory m : list)
@@ -71,7 +81,13 @@ class DsCmsUtil
 		return categorySettingList(_list);
 	}
 
-	static List<DsCmsCategory> categoryAccess(List<DsCmsCategory> list, String ids)
+	/**
+	 *  接受关系完整的栏目list和权限字符串
+	 * @param list
+	 * @param ids
+	 * @return
+	 */
+	public static List<DsCmsCategory> categoryAccess(List<DsCmsCategory> list, String ids)
 	{
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		List<DsCmsCategory> _list = new ArrayList<DsCmsCategory>();
