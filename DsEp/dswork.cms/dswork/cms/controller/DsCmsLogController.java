@@ -31,8 +31,8 @@ public class DsCmsLogController extends BaseController
 	private DsCmsLogService service;
 
 	// 获得分页
-	@RequestMapping("/getDsCmsLog")
-	public String getDsCmsLog()
+	@RequestMapping("/getLog")
+	public String getLog()
 	{
 		try
 		{
@@ -68,7 +68,7 @@ public class DsCmsLogController extends BaseController
 			Page<DsCmsLog> pageModel = service.queryPage(getPageRequest());
 			put("pageModel", pageModel);
 			put("pageNav", new PageNav<DsCmsLog>(request, pageModel));
-			return "/cms/log/getDsCmsLog.jsp";
+			return "/cms/log/getLog.jsp";
 		}
 		catch(Exception e)
 		{

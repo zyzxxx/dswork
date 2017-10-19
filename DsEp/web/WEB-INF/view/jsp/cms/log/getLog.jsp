@@ -21,8 +21,8 @@ function chooseType(v)
 }
 $(function(){
 	$("#queryForm").submit(function(){return $jskey.validator.Validate("queryForm", $dswork.validValue || 3);});
-	$("#site").change(function(){location.href = "getDsCmsLog.htm?siteid="+$(this).val();});
-	$("#category").change(function(){location.href = "getDsCmsLog.htm?siteid="+$("#site").val()+"&categoryid="+$(this).val();});
+	$("#site").change(function(){location.href = "getLog.htm?siteid="+$(this).val();});
+	$("#category").change(function(){location.href = "getLog.htm?siteid="+$("#site").val()+"&categoryid="+$(this).val();});
 });
 </script>
 </head> 
@@ -87,8 +87,7 @@ $(function(){
 		<td style="width:7%">页面类型</td>
 		<td style="width:16%">操作人员</td>
 		<td style="width:16%">操作时间</td>
-		<td style="width:7%">动作</td>
-		<td style="width:7%">审核状态</td>
+		<td style="width:7%">操作</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
@@ -112,10 +111,9 @@ $(function(){
 			${d.status==-1?'提交删除':d.status==0?'提交新增':d.status==1?'提交修改':d.status==4?'撤销提交':''}
 		</c:if>
 		<c:if test="${!empty d.auditname}">
-			${d.status==-1?'删除审核':d.status==0?'新增审核':d.status==1?'修改审核':''}
+			${d.auditstatus==2?'审核不通过':d.auditstatus==4?'审核通过':''}
 		</c:if>
 		</td>
-		<td>${d.auditstatus==2?'不通过':d.auditstatus==4?'通过':''}</td>
 	</tr>
 </c:forEach>
 </table>

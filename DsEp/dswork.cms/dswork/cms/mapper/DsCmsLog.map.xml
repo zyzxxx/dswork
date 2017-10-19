@@ -71,7 +71,7 @@
 
 <select id="query" resultMap="result">
 	select <include refid="common.top" /><include refid="columns" /> from DS_CMS_LOG
-	<include refid="dynamicWhere" />
+	<include refid="dynamicWhere" /> order by ID desc
 </select>
 
 <select id="queryCount" resultType="int">
