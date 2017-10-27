@@ -240,7 +240,7 @@ $jskey.Page.prototype.jump = function(elem){
 };
 
 //渲染
-$jskey.Page.prototype.redo = function(){
+$jskey.Page.prototype._redo = function(){
 	var E = this, C = E.config;
 	var H = E.view_();
 	C.o = C.object || C.cont;
@@ -252,9 +252,16 @@ $jskey.Page.prototype.redo = function(){
 	E.jump($jskey.$('jskey_page_' + C.i));
 };
 
+//渲染
+$jskey.Page.prototype.redo = function(){
+	var E = this;
+	E._redo();
+	E.other();
+};
+
 $jskey.Page.prototype.render = function(){
 	var E = this, C = E.config;
-	E.redo();
+	E._redo();
 	if(C.jump){C.fn = C.jump;C.jump = null;}
 	if(!C.redo){C.redo = function(){E.redo();};}
 	C.fn && C.fn(C);
@@ -274,7 +281,7 @@ $jskey.Page.prototype.other = function(){
 		m.config.page = C.page;
 		m.config.pagesize = C.pagesize;
 		m.config.size = C.size;
-		m.redo();
+		m._redo();
 	}
 };
 
