@@ -94,6 +94,7 @@
 <select id="query" resultMap="result">
 	select <include refid="columns" /> from DS_CMS_PAGE
 	<include refid="dynamicWhere" />
+	order by ID desc
 </select>
 
 <select id="queryCount" resultType="int">
