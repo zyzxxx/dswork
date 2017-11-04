@@ -111,9 +111,9 @@ request.setAttribute("pageNav", new PageNav<java.util.Map<String, Object>>(reque
 		<td>${d.logintime}</td>
 		<td>登录${d.status == 1 ? '成功' : '失败'}</td>
 		<td>${d.ip}</td>
-		<td>${d.timeouttime == '' ? '否' : '是'}</td>
-		<td>${d.pwdtime == '' ? '无' : '修改密码'}</td>
-		<td>${d.logouttime == '0' ? '未知' : d.logouttime}</td>
+		<td>${d.timeouttime==''||d.timeouttime==null ? '否' : '是'}</td>
+		<td>${d.pwdtime==''||d.pwdtime==null ? '无' : '修改密码'}</td>
+		<td>${d.logouttime=='0' ? '未知' : d.logouttime}</td>
 	</tr>
 </c:forEach>
 </table>
