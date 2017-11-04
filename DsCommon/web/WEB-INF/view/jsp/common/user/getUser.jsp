@@ -28,6 +28,9 @@ function updStatus(objid, id){
 }
 $dswork.page.join = function(td, menu, id){
 	if(td.attr("v") != 'true'){
+	$(menu).append($('<div iconCls="menuTool-update">重置密码</div>').bind("click", function(){
+		location.href = "updUserPassword1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
+	}));
 	$(menu).append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(){
 		location.href = "updUser1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
 	}));

@@ -30,8 +30,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="form_input">${fn:escapeXml(po.account)}</td>
 	</tr>
 	<tr>
-		<td class="form_title">密码</td>
-		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" dataType="Require" maxlength="32" value="000000" /> <span class="imp">*</span> <span style="font-weight:bold;">默认密码为：000000</span></td>
+		<td class="form_title">重置密码</td>
+		<td class="form_input"><input type="password" id="password" name="password" style="width:130px;" dataType="Require" maxlength="32" value="000000" /> <span class="imp">*</span> <span style="font-weight:bold;">默认重置密码为：000000</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">确认密码</td>
