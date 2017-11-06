@@ -10,9 +10,9 @@
 		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_CMS_CATEGORY
-	(PID, SITEID, STATUS, NAME, FOLDER, SCOPE, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT)
+	(PID, SITEID, NAME, FOLDER, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT)
 	values
-	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{status}, #{name}, #{folder}, #{scope}, #{url}, #{seq}, #{viewsite}, #{pageviewsite}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content})
+	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{folder}, #{scope}, #{status}, #{url}, #{seq}, #{viewsite}, #{pageviewsite}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content})
 </insert>
 
 <delete id="delete">
@@ -52,11 +52,11 @@
 <resultMap id="result" type="dswork.cms.model.DsCmsCategory">
 	<id property="id" column="ID" />
 	<result property="pid" column="PID" />
-	<result property="siteid" column="SITEID" />
 	<result property="status" column="STATUS" />
 	<result property="name" column="NAME" />
 	<result property="folder" column="FOLDER" />
 	<result property="scope" column="SCOPE" />
+	<result property="siteid" column="SITEID" />
 	<result property="url" column="URL" />
 	<result property="seq" column="SEQ" />
 	<result property="viewsite" column="VIEWSITE" />
@@ -72,7 +72,7 @@
 </resultMap>
 
 <sql id="columns">
-	ID, PID, SITEID, STATUS, NAME, FOLDER, SCOPE, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT
+	ID, PID, SITEID, NAME, FOLDER, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT
 </sql>
 
 <sql id="dynamicWhere">
@@ -82,10 +82,10 @@
 			<if test="0 &lt; pid"> and PID=#{pid} </if>
 			<if test="0 &gt;= pid"> and PID is null </if>
 		</if>
-		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
-		<if test="@Ognl@isNotEmpty(folder)"> and FOLDER=#{folder} </if>
 		<if test="@Ognl@isNotEmpty(scope)"> and SCOPE=#{scope} </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(folder)"> and FOLDER=#{folder} </if>
 	</where>
 </sql>
 

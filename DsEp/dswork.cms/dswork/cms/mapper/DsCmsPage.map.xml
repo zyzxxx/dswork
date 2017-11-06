@@ -10,9 +10,9 @@
 		<include refid="common.rowid" />
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(<if test="id&gt;0">ID, </if>SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, SCOPE, URL, CONTENT)
+	(<if test="id&gt;0">ID, </if>SITEID, CATEGORYID, SCOPE, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT)
 	values
-	(<if test="id&gt;0">#{id}, </if>#{siteid}, #{categoryid}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{scope}, #{url}, #{content})
+	(<if test="id&gt;0">#{id}, </if>#{siteid}, #{categoryid}, #{scope}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{url}, #{content})
 </insert>
 
 <delete id="delete">
@@ -21,9 +21,9 @@
 
 <update id="update" parameterType="dswork.cms.model.DsCmsPage">
 	update DS_CMS_PAGE set
+		SCOPE=#{scope},
 		STATUS=#{status},
 		TITLE=#{title},
-		SCOPE=#{scope},
 		METAKEYWORDS=#{metakeywords},
 		METADESCRIPTION=#{metadescription},
 		SUMMARY=#{summary},
@@ -50,6 +50,7 @@
 	<id property="id" column="ID" />
 	<result property="siteid" column="SITEID" />
 	<result property="categoryid" column="CATEGORYID" />
+	<result property="scope" column="SCOPE" />
 	<result property="status" column="STATUS" />
 	<result property="title" column="TITLE" />
 	<result property="metakeywords" column="METAKEYWORDS" />
@@ -61,7 +62,6 @@
 	<result property="img" column="IMG" />
 	<result property="imgtop" column="IMGTOP" />
 	<result property="pagetop" column="PAGETOP" />
-	<result property="scope" column="SCOPE" />
 	<result property="url" column="URL" />
 	<result property="content" column="CONTENT" />
 </resultMap>
