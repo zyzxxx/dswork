@@ -1,4 +1,4 @@
-﻿﻿<%@page language="java" pageEncoding="UTF-8"%>
+﻿<%@page language="java" pageEncoding="UTF-8"%>
 <%@page import="common.cms.CmsFactory"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -14,6 +14,8 @@
 </head>
 <body>
 <%@include file="include/header.jsp"%>
+
+
 <!--浮动二维码-->
 <div class="floatPanel">
 	<div class="ctrolPanel">
@@ -21,8 +23,8 @@
 			扫一扫
 			<span onclick="disnon()">×</span>
 		</div>
+		<a href="#"><img src="${ctx}/themes/images/gzlywb.png" /></a>
 		<a href="#"><img src="${ctx}/themes/images/gzlywx.png" /></a>
-		<a href="#"><img src="${ctx}/themes/images/gzlyapp.png" /></a>
 	</div>
 </div>
 <script type="text/javascript">
@@ -79,6 +81,56 @@ function disnon(){
 
 	<div class="mfoucs left clear"><%@include file="include/foucs.jsp"%></div>
 
+	<style type="text/css">
+		.news{margin:0;height:27px;width:320px;padding:0;border-bottom:solid 1px #CCC;z-index:2;}
+		.news .ytab{float:left;text-align:center;margin:0;width:84px;height:27px;line-height:27px;color:#4b619d;border-right:solid 1px #CCC;border-bottom:none;}
+		.news .hover{height:28px;z-index:3;background-color:#fff;}
+	</style>
+	<script type="text/javascript">
+	function setTaba(m, n) {
+		$("div.ytab").removeClass("hover");
+		$("#ytab"+n).addClass("hover");
+		$("div.xtab").hide();
+		$("#xtab"+n).show();
+	}
+	</script>
+	<div class="mlist">
+		<div class="news">
+			<div id="ytab0" onmouseover="setTaba(2,0)" class="ytab hover">最新动态</div>
+			<div id="ytab1" onmouseover="setTaba(2,1)" class="ytab">政声传递</div>
+		</div>
+		<div id="xtab0" class="xtab">
+			<%request.setAttribute("gzdt", cms.queryList(1, 12, false, false, true, 42));%>
+			<c:forEach items="${gzdt}" var="d" begin="1" end="2">
+				<div class="listhot"><a target="_blank" href="${ctx}${d.url}" title="${fn:escapeXml(d.title)}"><span>${fn:escapeXml(d.title)}</span></a></div>
+			</c:forEach>
+			<ul class="list">
+				<c:forEach items="${gzdt}" var="d"  begin="3" end="10">
+				<li><a target="_blank" href="${ctx}${d.url}" title="${fn:escapeXml(d.title)}"><span>${fn:substring(d.releasetime, 0, 10)}</span>&raquo; ${fn:escapeXml(d.title)}</a></li>
+				</c:forEach>
+				<li><a target="_blank" href="${ctx}/a/gzdt2/index.html"><span>更多>></span></a></li>
+			</ul>
+		</div>
+		<div id="xtab1" class="xtab" style="display:none;">
+			<ul id="zscd" class="list"></ul>
+		</div>
+		<script type="text/javascript">
+		$.ajax({
+			url : 'http://app.gd.gov.cn/xxts/pushinfo_json.php',
+			dataType : "jsonp",
+			jsonp : "pushInfoJsonpCallBack",
+			jsonpCallback:"pushInfoJsonpCallBack",
+			success : function(data) {
+				$.each(data,function(i,json){
+					$("#zscd").append("<li><a target='_blank' href='"+json.link+"' title='"+json.title+"'><span>"+json.pubDate+"</span>&raquo;"+json.title+"</a></li>")
+				})
+				$("#zscd").append('<li><a target="_blank" href="http://www.gd.gov.cn/govpub/xxts/index.htm"><span>更多>></span></a></li>');
+			},
+			 error:function(){}
+		});
+		</script>
+
+        <%--
 	<div class="mlist">
 		<%request.setAttribute("gzdt", cms.queryList(1, 12, false, false, true, 42));%>
 		<c:forEach items="${gzdt}" var="d" begin="1" end="2">
@@ -90,7 +142,6 @@ function disnon(){
 			</c:forEach>
 			<li><a target="_blank" href="${ctx}/a/gzdt2/index.html"><span>更多>></span></a></li>
 		</ul>
-		<%--
 		<div class="listhot"><a target="_blank" href="#">汕尾市城区举办妈祖文化旅游节系列活动中山文明旅游千人健步走活动在树木园举行</a></div>
 		<ul class="list">
 			<li><a target="_blank" href="#">&raquo; 中山文明旅游千人健步走活动在树木园举行</a></li>
@@ -122,7 +173,7 @@ function disnon(){
 				<li><img width="33" height="34" src="${ctx}/themes/images/i16.gif"/><a title="公众互动帮助" href="${ctx}/a/gzhdbz/index.html">公众互动帮助</a></li>
 				<li><img width="33" height="34" src="${ctx}/themes/images/i3.gif"/><a title="局长信箱" href="${ctx}/a/jzxx/index.html">局长信箱</a></li>
 				<li><img width="33" height="34" src="${ctx}/themes/images/i8.gif"/><a title="投诉指南" href="http://wsbs.gz.gov.cn/gz/hotline/gotoIndex.action">投诉指南</a></li>
-				<li><img width="33" height="34" src="${ctx}/themes/images/i1.gif"/><a title="旅游单位查询" href="http://www.visitgz.gov.cn/channels/132.html" target="_blank">旅游单位查询</a></li>
+				<li><img width="33" height="34" src="${ctx}/themes/images/i1.gif"/><a title="旅游单位查询" href="http://www.gzly.gov.cn/a/bsznqt/1177.html" target="_blank">旅游单位查询</a></li>
 			</ul>
 		</div>
 		<div class="service">

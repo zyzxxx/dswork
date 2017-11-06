@@ -17,11 +17,36 @@ request.setAttribute("lyts", cms.queryList(1, 4, false, false, true, 87));
 <div class="vline">&nbsp;</div>
 --%>
 
+<%--
  <div class="flowplayer" data-swf="${ctx}/js/tv/flowplayer.swf" style="width: 240px; height: 180px;">
 	<video>
 		<source type="video/flv" src="http://www.visitgz.com/zt/lizhuo/flv/201702151710fqztc.flv">
 	</video>
 </div>
+--%>
+
+<%--宣传视频--%>
+<%
+//视频展示
+request.setAttribute("xcsp_top", cms.queryList(1, 1, false, true, true, 94));
+request.setAttribute("xcsp", cms.queryList(1, 3, false, false, true, 94));
+%>
+<div class="r_logo"><span style="float:right;"><a href="${ctx}/a/spzs/index.html" style="font-size:12px;font-weight:100;color:#fff;margin-right:10px;" target="_blank">更多&gt;&gt;</a></span><span>宣传视频</span></div>
+<div class="box" style="text-align:center;">
+	<c:forEach items="${xcsp_top}" var="d">
+ 	<div class="flowplayer" data-swf="${ctx}/js/tv/flowplayer.swf" style="width: 240px; height: 180px;padding-top:10px;">
+		<video>
+			<source type="video/flv" src="${d.releasesource}">
+		</video>
+	</div>
+	</c:forEach>
+	<ul class="list">
+	<c:forEach items="${xcsp}" var="d">
+		<li style="text-align:left;border-bottom:1px dashed #ddd;border-top:1px dashed #ddd;"><a target="_blank" href="${ctx}${d.url}">&raquo; ${fn:escapeXml(d.title)}</a></li>
+	</c:forEach>
+	</ul>
+</div>
+<%----%>
 
 <div class="r_wsbs">
 	<div class="vline">&nbsp;</div>
@@ -70,33 +95,6 @@ request.setAttribute("lyts", cms.queryList(1, 4, false, false, true, 87));
 	<div class="vline">&nbsp;</div>
 </div>
 --%>
-
-<%--宣传视频--%>
-<%--
-<%
-//视频展示
-request.setAttribute("xcsp_top", cms.queryList(1, 1, false, true, true, 94));
-request.setAttribute("xcsp", cms.queryList(1, 3, false, false, true, 94));
-%>
-<div class="vline">&nbsp;</div>
-<div class="r_logo"><span style="float:right;"><a href="${ctx}/a/spzs/index.html" style="font-size:12px;font-weight:100;color:#fff;margin-right:10px;" target="_blank">更多&gt;&gt;</a></span><span>宣传视频</span></div>
-<div class="box" style="text-align:center;">
-	<c:forEach items="${xcsp_top}" var="d">
- 	<div class="flowplayer" data-swf="${ctx}/js/tv/flowplayer.swf" style="width: 240px; height: 180px;padding-top:10px;">
-		<video>
-			<source type="video/flv" src="${d.releasesource}">
-		</video>
-	</div>
-	</c:forEach>
-	<ul class="list">
-	<c:forEach items="${xcsp}" var="d">
-		<li style="text-align:left;border-bottom:1px dashed #ddd;border-top:1px dashed #ddd;"><a target="_blank" href="${ctx}${d.url}">&raquo; ${fn:escapeXml(d.title)}</a></li>
-	</c:forEach>
-	</ul>
-</div>
---%>
-
-
 
 
 <%--在线调查--%>
@@ -181,4 +179,3 @@ function showLogo(d){
 	}
 }
 </script>
-

@@ -1,5 +1,7 @@
-﻿<%@page language="java" pageEncoding="UTF-8"%>
+?<%@page language="java" pageEncoding="UTF-8"%>
 <script type="text/javascript" src="${ctx}/js/jquery.js"></script>
+
+
 <%--
 <div class="header">
 <embed width="1000" height="335" src="${ctx}/themes/web/banner.swf" type="application/x-shockwave-flash" quality="high" />
@@ -17,9 +19,11 @@
     </ul>
 </div>
 --%>
+
+
 <script type="text/javascript" src="${ctx}/js/jskey_focus.js"></script>
 <style type="text/css">
-#showid1 img{width:auto;height:100%;margin:0 auto;}
+#showid1 img{width:100%;height:100%;margin:0 auto;}
 </style>
 <div style="width:990px;height:0px;margin:0 auto;position:relative;background:none;z-index:999;">
 	<div style="position:absolute;top:40px;left:5px;">
@@ -76,15 +80,15 @@
 	<div class="nav-down">
 		<c:forEach items="${mheader}" var="d">
 			<c:if test="${fn:length(d.list)>0}">
-			<div class="nav-down-menu" data-nav="${d.id}" <c:if test="${d.id == 81}"> style="width:480px;margin-left:510px;"</c:if>>
+			<div class="nav-down-menu" data-nav="${d.id}">
 				<c:if test="${d.id == 81}">
 					<dl><dt><a target="_blank" href="${ctx}/a/zzjg/index.html">领导之窗</a></dt></dl>
 					<dl><dt><a target="_blank" href="${ctx}/a/czyjs/index.html">财政预决算</a></dt></dl>
 				</c:if>
 				<c:forEach items="${d.list}" var="dd">
-					<dl><dt><a target="_blank"<c:if test="${dd.list==null || fn:length(dd.list)==0}"> href="${dd.status==2?'':ctx}${dd.url}"</c:if>>${dd.name}</a></dt>
+					<dl><dt><a target="_blank"<c:if test="${dd.list==null || fn:length(dd.list)==0}"> href="${dd.scope==2?'':ctx}${dd.url}"</c:if>>${dd.name}</a></dt>
 						<c:forEach items="${dd.list}" var="ddd">
-						<dd><a target="_blank" href="${ddd.status==2?'':ctx}${ddd.url}">${ddd.name}</a></dd>
+						<dd><a target="_blank" href="${ddd.scope==2?'':ctx}${ddd.url}">${ddd.name}</a></dd>
 						</c:forEach>
 					</dl>
 				</c:forEach>

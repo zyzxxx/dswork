@@ -1,4 +1,4 @@
-﻿﻿<%@page language="java" pageEncoding="UTF-8"%>
+﻿<%@page language="java" pageEncoding="UTF-8"%>
 <div class="links">
   <div class="hd">
 	<div class="right">
@@ -93,7 +93,7 @@
 			<option value="http://www.qyta.gov.cn/">清远市旅游局</option>
 			<option value="http://www.zhwtl.gov.cn/">珠海市文体旅游局</option>
 			<option value="http://www.szwtl.gov.cn/">深圳市文体旅游局</option>
-			<option value="http://www.chaozhoutour.net/">潮州市文物旅游局</option>
+			<option value="http://www.czwwly.cn/">潮州市文物旅游局</option>
 		</select>
 		<select onchange="location.href=this.value;">
 			<option value="">广州市各区政府网站</option>
