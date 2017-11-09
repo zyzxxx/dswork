@@ -217,6 +217,18 @@ public abstract class MyBatisDao extends DaoSupport
 	/**
 	 * 执行查询操作取得数据条数
 	 * @param statementNameCount SQL的ID(不包含namespace)
+	 * @param filters Map&lt;String, Object&gt;查询参数和条件数据
+	 * @return int
+	 */
+	protected int queryCount(String statementNameCount, Map<String, Object> filters)
+	{
+		Object o = this.getSqlSessionTemplate().selectOne(getStatementName(statementNameCount), filters);
+		return MyBatisDao.queryCountProcess(o);// xml里配置是int或long都可以
+	}
+
+	/**
+	 * 执行查询操作取得数据条数
+	 * @param statementNameCount SQL的ID(不包含namespace)
 	 * @param pageRequestCount PageRequest.getFilters()查询参数和条件数据
 	 * @return int
 	 */
