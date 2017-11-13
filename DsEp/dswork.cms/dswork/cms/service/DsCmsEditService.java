@@ -46,7 +46,7 @@ public class DsCmsEditService
 	@Autowired
 	private DsCmsPageDao pageDao;
 
-	public int saveAuditPage(DsCmsAuditPage po, boolean isEnablelog)
+	public int saveAuditPage(DsCmsAuditPage po, boolean isEnablelog, String editid, String editname)
 	{
 		auditPageDao.save(po);
 		if(po.getScope() != 2) // 不为外链
@@ -56,7 +56,7 @@ public class DsCmsEditService
 		}
 		if(po.isAudit() && isEnablelog)
 		{
-			writeLogPage(po);
+			writeLogPage(po, editid, editname);
 		}
 		return 1;
 	}
@@ -66,16 +66,16 @@ public class DsCmsEditService
 		return auditPageDao.delete(id);
 	}
 
-	public int updateAuditCategory(DsCmsAuditCategory po, boolean isEnablelog)
+	public int updateAuditCategory(DsCmsAuditCategory po, boolean isEnablelog, String editid, String editname)
 	{
 		if(po.isAudit() && isEnablelog)
 		{
-			writeLogCategory(po);
+			writeLogCategory(po, editid, editname);
 		}
 		return auditCategoryDao.update(po);
 	}
 
-	public int updateRevokeAuditCategory(DsCmsAuditCategory po, boolean isEnablelog)
+	public int updateRevokeAuditCategory(DsCmsAuditCategory po, boolean isEnablelog, String editid, String editname)
 	{
 		if(po.getStatus() == -1)
 		{
@@ -86,21 +86,21 @@ public class DsCmsEditService
 		po.setStatus(4); // 撤销
 		if(isEnablelog)
 		{
-			writeLogCategory(po);
+			writeLogCategory(po, editid, editname);
 		}
 		return 1;
 	}
 
-	public int updateAuditPage(DsCmsAuditPage po, boolean isEnablelog)
+	public int updateAuditPage(DsCmsAuditPage po, boolean isEnablelog, String editid, String editname)
 	{
 		if(po.isAudit() && isEnablelog)
 		{
-			writeLogPage(po);
+			writeLogPage(po, editid, editname);
 		}
 		return auditPageDao.update(po);
 	}
 
-	public int updateRevokeAuditPage(DsCmsAuditPage po, boolean isEnablelog)
+	public int updateRevokeAuditPage(DsCmsAuditPage po, boolean isEnablelog, String editid, String editname)
 	{
 		if(po.getStatus() == -1)
 		{
@@ -111,7 +111,7 @@ public class DsCmsEditService
 		po.setStatus(4); // 撤销
 		if(isEnablelog)
 		{
-			writeLogPage(po);
+			writeLogPage(po, editid, editname);
 		}
 		return 1;
 	}
@@ -189,7 +189,7 @@ public class DsCmsEditService
 		return categoryDao.queryList(map);
 	}
 
-	private void writeLogPage(DsCmsAuditPage po)
+	private void writeLogPage(DsCmsAuditPage po, String editid, String editname)
 	{
 		try
 		{
@@ -198,8 +198,8 @@ public class DsCmsEditService
 			log.setSiteid(po.getSiteid());
 			log.setCategoryid(po.getCategoryid());
 			log.setPageid(po.getId());
-			log.setEditid(po.getEditid());
-			log.setEditname(po.getEditname());
+			log.setEditid(editid);
+			log.setEditname(editname);
 			log.setEdittime(po.getEdittime());
 			log.setStatus(po.getStatus());
 			log.setAuditstatus(po.getAuditstatus());
@@ -223,7 +223,7 @@ public class DsCmsEditService
 		}
 	}
 
-	private void writeLogCategory(DsCmsAuditCategory po)
+	private void writeLogCategory(DsCmsAuditCategory po, String editid, String editname)
 	{
 		try
 		{
@@ -231,8 +231,8 @@ public class DsCmsEditService
 			log.setId(UniqueId.genId());
 			log.setSiteid(po.getSiteid());
 			log.setCategoryid(po.getId());
-			log.setEditid(po.getEditid());
-			log.setEditname(po.getEditname());
+			log.setEditid(editid);
+			log.setEditname(editname);
 			log.setEdittime(po.getEdittime());
 			log.setStatus(po.getStatus());
 			log.setAuditstatus(po.getAuditstatus());

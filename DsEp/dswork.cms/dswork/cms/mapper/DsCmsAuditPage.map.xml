@@ -82,8 +82,8 @@
 		<if test="@Ognl@isNotEmpty(siteid)"> SITEID=#{siteid} </if>
 		<if test="@Ognl@isNotEmpty(categoryid)"> and CATEGORYID=#{categoryid} </if>
 		<if test="@Ognl@isNotEmpty(auditstatus)"> and AUDITSTATUS=#{auditstatus} </if>
-		<if test="@Ognl@isNotEmpty(editid)"> and EDITID=#{editid} </if>
-		<if test="@Ognl@isNotEmpty(editname)"> and EDITNAME=#{editname} </if>
+		<if test="@Ognl@isNotEmpty(editid)"> and EDITID like #{editid, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(editname)"> and EDITNAME like #{editname, typeHandler=LikeTypeHandler} </if>
 	</where>
 </sql>
 

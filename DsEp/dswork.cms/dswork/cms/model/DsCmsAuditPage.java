@@ -7,9 +7,9 @@ public class DsCmsAuditPage extends DsCmsPage
 {
 	// 状态(-1删除,0新增,1修改,8已发)
 	
-	// 编辑人员ID
+	// 编辑人员ID(前后逗号隔开)
 	private String editid = "";
-	// 编辑人员姓名
+	// 编辑人员姓名(逗号隔开)
 	private String editname = "";
 	// 编辑时间
 	private String edittime = "";
@@ -56,6 +56,19 @@ public class DsCmsAuditPage extends DsCmsPage
 		this.editid = editid;
 	}
 
+	public void pushEditid(String editid)
+	{
+		editid = String.valueOf(editid);
+		if(this.editid == null || "".equals(this.editid))
+		{
+			this.editid = ",";
+		}
+		if(this.editid.indexOf("," + editid + ",") == -1)
+		{
+			this.editid = this.editid + editid + ",";
+		}
+	}
+
 	public String getEditname()
 	{
 		return editname;
@@ -64,6 +77,19 @@ public class DsCmsAuditPage extends DsCmsPage
 	public void setEditname(String editname)
 	{
 		this.editname = editname;
+	}
+
+	public void pushEditname(String editname)
+	{
+		editname = String.valueOf(editname);
+		if(this.editname == null || "".equals(this.editname))
+		{
+			this.editname = "";
+		}
+		if(("," + this.editname + ",").indexOf("," + editname + ",") == -1)
+		{
+			this.editname = this.editname + "," + editname;
+		}
 	}
 
 	public String getEdittime()
