@@ -103,8 +103,7 @@ public class DsCmsEditController extends BaseController
 				{
 					po.setSiteid(c.getSiteid());
 					po.setCategoryid(c.getId());
-					po.pushEditid(getAccount());
-					po.pushEditname(getName());
+					po.pushEditidAndEditname(getAccount(), getName());
 					po.setEdittime(TimeUtil.getCurrentTime());
 					if(po.getReleasetime().trim().equals(""))
 					{
@@ -257,8 +256,7 @@ public class DsCmsEditController extends BaseController
 							DsCmsCategory c = service.getCategory(_po.getCategoryid());
 							po.setUrl("/a/" + c.getFolder() + "/" + _po.getId() + ".html");
 						}
-						po.pushEditid(getAccount());
-						po.pushEditname(getName());
+						po.pushEditidAndEditname(getAccount(), getName());
 						po.setEdittime(TimeUtil.getCurrentTime());
 						service.updateAuditPage(po, s.isEnablelog(), getAccount(), getName());
 					}
@@ -382,8 +380,7 @@ public class DsCmsEditController extends BaseController
 						_po.setContent(po.getContent());
 						_po.setUrl(po.getUrl());
 						_po.setAuditstatus(po.getAuditstatus());
-						_po.pushEditid(getAccount());
-						_po.pushEditname(getName());
+						_po.pushEditidAndEditname(getAccount(), getName());
 						_po.setEdittime(TimeUtil.getCurrentTime());
 						service.updateAuditCategory(_po, s.isEnablelog(), getAccount(), getName());
 					}

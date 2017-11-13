@@ -56,19 +56,6 @@ public class DsCmsAuditPage extends DsCmsPage
 		this.editid = editid;
 	}
 
-	public void pushEditid(String editid)
-	{
-		editid = String.valueOf(editid);
-		if(this.editid == null || "".equals(this.editid))
-		{
-			this.editid = ",";
-		}
-		if(this.editid.indexOf("," + editid + ",") == -1)
-		{
-			this.editid = this.editid + editid + ",";
-		}
-	}
-
 	public String getEditname()
 	{
 		return editname;
@@ -77,19 +64,6 @@ public class DsCmsAuditPage extends DsCmsPage
 	public void setEditname(String editname)
 	{
 		this.editname = editname;
-	}
-
-	public void pushEditname(String editname)
-	{
-		editname = String.valueOf(editname);
-		if(this.editname == null || "".equals(this.editname))
-		{
-			this.editname = "";
-		}
-		if(("," + this.editname + ",").indexOf("," + editname + ",") == -1)
-		{
-			this.editname = this.editname + "," + editname;
-		}
 	}
 
 	public String getEdittime()
@@ -149,5 +123,34 @@ public class DsCmsAuditPage extends DsCmsPage
 	public void setMsg(String msg)
 	{
 		this.msg = msg;
+	}
+
+	public void pushEditidAndEditname(String editid, String editname)
+	{
+		if(editid == null || "".equals(editid) || editname == null || "".equals(editname))
+		{
+			return;
+		}
+		String[] ids = this.editid.split(",", -1);
+		String[] names = this.editname.split(",", -1);
+		if(ids.length != names.length + 2)
+		{
+			this.editid = "," + editid + ",";
+			this.editname = editname;
+			return;
+		}
+		this.editid = ",";
+		this.editname = "";
+		for(int i = 0; i < names.length; i++)
+		{
+			if(ids[i + 1].equals(editid))
+			{
+				continue;
+			}
+			this.editid += ids[i + 1] + ",";
+			this.editname += names[i] + ",";
+		}
+		this.editid += editid + ",";
+		this.editname += editname;
 	}
 }
