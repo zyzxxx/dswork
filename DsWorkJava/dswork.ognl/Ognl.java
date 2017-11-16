@@ -81,17 +81,12 @@ public class Ognl
 	{
 		return !isEmpty(o);
 	}
-	
-//	public static boolean isNotEmpty(Long o)
-//	{
-//		return !isEmpty(o);
-//	}
-//
-//	public static boolean isNotBlank(Object o)
-//	{
-//		return !isBlank(o);
-//	}
 
+	/**
+	 * 可以用于判断是否为数值类型
+	 * @param o java.lang.Object.
+	 * @return boolean.
+	 */
 	public static boolean isNumber(Object o)
 	{
 		if (o == null)
@@ -115,35 +110,5 @@ public class Ognl
 			}
 		}
 		return false;
-	}
-
-	public static boolean isBlank(Object o)
-	{
-		if (o == null)
-		{
-			return true;
-		}
-		if (o instanceof String)
-		{
-			String str = (String) o;
-			return isBlank(str);
-		}
-		return false;
-	}
-
-	public static boolean isBlank(String str)
-	{
-		if (str == null || str.length() == 0)
-		{
-			return true;
-		}
-		for (int i = 0; i < str.length(); i++)
-		{
-			if (!Character.isWhitespace(str.charAt(i)))
-			{
-				return false;
-			}
-		}
-		return true;
 	}
 }
