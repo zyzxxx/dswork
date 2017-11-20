@@ -344,6 +344,7 @@ public class DsCmsPageController extends BaseController
 				}
 				if(!ext.equals("") && "jpg,jpeg,gif,png".indexOf(ext) != -1)
 				{
+					String zoom = req.getString("zoom", "true");
 					String root = getCmsRoot();
 					String ym = TimeUtil.getCurrentTime("yyyyMM");
 					String path = "/html/" + site.getFolder() + "/html/f/img/" + ym + "/";
@@ -352,7 +353,7 @@ public class DsCmsPageController extends BaseController
 					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
 					try
 					{
-						if("jpg,jpeg,png".indexOf(ext) != -1)
+						if("true".equals(zoom) && "jpg,jpeg,png".indexOf(ext) != -1)
 						{
 							// 压缩图片使尺寸最多不超过1000*1000
 							byte[] arr = dswork.core.util.ImageUtil.resize(FileUtil.getToInputStream(byteArray), 1000, 1000);
