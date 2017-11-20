@@ -20,8 +20,7 @@
 	where ID=#{id}
 </select>
 <select id="getCategory" resultType="java.util.Map">
-	select <include refid="common.top" />
-	a.id, a.pid, a.siteid, a.name, a.folder, a.status, a.url, a.viewsite, a.pageviewsite,
+	select a.id, a.pid, a.siteid, a.name, a.folder, a.status, a.url, a.viewsite, a.pageviewsite,
 	b.metakeywords, b.metadescription, b.summary, b.releasetime, b.releasesource, b.releaseuser, b.img, b.content
 	from DS_CMS_CATEGORY a left join DS_CMS_AUDIT_CATEGORY b on a.ID=b.ID
 	where a.ID=#{id} and a.SITEID=#{siteid}
@@ -33,7 +32,7 @@
 </select>
 
 <select id="query" resultType="java.util.Map">
-	select <include refid="common.top" /><include refid="c_page" /> from DS_CMS_AUDIT_PAGE
+	select <include refid="c_page" /> from DS_CMS_AUDIT_PAGE
 	where SITEID=#{siteid} and STATUS in (1,8)
 		<if test="@Ognl@isNotEmpty(idArray)"> and CATEGORYID in (${idArray}) </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
@@ -54,7 +53,7 @@
 		<if test="@Ognl@isNotEmpty(keyvalue)"> and (TITLE like #{keyvalue, typeHandler=LikeTypeHandler} or SUMMARY like #{keyvalue, typeHandler=LikeTypeHandler} or CONTENT like #{keyvalue, typeHandler=LikeTypeHandler}) </if>
 </select>
 <select id="queryCategory" resultType="java.util.Map">
-	select <include refid="common.top" /><include refid="c_category" /> from DS_CMS_CATEGORY
+	select <include refid="c_category" /> from DS_CMS_CATEGORY
 	where SITEID=#{siteid} order by SEQ
 </select>
 

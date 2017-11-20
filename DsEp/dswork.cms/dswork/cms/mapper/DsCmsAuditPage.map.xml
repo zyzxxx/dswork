@@ -92,7 +92,7 @@
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="common.top" /><include refid="columns" /> from DS_CMS_AUDIT_PAGE
+	select <include refid="columns" /> from DS_CMS_AUDIT_PAGE
 	<include refid="dynamicWhere" />
 	order by ID desc
 </select>

@@ -68,12 +68,6 @@
 	a.ID, a.SITEID, a.STATUS, a.METAKEYWORDS, a.METADESCRIPTION, a.SUMMARY, a.RELEASETIME, a.RELEASESOURCE, a.RELEASEUSER, a.IMG, a.CONTENT, a.URL, a.EDITID, a.EDITNAME, a.EDITTIME, a.AUDITSTATUS, a.AUDITID, a.AUDITNAME, a.AUDITTIME, a.MSG
 	, b.NAME, b.SCOPE
 </sql>
-	
-<sql id="dynamicWhere">
-	<where>
-		<if test="@Ognl@isNotEmpty(id)"> and a.ID like #{id, typeHandler=LikeTypeHandler} </if>
-	</where>
-</sql>
 
 <select id="select" resultMap="result">
 	select <include refid="columns" /> from DS_CMS_AUDIT_CATEGORY a
@@ -82,14 +76,12 @@
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="common.top" /><include refid="columns" /> from DS_CMS_AUDIT_CATEGORY a
+	select <include refid="columns" /> from DS_CMS_AUDIT_CATEGORY a
 	left join DS_CMS_CATEGORY b on a.ID=b.ID
-	<include refid="dynamicWhere" />
 </select>
 
 <select id="queryCount" resultType="int">
 	select count(1) from DS_CMS_AUDIT_CATEGORY a
-	<include refid="dynamicWhere" />
 </select>
 
 </mapper>
