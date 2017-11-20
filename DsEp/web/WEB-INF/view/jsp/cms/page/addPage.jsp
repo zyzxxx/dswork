@@ -13,7 +13,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 }};
 $(function(){
 	try{$(".form_title").css("width", "8%");}catch(e){}
-	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${fn:escapeXml(param.categoryid)}",upImgUrl:"uploadImage.htm?categoryid=${fn:escapeXml(param.categoryid)}"});
+	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${fn:escapeXml(param.categoryid)}",upImgUrl:"uploadImage.htm?zoom=true&categoryid=${fn:escapeXml(param.categoryid)}"});
 	function show(){
 		var i = new Image();
 		i.src = $("#inputImg").val();
