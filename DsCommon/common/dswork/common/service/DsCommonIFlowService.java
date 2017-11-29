@@ -189,9 +189,19 @@ public class DsCommonIFlowService
 		return dao.queryFlowPi(ywlsh);
 	}
 
+	public List<IFlowPi> queryFlowPiBySblsh(String sblsh)
+	{
+		return dao.queryFlowPiBySblsh(sblsh);
+	}
+
 	public IFlowPi getFlowPi(String ywlsh)
 	{
 		return dao.getFlowPi(ywlsh);
+	}
+
+	public IFlowPi getFlowPiBySblsh(String sblsh)
+	{
+		return dao.getFlowPiBySblsh(sblsh);
 	}
 
 	public List<IFlowPiData> queryFlowPiData(String piid)

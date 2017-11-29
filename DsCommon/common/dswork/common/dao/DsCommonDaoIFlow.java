@@ -129,9 +129,24 @@ public class DsCommonDaoIFlow extends MyBatisDao
 		return list.get(0);
 	}
 
+	public IFlowPi getFlowPiBySblsh(String sblsh)
+	{
+		List<IFlowPi> list = executeSelectList("queryFlowPiBySblsh", sblsh);
+		if(list == null || list.size() == 0)
+		{
+			return null;
+		}
+		return list.get(0);
+	}
+
 	public List<IFlowPi> queryFlowPi(String ywlsh)
 	{
 		return executeSelectList("queryFlowPi", ywlsh);
+	}
+
+	public List<IFlowPi> queryFlowPiBySblsh(String sblsh)
+	{
+		return executeSelectList("queryFlowPiBySblsh", sblsh);
 	}
 
 	public List<IFlowPiData> queryFlowPiData(Long piid)

@@ -268,12 +268,40 @@ public class DsCommonIFlowUtil
 		return null;
 	}
 
+	public List<IFlowPi> queryFlowPiBySblsh(String sblsh)
+	{
+		try
+		{
+			init();
+			return dao.queryFlowPiBySblsh(sblsh);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public IFlowPi getFlowPi(String ywlsh)
 	{
 		try
 		{
 			init();
 			return dao.getFlowPi(ywlsh);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public IFlowPi getFlowPiBySblsh(String sblsh)
+	{
+		try
+		{
+			init();
+			return dao.getFlowPiBySblsh(sblsh);
 		}
 		catch(Exception e)
 		{
