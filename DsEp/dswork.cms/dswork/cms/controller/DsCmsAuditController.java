@@ -123,8 +123,21 @@ public class DsCmsAuditController extends BaseController
 					DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
 					if(_po.isAudit())
 					{
+						String action = req.getString("action");
+						if("pass".equals(action))
+						{
+							_po.setAuditstatus(4);
+						}
+						else if("nopass".equals(action))
+						{
+							_po.setAuditstatus(2);
+						}
+						else
+						{
+							print("0:参数错误");
+							return;
+						}
 						_po.setMsg(po.getMsg());
-						_po.setAuditstatus(po.getAuditstatus());
 						_po.setAuditid(getAccount());
 						_po.setAuditname(getName());
 						_po.setAudittime(TimeUtil.getCurrentTime());
@@ -214,9 +227,22 @@ public class DsCmsAuditController extends BaseController
 			{
 				if(checkAudit(s.getId(), _po.getCategoryid()))
 				{
-					if(_po.getAuditstatus() == 1)
+					if(_po.isAudit())
 					{
-						_po.setAuditstatus(po.getAuditstatus());
+						String action = req.getString("action");
+						if("pass".equals(action))
+						{
+							_po.setAuditstatus(4);
+						}
+						else if("nopass".equals(action))
+						{
+							_po.setAuditstatus(2);
+						}
+						else
+						{
+							print("0:参数错误");
+							return;
+						}
 						_po.setMsg(po.getMsg());
 						_po.setAuditid(getAccount());
 						_po.setAuditname(getName());

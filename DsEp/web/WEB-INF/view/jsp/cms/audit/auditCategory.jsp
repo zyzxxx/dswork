@@ -21,21 +21,17 @@ $(function(){
 		<td class="title">审核</td>
 	<c:if test="${po.audit}">
 		<td class="menuTool">
-			<a class="submit" id="_pass" href="javascript:void(0);">通过</a>
-			<a class="close" id="_nopass" href="javascript:void(0);">不通过</a>
+			<a class="submit" onclick="_pass();" href="javascript:void(0);">通过</a>
+			<a class="close" onclick="_nopass();" href="javascript:void(0);">不通过</a>
 			<script type="text/javascript">
-			$("#_pass").click(function(){
-				if(confirm("确认通过？")){
-					$("input[name='auditstatus']").val(4);
-					$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
-				}
-			});
-			$("#_nopass").click(function(){
-				if(confirm("确认不通过？")){
-					$("input[name='auditstatus']").val(2);
-					$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
-				}
-			})
+			function _pass(){if(confirm('确认通过？')){
+				$('input[name="action"]').val('pass');
+				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
+			}}
+			function _nopass(){if(confirm('确认不通过？')){
+				$('input[name="action"]').val('nopass');
+				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
+			}}
 			</script>
 		</td>
 	</c:if>
@@ -109,7 +105,7 @@ $(function(){
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />
-<input type="hidden" name="auditstatus" value="${po.auditstatus}" />
+<input type="hidden" name="action" value="" />
 </form>
 </c:if>
 </body>

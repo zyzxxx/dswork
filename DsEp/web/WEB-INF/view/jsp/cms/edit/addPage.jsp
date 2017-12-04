@@ -42,24 +42,18 @@ $(function(){
 	<tr>
 		<td class="title">添加</td>
 		<td class="menuTool">
-			<a class="save" id="_save" href="javascript:void(0);">保存</a>
-			<a class="submit" id="_submit" href="javascript:void(0);">提交</a>
+			<a class="save" onclick="_save();" href="javascript:void(0);">保存</a>
+			<a class="submit" onclick="_submit();" href="javascript:void(0);">提交</a>
 			<a class="back" href="getPage.htm?id=${fn:escapeXml(param.categoryid)}&page=${fn:escapeXml(param.page)}">返回</a>
 			<script type="text/javascript">
-			$(function(){
-				$("#_save").click(function(){
-					if(confirm("确认保存吗？")){
-						$("input[name='auditstatus']").val(0);
-						$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
-					}
-				})
-				$("#_submit").click(function(){
-					if(confirm("确认提交吗？")){
-						$("input[name='auditstatus']").val(1);
-						$("#dataForm").ajaxSubmit($dswork.doAjaxOption);
-					}
-				});
-			});
+			function _save(){confirm("确认保存吗？")){
+				$('input[name="action"]').val('save');
+				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
+			}}
+			function _submit(){if(confirm("确认提交吗？")){
+				$('input[name="action"]').val('submit');
+				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
+			}}
 			</script>
 		</td>
 	</tr>
@@ -129,7 +123,7 @@ $(function(){
 		</td>
 	</tr>
 </table>
-<input type="hidden" name="auditstatus" value="0" />
+<input type="hidden" name="action" value="" />
 </form>
 </body>
 </html>
