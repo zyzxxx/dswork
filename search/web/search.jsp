@@ -54,6 +54,7 @@ else{
 	var tpl = document.getElementById('tpl').innerHTML;
 	var u = "searchJson.jsp?v="+keyvalue+"&page=";
 	keyvalue = decodeURIComponent(decodeURIComponent(keyvalue));
+	keyvalue = keyvalue.replace("\"", "").replace("<", "").replace(">", "").replace("'", "");
 	try{if(!isTop){
 		parent.$('#vv').val(keyvalue);
 	}}catch(ex){
