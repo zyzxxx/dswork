@@ -46,7 +46,7 @@ $(function(){
 			<a class="submit" onclick="_submit();" href="javascript:void(0);">提交</a>
 			<a class="back" href="getPage.htm?id=${fn:escapeXml(param.categoryid)}&page=${fn:escapeXml(param.page)}">返回</a>
 			<script type="text/javascript">
-			function _save(){confirm("确认保存吗？")){
+			function _save(){if(confirm("确认保存吗？")){
 				$('input[name="action"]').val('save');
 				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
 			}}
