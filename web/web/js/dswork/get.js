@@ -42,17 +42,19 @@
 			return true;
 		}else{return false;}
 	});
-	$("table.listTable tr").each(function(){
-		if(!$(this).hasClass("list_title")){
-			$(this).addClass($(this).index()%2 == 0 ? 'list_even' : 'list_odd');
-			$(this).bind("mouseover", function(){
-				$(this).removeClass("list_odd").removeClass("list_over").addClass("list_over");
-			});
-			$(this).bind("mouseout", function(){
-				$(this).removeClass("list_over").addClass($(this).index()%2 == 0 ? 'list_even' : 'list_odd');
-			});
-		}
-	});
+	if(!$dswork.tableCSS){
+		$("table.listTable tr").each(function(){
+			if(!$(this).hasClass("list_title") && !$(this).hasClass("nolist")){
+				$(this).addClass($(this).index()%2 == 0 ? 'list_even' : 'list_odd');
+				$(this).bind("mouseover", function(){
+					$(this).removeClass("list_odd").removeClass("list_over").addClass("list_over");
+				});
+				$(this).bind("mouseout", function(){
+					$(this).removeClass("list_over").addClass($(this).index()%2 == 0 ? 'list_even' : 'list_odd');
+				});
+			}
+		});
+	}
 	$("#_querySubmit_[type=button]").click(function(event){$("#queryForm").submit();});
 	$("#queryForm").keydown(function(e){
 		var v = e || event;
