@@ -13,10 +13,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.mvc.BaseController;
-import dswork.core.page.PageRequest;
 import dswork.bbs.model.DsBbsSite;
 import dswork.bbs.service.DsBbsSiteService;
+import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
@@ -135,6 +134,6 @@ public class DsBbsSiteController extends BaseController
 	
 	private String getOwn()
 	{
-		return common.auth.AuthUtil.getLoginUser(request).getOwn();
+		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
 	}
 }

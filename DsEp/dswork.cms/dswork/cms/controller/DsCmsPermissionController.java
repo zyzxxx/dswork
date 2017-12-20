@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.auth.Auth;
 import common.auth.AuthUtil;
+import common.web.auth.AuthOwnUtil;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
@@ -169,6 +170,6 @@ public class DsCmsPermissionController extends BaseController
 
 	private String getOwn()
 	{
-		return AuthUtil.getLoginUser(request).getOwn();
+		return AuthOwnUtil.getUser(request).getOwn();
 	}
 }
