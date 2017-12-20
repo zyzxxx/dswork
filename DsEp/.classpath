@@ -6,6 +6,7 @@
 	<classpathentry kind="src" path="dswork.ep"/>
 	<classpathentry kind="src" path="dswork.person"/>
 	<classpathentry kind="src" path="dswork.cms"/>
+	<classpathentry kind="src" path="dswork.cms.permission"/>
 	<classpathentry kind="src" path="dswork.bbs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
