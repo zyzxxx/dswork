@@ -853,16 +853,16 @@ public class DsCmsPageController extends BaseController
 
 	private String getOwn()
 	{
-		return common.auth.AuthUtil.getLoginUser(request).getOwn();
+		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
 	}
 
 	private String getAccount()
 	{
-		return common.auth.AuthUtil.getLoginUser(request).getAccount();
+		return common.web.auth.AuthOwnUtil.getUser(request).getAccount();
 	}
 
 	private String getName()
 	{
-		return common.auth.AuthUtil.getLoginUser(request).getName();
+		return common.web.auth.AuthOwnUtil.getUser(request).getName();
 	}
 }
