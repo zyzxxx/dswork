@@ -86,3 +86,6 @@
 	dswork完善了dswork.http中的SSLSocketFactory，移除了全局的相关设置及静态变量，增加了setSslSocketFactory方法
 2017-09-05
 	dswork修改了dswork.core中的EncryptUtil，增加了SHA-256加密方法encryptSha256(String)
+2017-12-19
+	升级大部分jar至最新版本
+		slf4j-1.7.22升级到slf4j-1.7.25

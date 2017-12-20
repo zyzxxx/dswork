@@ -7,7 +7,7 @@
 
 <insert id="insert" parameterType="dswork.cms.model.DsCmsCategory">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
+		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_CATEGORY
 	(PID, SITEID, NAME, FOLDER, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT)

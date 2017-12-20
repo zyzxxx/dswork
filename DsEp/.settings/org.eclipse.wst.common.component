@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-modules id="moduleCoreId" project-version="1.5.0">
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
 	<wb-module deploy-name="DsEp">
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/common"/>
 		<wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
@@ -8,6 +7,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.person"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.cms"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.bbs"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.cms.permission"/>
 		<property name="context-root" value="DsEp"/>
 		<property name="java-output-path" value="/DsEp/web/WEB-INF/classes"/>
 	</wb-module>

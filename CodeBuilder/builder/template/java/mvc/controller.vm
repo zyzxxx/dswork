@@ -105,7 +105,17 @@ public class ${Model}Controller
 		PageRequest pr = new PageRequest();
 		pr.setFilters(req.getParameterValueMap(false, false));
 		pr.setCurrentPage(req.getInt("page", 1));
-		pr.setPageSize(req.getInt("pageSize", 10));
+		try
+		{
+			pagesize = Integer.parseInt(String.valueOf(session.getAttribute(PageSize_SessionName)).trim());
+		}
+		catch(Exception ex)
+		{
+			pagesize = 10;
+		}
+		pagesize = req.getInt("pageSize", pagesize);
+		session.setAttribute(PageSize_SessionName, pagesize);
+		pr.setPageSize(pagesize);
 		Page<${Model}> pageModel = service.queryPage(pr);
 		PageNav pageNav = new PageNav(request, pageModel);
 		request.setAttribute("pageModel", pageModel);

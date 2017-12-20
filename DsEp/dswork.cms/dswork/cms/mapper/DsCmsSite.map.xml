@@ -7,7 +7,7 @@
 
 <insert id="insert" parameterType="dswork.cms.model.DsCmsSite">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
+		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_SITE
 	(OWN, NAME, FOLDER, URL, IMG, VIEWSITE, ENABLELOG)
