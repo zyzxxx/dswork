@@ -36,7 +36,7 @@ $(function(){
 	</tr>
 </table>
 <div class="line"></div>
-<form id="queryForm" method="post" action="getDsCmsLog.htm">
+<form id="queryForm" method="post" action="getLog.htm">
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
