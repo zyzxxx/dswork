@@ -54,13 +54,15 @@ public class AuthOwnSSOFilter implements Filter
 					if(m.getStatus() != 0)
 					{
 						AuthOwnUtil.setUser(req, m.getId().toString(), m.getAccount(), m.getName(), "admin" + m.getAccount());
-						chain.doFilter(requestWrapper, responseWraper);
-						return;
 					}
 				}
 				catch(Exception xx)
 				{
 				}
+			}
+			if(auth != null)
+			{
+				chain.doFilter(requestWrapper, responseWraper);
 			}
 		}
 		catch(Exception e)
