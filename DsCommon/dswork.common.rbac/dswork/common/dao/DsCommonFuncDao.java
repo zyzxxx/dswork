@@ -4,11 +4,13 @@
 package dswork.common.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import dswork.common.model.DsCommonFunc;
+import dswork.common.model.view.DsCommonFuncView;
 import dswork.core.db.BaseDao;
 
 @Repository
@@ -74,6 +76,26 @@ public class DsCommonFuncDao extends BaseDao<DsCommonFunc, Long>
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * 查询func表id集合，用于菜单导入时判断除了系统id为systemid之外的id是否存在
+	 * @param systemid 需要导入菜单的系统id
+	 * @return
+	 */
+	public List<Long> queryFuncIdList(long systemid)
+	{
+		return executeSelectList("queryFuncIdList", systemid);
+	}
+	
+	/**
+	 * 根据systemid查询func集合
+	 * @param systemid 系统id
+	 * @return
+	 */
+	public List<DsCommonFuncView> queryFuncBySystemid(long systemid)
+	{
+		return executeSelectList("queryFuncBySystemid", systemid);
 	}
 
 }
