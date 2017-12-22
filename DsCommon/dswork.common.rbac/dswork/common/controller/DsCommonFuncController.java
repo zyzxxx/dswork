@@ -20,7 +20,6 @@ import dswork.common.model.DsCommonRes;
 import dswork.common.model.DsCommonSystem;
 import dswork.common.model.view.DsCommonFuncView;
 import dswork.common.service.DsCommonFuncService;
-import dswork.common.util.GsonUtil;
 import dswork.core.util.CollectionUtil;
 import dswork.mvc.BaseController;
 
