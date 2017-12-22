@@ -8,12 +8,17 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.mvc.BaseController;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import dswork.common.model.DsCommonFunc;
 import dswork.common.model.DsCommonRes;
 import dswork.common.model.DsCommonSystem;
 import dswork.common.service.DsCommonFuncService;
 import dswork.core.util.CollectionUtil;
+import dswork.mvc.BaseController;
 
 // 功能
 @Scope("prototype")
@@ -399,6 +404,91 @@ public class DsCommonFuncController extends BaseController
 		put("po", po);
 		put("list", list);
 		return "/common/func/getFuncById.jsp";
+	}
+	
+	//菜单导入页面
+	@RequestMapping("/getFuncMenuImport")
+	public String getFuncMenuImport()
+	{
+		return "/common/func/getFuncMenuImport.jsp";
+	}
+	
+	//菜单导入
+	@RequestMapping("/doFuncMenuImport")
+	public void doFuncMenuImport()
+	{
+		try
+		{
+			long systemid = req.getLong("systemid");
+			String menujson = req.getString("menujson");
+			menujson = menujson.replace("\n","");//去除换行
+			menujson = menujson.replace(" ","");//去除空格
+			menujson = menujson.replace("\t","");//去除制表符
+			menujson = menujson.replace("'","\"");//单引号替换成双引号
+			List<Long> idList = service.queryFuncIdList(systemid);
+			List<DsCommonFunc> list = new ArrayList<DsCommonFunc>();
+			int seq = 0;
+			boolean isSuccess = AssemblyFuncList(list, idList, menujson, 0, systemid, seq);
+			if(isSuccess)
+			{
+				//list数据入库
+				service.doFuncMenuImport(list, systemid);
+				print("1:导入成功");
+			}else
+			{
+				print("0:导入失败！导入菜单中存在id冲突。");
+			}
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:导入失败！请联系管理员。");
+		}
+	}
+	
+	/**
+	 * 组装DsCommonFunc的list
+	 * @param list 需要组装的list
+	 * @param jsonStr json字符串
+	 * @param pid 父id
+	 * @param systemid 导入菜单的系统id
+	 * @param seq 排序号
+	 */
+	public boolean AssemblyFuncList(List<DsCommonFunc> list, List<Long> idList, String jsonStr, long pid, long systemid, int seq)
+	{
+		//Json的解析类对象
+	    JsonParser parser = new JsonParser();
+	    //将JSON的String 转成一个JsonArray对象
+	    JsonArray jsonArray = parser.parse(jsonStr).getAsJsonArray();
+
+	    //加强for循环遍历JsonArray
+	    for (JsonElement el : jsonArray) {
+	    	if(el.isJsonObject())
+	    	{
+	    		JsonObject jsonObject = el.getAsJsonObject();
+	    		long id = jsonObject.get("id").getAsLong();
+	 		    if(idList.contains(id))
+	 		    {
+	 		    	return false;
+	 		    }
+	 		    //封装DsCommonFunc
+	 		    DsCommonFunc po = new DsCommonFunc();
+	 		    po.setId(id);
+			    po.setPid(pid);
+			    po.setSystemid(systemid);
+			    po.setName(jsonObject.get("name").getAsString());
+			    po.setUri("".equals(jsonObject.get("url").getAsString())?"#":jsonObject.get("url").getAsString());
+			    po.setImg(jsonObject.get("img").getAsString());
+			    po.setStatus(1);
+			    po.setSeq(++seq);
+			    list.add(po);
+			    
+//			    System.err.println(jsonObject.get("items").isJsonArray());
+			    String items = jsonObject.get("items").toString();
+			    AssemblyFuncList(list, idList, items, id, systemid, ++seq);
+	    	}
+	    }
+		
+		return true;
 	}
 	
 	private Long[] getLongArray(String value)
