@@ -15,7 +15,7 @@ function empower(account){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">系统用户采编授权</td>
+		<td class="title">用户采编授权</td>
 	</tr>
 </table>
 <div class="line"></div>
@@ -23,10 +23,8 @@ function empower(account){
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
-			&nbsp;账号：<input type="text" name="account" style="width:100px;" value="${fn:escapeXml(param.account)}" />
-			&nbsp;姓名：<input type="text" class="text" id="name" name="name" value="${fn:escapeXml(param.name)}" style="width:75px;" />
-			&nbsp;手机：<input type="text" class="text" id="mobile" name="mobile" value="${fn:escapeXml(param.mobile)}" style="width:75px;" />
-			&nbsp;状态：<select name="status" style="width:55px;" v="${fn:escapeXml(param.status)}"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
+			&nbsp;账号：<input type="text" name="account" value="${fn:escapeXml(param.account)}" />
+			&nbsp;姓名：<input type="text" name="name" value="${fn:escapeXml(param.name)}" />
 		</td>
 		<td class="query"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
 	</tr>
@@ -36,17 +34,11 @@ function empower(account){
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td>用户名(帐号)</td>
-		<td style="width:20%">邮箱</td>
-		<td style="width:20%">手机</td>
-		<td style="width:20%">状态</td>
-		<td style="width:20%">授权</td>
+		<td style="width:50%">授权</td>
 	</tr>
 <c:forEach items="${pageModel.result}" var="d" varStatus="status">
 	<tr>
 		<td>${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
-		<td>${fn:escapeXml(d.email)}</td>
-		<td>${fn:escapeXml(d.mobile)}</td>
-		<td ${d.status==1?'':'style="color:red"}'}>${1==d.status?"启用":"禁用"}</td>
 		<td class="menuTool"><a class="user" href="javascript:void(0);" onclick="empower('${fn:escapeXml(d.account)}')">授予权限</a></td>
 	</tr>
 </c:forEach>
