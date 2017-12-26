@@ -18,18 +18,8 @@ public class DsCmsUserDao extends MyBatisDao
 		return DsCmsUserDao.class;
 	}
 
-	public Page<Map<String, Object>> queryPageCommonUser(PageRequest pr)
+	public Page<Map<String, Object>> queryPage(PageRequest pr)
 	{
-		return queryPage("queryCommonUser", pr, "queryCommonUserCount", pr);
-	}
-
-	public Page<Map<String, Object>> queryPageEpUser(PageRequest pr)
-	{
-		return queryPage("queryEpUser", pr, "queryEpUserCount", pr);
-	}
-
-	public Page<Map<String, Object>> queryPagePersonUser(PageRequest pr)
-	{
-		return queryPage("queryPersonUser", pr, "queryPersonUserCount", pr);
+		return queryPage("query", pr, "queryCount", pr);
 	}
 }
