@@ -4,40 +4,52 @@
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
 <mapper namespace="dswork.cms.dao.DsCmsUserDao">
-	
-<sql id="dynamicWhere">
-	<where>
-		<if test="@Ognl@isNotEmpty(account)"> and account like #{account, typeHandler=LikeTypeHandler} </if>
-		<if test="@Ognl@isNotEmpty(name)"> and name like #{name, typeHandler=LikeTypeHandler} </if>
-		<if test="true"> and own=#{own} </if>
-	</where>
-</sql>
 
 <select id="query" resultType="java.util.Map">
 	select ID id, ACCOUNT account, NAME name, 'admin' own from DS_COMMON_USER
-	<include refid="dynamicWhere" />
+	<where>
+		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT like #{account, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
+	</where>
 </select>
 <select id="queryCount" resultType="int">
 	select count(1) from DS_COMMON_USER
-	<include refid="dynamicWhere" />
+	<where>
+		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT like #{account, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
+	</where>
 </select>
 
 <!-- <select id="query" resultType="java.util.Map"> -->
 <!-- 	select ID id, ACCOUNT account, NAME name, QYBM own from DS_EP_USER -->
-<!-- 	<include refid="dynamicWhere" /> -->
+<!-- 	<where> -->
+<!-- 		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT like #{account, typeHandler=LikeTypeHandler} </if> -->
+<!-- 		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if> -->
+<!-- 		<if test="true"> and QYBM=#{own} </if> -->
+<!-- 	</where> -->
 <!-- </select> -->
 <!-- <select id="queryCount" resultType="int"> -->
 <!-- 	select count(1) from DS_EP_USER -->
-<!-- 	<include refid="dynamicWhere" /> -->
+<!-- 	<where> -->
+<!-- 		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT like #{account, typeHandler=LikeTypeHandler} </if> -->
+<!-- 		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if> -->
+<!-- 		<if test="true"> and QYBM=#{own} </if> -->
+<!-- 	</where> -->
 <!-- </select> -->
 
 <!-- <select id="query" resultType="java.util.Map"> -->
 <!-- 	select ID id, ACCOUNT account, NAME name, 'person' own from DS_PERSON_USER -->
-<!-- 	<include refid="dynamicWhere" /> -->
+<!-- 	<where> -->
+<!-- 		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT like #{account, typeHandler=LikeTypeHandler} </if> -->
+<!-- 		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if> -->
+<!-- 	</where> -->
 <!-- </select> -->
 <!-- <select id="queryCount" resultType="int"> -->
 <!-- 	select count(1) from DS_PERSON_USER -->
-<!-- 	<include refid="dynamicWhere" /> -->
+<!-- 	<where> -->
+<!-- 		<if test="@Ognl@isNotEmpty(account)"> and ACCOUNT like #{account, typeHandler=LikeTypeHandler} </if> -->
+<!-- 		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if> -->
+<!-- 	</where> -->
 <!-- </select> -->
 
 </mapper>
