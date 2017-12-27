@@ -23,6 +23,7 @@ try
 	long pageid = req.getLong("pageid", -1);
 
 	Map<String, Object> s = cms.getSite();
+	map.put("msg", "");
 	map.put("siteid", getString(siteid));
 	map.put("sitename", getString(s.get("name")));
 
@@ -92,12 +93,12 @@ try
 			int pagesize = req.getInt("pagesize", 25);
 			Map<String, Object> mm = cms.queryPage(currentPage, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
 			Map<String, Object> datapage = (Map<String, Object>) mm.get("datapage");
-			datapage.get("page");
-			datapage.get("pagesize");
-			datapage.get("first");
-			datapage.get("prev");
-			datapage.get("next");
-			datapage.get("last");
+			map.put("page", datapage.get("page"));
+			map.put("pagesize", datapage.get("pagesize"));
+			map.put("first", datapage.get("first"));
+			map.put("prev", datapage.get("prev"));
+			map.put("next", datapage.get("next"));
+			map.put("last", datapage.get("last"));
 			out.print(GsonUtil.toJson(map));
 			return;
 		}
