@@ -1,4 +1,4 @@
-package common.web.auth;
+package common.authown;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -35,22 +35,19 @@ public class AuthOwnSSOFilter implements Filter
 			String userAccount = dswork.sso.WebFilter.getAccount(req.getSession());
 			if(userAccount.length() == 0)
 			{
+				AuthOwnUtil.clearUser(req);
 				return;
 			}
-			AuthOwn authOwnCookie = AuthOwnUtil.getUserCookie(req, res);
-			if(authOwnCookie != null && !authOwnCookie.getAccount().equals(userAccount))
-			{
-				authOwnCookie = null;
-			}
-			if(authOwnCookie == null)
+			AuthOwn auth = AuthOwnUtil.getUser(req);
+			if(auth == null || !auth.getAccount().equals(userAccount))
 			{
 				try
 				{
 					dswork.sso.model.IUser m = dswork.sso.AuthFactory.getUser(userAccount);
 					if(m.getStatus() != 0)
 					{
-						AuthOwnUtil.setUserCookie(req, res, m.getId().toString(), m.getAccount(), m.getName(), "admin");
-						AuthOwnUtil.setUser(req, new AuthOwn(m.getId().toString(), m.getAccount(), m.getName(), "admin"));
+						AuthOwnUtil.login(req, res, m.getId().toString(), m.getAccount(), m.getName(), "admin");
+						AuthOwnUtil.setUser(req, m.getId().toString(), m.getAccount(), m.getName(), "admin");
 						chain.doFilter(requestWrapper, responseWraper);
 						return;
 					}
@@ -60,11 +57,6 @@ public class AuthOwnSSOFilter implements Filter
 				}
 				AuthOwnUtil.clearUser(req);
 				return;
-			}
-			AuthOwn authOwnSession = AuthOwnUtil.getUser(req);
-			if(authOwnSession == null || !authOwnSession.getAccount().equals(authOwnCookie.getAccount()))
-			{
-				AuthOwnUtil.setUser(req, authOwnCookie);
 			}
 			chain.doFilter(requestWrapper, responseWraper);
 		}
