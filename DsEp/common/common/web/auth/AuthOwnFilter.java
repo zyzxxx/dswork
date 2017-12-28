@@ -28,10 +28,16 @@ public class AuthOwnFilter implements Filter {
 	{
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
-		AuthOwn authOwn = AuthOwnUtil.getUser(req, res);
-		if(authOwn == null)
+		AuthOwn authOwnCookie = AuthOwnUtil.getUserCookie(req, res);
+		if(authOwnCookie == null)
 		{
+			AuthOwnUtil.clearUser(req);
 			return;
+		}
+		AuthOwn authOwnSession = AuthOwnUtil.getUser(req);
+		if(authOwnSession == null || !authOwnSession.getAccount().equals(authOwnCookie.getAccount()))
+		{
+			AuthOwnUtil.setUser(req, authOwnCookie);
 		}
 		chain.doFilter(request, response);
 	}

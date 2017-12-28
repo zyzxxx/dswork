@@ -21,7 +21,7 @@ public class DsCmsBaseController extends BaseController
 	public void BaseInitialization(HttpServletRequest request, HttpServletResponse response)
 	{
 		super.BaseInitialization(request, response);
-		AuthOwn m = AuthOwnUtil.getUser(request, response);
+		AuthOwn m = AuthOwnUtil.getUser(request);
 		id = m.getId();
 		own = m.getOwn();
 		account = m.getAccount();
