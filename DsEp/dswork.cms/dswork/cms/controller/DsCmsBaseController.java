@@ -5,8 +5,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import common.web.auth.AuthOwn;
-import common.web.auth.AuthOwnUtil;
+import common.authown.AuthOwn;
+import common.authown.AuthOwnUtil;
 import dswork.mvc.BaseController;
 
 public class DsCmsBaseController extends BaseController
