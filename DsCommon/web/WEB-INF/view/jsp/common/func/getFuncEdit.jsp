@@ -1,0 +1,31 @@
+<%@page language="java" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<%@include file="/commons/include/updAjax.jsp"%>
+</head>
+<body>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title"></td>
+		<td class="menuTool">
+			<a class="save" id="dataFormSave" href="#">提交导入</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<form id="dataForm" method="post" action="getFuncEdit2.htm">
+<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr>
+		<td>
+			<textarea id="menujson" name="menujson" rows="40" style="width:100%;">${json}</textarea>
+		</td>
+	</tr>
+</table>
+<input type="hidden" name="systemid" value="${param.systemid}" />
+</form>
+</body>
+</html>

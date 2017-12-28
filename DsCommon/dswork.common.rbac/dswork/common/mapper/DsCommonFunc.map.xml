@@ -77,4 +77,16 @@
 	<include refid="dynamicWhere" />
 </select>
 
+<resultMap id="resultView" type="dswork.common.model.view.DsCommonFuncView" extends="dswork.common.model.DsCommonFunc.result">
+	<result property="url" column="URL"/>
+</resultMap>
+
+<select id="queryFuncIdList" resultType="long">
+	select id from DS_COMMON_FUNC where SYSTEMID &lt;&gt; #{systemid}
+</select>
+
+<select id="queryFuncBySystemid" resultMap="resultView">
+	select <include refid="columns" />, URI as URL from DS_COMMON_FUNC where SYSTEMID =#{systemid} order by SEQ asc
+</select>
+
 </mapper>
