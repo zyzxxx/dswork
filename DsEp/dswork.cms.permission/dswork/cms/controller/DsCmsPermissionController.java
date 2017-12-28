@@ -10,8 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.web.auth.AuthOwn;
-import common.web.auth.AuthOwnUtil;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
@@ -20,12 +18,11 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.UniqueId;
-import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/permission")
-public class DsCmsPermissionController extends BaseController
+public class DsCmsPermissionController extends DsCmsBaseController
 {
 	@Autowired
 	private DsCmsPermissionService service;
@@ -36,9 +33,8 @@ public class DsCmsPermissionController extends BaseController
 	{
 		try
 		{
-			AuthOwn authOwn = AuthOwnUtil.getUser(request);
 			PageRequest pr = getPageRequest();
-			pr.getFilters().put("own", authOwn.getOwn());
+			pr.getFilters().put("own", getOwn());
 			Page<Map<String, Object>> pageModel = service.queryPageUser(pr);
 			put("pageModel", pageModel);
 			put("pageNav", new PageNav<Map<String, Object>>(request, pageModel));
@@ -131,10 +127,5 @@ public class DsCmsPermissionController extends BaseController
 		{
 			print("0:" + e.getMessage());
 		}
-	}
-
-	private String getOwn()
-	{
-		return AuthOwnUtil.getUser(request).getOwn();
 	}
 }

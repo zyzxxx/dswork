@@ -18,12 +18,11 @@ import dswork.cms.service.DsCmsSiteService;
 import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
 import dswork.core.util.UniqueId;
-import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/template")
-public class DsCmsTemplateController extends BaseController
+public class DsCmsTemplateController extends DsCmsBaseController
 {
 	@Autowired
 	private DsCmsSiteService service;
@@ -215,22 +214,5 @@ public class DsCmsTemplateController extends BaseController
 			e.printStackTrace();
 			print("0:文件读写失败，请重试");
 		}
-	}
-
-	private boolean checkOwn(String own)
-	{
-		try
-		{
-			return own.equals(getOwn());
-		}
-		catch(Exception ex)
-		{
-		}
-		return false;
-	}
-
-	private String getOwn()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
 	}
 }
