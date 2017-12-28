@@ -21,12 +21,11 @@ import dswork.core.page.PageRequest;
 import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
 import dswork.http.HttpUtil;
-import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/publish")
-public class DsCmsPublishController extends BaseController
+public class DsCmsPublishController extends DsCmsBaseController
 {
 	@Autowired
 	private DsCmsPublishService service;
@@ -87,9 +86,10 @@ public class DsCmsPublishController extends BaseController
 	{
 		Long categoryid = req.getLong("id");
 		DsCmsCategory m = service.getCategory(categoryid);
-		if(m.getScope() == 0 && checkOwn(m.getSiteid()))
+		if(m.getScope() == 0)
 		{
-			if(checkPublish(m.getSiteid(), m.getId()))
+			DsCmsSite s = service.getSite(m.getSiteid());
+			if(checkOwn(s.getOwn()) && checkPublish(s.getId(), m.getId()))
 			{
 				PageRequest pr = getPageRequest();
 				pr.getFilters().remove("id");
@@ -113,13 +113,11 @@ public class DsCmsPublishController extends BaseController
 		{
 			Long id = req.getLong("keyIndex");
 			DsCmsPage po = service.get(id);
-			if(checkOwn(po.getSiteid()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkOwn(s.getOwn()) && checkPublish(po.getSiteid(), po.getCategoryid()))
 			{
-				if(checkPublish(po.getSiteid(), po.getCategoryid()))
-				{
-					put("po", po);
-					return "/cms/publish/getPageById.jsp";
-				}
+				put("po", po);
+				return "/cms/publish/getPageById.jsp";
 			}
 		}
 		catch(Exception e)
@@ -136,16 +134,14 @@ public class DsCmsPublishController extends BaseController
 		{
 			Long id = req.getLong("id");
 			DsCmsCategory po = service.getCategory(id);
-			if(checkOwn(po.getSiteid()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkOwn(s.getOwn()) && checkPublish(po.getSiteid(), po.getId()))
 			{
-				if(checkPublish(po.getSiteid(), po.getId()))
-				{
-					DsCmsCategory m = service.getCategory(po.getId());
-					put("scope", m.getScope());
-					put("po", po);
-					return "/cms/publish/getCategoryById.jsp";
-				}
-			} 
+				DsCmsCategory m = service.getCategory(po.getId());
+				put("scope", m.getScope());
+				put("po", po);
+				return "/cms/publish/getCategoryById.jsp";
+			}
 		}
 		catch(Exception e)
 		{
@@ -484,30 +480,6 @@ public class DsCmsPublishController extends BaseController
 		return addr;
 	}
 
-	private boolean checkOwn(Long siteid)
-	{
-		try
-		{
-			return service.getSite(siteid).getOwn().equals(getOwn());
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-	}
-
-	private boolean checkOwn(String own)
-	{
-		try
-		{
-			return own.equals(getOwn());
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-	}
-
 	private boolean checkPublish(long siteid, long categoryid)
 	{
 		try
@@ -518,15 +490,5 @@ public class DsCmsPublishController extends BaseController
 		{
 			return false;
 		}
-	}
-
-	private String getOwn()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
-	}
-
-	private String getAccount()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getAccount();
 	}
 }

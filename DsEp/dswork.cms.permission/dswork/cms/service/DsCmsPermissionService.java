@@ -67,18 +67,8 @@ public class DsCmsPermissionService
 		return categoryDao.queryList(map);
 	}
 
-	public Page<Map<String, Object>> queryPageCommonUser(PageRequest pr)
+	public Page<Map<String, Object>> queryPageUser(PageRequest pr)
 	{
-		return userDao.queryPageCommonUser(pr);
-	}
-
-	public Page<Map<String, Object>> queryPageEpUser(PageRequest pr)
-	{
-		return userDao.queryPageEpUser(pr);
-	}
-
-	public Page<Map<String, Object>> queryPagePersonUser(PageRequest pr)
-	{
-		return userDao.queryPagePersonUser(pr);
+		return userDao.queryPage(pr);
 	}
 }

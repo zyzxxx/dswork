@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 public class AuthOwnFilter implements Filter {
 
@@ -26,10 +27,17 @@ public class AuthOwnFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
 	{
 		HttpServletRequest req = (HttpServletRequest) request;
-		AuthOwn authOwn = AuthOwnUtil.getUser(req);
-		if(authOwn == null)
+		HttpServletResponse res = (HttpServletResponse) response;
+		AuthOwn authOwnCookie = AuthOwnUtil.getUserCookie(req, res);
+		if(authOwnCookie == null)
 		{
+			AuthOwnUtil.clearUser(req);
 			return;
+		}
+		AuthOwn authOwnSession = AuthOwnUtil.getUser(req);
+		if(authOwnSession == null || !authOwnSession.getAccount().equals(authOwnCookie.getAccount()))
+		{
+			AuthOwnUtil.setUser(req, authOwnCookie);
 		}
 		chain.doFilter(request, response);
 	}

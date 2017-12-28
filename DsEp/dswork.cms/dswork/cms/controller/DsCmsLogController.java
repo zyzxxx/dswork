@@ -20,12 +20,11 @@ import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsLogService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
-import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/log")
-public class DsCmsLogController extends BaseController
+public class DsCmsLogController extends DsCmsBaseController
 {
 	@Autowired
 	private DsCmsLogService service;
@@ -74,10 +73,5 @@ public class DsCmsLogController extends BaseController
 		{
 			return null;
 		}
-	}
-
-	private String getOwn()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
 	}
 }
