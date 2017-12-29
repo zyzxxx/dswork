@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import dswork.common.dao.DsCommonFuncDao;
 import dswork.common.dao.DsCommonRoleDao;
 import dswork.common.dao.DsCommonSystemDao;
+import dswork.common.model.DsCommonRole;
 import dswork.common.model.DsCommonSystem;
 import dswork.core.db.EntityDao;
 import dswork.core.db.BaseService;
@@ -32,6 +33,19 @@ public class DsCommonSystemService extends BaseService<DsCommonSystem, java.lang
 	protected EntityDao getEntityDao()
 	{
 		return systemDao;
+	}
+	
+
+	@Override
+	public int save(DsCommonSystem po)
+	{
+		systemDao.save(po);
+		DsCommonRole role = new DsCommonRole();
+		role.setId(dswork.core.util.UniqueId.genUniqueId());
+		role.setSystemid(po.getId());
+		role.setName("系统管理员");
+		roleDao.save(role);
+		return 1;
 	}
 
 	// 不能批量删除
