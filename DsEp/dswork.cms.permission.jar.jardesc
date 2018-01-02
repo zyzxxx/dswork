@@ -1,6 +1,6 @@
  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="C:/Users/skey/Desktop/jar/dswork/dswork.cms.permission.jar"/>
+    <jar path="E:/Workspaces/jar/dswork/dswork.cms.permission.jar"/>
     <options buildIfNeeded="true" compress="true" descriptionLocation="/DsEp/dswork.cms.permission.jar.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="true" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
