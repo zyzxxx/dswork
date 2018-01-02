@@ -14,7 +14,7 @@ public class PageNav<T>
 	private boolean isOutForm = false;
 	private static String PAGEFORMID = "jskeyPageForm";
 	private String formString = "";
-	private static int[] sizeArray = {5, 10, 15, 20, 25, 30, 50};
+	private static int[] sizeArray = {1, 5, 10, 15, 20, 25, 50, 100, 200};
 
 	/**
 	 * 构造函数
