@@ -16,6 +16,7 @@ import dswork.common.dao.DsCommonSystemDao;
 import dswork.common.model.DsCommonFunc;
 import dswork.common.model.DsCommonRes;
 import dswork.common.model.DsCommonSystem;
+import dswork.common.model.view.DsCommonFuncView;
 import dswork.core.page.PageRequest;
 import dswork.core.util.UniqueId;
 
@@ -153,5 +154,41 @@ public class DsCommonFuncService
 		PageRequest pageRequest = new PageRequest();
 		pageRequest.setFilters(map);
 		return funcDao.queryCount(pageRequest);
+	}
+	
+	/**
+	 * 根据systemid查询func集合
+	 * @param systemid
+	 * @return
+	 */
+	public List<DsCommonFuncView> queryFuncBySystemid(long systemid)
+	{
+		return funcDao.queryFuncBySystemid(systemid);
+	}
+	
+	/**
+	 * 查询func表id集合，用于菜单导入时判断除了系统id为systemid之外的id是否存在
+	 * @param systemid 需要导入菜单的系统id
+	 * @return
+	 */
+	public List<Long> queryFuncIdList(long systemid)
+	{
+		return funcDao.queryFuncIdList(systemid);
+	}
+	
+	/**
+	 * DsCommonFunc的list数据入库
+	 * @param list
+	 */
+	public void updateFuncList(List<DsCommonFunc> list, long systemid)
+	{
+		if(list != null && list.size() > 0)
+		{
+			funcDao.deleteBySystemid(systemid);
+			for(DsCommonFunc o : list)
+			{
+				funcDao.save(o);
+			}
+		}
 	}
 }

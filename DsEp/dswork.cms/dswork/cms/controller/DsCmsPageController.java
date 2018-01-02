@@ -21,13 +21,12 @@ import dswork.core.util.CollectionUtil;
 import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
 import dswork.http.HttpUtil;
-import dswork.mvc.BaseController;
 import dswork.web.MyFile;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/page")
-public class DsCmsPageController extends BaseController
+public class DsCmsPageController extends DsCmsBaseController
 {
 	private HttpUtil httpUtil = new HttpUtil();// 单例模式下，用来保持session会话
 	@Autowired
@@ -98,11 +97,15 @@ public class DsCmsPageController extends BaseController
 		{
 			long categoryid = req.getLong("id");
 			DsCmsCategory po = service.getCategory(categoryid);
-			if(po.getScope() == 0 && checkOwn(po.getSiteid()))
+			if(po.getScope() == 0)
 			{
-				service.deleteBatchPage(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
-				print(1);
-				return;
+				DsCmsSite s = service.getSite(po.getSiteid());
+				if(checkOwn(s.getOwn()))
+				{
+					service.deleteBatchPage(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+					print(1);
+					return;
+				}
 			}
 			print("0:站点不存在");
 		}
@@ -121,10 +124,14 @@ public class DsCmsPageController extends BaseController
 		{
 			long categoryid = req.getLong("id");
 			DsCmsCategory po = service.getCategory(categoryid);
-			if(po.getScope() == 0 && checkOwn(po.getSiteid()))
+			if(po.getScope() == 0)
 			{
-				put("list", queryCategory(po.getSiteid(), false, categoryid));
-				return "/cms/page/copyPage.jsp";
+				DsCmsSite s = service.getSite(po.getSiteid());
+				if(checkOwn(s.getOwn()))
+				{
+					put("list", queryCategory(po.getSiteid(), false, categoryid));
+					return "/cms/page/copyPage.jsp";
+				}
 			}
 		}
 		catch(Exception e)
@@ -140,17 +147,20 @@ public class DsCmsPageController extends BaseController
 		{
 			long categoryid = req.getLong("id");
 			DsCmsCategory po = service.getCategory(categoryid);
-			DsCmsSite s = service.getSite(po.getSiteid());
-			if(po.getScope() == 0 && checkOwn(s.getId()))
+			if(po.getScope() == 0)
 			{
-				DsCmsPage page = service.getPage(req.getLong("keyIndex"));
-				if(page.getCategoryid() != categoryid)
+				DsCmsSite s = service.getSite(po.getSiteid());
+				if(checkOwn(s.getOwn()))
 				{
-					page.setId(0L);
-					page.setCategoryid(categoryid);
-					service.savePage(page, s.isEnablelog(), getAccount(), getName());
-					print("1:拷贝成功");
-					return;
+					DsCmsPage page = service.getPage(req.getLong("keyIndex"));
+					if(page.getCategoryid() != categoryid)
+					{
+						page.setId(0L);
+						page.setCategoryid(categoryid);
+						service.savePage(page, s.isEnablelog(), getAccount(), getName());
+						print("1:拷贝成功");
+						return;
+					}
 				}
 			}
 		}
@@ -235,16 +245,19 @@ public class DsCmsPageController extends BaseController
 		try
 		{
 			DsCmsCategory m = service.getCategory(po.getId());
-			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getScope() == 1 && checkOwn(m.getSiteid()))
+			if(m.getScope() == 1)
 			{
-				po.setStatus(1);
-				po.setSiteid(m.getSiteid());
-				po.setName(m.getName());
-				po.setScope(m.getScope());
-				service.updateCategory(po, s.isEnablelog(), getAccount(), getName());
-				print(1);
-				return;
+				DsCmsSite s = service.getSite(m.getSiteid());
+				if(checkOwn(s.getOwn()))
+				{
+					po.setStatus(1);
+					po.setSiteid(m.getSiteid());
+					po.setName(m.getName());
+					po.setScope(m.getScope());
+					service.updateCategory(po, s.isEnablelog(), getAccount(), getName());
+					print(1);
+					return;
+				}
 			}
 			print("0:站点不存在");
 		}
@@ -305,17 +318,21 @@ public class DsCmsPageController extends BaseController
 		{
 			Long categoryid = req.getLong("id");
 			DsCmsCategory m = service.getCategory(categoryid);
-			if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
+			if(m.getScope() == 0)// 列表
 			{
-				PageRequest rq = getPageRequest();
-				rq.getFilters().put("siteid", m.getSiteid());
-				rq.getFilters().put("categoryid", m.getId());
-				rq.getFilters().put("keyvalue", req.getString("keyvalue"));
-				Page<DsCmsPage> pageModel = service.queryPagePage(rq);
-				put("pageModel", pageModel);
-				put("pageNav", new PageNav<DsCmsPage>(request, pageModel));
-				put("po", m);
-				return "/cms/page/getPage.jsp";
+				DsCmsSite s = service.getSite(m.getSiteid());
+				if(checkOwn(s.getOwn()))
+				{
+					PageRequest rq = getPageRequest();
+					rq.getFilters().put("siteid", m.getSiteid());
+					rq.getFilters().put("categoryid", m.getId());
+					rq.getFilters().put("keyvalue", req.getString("keyvalue"));
+					Page<DsCmsPage> pageModel = service.queryPagePage(rq);
+					put("pageModel", pageModel);
+					put("pageNav", new PageNav<DsCmsPage>(request, pageModel));
+					put("po", m);
+					return "/cms/page/getPage.jsp";
+				}
 			} 
 		}
 		catch(Exception e)
@@ -825,44 +842,5 @@ public class DsCmsPageController extends BaseController
 		}
 		List<DsCmsCategory> list = DsCmsUtil.categorySettingList(tlist);
 		return list;
-	}
-
-	private boolean checkOwn(Long siteid)
-	{
-		try
-		{
-			return service.getSite(siteid).getOwn().equals(getOwn());
-		}
-		catch(Exception ex)
-		{
-		}
-		return false;
-	}
-
-	private boolean checkOwn(String own)
-	{
-		try
-		{
-			return own.equals(getOwn());
-		}
-		catch(Exception ex)
-		{
-		}
-		return false;
-	}
-
-	private String getOwn()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
-	}
-
-	private String getAccount()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getAccount();
-	}
-
-	private String getName()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getName();
 	}
 }

@@ -20,12 +20,11 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.TimeUtil;
-import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/audit")
-public class DsCmsAuditController extends BaseController
+public class DsCmsAuditController extends DsCmsBaseController
 {
 	@Autowired
 	private DsCmsAuditService service;
@@ -92,7 +91,8 @@ public class DsCmsAuditController extends BaseController
 			{
 				po = service.saveAuditCategory(id);
 			}
-			if(checkOwn(po.getSiteid()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkOwn(s.getOwn()))
 			{
 				if(checkAudit(po.getSiteid(), po.getId()))
 				{
@@ -169,7 +169,7 @@ public class DsCmsAuditController extends BaseController
 			{
 				if(checkAudit(s.getId(), m.getId()))
 				{
-					if(m.getScope() == 0 && checkOwn(m.getSiteid()))// 列表
+					if(m.getScope() == 0 && checkOwn(s.getOwn()))// 列表
 					{
 						PageRequest pr = getPageRequest();
 						pr.getFilters().remove("id");
@@ -269,30 +269,6 @@ public class DsCmsAuditController extends BaseController
 		}
 	}
 
-	private boolean checkOwn(Long siteid)
-	{
-		try
-		{
-			return service.getSite(siteid).getOwn().equals(getOwn());
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-	}
-
-	private boolean checkOwn(String own)
-	{
-		try
-		{
-			return own.equals(getOwn());
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-	}
-
 	private boolean checkAudit(long siteid, long categoryid)
 	{
 		try
@@ -303,20 +279,5 @@ public class DsCmsAuditController extends BaseController
 		{
 			return false;
 		}
-	}
-
-	private String getOwn()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
-	}
-
-	private String getAccount()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getAccount();
-	}
-
-	private String getName()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getName();
 	}
 }

@@ -1,4 +1,4 @@
-package common.web.auth;
+package common.authown;
 
 public class AuthOwn
 {

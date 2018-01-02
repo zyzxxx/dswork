@@ -437,6 +437,16 @@ public class HttpUtil
 		return null;
 	}
 	
+	public void initSocketFactoryForSSL()
+	{
+		this.sslSocketFactory = HttpCommon.getSocketFactoryForSSL();
+	}
+
+	public void initSocketFactoryForTLS()
+	{
+		this.sslSocketFactory = HttpCommon.getSocketFactoryForTLS();
+	}
+	
 	// post的数据流，与Form数据冲突
 	private byte[] databody = null;
 

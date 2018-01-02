@@ -23,13 +23,12 @@ import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsSiteService;
 import dswork.core.util.FileUtil;
 import dswork.core.util.UniqueId;
-import dswork.mvc.BaseController;
 import dswork.web.MyFile;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/file")
-public class DsCmsFileController extends BaseController
+public class DsCmsFileController extends DsCmsBaseController
 {
 	@Autowired
 	private DsCmsSiteService service;
@@ -369,22 +368,5 @@ public class DsCmsFileController extends BaseController
 		{
 			e.printStackTrace();
 		}
-	}
-
-	private boolean checkOwn(String own)
-	{
-		try
-		{
-			return own.equals(getOwn());
-		}
-		catch(Exception ex)
-		{
-		}
-		return false;
-	}
-
-	private String getOwn()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
 	}
 }

@@ -21,12 +21,11 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.TimeUtil;
-import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/edit")
-public class DsCmsEditController extends BaseController
+public class DsCmsEditController extends DsCmsBaseController
 {
 	@Autowired
 	private DsCmsEditService service;
@@ -150,12 +149,13 @@ public class DsCmsEditController extends BaseController
 		{
 			Long categoryid = req.getLong("id");
 			DsCmsCategory c = service.getCategory(categoryid);
-			if(c.getScope() == 0 && checkOwn(c.getSiteid()))
+			if(c.getScope() == 0)
 			{
-				DsCmsPermission permission = service.getPermission(c.getSiteid(), getAccount());
-				if(permission.checkEdit(c.getId()))
+				DsCmsSite s = service.getSite(c.getSiteid());
+				if(checkOwn(s.getOwn()))
 				{
-					if(c.getScope() == 0 && checkOwn(c.getSiteid()))// 列表
+					DsCmsPermission permission = service.getPermission(c.getSiteid(), getAccount());
+					if(permission.checkEdit(c.getId()))
 					{
 						PageRequest pr = getPageRequest();
 						pr.getFilters().remove("id");
@@ -237,7 +237,8 @@ public class DsCmsEditController extends BaseController
 		{
 			Long id = req.getLong("keyIndex");
 			DsCmsAuditPage po = service.getAuditPage(id);
-			if(checkOwn(po.getSiteid()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkOwn(s.getOwn()))
 			{
 				if(checkEditPage(po.getSiteid(), po.getCategoryid(), po.getEditid()))
 				{
@@ -367,7 +368,8 @@ public class DsCmsEditController extends BaseController
 			{
 				po = service.saveAuditCategory(id);
 			}
-			if(checkOwn(po.getSiteid()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkOwn(s.getOwn()))
 			{
 				if(checkEditCategory(po.getSiteid(), po.getId()))
 				{
@@ -492,30 +494,6 @@ public class DsCmsEditController extends BaseController
 		}
 	}
 
-	private boolean checkOwn(Long siteid)
-	{
-		try
-		{
-			return service.getSite(siteid).getOwn().equals(getOwn());
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-	}
-
-	private boolean checkOwn(String own)
-	{
-		try
-		{
-			return own.equals(getOwn());
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
-	}
-
 	private boolean checkEditPage(long siteid, long categoryid, String editid)
 	{
 		try
@@ -539,20 +517,5 @@ public class DsCmsEditController extends BaseController
 		{
 			return false;
 		}
-	}
-
-	private String getOwn()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
-	}
-
-	private String getAccount()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getAccount();
-	}
-
-	private String getName()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getName();
 	}
 }

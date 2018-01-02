@@ -42,13 +42,13 @@ public class DsCommonUserController extends BaseController
 	{
 		try
 		{
-			if(po.getAccount().length() <= 0 || po.getAccount().equals("null"))
+			if(po.getAccount().length() <= 0 || "null".equals(po.getAccount()))
 			{
 				print("0:添加失败，账号不能为空");
 			}
 			else
 			{
-				if(!service.isExistsByAccount(po.getAccount()))
+				if(!"root".equals(po.getAccount()) && !"admin".equals(po.getAccount()) && !service.isExistsByAccount(po.getAccount()))
 				{
 					po.setId(UniqueId.genUniqueId());
 					po.setCreatetime(TimeUtil.getCurrentTime());

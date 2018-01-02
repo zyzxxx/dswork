@@ -10,9 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.auth.Auth;
-import common.auth.AuthUtil;
-import common.web.auth.AuthOwnUtil;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
@@ -21,63 +18,27 @@ import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.UniqueId;
-import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/permission")
-public class DsCmsPermissionController extends BaseController
+public class DsCmsPermissionController extends DsCmsBaseController
 {
 	@Autowired
 	private DsCmsPermissionService service;
 
-	// 获取系统用户分页
-	@RequestMapping("getCommonUser")
-	public String getCommonUser()
+	// 获取用户分页
+	@RequestMapping("getUser")
+	public String getUser()
 	{
 		try
 		{
-			Page<Map<String, Object>> pageModel = service.queryPageCommonUser(getPageRequest());
-			put("pageModel", pageModel);
-			put("pageNav", new PageNav<Map<String, Object>>(request, pageModel));
-			return "/cms/permission/getCommonUser.jsp";
-		}
-		catch(Exception e)
-		{
-		}
-		return null;
-	}
-
-	// 获取企业用户分页
-	@RequestMapping("getEpUser")
-	public String getEpUser()
-	{
-		try
-		{
-			Auth user = AuthUtil.getLoginUser(request);
 			PageRequest pr = getPageRequest();
-			pr.getFilters().put("qybm", user.getQybm());
-			Page<Map<String, Object>> pageModel = service.queryPageEpUser(pr);
+			pr.getFilters().put("own", getOwn());
+			Page<Map<String, Object>> pageModel = service.queryPageUser(pr);
 			put("pageModel", pageModel);
 			put("pageNav", new PageNav<Map<String, Object>>(request, pageModel));
-			return "/cms/permission/getEpUser.jsp";
-		}
-		catch(Exception e)
-		{
-		}
-		return null;
-	}
-
-	// 获取个人用户分页
-	@RequestMapping("getPersonUser")
-	public String getPersonUser()
-	{
-		try
-		{
-			Page<Map<String, Object>> pageModel = service.queryPagePersonUser(getPageRequest());
-			put("pageModel", pageModel);
-			put("pageNav", new PageNav<Map<String, Object>>(request, pageModel));
-			return "/cms/permission/getPersonUser.jsp";
+			return "/cms/permission/getUser.jsp";
 		}
 		catch(Exception e)
 		{
@@ -166,10 +127,5 @@ public class DsCmsPermissionController extends BaseController
 		{
 			print("0:" + e.getMessage());
 		}
-	}
-
-	private String getOwn()
-	{
-		return AuthOwnUtil.getUser(request).getOwn();
 	}
 }
