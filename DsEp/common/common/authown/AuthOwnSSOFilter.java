@@ -46,8 +46,9 @@ public class AuthOwnSSOFilter implements Filter
 					dswork.sso.model.IUser m = dswork.sso.AuthFactory.getUser(userAccount);
 					if(m.getStatus() != 0)
 					{
-						AuthOwnUtil.login(req, res, m.getId().toString(), m.getAccount(), m.getName(), "admin");
-						AuthOwnUtil.setUser(req, m.getId().toString(), m.getAccount(), m.getName(), "admin");
+						String c = String.valueOf(m.getWorkcard()).trim();
+						AuthOwnUtil.login(req, res, m.getId().toString(), m.getAccount(), m.getName(), (c.length() > 0 ? m.getWorkcard() : "admin" + m.getAccount()));
+						AuthOwnUtil.setUser(req, m.getId().toString(), m.getAccount(), m.getName(), (c.length() > 0 ? m.getWorkcard() : "admin" + m.getAccount()));
 						chain.doFilter(requestWrapper, responseWraper);
 						return;
 					}
