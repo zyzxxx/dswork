@@ -37,7 +37,7 @@ public class AuthOwnFilter implements Filter {
 		AuthOwn m = AuthOwnUtil.getUser(req);
 		if(m == null || !m.getAccount().equals(authOwn.getAccount()))
 		{
-			AuthOwnUtil.setUser(req, m.getId().toString(), m.getAccount(), m.getName(), m.getOwn());
+			AuthOwnUtil.setUser(req, authOwn.getId().toString(), authOwn.getAccount(), authOwn.getName(), authOwn.getOwn());
 		}
 		chain.doFilter(request, response);
 	}
