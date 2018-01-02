@@ -2,7 +2,7 @@
 INSERT INTO ds_common_system (ID, NAME, ALIAS, PASSWORD, DOMAINURL, ROOTURL, MENUURL, STATUS, SEQ, MEMO) VALUES (0, '测试单机系统', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL);
 INSERT INTO ds_common_system (ID, NAME, ALIAS, PASSWORD, DOMAINURL, ROOTURL, MENUURL, STATUS, SEQ, MEMO) VALUES (1, '统一认证平台', 'DsCommon', '1', 'http://127.0.0.1', '/DsCommon', '/DsCommon/menu.jsp', 1, NULL, '');
 INSERT INTO ds_common_system (ID, NAME, ALIAS, PASSWORD, DOMAINURL, ROOTURL, MENUURL, STATUS, SEQ, MEMO) VALUES (2, '门户', 'portal', '1', '', '/portal', '/portal/menu.jsp', 1, NULL, '');
-INSERT INTO ds_common_system (ID, NAME, ALIAS, PASSWORD, DOMAINURL, ROOTURL, MENUURL, STATUS, SEQ, MEMO) VALUES (3, 'cas-client', 'sso-client', '1', 'http://127.0.0.1:888', '/sso-client', '/sso-client/menu.jsp', 1, NULL, '');
+INSERT INTO ds_common_system (ID, NAME, ALIAS, PASSWORD, DOMAINURL, ROOTURL, MENUURL, STATUS, SEQ, MEMO) VALUES (3, 'sso-client', 'sso-client', '1', 'http://127.0.0.1:888', '/sso-client', '/sso-client/menu.jsp', 1, NULL, '');
 
 
 INSERT INTO ds_common_func (ID, PID, SYSTEMID, NAME, ALIAS, URI, IMG, STATUS, SEQ, MEMO, RESOURCES) VALUES (1, NULL, 1, '门户管理', '', '#', '', 1, 1, '', '');
