@@ -22,7 +22,7 @@ public class BuilderParser
 		{
 			builder = new BuilderModel();
 			DocumentBuilder builder = builderFactory.newDocumentBuilder();
-			parseConfig((Element)builder.parse(new ByteArrayInputStream(xmlString.getBytes())).getElementsByTagName("config").item(0));
+			parseConfig((Element)builder.parse(new ByteArrayInputStream(xmlString.getBytes("UTF-8"))).getElementsByTagName("config").item(0));
 		}
 		catch(SAXException e)
 		{
