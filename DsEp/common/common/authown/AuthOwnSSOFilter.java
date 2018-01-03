@@ -1,4 +1,4 @@
-package common.web.auth;
+package common.authown;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -18,10 +18,12 @@ public class AuthOwnSSOFilter implements Filter
 	{
 	}
 
+	@Override
 	public void destroy()
 	{
 	}
 
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException
 	{
 		HttpServletRequest req = (HttpServletRequest) request;
@@ -33,21 +35,20 @@ public class AuthOwnSSOFilter implements Filter
 			String userAccount = dswork.sso.WebFilter.getAccount(req.getSession());
 			if(userAccount.length() == 0)
 			{
+				AuthOwnUtil.clearUser(req);
 				return;
 			}
 			AuthOwn auth = AuthOwnUtil.getUser(req);
-			if(auth != null && !auth.getAccount().equals(userAccount))
-			{
-				auth = null;
-			}
-			if(auth == null)
+			if(auth == null || !auth.getAccount().equals(userAccount))
 			{
 				try
 				{
 					dswork.sso.model.IUser m = dswork.sso.AuthFactory.getUser(userAccount);
 					if(m.getStatus() != 0)
 					{
-						AuthOwnUtil.setUser(req, m.getId().toString(), m.getAccount(), m.getName(), "admin" + m.getAccount());
+						String c = String.valueOf(m.getWorkcard()).trim();
+						AuthOwnUtil.login(req, res, m.getId().toString(), m.getAccount(), m.getName(), (c.length() > 0 ? m.getWorkcard() : "admin" + m.getAccount()));
+						AuthOwnUtil.setUser(req, m.getId().toString(), m.getAccount(), m.getName(), (c.length() > 0 ? m.getWorkcard() : "admin" + m.getAccount()));
 						chain.doFilter(requestWrapper, responseWraper);
 						return;
 					}
@@ -55,17 +56,17 @@ public class AuthOwnSSOFilter implements Filter
 				catch(Exception xx)
 				{
 				}
+				AuthOwnUtil.clearUser(req);
+				return;
 			}
-			else
-			{
-				chain.doFilter(requestWrapper, responseWraper);
-			}
+			chain.doFilter(requestWrapper, responseWraper);
 		}
 		catch(Exception e)
 		{
 		}
 	}
 
+	@Override
 	public void init(FilterConfig fConfig) throws ServletException
 	{
 	}

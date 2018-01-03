@@ -14,12 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsCategoryService;
-import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
 @RequestMapping("/cms/category")
-public class DsCmsCategoryController extends BaseController
+public class DsCmsCategoryController extends DsCmsBaseController
 {
 	@Autowired
 	private DsCmsCategoryService service;
@@ -103,19 +102,20 @@ public class DsCmsCategoryController extends BaseController
 		try
 		{
 			Long siteid = req.getLong("siteid");
-			Long mid = req.getLong("keyIndex", 0);
-			DsCmsCategory po = service.get(mid);
+			Long id = req.getLong("keyIndex", 0);
+			DsCmsCategory po = service.get(id);
 			if(siteid == po.getSiteid())
 			{
-				int count = service.getCountByPid(mid);
+				int count = service.getCountByPid(id);
 				if(0 < count)
 				{
 					print("0:下级节点不为空");
 					return;
 				}
-				if(checkOwn(po.getSiteid()))
+				DsCmsSite s = service.getSite(siteid);
+				if(checkOwn(s.getOwn()))
 				{
-					service.delete(mid);
+					service.delete(id);
 					print(1);
 					return;
 				}
@@ -138,13 +138,17 @@ public class DsCmsCategoryController extends BaseController
 			Long siteid = req.getLong("siteid");
 			Long id = req.getLong("keyIndex");
 			DsCmsCategory po = service.get(id);
-			if(siteid == po.getSiteid() && checkOwn(po.getSiteid()))
+			if(siteid == po.getSiteid())
 			{
-				put("po", po);
-				put("list", queryCategory(po.getSiteid(), false, id));
-				DsCmsSite site = service.getSite(siteid);
-				put("templates", getTemplateName(site.getFolder()));
-				return "/cms/category/updCategory.jsp";
+				DsCmsSite s = service.getSite(siteid);
+				if(checkOwn(s.getOwn()))
+				{
+					put("po", po);
+					put("list", queryCategory(po.getSiteid(), false, id));
+					DsCmsSite site = service.getSite(siteid);
+					put("templates", getTemplateName(site.getFolder()));
+					return "/cms/category/updCategory.jsp";
+				}
 			}
 		}
 		catch(Exception e)
@@ -197,7 +201,8 @@ public class DsCmsCategoryController extends BaseController
 		{
 			if(idArr.length == seqArr.length)
 			{
-				if(checkOwn(siteid))
+				DsCmsSite s = service.getSite(siteid);
+				if(checkOwn(s.getOwn()))
 				{
 					service.updateSeq(idArr, seqArr, siteid);
 					print(1);
@@ -314,34 +319,5 @@ public class DsCmsCategoryController extends BaseController
 		}
 		List<DsCmsCategory> list = DsCmsUtil.categorySettingList(tlist);
 		return list;
-	}
-
-	private boolean checkOwn(Long siteid)
-	{
-		try
-		{
-			return service.getSite(siteid).getOwn().equals(getOwn());
-		}
-		catch(Exception ex)
-		{
-		}
-		return false;
-	}
-
-	private boolean checkOwn(String own)
-	{
-		try
-		{
-			return own.equals(getOwn());
-		}
-		catch(Exception ex)
-		{
-		}
-		return false;
-	}
-
-	private String getOwn()
-	{
-		return common.web.auth.AuthOwnUtil.getUser(request).getOwn();
 	}
 }

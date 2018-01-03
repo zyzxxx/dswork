@@ -12,7 +12,7 @@ import java.util.TimeZone;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLSession;
-//import javax.net.ssl.SSLSocketFactory;
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 
 /**
@@ -50,26 +50,26 @@ public class HttpCommon
 			return null;
 		}
 	}
-//	private static SSLSocketFactory socketFactoryForSSL;
-//	private static SSLSocketFactory socketFactoryForTLS;
+	private static SSLSocketFactory socketFactoryForSSL;
+	private static SSLSocketFactory socketFactoryForTLS;
 	private static final TrustManager tm = new TM();
 	static
 	{
 		sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
-//		try
-//		{
-//			javax.net.ssl.SSLContext scSSL = javax.net.ssl.SSLContext.getInstance("SSL");
-//			scSSL.init(null, new TrustManager[]{tm}, null);
-//			socketFactoryForSSL = scSSL.getSocketFactory();
-//			
-//			javax.net.ssl.SSLContext scTLS = javax.net.ssl.SSLContext.getInstance("TLS");
-//			scTLS.init(null, new TrustManager[]{tm}, null);
-//			socketFactoryForSSL = scTLS.getSocketFactory();
-//		}
-//		catch(Exception e)
-//		{
-//			e.printStackTrace();
-//		}
+		try
+		{
+			javax.net.ssl.SSLContext scSSL = javax.net.ssl.SSLContext.getInstance("SSL");
+			scSSL.init(null, new TrustManager[]{tm}, null);
+			socketFactoryForSSL = scSSL.getSocketFactory();
+			
+			javax.net.ssl.SSLContext scTLS = javax.net.ssl.SSLContext.getInstance("TLS");
+			scTLS.init(null, new TrustManager[]{tm}, null);
+			socketFactoryForSSL = scTLS.getSocketFactory();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private static class TM implements TrustManager, javax.net.ssl.X509TrustManager
@@ -268,15 +268,15 @@ public class HttpCommon
 		return list;
 	}
 
-//	public static SSLSocketFactory getSocketFactoryForSSL()
-//	{
-//		return socketFactoryForSSL;
-//	}
-//
-//	public static SSLSocketFactory getSocketFactoryForTLS()
-//	{
-//		return socketFactoryForTLS;
-//	}
+	public static SSLSocketFactory getSocketFactoryForSSL()
+	{
+		return socketFactoryForSSL;
+	}
+
+	public static SSLSocketFactory getSocketFactoryForTLS()
+	{
+		return socketFactoryForTLS;
+	}
 	
 	public static TrustManager getTrustManager()
 	{
