@@ -83,9 +83,19 @@ public class DsCommonFuncDao extends BaseDao<DsCommonFunc, Long>
 	 * @param systemid 需要导入菜单的系统id
 	 * @return
 	 */
-	public List<Long> queryFuncIdList(long systemid)
+	public List<String> queryFuncIdList(long systemid)
 	{
 		return executeSelectList("queryFuncIdList", systemid);
+	}
+	
+	/**
+	 * 查询systemid的func表id集合
+	 * @param systemid 需要导入菜单的系统id
+	 * @return
+	 */
+	public List<String> queryFuncOldIdList(long systemid)
+	{
+		return executeSelectList("queryFuncOldIdList", systemid);
 	}
 	
 	/**

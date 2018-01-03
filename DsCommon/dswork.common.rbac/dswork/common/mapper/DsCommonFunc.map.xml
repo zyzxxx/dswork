@@ -81,8 +81,12 @@
 	<result property="url" column="URL"/>
 </resultMap>
 
-<select id="queryFuncIdList" resultType="long">
+<select id="queryFuncIdList" resultType="String">
 	select id from DS_COMMON_FUNC where SYSTEMID &lt;&gt; #{systemid}
+</select>
+
+<select id="queryFuncOldIdList" resultType="String">
+	select id from DS_COMMON_FUNC where SYSTEMID =#{systemid}
 </select>
 
 <select id="queryFuncBySystemid" resultMap="resultView">

@@ -3,6 +3,7 @@
  */
 package dswork.common.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -171,23 +172,52 @@ public class DsCommonFuncService
 	 * @param systemid 需要导入菜单的系统id
 	 * @return
 	 */
-	public List<Long> queryFuncIdList(long systemid)
+	public List<String> queryFuncIdList(long systemid)
 	{
 		return funcDao.queryFuncIdList(systemid);
 	}
 	
 	/**
+	 * 查询systemid的func表id集合
+	 * @param systemid 需要导入菜单的系统id
+	 * @return
+	 */
+	public List<String> queryFuncOldIdList(long systemid)
+	{
+		return funcDao.queryFuncOldIdList(systemid);
+	}
+	
+	/**
 	 * DsCommonFunc的list数据入库
 	 * @param list
+	 * @param systemid
+	 * @param oldDrIdList 数据库中系统id为systemid的已存在的菜单的id集合
 	 */
-	public void updateFuncList(List<DsCommonFunc> list, long systemid)
+	public void updateFuncList(List<DsCommonFunc> list, long systemid, List<String> oldDrIdList)
 	{
 		if(list != null && list.size() > 0)
 		{
-			funcDao.deleteBySystemid(systemid);
+			List<String> newDrIdList = new ArrayList<String>();
+			//数据库中已存在的菜单修改，不存在的添加
 			for(DsCommonFunc o : list)
 			{
-				funcDao.save(o);
+				newDrIdList.add(String.valueOf(o.getId()));
+				if(oldDrIdList.contains(String.valueOf(o.getId())))
+				{
+					funcDao.update(o);
+				}
+				else
+				{
+					funcDao.save(o);
+				}
+			}
+			//删除多余的菜单
+			for(String id : oldDrIdList)
+			{
+				if(!newDrIdList.contains(id))
+				{
+					funcDao.delete(Long.valueOf(id));
+				}
 			}
 		}
 	}
