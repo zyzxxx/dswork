@@ -500,7 +500,7 @@ public class DsCommonFuncController extends BaseController
 			{
 				JsonObject jsonObject = el.getAsJsonObject();
 				long id = jsonObject.get("id").getAsLong();
-				if(idList.contains(id))
+				if(idList.contains(id + ""))
 				{
 					return false;
 				}
