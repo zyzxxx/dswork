@@ -111,7 +111,7 @@ public class Builder
 		return file;
 	}
 
-	public static String readFile(String filePath, String charsetName)
+	public static String readFile(String filePath)
 	{
 		File file = new File(filePath);
 		StringBuilder sb = new StringBuilder();
@@ -146,15 +146,27 @@ public class Builder
 		return sb.toString();
 	}
 
+	public static String getLocation(String name)
+	{
+		String location = Builder.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		if(location.endsWith(".jar"))
+		{
+			location = location.substring(0, location.lastIndexOf("/") + 1);
+		}
+		return location + name;
+	}
+
 	public static void main(String[] args)
 	{
 //		String builderFile = Builder.class.getResource("/Builder.xml").getPath();
-		String builderFile = Builder.class.getClassLoader().getResource("Builder.xml").getPath();
+//		String builderFile = Builder.class.getClassLoader().getResource("Builder.xml").getPath();
+		String builderFile = getLocation("Builder.xml");
 		if(args.length > 1)
 		{
-			builderFile = args[1];
+			builderFile = System.getProperty("user.dir") + "/" + args[1];
+			builderFile = builderFile.replace("//", "/");
 		}
-		BuilderModel builder = new BuilderParser().parse(readFile(builderFile, "UTF-8"));
+		BuilderModel builder = new BuilderParser().parse(readFile(builderFile));
 		Builder builderUtil = new Builder(builder);
 		builderUtil.build();
 	}
