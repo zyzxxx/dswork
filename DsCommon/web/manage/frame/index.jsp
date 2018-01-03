@@ -32,7 +32,8 @@ var treedata = [
 	,{id:100003,name:'组织管理', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm', items:[]}
 	,{id:100004,name:'岗位授权管理', img:"", imgOpen:"", url:'/common/orgrole/getOrgTree.htm', items:[]}
 	,{id:100005,name:'用户管理', img:"", imgOpen:"", url:'/common/user/getUser.htm', items:[]}
-	,{id:100006,name:'登录日志', img:"", imgOpen:"", url:'/common/log/getCommonLogin.jsp', items:[]}
+	,{id:100006,name:'用户授权管理', img:"", imgOpen:"", url:'/common/userorg/getOrgTree.htm', items:[]}
+	,{id:100007,name:'登录日志', img:"", imgOpen:"", url:'/common/log/getCommonLogin.jsp', items:[]}
 ]}
 ,{id:200000, name:'业务管理', img:"", imgOpen:"", url:"", items:[
 	 {id:200001,name:'字典管理', img:"", imgOpen:"", url:'/common/dict/getDict.htm', items:[]}
@@ -44,8 +45,8 @@ var treedata = [
 	,{id:300003,name:'权限管理', img:"", imgOpen:"", url:'/common/userrole/getUser.htm?systemid=0', items:[]}
 ]}
 ,{id:100, name:'扩展功能', img:"", imgOpen:"", url:"", items:[
-	 {id:901,name:'组织管理指定', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm?rootid=1', items:[]}
-	,{id:902,name:'用户授权管理', img:"", imgOpen:"", url:'/common/userorg/getOrgTree.htm?rootid=1', items:[]}
+	 {id:901,name:'指定组织机构', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm?rootid=1', items:[]}
+	,{id:902,name:'指定用户授权', img:"", imgOpen:"", url:'/common/userorg/getOrgTree.htm?rootid=1', items:[]}
 	,{id:11,name:'流程示例', img:"", imgOpen:"", url:'', items:[
 		{id:111,name:'流程测试', img:"", imgOpen:"", url:'/flow/waiting.jsp', items:[]}
 	]}
