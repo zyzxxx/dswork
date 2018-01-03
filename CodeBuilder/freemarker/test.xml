@@ -3,7 +3,7 @@
 	<!--outputEncoding:UTF-8(65001) | GBK(936)-->
 	<charset outputEncoding="936">UTF-8</charset>
 
-	<templates path="D:/workspace/CodeBuilder.freemarker/freemarker/template">
+	<templates path="D:/workspace/CodeBuilder/freemarker/template">
 		<template name="base"   id="idao"		viewpath="/java/idao.ftl"            path="/{src}/{namespace}/dao/{module}/{model}Dao.java" comment="mybatis" />
 		<template name="base"   id="imapper"	viewpath="/java/imapper.ftl"         path="/{src}/{namespace}/mapper/{model}.map.xml" comment="mybatis" />
 		<template name="base"   id="model"		viewpath="/java/model.ftl"           path="/{src}/{namespace}/model/{module}/{model}.java" />
