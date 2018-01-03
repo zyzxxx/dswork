@@ -3,7 +3,7 @@
 	<!--outputEncoding:UTF-8(65001) | GBK(936)-->
 	<charset outputEncoding="936">UTF-8</charset>
 
-	<templates path="D:/workspace/CodeBuilder.freemarker/freemarker/template">
+	<templates path="D:/workspace/CodeBuilder/freemarker/template">
 		<template name="base"   id="idao"		viewpath="/java/idao.ftl"            path="/{src}/{namespace}/dao/{module}/{model}Dao.java" comment="mybatis" />
 		<template name="base"   id="imapper"	viewpath="/java/imapper.ftl"         path="/{src}/{namespace}/mapper/{model}.map.xml" comment="mybatis" />
 		<template name="base"   id="model"		viewpath="/java/model.ftl"           path="/{src}/{namespace}/model/{module}/{model}.java" />
@@ -19,7 +19,7 @@
 		<param name="test" value="随便写" />
 	</params>
 
-	<connect name="OracleModel.dll" type="codebuilder.freemarker.MySqlDao" url="jdbc:mysql://localhost:3306/rzfw?user=root&amp;password=root&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true" />>
+	<connect name="OracleModel.dll" type="codebuilder.freemarker.MySqlDao" url="jdbc:mysql://192.168.1.8:3306/rzfw?user=rzfw&amp;password=rzfw@DB123&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true" />>
 	<builder developer="张胤" project="D:/code" templatename="base" src="src" web="web">
 		<code frame="dswork" namespace="rzfw" module="" webmodule="/manage/rzfw/jgrk" table="rzfw_jgrk" model="RzfwJgrk" comment="mybatis" />
 		<code frame="dswork" namespace="rzfw" module="" webmodule="/manage/rzfw/jrcp" table="rzfw_jrcp" model="RzfwJrcp" comment="mybatis" />
