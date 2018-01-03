@@ -1,13 +1,14 @@
 package codebuilder.freemarker;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import codebuilder.freemarker.BuilderModel.Code;
-import dswork.core.util.FileUtil;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 
@@ -110,14 +111,50 @@ public class Builder
 		return file;
 	}
 
+	public static String readFile(String filePath, String charsetName)
+	{
+		File file = new File(filePath);
+		StringBuilder sb = new StringBuilder();
+		if(file.isFile())
+		{
+			BufferedReader reader = null;
+			try
+			{
+				reader = new BufferedReader(new FileReader(file));
+				for(String s = null; (s = reader.readLine()) != null;)
+				{
+					sb.append(s);
+	            }
+			}
+			catch(Exception e)
+			{
+			}
+			finally
+			{
+				if(reader != null)
+				{
+					try
+					{
+						reader.close();
+					}
+					catch(Exception e)
+					{
+					}
+				}
+			}
+		}
+		return sb.toString();
+	}
+
 	public static void main(String[] args)
 	{
-		String builderFile = Builder.class.getResource("/Builder.xml").getPath();
+//		String builderFile = Builder.class.getResource("/Builder.xml").getPath();
+		String builderFile = Builder.class.getClassLoader().getResource("Builder.xml").getPath();
 		if(args.length > 1)
 		{
 			builderFile = args[1];
 		}
-		BuilderModel builder = new BuilderParser().parse(FileUtil.readFile(builderFile, "UTF-8"));
+		BuilderModel builder = new BuilderParser().parse(readFile(builderFile, "UTF-8"));
 		Builder builderUtil = new Builder(builder);
 		builderUtil.build();
 	}
