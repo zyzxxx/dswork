@@ -161,9 +161,9 @@ public class Builder
 //		String builderFile = Builder.class.getResource("/Builder.xml").getPath();
 //		String builderFile = Builder.class.getClassLoader().getResource("Builder.xml").getPath();
 		String builderFile = getLocation("Builder.xml");
-		if(args.length > 1)
+		if(args.length > 0)
 		{
-			builderFile = System.getProperty("user.dir") + "/" + args[1];
+			builderFile = System.getProperty("user.dir") + "/" + args[0];
 			builderFile = builderFile.replace("//", "/");
 		}
 		BuilderModel builder = new BuilderParser().parse(readFile(builderFile));
