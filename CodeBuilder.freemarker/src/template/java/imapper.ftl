@@ -18,9 +18,11 @@
 
 <update id="update" parameterType="${namespace}.model${module}.${model}">
 	update ${table.name} set
-	<#list columnList as c>
+<#list columnList as c>
+	<#if !c.iskey>
 		${c.name}=${r'#'}{${c.nameLowerCamel}}<#if c_has_next>,</#if>
-	</#list>
+	</#if>
+</#list>
 	where ID=${r'#'}{id}
 </update>
 
