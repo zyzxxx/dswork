@@ -59,7 +59,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 		<td class="menuTool" keyIndex="${r'$'}{d.id}">&nbsp;</td>
 <#list columnList as c>
 	<#if !c.iskey>
-		<td>${r'$'}{fn:escapeXml(param.${c.nameLowerCamel})}</td>
+		<td>${r'$'}{fn:escapeXml(d.${c.nameLowerCamel})}</td>
 	</#if>
 </#list>
 	</tr>
