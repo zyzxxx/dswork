@@ -58,7 +58,8 @@ public class DsCommonFuncView extends DsCommonFunc
 			.append(",\"name\":\"").append(String.valueOf(getName()).replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\""))
 			.append("\",\"img\":\"").append(getImg().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\""))
 			.append("\",\"imgOpen\":\"\",\"url\":\"").append(url.replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\""))
-			.append("\",\"items\":[");
+			.append("\",\"status\":").append(getStatus().intValue())
+			.append(",\"items\":[");
 			if(items.size() > 0)
 			{
 				sb.append("\n");

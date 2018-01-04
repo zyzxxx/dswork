@@ -12,7 +12,7 @@
 	<tr>
 		<td class="title"></td>
 		<td class="menuTool">
-			<a class="save" id="dataFormSave" href="#">增量导入</a>
+			<a class="save" id="dataFormSave" href="#">保存资源</a>
 		</td>
 	</tr>
 </table>
