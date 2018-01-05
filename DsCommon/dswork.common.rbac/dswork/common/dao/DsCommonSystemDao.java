@@ -51,4 +51,17 @@ public class DsCommonSystemDao extends BaseDao<DsCommonSystem, Long>
 		}
 		return false;
 	}
+	
+	/**
+	 * 排序节点
+	 * @param id 功能主键
+	 * @param seq 排序位置
+	 */
+	public void updateSeq(Long id, Long seq)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("seq", seq);
+		executeUpdate("updateSeq", map);
+	}
 }
