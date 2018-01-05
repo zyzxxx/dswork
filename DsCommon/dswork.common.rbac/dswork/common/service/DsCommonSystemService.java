@@ -103,4 +103,16 @@ public class DsCommonSystemService extends BaseService<DsCommonSystem, java.lang
 		pageRequest.setFilters(map);
 		return roleDao.queryCount(pageRequest);
 	}
+	
+	/**
+	 * 更新排序
+	 * @param ids 功能主键数组
+	 */
+	public void updateSeq(Long[] ids)
+	{
+		for(int i = 0; i < ids.length; i++)
+		{
+			systemDao.updateSeq(ids[i], i + 1L);
+		}
+	}
 }
