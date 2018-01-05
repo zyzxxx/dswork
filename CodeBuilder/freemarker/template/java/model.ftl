@@ -13,7 +13,7 @@ public class ${table.nameUpperCamel}
 	<#elseif c.type == 'Float' || c.type == 'float'>
 	private ${c.type} ${c.nameLowerCamel} = ${c.defaults!'0.0'}F;
 	<#elseif c.type == 'String'>
-	private ${c.type} ${c.nameLowerCamel} = ${c.defaults!'""'};
+	private ${c.type} ${c.nameLowerCamel} = "${c.defaults!}";
 	<#else>
 	private ${c.type} ${c.nameLowerCamel};
 	</#if>
