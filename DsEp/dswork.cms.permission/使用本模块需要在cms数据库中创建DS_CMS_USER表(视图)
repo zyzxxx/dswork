@@ -1,0 +1,2 @@
+1.使用本模块需要在cms数据库中创建DS_CMS_USER表(视图)
+2.DS_CMS_USER包括ID、ACCOUNT、USER、OWN四个字段
