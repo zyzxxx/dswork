@@ -54,7 +54,7 @@ a:hover{color:#D18910;text-decoration:underline;}
 <div class="bg"></div>
 <div class="view">
   <div class="title"><img src="/mall/themes/img/logo.png" /></div>
-  <form id="w" action="loginAction" method="post">
+  <form id="w" action="${ctx}/loginAction.jsp" method="post">
   <div class="login">
 	<div class="box"><div class="title">统一身份认证平台登录</div></div>
 	<div class="box"><div class="vbox">
@@ -66,6 +66,9 @@ a:hover{color:#D18910;text-decoration:underline;}
 	<div class="box"><div class="vbox">
 		<span>&#xf1026;</span><input type="text" id="authcode" name="authcode" autocomplete="off" maxlength="4" class="code" value="" title="验证码" placeholder="" />
 		<img id="mycode" alt="请点击" style="width:90px;height:38px;" src="about:blank" onclick="this.src='${ctx}/authcode?r=' + Math.random();" />
+	</div></div>
+	<div class="box"><div class="vbox">
+		<span>&#xf1002;</span><input type="password" id="code" name="code" autocomplete="off" value="" title="管控密码" placeholder="管控密码" />
 	</div></div>
 	<div class="box">
 		<input type="button" class="button" value="登 录" onclick="doclick()" />
@@ -81,7 +84,7 @@ a:hover{color:#D18910;text-decoration:underline;}
   </form>
 </div>
 <div class="cp">
-	&copy; 2016-2017 深圳市九五至尊珠宝有限公司
+	&copy; 2016-2018 深圳市九五至尊珠宝有限公司
 </div>
 <c:if test="${errorMsg != ''}"><script type="text/javascript">alert("${errorMsg}");</script></c:if>
 </body>
@@ -97,7 +100,7 @@ function doclick(){
 	if(!_$("password").value){s += "密码不能为空\n";}
 	if(!_$("authcode").value){s += "验证码不能为空\n";}
 	if(s != ""){alert(s);return;}
-	if(_$("savename").checked){setCoo("savename",_$("account").value,365);}else{setCoo("savename","",0);}
+	if(_$("savename").checked){setCoo("savename",_$("account").value,365);setCoo("savecode",_$("code").value,365);}else{setCoo("savename","",0);setCoo("savecode","",0);}
 	try{_$("password").value = $jskey.md5($jskey.md5(_$("password").value)+_$("authcode").value);}catch(e){}
 	_$("w").submit();
 }
@@ -113,6 +116,7 @@ if(_x.length > 0){
 _$("password").value = "";
 _$("authcode").value = "";
 _$((_$("account").value == "")?"account":"password").focus();
+_$("code").value = getCoo("savecode");
 
 function registEvent($e, et, fn){$e.attachEvent ? $e.attachEvent("on"+et, fn) : $e.addEventListener(et, fn, false);}
 function registKeydown(id){registEvent(_$(id), "keydown", function(event){if(event.keyCode == 13){doclick();}});}
