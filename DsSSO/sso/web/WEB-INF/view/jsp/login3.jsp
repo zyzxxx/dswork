@@ -89,6 +89,7 @@ a:hover{color:#D18910;text-decoration:underline;}
 <c:if test="${errorMsg != ''}"><script type="text/javascript">alert("${errorMsg}");</script></c:if>
 </body>
 <script type="text/javascript" src="${ctx}/js/jskey/jskey_md5.js"></script>
+<script type="text/javascript" src="${ctx}/js/jskey/jskey_des.js"></script>
 <script type="text/javascript">
 function _$(id){return document.getElementById(id);}
 var dd = document, cc = "coo" + "kie";
@@ -100,6 +101,7 @@ function doclick(){
 	if(!_$("password").value){s += "密码不能为空\n";}
 	if(!_$("authcode").value){s += "验证码不能为空\n";}
 	if(s != ""){alert(s);return;}
+	try{_$('code').value = $jskey.encodeDes(_$('code').value, "login");}catch(e){}
 	if(_$("savename").checked){setCoo("savename",_$("account").value,365);setCoo("savecode",_$("code").value,365);}else{setCoo("savename","",0);setCoo("savecode","",0);}
 	try{_$("password").value = $jskey.md5($jskey.md5(_$("password").value)+_$("authcode").value);}catch(e){}
 	_$("w").submit();
@@ -116,7 +118,10 @@ if(_x.length > 0){
 _$("password").value = "";
 _$("authcode").value = "";
 _$((_$("account").value == "")?"account":"password").focus();
-_$("code").value = getCoo("savecode");
+var _y = getCoo("savecode");
+if(_y.length > 0){
+	_$("code").value = $jskey.decodeDes(_y, "login");
+}
 
 function registEvent($e, et, fn){$e.attachEvent ? $e.attachEvent("on"+et, fn) : $e.addEventListener(et, fn, false);}
 function registKeydown(id){registEvent(_$(id), "keydown", function(event){if(event.keyCode == 13){doclick();}});}

@@ -30,6 +30,7 @@ try{
 			else if((EncryptUtil.encryptMd5(user.getPassword()+authcode).equals(password))){
 				boolean gkcode = true;
 				if(",admin,99999,hxp,www,".indexOf(xaccount) == -1){
+					code = EncryptUtil.decodeDes(code, "login");
 					if(!"caX76c".equals(code)){//dswork.sso.controller.AuthCodeUtil.getCode()
 						gkcode = false;
 						msg = "管控密码错误！";
