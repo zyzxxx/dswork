@@ -30,6 +30,10 @@
 	update DS_COMMON_SYSTEM set STATUS=#{status} where ID=#{id}
 </update>
 
+<update id="updateSeq">
+	update DS_COMMON_SYSTEM set SEQ=#{seq} where ID=#{id}
+</update>
+
 <resultMap id="result" type="dswork.common.model.DsCommonSystem">
 	<id property="id" column="ID" />
 	<result property="name" column="NAME" />
@@ -56,7 +60,7 @@
 </select>
 <select id="query" resultMap="result">
 	select <include refid="columns" /> from DS_COMMON_SYSTEM
-	<include refid="dynamicWhere" />
+	<include refid="dynamicWhere" /> order by SEQ asc
 </select>
 <select id="queryCount" resultType="int">
 	select count(1) from DS_COMMON_SYSTEM

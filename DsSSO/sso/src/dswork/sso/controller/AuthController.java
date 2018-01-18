@@ -308,7 +308,7 @@ public class AuthController
 		return null;
 	}
 
-	private String putLoginInfo(HttpServletRequest request, HttpServletResponse response, String account, String name)
+	public static String putLoginInfo(HttpServletRequest request, HttpServletResponse response, String account, String name)
 	{
 		String ticket = String.valueOf(request.getSession().getAttribute(SessionListener.DS_SSO_TICKET));
 		TicketService.removeSession(ticket);// 如果有，删除原session带的信息
@@ -321,7 +321,7 @@ public class AuthController
 		return ticket;
 	}
 
-	private void removeLoginInfo(HttpServletRequest request, HttpServletResponse response)
+	public static void removeLoginInfo(HttpServletRequest request, HttpServletResponse response)
 	{
 		MyCookie cookie = new MyCookie(request, response);
 		String cookieTicket = String.valueOf(cookie.getValue(SessionListener.DS_SSO_TICKET));

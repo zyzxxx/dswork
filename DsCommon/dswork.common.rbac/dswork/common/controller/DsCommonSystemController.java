@@ -1,16 +1,21 @@
 package dswork.common.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.mvc.BaseController;
 import dswork.common.model.DsCommonSystem;
 import dswork.common.service.DsCommonSystemService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
+import dswork.core.util.CollectionUtil;
 import dswork.core.util.UniqueId;
+import dswork.mvc.BaseController;
 
 //应用系统
 @Scope("prototype")
@@ -160,5 +165,38 @@ public class DsCommonSystemController extends BaseController
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
 		return "/common/system/getSystemById.jsp";
+	}
+	
+	// 排序
+	@RequestMapping("/updSystemSeq1")
+	public String updSystemSeq1()
+	{
+		Map<String,Object> map = new HashMap<String,Object>();
+		List<DsCommonSystem> list = service.queryList(map);
+		put("list", list);
+		return "/common/system/updSystemSeq.jsp";
+	}
+	
+	@RequestMapping("/updSystemSeq2")
+	public void updSystemSeq2()
+	{
+		Long[] ids = CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0));
+		try
+		{
+			if(ids.length > 0)
+			{
+				service.updateSeq(ids);
+				print(1);
+			}
+			else
+			{
+				print("0:没有需要排序的节点");
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
 	}
 }
