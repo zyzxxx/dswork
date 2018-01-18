@@ -22,7 +22,7 @@ public class AuthOwnUtil
 		MyCookie cookie = new MyCookie(request, response);
 		cookie.delCookie(WEB_AUTH_COOKIE);
 	}
-	
+
 	public static AuthOwn getUser(HttpServletRequest request)
 	{
 		String s = (String) request.getSession().getAttribute(WEB_AUTH_SESSION);
