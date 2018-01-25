@@ -456,13 +456,14 @@ public class DsCommonFuncController extends BaseController
 			menujson = menujson.replace(" ", "");// 去除空格
 			menujson = menujson.replace("\t", "");// 去除制表符
 			menujson = menujson.replace("'", "\"");// 单引号替换成双引号
-			List<Long> idList = service.queryFuncIdList(systemid);
+			List<String> idList = service.queryFuncIdList(systemid);//除了需要导入的systemid外的其他id集合
+			List<String> oldDrIdList = service.queryFuncOldIdList(systemid);//以往导入菜单id集合
 			List<DsCommonFunc> list = new ArrayList<DsCommonFunc>();
 			boolean isSuccess = doFuncList(list, idList, menujson, 0, systemid);
 			if(isSuccess)
 			{
 				// list数据入库
-				service.updateFuncList(list, systemid);
+				service.updateFuncList(list, systemid, oldDrIdList);
 				print("1");
 			}
 			else
@@ -485,7 +486,7 @@ public class DsCommonFuncController extends BaseController
 	 * @param systemid 导入菜单的系统id
 	 * @param seq 排序号
 	 */
-	private static boolean doFuncList(List<DsCommonFunc> list, List<Long> idList, String jsonStr, long pid, long systemid)
+	private static boolean doFuncList(List<DsCommonFunc> list, List<String> idList, String jsonStr, long pid, long systemid)
 	{
 		// Json的解析类对象
 		JsonParser parser = new JsonParser();
@@ -499,7 +500,7 @@ public class DsCommonFuncController extends BaseController
 			{
 				JsonObject jsonObject = el.getAsJsonObject();
 				long id = jsonObject.get("id").getAsLong();
-				if(idList.contains(id))
+				if(idList.contains(id + ""))
 				{
 					return false;
 				}
@@ -511,8 +512,8 @@ public class DsCommonFuncController extends BaseController
 				po.setName(jsonObject.get("name").getAsString());
 				po.setUri("".equals(jsonObject.get("url").getAsString()) ? "#" : jsonObject.get("url").getAsString());
 				po.setImg(jsonObject.get("img").getAsString());
-				po.setStatus(1);
-				System.err.println(seq + "name:" + po.getName());
+				String status = jsonObject.get("status").getAsString();
+				po.setStatus("0".equals(status) ? 0 : 1);
 				po.setSeq(seq++);
 				list.add(po);
 				// System.err.println(jsonObject.get("items").isJsonArray());

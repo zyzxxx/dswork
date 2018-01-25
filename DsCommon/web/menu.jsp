@@ -12,7 +12,7 @@ public static dswork.sso.model.IFunc[] getFuncByUser(String account){
 %><%
 String jsoncallback  = String.valueOf(request.getParameter("jsoncallback")).replaceAll("<", "").replaceAll(">", "").replaceAll("\"", "").replaceAll("'", "");
 String user = String.valueOf(request.getParameter("user"));
-System.out.println("user:" + user);%><%=jsoncallback%>([<%
+%><%=jsoncallback%>([<%
 dswork.sso.model.IFunc[] list = getFuncByUser(user);
 StringBuilder sb = new StringBuilder(300);
 if(list != null){

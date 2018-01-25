@@ -12,14 +12,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"/>
 <title></title>
 <link rel="stylesheet" type="text/css" href="${ctx}/frame/js/jskey/themes/menu/jskey.menu.css" />
-<script type="text/javascript" src="${ctx}/frame/js/jskey/jskey.menu.js"></script>
+<script type="text/javascript" src="${ctx}/frame/js/jskey/jskey.menu.js?version=1"></script>
 <script type="text/javascript" src="${ctx}/frame/js/jquery.js"></script>
 <script type="text/javascript">
 if(top.location == this.location){top.location = "${ctx}/index.jsp";}
 var sys = [];
+<%--
 sys[0] = {index:0,data:[],id:0,name:"门户",alias:"",domainurl:"",rooturl:"${ctx}",menuurl:"${ctx}/menu.jsp"};
 <%if(arr != null){for(int i = 0; i < arr.length; i++){%>
 sys[sys.length] = {index:<%=i+1%>,data:[],id:<%=arr[i].getId()%>,name:"<%=arr[i].getName().replaceAll("\"", "\\\\\"")%>",alias:"<%=arr[i].getAlias()%>",domainurl:"<%=arr[i].getDomainurl().replaceAll("\"", "\\\\\"")%>",rooturl:"<%=arr[i].getRooturl().replaceAll("\"", "\\\\\"")%>",menuurl:"<%=arr[i].getMenuurl().replaceAll("\"", "\\\\\"")%>"};
+<%}}%>
+--%>
+<%if(arr != null){for(int i = 0; i < arr.length; i++){%>
+sys[sys.length] = {index:<%=i%>,data:[],id:<%=arr[i].getId()%>,name:"<%=arr[i].getName().replaceAll("\"", "\\\\\"")%>",alias:"<%=arr[i].getAlias()%>",domainurl:"<%=arr[i].getDomainurl().replaceAll("\"", "\\\\\"")%>",rooturl:"<%=arr[i].getRooturl().replaceAll("\"", "\\\\\"")%>",menuurl:"<%=arr[i].getMenuurl().replaceAll("\"", "\\\\\"")%>"};
 <%}}%>
 function menuload(o){
 	var url = o.domainurl + o.menuurl;

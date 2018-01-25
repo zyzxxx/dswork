@@ -32,6 +32,13 @@ function importFunc(id){
 	$jskey.dialog.showDialog({url:"../func/getFuncEdit1.htm?systemid=" + id,title:$("#td_n" + id).text()+"资源配置",fit:true,draggable:false});
 	return false;
 }
+function updSystemSeq(){
+	$jskey.dialog.showDialog({url:"updSystemSeq1.htm",title:"系统排序",fit:true,draggable:false,callback:updSystemSeqCallback});
+	return false;
+}
+function updSystemSeqCallback(){
+	location.href = "getSystem.htm?page=${pageModel.currentPage}";
+}
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getSystem.htm?page=${pageModel.currentPage}";
@@ -57,6 +64,7 @@ $(function(){
 		<td class="title">应用系统列表</td>
 		<td class="menuTool">
 			<a class="insert" href="addSystem1.htm?page=${pageModel.currentPage}">添加</a>
+			<a class="sort" href="#" onclick="updSystemSeq()">排序</a>
 		</td>
 	</tr>
 </table>
