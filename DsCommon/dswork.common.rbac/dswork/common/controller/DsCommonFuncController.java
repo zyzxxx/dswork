@@ -512,7 +512,7 @@ public class DsCommonFuncController extends BaseController
 				po.setName(jsonObject.get("name").getAsString());
 				po.setUri("".equals(jsonObject.get("url").getAsString()) ? "#" : jsonObject.get("url").getAsString());
 				po.setImg(jsonObject.get("img").getAsString());
-				String status = jsonObject.get("status")==null ? "0" : jsonObject.get("status").getAsString();
+				String status = jsonObject.get("status")==null ? "1" : jsonObject.get("status").getAsString();
 				po.setStatus("0".equals(status) ? 0 : 1);
 				po.setSeq(seq++);
 				list.add(po);
