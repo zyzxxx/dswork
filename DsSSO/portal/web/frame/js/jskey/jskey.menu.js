@@ -333,7 +333,10 @@ $jskey.menu.changeURL = function(parentname, nodename, url){
 };
 $jskey.menu.reChangeURL = function(parentname, nodename, url){
 	if(url == null || url == "" || url == "null"){url = "";}
-	if($jskey.menu.root != ""){
+	if(url.indexOf("^") == 0){
+		url = url.substring(1, url.length);
+	}
+	else if($jskey.menu.root != ""){
 		if(url.indexOf("http") != 0 && url.indexOf($jskey.menu.root) != 0){
 			url = $jskey.menu.root + url;
 		}
