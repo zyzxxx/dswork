@@ -42,6 +42,7 @@ public class DsCmsPageService
 
 	public void savePage(DsCmsPage po, boolean isEnablelog, String editid, String editname)
 	{
+		long oldid = po.getId();
 		pageDao.save(po);
 		if(po.getScope() != 2) // 不为外链
 		{
@@ -49,6 +50,10 @@ public class DsCmsPageService
 		}
 		if(isEnablelog)
 		{
+			if(oldid == -1 && po.getStatus() == 0)
+			{
+				po.setStatus(2);// 拷贝新增
+			}
 			writeLogPage(po, editid, editname);
 		}
 	}

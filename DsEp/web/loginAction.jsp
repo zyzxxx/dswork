@@ -9,7 +9,7 @@ AuthUtil login = new AuthUtil(pageContext);
 String s = "about:blank", m = "";
 if(login.login(account, password, logintype, authcode))
 {
-	response.sendRedirect("manage/frame/index.html");
+	common.auth.Auth auth = AuthUtil.getLoginUser(request);
 }
 if(logintype == Auth.ENTERPRISE)
 {
