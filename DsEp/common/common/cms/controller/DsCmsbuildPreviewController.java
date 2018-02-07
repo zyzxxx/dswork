@@ -68,10 +68,8 @@ public class DsCmsbuildPreviewController extends BaseController
 			put("datapage", mm.get("datapage"));
 			return "/" + site.get("folder") + "/templates/" + cate.get("viewsite");
 		}
-		else
-		{
-			return "/" + site.get("folder") + "/templates/" + site.get("viewsite");
-		}
+		// 首页
+		return "/" + site.get("folder") + "/templates/" + site.get("viewsite");
 	}
 	
 	private String getString(Object object)

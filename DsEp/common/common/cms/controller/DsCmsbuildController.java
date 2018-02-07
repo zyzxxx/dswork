@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.cms.CmsFactory;
+import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 
 @Scope("prototype")
@@ -42,6 +43,7 @@ public class DsCmsbuildController extends BaseController
 		}
 		
 		put("cms", cms);
+		put("year", TimeUtil.getCurrentTime("yyyy-MM-dd"));
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
 		if(req.getString("view").equals("true"))
