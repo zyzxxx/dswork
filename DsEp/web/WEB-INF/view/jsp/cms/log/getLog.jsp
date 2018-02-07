@@ -30,8 +30,8 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
 		<td class="title">
-			切换站点：<select id="site" v="${param.siteid}"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
-			切换栏目：<select id="category" v="${param.categoryid}"><option value="0">全部栏目</option><c:forEach items="${list}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
+			切换站点：<select id="site" v="${fn:escapeXml(siteid)}"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
+			切换栏目：<select id="category" v="${fn:escapeXml(param.categoryid)}"><option value="0">全部栏目</option><c:forEach items="${list}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
 		</td>
 	</tr>
 </table>
@@ -51,8 +51,8 @@ $(function(){
 							<option value="0">内容</option>
 							<option value="1">栏目</option>
 						</select>
-						<input type="hidden" name="ispage" value="${param.ispage}">
-						<input type="hidden" name="iscategory" value="${param.iscategory}">
+						<input type="hidden" name="ispage" value="${fn:escapeXml(param.ispage)}">
+						<input type="hidden" name="iscategory" value="${fn:escapeXml(param.iscategory)}">
 					</td>
 				</tr>
 				<tr>
@@ -78,6 +78,8 @@ $(function(){
 		<td class="query"><input id="_querySubmit_" type="button" class="button" style="width:50%;height:50%;font-size:20px;margin:5px" value="查询" /></td>
 	</tr>
 </table>
+<input type="hidden" name="siteid" value="${fn:escapeXml(siteid)}" />
+<input type="hidden" name="categoryid" value="${fn:escapeXml(param.categoryid)}" />
 </form>
 <div class="line"></div>
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
@@ -108,7 +110,7 @@ $(function(){
 		</td>
 		<td>
 		<c:if test="${!empty d.editname}">
-			${d.status==-1?'提交删除':d.status==0?'提交新增':d.status==1?'提交修改':d.status==4?'撤销提交':''}
+			${d.status==-1?'提交删除':d.status==0?'提交新增':d.status==1?'提交修改':d.status==4?'撤销提交':d.status==8?'信息发布':''}
 		</c:if>
 		<c:if test="${!empty d.auditname}">
 			${d.auditstatus==2?'审核不通过':d.auditstatus==4?'审核通过':''}
