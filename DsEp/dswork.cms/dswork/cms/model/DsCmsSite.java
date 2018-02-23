@@ -21,6 +21,10 @@ public class DsCmsSite
 	private String viewsite = "";
 	// 开始日志(0否,1是)
 	private int enablelog = 0;
+	// meta关键词
+	private String metakeywords = "";
+	// meta描述
+	private String metadescription = "";
 
 	public Long getId()
 	{
@@ -97,8 +101,38 @@ public class DsCmsSite
 		this.enablelog = enablelog ? 1 : 0;
 	}
 
+	public int getEnablelog()
+	{
+		return enablelog;
+	}
+
+	public void setEnablelog(int enablelog)
+	{
+		this.enablelog = enablelog;
+	}
+
 	public boolean isEnablelog()
 	{
 		return this.enablelog == 1;
+	}
+
+	public String getMetakeywords()
+	{
+		return metakeywords;
+	}
+
+	public void setMetakeywords(String metakeywords)
+	{
+		this.metakeywords = metakeywords;
+	}
+
+	public String getMetadescription()
+	{
+		return metadescription;
+	}
+
+	public void setMetadescription(String metadescription)
+	{
+		this.metadescription = metadescription;
 	}
 }
