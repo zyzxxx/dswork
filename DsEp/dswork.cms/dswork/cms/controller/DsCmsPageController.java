@@ -155,8 +155,9 @@ public class DsCmsPageController extends DsCmsBaseController
 					DsCmsPage page = service.getPage(req.getLong("keyIndex"));
 					if(page.getCategoryid() != categoryid)
 					{
-						page.setId(0L);
+						page.setId(-1L);
 						page.setCategoryid(categoryid);
+						page.setStatus(0);// 拷贝新增
 						service.savePage(page, s.isEnablelog(), getAccount(), getName());
 						print("1:拷贝成功");
 						return;

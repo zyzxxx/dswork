@@ -113,7 +113,7 @@ function doDraw(){
 	</div>
 	<div id="tab-tools">
 		<a class="easyui-linkbutton" title="关闭当前" data-options="plain:true,iconCls:'icon-closeone'" onclick="var i=$('#tt').tabs('getTabIndex',$('#tt').tabs('getSelected'));if(i>0){$('#tt').tabs('close',i);}return false;" href="#"></a>
-		<a class="easyui-linkbutton" title="关闭所有" data-options="plain:true,iconCls:'icon-closeall'" onclick="var v=$('#tt').tabs('tabs').length;while(v > 1){$('#tt').tabs('close', 1);v--;};return false;" href="#"></a>
+		<a class="easyui-linkbutton" title="关闭所有" data-options="plain:true,iconCls:'icon-closeall'" onclick="var v=$('#tt').tabs('tabs').length;while(v > 0){$('#tt').tabs('close', 1);v--;};return false;" href="#"></a>
 	</div>
 </div>
 <div region="south" data-options="border:false" style="height:24px;overflow:hidden;"><div class="bottomframe">

@@ -95,7 +95,7 @@ public class MyCookie
 		Cookie cookie = new Cookie(name, value);
 		cookie.setMaxAge(maxAge);
 		cookie.setPath(path);
-		if(maxAge > 0 && domain != null)
+		if(domain != null)
 		{
 			cookie.setDomain(domain);
 		}
