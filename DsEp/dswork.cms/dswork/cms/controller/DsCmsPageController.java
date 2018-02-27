@@ -626,6 +626,9 @@ public class DsCmsPageController extends DsCmsBaseController
 										map.put("siteid", site.getId());
 										map.put("categoryid", c.getId());
 										map.put("releasetime", TimeUtil.getCurrentTime());
+										
+										
+										
 										PageRequest rq = new PageRequest(map);
 										rq.setPageSize(pagesize);
 										rq.setCurrentPage(1);
@@ -677,6 +680,9 @@ public class DsCmsPageController extends DsCmsBaseController
 								map.put("siteid", site.getId());
 								map.put("releasetime", TimeUtil.getCurrentTime());
 								map.put("categoryid", c.getId());
+								
+								
+								
 								PageRequest rq = new PageRequest(1, pagesize, map);
 								Page<DsCmsPage> pageModel = service.queryPagePage(rq);
 								for(DsCmsPage p : pageModel.getResult())
@@ -703,6 +709,9 @@ public class DsCmsPageController extends DsCmsBaseController
 									map.put("siteid", site.getId());
 									map.put("releasetime", TimeUtil.getCurrentTime());
 									map.put("categoryid", c.getId());
+									
+									
+									
 									rq.setFilters(map);
 									rq.setPageSize(pagesize);
 									rq.setCurrentPage(i);

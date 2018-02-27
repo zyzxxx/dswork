@@ -28,60 +28,8 @@ if(null != request.getParameter("ticket"))
 <link rel="stylesheet" type="text/css" href="style/frame.css" />
 <link rel="stylesheet" type="text/css" href="js/easyui/themes/default/layout_panel_tabs.css" />
 <script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/easyui/jquery.layout_panel_tabs.js"></script>
 <script language="javascript">
 if(top.location != this.location){top.location = "<%=path %>/frame/index.jsp";}
-function re(){$('#tt').tabs('resize');}
-function GoDorp(o){
-	var m=document.getElementById("menu");
-	if(m.style.display=="none"){
-		o.title="关闭左边菜单";o.src="style/middle/open.gif";m.style.display="";
-	}else{
-		o.title="打开左边菜单";o.src="style/middle/close.gif";m.style.display="none";
-	}
-	re();
-}
-$(function(){
-$(window).resize(function(){re();});
-doDraw();
-});
-
-function $id(id){return document.getElementById(id);}
-function reload(){
-	try{var iframe = $('iframe', $("#tt").tabs("getSelected"))[0];
-		try{iframe.contentWindow.location.reload();
-		}catch(ee){iframe.src = iframe.src;}
-	}catch(e){alert(e.message);}
-}
-function doDraw(){
-	var v = $id("titleDIV").className != "title";
-	if(v){
-		$id("titleDIV").className = "title";
-		$id("toolDiv").className = "xtool tool";
-		$id("fontscreen").innerHTML = "&#xf1021;";
-		$id("vwin").title = "收缩";
-	}
-	else{
-		$id("titleDIV").className = "minititle";
-		$id("toolDiv").className = "xtool minitool";
-		$id("fontscreen").innerHTML = "&#xf1022;";
-		$id("vwin").title = "恢复";
-	}
-	try{
-		if(v){
-			$("body").layout("panel", "north").panel("options").height = 70;
-			$("body").layout("panel", "south").panel("options").height = 24;
-			$("body").layout("expand", "west");
-		}
-		else{
-			$("body").layout("panel", "north").panel("options").height = 26;
-			$("body").layout("panel", "south").panel("options").height = 0;
-			$("body").layout("panel", "west").panel("resize", {top:26,height:$("body").layout("panel", "west").panel("options").height + 68});
-			$("body").layout("collapse", "west");
-		}
-	}catch(e){}
-	$("body").resize();
-}
 </script>
 </head>
 <body class="easyui-layout" fit="true" style="min-width:380px;">
@@ -120,4 +68,59 @@ function doDraw(){
 	版权所有&nbsp;<span  class="copyRight">&copy;</span>&nbsp;skey_chen@163.com
 </div></div>
 </body>
+<script type="text/javascript" src="js/easyui/jquery.layout_panel_tabs.js"></script>
+
+<script language="javascript">
+if(top.location != this.location){top.location = "<%=path %>/frame/index.jsp";}
+function re(){$('#tt').tabs('resize');}
+function GoDorp(o){
+	var m=document.getElementById("menu");
+	if(m.style.display=="none"){
+		o.title="关闭左边菜单";o.src="style/middle/open.gif";m.style.display="";
+	}else{
+		o.title="打开左边菜单";o.src="style/middle/close.gif";m.style.display="none";
+	}
+	re();
+}
+function $id(id){return document.getElementById(id);}
+function reload(){
+	try{var iframe = $('iframe', $("#tt").tabs("getSelected"))[0];
+		try{iframe.contentWindow.location.reload();
+		}catch(ee){iframe.src = iframe.src;}
+	}catch(e){alert(e.message);}
+}
+function doDraw(){
+	var v = $id("titleDIV").className != "title";
+	if(v){
+		$id("titleDIV").className = "title";
+		$id("toolDiv").className = "xtool tool";
+		$id("fontscreen").innerHTML = "&#xf1021;";
+		$id("vwin").title = "收缩";
+	}
+	else{
+		$id("titleDIV").className = "minititle";
+		$id("toolDiv").className = "xtool minitool";
+		$id("fontscreen").innerHTML = "&#xf1022;";
+		$id("vwin").title = "恢复";
+	}
+	try{
+		if(v){
+			$("body").layout("panel", "north").panel("options").height = 70;
+			$("body").layout("panel", "south").panel("options").height = 24;
+			$("body").layout("expand", "west");
+		}
+		else{
+			$("body").layout("panel", "north").panel("options").height = 26;
+			$("body").layout("panel", "south").panel("options").height = 0;
+			$("body").layout("panel", "west").panel("resize", {top:26,height:$("body").layout("panel", "west").panel("options").height + 68});
+			$("body").layout("collapse", "west");
+		}
+	}catch(e){}
+	$("body").resize();
+}
+$(function(){
+$(window).resize(function(){re();});
+doDraw();
+});
+</script>
 </html>
