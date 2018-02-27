@@ -14,7 +14,7 @@
 </sql>
 
 <select id="query" resultType="java.util.Map">
-	select ID id, ACCOUNT account, NAME name, OWN own from DS_CMS_USER
+	select ID as id, ACCOUNT as account, NAME as name, OWN as own from DS_CMS_USER
 	<include refid="dynamicWhere" />
 </select>
 
