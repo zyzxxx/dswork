@@ -105,6 +105,11 @@ public class DsCmsSite
 	{
 		this.enablelog = enablelog;
 	}
+	
+	public void setWriteLog(boolean enablelog)
+	{
+		this.enablelog = enablelog ? 1 : 0;
+	}
 
 	public boolean isWriteLog()
 	{
