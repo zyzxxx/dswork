@@ -76,7 +76,7 @@ public class DsCmsPageController extends DsCmsBaseController
 					po.setUrl("/a/" + m.getFolder());
 				}
 				po.setStatus(0);
-				service.savePage(po, s.isEnablelog(), getAccount(), getName());// url拼接/id.html
+				service.savePage(po, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
 				print(1);
 				return;
 			}
@@ -158,7 +158,7 @@ public class DsCmsPageController extends DsCmsBaseController
 						page.setId(-1L);
 						page.setCategoryid(categoryid);
 						page.setStatus(0);// 拷贝新增
-						service.savePage(page, s.isEnablelog(), getAccount(), getName());
+						service.savePage(page, s.isWriteLog(), getAccount(), getName());
 						print("1:拷贝成功");
 						return;
 					}
@@ -203,7 +203,7 @@ public class DsCmsPageController extends DsCmsBaseController
 					DsCmsCategory m = service.getCategory(p.getCategoryid());
 					po.setUrl("/a/" + m.getFolder() + "/" + po.getId() + ".html");
 				}
-				service.updatePage(po, s.isEnablelog(), getAccount(), getName());
+				service.updatePage(po, s.isWriteLog(), getAccount(), getName());
 				print(1);
 				return;
 			}
@@ -255,7 +255,7 @@ public class DsCmsPageController extends DsCmsBaseController
 					po.setSiteid(m.getSiteid());
 					po.setName(m.getName());
 					po.setScope(m.getScope());
-					service.updateCategory(po, s.isEnablelog(), getAccount(), getName());
+					service.updateCategory(po, s.isWriteLog(), getAccount(), getName());
 					print(1);
 					return;
 				}

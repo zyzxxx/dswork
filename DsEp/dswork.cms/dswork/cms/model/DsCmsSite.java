@@ -96,11 +96,6 @@ public class DsCmsSite
 		this.viewsite = viewsite;
 	}
 
-	public void setEnablelog(boolean enablelog)
-	{
-		this.enablelog = enablelog ? 1 : 0;
-	}
-
 	public int getEnablelog()
 	{
 		return enablelog;
@@ -111,7 +106,7 @@ public class DsCmsSite
 		this.enablelog = enablelog;
 	}
 
-	public boolean isEnablelog()
+	public boolean isWriteLog()
 	{
 		return this.enablelog == 1;
 	}
