@@ -216,8 +216,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 								}
 								else if(p.getScope() == 2)
 								{
-									DsCmsCategory c = service.getCategory(p.getCategoryid());
-									_buildFile(null, "/a/" + c.getFolder() + "/" + p.getId() + ".html", site.getFolder());
+									_buildFile(null, "/a/" + p.getCategoryid() + "/" + p.getId() + ".html", site.getFolder());
 								}
 								else
 								{
@@ -266,10 +265,10 @@ public class DsCmsPublishController extends DsCmsBaseController
 								{
 									if(c.getScope() == 2)// 外链没有东西生成的
 									{
-										_deleteFile(site.getFolder(), c.getFolder(), true, true);
+										_deleteFile(site.getFolder(), c.getId() + "", true, true);
 										continue;
 									}
-									_deleteFile(site.getFolder(), c.getFolder(), true, false);// 删除栏目首页
+									_deleteFile(site.getFolder(), c.getId() + "", true, false);// 删除栏目首页
 									if(isCreateOrDelete)
 									{
 										_buildFile(path + "&categoryid=" + c.getId() + "&page=1&pagesize=" + pagesize, c.getUrl(), site.getFolder());
@@ -325,10 +324,10 @@ public class DsCmsPublishController extends DsCmsBaseController
 						{
 							if(c.getScope() == 2)// 外链没有东西生成的
 							{
-								_deleteFile(site.getFolder(), c.getFolder(), true, true);
+								_deleteFile(site.getFolder(), c.getId() + "", true, true);
 								continue;
 							}
-							_deleteFile(site.getFolder(), c.getFolder(), false, true);// 删除内容
+							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除内容
 							if(isCreateOrDelete)
 							{
 								Map<String, Object> map = new HashMap<String, Object>();

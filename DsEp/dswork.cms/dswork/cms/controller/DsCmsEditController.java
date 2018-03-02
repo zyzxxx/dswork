@@ -123,10 +123,6 @@ public class DsCmsEditController extends DsCmsBaseController
 						po.setReleasetime(TimeUtil.getCurrentTime());
 					}
 					po.setStatus(0); // 新增
-					if(po.getScope() != 2) // 不为外链
-					{
-						po.setUrl("/a/" + c.getFolder());
-					}
 					service.saveAuditPage(po, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
 					print(1);
 					return;
@@ -333,12 +329,6 @@ public class DsCmsEditController extends DsCmsBaseController
 					{
 						print("0:参数错误");
 						return;
-					}
-					//save and submit
-					if(po.getScope() != 2)
-					{
-						DsCmsCategory c = service.getCategory(_po.getCategoryid());
-						po.setUrl("/a/" + c.getFolder() + "/" + _po.getId() + ".html");
 					}
 					po.pushEditidAndEditname(getAccount(), getName());
 					po.setEdittime(TimeUtil.getCurrentTime());

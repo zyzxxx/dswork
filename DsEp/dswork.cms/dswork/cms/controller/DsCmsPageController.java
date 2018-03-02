@@ -71,10 +71,6 @@ public class DsCmsPageController extends DsCmsBaseController
 				{
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
-				if(po.getScope() != 2) // 不为外链
-				{
-					po.setUrl("/a/" + m.getFolder());
-				}
 				po.setStatus(0);
 				service.savePage(po, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
 				print(1);
@@ -103,6 +99,7 @@ public class DsCmsPageController extends DsCmsBaseController
 				if(checkOwn(s.getOwn()))
 				{
 					service.deleteBatchPage(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+
 					print(1);
 					return;
 				}
@@ -198,11 +195,6 @@ public class DsCmsPageController extends DsCmsBaseController
 			if(checkOwn(s.getOwn()))
 			{
 				po.setStatus(1);
-				if(po.getScope() != 2) // 不为外链
-				{
-					DsCmsCategory m = service.getCategory(p.getCategoryid());
-					po.setUrl("/a/" + m.getFolder() + "/" + po.getId() + ".html");
-				}
 				service.updatePage(po, s.isWriteLog(), getAccount(), getName());
 				print(1);
 				return;
@@ -572,8 +564,7 @@ public class DsCmsPageController extends DsCmsBaseController
 								}
 								else if(p.getScope() == 2)
 								{
-									DsCmsCategory c = service.getCategory(p.getCategoryid());
-									_buildFile(null, "/a/" + c.getFolder() + "/" + p.getId() + ".html", site.getFolder());
+									_buildFile(null, "/a/" + p.getCategoryid() + "/" + p.getId() + ".html", site.getFolder());
 								}
 								else
 								{
@@ -615,10 +606,10 @@ public class DsCmsPageController extends DsCmsBaseController
 								{
 									if(c.getScope() == 2)// 外链没有东西生成的
 									{
-										_deleteFile(site.getFolder(), c.getFolder(), true, true);
+										_deleteFile(site.getFolder(), c.getId() + "", true, true);
 										continue;
 									}
-									_deleteFile(site.getFolder(), c.getFolder(), true, false);// 删除栏目首页
+									_deleteFile(site.getFolder(), c.getId() + "", true, false);// 删除栏目首页
 									if(isCreateOrDelete)
 									{
 										_buildFile(path + "&categoryid=" + c.getId() + "&page=1&pagesize=" + pagesize, c.getUrl(), site.getFolder());
@@ -626,9 +617,6 @@ public class DsCmsPageController extends DsCmsBaseController
 										map.put("siteid", site.getId());
 										map.put("categoryid", c.getId());
 										map.put("releasetime", TimeUtil.getCurrentTime());
-										
-										
-										
 										PageRequest rq = new PageRequest(map);
 										rq.setPageSize(pagesize);
 										rq.setCurrentPage(1);
@@ -670,19 +658,16 @@ public class DsCmsPageController extends DsCmsBaseController
 						{
 							if(c.getScope() == 2)// 外链没有东西生成的
 							{
-								_deleteFile(site.getFolder(), c.getFolder(), true, true);
+								_deleteFile(site.getFolder(), c.getId() + "", true, true);
 								continue;
 							}
-							_deleteFile(site.getFolder(), c.getFolder(), false, true);// 删除内容
+							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除内容
 							if(isCreateOrDelete)
 							{
 								Map<String, Object> map = new HashMap<String, Object>();
 								map.put("siteid", site.getId());
 								map.put("releasetime", TimeUtil.getCurrentTime());
 								map.put("categoryid", c.getId());
-								
-								
-								
 								PageRequest rq = new PageRequest(1, pagesize, map);
 								Page<DsCmsPage> pageModel = service.queryPagePage(rq);
 								for(DsCmsPage p : pageModel.getResult())
@@ -709,9 +694,6 @@ public class DsCmsPageController extends DsCmsBaseController
 									map.put("siteid", site.getId());
 									map.put("releasetime", TimeUtil.getCurrentTime());
 									map.put("categoryid", c.getId());
-									
-									
-									
 									rq.setFilters(map);
 									rq.setPageSize(pagesize);
 									rq.setCurrentPage(i);

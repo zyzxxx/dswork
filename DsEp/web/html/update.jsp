@@ -112,11 +112,6 @@ $dswork.showResponse = function(data, status, xhr){
 	$dswork.checkResult(data);
 	$dswork.callback();
 };
-function cleanImage(){
-	if(confirm("确定清理吗？")){
-		$("#dataForm1").ajaxSubmit({success:$dswork.showResponse});
-	}
-}
 function cleanFile(){
 	if(confirm("确定清理吗？")){
 		$("#dataForm2").ajaxSubmit({success:$dswork.showResponse});
@@ -124,7 +119,7 @@ function cleanFile(){
 }
 $(function(){
 	$("#site").on("change", function(){
-		location.href = "clear.jsp?siteid=" + $("#site").val();
+		location.href = "update.jsp?siteid=" + $("#site").val();
 	});
 });
 </script>
@@ -134,27 +129,10 @@ $(function(){
 <div style="width:60%;margin: 0 auto;line-height:38px;">
 	切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
 	<br />
-		<form id="dataForm1" method="post" action="clearImgAction.jsp">
-		选择删除的图片目录：<select name="path">
-			<option value="">全部</option>
-		<c:forEach items="${list}" var="d">
-			<option value="${d.path}">${d.name}</option>
-		</c:forEach>
-		</select>
+		<form id="dataForm2" method="post" action="updateCmsDataForURL.jsp">
 		<input type="hidden" name="siteid" value="${siteid}">
 		</form>
-		<input type="button" class="button" onclick="cleanImage();return false;" value="清理图片" />
-	<br />
-		<form id="dataForm2" method="post" action="clearFileAction.jsp">
-		选择删除的附件目录：<select name="path">
-			<option value="">全部</option>
-		<c:forEach items="${listFile}" var="d">
-			<option value="${d.path}">${d.name}</option>
-		</c:forEach>
-		</select>
-		<input type="hidden" name="siteid" value="${siteid}">
-		</form>
-		<input type="button" class="button" onclick="cleanFile();return false;" value="清理文件" />
+		<input type="button" class="button" onclick="cleanFile();return false;" value="清理模板" />
 	<div id="log" style="line-height:25px;"></div>
 </div>
 </body>

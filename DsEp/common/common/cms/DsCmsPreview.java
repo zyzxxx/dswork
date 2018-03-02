@@ -3,8 +3,6 @@
  */
 package common.cms;
 
-import javax.servlet.http.HttpServletRequest;
-
 public class DsCmsPreview extends CmsFactory
 {
 	private static DsCmsDao dao = null;
@@ -21,8 +19,8 @@ public class DsCmsPreview extends CmsFactory
 		dao = (DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsPreviewDao");
 	}
 
-	public DsCmsPreview(HttpServletRequest request)
+	public DsCmsPreview(Long siteid)
 	{
-		super(request);
+		super(siteid);
 	}
 }

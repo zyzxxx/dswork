@@ -15,9 +15,10 @@ public class DsCmsbuildPreviewController extends BaseController
 	@RequestMapping("/cmsbuild/preview")
 	public String preview()
 	{
+		Long siteid = req.getLong("siteid", -1);
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
-		DsCmsPreview cms = new DsCmsPreview(request);
+		DsCmsPreview cms = new DsCmsPreview(siteid);
 		put("cms", cms);
 		Map<String, Object> site = cms.getSite();
 		put("site", site);
