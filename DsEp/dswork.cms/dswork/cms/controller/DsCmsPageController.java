@@ -814,10 +814,10 @@ public class DsCmsPageController extends DsCmsBaseController
 			{
 				try
 				{
-					if(m.getScope() == 0 || m.getScope() == 1)// 过滤外链栏目
-					{
+					//if(m.getScope() == 0 || m.getScope() == 1)// 过滤外链栏目
+					//{
 						map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
-					}
+					//}
 				}
 				catch(Exception ex)
 				{
