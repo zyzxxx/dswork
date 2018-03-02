@@ -25,14 +25,14 @@ a:hover{outline:none;color:#182a2d;text-decoration:none;}
 a:focus{outline:none;}
 a:hover,a:active{outline:none;}:focus{outline:none;}
 
-label,a,a:link,a:visited,a:active{display:inline-block;font-size:14px;padding:3px 8px;line-height:1.2;}
+label,a,a:link,a:visited,a:active{display:inline-block;font-size:14px;padding:3px 8px;line-height:1.4;}
 label{border:solid 1px #bce8f1;color:#31708f;background-color:#d9edf7;}
 a,a:link,a:visited,a:active{border:solid 1px #0f9ae0;color:#fff;background-color:#3bb4f2;}
 a:hover {background-color:#0f9ae0;}
 .level1 {margin:8px 0 0 8px;}
-.level2 {margin:2px 0 0 48px;}
-.level3 {margin:2px 0 0 88px;}
-.level4 {margin:2px 0 0 128px;}
+.level2 {margin:2px 0 0 38px;}
+.level3 {margin:2px 0 0 68px;}
+.level4 {margin:2px 0 0 98px;}
 </style>
 <script type="text/javascript">
 <%if(model.isEnterprise()){%>
