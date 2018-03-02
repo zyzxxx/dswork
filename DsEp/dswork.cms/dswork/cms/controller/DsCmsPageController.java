@@ -216,7 +216,7 @@ public class DsCmsPageController extends DsCmsBaseController
 		{
 			Long id = req.getLong("id");
 			DsCmsCategory po = service.getCategory(id);
-			if(po.getScope() == 1)// 单页栏目
+			if(po.getScope() == 1 || po.getScope() == 2)// 单页栏目
 			{
 				if(po.getReleasetime() == null || po.getReleasetime().length() == 0)
 				{
@@ -238,7 +238,7 @@ public class DsCmsPageController extends DsCmsBaseController
 		try
 		{
 			DsCmsCategory m = service.getCategory(po.getId());
-			if(m.getScope() == 1)
+			if(m.getScope() == 1 || m.getScope() == 2)
 			{
 				DsCmsSite s = service.getSite(m.getSiteid());
 				if(checkOwn(s.getOwn()))
@@ -607,6 +607,7 @@ public class DsCmsPageController extends DsCmsBaseController
 									if(c.getScope() == 2)// 外链没有东西生成的
 									{
 										_deleteFile(site.getFolder(), c.getId() + "", true, true);
+										service.updateCategoryStatus(c.getId(), 8);
 										continue;
 									}
 									_deleteFile(site.getFolder(), c.getId() + "", true, false);// 删除栏目首页

@@ -25,7 +25,7 @@ $dswork.callback = null;
 $dswork.ztree.click = function(){
 	var node = $dswork.ztree.getSelectedNode();
 	if(node.isParent){
-		if(node.scope == 1){
+		if(node.scope == 1 || node.scope == 2){
 			attachUrl("updCategory1.htm?id=" + node.id);
 			return false;
 		}
@@ -35,7 +35,7 @@ $dswork.ztree.click = function(){
 			attachUrl("getPage.htm?id=" + node.id);
 			return false;
 		}
-		else if(node.scope == 1){
+		else if(node.scope == 1 || node.scope == 2){
 			attachUrl("updCategory1.htm?id=" + node.id);
 			return false;
 		}

@@ -10,8 +10,17 @@
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
 }};
+<c:if test="${po.scope==2}">
 $(function(){
-	try{$("#pid").val("${po.pid}");}catch(e){}
+	try{$(".form_title").css("width", "8%");}catch(e){}
+	$("#btn_site").bind("click", function(){
+		if(confirm("是否发布首页")){build(null);}
+	});
+});
+</c:if>
+
+<c:if test="${po.scope==1}">
+$(function(){
 	try{$(".form_title").css("width", "8%");}catch(e){}
 	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${po.id}",upImgUrl:"uploadImage.htm?zoom=true&categoryid=${po.id}"});
 	function show(){
@@ -32,6 +41,17 @@ $(function(){
 	$("#btnClean").on("click", function(){$("#inputImg").val("");show();});
 	$("#inputImg").on("keyup", show);
 	show();
+	$("#btn_category").bind("click", function(){
+		if(confirm("是否发布栏目\"${fn:escapeXml(po.name)}\"")){
+			$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
+			$.post("build.htm",{"siteid":"${po.siteid}", "categoryid":"${po.id}"},function(data){
+				$dswork.doAjaxShow(data, function(){});
+			});
+		}
+	});
+	$("#btn_site").bind("click", function(){
+		if(confirm("是否发布首页")){build(null);}
+	});
 });
 function build(categoryid)
 {
@@ -45,19 +65,7 @@ function build(categoryid)
 		$dswork.doAjaxShow(data, function(){});
 	});
 }
-$(function(){
-	$("#btn_category").bind("click", function(){
-		if(confirm("是否发布栏目\"${fn:escapeXml(po.name)}\"")){
-			$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
-			$.post("build.htm",{"siteid":"${po.siteid}", "categoryid":"${po.id}"},function(data){
-				$dswork.doAjaxShow(data, function(){});
-			});
-		}
-	});
-	$("#btn_site").bind("click", function(){
-		if(confirm("是否发布首页")){build(null);}
-	});
-});
+</c:if>
 </script>
 </head>
 <body>
@@ -65,8 +73,10 @@ $(function(){
 	<tr>
 		<td class="title">修改</td>
 		<td class="menuTool">
+<c:if test="${po.scope==1}">
 			<a class="graph" id="btn_category" href="#">发布本栏目</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
+</c:if>
 			<a class="graph" id="btn_site" href="#">发布首页</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
 			<a class="save" id="dataFormSave" href="#">保存</a>
@@ -75,6 +85,25 @@ $(function(){
 </table>
 <div class="line"></div>
 <form id="dataForm" method="post" action="updCategory2.htm">
+<c:if test="${po.scope==2}">
+<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr>
+		<td class="form_title">链接</td>
+		<td class="form_input"><input type="text" name="url" maxlength="100" style="width:400px;" dataType="Require" require="false" value="${fn:escapeXml(po.url)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">摘要</td>
+		<td class="form_input"><input type="text" name="summary" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.summary)}" /></td>
+	</tr>
+	<tr>
+		<td class="form_title">图片</td>
+		<td class="form_input">
+			<input type="text" name="img" id="inputImg" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.img)}" />
+		</td>
+	</tr>
+</table>
+</c:if>
+<c:if test="${po.scope==1}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">摘要</td>
@@ -117,6 +146,7 @@ $(function(){
 		</td>
 	</tr>
 </table>
+</c:if>
 <input type="hidden" name="id" value="${po.id}" />
 </form>
 </body>

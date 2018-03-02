@@ -97,7 +97,14 @@ public class DsCmsPageService
 
 	public void updateCategory(DsCmsCategory po, boolean isEnablelog, String editid, String editname)
 	{
-		categoryDao.updateContent(po);
+		if(po.getScope() == 2)
+		{
+			categoryDao.updateURL(po);
+		}
+		else
+		{
+			categoryDao.updateContent(po);
+		}
 		if(isEnablelog)
 		{
 			writeLogCategory(po, editid, editname);
