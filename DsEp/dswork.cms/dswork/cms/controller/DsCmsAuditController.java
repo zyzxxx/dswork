@@ -141,7 +141,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 						_po.setAuditid(getAccount());
 						_po.setAuditname(getName());
 						_po.setAudittime(TimeUtil.getCurrentTime());
-						service.updateAuditCategory(_po, m, s.isEnablelog());
+						service.updateAuditCategory(_po, m, s.isWriteLog());
 					}
 					print(1);
 					return;
@@ -249,11 +249,11 @@ public class DsCmsAuditController extends DsCmsBaseController
 						_po.setAudittime(TimeUtil.getCurrentTime());
 						if(_po.getStatus() == -1)
 						{
-							service.deleteAuditPage(_po, s.isEnablelog());
+							service.deleteAuditPage(_po, s.isWriteLog());
 						}
 						else
 						{
-							service.updateAuditPage(_po, s.isEnablelog());
+							service.updateAuditPage(_po, s.isWriteLog());
 						}
 					}
 					print(1);

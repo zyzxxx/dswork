@@ -123,11 +123,7 @@ public class DsCmsEditController extends DsCmsBaseController
 						po.setReleasetime(TimeUtil.getCurrentTime());
 					}
 					po.setStatus(0); // 新增
-					if(po.getScope() != 2) // 不为外链
-					{
-						po.setUrl("/a/" + c.getFolder());
-					}
-					service.saveAuditPage(po, s.isEnablelog(), getAccount(), getName());// url拼接/id.html
+					service.saveAuditPage(po, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
 					print(1);
 					return;
 				}
@@ -212,7 +208,7 @@ public class DsCmsEditController extends DsCmsBaseController
 							{
 								p.setStatus(-1);
 								p.setAuditstatus(DsCmsAuditPage.AUDIT);
-								service.updateAuditPage(p, s.isEnablelog(), getAccount(), getName());
+								service.updateAuditPage(p, s.isWriteLog(), getAccount(), getName());
 							}
 						}
 					}
@@ -294,7 +290,7 @@ public class DsCmsEditController extends DsCmsBaseController
 						if(_po.isAudit())
 						{
 							_po.setAuditstatus(0);
-							service.updateRevokeAuditPage(_po, s.isEnablelog(), getAccount(), getName());
+							service.updateRevokeAuditPage(_po, s.isWriteLog(), getAccount(), getName());
 							print(1);
 							return;
 						}
@@ -324,7 +320,7 @@ public class DsCmsEditController extends DsCmsBaseController
 							_po.setUrl(page.getUrl());
 							// _po.setStatus(page.getStatus());
 							_po.setAuditstatus(DsCmsAuditPage.PASS);
-							service.updateAuditPage(_po, s.isEnablelog(), getAccount(), getName());
+							service.updateAuditPage(_po, s.isWriteLog(), getAccount(), getName());
 						}
 						print(1);
 						return;
@@ -334,15 +330,9 @@ public class DsCmsEditController extends DsCmsBaseController
 						print("0:参数错误");
 						return;
 					}
-					//save and submit
-					if(po.getScope() != 2)
-					{
-						DsCmsCategory c = service.getCategory(_po.getCategoryid());
-						po.setUrl("/a/" + c.getFolder() + "/" + _po.getId() + ".html");
-					}
 					po.pushEditidAndEditname(getAccount(), getName());
 					po.setEdittime(TimeUtil.getCurrentTime());
-					service.updateAuditPage(po, s.isEnablelog(), getAccount(), getName());
+					service.updateAuditPage(po, s.isWriteLog(), getAccount(), getName());
 					print(1);
 					return;
 				}
@@ -433,7 +423,7 @@ public class DsCmsEditController extends DsCmsBaseController
 						if(_po.isAudit())
 						{
 							_po.setAuditstatus(0);
-							service.updateRevokeAuditCategory(_po, s.isEnablelog(), getAccount(), getName());
+							service.updateRevokeAuditCategory(_po, s.isWriteLog(), getAccount(), getName());
 							print(1);
 							return;
 						}
@@ -458,7 +448,7 @@ public class DsCmsEditController extends DsCmsBaseController
 							_po.setUrl(c.getUrl());
 							// _po.setStatus(c.getStatus());
 							_po.setAuditstatus(DsCmsAuditCategory.PASS);
-							service.updateAuditCategory(_po, s.isEnablelog(), getAccount(), getName());
+							service.updateAuditCategory(_po, s.isWriteLog(), getAccount(), getName());
 						}
 						print(1);
 						return;
@@ -480,7 +470,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					_po.setUrl(po.getUrl());
 					_po.pushEditidAndEditname(getAccount(), getName());
 					_po.setEdittime(TimeUtil.getCurrentTime());
-					service.updateAuditCategory(_po, s.isEnablelog(), getAccount(), getName());
+					service.updateAuditCategory(_po, s.isWriteLog(), getAccount(), getName());
 					print(1);
 					return;
 				}

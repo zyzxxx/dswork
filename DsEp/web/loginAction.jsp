@@ -10,6 +10,7 @@ String s = "about:blank", m = "";
 if(login.login(account, password, logintype, authcode))
 {
 	common.auth.Auth auth = AuthUtil.getLoginUser(request);
+	common.authown.AuthOwnUtil.login(request, response, auth.getId().toString(), auth.getAccount(), auth.getName(), "admin" + auth.getAccount());
 }
 if(logintype == Auth.ENTERPRISE)
 {

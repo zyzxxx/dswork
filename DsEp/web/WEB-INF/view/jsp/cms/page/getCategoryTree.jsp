@@ -24,12 +24,18 @@
 $dswork.callback = null;
 $dswork.ztree.click = function(){
 	var node = $dswork.ztree.getSelectedNode();
-	if(!node.isParent){
+	if(node.isParent){
+		if(node.scope == 1 || node.scope == 2){
+			attachUrl("updCategory1.htm?id=" + node.id);
+			return false;
+		}
+	}
+	else{
 		if(node.scope == 0){
 			attachUrl("getPage.htm?id=" + node.id);
 			return false;
 		}
-		else if(node.scope == 1){
+		else if(node.scope == 1 || node.scope == 2){
 			attachUrl("updCategory1.htm?id=" + node.id);
 			return false;
 		}
@@ -52,7 +58,7 @@ function unbuild(categoryid, pageid){
 $(function(){
 	var v = [];
 	<c:forEach items="${list}" var="d">
-	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}"});
+	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}${d.scope==2?'[外链]':d.scope==1?'[编辑]':''}", "scope":"${d.scope}"});
 	</c:forEach>
 	$dswork.ztree.nodeArray = v;
 	$dswork.ztree.config.async.enable = false;

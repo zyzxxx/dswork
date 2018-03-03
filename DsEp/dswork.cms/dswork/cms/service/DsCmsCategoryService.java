@@ -35,6 +35,29 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	{
 		return categoryDao;
 	}
+	
+	public int save(DsCmsCategory po)
+	{
+		if(po.getScope() != 2)
+		{
+			categoryDao.save(po);
+			po.setUrl("/a/" + po.getId() + "/index.html");
+			return categoryDao.update(po);
+		}
+		else
+		{
+			return categoryDao.save(po);
+		}
+	}
+	
+	public int update(DsCmsCategory po)
+	{
+		if(po.getScope() != 2)
+		{
+			po.setUrl("/a/" + po.getId() + "/index.html");
+		}
+		return categoryDao.update(po);
+	}
 
 	@Override
 	@Deprecated

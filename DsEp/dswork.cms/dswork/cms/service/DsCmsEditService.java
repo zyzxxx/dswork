@@ -51,7 +51,7 @@ public class DsCmsEditService
 		auditPageDao.save(po);
 		if(po.getScope() != 2) // 不为外链
 		{
-			po.setUrl(po.getUrl() + "/" + po.getId() + ".html");
+			po.setUrl("/a/" + po.getCategoryid() + "/" + po.getId() + ".html");
 			auditPageDao.update(po);
 		}
 		if(po.isAudit() && isEnablelog)
@@ -96,6 +96,10 @@ public class DsCmsEditService
 		if(po.isAudit() && isEnablelog)
 		{
 			writeLogPage(po, editid, editname);
+		}
+		if(po.getScope() != 2)
+		{
+			po.setUrl("/a/" + po.getCategoryid() + "/" + po.getId() + ".html");
 		}
 		return auditPageDao.update(po);
 	}

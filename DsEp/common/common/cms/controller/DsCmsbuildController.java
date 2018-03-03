@@ -27,7 +27,7 @@ public class DsCmsbuildController extends BaseController
 		CmsFactory cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY);
 		if(cms == null)
 		{
-			cms = new CmsFactory(request);
+			cms = new CmsFactory(siteid);
 			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
 			request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
 		}
@@ -36,7 +36,7 @@ public class DsCmsbuildController extends BaseController
 			String siteidstr = String.valueOf(request.getSession().getAttribute(CMS_FACTORY_KEY_SITEID));
 			if(!siteidstr.equals(cms.getSite().get("id")))
 			{
-				cms = new CmsFactory(request);
+				cms = new CmsFactory(siteid);
 				request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
 				request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
 			}

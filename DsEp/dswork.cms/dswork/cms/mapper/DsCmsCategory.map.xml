@@ -10,9 +10,9 @@
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_CATEGORY
-	(PID, SITEID, NAME, FOLDER, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT)
+	(PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT)
 	values
-	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{folder}, #{scope}, #{status}, #{url}, #{seq}, #{viewsite}, #{pageviewsite}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content})
+	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{scope}, #{status}, #{url}, #{seq}, #{viewsite}, #{pageviewsite}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content})
 </insert>
 
 <delete id="delete">
@@ -23,7 +23,6 @@
 	update DS_CMS_CATEGORY set
 		PID=<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>,
 		NAME=#{name},
-		FOLDER=#{folder},
 		URL=#{url},
 		VIEWSITE=#{viewsite},
 		PAGEVIEWSITE=#{pageviewsite}
@@ -43,7 +42,16 @@
 		IMG=#{img},
 		STATUS=#{status},
 		CONTENT=#{content}
-	where ID=#{id}
+	where ID=#{id} and SITEID=#{siteid}
+</update>
+<update id="updateURL" parameterType="dswork.cms.model.DsCmsCategory">
+	update DS_CMS_CATEGORY set
+		URL=#{url},
+		SUMMARY=#{summary},
+		RELEASETIME=#{releasetime},
+		IMG=#{img},
+		STATUS=#{status}
+	where ID=#{id} and SITEID=#{siteid} and SCOPE=2
 </update>
 <update id="updateStatus">
 	update DS_CMS_CATEGORY set STATUS=#{status} where ID=#{id}
@@ -54,7 +62,6 @@
 	<result property="pid" column="PID" />
 	<result property="status" column="STATUS" />
 	<result property="name" column="NAME" />
-	<result property="folder" column="FOLDER" />
 	<result property="scope" column="SCOPE" />
 	<result property="siteid" column="SITEID" />
 	<result property="url" column="URL" />
@@ -72,7 +79,7 @@
 </resultMap>
 
 <sql id="columns">
-	ID, PID, SITEID, NAME, FOLDER, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT
+	ID, PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT
 </sql>
 
 <sql id="dynamicWhere">

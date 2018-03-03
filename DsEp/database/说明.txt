@@ -1,0 +1,3 @@
+cms更新
+update DS_CMS_CATEGORY set URL=concat('/a/', ID, '/index.html') where SCOPE!=2;
+update DS_CMS_PAGE set URL=concat('/a/', CATEGORYID, '/', ID, '.html') where SCOPE!=2;

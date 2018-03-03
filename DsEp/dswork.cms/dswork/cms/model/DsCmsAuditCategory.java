@@ -5,8 +5,6 @@ package dswork.cms.model;
 
 public class DsCmsAuditCategory extends DsCmsCategory
 {
-	// 状态(-1删除,0新增,1修改,8已发)
-
 	// 编辑人员ID(前后逗号隔开)
 	private String editid = "";
 	// 编辑人员姓名(逗号隔开)

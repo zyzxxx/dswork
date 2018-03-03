@@ -14,7 +14,6 @@ $(function(){
 	$("#scope").bind("click", function(){
 		if($("#scope").val() == 2){
 			$("#mylink").show();
-			$("#myfolder").val("").hide();
 			$("#template_category").val("").hide();
 			$("#template_page").val("").hide();
 			$("#viewsite").val("");
@@ -23,7 +22,6 @@ $(function(){
 		}
 		else if($("#scope").val() == 1){
 			$("#mylink").val("").hide();
-			$("#myfolder").show();
 			$("#template_category").show();
 			$("#template_page").val("").hide();
 			$("#pageviewsite").val("");
@@ -31,7 +29,6 @@ $(function(){
 		}
 		else{
 			$("#mylink").val("").hide();
-			$("#myfolder").show();
 			$("#template_category").show();
 			$("#template_page").show();
 			$("#url").attr("require", "false");
@@ -68,12 +65,6 @@ $(function(){
 		<td class="form_title">栏目名称</td>
 		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="" /></td>
 	</tr>
-	<tbody id="myfolder">
-	<tr>
-		<td class="form_title">目录名称</td>
-		<td class="form_input"><input type="text" name="folder" maxlength="50" dataType="Char" value="" /></td>
-	</tr>
-	</tbody>
 	<tr>
 		<td class="form_title">类型</td>
 		<td class="form_input"><select id="scope" name="scope" style="width:100px;">

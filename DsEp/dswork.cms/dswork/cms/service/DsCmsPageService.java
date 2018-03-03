@@ -46,7 +46,7 @@ public class DsCmsPageService
 		pageDao.save(po);
 		if(po.getScope() != 2) // 不为外链
 		{
-			pageDao.updateURL(po.getId(), po.getUrl() + "/" + po.getId() + ".html");
+			pageDao.updateURL(po.getId(), "/a/" + po.getCategoryid() + "/" + po.getId() + ".html");
 		}
 		if(isEnablelog)
 		{
@@ -60,6 +60,10 @@ public class DsCmsPageService
 
 	public void updatePage(DsCmsPage po, boolean isEnablelog, String editid, String editname)
 	{
+		if(po.getScope() != 2) // 不为外链
+		{
+			po.setUrl("/a/" + po.getCategoryid() + "/" + po.getId() + ".html");
+		}
 		pageDao.update(po);
 		if(isEnablelog)
 		{
@@ -93,7 +97,14 @@ public class DsCmsPageService
 
 	public void updateCategory(DsCmsCategory po, boolean isEnablelog, String editid, String editname)
 	{
-		categoryDao.updateContent(po);
+		if(po.getScope() == 2)
+		{
+			categoryDao.updateURL(po);
+		}
+		else
+		{
+			categoryDao.updateContent(po);
+		}
 		if(isEnablelog)
 		{
 			writeLogCategory(po, editid, editname);
