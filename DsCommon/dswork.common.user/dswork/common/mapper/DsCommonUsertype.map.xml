@@ -46,6 +46,7 @@
 	<where>
 		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
 		<if test="@Ognl@isNotEmpty(alias)"> and ALIAS like #{alias, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(xalias)"> and ALIAS=#{xalias} </if>
 	</where>
 </sql>
 

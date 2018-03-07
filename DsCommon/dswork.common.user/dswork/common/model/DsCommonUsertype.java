@@ -24,6 +24,16 @@ public class DsCommonUsertype
 	private String resources = "";
 	// 资源集合转化的List
 	private List<DsCommonUsertypeRes> resourcesList = null;
+	
+	public DsCommonUsertype()
+	{
+	}
+	
+	public DsCommonUsertype(String name, String alias)
+	{
+		this.name = name;
+		this.alias = alias;
+	}
 
 	public Long getId()
 	{

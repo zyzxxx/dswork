@@ -29,4 +29,17 @@ public class DsCommonUsertypeRes
 	{
 		this.name = String.valueOf(name).trim();
 	}
+	
+	@Override
+	public String toString()
+	{
+		try
+		{
+			return new StringBuilder().append("{\"name\":\"").append(name.trim().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\",\"alias\":\"").append(alias.trim().replaceAll("\\\\", "\\\\\\\\").replaceAll("\"", "\\\\\\\"")).append("\"}").toString();
+		}
+		catch (Exception e)
+		{
+			return "{\"name\":\"\",\"alias\":\"\"}";
+		}
+	}
 }

@@ -48,6 +48,7 @@ var treedata = [
 ,{id:100, name:'扩展功能', img:"", imgOpen:"", url:"", items:[
 	 {id:901,name:'指定组织机构', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm?rootid=1', items:[]}
 	,{id:902,name:'指定用户授权', img:"", imgOpen:"", url:'/common/userorg/getOrgTree.htm?rootid=1', items:[]}
+	,{id:903,name:'指定类型用户管理', img:"", imgOpen:"", url:'/common/user/getUser.htm?xtype=0', items:[]}
 	,{id:11,name:'流程示例', img:"", imgOpen:"", url:'', items:[
 		{id:111,name:'流程测试', img:"", imgOpen:"", url:'/flow/waiting.jsp', items:[]}
 	]}

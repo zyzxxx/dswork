@@ -37,6 +37,12 @@ public class DsCommonUser
 	private String orgpname = "";
 	// 部门名称
 	private String orgname = "";
+	// 类型
+	private String type = "";
+	// 类型名称
+	private String typename = "";
+	// 资源
+	private String resources = "";
 
 	public Long getId()
 	{
@@ -196,6 +202,36 @@ public class DsCommonUser
 	public void setOrgname(String orgname)
 	{
 		this.orgname = orgname;
+	}
+
+	public String getType()
+	{
+		return type;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
+	}
+
+	public String getTypename()
+	{
+		return typename;
+	}
+
+	public void setTypename(String typename)
+	{
+		this.typename = typename;
+	}
+
+	public String getResources()
+	{
+		return resources;
+	}
+
+	public void setResources(String resources)
+	{
+		this.resources = resources;
 	}
 
 	@Override
