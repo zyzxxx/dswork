@@ -13,6 +13,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 $dswork.readySubmit = function(){
 	$("#password").val($("#password1").val());
 	$("#typename").val($("#type option:selected").text());
+	$("#exname").val($("#exalias option:selected").text());
 };
 var map = new $jskey.Map();
 var typekey = "${fn:escapeXml(po.resources)}";
@@ -33,7 +34,7 @@ function initSelectResources(xarr){
 	}
 	else{
 		for(var i=0; i<xarr.length;i++){
-			o.append($("<option>").val(xarr[i].ralias+"|"+xarr[i].rname).text(xarr[i].rname));
+			o.append($("<option>").val(xarr[i].ralias).text(xarr[i].rname));
 		}
 		try{o.val(typekey);}catch(e){}
 		try{if(o.val() != typekey){o.prop("selectedIndex", 0);}}catch(e){}
@@ -74,7 +75,7 @@ $(function(){
 		<td class="form_input"><select id="type" name="type" v="${fn:escapeXml(po.type)}" onchange="selectTypeOption();"><c:forEach items="${typeList}" var="d">
 			<option value="${fn:escapeXml(d.alias)}">${fn:escapeXml(d.name)}</option>
 		</c:forEach></select>
-		<select id="resources" name="resources" style="min-width:100px;"></select>
+		<select id="exalias" name="exalias" style="min-width:100px;"></select>
 		 <span class="imp">*</span></td>
 	</tr>
 	<tr>
@@ -104,6 +105,7 @@ $(function(){
 </table>
 <input type="hidden" name="id" value="${po.id}" />
 <input type="hidden" id="typename" name="typename" value="${fn:escapeXml(po.typename)}" />
+<input type="hidden" id="exname" name="exname" value="${fn:escapeXml(po.exname)}" />
 </form>
 </body>
 </html>
