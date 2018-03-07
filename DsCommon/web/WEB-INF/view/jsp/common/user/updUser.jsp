@@ -16,7 +16,7 @@ $dswork.readySubmit = function(){
 	$("#exname").val($("#exalias option:selected").text());
 };
 var map = new $jskey.Map();
-var typekey = "${fn:escapeXml(po.resources)}";
+var typekey = "${fn:escapeXml(po.exalias)}";
 <c:forEach items="${typeList}" var="d">
 if(1 > 0){
 	var arr = [];
