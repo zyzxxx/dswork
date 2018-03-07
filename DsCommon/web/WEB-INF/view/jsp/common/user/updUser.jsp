@@ -27,7 +27,7 @@ if(1 > 0){
 }
 </c:forEach>
 function initSelectResources(xarr){
-	var o = $("#resources");
+	var o = $("#exalias");
 	o.empty();
 	if(xarr == null || xarr.length == 0){
 		o.append("<option value=''>暂无可选项</option>");
