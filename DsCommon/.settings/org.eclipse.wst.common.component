@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
 	<wb-module deploy-name="DsCommon">
-		<wb-resource deploy-path="/WEB-INF/classes" source-path="/common"/>
-		<wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
-		<wb-resource deploy-path="/" source-path="/web" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/common"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
+        <wb-resource deploy-path="/" source-path="/web" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.dict"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.rbac"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.org"/>
@@ -11,6 +11,9 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.user.org"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.flow"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.user.role"/>
+        <dependent-module archiveName="dswork.common.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/Lib/module/dswork/common/dswork.common.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
 		<property name="context-root" value="DsCommon"/>
 		<property name="java-output-path" value="/DsCommon/web/WEB-INF/classes"/>
 	</wb-module>
