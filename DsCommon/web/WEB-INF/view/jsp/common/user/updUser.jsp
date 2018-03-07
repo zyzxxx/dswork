@@ -67,7 +67,7 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">姓名</td>
-		<td class="form_input"><input type="text" id="name" name="name" dataType="Chinese" maxlength="25" value="${fn:escapeXml(po.name)}" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="text" id="name" name="name" dataType="Name" maxlength="25" value="${fn:escapeXml(po.name)}" /> <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">类型</td>

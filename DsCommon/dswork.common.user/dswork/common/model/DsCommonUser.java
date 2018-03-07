@@ -41,8 +41,10 @@ public class DsCommonUser
 	private String type = "";
 	// 类型名称
 	private String typename = "";
-	// 资源
-	private String resources = "";
+	// 类型扩展标识
+	private String exalias = "";
+	// 类型扩展名称
+	private String exname = "";
 
 	public Long getId()
 	{
@@ -224,14 +226,24 @@ public class DsCommonUser
 		this.typename = typename;
 	}
 
-	public String getResources()
+	public String getExalias()
 	{
-		return resources;
+		return exalias;
 	}
 
-	public void setResources(String resources)
+	public void setExalias(String exalias)
 	{
-		this.resources = resources;
+		this.exalias = exalias;
+	}
+
+	public String getExname()
+	{
+		return exname;
+	}
+
+	public void setExname(String exname)
+	{
+		this.exname = exname;
 	}
 
 	@Override

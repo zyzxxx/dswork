@@ -6,9 +6,9 @@
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonUser">
 	insert into DS_COMMON_USER
-	(ID, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME, ORGPID, ORGID, TYPE, TYPENAME, RESOURCES)
+	(ID, ACCOUNT, PASSWORD, NAME, IDCARD, STATUS, EMAIL, MOBILE, PHONE, CAKEY, WORKCARD, CREATETIME, ORGPID, ORGID, TYPE, TYPENAME, EXALIAS, EXNAME)
 	values
-	(#{id}, LOWER(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{cakey}, #{workcard}, #{createtime}, #{orgpid}, #{orgid}, #{type}, #{typename}, #{resources})
+	(#{id}, LOWER(#{account}), #{password}, #{name}, #{idcard}, #{status}, #{email}, #{mobile}, #{phone}, #{cakey}, #{workcard}, #{createtime}, #{orgpid}, #{orgid}, #{type}, #{typename}, #{exalias}, #{exname})
 </insert>
 
 <delete id="delete">
@@ -25,7 +25,8 @@
 		WORKCARD=#{workcard},
 		TYPE=#{type},
 		TYPENAME=#{typename},
-		RESOURCES=#{resources}
+		EXALIAS=#{exalias},
+		EXNAME=#{exname}
 	where ID=#{id}
 </update>
 <update id="updateCakey">
@@ -60,12 +61,13 @@
 	<result property="orgname" column="ORGNAME" />
 	<result property="type" column="TYPE" />
 	<result property="typename" column="TYPENAME" />
-	<result property="resources" column="RESOURCES" />
+	<result property="exalias" column="EXALIAS" />
+	<result property="exname" column="EXNAME" />
 </resultMap>
 
 <sql id="columns">
 	u.ID, u.ACCOUNT, u.PASSWORD, u.NAME, u.IDCARD, u.STATUS, u.EMAIL, u.MOBILE, u.PHONE, u.CAKEY, u.WORKCARD, u.CREATETIME, u.ORGPID, u.ORGID
-	,upo.NAME as ORGPNAME, uo.NAME as ORGNAME, u.TYPE, u.TYPENAME, u.RESOURCES
+	,upo.NAME as ORGPNAME, uo.NAME as ORGNAME, u.TYPE, u.TYPENAME, u.EXALIAS, u.EXNAME
 </sql>
 
 <sql id="dynamicWhere">

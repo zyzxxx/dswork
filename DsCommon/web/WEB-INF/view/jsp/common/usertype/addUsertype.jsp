@@ -28,11 +28,11 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr>
 		<td class="form_title">名称</td>
-		<td class="form_input"><input type="text" name="name" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="name" dataType="Name" maxlength="100" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">标识</td>
-		<td class="form_input"><input type="text" name="alias" maxlength="100" value="" /></td>
+		<td class="form_input"><input type="text" name="alias" dataType="Char" maxlength="100" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">扩展信息</td>

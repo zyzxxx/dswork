@@ -22,6 +22,11 @@ public class AuthFactory
 	static String url = "";
 	static Logger log = LoggerFactory.getLogger("dswork.sso");
 	
+	public static String toJson(Object object)
+	{
+		return gson.toJson(object);
+	}
+	
 	private static StringBuilder getPath(String path)
 	{
 		StringBuilder sb = new StringBuilder(30);

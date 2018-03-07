@@ -31,7 +31,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 	<tr>
 		<td class="form_title">标识</td>
-		<td class="form_input"><input type="text" name="alias" maxlength="100" value="${fn:escapeXml(po.alias)}" /></td>
+		<td class="form_input"><input type="text" name="alias" dataType="Char" maxlength="100" value="${fn:escapeXml(po.alias)}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">排序</td>
