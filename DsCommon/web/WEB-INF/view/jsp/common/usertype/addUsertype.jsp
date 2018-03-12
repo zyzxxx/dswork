@@ -31,8 +31,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="form_input"><input type="text" name="name" dataType="Name" maxlength="100" value="" /></td>
 	</tr>
 	<tr>
-		<td class="form_title">标识</td>
-		<td class="form_input"><input type="text" name="alias" dataType="Char" maxlength="100" value="" /></td>
+		<td class="form_title">数字标识</td>
+		<td class="form_input"><input type="text" name="alias" dataType="Integer" maxlength="10" value="" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">扩展信息</td>
