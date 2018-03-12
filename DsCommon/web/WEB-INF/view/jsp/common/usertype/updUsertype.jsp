@@ -7,6 +7,7 @@
 <title></title>
 <%@include file="/commons/include/updAjax.jsp"%>
 <script type="text/javascript">
+$dswork.deleteRow = function (obj){$(obj).parent().parent().remove();};
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getUsertype.htm?page=${page}";
 }};
@@ -44,6 +45,15 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 </table>
 <input type="hidden" name="id" value="${po.id}" />
 <input type="hidden" name="status" value="1" />
+<div class="line"></div>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">用户资源列表</td>
+		<td class="menuTool">
+			<a class="insert" onclick="$('#contactTable>tbody').append($('#cloneTable>tbody>tr:eq(0)').clone());" href="#">添加</a>
+		</td>
+	</tr>
+</table>
 <div class="line"></div>
 <table id="contactTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
