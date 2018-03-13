@@ -3,7 +3,9 @@ package common.lucene;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.document.Document;
@@ -18,13 +20,17 @@ import org.apache.lucene.index.IndexReader;
 import org.apache.lucene.index.IndexWriter;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.index.IndexWriterConfig.OpenMode;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.search.BooleanClause;
+import org.apache.lucene.search.BooleanQuery;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Sort;
 import org.apache.lucene.search.SortField;
+import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.store.Directory;
 
 
@@ -46,21 +52,30 @@ public class LuceneUtil
 	private static final String SEARCH_PATH = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.search", "");
 	private static final String INDEX_PATH = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.index", "");
 	private static final String Domain = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.domain", "");
-	private static final int Size = new Long(dswork.core.util.EnvironmentUtil.getToLong("dswork.lucene.size", 100)).intValue();
+	private static final int Size = new Long(dswork.core.util.EnvironmentUtil.getToLong("dswork.lucene.size", 500)).intValue();
 	public static final long Refreshtime = dswork.core.util.EnvironmentUtil.getToLong("dswork.lucene.refreshtime", 86400000);
-	
-	
+
+	private static final String CmsSeq = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.seq", ".searchseq");
+	private static final String CmsType = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.type", ".searchtype");
+	private static final String CmsTitle = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.title", ".searchtitle");
+	private static final String CmsContent = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.content", ".searchcontent");
+
 	private static Formatter formatter = new SimpleHTMLFormatter("<span class='keyvalue'>", "</span>");// 关键字增加前后缀
 	private static Analyzer analyzer = new BaseAnalyzer(false);
 	private static Directory directory = null;
 
+	private static String SearchType = "type";
 	private static String SearchSeq = "seq";
 	private static String SearchKey = "search";
 	private static String SearchName = "name";
 	private static String SearchMsg = "msg";
 	private static String SearchUri = "uri";
-	private static Document getLuceneDocument(long seq, String uri, String name, String msg)
+	private static Document getLuceneDocument(String type, long seq, String uri, String name, String msg)
 	{
+		if(type.length() > 0)
+		{
+			tempMapList.put(type, type);
+		}
 		Document doc = new Document();
 		FieldType fieldType = new FieldType();
 		fieldType.setIndexOptions(IndexOptions.NONE);
@@ -85,11 +100,18 @@ public class LuceneUtil
 		fieldType.setTokenized(false);
 		doc.add(new Field(SearchMsg, msg, fieldType));
 		
+		// 用于分类检查和存储
+		fieldType = new FieldType();
+		fieldType.setIndexOptions(IndexOptions.DOCS);
+		fieldType.setStored(true);
+		fieldType.setTokenized(false);// 不分词
+		doc.add(new Field(SearchType, type, fieldType));
+		
 		// 空间换时间，用于搜索的field
 		fieldType = new FieldType();
 		fieldType.setIndexOptions(IndexOptions.DOCS_AND_FREQS_AND_POSITIONS_AND_OFFSETS);
 		fieldType.setStored(true);
-		fieldType.setTokenized(true);
+		fieldType.setTokenized(true);;// 分词
 		doc.add(new Field(SearchKey, name+msg, fieldType));
 		return doc;
 	}
@@ -97,17 +119,8 @@ public class LuceneUtil
 	{
 		if(files.isFile())
 		{
-			if(files.getName().endsWith(".html") && !files.getName().startsWith("index"))
+			if(files.getName().endsWith(".html") && !files.getName().startsWith("index"))//
 			{
-				long id = 1L;
-				try
-				{
-					id = Long.parseLong(files.getName().substring(0, files.getName().length() - 5));
-				}
-				catch(NumberFormatException e)
-				{
-					e.printStackTrace();
-				}
 				String url = files.getPath().replaceAll("\\\\", "/").replaceFirst(rootpath, "");
 				dswork.html.nodes.Document document = HtmlUtil.parse(FileUtil.readFile(files.getPath(), "UTF-8").replaceAll("&nbsp;", ""));
 				if(document == null)
@@ -118,12 +131,21 @@ public class LuceneUtil
 				// ----------------------------------------
 				// 此处读取的信息应该根据不同的项目，截取不同的文档信息
 				// ----------------------------------------
-				String title = document.selectOwnText(".title").trim();
-				String content = document.selectText(".content").trim();
+				long id = 1L;
+				try
+				{
+					id = Long.parseLong(document.selectOwnText(CmsSeq).trim());// 越大越在前
+				}
+				catch(NumberFormatException e)
+				{
+				}
+				String type = document.selectOwnText(CmsType).trim();
+				String title = document.selectOwnText(CmsTitle).trim();
+				String content = document.selectText(CmsContent).trim();
 				if(title.length() > 0 && content.length() > 0)
 				{
 					count++;
-					iwriter.addDocument(LuceneUtil.getLuceneDocument(id, url, title, content));
+					iwriter.addDocument(LuceneUtil.getLuceneDocument(type, id, url, title, content));
 				}
 			}
 		}
@@ -184,12 +206,23 @@ public class LuceneUtil
 	
 	private static int MaxLength = 300;
 	
-	public static MyPage search(String keyword, int page, int pagesize)
+	public static MyPage search(String[] types, String keyword, int page, int pagesize)
 	{
 		// 太多了，处理一下
 		if(pagesize > 100)
 		{
 			pagesize = 10;
+		}
+		List<String> tlist = new ArrayList<String>();
+		if(types.length > 0)
+		{
+			for(String x : types)
+			{
+				if(x.length() > 0)
+				{
+					tlist.add(x);
+				}
+			}
 		}
 		System.out.println("-------------------------");
 		System.out.print("搜索《" + keyword);
@@ -211,8 +244,36 @@ public class LuceneUtil
 			SortField[] sortField = new SortField[1];
 			sortField[0] = new SortField(SearchSeq, SortField.Type.LONG, true);
 			
-			org.apache.lucene.search.TopFieldDocs topDocs = isearcher.search(query, Size, new Sort(sortField));
+			
+
+			BooleanQuery.Builder builder = new BooleanQuery.Builder();//构造booleanQuery
+			if(types.length > 0)
+			{
+				System.out.println("");
+				System.out.print("你选择的分类是：");
+				if(tlist.size() > 0)
+				{
+					if(tlist.size() == 1)
+					{
+						builder.add(new TermQuery(new Term(SearchType, tlist.get(0))), BooleanClause.Occur.MUST);
+					}
+					else
+					{
+						BooleanQuery.Builder builderTemp = new BooleanQuery.Builder();//构造booleanQuery
+						for(String x : tlist)
+						{
+							builderTemp.add(new TermQuery(new Term(SearchType, x)), BooleanClause.Occur.SHOULD);
+						}
+						builder.add(builderTemp.build(), BooleanClause.Occur.MUST);
+					}
+				}
+			}
+			builder.add(query, BooleanClause.Occur.MUST);
+			BooleanQuery booleanQuery = builder.build();
+			
+			org.apache.lucene.search.TopFieldDocs topDocs = isearcher.search(booleanQuery, Size, new Sort(sortField));
 			searchSize = topDocs.totalHits;
+			
 			
 			// org.apache.lucene.search.TopDocs topDocs = isearcher.search(query, Size);
 
@@ -290,6 +351,9 @@ public class LuceneUtil
 		}
 		return pageModel;
 	}
+
+	private static List<String> typeList = new ArrayList<String>();
+	private static Map<String, String> tempMapList = new LinkedHashMap<String, String>();
 	
 	public static synchronized void reload()
 	{
@@ -299,7 +363,10 @@ public class LuceneUtil
 			System.out.println("索引初始化开始");
 			System.out.println("------------------");
 			count = 0;
+			tempMapList.clear();
 			initIndex();
+			typeList.clear();
+			typeList.addAll(tempMapList.values());
 			System.out.println("索引初始化文件个数为：" + count);
 			System.out.println("索引初始化结束");
 		}
@@ -309,5 +376,10 @@ public class LuceneUtil
 			e.printStackTrace();
 		}
 		System.out.println("------------------");
+	}
+	
+	public static String[] getTypeArray()
+	{
+		return typeList.toArray(new String[0]);
 	}
 }

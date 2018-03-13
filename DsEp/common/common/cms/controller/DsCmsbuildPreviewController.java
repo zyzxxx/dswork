@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.cms.DsCmsPreview;
+import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 @Scope("prototype")
 @Controller
@@ -20,6 +21,7 @@ public class DsCmsbuildPreviewController extends BaseController
 		Long pageid = req.getLong("pageid", -1);
 		DsCmsPreview cms = new DsCmsPreview(siteid);
 		put("cms", cms);
+		put("year", TimeUtil.getCurrentTime("yyyy"));
 		Map<String, Object> site = cms.getSite();
 		put("site", site);
 		put("ctx", request.getContextPath() + "/html/" + site.get("folder") + "/html");// 预览时，现在可以不需要运行服务器，即可浏览相对地址

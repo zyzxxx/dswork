@@ -58,7 +58,7 @@
 		<init-param><param-name>ssoURL</param-name>     <param-value>http://127.0.0.1:8888/sso/api</param-value></init-param>
 		<init-param><param-name>ssoName</param-name>    <param-value>DsCommon</param-value></init-param>
 		<init-param><param-name>ssoPassword</param-name><param-value>1</param-value></init-param>
-		<init-param><param-name>webURL</param-name>     <param-value>http://sso-server/sso</param-value></init-param>
+		<init-param><param-name>webURL</param-name>     <param-value>http://sso-server:8888/sso</param-value></init-param>
 		<init-param><param-name>ignoreURL</param-name>  <param-value>/menu.jsp</param-value></init-param>
 		<init-param><param-name>sameDomain</param-name> <param-value>false</param-value></init-param>
 		<init-param><param-name>systemURL</param-name>  <param-value>http://192.168.1.47/DsCommon/index.jsp</param-value></init-param>
@@ -76,8 +76,8 @@
 	
 	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/user/*</url-pattern></filter-mapping>
 	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/userrole/*</url-pattern></filter-mapping>
-	
 	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/userorg/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/usertype/*</url-pattern></filter-mapping>
 	
 	<filter-mapping><filter-name>websso</filter-name><url-pattern>/index.jsp</url-pattern></filter-mapping>
 

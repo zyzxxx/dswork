@@ -229,6 +229,7 @@ public class DsCommonFuncController extends BaseController
 			}
 			if(po.getAlias().length() != 0)
 			{
+				po.setAlias(po.getAlias().toLowerCase());
 				if(!po.getAlias().equals(_po.getAlias()))// 标识被修改
 				{
 					// 判断是否在该系统下唯一

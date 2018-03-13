@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 public class SpyLogDelegator
 {
 	static final long SqlTimingWarn = 10000L;
+	static final long SqlTimingWarnDebug = 60000L;
 
 	public SpyLogDelegator()
 	{
@@ -42,7 +43,7 @@ public class SpyLogDelegator
 			{
 				if(execTime >= SpyLogDelegator.SqlTimingWarn)
 				{
-					sqlLogger.warn(buildSqlDump(spy, execTime, methodCall, sql, sqlLogger.isDebugEnabled()));
+					sqlLogger.warn(buildSqlDump(spy, execTime, methodCall, sql, execTime > SpyLogDelegator.SqlTimingWarnDebug));
 				}
 				else if(sqlLogger.isDebugEnabled())
 				{

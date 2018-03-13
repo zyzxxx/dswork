@@ -55,11 +55,12 @@ public class WebFilter implements Filter
 //			relativeURI = relativeURI.replaceFirst(request.getContextPath(), "");
 //		}
 		
-		IUser ouser = (IUser)session.getAttribute(LOGINER);
+		@SuppressWarnings("unchecked")
+		Map<String, String> ouser = (Map<String, String>)session.getAttribute(LOGINER);
 		if(log.isInfoEnabled())
 		{
 			log.info("当前访问地址：" + request.getContextPath() + relativeURI);
-			log.info(ouser != null ? "当前登录用户是：" + ouser.getAccount() : "当前没有登录用户");
+			log.info(ouser != null ? "当前登录用户是：" + ouser.get("account") : "当前没有登录用户");
 		}
 		
 		// 和sso项目在同一域名情况下，可直接忽略ticket模式
@@ -82,7 +83,7 @@ public class WebFilter implements Filter
 				{
 					String msg = dswork.sso.util.EncryptUtil.decodeDes(ssoCode, ssoTicket);
 					String[] msgs = msg.split("#", -1);
-					if(msgs.length == 2)
+					if(msgs.length > 1)
 					{
 						if(doValidateAccount(session, AuthFactory.getUser(msgs[0]), ssoTicket))
 						{
@@ -111,10 +112,9 @@ public class WebFilter implements Filter
 				return;
 			}
 		}
-		else
-		// ticket非空,由链接传来ticket
+		else// ticket非空,由链接传来ticket
 		{
-			if(ticket.equals(String.valueOf(session.getAttribute(TICKET))))// 一样的ticket
+			if(ticket.equals(String.valueOf(session.getAttribute(TICKET))))// 一样的ticket，这里的session放的ticket不是ssoticket
 			{
 				if(session.getAttribute(LOGINER) != null)// 已登录
 				{
@@ -210,20 +210,17 @@ public class WebFilter implements Filter
 	@SuppressWarnings("all")
 	public static Map<String, String> getLoginer(HttpSession session)
 	{
-		Map<String, String> m = new java.util.HashMap<String, String>();
+		Map<String, String> m = null;
 		try
 		{
-			IUser user = (IUser) session.getAttribute(LOGINER);
-			m.put("id", user.getId() + "");
-			m.put("account", user.getAccount());
-			m.put("name", user.getName());
-			m.put("idcard", user.getIdcard());
-			m.put("workcard", user.getWorkcard());
-			m.put("orgid", user.getOrgid() + "");
-			m.put("orgpid", user.getOrgpid() + "");
+			m = (Map<String, String>) session.getAttribute(LOGINER);
 		}
 		catch(Exception e)
 		{
+		}
+		if(m == null)
+		{
+			m = new java.util.HashMap<String, String>();
 		}
 		return m;
 	}
@@ -331,7 +328,19 @@ public class WebFilter implements Filter
 		{
 			if(user != null && user.getAccount().length() > 0 && !"null".equals(user.getAccount()))
 			{
-				session.setAttribute(LOGINER, user);
+				Map<String, String> m = new java.util.HashMap<String, String>();
+				m.put("id", user.getId() + "");
+				m.put("account", user.getAccount());
+				m.put("name", user.getName());
+				m.put("idcard", user.getIdcard());
+				m.put("workcard", user.getWorkcard());
+				m.put("orgid", user.getOrgid() + "");
+				m.put("orgpid", user.getOrgpid() + "");
+				m.put("type", user.getType() + "");
+				m.put("typename", user.getTypename() + "");
+				m.put("exalias", user.getExalias() + "");
+				m.put("exname", user.getExname() + "");
+				session.setAttribute(LOGINER, m);
 				session.setAttribute(TICKET, ticket);
 				if(log.isDebugEnabled())
 				{

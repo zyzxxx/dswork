@@ -9,11 +9,42 @@
 <%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	if(!confirm("是否继续添加用户？")){location.href = "getUser.htm";}
+	if(!confirm("是否继续添加用户？")){location.href = "getUser.htm?xtype=${fn:escapeXml(param.xtype)}";}
 }};
 $dswork.readySubmit = function(){
 	$("#password").val($("#password1").val());
+	$("#typename").val($("#type option:selected").text());
+	$("#exname").val($("#exalias option:selected").text());
 };
+var map = new $jskey.Map();
+var typekey = "";
+<c:forEach items="${typeList}" var="d">
+if(1 > 0){
+	var arr = [];
+	<c:forEach items="${d.resourcesList}" var="x">
+	arr.push({"ralias":"${fn:escapeXml(x.alias)}","rname":"${fn:escapeXml(x.name)}"});
+	</c:forEach>
+	map.put("${fn:escapeXml(d.alias)}", arr);
+}
+</c:forEach>
+function initSelectResources(xarr){
+	var o = $("#exalias");
+	o.empty();
+	if(xarr == null || xarr.length == 0){
+		o.append("<option value=''>暂无可选项</option>");
+	}
+	else{
+		for(var i=0; i<xarr.length;i++){
+			o.append($("<option>").val(xarr[i].ralias).text(xarr[i].rname));
+		}
+		try{o.val(typekey);}catch(e){}
+		try{if(o.val() != typekey){o.prop("selectedIndex", 0);}}catch(e){}
+	}
+}
+function selectTypeOption(){
+	var str = $("#type option:selected").val();
+	initSelectResources(map.get(str));
+}
 $(function(){
 	$("#orgpname").bind("click", function(e){
 		$dswork.showTree({id:"treeid1",width:400,height:200,root:{name:"选择单位"}
@@ -33,6 +64,7 @@ $(function(){
 			,dataFilter:function(id, pnode, data){var d=[];for(var i =0; i < data.length; i++){if(data[i].status == 1){d.push(data[i]);}}return d;}
 		});
 	});
+	selectTypeOption();
 });
 </script>
 </head>
@@ -42,7 +74,7 @@ $(function(){
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getUser.htm?page=${fn:escapeXml(param.page)}">返回</a> 
+			<a class="back" href="getUser.htm?xtype=${fn:escapeXml(param.xtype)}&page=${fn:escapeXml(param.page)}">返回</a> 
 		</td>
 	</tr>
 </table>
@@ -55,7 +87,15 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">姓名</td>
-		<td class="form_input"><input type="text" id="name" name="name" dataType="Chinese" maxlength="25" value="" /> <span class="imp">*</span></td>
+		<td class="form_input"><input type="text" id="name" name="name" dataType="Name" maxlength="25" value="" /> <span class="imp">*</span></td>
+	</tr>
+	<tr>
+		<td class="form_title">类型</td>
+		<td class="form_input"><select id="type" name="type" onchange="selectTypeOption();"><c:forEach items="${typeList}" var="d">
+			<option value="${fn:escapeXml(d.alias)}">${fn:escapeXml(d.name)}</option>
+		</c:forEach></select>
+		<select id="exalias" name="exalias" style="min-width:100px;"></select>
+		 <span class="imp">*</span></td>
 	</tr>
 	<tr>
 		<td class="form_title">密码</td>
@@ -95,6 +135,8 @@ $(function(){
 	</tr>
 </table>
 <input type="hidden" id="password" name="password" value="" />
+<input type="hidden" id="typename" name="typename" value="" />
+<input type="hidden" id="exname" name="exname" value="" />
 </form>
 </body>
 </html>

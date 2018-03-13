@@ -43,7 +43,7 @@ public class DsCmsbuildController extends BaseController
 		}
 		
 		put("cms", cms);
-		put("year", TimeUtil.getCurrentTime("yyyy-MM-dd"));
+		put("year", TimeUtil.getCurrentTime("yyyy"));
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
 		if(req.getString("view").equals("true"))

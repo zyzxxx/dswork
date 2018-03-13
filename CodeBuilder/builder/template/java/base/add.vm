@@ -23,7 +23,7 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="get${Model}.htm?page=${mf}{param.page}">返回</a>
+			<a class="back" href="get${Model}.htm?page=${mf}{fn:escapeXml(param.page)}">返回</a>
 		</td>
 	</tr>
 </table>

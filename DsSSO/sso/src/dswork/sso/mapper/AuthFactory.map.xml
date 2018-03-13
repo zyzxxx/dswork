@@ -33,7 +33,7 @@
 </resultMap>
 
 <sql id="columnsUser">
-	u.ID as U_ID, u.ACCOUNT as U_ACCOUNT, u.NAME as U_NAME, u.IDCARD as U_IDCARD, u.STATUS as U_STATUS, u.EMAIL as U_EMAIL, u.MOBILE as U_MOBILE, u.PHONE as U_PHONE, u.WORKCARD as U_WORKCARD, u.CREATETIME as U_CREATETIME, u.ORGPID as U_ORGPID, u.ORGID as U_ORGID
+	u.ID as U_ID, u.ACCOUNT as U_ACCOUNT, u.NAME as U_NAME, u.IDCARD as U_IDCARD, u.STATUS as U_STATUS, u.EMAIL as U_EMAIL, u.MOBILE as U_MOBILE, u.PHONE as U_PHONE, u.WORKCARD as U_WORKCARD, u.CREATETIME as U_CREATETIME, u.ORGPID as U_ORGPID, u.ORGID as U_ORGID, u.TYPE as U_TYPE, u.TYPENAME as U_TYPENAME, u.EXALIAS as U_EXALIAS, u.EXNAME as U_EXNAME 
 </sql>
 <resultMap id="resultUser" type="dswork.sso.model.IUser">
 	<id property="id" column="U_ID" />
@@ -48,6 +48,10 @@
 	<result property="createtime" column="U_CREATETIME" />
 	<result property="orgpid" column="U_ORGPID" />
 	<result property="orgid" column="U_ORGID" />
+	<result property="type" column="U_TYPE" />
+	<result property="typename" column="U_TYPENAME" />
+	<result property="exalias" column="U_EXALIAS" />
+	<result property="exname" column="U_EXNAME" />
 </resultMap>
 <sql id="columnsLoginUser">
 	<include refid="columnsUser" />, u.PASSWORD as U_PASSWORD, u.CAKEY as U_CAKEY

@@ -94,7 +94,7 @@ public class DsCommonUserDao extends BaseDao<DsCommonUser, Long>
 	/**
 	 * 根据用户输入的账号来获得用户对象，有则返回用户对象，无则返回null。
 	 * @param account - 用户输入的账号字符串。
-	 * @return User - 用户对象。
+	 * @return DsCommonUser - 用户对象。
 	 */
 	public DsCommonUser getByAccount(String account)
 	{
