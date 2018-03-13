@@ -30,29 +30,33 @@ span.summary {line-height:20px;font-size:12px;color:black;}
 {{# } }}
 </script>
 <script type="text/javascript">
-function searchFn(keyvalue){
+function searchFnForKey(keyname, keyvalue){
 	var v = "";
 	var _a = keyvalue.split("?");
 	if(_a.length > 1){
 		_a = _a[1].split("&");
 		for(var i = 0; i < _a.length; i++){
 			var x = _a[i].split("=");
-			if(x.length > 1 && x[0] == "v"){v = x[1];}
+			if(x.length > 1 && x[0] == keyname){v = x[1];}
 		}
 	}
 	return v;
 }
 var isTop = top.location.href == location.href;
 var keyvalue = top.location.href;
-keyvalue = searchFn(keyvalue);
+var keytype = top.location.href;
+keyvalue = searchFnForKey("v", keyvalue);
+keytype = searchFnForKey("type", keytype);
 if(keyvalue.length == 0 && !isTop){
 	keyvalue = location.href;
-	keyvalue = searchFn(keyvalue);
+	keytype = location.href;
+	keyvalue = searchFnForKey("v", keyvalue);
+	keytype = searchFnForKey("type", keytype);
 }
 if(keyvalue == ""){document.getElementById('search').innerHTML = "请输入关键字";}
 else{
 	var tpl = document.getElementById('tpl').innerHTML;
-	var u = "searchJson.jsp?v="+keyvalue+"&page=";
+	var u = "searchJson.jsp?v="+keyvalue+(keytype==''?'':"&type="+keytype)+"&page=";
 	keyvalue = decodeURIComponent(decodeURIComponent(keyvalue));
 	keyvalue = keyvalue.replace("\"", "").replace("<", "").replace(">", "").replace("'", "");
 	try{if(!isTop){
