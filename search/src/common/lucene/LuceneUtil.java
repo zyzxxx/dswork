@@ -117,15 +117,6 @@ public class LuceneUtil
 		{
 			if(files.getName().endsWith(".html") && !files.getName().startsWith("index"))//
 			{
-				long id = 1L;
-				try
-				{
-					id = Long.parseLong(files.getName().substring(0, files.getName().length() - 5));
-				}
-				catch(NumberFormatException e)
-				{
-					e.printStackTrace();
-				}
 				String url = files.getPath().replaceAll("\\\\", "/").replaceFirst(rootpath, "");
 				dswork.html.nodes.Document document = HtmlUtil.parse(FileUtil.readFile(files.getPath(), "UTF-8").replaceAll("&nbsp;", ""));
 				if(document == null)
@@ -136,9 +127,17 @@ public class LuceneUtil
 				// ----------------------------------------
 				// 此处读取的信息应该根据不同的项目，截取不同的文档信息
 				// ----------------------------------------
+				long id = 1L;
+				try
+				{
+					id = Long.parseLong(document.selectText(".searchseq").trim());// 越大越在前
+				}
+				catch(NumberFormatException e)
+				{
+				}
 				String type = document.selectOwnText(".searchtype").trim();
-				String title = document.selectOwnText(".title").trim();
-				String content = document.selectText(".content").trim();
+				String title = document.selectOwnText(".searchtitle").trim();
+				String content = document.selectText(".searchcontent").trim();
 				if(title.length() > 0 && content.length() > 0)
 				{
 					count++;
