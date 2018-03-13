@@ -54,8 +54,12 @@ public class LuceneUtil
 	private static final String Domain = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.domain", "");
 	private static final int Size = new Long(dswork.core.util.EnvironmentUtil.getToLong("dswork.lucene.size", 500)).intValue();
 	public static final long Refreshtime = dswork.core.util.EnvironmentUtil.getToLong("dswork.lucene.refreshtime", 86400000);
-	
-	
+
+	private static final String CmsSeq = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.seq", ".searchseq");
+	private static final String CmsType = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.type", ".searchtype");
+	private static final String CmsTitle = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.title", ".searchtitle");
+	private static final String CmsContent = dswork.core.util.EnvironmentUtil.getToString("dswork.lucene.cms.content", ".searchcontent");
+
 	private static Formatter formatter = new SimpleHTMLFormatter("<span class='keyvalue'>", "</span>");// 关键字增加前后缀
 	private static Analyzer analyzer = new BaseAnalyzer(false);
 	private static Directory directory = null;
@@ -130,14 +134,14 @@ public class LuceneUtil
 				long id = 1L;
 				try
 				{
-					id = Long.parseLong(document.selectText(".searchseq").trim());// 越大越在前
+					id = Long.parseLong(document.selectOwnText(CmsSeq).trim());// 越大越在前
 				}
 				catch(NumberFormatException e)
 				{
 				}
-				String type = document.selectOwnText(".searchtype").trim();
-				String title = document.selectOwnText(".searchtitle").trim();
-				String content = document.selectText(".searchcontent").trim();
+				String type = document.selectOwnText(CmsType).trim();
+				String title = document.selectOwnText(CmsTitle).trim();
+				String content = document.selectText(CmsContent).trim();
 				if(title.length() > 0 && content.length() > 0)
 				{
 					count++;
