@@ -33,7 +33,7 @@
 		<init-param><param-name>ssoURL</param-name>     <param-value>http://127.0.0.1:8888/sso/api</param-value></init-param>
 		<init-param><param-name>ssoName</param-name>    <param-value>portal</param-value></init-param>
 		<init-param><param-name>ssoPassword</param-name><param-value>1</param-value></init-param>
-		<init-param><param-name>webURL</param-name>     <param-value>http://myserver/sso</param-value></init-param>
+		<init-param><param-name>webURL</param-name>     <param-value>http://127.0.0.1:8888/sso</param-value></init-param>
 		<init-param><param-name>ignoreURL</param-name>  <param-value>/menu.jsp,/m.jsp</param-value></init-param>
 		<init-param><param-name>sameDomain</param-name> <param-value>true</param-value></init-param>
 	</filter>
