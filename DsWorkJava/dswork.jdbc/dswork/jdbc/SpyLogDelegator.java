@@ -43,7 +43,7 @@ public class SpyLogDelegator
 			{
 				if(execTime >= SpyLogDelegator.SqlTimingWarn)
 				{
-					sqlLogger.warn(buildSqlDump(spy, execTime, methodCall, sql, execTime > SpyLogDelegator.SqlTimingWarnDebug));
+					sqlLogger.warn(buildSqlDump(spy, execTime, methodCall, sql, sqlLogger.isDebugEnabled() || (execTime > SpyLogDelegator.SqlTimingWarnDebug)));
 				}
 				else if(sqlLogger.isDebugEnabled())
 				{
