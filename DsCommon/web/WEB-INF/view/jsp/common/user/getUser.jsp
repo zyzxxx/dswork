@@ -29,19 +29,22 @@ function updStatus(objid, id){
 $dswork.page.join = function(td, menu, id){
 	if(td.attr("v") != 'true'){
 	$(menu).append($('<div iconCls="menuTool-update">重置密码</div>').bind("click", function(){
-		location.href = "updUserPassword1.htm?xtype=${fn:escapeXml(param.xtype)}&page=${pageModel.currentPage}&keyIndex=" + id;
+		location.href = "updUserPassword1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 	$(menu).append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(){
-		location.href = "updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&page=${pageModel.currentPage}&keyIndex=" + id;
+		location.href = "updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 	}
 	$(menu).append($('<div iconCls="menuTool-user">调动</div>').bind("click", function(){
-		location.href = "updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&page=${pageModel.currentPage}&keyIndex=" + id;
+		location.href = "updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 };
 $(function(){
-	$dswork.page.menu("", "", "getUserById.htm?xtype=${fn:escapeXml(param.xtype)}&", "${pageModel.currentPage}");
-	$("#status").bind("change", function(){
+	$dswork.page.menu("", "", "getUserById.htm?xtype=${fn:escapeXml(param.xtype)}", "${pageModel.currentPage}");
+	$("#sel_type").bind("change", function(){
+		$("#queryForm").submit();
+	});
+	$("#sel_status").bind("change", function(){
 		$("#queryForm").submit();
 	});
 });
@@ -52,7 +55,7 @@ $(function(){
 	<tr>
 		<td class="title">用户账号列表</td>
 		<td class="menuTool">
-			<a class="insert" href="addUser1.htm?xtype=${fn:escapeXml(param.xtype)}">添加</a>
+			<a class="insert" href="addUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
@@ -62,10 +65,10 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
-			&nbsp;类型：<select name="type" v="${fn:escapeXml(param.type)}"><option value="">全部</option><c:forEach items="${typeList}" var="d"><option value="${fn:escapeXml(d.alias)}">${fn:escapeXml(d.name)}</option></c:forEach></select>
+			&nbsp;类型：<select id="sel_type" name="type" v="${fn:escapeXml(param.type)}"><option value="">全部</option><c:forEach items="${typeList}" var="d"><option value="${fn:escapeXml(d.alias)}">${fn:escapeXml(d.name)}</option></c:forEach></select>
 			&nbsp;姓名：<input type="text" class="text" id="name" name="name" value="${fn:escapeXml(param.name)}" style="width:75px;" />
 			&nbsp;手机：<input type="text" class="text" id="mobile" name="mobile" value="${fn:escapeXml(param.mobile)}" style="width:75px;" />
-			&nbsp;状态：<select name="status" style="width:55px;" v="${fn:escapeXml(param.status)}"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
+			&nbsp;状态：<select id="sel_status" name="status" style="width:55px;" v="${fn:escapeXml(param.status)}"><option value="">全部</option><option value="1">启用</option><option value="0">禁用</option></select>
 		</td>
 		<td class="query"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
 	</tr>
@@ -96,9 +99,9 @@ $(function(){
 		<td class="menuTool">
 			<a ${'admin'==d.account?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
 			<c:if test="${'admin'!=d.account}">
-				<a class="update" href="updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&page=${pageModel.currentPage}&keyIndex=${d.id}">修改</a>
+				<a class="update" href="updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=${d.id}">修改</a>
 			</c:if>
-			<a class="user" href="updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
+			<a class="user" href="updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
 			<c:if test="${'admin'==d.account}"><a class="select" href="getUserById.htm?xtype=${fn:escapeXml(param.xtype)}&keyIndex=${d.id}">明细</a></c:if>
 		</td>
 	</tr>

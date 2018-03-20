@@ -74,7 +74,7 @@ $(function(){
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getUser.htm?xtype=${fn:escapeXml(param.xtype)}&page=${fn:escapeXml(param.page)}">返回</a> 
+			<a class="back" href="getUser.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${fn:escapeXml(param.page)}">返回</a> 
 		</td>
 	</tr>
 </table>

@@ -9,7 +9,7 @@
 <%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getUser.htm?xtype=${fn:escapeXml(param.xtype)}&page=${fn:escapeXml(param.page)}";
+	location.href = "getUser.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${fn:escapeXml(param.page)}";
 }};
 $(function(){
 	$("#orgpname").bind("click", function(e){
