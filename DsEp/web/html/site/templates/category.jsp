@@ -1,4 +1,5 @@
-<%@page language="java" pageEncoding="UTF-8" import="common.cms.CmsFactory"%>
+<%@page language="java" pageEncoding="UTF-8"%>
+<%@page import="common.cms.CmsFactory"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%CmsFactory cms = (CmsFactory)request.getAttribute("cms");%>
@@ -14,7 +15,7 @@
 </head>
 <body>
 <%@include file="include/header.jsp"%>
-<div class="w990 clear">
+<div class="container w990 clear">
   <div class="gk w240 left">
 	<%@include file="include/tree.jsp"%>
   </div>

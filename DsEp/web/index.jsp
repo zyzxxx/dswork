@@ -70,11 +70,8 @@ var nn = [
 	   		 {id:151,name:'信息采编', img:"023.png", imgOpen:"023.png", url:'/cms/edit/getCategoryTree.htm', items:[]}
 			,{id:152,name:'信息审核', img:"023.png", imgOpen:"023.png", url:'/cms/audit/getCategoryTree.htm', items:[]}
 			,{id:153,name:'信息发布', img:"023.png", imgOpen:"023.png", url:'/cms/publish/getCategoryTree.htm', items:[]}
-			,{id:154,name:'采编审核发布', img:"023.png", imgOpen:"023.png", url:'/cms/edit/getCategoryTree.htm', items:[]}
 			,{id:16, name:"权限管理", img:"", imgOpen:"", url:"", items:[
-				 {id:161,name:'系统用户授权', img:"", imgOpen:"", url:'/cms/permission/getCommonUser.htm', items:[]}
-				,{id:162,name:'企业用户授权', img:"", imgOpen:"", url:'/cms/permission/getEpUser.htm', items:[]}
-				,{id:163,name:'个人用户授权', img:"", imgOpen:"", url:'/cms/permission/getPersonUser.htm', items:[]}
+				 {id:161,name:'用户授权', img:"", imgOpen:"", url:'/cms/permission/getUser.htm', items:[]}
 			]}
 		]}
 	]}
