@@ -40,15 +40,16 @@ private String cleanImage(String path, String htmlRoot)
 		String u = file.getName().split("\\.", -1)[0];
 		String pp = file.getPath().replace(htmlRoot, "").replace("\\", "/");
 		AnyDao dao = (AnyDao)BeanFactory.getBean("anyDao");
-		String sql1 = "SELECT COUNT(1) FROM DS_CMS_CATEGORY WHERE CONTENT LIKE '%" + u + "%' OR IMG LIKE '%" + u + "%' OR SUMMARY LIKE '%" + u + "%'";
-		int count = 0;
-		count = (Integer)dao.executeCount(AnyDao.initSql(sql1));
-		if(count > 0)
-		{
-			return "";
-		}
-		String sql2 = "SELECT COUNT(1) FROM DS_CMS_PAGE WHERE CONTENT LIKE '%" + u + "%' OR IMG LIKE '%" + u + "%' OR SUMMARY LIKE '%" + u + "%'";
-		count = (Integer)dao.executeCount(AnyDao.initSql(sql2));
+		String sql = "select sum(xx.alldata) from ( " +
+				"select count(1) as alldata from DS_CMS_CATEGORY where CONTENT like '%" + u + "%' or IMG like '%" + u + "%' or SUMMARY like '%" + u + "%' " +
+				"union all " +
+				"select count(1) as alldata from DS_CMS_CATEGORY_EDIT where CONTENT like '%" + u + "%' or IMG like '%" + u + "%' or SUMMARY like '%" + u + "%' " +
+				"union all " +
+				"select count(1) as alldata from DS_CMS_PAGE where CONTENT like '%" + u + "%' or IMG like '%" + u + "%' or SUMMARY like '%" + u + "%' " +
+				"union all " +
+				"select count(1) as alldata from DS_CMS_PAGE_EDIT where CONTENT like '%" + u + "%' or IMG like '%" + u + "%' or SUMMARY like '%" + u + "%' " +
+			  ") xx";
+		int count = (Integer)dao.executeCount(AnyDao.initSql(sql));
 		if(count > 0)
 		{
 			return "";
