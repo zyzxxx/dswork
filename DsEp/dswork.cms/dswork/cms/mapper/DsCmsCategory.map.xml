@@ -93,6 +93,7 @@
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
 		<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
 		<if test="@Ognl@isNotEmpty(folder)"> and FOLDER=#{folder} </if>
+		<if test="@Ognl@isNotEmpty(publishstatus)"> and STATUS&gt;-1 </if>
 	</where>
 </sql>
 

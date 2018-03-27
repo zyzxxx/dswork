@@ -87,11 +87,17 @@ public class DsCmsPageService
 		return siteDao.queryList(map);
 	}
 
+	/**
+	 * 根据站点查出所有没有标记为删除的所有栏目
+	 * @param siteid
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	public List<DsCmsCategory> queryListCategory(Long siteid)
+	public List<DsCmsCategory> queryListCategoryForPublish(Long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
+		map.put("publishstatus", "-1");
 		return categoryDao.queryList(map);
 	}
 
