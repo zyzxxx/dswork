@@ -99,7 +99,6 @@ public class DsCmsPageController extends DsCmsBaseController
 				if(checkOwn(s.getOwn()))
 				{
 					service.deleteBatchPage(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
-
 					print(1);
 					return;
 				}
@@ -224,7 +223,7 @@ public class DsCmsPageController extends DsCmsBaseController
 				}
 				put("po", po);
 				return "/cms/page/updCategory.jsp";
-			} 
+			}
 		}
 		catch(Exception e)
 		{
@@ -326,7 +325,7 @@ public class DsCmsPageController extends DsCmsBaseController
 					put("po", m);
 					return "/cms/page/getPage.jsp";
 				}
-			} 
+			}
 		}
 		catch(Exception e)
 		{
@@ -815,10 +814,10 @@ public class DsCmsPageController extends DsCmsBaseController
 			{
 				try
 				{
-					//if(m.getScope() == 0 || m.getScope() == 1)// 过滤外链栏目
-					//{
-						map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
-					//}
+					// if(m.getScope() == 0 || m.getScope() == 1)// 过滤外链栏目
+					// {
+					map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
+					// }
 				}
 				catch(Exception ex)
 				{
