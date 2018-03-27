@@ -473,7 +473,7 @@ public class DsCmsPageController extends DsCmsBaseController
 	 */
 	private List<DsCmsCategory> queryCategory(long siteid, boolean exclude, long excludeId)
 	{
-		List<DsCmsCategory> list = service.queryListCategory(siteid);
+		List<DsCmsCategory> list = service.queryListCategoryForPublish(siteid);
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		for(DsCmsCategory m : list)
 		{
@@ -587,14 +587,21 @@ public class DsCmsPageController extends DsCmsBaseController
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 						if(categoryid == 0)// 全部栏目首页
 						{
-							list = service.queryListCategory(siteid);
+							list = service.queryListCategoryForPublish(siteid);
 						}
 						else if(categoryid > 0)// 指定栏目首页
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
 							if(c.getSiteid() == siteid)
 							{
-								list.add(c);
+								if(c.getStatus() == -1)
+								{
+									_deleteFile(site.getFolder(), c.getId() + "", true, true);// 已经标记为删除，所有全部删掉
+								}
+								else
+								{
+									list.add(c);
+								}
 							}
 						}
 						if(categoryid >= 0)// 栏目首页，这里不能用list.size，因为可能长度就是0
@@ -644,14 +651,21 @@ public class DsCmsPageController extends DsCmsBaseController
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 						if(categoryid == 0)// 全部栏目内容
 						{
-							list = service.queryListCategory(siteid);
+							list = service.queryListCategoryForPublish(siteid);
 						}
 						else if(categoryid > 0)// 指定栏目内容
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
 							if(c.getSiteid() == siteid)
 							{
-								list.add(c);
+								if(c.getStatus() == -1)
+								{
+									_deleteFile(site.getFolder(), c.getId() + "", true, true);// 已经标记为删除，所有全部删掉
+								}
+								else
+								{
+									list.add(c);
+								}
 							}
 						}
 						for(DsCmsCategory c : list)
@@ -799,9 +813,10 @@ public class DsCmsPageController extends DsCmsBaseController
 	}
 
 	// 取出可处理数据的栏目
+	@Deprecated
 	private List<DsCmsCategory> queryCategory(Long siteid)
 	{
-		List<DsCmsCategory> clist = service.queryListCategory(siteid);
+		List<DsCmsCategory> clist = service.queryListCategoryForPublish(siteid);
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		for(DsCmsCategory m : clist)
 		{
