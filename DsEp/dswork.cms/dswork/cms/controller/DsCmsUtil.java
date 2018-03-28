@@ -116,4 +116,54 @@ public class DsCmsUtil
 		}
 		return categorySetting(__list);
 	}
+
+	public static List<DsCmsCategory> queryCategory(List<DsCmsCategory> clist, boolean exclude, long excludeId)
+	{
+		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
+		for(DsCmsCategory m : clist)
+		{
+			map.put(m.getId(), m);
+		}
+		List<DsCmsCategory> tlist = new ArrayList<DsCmsCategory>();
+		for(DsCmsCategory m : clist)
+		{
+			if(m.getId() != excludeId)
+			{
+				if(m.getPid() > 0)
+				{
+					try
+					{
+						if(m.getScope() == 0 || exclude)
+						{
+							map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
+						}
+					}
+					catch(Exception ex)
+					{
+						ex.printStackTrace();// 找不到对应的父栏目
+					}
+				}
+				else if(m.getPid() == 0)
+				{
+					if(m.getScope() == 0 || exclude)
+					{
+						tlist.add(m);// 只把根节点放入list
+					}
+				}
+			}
+		}
+		if(excludeId > 0)
+		{
+			try
+			{
+				map.get(excludeId).clearList();
+			}
+			catch(Exception e)
+			{
+				e.printStackTrace();// 找不到对应的栏目
+			}
+		}
+		List<DsCmsCategory> list = DsCmsUtil.categorySettingList(tlist);
+		return list;
+	}
 }

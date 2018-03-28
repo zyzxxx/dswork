@@ -56,9 +56,9 @@ public class DsCmsAuditService
 		return (DsCmsCategory) categoryDao.get(categoryid);
 	}
 
-	public List<DsCmsSite> queryListSite(Map<String, Object> map)
+	public List<DsCmsSite> queryListSite(String own, String accout)
 	{
-		return permissionDao.queryListSite(map);
+		return siteDao.queryList(own, accout);
 	}
 
 	@SuppressWarnings("unchecked")

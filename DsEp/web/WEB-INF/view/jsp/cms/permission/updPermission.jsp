@@ -102,12 +102,37 @@ function submit(){
 	</tr>
 </table>
 <div class="line"></div>
+<div style="padding-left:20px;">
+	<label style="color:blue"><input class="checkAll" v="audit" type="checkbox" />全选审核权</label>
+	<label style="color:green"><input class="checkAll" v="publish" type="checkbox" />全选发布权</label>
+	<label style="color:#111"><input class="checkAll" v="editall" type="checkbox" />全选采编权</label>
+	<label style="color:red"><input class="checkAll" v="editown" type="checkbox" />全选采编权【个人】</label>
+	<script type="text/javascript">
+	$('.checkAll').change(function(){
+		var o = $(this);
+		var v = o.attr('v');
+		var c = o.is(":checked");
+		if(c){
+			if(v == 'editall' || v == 'editown'){
+				$('input[v="editall"]').prop("checked", false);
+				$('input[v="editown"]').prop("checked", false);
+				$('input[name="editall"]').prop("checked", false);
+				$('input[name="editown"]').prop("checked", false);
+			}
+			o.prop("checked", true);
+		}
+		$('input[name="' + v + '"]').prop("checked", c);
+	});
+	</script>
+</div>
+<div class="line"></div>
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td style="width:8%">栏目ID</td>
 		<td>栏目名称</td>
 		<td style="width:50%">权限</td>
 		<td style="width:5%">备注</td>
+		<td style="width:5%">节点类型</td>
 	</tr>
 <c:forEach items="${categoryList}" var="d">
 	<tr>
@@ -115,9 +140,8 @@ function submit(){
 		<td style="text-align:left;">
 			&nbsp;${d.label}${fn:escapeXml(d.name)}<c:if test="${d.scope>0}">&nbsp;<a href="javascript:void(0);" title="${fn:escapeXml(d.url)}">[${d.scope==1?"单页":"外链"}]</a></c:if>
 		</td>
-	<c:if test="${fn:length(d.list)==0}">
 		<td style="text-align:left;">
-			&nbsp;<label style="color:blue"><input id="${d.id}_aud" pid="${d.pid}_aud" name="audit" type="checkbox" />审核权</label>
+			&nbsp;${d.label}<label style="color:blue"><input id="${d.id}_aud" pid="${d.pid}_aud" name="audit" type="checkbox" />审核权</label>
 			&nbsp;-&nbsp;
 			<label style="color:green"><input id="${d.id}_pub" pid="${d.pid}_pub" name="publish" type="checkbox" />发布权</label>
 			&nbsp;-&nbsp;
@@ -127,10 +151,11 @@ function submit(){
 		<td>
 			${d.scope<=0?"列表":(d.scope==1?"单页":"外链")}
 		</td>
+	<c:if test="${fn:length(d.list)==0}">
+		<td>叶子节点</td>
 	</c:if>
 	<c:if test="${fn:length(d.list)>0}">
-		<td></td>
-		<td>分类</td>
+		<td>分类节点</td>
 	</c:if>
 	</tr>
 </c:forEach>

@@ -36,10 +36,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 		try
 		{
 			Long id = req.getLong("siteid", -1), siteid = -1L;
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("own", getOwn());
-			map.put("account", getAccount());
-			List<DsCmsSite> siteList = service.queryListSite(map);
+			List<DsCmsSite> siteList = service.queryListSite(getOwn(), getAccount());
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);

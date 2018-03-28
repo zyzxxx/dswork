@@ -48,9 +48,4 @@ public class DsCmsPermissionDao extends MyBatisDao
 		map.put("account", account);
 		return (DsCmsPermission) executeSelect("select", map);
 	}
-
-	public List<DsCmsSite> queryListSite(Map<String, Object> map)
-	{
-		return executeSelectList("queryListSite", map);
-	}
 }

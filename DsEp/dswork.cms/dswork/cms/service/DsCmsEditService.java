@@ -174,9 +174,9 @@ public class DsCmsEditService
 		return (DsCmsPage) pageDao.get(id);
 	}
 
-	public List<DsCmsSite> queryListSite(Map<String, Object> map)
+	public List<DsCmsSite> queryListSite(String own, String accout)
 	{
-		return permissionDao.queryListSite(map);
+		return siteDao.queryList(own, accout);
 	}
 
 	@SuppressWarnings("unchecked")

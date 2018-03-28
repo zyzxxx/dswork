@@ -37,17 +37,23 @@ public class DsCmsPermissionService
 
 	public int save(DsCmsPermission po)
 	{
-		return dao.save(po);
-	}
-
-	public int delete(long siteid, String account)
-	{
-		return dao.delete(siteid, account);
-	}
-
-	public int update(DsCmsPermission po)
-	{
-		return dao.update(po);
+		if(
+			po.getAudit().length() < 2
+			&& po.getEditall().length() < 2
+			&& po.getEditown().length() < 2
+			&& po.getPublish().length() < 2
+		)// 没有任何权限，直接删除
+		{
+			return dao.delete(po.getSiteid(), po.getAccount());
+		}
+		else if(dao.get(po.getId(), po.getAccount()) != null)
+		{
+			return dao.update(po);
+		}
+		else
+		{
+			return dao.save(po);
+		}
 	}
 
 	public DsCmsPermission get(Long siteid, String account)
@@ -64,6 +70,7 @@ public class DsCmsPermissionService
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
+		map.put("publishstatus", "true");// 过滤移除的栏目
 		return categoryDao.queryList(map);
 	}
 

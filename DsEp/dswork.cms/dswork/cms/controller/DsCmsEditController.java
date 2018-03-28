@@ -1,10 +1,7 @@
 package dswork.cms.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -36,10 +33,7 @@ public class DsCmsEditController extends DsCmsBaseController
 		try
 		{
 			Long id = req.getLong("siteid", -1), siteid = -1L;
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("own", getOwn());
-			map.put("account", getAccount());
-			List<DsCmsSite> siteList = service.queryListSite(map);
+			List<DsCmsSite> siteList = service.queryListSite(getOwn(), getAccount());
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);
