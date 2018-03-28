@@ -15,7 +15,6 @@ public class DsCmsUtil
 		for(int i = 0; i < size; i++)
 		{
 			DsCmsCategory n = m.getList().get(i);
-			n.setLevel(m.getLevel() + 1);
 			n.setLabel(m.getLabel());
 			if(m.getLabel().endsWith("├"))
 			{
@@ -43,7 +42,6 @@ public class DsCmsUtil
 		for(int i = 0; i < list.size(); i++)
 		{
 			DsCmsCategory m = list.get(i);
-			m.setLevel(0);
 			m.setLabel("");
 			_list.add(m);
 			categorySettingList(m, _list);
@@ -95,6 +93,7 @@ public class DsCmsUtil
 		{
 			if(ids.indexOf("," + c.getId() + ",") != -1)
 			{
+				c.setLevel(true);
 				_list.add(c);
 			}
 			else

@@ -382,7 +382,7 @@ public class DsCmsEditController extends DsCmsBaseController
 		{
 			DsCmsCategory c = service.getCategory(po.getId());
 			DsCmsSite s = service.getSite(c.getSiteid());
-			if(c.getScope() != 0 && checkOwn(s.getOwn()))
+			if(checkOwn(s.getOwn()))
 			{
 				if(checkEditCategory(s.getId(), c.getId()))
 				{

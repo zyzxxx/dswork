@@ -46,7 +46,7 @@ public class DsCmsPermissionService
 		{
 			return dao.delete(po.getSiteid(), po.getAccount());
 		}
-		else if(dao.get(po.getId(), po.getAccount()) != null)
+		else if(dao.get(po.getSiteid(), po.getAccount()) != null)
 		{
 			return dao.update(po);
 		}

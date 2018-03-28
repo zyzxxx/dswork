@@ -47,7 +47,7 @@ public class DsCmsCategory
 	// 子栏目
 	private List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 	// 级别(管理时扩展显示)
-	private int level = 0;
+	private boolean level = false;
 	// 树形标识(管理时扩展显示)
 	private String label = "";
 
@@ -246,12 +246,12 @@ public class DsCmsCategory
 		this.list.add(item);
 	}
 
-	public int getLevel()
+	public boolean isLevel()
 	{
 		return level;
 	}
 
-	public void setLevel(int level)
+	public void setLevel(boolean level)
 	{
 		this.level = level;
 	}
