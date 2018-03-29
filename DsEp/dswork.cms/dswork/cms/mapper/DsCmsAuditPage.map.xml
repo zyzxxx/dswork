@@ -9,18 +9,18 @@
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
-	insert into DS_CMS_AUDIT_PAGE
+	insert into DS_CMS_PAGE_EDIT
 	(SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG)
 	values
 	(#{siteid}, #{categoryid}, #{status}, #{title}, #{scope}, #{url}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg})
 </insert>
 
 <delete id="delete">
-	delete from DS_CMS_AUDIT_PAGE where ID=#{id}
+	delete from DS_CMS_PAGE_EDIT where ID=#{id}
 </delete>
 
 <update id="update" parameterType="dswork.cms.model.DsCmsAuditPage">
-	update DS_CMS_AUDIT_PAGE set
+	update DS_CMS_PAGE_EDIT set
 		STATUS=#{status},
 		TITLE=#{title},
 		SCOPE=#{scope},
@@ -88,17 +88,17 @@
 </sql>
 
 <select id="select" resultMap="result">
-	select <include refid="columns" /> from DS_CMS_AUDIT_PAGE where ID=#{id}
+	select <include refid="columns" /> from DS_CMS_PAGE_EDIT where ID=#{id}
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="columns" /> from DS_CMS_AUDIT_PAGE
+	select <include refid="columns" /> from DS_CMS_PAGE_EDIT
 	<include refid="dynamicWhere" />
 	order by ID desc
 </select>
 
 <select id="queryCount" resultType="int">
-	select count(1) from DS_CMS_AUDIT_PAGE
+	select count(1) from DS_CMS_PAGE_EDIT
 	<include refid="dynamicWhere" />
 </select>
 

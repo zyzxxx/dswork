@@ -1,10 +1,7 @@
 package dswork.cms.controller;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -35,10 +32,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 		try
 		{
 			Long id = req.getLong("siteid", -1), siteid = -1L;
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("own", getOwn());
-			map.put("account", getAccount());
-			List<DsCmsSite> siteList = service.queryListSite(map);
+			List<DsCmsSite> siteList = service.queryListSite(getOwn(), getAccount());
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);
@@ -116,7 +110,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 		{
 			DsCmsCategory m = service.getCategory(po.getId());
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getScope() != 0 && checkOwn(s.getOwn()))
+			if(checkOwn(s.getOwn()))
 			{
 				if(checkAudit(s.getId(), m.getId()))
 				{
@@ -180,6 +174,8 @@ public class DsCmsAuditController extends DsCmsBaseController
 						put("pageModel", pageModel);
 						put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
 						put("po", m);
+						DsCmsAuditCategory c = service.getAuditCategory(categoryid);
+						put("audit", c == null ? false : c.isAudit());
 						return "/cms/audit/getPage.jsp";
 					}
 				}

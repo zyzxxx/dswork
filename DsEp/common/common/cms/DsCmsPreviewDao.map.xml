@@ -22,17 +22,17 @@
 <select id="getCategory" resultType="java.util.Map">
 	select a.id, a.pid, a.siteid, a.name, a.status, a.url, a.viewsite, a.pageviewsite,
 	b.metakeywords, b.metadescription, b.summary, b.releasetime, b.releasesource, b.releaseuser, b.img, b.content
-	from DS_CMS_CATEGORY a left join DS_CMS_AUDIT_CATEGORY b on a.ID=b.ID
+	from DS_CMS_CATEGORY a left join DS_CMS_CATEGORY_EDIT b on a.ID=b.ID
 	where a.ID=#{id} and a.SITEID=#{siteid}
 	order by a.SEQ
 </select>
 <select id="get" resultType="java.util.Map">
-	select <include refid="c_page" /> from DS_CMS_AUDIT_PAGE
+	select <include refid="c_page" /> from DS_CMS_PAGE_EDIT
 	where ID=#{id} and SITEID=#{siteid}
 </select>
 
 <select id="query" resultType="java.util.Map">
-	select <include refid="c_page" /> from DS_CMS_AUDIT_PAGE
+	select <include refid="c_page" /> from DS_CMS_PAGE_EDIT
 	where SITEID=#{siteid} and STATUS in (1,8)
 		<if test="@Ognl@isNotEmpty(idArray)"> and CATEGORYID in (${idArray}) </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
@@ -43,7 +43,7 @@
 	order by RELEASETIME ${order}
 </select>
 <select id="queryCount" resultType="int">
-	select count(1) from DS_CMS_AUDIT_PAGE
+	select count(1) from DS_CMS_PAGE_EDIT
 	where SITEID=#{siteid} and STATUS in (1,8)
 		<if test="@Ognl@isNotEmpty(idArray)"> and CATEGORYID in (${idArray}) </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>

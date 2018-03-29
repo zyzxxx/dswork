@@ -139,23 +139,20 @@ public class DsCmsEditService
 	{
 		DsCmsAuditCategory po = new DsCmsAuditCategory();
 		DsCmsCategory _po = (DsCmsCategory) categoryDao.get(id);
-		if(_po.getScope() != 0) // 非列表
-		{
-			po.setId(_po.getId());
-			po.setSiteid(_po.getSiteid());
-			po.setSummary(_po.getSummary());
-			po.setMetakeywords(_po.getMetakeywords());
-			po.setMetadescription(_po.getMetadescription());
-			po.setReleasesource(_po.getReleasesource());
-			po.setReleaseuser(_po.getReleaseuser());
-			po.setImg(_po.getImg());
-			po.setContent(_po.getContent());
-			po.setReleasetime(_po.getReleasetime());
-			po.setUrl(_po.getUrl());
-			po.setAuditstatus(DsCmsAuditCategory.EDIT);// 编辑状态
-			po.setStatus(0);// 初始设置为新增状态
-			auditCategoryDao.save(po);
-		}
+		po.setId(_po.getId());
+		po.setSiteid(_po.getSiteid());
+		po.setSummary(_po.getSummary());
+		po.setMetakeywords(_po.getMetakeywords());
+		po.setMetadescription(_po.getMetadescription());
+		po.setReleasesource(_po.getReleasesource());
+		po.setReleaseuser(_po.getReleaseuser());
+		po.setImg(_po.getImg());
+		po.setContent(_po.getContent());
+		po.setReleasetime(_po.getReleasetime());
+		po.setUrl(_po.getUrl());
+		po.setAuditstatus(DsCmsAuditCategory.EDIT);// 编辑状态
+		po.setStatus(0);// 初始设置为新增状态
+		auditCategoryDao.save(po);
 		return po;
 	}
 
@@ -174,9 +171,9 @@ public class DsCmsEditService
 		return (DsCmsPage) pageDao.get(id);
 	}
 
-	public List<DsCmsSite> queryListSite(Map<String, Object> map)
+	public List<DsCmsSite> queryListSite(String own, String accout)
 	{
-		return permissionDao.queryListSite(map);
+		return siteDao.queryList(own, accout);
 	}
 
 	@SuppressWarnings("unchecked")

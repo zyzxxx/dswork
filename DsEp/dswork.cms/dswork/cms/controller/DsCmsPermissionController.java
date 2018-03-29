@@ -97,13 +97,12 @@ public class DsCmsPermissionController extends DsCmsBaseController
 			Long siteid = req.getLong("siteid", -1);
 			if(account == null || siteid == -1)
 			{
-				throw new Exception("参数错误");
+				print("0:参数错误");
+				return;
 			}
-			boolean isSave = false;
 			DsCmsPermission permission = service.get(siteid, account);
 			if(permission == null)
 			{
-				isSave = true;
 				permission = new DsCmsPermission();
 				permission.setId(UniqueId.genId());
 				permission.setSiteid(siteid);
@@ -113,14 +112,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 			permission.setEditown(req.getString("editown", ""));
 			permission.setAudit(req.getString("audit", ""));
 			permission.setPublish(req.getString("publish", ""));
-			if(isSave)
-			{
-				service.save(permission);
-			}
-			else
-			{
-				service.update(permission);
-			}
+			service.save(permission);
 			print(1);
 		}
 		catch(Exception e)

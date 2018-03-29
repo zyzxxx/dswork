@@ -25,6 +25,9 @@ $dswork.page.join = function(td, menu, id){
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
 		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
+		<td class="menuTool">
+			<c:if test="${audit}"><a class="user" href="auditCategory1.htm?id=${po.id}">审核栏目内容</a></c:if>
+		</td>
 	</tr>
 </table>
 <div class="line"></div>

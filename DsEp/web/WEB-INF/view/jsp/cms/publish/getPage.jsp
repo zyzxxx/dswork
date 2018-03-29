@@ -72,7 +72,9 @@ $(function(){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
+		<td class="title">${fn:escapeXml(po.name)}-内容列表
+<%-- 			<c:if test="${po.status==0 || po.status==1}"> <label style="color:#f00;font-weight:600;">栏目内容已更新，请重新发布栏目和内容</label></c:if> --%>
+		</td>
 		<td class="menuTool">
 			<a class="delete" id="btn_category_d" href="#">删除栏目首页</a>
 			<a class="delete" id="btn_page_d" href="#">删除发布内容</a>

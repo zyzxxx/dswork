@@ -6,18 +6,18 @@
 <mapper namespace="dswork.cms.model.DsCmsAuditCategory">
 
 <insert id="insert" parameterType="dswork.cms.model.DsCmsAuditCategory">
-	insert into DS_CMS_AUDIT_CATEGORY
+	insert into DS_CMS_CATEGORY_EDIT
 	(ID, SITEID, STATUS, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT, URL, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG)
 	values
 	(#{id}, #{siteid}, #{status}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content}, #{url}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg})
 </insert>
 
 <delete id="delete">
-	delete from DS_CMS_AUDIT_CATEGORY where ID=#{id}
+	delete from DS_CMS_CATEGORY_EDIT where ID=#{id}
 </delete>
 
 <update id="update" parameterType="dswork.cms.model.DsCmsAuditCategory">
-	update DS_CMS_AUDIT_CATEGORY set
+	update DS_CMS_CATEGORY_EDIT set
 		STATUS=#{status},
 		METAKEYWORDS=#{metakeywords},
 		METADESCRIPTION=#{metadescription},
@@ -70,18 +70,18 @@
 </sql>
 
 <select id="select" resultMap="result">
-	select <include refid="columns" /> from DS_CMS_AUDIT_CATEGORY a
+	select <include refid="columns" /> from DS_CMS_CATEGORY_EDIT a
 	left join DS_CMS_CATEGORY b on a.ID=b.ID
 	where a.ID=#{id}
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="columns" /> from DS_CMS_AUDIT_CATEGORY a
+	select <include refid="columns" /> from DS_CMS_CATEGORY_EDIT a
 	left join DS_CMS_CATEGORY b on a.ID=b.ID
 </select>
 
 <select id="queryCount" resultType="int">
-	select count(1) from DS_CMS_AUDIT_CATEGORY a
+	select count(1) from DS_CMS_CATEGORY_EDIT a
 </select>
 
 </mapper>
