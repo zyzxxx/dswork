@@ -37,10 +37,10 @@ function uncheckSelf(n){
 }
 $(function(){
 	$("#site").change(function(){
-		$('<form action="updPermission1.htm" method="post"></form>')
+		$('#formDiv').empty().append($('<form action="updPermission1.htm" method="post"></form>')
 		.append('<input name="siteid" value="' + $("#site").val() + '">')
 		.append('<input name="account" value="${fn:escapeXml(param.account)}">')
-		.submit();
+		.submit());
 	});
 	$("#dataTable input[type='checkbox']").each(function(){
 		var self = $(this);
@@ -78,14 +78,14 @@ function submit(){
 	$("input[name='publish']:checked").each(function(){
 		publish += $(this).attr("id").split("_")[0] + ",";
 	});
-	$('<form action="updPermission2.htm" method="post"></form>')
+	$('#formDiv').empty().append($('<form action="updPermission2.htm" method="post"></form>')
 	.append('<input name="editall" value="' + editall + '">')
 	.append('<input name="editown" value="' + editown + '">')
 	.append('<input name="audit" value="' + audit + '">')
 	.append('<input name="publish" value="' + publish + '">')
 	.append('<input name="siteid" value="${siteid}">')
 	.append('<input name="account" value="${fn:escapeXml(param.account)}">')
-	.ajaxSubmit($dswork.doAjaxOption);
+	.ajaxSubmit($dswork.doAjaxOption));
 }
 </script>
 </head>
@@ -128,38 +128,29 @@ function submit(){
 <div class="line"></div>
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td style="width:8%">栏目ID</td>
+		<td style="width:10%">栏目ID</td>
 		<td>栏目名称</td>
 		<td style="width:50%">权限</td>
-		<td style="width:5%">备注</td>
-		<td style="width:5%">节点类型</td>
 	</tr>
 <c:forEach items="${categoryList}" var="d">
 	<tr>
 		<td>${d.id}</td>
 		<td style="text-align:left;">
-			&nbsp;${d.label}${fn:escapeXml(d.name)}<c:if test="${d.scope>0}">&nbsp;<a href="javascript:void(0);" title="${fn:escapeXml(d.url)}">[${d.scope==1?"单页":"外链"}]</a></c:if>
+			&nbsp;${d.label}${fn:escapeXml(d.name)}&nbsp;<a href="javascript:void(0);" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a>
 		</td>
 		<td style="text-align:left;">
-			&nbsp;${d.label}<label style="color:blue"><input id="${d.id}_aud" pid="${d.pid}_aud" name="audit" type="checkbox" />审核权</label>
+			&nbsp;&nbsp;
+			${d.label}<label><input id="${d.id}_all" pid="${d.pid}_all" name="editall" type="checkbox" />采编权</label>
+			<label style="color:red"><input id="${d.id}_own" pid="${d.pid}_own" name="editown" type="checkbox" />采编权【个人】</label>
+			&nbsp;-&nbsp;
+			<label style="color:blue"><input id="${d.id}_aud" pid="${d.pid}_aud" name="audit" type="checkbox" />审核权</label>
 			&nbsp;-&nbsp;
 			<label style="color:green"><input id="${d.id}_pub" pid="${d.pid}_pub" name="publish" type="checkbox" />发布权</label>
-			&nbsp;-&nbsp;
-			<label><input id="${d.id}_all" pid="${d.pid}_all" name="editall" type="checkbox" />采编权</label>
-			<label style="color:red"><input id="${d.id}_own" pid="${d.pid}_own" name="editown" type="checkbox" />采编权【个人】</label>
 		</td>
-		<td>
-			${d.scope<=0?"列表":(d.scope==1?"单页":"外链")}
-		</td>
-	<c:if test="${fn:length(d.list)==0}">
-		<td>叶子节点</td>
-	</c:if>
-	<c:if test="${fn:length(d.list)>0}">
-		<td>分类节点</td>
-	</c:if>
 	</tr>
 </c:forEach>
 </table>
+<div id="formDiv" style="display:none;"></div>
 </body>
 </c:if>
 </html>
