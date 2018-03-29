@@ -57,7 +57,7 @@ $(function(){
 		<td class="form_title">上级栏目</td>
 		<td class="form_input"><select name="pid"><option value="0">≡顶级栏目≡</option>
 		<c:forEach items="${list}" var="d">
-			<option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option>
+			<option value="${d.id}">${d.label}${fn:escapeXml(d.name)}&nbsp;[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</option>
 		</c:forEach>
 		</select></td>
 	</tr>
@@ -67,11 +67,13 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">类型</td>
-		<td class="form_input"><select id="scope" name="scope" style="width:100px;">
-			<option value="0">列表</option>
-			<option value="1">单页</option>
-			<option value="2">外链</option>
-		</select> <span style="font-weight:bold;">添加后不可修改</span></td>
+		<td class="form_input">
+			<select id="scope" name="scope" style="width:100px;">
+				<option value="0">列表</option>
+				<option value="1">单页</option>
+				<option value="2">外链</option>
+			</select>
+		</td>
 	</tr>
 	<tbody id="mylink">
 	<tr>

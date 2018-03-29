@@ -73,7 +73,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td><input name="seq" type="text" style="width:24px;" value="${d.seq}" /></td>
 		<td class="k"><input name="keyIndex" type="text" style="width:100%;" readonly="readonly" value="${d.id}" /></td>
-		<td class="v" style="text-align:left;">${d.label}${fn:escapeXml(d.name)}<c:if test="${d.scope>0}">&nbsp;<a onclick="return false;" href="#" title="${fn:escapeXml(d.url)}">[${d.scope==1?"单页":"外链"}]</a></c:if></td>
+		<td class="v" style="text-align:left;">${d.label}${fn:escapeXml(d.name)}&nbsp;<a onclick="return false;" href="#" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a></td>
 		<td>${fn:escapeXml(d.viewsite)}</td>
 		<td>${fn:escapeXml(d.pageviewsite)}</td>
 	</tr>

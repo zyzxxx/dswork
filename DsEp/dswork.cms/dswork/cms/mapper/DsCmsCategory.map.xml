@@ -28,6 +28,9 @@
 		PAGEVIEWSITE=#{pageviewsite}
 	where ID=#{id}
 </update>
+<update id="updateScope">
+	update DS_CMS_CATEGORY set SCOPE=#{scope} where ID=#{id}
+</update>
 <update id="updateSeq">
 	update DS_CMS_CATEGORY set SEQ=#{seq} where ID=#{id} and SITEID=#{siteid}
 </update>

@@ -56,7 +56,9 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 		{
 			po.setUrl("/a/" + po.getId() + "/index.html");
 		}
-		return categoryDao.update(po);
+		categoryDao.update(po);
+		categoryDao.updateScope(po);
+		return 1;
 	}
 
 	@Override
