@@ -110,7 +110,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 		{
 			DsCmsCategory m = service.getCategory(po.getId());
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getScope() != 0 && checkOwn(s.getOwn()))
+			if(checkOwn(s.getOwn()))
 			{
 				if(checkAudit(s.getId(), m.getId()))
 				{
@@ -174,6 +174,8 @@ public class DsCmsAuditController extends DsCmsBaseController
 						put("pageModel", pageModel);
 						put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
 						put("po", m);
+						DsCmsAuditCategory c = service.getAuditCategory(categoryid);
+						put("audit", c == null ? false : c.isAudit());
 						return "/cms/audit/getPage.jsp";
 					}
 				}

@@ -93,7 +93,7 @@ public class DsCmsUtil
 		{
 			if(ids.indexOf("," + c.getId() + ",") != -1)
 			{
-				c.setLevel(true);
+				c.setEnable(true);
 				_list.add(c);
 			}
 			else

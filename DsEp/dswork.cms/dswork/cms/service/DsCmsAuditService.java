@@ -108,31 +108,31 @@ public class DsCmsAuditService
 		return (DsCmsAuditCategory) auditCategoryDao.get(id);
 	}
 
-	public int updateAuditCategory(DsCmsAuditCategory po, DsCmsCategory cate, boolean isEnablelog)
+	public int updateAuditCategory(DsCmsAuditCategory po, DsCmsCategory c, boolean isEnablelog)
 	{
 		if(po.isPass())// 通过
 		{
-			if(cate.getScope() == 1)
+			if(c.getScope() == 0 || c.getScope() == 1)
 			{
-				cate.setSummary(po.getSummary());
-				cate.setMetakeywords(po.getMetakeywords());
-				cate.setMetadescription(po.getMetadescription());
-				cate.setReleasesource(po.getReleasesource());
-				cate.setReleaseuser(po.getReleaseuser());
-				cate.setImg(po.getImg());
-				cate.setContent(po.getContent());
-				cate.setReleasetime(po.getReleasetime());
-				if(cate.getStatus() != 0)
+				c.setSummary(po.getSummary());
+				c.setMetakeywords(po.getMetakeywords());
+				c.setMetadescription(po.getMetadescription());
+				c.setReleasesource(po.getReleasesource());
+				c.setReleaseuser(po.getReleaseuser());
+				c.setImg(po.getImg());
+				c.setContent(po.getContent());
+				c.setReleasetime(po.getReleasetime());
+				if(c.getStatus() != 0)
 				{
-					cate.setStatus(1);
+					c.setStatus(1);
 				}
-				categoryDao.updateContent(cate);
+				categoryDao.updateContent(c);
 			}
-			else
+			else if(c.getScope() == 2)
 			{
-				cate.setUrl(po.getUrl());
-				cate.setStatus(8);// 更改至已发布状态（因为外链不需要发布操作）
-				categoryDao.update(cate);
+				c.setUrl(po.getUrl());
+				c.setStatus(8);// 更改至已发布状态（因为外链不需要发布操作）
+				categoryDao.update(c);
 			}
 			po.setStatus(1);// 审核栏目设置为修改状态
 		}

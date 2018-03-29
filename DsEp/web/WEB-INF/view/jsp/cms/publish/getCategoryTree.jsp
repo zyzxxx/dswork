@@ -20,16 +20,20 @@
 <%@include file="/commons/include/ztree.jsp"%>
 <script type="text/javascript">
 $dswork.callback = null;
+$dswork.ztree.beforeClick = function(treeId, treeNode, clickFlag){
+	return treeNode.enable == "true";
+};
+$dswork.ztree.rightClick = function(event, treeId, treeNode){
+	return treeNode.enable == "true";
+};
 $dswork.ztree.click = function(){
 	var node = $dswork.ztree.getSelectedNode();
-	if(!node.isParent){
-		if(node.scope == 0){
-			attachUrl("getPage.htm?id=" + node.id);
-			return false;
-		}else{
-			attachUrl("getCategoryById.htm?id=" + node.id);
-			return false;
-		}
+	if(node.scope == 0){
+		attachUrl("getPage.htm?id=" + node.id);
+		return false;
+	}else{
+		attachUrl("getCategoryById.htm?id=" + node.id);
+		return false;
 	}
 	attachUrl("");
 	return false;
@@ -49,7 +53,7 @@ function unbuild(categoryid, pageid){
 $(function(){
 	var v = [];
 	<c:forEach items="${categoryList}" var="d">
-	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}"});
+	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}", "enable":"${d.enable}"});
 	</c:forEach>
 	$dswork.ztree.nodeArray = v;
 	$dswork.ztree.config.async.enable = false;
