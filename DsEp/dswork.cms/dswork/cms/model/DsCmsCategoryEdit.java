@@ -1,9 +1,9 @@
 /**
- * 内容Model
+ * 栏目Model
  */
 package dswork.cms.model;
 
-public class DsCmsAuditPage extends DsCmsPage
+public class DsCmsCategoryEdit extends DsCmsCategory
 {
 	// 编辑人员ID(前后逗号隔开)
 	private String editid = "";
@@ -21,7 +21,6 @@ public class DsCmsAuditPage extends DsCmsPage
 	private String audittime = "";
 	// 审核意见
 	private String msg = "";
-
 	public static final int EDIT = 0;
 	public static final int AUDIT = 1;
 	public static final int NOPASS = 2;
@@ -31,14 +30,17 @@ public class DsCmsAuditPage extends DsCmsPage
 	{
 		return auditstatus == EDIT;
 	}
+
 	public boolean isAudit()
 	{
 		return auditstatus == AUDIT;
 	}
+
 	public boolean isNopass()
 	{
 		return auditstatus == NOPASS;
 	}
+
 	public boolean isPass()
 	{
 		return auditstatus == PASS;
@@ -108,6 +110,7 @@ public class DsCmsAuditPage extends DsCmsPage
 	{
 		return audittime;
 	}
+
 	public void setAudittime(String audittime)
 	{
 		this.audittime = audittime;

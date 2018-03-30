@@ -3,9 +3,9 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.cms.model.DsCmsAuditCategory">
+<mapper namespace="dswork.cms.model.DsCmsCategoryEdit">
 
-<insert id="insert" parameterType="dswork.cms.model.DsCmsAuditCategory">
+<insert id="insert" parameterType="dswork.cms.model.DsCmsCategoryEdit">
 	insert into DS_CMS_CATEGORY_EDIT
 	(ID, SITEID, STATUS, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT, URL, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG)
 	values
@@ -16,7 +16,7 @@
 	delete from DS_CMS_CATEGORY_EDIT where ID=#{id}
 </delete>
 
-<update id="update" parameterType="dswork.cms.model.DsCmsAuditCategory">
+<update id="update" parameterType="dswork.cms.model.DsCmsCategoryEdit">
 	update DS_CMS_CATEGORY_EDIT set
 		STATUS=#{status},
 		METAKEYWORDS=#{metakeywords},
@@ -39,7 +39,7 @@
 	where ID=#{id}
 </update>
 
-<resultMap id="result" type="dswork.cms.model.DsCmsAuditCategory">
+<resultMap id="result" type="dswork.cms.model.DsCmsCategoryEdit">
 	<id property="id" column="ID" />
 	<result property="siteid" column="SITEID" />
 	<result property="status" column="STATUS" />

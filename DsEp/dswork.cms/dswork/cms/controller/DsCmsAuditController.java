@@ -7,8 +7,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.cms.model.DsCmsAuditCategory;
-import dswork.cms.model.DsCmsAuditPage;
+import dswork.cms.model.DsCmsCategoryEdit;
+import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
@@ -80,10 +80,10 @@ public class DsCmsAuditController extends DsCmsBaseController
 		try
 		{
 			long id = req.getLong("id");
-			DsCmsAuditCategory po = service.getAuditCategory(id);
+			DsCmsCategoryEdit po = service.getCategoryEdit(id);
 			if(po == null)
 			{
-				po = service.saveAuditCategory(id);
+				po = service.saveCategoryEdit(id);
 			}
 			DsCmsSite s = service.getSite(po.getSiteid());
 			if(checkOwn(s.getOwn()))
@@ -104,7 +104,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 	}
 
 	@RequestMapping("/auditCategory2")
-	public void updCategory2(DsCmsAuditCategory po)
+	public void updCategory2(DsCmsCategoryEdit po)
 	{
 		try
 		{
@@ -114,7 +114,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 			{
 				if(checkAudit(s.getId(), m.getId()))
 				{
-					DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
+					DsCmsCategoryEdit _po = service.getCategoryEdit(po.getId());
 					if(_po.isAudit())
 					{
 						String action = req.getString("action");
@@ -135,7 +135,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 						_po.setAuditid(getAccount());
 						_po.setAuditname(getName());
 						_po.setAudittime(TimeUtil.getCurrentTime());
-						service.updateAuditCategory(_po, m, s.isWriteLog());
+						service.updateCategoryEdit(_po, m, s.isWriteLog());
 					}
 					print(1);
 					return;
@@ -169,12 +169,12 @@ public class DsCmsAuditController extends DsCmsBaseController
 						pr.getFilters().remove("id");
 						pr.getFilters().put("siteid", m.getSiteid());
 						pr.getFilters().put("categoryid", m.getId());
-						pr.getFilters().put("auditstatus", DsCmsAuditPage.AUDIT);
-						Page<DsCmsAuditPage> pageModel = service.queryPageAuditPage(pr);
+						pr.getFilters().put("auditstatus", DsCmsPageEdit.AUDIT);
+						Page<DsCmsPageEdit> pageModel = service.queryPagePageEdit(pr);
 						put("pageModel", pageModel);
-						put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
+						put("pageNav", new PageNav<DsCmsPageEdit>(request, pageModel));
 						put("po", m);
-						DsCmsAuditCategory c = service.getAuditCategory(categoryid);
+						DsCmsCategoryEdit c = service.getCategoryEdit(categoryid);
 						put("audit", c == null ? false : c.isAudit());
 						return "/cms/audit/getPage.jsp";
 					}
@@ -194,7 +194,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 		try
 		{
 			Long id = req.getLong("keyIndex");
-			DsCmsAuditPage po = service.getAuditPage(id);
+			DsCmsPageEdit po = service.getPageEdit(id);
 			DsCmsSite s = service.getSite(po.getSiteid());
 			if(checkOwn(s.getOwn()))
 			{
@@ -213,11 +213,11 @@ public class DsCmsAuditController extends DsCmsBaseController
 	}
 
 	@RequestMapping("/auditPage2")
-	public void auditPage2(DsCmsAuditPage po)
+	public void auditPage2(DsCmsPageEdit po)
 	{
 		try
 		{
-			DsCmsAuditPage _po = service.getAuditPage(po.getId());
+			DsCmsPageEdit _po = service.getPageEdit(po.getId());
 			DsCmsSite s = service.getSite(_po.getSiteid());
 			if(checkOwn(s.getOwn()))
 			{
@@ -245,11 +245,11 @@ public class DsCmsAuditController extends DsCmsBaseController
 						_po.setAudittime(TimeUtil.getCurrentTime());
 						if(_po.getStatus() == -1)
 						{
-							service.deleteAuditPage(_po, s.isWriteLog());
+							service.deletePageEdit(_po, s.isWriteLog());
 						}
 						else
 						{
-							service.updateAuditPage(_po, s.isWriteLog());
+							service.updatePageEdit(_po, s.isWriteLog());
 						}
 					}
 					print(1);

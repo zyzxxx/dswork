@@ -37,10 +37,12 @@ function uncheckSelf(n){
 }
 $(function(){
 	$("#site").change(function(){
-		$('#formDiv').empty().append($('<form action="updPermission1.htm" method="post"></form>')
-		.append('<input name="siteid" value="' + $("#site").val() + '">')
-		.append('<input name="account" value="${fn:escapeXml(param.account)}">')
-		.submit());
+		var form = $('<form action="updPermission1.htm" method="post"></form>')
+			.append('<input name="siteid" value="' + $("#site").val() + '">')
+			.append('<input name="account" value="${fn:escapeXml(param.account)}">')
+			.hide();
+		$(document.body).append(form);
+		form.submit().remove();
 	});
 	$("#dataTable input[type='checkbox']").each(function(){
 		var self = $(this);
@@ -78,14 +80,16 @@ function submit(){
 	$("input[name='publish']:checked").each(function(){
 		publish += $(this).attr("id").split("_")[0] + ",";
 	});
-	$('#formDiv').empty().append($('<form action="updPermission2.htm" method="post"></form>')
-	.append('<input name="editall" value="' + editall + '">')
-	.append('<input name="editown" value="' + editown + '">')
-	.append('<input name="audit" value="' + audit + '">')
-	.append('<input name="publish" value="' + publish + '">')
-	.append('<input name="siteid" value="${siteid}">')
-	.append('<input name="account" value="${fn:escapeXml(param.account)}">')
-	.ajaxSubmit($dswork.doAjaxOption));
+	var form = $('<form action="updPermission2.htm" method="post"></form>')
+		.append('<input name="editall" value="' + editall + '">')
+		.append('<input name="editown" value="' + editown + '">')
+		.append('<input name="audit" value="' + audit + '">')
+		.append('<input name="publish" value="' + publish + '">')
+		.append('<input name="siteid" value="${siteid}">')
+		.append('<input name="account" value="${fn:escapeXml(param.account)}">')
+		.hide();
+	$(document.body).append(form);
+	form.ajaxSubmit($dswork.doAjaxOption).remove();
 }
 </script>
 </head>
@@ -150,7 +154,6 @@ function submit(){
 	</tr>
 </c:forEach>
 </table>
-<div id="formDiv" style="display:none;"></div>
 </body>
 </c:if>
 </html>
