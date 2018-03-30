@@ -5,15 +5,15 @@ package dswork.cms.dao;
 
 import org.springframework.stereotype.Repository;
 
-import dswork.cms.model.DsCmsAuditPage;
+import dswork.cms.model.DsCmsPageEdit;
 import dswork.core.db.BaseDao;
 
 @Repository
-public class DsCmsAuditPageDao extends BaseDao<DsCmsAuditPage, Long>
+public class DsCmsPageEditDao extends BaseDao<DsCmsPageEdit, Long>
 {
 	@Override
 	public Class<?> getEntityClass()
 	{
-		return DsCmsAuditPage.class;
+		return DsCmsPageEdit.class;
 	}
 }

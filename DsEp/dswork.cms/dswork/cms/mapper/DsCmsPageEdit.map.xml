@@ -3,9 +3,9 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.cms.model.DsCmsAuditPage">
+<mapper namespace="dswork.cms.model.DsCmsPageEdit">
 
-<insert id="insert" parameterType="dswork.cms.model.DsCmsAuditPage">
+<insert id="insert" parameterType="dswork.cms.model.DsCmsPageEdit">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
@@ -19,7 +19,7 @@
 	delete from DS_CMS_PAGE_EDIT where ID=#{id}
 </delete>
 
-<update id="update" parameterType="dswork.cms.model.DsCmsAuditPage">
+<update id="update" parameterType="dswork.cms.model.DsCmsPageEdit">
 	update DS_CMS_PAGE_EDIT set
 		STATUS=#{status},
 		TITLE=#{title},
@@ -46,7 +46,7 @@
 	where ID=#{id}
 </update>
 
-<resultMap id="result" type="dswork.cms.model.DsCmsAuditPage">
+<resultMap id="result" type="dswork.cms.model.DsCmsPageEdit">
 	<id property="id" column="ID" />
 	<result property="siteid" column="SITEID" />
 	<result property="categoryid" column="CATEGORYID" />

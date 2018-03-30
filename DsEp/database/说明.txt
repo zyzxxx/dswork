@@ -13,7 +13,7 @@ CREATE TABLE DS_CMS_CATEGORY_EDIT
 (
    ID                   BIGINT NOT NULL COMMENT '主键',
    SITEID               BIGINT COMMENT '站点ID',
-   STATUS               INT COMMENT '状态(-1删除,0新增,1修改,8已发)',
+   STATUS               INT COMMENT '状态(-1删除,0新增,1更新)',
    MSG                  VARCHAR(300) COMMENT '审核意见',
    METAKEYWORDS         VARCHAR(300) COMMENT 'meta关键词',
    METADESCRIPTION      VARCHAR(300) COMMENT 'meta描述',
@@ -44,7 +44,7 @@ CREATE TABLE DS_CMS_PAGE_EDIT
    ID                   BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键',
    SITEID               BIGINT COMMENT '站点ID',
    CATEGORYID           BIGINT COMMENT '栏目ID',
-   STATUS               INT COMMENT '状态(0草稿,1未审核,2不通过,4通过)',
+   STATUS               INT COMMENT '状态(-1删除,0新增,1更新)',
    MSG                  VARCHAR(300) COMMENT '审核意见',
    TITLE                VARCHAR(300) COMMENT '标题',
    SCOPE                INT COMMENT '类型(1单页,2外链)',
