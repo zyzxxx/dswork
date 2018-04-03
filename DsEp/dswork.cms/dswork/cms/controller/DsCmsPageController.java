@@ -63,7 +63,7 @@ public class DsCmsPageController extends DsCmsBaseController
 			Long categoryid = req.getLong("categoryid");
 			DsCmsCategory m = service.getCategory(categoryid);
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getScope() == 0 && checkOwn(s.getOwn()))
+			if(m.getScope() == 0 && checkOwn(s.getId()))
 			{
 				po.setSiteid(m.getSiteid());
 				po.setCategoryid(m.getId());
@@ -96,7 +96,7 @@ public class DsCmsPageController extends DsCmsBaseController
 			if(po.getScope() == 0)
 			{
 				DsCmsSite s = service.getSite(po.getSiteid());
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					service.deleteBatchPage(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
 					print(1);
@@ -123,7 +123,7 @@ public class DsCmsPageController extends DsCmsBaseController
 			if(po.getScope() == 0)
 			{
 				DsCmsSite s = service.getSite(po.getSiteid());
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					put("list", queryCategory(po.getSiteid(), false, categoryid));
 					return "/cms/page/copyPage.jsp";
@@ -146,7 +146,7 @@ public class DsCmsPageController extends DsCmsBaseController
 			if(po.getScope() == 0)
 			{
 				DsCmsSite s = service.getSite(po.getSiteid());
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					DsCmsPage page = service.getPage(req.getLong("keyIndex"));
 					if(page.getCategoryid() != categoryid)
@@ -191,7 +191,7 @@ public class DsCmsPageController extends DsCmsBaseController
 		{
 			DsCmsPage p = service.getPage(po.getId());
 			DsCmsSite s = service.getSite(p.getSiteid());
-			if(checkOwn(s.getOwn()))
+			if(checkOwn(s.getId()))
 			{
 				po.setStatus(1);
 				service.updatePage(po, s.isWriteLog(), getAccount(), getName());
@@ -240,7 +240,7 @@ public class DsCmsPageController extends DsCmsBaseController
 			if(m.getScope() == 1 || m.getScope() == 2)
 			{
 				DsCmsSite s = service.getSite(m.getSiteid());
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					po.setStatus(1);
 					po.setSiteid(m.getSiteid());
@@ -313,7 +313,7 @@ public class DsCmsPageController extends DsCmsBaseController
 			if(m.getScope() == 0)// 列表
 			{
 				DsCmsSite s = service.getSite(m.getSiteid());
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					PageRequest rq = getPageRequest();
 					rq.getFilters().put("siteid", m.getSiteid());
@@ -341,7 +341,7 @@ public class DsCmsPageController extends DsCmsBaseController
 			Long categoryid = req.getLong("categoryid");
 			DsCmsCategory m = service.getCategory(categoryid);
 			DsCmsSite site = service.getSite(m.getSiteid());
-			if(checkOwn(site.getOwn()))
+			if(checkOwn(site.getId()))
 			{
 				String ext = "";
 				byte[] byteArray = null;
@@ -403,7 +403,7 @@ public class DsCmsPageController extends DsCmsBaseController
 			Long categoryid = req.getLong("categoryid");
 			DsCmsCategory m = service.getCategory(categoryid);
 			DsCmsSite site = service.getSite(m.getSiteid());
-			if(checkOwn(site.getOwn()))
+			if(checkOwn(site.getId()))
 			{
 				String ext = "";
 				byte[] byteArray = null;
@@ -517,7 +517,7 @@ public class DsCmsPageController extends DsCmsBaseController
 				e.printStackTrace();// 找不到对应的栏目
 			}
 		}
-		return DsCmsUtil.categorySettingList(_list);
+		return categorySettingList(_list);
 	}
 
 	/**
@@ -540,7 +540,7 @@ public class DsCmsPageController extends DsCmsBaseController
 				{
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
 				{
 					String path = "http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cmsbuild/buildHTML.chtml?siteid=" + siteid;
 					// 首页：categoryid==-1，pageid==-1
@@ -847,7 +847,7 @@ public class DsCmsPageController extends DsCmsBaseController
 				}
 			}
 		}
-		List<DsCmsCategory> list = DsCmsUtil.categorySettingList(tlist);
+		List<DsCmsCategory> list = categorySettingList(tlist);
 		return list;
 	}
 }

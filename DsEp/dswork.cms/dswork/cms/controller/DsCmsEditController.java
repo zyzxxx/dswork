@@ -55,7 +55,7 @@ public class DsCmsEditController extends DsCmsBaseController
 			if(siteid >= 0)
 			{
 				List<DsCmsCategory> categoryList = service.queryListCategory(siteid);
-				categoryList = DsCmsUtil.categoryAccess(categoryList, getAccount(), this);
+				categoryList = categoryAccess(categoryList, this);
 				put("siteList", siteList);
 				put("categoryList", categoryList);
 			}
@@ -84,9 +84,9 @@ public class DsCmsEditController extends DsCmsBaseController
 			Long categoryid = req.getLong("categoryid");
 			DsCmsCategory c = service.getCategory(categoryid);
 			DsCmsSite s = service.getSite(c.getSiteid());
-			if(c.getScope() == 0 && checkOwn(s.getOwn()))
+			if(c.getScope() == 0)
 			{
-				if(checkEditCategory(s.getId(), c.getId()))
+				if(checkEdit(s.getId(), c.getId()))
 				{
 					String action = req.getString("action");
 					boolean writePage = false;
@@ -96,7 +96,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					}
 					else if("submit".equals(action))
 					{
-						if(checkCategroy(s.getId(), c.getId()))
+						if(checkCategory(s.getId(), c.getId()))
 						{
 							writePage = true;
 						}
@@ -141,24 +141,21 @@ public class DsCmsEditController extends DsCmsBaseController
 			if(c.getScope() == 0)
 			{
 				DsCmsSite s = service.getSite(c.getSiteid());
-				if(checkOwn(s.getOwn()))
+				if(checkEditall(s.getId(), c.getId()) || checkEditown(s.getId(), c.getId()))
 				{
-					if(checkEditAll(s.getId(), c.getId()) || checkEditOwn(s.getId(), c.getId()))
+					PageRequest pr = getPageRequest();
+					pr.getFilters().remove("id");
+					pr.getFilters().put("siteid", c.getSiteid());
+					pr.getFilters().put("categoryid", c.getId());
+					if(checkEditown(s.getId(), c.getId()))
 					{
-						PageRequest pr = getPageRequest();
-						pr.getFilters().remove("id");
-						pr.getFilters().put("siteid", c.getSiteid());
-						pr.getFilters().put("categoryid", c.getId());
-						if(checkEditOwn(s.getId(), c.getId()))
-						{
-							pr.getFilters().put("editid", "," + getAccount() + ",");
-						}
-						Page<DsCmsPageEdit> pageModel = service.queryPagePageEdit(pr);
-						put("pageModel", pageModel);
-						put("pageNav", new PageNav<DsCmsPageEdit>(request, pageModel));
-						put("po", c);
-						return "/cms/edit/getPage.jsp";
+						pr.getFilters().put("editid", "," + getAccount() + ",");
 					}
+					Page<DsCmsPageEdit> pageModel = service.queryPagePageEdit(pr);
+					put("pageModel", pageModel);
+					put("pageNav", new PageNav<DsCmsPageEdit>(request, pageModel));
+					put("po", c);
+					return "/cms/edit/getPage.jsp";
 				}
 			}
 		}
@@ -176,10 +173,10 @@ public class DsCmsEditController extends DsCmsBaseController
 		{
 			DsCmsCategory c = service.getCategory(req.getLong("id"));
 			DsCmsSite s = service.getSite(c.getSiteid());
-			if(c.getScope() == 0 && checkOwn(s.getOwn()))
+			if(c.getScope() == 0)
 			{
 				long[] idArray = req.getLongArray("keyIndex", 0);
-				if(checkCategroy(s.getId(), c.getId()))
+				if(checkCategory(s.getId(), c.getId()))
 				{
 					for(long id : idArray)
 					{
@@ -195,9 +192,9 @@ public class DsCmsEditController extends DsCmsBaseController
 					print(1);
 					return;
 				}
-				else if(checkEditAll(s.getId(), c.getId()) || checkEditOwn(s.getId(), c.getId()))
+				else if(checkEditall(s.getId(), c.getId()) || checkEditown(s.getId(), c.getId()))
 				{
-					boolean editown = checkEditOwn(s.getId(), c.getId());
+					boolean editown = checkEditown(s.getId(), c.getId());
 					for(long id : idArray)
 					{
 						DsCmsPageEdit p = service.getPageEdit(id);
@@ -241,16 +238,13 @@ public class DsCmsEditController extends DsCmsBaseController
 			Long id = req.getLong("keyIndex");
 			DsCmsPageEdit po = service.getPageEdit(id);
 			DsCmsSite s = service.getSite(po.getSiteid());
-			if(checkOwn(s.getOwn()))
+			if(
+					checkEditall(s.getId(), po.getCategoryid())
+				|| (checkEditown(s.getId(), po.getCategoryid()) && checkEditid(po.getEditid()))
+			)
 			{
-				if(
-						checkEditAll(s.getId(), po.getCategoryid())
-					|| (checkEditOwn(s.getId(), po.getCategoryid()) && checkEditid(po.getEditid()))
-				)
-				{
-					put("po", po);
-					return "/cms/edit/updPage.jsp";
-				}
+				put("po", po);
+				return "/cms/edit/updPage.jsp";
 			}
 		}
 		catch(Exception e)
@@ -266,20 +260,36 @@ public class DsCmsEditController extends DsCmsBaseController
 		{
 			DsCmsPageEdit _po = service.getPageEdit(po.getId());
 			DsCmsSite s = service.getSite(_po.getSiteid());
-			if(checkOwn(s.getOwn()))
+			if(
+					checkEditall(s.getId(), _po.getCategoryid())
+				|| (checkEditown(s.getId(), _po.getCategoryid()) && checkEditid(_po.getEditid()))
+			)
 			{
-				if(
-						checkEditAll(s.getId(), _po.getCategoryid())
-					|| (checkEditOwn(s.getId(), _po.getCategoryid()) && checkEditid(_po.getEditid()))
-				)
+				boolean writePage = false;
+				String action = req.getString("action");
+				if("save".equals(action))
 				{
-					boolean writePage = false;
-					String action = req.getString("action");
-					if("save".equals(action))
+					if(_po.isEdit() || _po.isNopass() || _po.isPass())
+					{
+						po.setAuditstatus(0);
+					}
+					else
+					{
+						print("0:状态错误");
+						return;
+					}
+				}
+				else if("submit".equals(action))
+				{
+					if(checkCategory(_po.getSiteid(), _po.getCategoryid()))
+					{
+						writePage = true;
+					}
+					else
 					{
 						if(_po.isEdit() || _po.isNopass() || _po.isPass())
 						{
-							po.setAuditstatus(0);
+							po.setAuditstatus(1);
 						}
 						else
 						{
@@ -287,76 +297,57 @@ public class DsCmsEditController extends DsCmsBaseController
 							return;
 						}
 					}
-					else if("submit".equals(action))
+				}
+				else if("revoke".equals(action))
+				{
+					if(_po.isAudit())
 					{
-						if(checkCategroy(_po.getSiteid(), _po.getCategoryid()))
-						{
-							writePage = true;
-						}
-						else
-						{
-							if(_po.isEdit() || _po.isNopass() || _po.isPass())
-							{
-								po.setAuditstatus(1);
-							}
-							else
-							{
-								print("0:状态错误");
-								return;
-							}
-						}
-					}
-					else if("revoke".equals(action))
-					{
-						if(_po.isAudit())
-						{
-							_po.setAuditstatus(0);
-							service.updateRevokePageEdit(_po, s.isWriteLog(), getAccount(), getName());
-							print(1);
-							return;
-						}
-						else
-						{
-							print("0:状态错误");
-							return;
-						}
-					}
-					else if("restore".equals(action))
-					{
-						if(_po.getStatus() > 0 && (_po.isEdit() || _po.isNopass()))
-						{
-							DsCmsPage page = service.getPage(po.getId());
-							_po.setTitle(page.getTitle());
-							_po.setMetakeywords(page.getMetakeywords());
-							_po.setMetadescription(page.getMetadescription());
-							_po.setSummary(page.getSummary());
-							_po.setContent(page.getContent());
-							_po.setReleasetime(page.getReleasetime());
-							_po.setReleasesource(page.getReleasesource());
-							_po.setReleaseuser(page.getReleaseuser());
-							_po.setImg(page.getImg());
-							_po.setImgtop(page.getImgtop());
-							_po.setPagetop(page.getPagetop());
-							_po.setScope(page.getScope());
-							_po.setUrl(page.getUrl());
-							// _po.setStatus(page.getStatus());
-							_po.setAuditstatus(DsCmsPageEdit.PASS);
-							service.updatePageEdit(_po, false, s.isWriteLog(), getAccount(), getName());
-						}
+						_po.setAuditstatus(0);
+						service.updateRevokePageEdit(_po, s.isWriteLog(), getAccount(), getName());
 						print(1);
 						return;
 					}
 					else
 					{
-						print("0:参数错误");
+						print("0:状态错误");
 						return;
 					}
-					po.pushEditidAndEditname(getAccount(), getName());
-					po.setEdittime(TimeUtil.getCurrentTime());
-					service.updatePageEdit(po, writePage, s.isWriteLog(), getAccount(), getName());
+				}
+				else if("restore".equals(action))
+				{
+					if(_po.getStatus() > 0 && (_po.isEdit() || _po.isNopass()))
+					{
+						DsCmsPage page = service.getPage(po.getId());
+						_po.setTitle(page.getTitle());
+						_po.setMetakeywords(page.getMetakeywords());
+						_po.setMetadescription(page.getMetadescription());
+						_po.setSummary(page.getSummary());
+						_po.setContent(page.getContent());
+						_po.setReleasetime(page.getReleasetime());
+						_po.setReleasesource(page.getReleasesource());
+						_po.setReleaseuser(page.getReleaseuser());
+						_po.setImg(page.getImg());
+						_po.setImgtop(page.getImgtop());
+						_po.setPagetop(page.getPagetop());
+						_po.setScope(page.getScope());
+						_po.setUrl(page.getUrl());
+						// _po.setStatus(page.getStatus());
+						_po.setAuditstatus(DsCmsPageEdit.PASS);
+						service.updatePageEdit(_po, false, s.isWriteLog(), getAccount(), getName());
+					}
 					print(1);
 					return;
 				}
+				else
+				{
+					print("0:参数错误");
+					return;
+				}
+				po.pushEditidAndEditname(getAccount(), getName());
+				po.setEdittime(TimeUtil.getCurrentTime());
+				service.updatePageEdit(po, writePage, s.isWriteLog(), getAccount(), getName());
+				print(1);
+				return;
 			}
 			print("0:站点不存在");
 		}
@@ -379,20 +370,16 @@ public class DsCmsEditController extends DsCmsBaseController
 			{
 				po = service.saveCategoryEdit(id);
 			}
-			DsCmsSite s = service.getSite(po.getSiteid());
-			if(checkOwn(s.getOwn()))
+			if(checkEdit(po.getSiteid(), po.getId()))
 			{
-				if(checkEditCategory(po.getSiteid(), po.getId()))
+				if(po.getReleasetime().isEmpty())
 				{
-					if(po.getReleasetime().isEmpty())
-					{
-						po.setReleasetime(TimeUtil.getCurrentTime());
-					}
-					DsCmsCategory c = service.getCategory(po.getId());
-					put("scope", c.getScope());
-					put("po", po);
-					return "/cms/edit/updCategory.jsp";
+					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
+				DsCmsCategory c = service.getCategory(po.getId());
+				put("scope", c.getScope());
+				put("po", po);
+				return "/cms/edit/updCategory.jsp";
 			}
 			return null;
 		}
@@ -409,18 +396,34 @@ public class DsCmsEditController extends DsCmsBaseController
 		{
 			DsCmsCategory c = service.getCategory(po.getId());
 			DsCmsSite s = service.getSite(c.getSiteid());
-			if(checkOwn(s.getOwn()))
+			if(checkEdit(s.getId(), c.getId()))
 			{
-				if(checkEditCategory(s.getId(), c.getId()))
+				DsCmsCategoryEdit _po = service.getCategoryEdit(po.getId());
+				String action = req.getString("action");
+				boolean writeCategory = false;
+				if("save".equals(action))
 				{
-					DsCmsCategoryEdit _po = service.getCategoryEdit(po.getId());
-					String action = req.getString("action");
-					boolean writeCategory = false;
-					if("save".equals(action))
+					if(_po.isEdit() || _po.isNopass() || _po.isPass())
+					{
+						_po.setAuditstatus(0);
+					}
+					else
+					{
+						print("0:状态错误");
+						return;
+					}
+				}
+				else if("submit".equals(action))
+				{
+					if(checkCategory(_po.getSiteid(), _po.getId()))
+					{
+						writeCategory = true;
+					}
+					else
 					{
 						if(_po.isEdit() || _po.isNopass() || _po.isPass())
 						{
-							_po.setAuditstatus(0);
+							_po.setAuditstatus(1);
 						}
 						else
 						{
@@ -428,81 +431,62 @@ public class DsCmsEditController extends DsCmsBaseController
 							return;
 						}
 					}
-					else if("submit".equals(action))
+				}
+				else if("revoke".equals(action))
+				{
+					if(_po.isAudit())
 					{
-						if(checkCategroy(_po.getSiteid(), _po.getId()))
-						{
-							writeCategory = true;
-						}
-						else
-						{
-							if(_po.isEdit() || _po.isNopass() || _po.isPass())
-							{
-								_po.setAuditstatus(1);
-							}
-							else
-							{
-								print("0:状态错误");
-								return;
-							}
-						}
-					}
-					else if("revoke".equals(action))
-					{
-						if(_po.isAudit())
-						{
-							_po.setAuditstatus(0);
-							service.updateRevokeCategoryEdit(_po, s.isWriteLog(), getAccount(), getName());
-							print(1);
-							return;
-						}
-						else
-						{
-							print("0:状态错误");
-							return;
-						}
-					}
-					else if("restore".equals(action))
-					{
-						if(_po.getStatus() > 0 && (_po.isEdit() || _po.isNopass()))
-						{
-							_po.setMetakeywords(c.getMetakeywords());
-							_po.setMetadescription(c.getMetadescription());
-							_po.setSummary(c.getSummary());
-							_po.setContent(c.getContent());
-							_po.setReleasetime(c.getReleasetime());
-							_po.setReleasesource(c.getReleasesource());
-							_po.setReleaseuser(c.getReleaseuser());
-							_po.setImg(c.getImg());
-							_po.setUrl(c.getUrl());
-							// _po.setStatus(c.getStatus());
-							_po.setAuditstatus(DsCmsCategoryEdit.PASS);
-							service.updateCategoryEdit(_po, false, s.isWriteLog(), getAccount(), getName());
-						}
+						_po.setAuditstatus(0);
+						service.updateRevokeCategoryEdit(_po, s.isWriteLog(), getAccount(), getName());
 						print(1);
 						return;
 					}
 					else
 					{
-						print("0:参数错误");
+						print("0:状态错误");
 						return;
 					}
-					//save and submit
-					_po.setMetakeywords(po.getMetakeywords());
-					_po.setMetadescription(po.getMetadescription());
-					_po.setSummary(po.getSummary());
-					_po.setReleasetime(po.getReleasetime());
-					_po.setReleasesource(po.getReleasesource());
-					_po.setReleaseuser(po.getReleaseuser());
-					_po.setImg(po.getImg());
-					_po.setContent(po.getContent());
-					_po.setUrl(po.getUrl());
-					_po.pushEditidAndEditname(getAccount(), getName());
-					_po.setEdittime(TimeUtil.getCurrentTime());
-					service.updateCategoryEdit(_po, writeCategory, s.isWriteLog(), getAccount(), getName());
+				}
+				else if("restore".equals(action))
+				{
+					if(_po.getStatus() > 0 && (_po.isEdit() || _po.isNopass()))
+					{
+						_po.setMetakeywords(c.getMetakeywords());
+						_po.setMetadescription(c.getMetadescription());
+						_po.setSummary(c.getSummary());
+						_po.setContent(c.getContent());
+						_po.setReleasetime(c.getReleasetime());
+						_po.setReleasesource(c.getReleasesource());
+						_po.setReleaseuser(c.getReleaseuser());
+						_po.setImg(c.getImg());
+						_po.setUrl(c.getUrl());
+						// _po.setStatus(c.getStatus());
+						_po.setAuditstatus(DsCmsCategoryEdit.PASS);
+						service.updateCategoryEdit(_po, false, s.isWriteLog(), getAccount(), getName());
+					}
 					print(1);
 					return;
 				}
+				else
+				{
+					print("0:参数错误");
+					return;
+				}
+				//save and submit
+				_po.setMetakeywords(po.getMetakeywords());
+				_po.setMetadescription(po.getMetadescription());
+				_po.setSummary(po.getSummary());
+				_po.setReleasetime(po.getReleasetime());
+				_po.setReleasesource(po.getReleasesource());
+				_po.setReleaseuser(po.getReleaseuser());
+				_po.setImg(po.getImg());
+				_po.setContent(po.getContent());
+				_po.setUrl(po.getUrl());
+				_po.pushEditidAndEditname(getAccount(), getName());
+				_po.setEdittime(TimeUtil.getCurrentTime());
+				service.updateCategoryEdit(_po, writeCategory, s.isWriteLog(), getAccount(), getName());
+				print(1);
+				return;
 			}
 			print("0:站点不存在");
 		}
@@ -513,34 +497,14 @@ public class DsCmsEditController extends DsCmsBaseController
 		}
 	}
 
-	private boolean checkEditOwn(long siteid, long categoryid)
-	{
-		return DsCmsUtil.checkEditown(siteid, categoryid, getAccount());
-	}
-
-	private boolean checkEditAll(long siteid, long categoryid)
-	{
-		return DsCmsUtil.checkEditall(siteid, categoryid, getAccount());
-	}
-
 	private boolean checkEditid(String editid)
 	{
 		return editid.indexOf("," + getAccount() + ",") != -1;
 	}
 
-	private boolean checkEditCategory(long siteid, long categoryid)
-	{
-		return DsCmsUtil.checkEdit(siteid, categoryid, getAccount());
-	}
-
-	private boolean checkCategroy(long siteid, long categoryid)
-	{
-		return DsCmsUtil.checkCategory(siteid, categoryid);
-	}
-
 	@Override
-	public boolean checkCategory(DsCmsCategory category, String account)
+	public boolean checkCategory(DsCmsCategory category)
 	{
-		return DsCmsUtil.checkEdit(category.getSiteid(), category.getId(), account);
+		return checkEdit(category.getSiteid(), category.getId());
 	}
 }

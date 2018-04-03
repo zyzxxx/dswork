@@ -89,7 +89,7 @@ public class DsCmsTemplateController extends DsCmsBaseController
 				{
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
 				{
 					String filePath = getCmsRoot() + site.getFolder() + "/templates/";
 					File froot = new File(filePath);
@@ -144,7 +144,7 @@ public class DsCmsTemplateController extends DsCmsBaseController
 				{
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
 				{
 					String filePath = getCmsRoot() + site.getFolder() + "/templates/";
 					File froot = new File(filePath);
@@ -183,7 +183,7 @@ public class DsCmsTemplateController extends DsCmsBaseController
 				{
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
 				{
 					String filePath = getCmsRoot() + site.getFolder() + "/templates/";
 					File froot = new File(filePath);

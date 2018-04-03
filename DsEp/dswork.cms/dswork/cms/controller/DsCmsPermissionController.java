@@ -79,7 +79,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 			put("permission", permission);
 			put("siteid", siteid);
 			put("siteList", siteList == null ? new ArrayList<DsCmsSite>() : siteList);
-			put("categoryList", DsCmsUtil.categorySetting(categoryList == null ? new ArrayList<DsCmsCategory>() : categoryList));
+			put("categoryList", categorySetting(categoryList == null ? new ArrayList<DsCmsCategory>() : categoryList));
 			return "/cms/permission/updPermission.jsp";
 		}
 		catch(Exception ex)
