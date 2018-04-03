@@ -16,7 +16,9 @@ import dswork.cms.service.DsCmsEditService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
+import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
+import dswork.web.MyFile;
 
 @Scope("prototype")
 @Controller
@@ -495,6 +497,121 @@ public class DsCmsEditController extends DsCmsBaseController
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
+	}
+
+	@RequestMapping("/uploadImage")
+	public void uploadImage()
+	{
+		try
+		{
+			Long categoryid = req.getLong("categoryid");
+			DsCmsCategory m = service.getCategory(categoryid);
+			DsCmsSite site = service.getSite(m.getSiteid());
+			if(checkOwn(site.getId()))
+			{
+				String ext = "";
+				byte[] byteArray = null;
+				if(req.getFileArray().length > 0)
+				{
+					MyFile file = req.getFileArray()[0];
+					byteArray = file.getFileData();
+					ext = file.getFileExt();
+				}
+				if(!ext.equals("") && "jpg,jpeg,gif,png".indexOf(ext) != -1)
+				{
+					String zoom = req.getString("zoom", "true");
+					String root = getCmsRoot();
+					String ym = TimeUtil.getCurrentTime("yyyyMM");
+					String path = "/html/" + site.getFolder() + "/html/f/img/" + ym + "/";
+					FileUtil.createFolder(root + path);
+					String webpath = site.getUrl() + "/f/img/" + ym + "/";
+					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
+					try
+					{
+						if("true".equals(zoom) && "jpg,jpeg,png".indexOf(ext) != -1)
+						{
+							// 压缩图片使尺寸最多不超过1000*1000
+							byte[] arr = dswork.core.util.ImageUtil.resize(FileUtil.getToInputStream(byteArray), 1000, 1000);
+							if(arr == null)
+							{
+								arr = byteArray;
+							}
+							FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(arr), true);
+						}
+						else// gif
+						{
+							FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(byteArray), true);
+						}
+						print("{\"err\":\"\",\"msg\":\"!" + webpath + v + "\"}");
+						return;
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+						print("{\"err\":\"上传失败\",\"msg\":\"\"}");
+						return;
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
+	}
+
+	@RequestMapping("/uploadFile")
+	public void uploadFile()
+	{
+		try
+		{
+			Long categoryid = req.getLong("categoryid");
+			DsCmsCategory m = service.getCategory(categoryid);
+			DsCmsSite site = service.getSite(m.getSiteid());
+			if(checkOwn(site.getId()))
+			{
+				String ext = "";
+				byte[] byteArray = null;
+				if(req.getFileArray().length > 0)
+				{
+					MyFile file = req.getFileArray()[0];
+					byteArray = file.getFileData();
+					ext = file.getFileExt();
+				}
+				if(!ext.equals("") && "bmp,doc,docx,gif,jpeg,jpg,pdf,png,ppt,pptx,rar,rtf,txt,xls,xlsx,zip,7z".indexOf(ext) != -1)
+				{
+					String root = getCmsRoot();
+					String ym = TimeUtil.getCurrentTime("yyyyMM");
+					String path = "/html/" + site.getFolder() + "/html/f/file/" + ym + "/";
+					FileUtil.createFolder(root + path);
+					String webpath = site.getUrl() + "/f/file/" + ym + "/";
+					String v = System.currentTimeMillis() + "." + ext.toLowerCase();
+					try
+					{
+						FileUtil.writeFile(root + path + v, FileUtil.getToInputStream(byteArray), true);
+						print("{\"err\":\"\",\"msg\":\"!" + webpath + v + "\"}");
+						return;
+					}
+					catch(Exception e)
+					{
+						e.printStackTrace();
+						print("{\"err\":\"上传失败\",\"msg\":\"\"}");
+						return;
+					}
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
+	}
+
+	private String getCmsRoot()
+	{
+		return request.getSession().getServletContext().getRealPath("/") + "/";
 	}
 
 	private boolean checkEditid(String editid)
