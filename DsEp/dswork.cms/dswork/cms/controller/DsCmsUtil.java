@@ -85,13 +85,13 @@ public class DsCmsUtil
 	 * @param ids
 	 * @return
 	 */
-	public static List<DsCmsCategory> categoryAccess(List<DsCmsCategory> list, String ids)
+	public static List<DsCmsCategory> categoryAccess(List<DsCmsCategory> list, String account, DsCmsBaseController controller)
 	{
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		List<DsCmsCategory> _list = new ArrayList<DsCmsCategory>();
 		for(DsCmsCategory c : list)
 		{
-			if(ids.indexOf("," + c.getId() + ",") != -1)
+			if(controller.checkCategory(c, account))
 			{
 				c.setEnable(true);
 				_list.add(c);

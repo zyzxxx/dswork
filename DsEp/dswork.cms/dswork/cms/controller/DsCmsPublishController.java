@@ -10,9 +10,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import common.cms.CmsPermission;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPage;
-import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsPublishService;
 import dswork.core.page.Page;
@@ -58,13 +58,8 @@ public class DsCmsPublishController extends DsCmsBaseController
 			}
 			if(siteid >= 0)
 			{
-				DsCmsPermission permission = service.getPermission(siteid, getAccount());
-				List<DsCmsCategory> categoryList = new ArrayList<DsCmsCategory>();
-				if(permission != null)
-				{
-					List<DsCmsCategory> _categoryList = service.queryListCategory(siteid);
-					categoryList = DsCmsUtil.categoryAccess(_categoryList, permission.getPublish());
-				}
+				List<DsCmsCategory> categoryList = service.queryListCategory(siteid);
+				categoryList = DsCmsUtil.categoryAccess(categoryList, getAccount(), this);
 				put("siteList", siteList);
 				put("categoryList", categoryList);
 			}
@@ -198,11 +193,10 @@ public class DsCmsPublishController extends DsCmsBaseController
 					// 全部内容：categoryid==0，pageid==0
 					// 栏目内容：categoryid>0，pageid==0
 					// 指定内容：pageid>0
-					DsCmsPermission permission = service.getPermission(siteid, getAccount());
 					if(pageid > 0)// 指定内容
 					{
 						DsCmsPage p = service.get(pageid);
-						if(p.getSiteid() == siteid && permission.checkPublish(p.getCategoryid()))
+						if(p.getSiteid() == siteid && checkPublish(p.getSiteid(), p.getCategoryid()))
 						{
 							try
 							{
@@ -240,7 +234,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 							List<DsCmsCategory> _list = service.queryListCategory(siteid);
 							for(DsCmsCategory c : _list)
 							{
-								if(permission.checkPublish(c.getId()))
+								if(checkPublish(c.getSiteid(), c.getId()))
 								{
 									list.add(c);
 								}
@@ -249,7 +243,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 						else if(categoryid > 0)// 指定栏目首页
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
-							if(c.getSiteid() == siteid && permission.checkPublish(c.getId()))
+							if(c.getSiteid() == siteid && checkPublish(c.getSiteid(), c.getId()))
 							{
 								list.add(c);
 							}
@@ -303,7 +297,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 							List<DsCmsCategory> _list = service.queryListCategory(siteid);
 							for(DsCmsCategory c : _list)
 							{
-								if(permission.checkPublish(c.getId()))
+								if(checkPublish(c.getSiteid(), c.getId()))
 								{
 									list.add(c);
 								}
@@ -312,7 +306,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 						else if(categoryid > 0)// 指定栏目内容
 						{
 							DsCmsCategory c = service.getCategory(categoryid);
-							if(c.getSiteid() == siteid && permission.checkPublish(c.getId()))
+							if(c.getSiteid() == siteid && checkPublish(c.getSiteid(), c.getId()))
 							{
 								list.add(c);
 							}
@@ -478,13 +472,12 @@ public class DsCmsPublishController extends DsCmsBaseController
 
 	private boolean checkPublish(long siteid, long categoryid)
 	{
-		try
-		{
-			return service.getPermission(siteid, getAccount()).checkPublish(categoryid);
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
+		return CmsPermission.checkPublish(siteid, categoryid, getAccount());
+	}
+
+	@Override
+	public boolean checkCategory(DsCmsCategory category, String account)
+	{
+		return CmsPermission.checkPublish(category.getSiteid(), category.getId(), account);
 	}
 }

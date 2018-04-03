@@ -1,7 +1,7 @@
 /**
  * CMSDao
  */
-package common.cms.permission;
+package common.cms;
 
 import java.util.HashMap;
 import java.util.List;

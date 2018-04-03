@@ -1,4 +1,4 @@
-package common.cms.permission;
+package common.cms;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,6 +10,10 @@ import dswork.spring.BeanFactory;
 
 public class CmsPermission
 {
+	private CmsPermission()
+	{
+	}
+
 	private static Map<Long, Map<Long, Map<String, Map<String, String>>>> siteMap = new HashMap<Long, Map<Long, Map<String, Map<String, String>>>>();
 
 	public static void refresh()
@@ -56,63 +60,63 @@ public class CmsPermission
 					map4 = new HashMap<String, String>();
 					map3.put(key, map4);
 				}
-				map4.put(permission.getAccount(), permission.getAccount());
+				map4.put(permission.getAccount(), "true");
 			}
-			catch(Exception e)
+			catch(NumberFormatException e)
 			{
 			}
 		}
 	}
 
-	public boolean checkCagegory(long siteid, long categoryid)
+	public static boolean checkCategory(long siteid, long categoryid)
 	{
 		return siteMap.get(siteid) == null
-			|| siteMap.get(siteid).get(String.valueOf(categoryid)) == null;
+			|| siteMap.get(siteid).get(categoryid) == null;
 	}
 
-	public boolean checkEditall(long siteid, long categoryid, String account)
+	public static boolean checkEditall(long siteid, long categoryid, String account)
 	{
-		if(checkCagegory(siteid, categoryid))
+		if(checkCategory(siteid, categoryid))
 		{
 			return true;
 		}
-		return siteMap.get(siteid).get(String.valueOf(categoryid)).get("editall") == null
-			|| siteMap.get(siteid).get(String.valueOf(categoryid)).get("editall").get(account) == null;
+		return siteMap.get(siteid).get(categoryid).get("editall") != null
+			&& siteMap.get(siteid).get(categoryid).get("editall").get(account) != null;
 	}
 
-	public boolean checkEditown(long siteid, long categoryid, String account)
+	public static boolean checkEditown(long siteid, long categoryid, String account)
 	{
-		if(checkCagegory(siteid, categoryid))
+		if(checkCategory(siteid, categoryid))
 		{
 			return true;
 		}
-		return siteMap.get(siteid).get(String.valueOf(categoryid)).get("editown") == null
-			|| siteMap.get(siteid).get(String.valueOf(categoryid)).get("editown").get(account) == null;
+		return siteMap.get(siteid).get(categoryid).get("editown") != null
+			&& siteMap.get(siteid).get(categoryid).get("editown").get(account) != null;
 	}
 
-	public boolean checkEdit(long siteid, long categoryid, String account)
+	public static boolean checkEdit(long siteid, long categoryid, String account)
 	{
 		return checkEditown(siteid, categoryid, account)
 			|| checkEditall(siteid, categoryid, account);
 	}
 
-	public boolean checkAudit(long siteid, long categoryid, String account)
+	public static boolean checkAudit(long siteid, long categoryid, String account)
 	{
-		if(checkCagegory(siteid, categoryid))
+		if(checkCategory(siteid, categoryid))
 		{
 			return true;
 		}
-		return siteMap.get(siteid).get(String.valueOf(categoryid)).get("audit") == null
-			|| siteMap.get(siteid).get(String.valueOf(categoryid)).get("audit").get(account) == null;
+		return siteMap.get(siteid).get(categoryid).get("audit") != null
+			&& siteMap.get(siteid).get(categoryid).get("audit").get(account) != null;
 	}
 
-	public boolean checkPublish(long siteid, long categoryid, String account)
+	public static boolean checkPublish(long siteid, long categoryid, String account)
 	{
-		if(checkCagegory(siteid, categoryid))
+		if(checkCategory(siteid, categoryid))
 		{
 			return true;
 		}
-		return siteMap.get(siteid).get(String.valueOf(categoryid)).get("publish") == null
-			|| siteMap.get(siteid).get(String.valueOf(categoryid)).get("publish").get(account) == null;
+		return siteMap.get(siteid).get(categoryid).get("publish") != null
+			&& siteMap.get(siteid).get(categoryid).get("publish").get(account) != null;
 	}
 }

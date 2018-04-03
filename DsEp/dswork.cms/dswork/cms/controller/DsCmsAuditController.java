@@ -1,16 +1,15 @@
 package dswork.cms.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import common.cms.CmsPermission;
 import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
-import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsAuditService;
 import dswork.core.page.Page;
@@ -54,13 +53,8 @@ public class DsCmsAuditController extends DsCmsBaseController
 			}
 			if(siteid >= 0)
 			{
-				DsCmsPermission permission = service.getPermission(siteid, getAccount());
-				List<DsCmsCategory> categoryList = new ArrayList<DsCmsCategory>();
-				if(permission != null)
-				{
-					List<DsCmsCategory> _categoryList = service.queryListCategory(siteid);
-					categoryList = DsCmsUtil.categoryAccess(_categoryList, permission.getAudit());
-				}
+				List<DsCmsCategory> categoryList = service.queryListCategory(siteid);
+				categoryList = DsCmsUtil.categoryAccess(categoryList, getAccount(), this);
 				put("siteList", siteList);
 				put("categoryList", categoryList);
 			}
@@ -267,13 +261,12 @@ public class DsCmsAuditController extends DsCmsBaseController
 
 	private boolean checkAudit(long siteid, long categoryid)
 	{
-		try
-		{
-			return service.getPermission(siteid, getAccount()).checkAudit(categoryid);
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
+		return CmsPermission.checkAudit(siteid, categoryid, getAccount());
+	}
+
+	@Override
+	public boolean checkCategory(DsCmsCategory category, String account)
+	{
+		return CmsPermission.checkAudit(category.getSiteid(), category.getId(), account);
 	}
 }
