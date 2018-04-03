@@ -10,6 +10,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import common.cms.CmsPermission;
 import dswork.cms.dao.DsCmsCategoryDao;
 import dswork.cms.dao.DsCmsPermissionDao;
 import dswork.cms.dao.DsCmsSiteDao;
@@ -44,16 +45,18 @@ public class DsCmsPermissionService
 			&& po.getPublish().length() < 2
 		)// 没有任何权限，直接删除
 		{
-			return dao.delete(po.getSiteid(), po.getAccount());
+			dao.delete(po.getSiteid(), po.getAccount());
 		}
 		else if(dao.get(po.getSiteid(), po.getAccount()) != null)
 		{
-			return dao.update(po);
+			dao.update(po);
 		}
 		else
 		{
-			return dao.save(po);
+			dao.save(po);
 		}
+		CmsPermission.refresh();
+		return 1;
 	}
 
 	public DsCmsPermission get(Long siteid, String account)

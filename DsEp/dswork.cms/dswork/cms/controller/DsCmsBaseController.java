@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import common.authown.AuthOwn;
 import common.authown.AuthOwnUtil;
+import dswork.cms.model.DsCmsCategory;
 import dswork.mvc.BaseController;
 
 public class DsCmsBaseController extends BaseController
@@ -26,6 +27,11 @@ public class DsCmsBaseController extends BaseController
 		own = m.getOwn();
 		account = m.getAccount();
 		name = m.getName();
+	}
+
+	public boolean checkCategory(DsCmsCategory category, String account)
+	{
+		return false;
 	}
 
 	protected boolean checkOwn(String own)

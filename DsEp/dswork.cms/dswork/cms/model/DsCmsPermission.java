@@ -137,29 +137,4 @@ public class DsCmsPermission
 	{
 		this.publish = publish;
 	}
-
-	public boolean checkEditall(long categoryid)
-	{
-		return getEditall().indexOf("," + categoryid + ",") != -1;
-	}
-
-	public boolean checkEditown(long categoryid)
-	{
-		return getEditown().indexOf("," + categoryid + ",") != -1;
-	}
-
-	public boolean checkEdit(long categoryid)
-	{
-		return checkEditall(categoryid) || checkEditown(categoryid);
-	}
-
-	public boolean checkAudit(long categoryid)
-	{
-		return getAudit().indexOf("," + categoryid + ",") != -1;
-	}
-
-	public boolean checkPublish(long categoryid)
-	{
-		return getPublish().indexOf("," + categoryid + ",") != -1;
-	}
 }
