@@ -41,4 +41,16 @@
 	select <include refid="columns" /> from DS_CMS_PERMISSION where SITEID=#{siteid} and ACCOUNT=#{account}
 </select>
 
+<select id="queryListSite" resultMap="dswork.cms.model.DsCmsSite.result">
+	select <include refid="dswork.cms.model.DsCmsSite.columns" /> from DS_CMS_SITE
+</select>
+<select id="queryListCategory" resultMap="dswork.cms.model.DsCmsCategory.result">
+	select <include refid="dswork.cms.model.DsCmsCategory.columns" /> from DS_CMS_CATEGORY
+	where SITEID=#{siteid}
+</select>
+<select id="queryListPermission" resultMap="dswork.cms.model.DsCmsPermission.result">
+	select <include refid="dswork.cms.model.DsCmsPermission.columns" /> from DS_CMS_PERMISSION
+	where SITEID=#{siteid}
+</select>
+
 </mapper>

@@ -14,7 +14,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 $(function(){
 	$(".form_title").css("width", "8%");
 <c:if test="${!po.audit}">
-	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"${ctx}/cms/page/uploadFile.htm?categoryid=${po.categoryid}",upImgUrl:"${ctx}/cms/page/uploadImage.htm?categoryid=${po.categoryid}",internalScript:true});
+	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${po.categoryid}",upImgUrl:"uploadImage.htm?categoryid=${po.categoryid}",internalScript:true});
 	function show(){
 		var i = new Image();
 		i.src = $("#inputImg").val();

@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.cms.CmsPermission;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
@@ -59,7 +58,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 			if(siteid >= 0)
 			{
 				List<DsCmsCategory> categoryList = service.queryListCategory(siteid);
-				categoryList = DsCmsUtil.categoryAccess(categoryList, getAccount(), this);
+				categoryList = categoryAccess(categoryList, this);
 				put("siteList", siteList);
 				put("categoryList", categoryList);
 			}
@@ -81,7 +80,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 		if(m.getScope() == 0)
 		{
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(checkOwn(s.getOwn()) && checkPublish(s.getId(), m.getId()))
+			if(checkPublish(s.getId(), m.getId()))
 			{
 				PageRequest pr = getPageRequest();
 				pr.getFilters().remove("id");
@@ -105,8 +104,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 		{
 			Long id = req.getLong("keyIndex");
 			DsCmsPage po = service.get(id);
-			DsCmsSite s = service.getSite(po.getSiteid());
-			if(checkOwn(s.getOwn()) && checkPublish(po.getSiteid(), po.getCategoryid()))
+			if(checkPublish(po.getSiteid(), po.getCategoryid()))
 			{
 				put("po", po);
 				return "/cms/publish/getPageById.jsp";
@@ -126,8 +124,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 		{
 			Long id = req.getLong("id");
 			DsCmsCategory po = service.getCategory(id);
-			DsCmsSite s = service.getSite(po.getSiteid());
-			if(checkOwn(s.getOwn()) && checkPublish(po.getSiteid(), po.getId()))
+			if(checkPublish(po.getSiteid(), po.getId()))
 			{
 				DsCmsCategory m = service.getCategory(po.getId());
 				put("scope", m.getScope());
@@ -184,7 +181,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 				{
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
 				{
 					String path = "http://" + getLocalAddr() + ":" + request.getLocalPort() + request.getContextPath() + "/cmsbuild/buildHTML.chtml?siteid=" + siteid;
 					// 首页：categoryid==-1，pageid==-1
@@ -470,14 +467,9 @@ public class DsCmsPublishController extends DsCmsBaseController
 		return addr;
 	}
 
-	private boolean checkPublish(long siteid, long categoryid)
-	{
-		return CmsPermission.checkPublish(siteid, categoryid, getAccount());
-	}
-
 	@Override
-	public boolean checkCategory(DsCmsCategory category, String account)
+	public boolean checkCategory(DsCmsCategory category)
 	{
-		return CmsPermission.checkPublish(category.getSiteid(), category.getId(), account);
+		return checkPublish(category.getSiteid(), category.getId());
 	}
 }

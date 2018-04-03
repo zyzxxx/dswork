@@ -74,7 +74,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			if(po.getSiteid() >= 0)
 			{
 				DsCmsSite s = service.getSite(po.getSiteid());
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					po.setStatus(0);// 没有新增状态，直接就是修改状态
 					service.save(po);
@@ -109,7 +109,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 					return;
 				}
 				DsCmsSite s = service.getSite(siteid);
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					service.delete(id);
 					print(1);
@@ -137,7 +137,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			if(siteid == po.getSiteid())
 			{
 				DsCmsSite s = service.getSite(siteid);
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					put("po", po);
 					put("list", queryCategory(po.getSiteid(), true, id));
@@ -160,7 +160,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		{
 			DsCmsCategory m = service.get(po.getId());
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getSiteid() == s.getId() && checkOwn(s.getOwn()))
+			if(m.getSiteid() == s.getId() && checkOwn(s.getId()))
 			{
 				service.update(po);
 				print(1);
@@ -186,7 +186,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			if(idArr.length == seqArr.length)
 			{
 				DsCmsSite s = service.getSite(siteid);
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					service.updateSeq(idArr, seqArr, siteid);
 					print(1);
@@ -258,6 +258,6 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		filters.put("siteid", siteid);
 		filters.put("publishstatus", "true");
 		List<DsCmsCategory> clist = service.queryList(filters);
-		return DsCmsUtil.queryCategory(clist, exclude, excludeId);
+		return queryCategory(clist, exclude, excludeId);
 	}
 }

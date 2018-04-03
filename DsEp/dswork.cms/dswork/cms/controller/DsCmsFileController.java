@@ -97,7 +97,7 @@ public class DsCmsFileController extends DsCmsBaseController
 				{
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
 				{
 					String filePath = getCmsRoot() + site.getFolder() + "/html/f/res/";
 					File froot = new File(filePath);
@@ -148,7 +148,7 @@ public class DsCmsFileController extends DsCmsBaseController
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
 				List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
 				{
 					String resPath = getCmsRoot() + site.getFolder() + "/html/f/res/";
 					File froot = new File(resPath);
@@ -200,7 +200,7 @@ public class DsCmsFileController extends DsCmsBaseController
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
 				List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
 				{
 					String resPath = getCmsRoot() + site.getFolder() + "/html/f/res/";
 					File froot = new File(resPath);
@@ -244,7 +244,7 @@ public class DsCmsFileController extends DsCmsBaseController
 					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
 				}
 				// List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getOwn()))
+				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
 				{
 					String resPath = getCmsRoot() + site.getFolder() + "/html/f/res/";
 					File froot = new File(resPath);

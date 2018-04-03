@@ -61,7 +61,7 @@ public class DsCmsLogController extends DsCmsBaseController
 			if(siteid >= 0)
 			{
 				List<DsCmsCategory> list = service.queryListCategory(siteid);
-				put("list", DsCmsUtil.categorySetting(list));
+				put("list", categorySetting(list));
 			}
 			put("siteid", siteid);
 			Page<DsCmsLog> pageModel = service.queryPage(getPageRequest());
