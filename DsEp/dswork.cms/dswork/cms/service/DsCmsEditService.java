@@ -48,31 +48,31 @@ public class DsCmsEditService
 		if(po.getScope() != 2) // 不为外链
 		{
 			po.setUrl("/a/" + po.getCategoryid() + "/" + po.getId() + ".html");
+			if(writePage)
+			{
+				DsCmsPage page = new DsCmsPage();
+				page.setId(po.getId());
+				page.setSiteid(po.getSiteid());
+				page.setCategoryid(po.getCategoryid());
+				page.setStatus(po.getStatus());
+				page.setTitle(po.getTitle());
+				page.setMetakeywords(po.getMetakeywords());
+				page.setMetadescription(po.getMetadescription());
+				page.setSummary(po.getSummary());
+				page.setContent(po.getContent());
+				page.setReleasetime(po.getReleasetime());
+				page.setReleasesource(po.getReleasesource());
+				page.setReleaseuser(po.getReleaseuser());
+				page.setImg(po.getImg());
+				page.setImgtop(po.getImgtop());
+				page.setPagetop(po.getPagetop());
+				page.setScope(po.getScope());
+				page.setStatus(0);// page设置为新建未发布状态
+				pageDao.save(page);
+				pageDao.updateURL(po.getId(), po.getUrl());
+				po.setAuditstatus(0);// pageEdit设置为草稿状态
+			}
 			pageEditDao.update(po);
-		}
-		if(writePage)
-		{
-			DsCmsPage page = new DsCmsPage();
-			page.setId(po.getId());
-			page.setSiteid(po.getSiteid());
-			page.setCategoryid(po.getCategoryid());
-			page.setStatus(po.getStatus());
-			page.setTitle(po.getTitle());
-			page.setMetakeywords(po.getMetakeywords());
-			page.setMetadescription(po.getMetadescription());
-			page.setSummary(po.getSummary());
-			page.setContent(po.getContent());
-			page.setReleasetime(po.getReleasetime());
-			page.setReleasesource(po.getReleasesource());
-			page.setReleaseuser(po.getReleaseuser());
-			page.setImg(po.getImg());
-			page.setImgtop(po.getImgtop());
-			page.setPagetop(po.getPagetop());
-			page.setScope(po.getScope());
-			page.setStatus(0);// page设置为新建未发布状态
-			pageDao.save(page);
-			pageDao.updateURL(po.getId(), po.getUrl());
-			po.setAuditstatus(0);// pageEdit设置为草稿状态
 		}
 		if(po.isAudit() && isEnablelog)
 		{
