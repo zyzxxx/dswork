@@ -10,6 +10,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import dswork.core.db.EntityDao;
+import dswork.core.page.Page;
+import dswork.core.page.PageRequest;
 import dswork.core.db.BaseService;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsLog;
@@ -20,7 +22,7 @@ import dswork.cms.dao.DsCmsSiteDao;
 
 @Service
 @SuppressWarnings("all")
-public class DsCmsLogService extends BaseService<DsCmsLog, Long>
+public class DsCmsLogService
 {
 	@Autowired
 	private DsCmsLogDao dao;
@@ -28,12 +30,6 @@ public class DsCmsLogService extends BaseService<DsCmsLog, Long>
 	private DsCmsCategoryDao categoryDao;
 	@Autowired
 	private DsCmsSiteDao siteDao;
-
-	@Override
-	protected EntityDao getEntityDao()
-	{
-		return dao;
-	}
 
 	public List<DsCmsSite> queryListSite(Map<String, Object> map)
 	{
@@ -45,5 +41,10 @@ public class DsCmsLogService extends BaseService<DsCmsLog, Long>
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
 		return categoryDao.queryList(map);
+	}
+
+	public Page<DsCmsLog> queryPage(PageRequest pr)
+	{
+		return dao.queryPage(pr);
 	}
 }

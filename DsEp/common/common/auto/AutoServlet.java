@@ -3,8 +3,6 @@ package common.auto;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
-import common.cms.CmsPermission;
-
 @SuppressWarnings("serial")
 @WebServlet(name="autoload", loadOnStartup=1, urlPatterns={"/AutoServlet"})
 public class AutoServlet extends HttpServlet
@@ -13,6 +11,5 @@ public class AutoServlet extends HttpServlet
 	{
 		AutoTimerExecute.toStart();
 		AutoThreadExecute.toStart();
-		CmsPermission.refresh();
 	}
 }

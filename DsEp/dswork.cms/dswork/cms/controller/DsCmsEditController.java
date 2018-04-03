@@ -7,7 +7,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.cms.CmsPermission;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPage;
@@ -516,12 +515,12 @@ public class DsCmsEditController extends DsCmsBaseController
 
 	private boolean checkEditOwn(long siteid, long categoryid)
 	{
-		return CmsPermission.checkEditown(siteid, categoryid, getAccount());
+		return DsCmsUtil.checkEditown(siteid, categoryid, getAccount());
 	}
 
 	private boolean checkEditAll(long siteid, long categoryid)
 	{
-		return CmsPermission.checkEditall(siteid, categoryid, getAccount());
+		return DsCmsUtil.checkEditall(siteid, categoryid, getAccount());
 	}
 
 	private boolean checkEditid(String editid)
@@ -531,17 +530,17 @@ public class DsCmsEditController extends DsCmsBaseController
 
 	private boolean checkEditCategory(long siteid, long categoryid)
 	{
-		return CmsPermission.checkEdit(siteid, categoryid, getAccount());
+		return DsCmsUtil.checkEdit(siteid, categoryid, getAccount());
 	}
 
 	private boolean checkCategroy(long siteid, long categoryid)
 	{
-		return CmsPermission.checkCategory(siteid, categoryid);
+		return DsCmsUtil.checkCategory(siteid, categoryid);
 	}
 
 	@Override
 	public boolean checkCategory(DsCmsCategory category, String account)
 	{
-		return CmsPermission.checkEdit(category.getSiteid(), category.getId(), account);
+		return DsCmsUtil.checkEdit(category.getSiteid(), category.getId(), account);
 	}
 }

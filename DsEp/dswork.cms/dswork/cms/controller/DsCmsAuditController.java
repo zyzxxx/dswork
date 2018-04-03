@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.cms.CmsPermission;
 import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
@@ -261,12 +260,12 @@ public class DsCmsAuditController extends DsCmsBaseController
 
 	private boolean checkAudit(long siteid, long categoryid)
 	{
-		return CmsPermission.checkAudit(siteid, categoryid, getAccount());
+		return DsCmsUtil.checkAudit(siteid, categoryid, getAccount());
 	}
 
 	@Override
 	public boolean checkCategory(DsCmsCategory category, String account)
 	{
-		return CmsPermission.checkAudit(category.getSiteid(), category.getId(), account);
+		return DsCmsUtil.checkAudit(category.getSiteid(), category.getId(), account);
 	}
 }

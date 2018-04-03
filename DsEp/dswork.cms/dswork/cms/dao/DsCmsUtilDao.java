@@ -1,7 +1,7 @@
 /**
  * CMSDao
  */
-package common.cms;
+package dswork.cms.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +16,12 @@ import dswork.core.db.MyBatisDao;
 
 @Repository
 @SuppressWarnings("all")
-public class CmsPermissionDao extends MyBatisDao
+public class DsCmsUtilDao extends MyBatisDao
 {
 	@Override
 	public Class<?> getEntityClass()
 	{
-		return CmsPermissionDao.class;
+		return DsCmsUtilDao.class;
 	}
 
 	public List<DsCmsSite> queryListSite()

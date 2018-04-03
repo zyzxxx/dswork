@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.cms.CmsPermission;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
@@ -472,12 +471,12 @@ public class DsCmsPublishController extends DsCmsBaseController
 
 	private boolean checkPublish(long siteid, long categoryid)
 	{
-		return CmsPermission.checkPublish(siteid, categoryid, getAccount());
+		return DsCmsUtil.checkPublish(siteid, categoryid, getAccount());
 	}
 
 	@Override
 	public boolean checkCategory(DsCmsCategory category, String account)
 	{
-		return CmsPermission.checkPublish(category.getSiteid(), category.getId(), account);
+		return DsCmsUtil.checkPublish(category.getSiteid(), category.getId(), account);
 	}
 }
