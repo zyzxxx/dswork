@@ -290,9 +290,8 @@ public class DsCmsBaseController extends BaseController
 							map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
 						}
 					}
-					catch(Exception ex)
+					catch(Exception ex)// 找不到对应的父栏目
 					{
-						ex.printStackTrace();// 找不到对应的父栏目
 					}
 				}
 				else if(m.getPid() == 0)

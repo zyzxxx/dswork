@@ -256,7 +256,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 	{
 		Map<String, Object> filters = new HashMap<String, Object>();
 		filters.put("siteid", siteid);
-		filters.put("publishstatus", "true");
+		filters.put("publishstatus", "-1");
 		List<DsCmsCategory> clist = service.queryList(filters);
 		return queryCategory(clist, exclude, excludeId);
 	}

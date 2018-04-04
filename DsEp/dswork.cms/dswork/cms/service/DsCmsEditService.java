@@ -70,7 +70,7 @@ public class DsCmsEditService
 				page.setStatus(0);// page设置为新建未发布状态
 				pageDao.save(page);
 				pageDao.updateURL(po.getId(), po.getUrl());
-				po.setAuditstatus(0);// pageEdit设置为草稿状态
+				po.setAuditstatus(4);// pageEdit设置为已通过状态
 			}
 			pageEditDao.update(po);
 		}
@@ -122,7 +122,7 @@ public class DsCmsEditService
 				c.setStatus(8);// Category设置为已发布状态（因为外链不需要发布操作）
 				categoryDao.update(c);
 			}
-			po.setAuditstatus(0);// CategoryEdit设置为草稿状态
+			po.setAuditstatus(8);// CategoryEdit设置为已通过状态
 		}
 		return categoryEditDao.update(po);
 	}
@@ -188,7 +188,7 @@ public class DsCmsEditService
 				}
 				pageDao.update(page);
 			}
-			po.setAuditstatus(0);// pageEdit设置为草稿状态
+			po.setAuditstatus(4);// pageEdit设置为已通过状态
 		}
 		if(po.getScope() != 2)
 		{
@@ -271,10 +271,11 @@ public class DsCmsEditService
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<DsCmsCategory> queryListCategory(Long siteid)
+	public List<DsCmsCategory> queryListCategory(long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
+		map.put("publishstatus", "-1");
 		return categoryDao.queryList(map);
 	}
 

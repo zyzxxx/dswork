@@ -1,7 +1,6 @@
 package dswork.cms.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -130,6 +129,67 @@ public class DsCmsEditController extends DsCmsBaseController
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
+	}
+
+	// 拷贝
+	@RequestMapping("/copyPage1")
+	public String copyPage1()
+	{
+		try
+		{
+			long categoryid = req.getLong("id");
+			DsCmsCategory po = service.getCategory(categoryid);
+			if(po.getScope() == 0)
+			{
+				DsCmsSite s = service.getSite(po.getSiteid());
+				if(checkOwn(s.getId()))
+				{
+					put("list", queryCategory(po.getSiteid(), false, categoryid));
+					return "/cms/page/copyPage.jsp";
+				}
+			}
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
+	}
+
+	@RequestMapping("/copyPage2")
+	public void copyPage2()
+	{
+		try
+		{
+			long categoryid = req.getLong("id");
+			DsCmsCategory po = service.getCategory(categoryid);
+			if(po.getScope() == 0)
+			{
+				DsCmsSite s = service.getSite(po.getSiteid());
+				if(checkOwn(s.getId()))
+				{
+					DsCmsPageEdit page = service.getPageEdit(req.getLong("keyIndex"));
+					if(page.getCategoryid() != categoryid)
+					{
+						page.setCategoryid(categoryid);
+						page.setStatus(0);// 拷贝新增
+						page.setAuditstatus(0);// 草稿状态
+						service.savePageEdit(page, false, s.isWriteLog(), getAccount(), getName());
+						print("1:拷贝成功");
+						return;
+					}
+				}
+			}
+		}
+		catch(Exception e)
+		{
+		}
+		print("0:拷贝失败");
+	}
+
+	private List<DsCmsCategory> queryCategory(long siteid, boolean exclude, long excludeId)
+	{
+		List<DsCmsCategory> list = service.queryListCategory(siteid);
+		return queryCategory(list, exclude, excludeId);
 	}
 
 	// 获得页面分页
