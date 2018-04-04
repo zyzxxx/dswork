@@ -33,16 +33,14 @@ a:hover {background-color:#0f9ae0;}
 <script type="text/javascript">
 var treedata = [
 	{id:10, name:"CMS", img:"", imgOpen:"", url:"", items:[
-		 {id:12,name:"栏目管理", img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
-		,{id:11,name:"模板编辑", img:"", imgOpen:"", url:'/cms/template/getTemplateTree.htm', items:[]}
-		,{id:12,name:"附件管理", img:"", imgOpen:"", url:'/cms/file/getFileTree.htm', items:[]}
+		 {id:11,name:'用户授权', img:"", imgOpen:"", url:'/cms/permission/getUser.htm', items:[]}
+		,{id:12,name:"栏目管理", img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
+		,{id:13,name:"模板编辑", img:"", imgOpen:"", url:'/cms/template/getTemplateTree.htm', items:[]}
+		,{id:14,name:"附件管理", img:"", imgOpen:"", url:'/cms/file/getFileTree.htm', items:[]}
 		,{id:15, name:"内容管理", img:"", imgOpen:"", url:"", items:[
 	   		 {id:151,name:'信息采编', img:"023.png", imgOpen:"023.png", url:'/cms/edit/getCategoryTree.htm', items:[]}
 			,{id:152,name:'信息审核', img:"023.png", imgOpen:"023.png", url:'/cms/audit/getCategoryTree.htm', items:[]}
 			,{id:153,name:'信息发布', img:"023.png", imgOpen:"023.png", url:'/cms/publish/getCategoryTree.htm', items:[]}
-			,{id:16, name:"权限管理", img:"", imgOpen:"", url:"", items:[
-				 {id:161,name:'用户授权', img:"", imgOpen:"", url:'/cms/permission/getUser.htm', items:[]}
-			]}
 		]}
 	]}
 ];
