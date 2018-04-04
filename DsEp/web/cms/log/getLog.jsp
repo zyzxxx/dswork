@@ -1,7 +1,78 @@
-<%@page language="java" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<!DOCTYPE html>
+<%@page language="java" pageEncoding="UTF-8" import="
+common.authown.AuthOwnUtil,
+dswork.web.MyRequest,
+dswork.spring.BeanFactory,
+dswork.core.page.Page,
+dswork.core.page.PageNav,
+dswork.core.page.PageRequest,
+dswork.cms.model.DsCmsSite,
+dswork.cms.model.DsCmsCategory,
+dswork.cms.model.DsCmsLog,
+dswork.cms.dao.DsCmsLogDao,
+dswork.cms.dao.DsCmsSiteDao,
+dswork.cms.dao.DsCmsCategoryDao,
+java.util.Map,
+java.util.HashMap,
+java.util.List
+"%><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%><%!
+private PageRequest getPageRequest(MyRequest req)
+{
+	PageRequest pr = new PageRequest();
+	pr.setFilters(req.getParameterValueMap(false, false));
+	pr.setCurrentPage(req.getInt("page", 1));
+	pr.setPageSize(req.getInt("pageSize", 10));
+	return pr;
+}
+%><%
+try
+{
+	DsCmsLogDao logDao = (DsCmsLogDao)BeanFactory.getBean("dsCmsLogDao");;
+	DsCmsSiteDao siteDao = (DsCmsSiteDao)BeanFactory.getBean("dsCmsSiteDao");
+	DsCmsCategoryDao categoryDao = (DsCmsCategoryDao)BeanFactory.getBean("dsCmsCategoryDao");;
+
+	MyRequest req = new MyRequest(request);
+	Long id = req.getLong("siteid", -1), siteid = -1L;
+	Map<String, Object> map = new HashMap<String, Object>();
+	map.put("own", AuthOwnUtil.getUser(request).getOwn());
+	List<DsCmsSite> siteList = siteDao.queryList(map);
+	if(siteList != null && siteList.size() > 0)
+	{
+		request.setAttribute("siteList", siteList);
+		if(id >= 0)
+		{
+			for(DsCmsSite m : siteList)
+			{
+				if(m.getId() == id)
+				{
+					siteid = m.getId();
+					break;
+				}
+			}
+		}
+		if(siteid == -1)
+		{
+			siteid = siteList.get(0).getId();
+		}
+	}
+	if(siteid >= 0)
+	{
+		map.clear();
+		map.put("siteid", siteid);
+		map.put("publishstatus", "true");
+		List<DsCmsCategory> list = categoryDao.queryList(map);
+		request.setAttribute("list", dswork.cms.controller.DsCmsBaseController.categorySetting(list));
+	}
+	request.setAttribute("siteid", siteid);
+	Page<DsCmsLog> pageModel = logDao.queryPage(getPageRequest(req));
+	request.setAttribute("pageModel", pageModel);
+	request.setAttribute("pageNav", new PageNav<DsCmsLog>(request, pageModel));
+}
+catch(Exception e)
+{
+	return;
+}
+%><!DOCTYPE html>
 <html>
 <head>
 <title></title>
@@ -21,8 +92,8 @@ function chooseType(v)
 }
 $(function(){
 	$("#queryForm").submit(function(){return $jskey.validator.Validate("queryForm", $dswork.validValue || 3);});
-	$("#site").change(function(){location.href = "getLog.htm?siteid="+$(this).val();});
-	$("#category").change(function(){location.href = "getLog.htm?siteid="+$("#site").val()+"&categoryid="+$(this).val();});
+	$("#site").change(function(){location.href = "getLog.jsp?siteid="+$(this).val();});
+	$("#category").change(function(){location.href = "getLog.jsp?siteid="+$("#site").val()+"&categoryid="+$(this).val();});
 });
 </script>
 </head> 
@@ -36,7 +107,7 @@ $(function(){
 	</tr>
 </table>
 <div class="line"></div>
-<form id="queryForm" method="post" action="getLog.htm">
+<form id="queryForm" method="post" action="getLog.jsp">
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">

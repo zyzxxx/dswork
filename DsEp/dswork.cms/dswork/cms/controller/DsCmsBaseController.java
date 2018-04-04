@@ -162,7 +162,7 @@ public class DsCmsBaseController extends BaseController
 		return getOwn().equals(ownMap.get(siteid));
 	}
 
-	private void categorySettingList(DsCmsCategory m, List<DsCmsCategory> list)
+	private static void categorySettingList(DsCmsCategory m, List<DsCmsCategory> list)
 	{
 		int size = m.getList().size();
 		for(int i = 0; i < size; i++)
@@ -189,7 +189,7 @@ public class DsCmsBaseController extends BaseController
 	 * @param list
 	 * @return
 	 */
-	public List<DsCmsCategory> categorySettingList(List<DsCmsCategory> list)
+	public static List<DsCmsCategory> categorySettingList(List<DsCmsCategory> list)
 	{
 		List<DsCmsCategory> _list = new ArrayList<DsCmsCategory>();// 按顺序放入
 		for(int i = 0; i < list.size(); i++)
@@ -207,7 +207,7 @@ public class DsCmsBaseController extends BaseController
 	 * @param list
 	 * @return
 	 */
-	public List<DsCmsCategory> categorySetting(List<DsCmsCategory> list)
+	public static List<DsCmsCategory> categorySetting(List<DsCmsCategory> list)
 	{
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		for(DsCmsCategory m : list)
@@ -238,7 +238,7 @@ public class DsCmsBaseController extends BaseController
 	 * @param ids
 	 * @return
 	 */
-	public List<DsCmsCategory> categoryAccess(List<DsCmsCategory> list, DsCmsBaseController controller)
+	public static List<DsCmsCategory> categoryAccess(List<DsCmsCategory> list, DsCmsBaseController controller)
 	{
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		List<DsCmsCategory> _list = new ArrayList<DsCmsCategory>();
@@ -269,7 +269,7 @@ public class DsCmsBaseController extends BaseController
 		return categorySetting(__list);
 	}
 
-	public List<DsCmsCategory> queryCategory(List<DsCmsCategory> clist, boolean exclude, long excludeId)
+	public static List<DsCmsCategory> queryCategory(List<DsCmsCategory> clist, boolean exclude, long excludeId)
 	{
 		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
 		for(DsCmsCategory m : clist)
