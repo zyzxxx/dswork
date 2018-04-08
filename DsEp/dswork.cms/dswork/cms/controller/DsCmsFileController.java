@@ -126,7 +126,6 @@ public class DsCmsFileController extends DsCmsBaseController
 		{
 		}
 		sb.append("]");
-		System.out.println(sb.toString());
 		print(sb.toString());
 	}
 

@@ -125,7 +125,6 @@ public class DsCmsTemplateController extends DsCmsBaseController
 		{
 		}
 		sb.append("]");
-		System.out.println(sb.toString());
 		print(sb.toString());
 	}
 

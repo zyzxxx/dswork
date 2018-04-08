@@ -107,10 +107,10 @@ function submit(){
 </table>
 <div class="line"></div>
 <div style="padding-left:20px;">
-	<label style="color:blue"><input class="checkAll" v="audit" type="checkbox" />全选审核权</label>
-	<label style="color:green"><input class="checkAll" v="publish" type="checkbox" />全选发布权</label>
 	<label style="color:#111"><input class="checkAll" v="editall" type="checkbox" />全选采编权</label>
 	<label style="color:red"><input class="checkAll" v="editown" type="checkbox" />全选采编权【个人】</label>
+	<label style="color:blue"><input class="checkAll" v="audit" type="checkbox" />全选审核权</label>
+	<label style="color:green"><input class="checkAll" v="publish" type="checkbox" />全选发布权</label>
 	<script type="text/javascript">
 	$('.checkAll').change(function(){
 		var o = $(this);
