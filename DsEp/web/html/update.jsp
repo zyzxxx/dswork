@@ -7,7 +7,7 @@ java.io.File,
 dswork.web.MyRequest,
 dswork.spring.BeanFactory,
 dswork.cms.model.DsCmsSite,
-dswork.cms.service.DsCmsPageService
+dswork.cms.dao.DsCmsSiteDao
 "%><%!
 private String getCmsRoot(HttpServletRequest request)
 {
@@ -17,10 +17,10 @@ private String getCmsRoot(HttpServletRequest request)
 try
 {
 	MyRequest req = new MyRequest(request);
-	DsCmsPageService service = (DsCmsPageService)BeanFactory.getBean("dsCmsPageService");
+	DsCmsSiteDao sdao = (DsCmsSiteDao)BeanFactory.getBean("dsCmsSiteDao");
 	Long id = req.getLong("siteid", -1), siteid = -1L;
 	Map<String, Object> map = new HashMap<String, Object>();
-	List<DsCmsSite> siteList = service.queryListSite(map);
+	List<DsCmsSite> siteList = (List<DsCmsSite>)sdao.queryList(map);
 	if(siteList != null && siteList.size() > 0)
 	{
 		request.setAttribute("siteList", siteList);
@@ -42,7 +42,7 @@ try
 	}
 	if(siteid >= 0)
 	{
-		DsCmsSite site = service.getSite(siteid);
+		DsCmsSite site = (DsCmsSite)sdao.get(siteid);
 		String filePath = getCmsRoot(request) + site.getFolder() + "/html/f/";
 		List<Map<String, String>> list = new ArrayList<Map<String,String>>();
 		File fRoot = new File(filePath + "img/");
@@ -90,7 +90,8 @@ catch(Exception ex)
 <html>
 <c:if test="${siteid<0}">
 <head>
-<title></title>
+<meta charset="UTF-8">
+<title>网站模板升级替换</title>
 <%@include file="/commons/include/get.jsp" %>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
@@ -102,7 +103,8 @@ catch(Exception ex)
 </c:if>
 <c:if test="${siteid>=0}">
 <head>
-<title></title>
+<meta charset="UTF-8">
+<title>网站模板升级替换</title>
 <%@include file="/commons/include/updAjax.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){

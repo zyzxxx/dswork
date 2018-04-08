@@ -5,7 +5,7 @@ dswork.spring.BeanFactory,
 java.io.File,
 dswork.web.MyRequest,
 dswork.cms.model.DsCmsSite,
-dswork.cms.service.DsCmsPageService,
+dswork.cms.dao.DsCmsSiteDao,
 common.any.AnyDao
 "%><%!
 private String getCmsRoot(HttpServletRequest request)
@@ -38,13 +38,13 @@ private String cleanImage(String path, Map<String, String> map)
 try
 {
 	MyRequest req = new MyRequest(request);
-	DsCmsPageService service = (DsCmsPageService)BeanFactory.getBean("dsCmsPageService");
+	DsCmsSiteDao sdao = (DsCmsSiteDao)BeanFactory.getBean("dsCmsSiteDao");
 	long siteid = req.getLong("siteid");
-	DsCmsSite s = service.getSite(siteid);
+	DsCmsSite s = (DsCmsSite)sdao.get(siteid);
 	
 	AnyDao dao = (AnyDao)BeanFactory.getBean("anyDao");
 	String sql = "SELECT ID, FOLDER FROM DS_CMS_CATEGORY where SITEID=" + siteid;
-	
+
 	List<Map<String, Object>> list = (List<Map<String, Object>>)dao.executeSelectList(AnyDao.initSql(sql));
 	Map<String, String> map = new HashMap<String, String>();
 	for(Map<String, Object> m : list)

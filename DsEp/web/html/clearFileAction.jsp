@@ -3,7 +3,7 @@ dswork.spring.BeanFactory,
 java.io.File,
 dswork.web.MyRequest,
 dswork.cms.model.DsCmsSite,
-dswork.cms.service.DsCmsPageService,
+dswork.cms.dao.DsCmsSiteDao,
 common.any.AnyDao
 "%><%!
 private String getCmsRoot(HttpServletRequest request)
@@ -66,10 +66,10 @@ try
 		bakfile.mkdir();
 	}
 	MyRequest req = new MyRequest(request);
-	DsCmsPageService service = (DsCmsPageService)BeanFactory.getBean("dsCmsPageService");
+	DsCmsSiteDao sdao = (DsCmsSiteDao)BeanFactory.getBean("dsCmsSiteDao");
 	long siteid = req.getLong("siteid");
 	String path = req.getString("path");
-	DsCmsSite s = service.getSite(siteid);
+	DsCmsSite s = (DsCmsSite)sdao.get(siteid);
 	String htmlRoot = new File(getCmsRoot(request) + s.getFolder() + "/html").getPath();
 	if(path.indexOf("..") == -1)
 	{
