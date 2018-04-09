@@ -87,12 +87,13 @@ try
 			out.print(GsonUtil.toJson(map));
 			return;
 		}
-		if(c.get("scope").equals(1))// 列表
+		if(c.get("scope").equals(0))// 列表
 		{
 			int currentPage = req.getInt("page", 1);
 			int pagesize = req.getInt("pagesize", 25);
 			Map<String, Object> mm = cms.queryPage(currentPage, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
 			Map<String, Object> datapage = (Map<String, Object>) mm.get("datapage");
+			map.put("list", mm.get("list"));
 			map.put("page", datapage.get("page"));
 			map.put("pagesize", datapage.get("pagesize"));
 			map.put("first", datapage.get("first"));
