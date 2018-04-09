@@ -16,12 +16,12 @@ Map<String, Object> map = new HashMap<String, Object>();
 try
 {
 	MyRequest req = new MyRequest(request);
-	CmsFactory cms = new CmsFactory(request);
 
 	long siteid = req.getLong("siteid", -1);
 	long categoryid = req.getLong("categoryid", -1);
 	long pageid = req.getLong("pageid", -1);
 
+	CmsFactory cms = new CmsFactory(siteid);
 	Map<String, Object> s = cms.getSite();
 	map.put("msg", "");
 	map.put("siteid", getString(siteid));
