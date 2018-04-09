@@ -46,9 +46,9 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 		return (DsCmsCategory) categoryDao.get(categoryid);
 	}
 
-	public List<DsCmsSite> queryListSite(String own, String accout)
+	public List<DsCmsSite> queryListSite(String own)
 	{
-		return siteDao.queryList(own, accout);
+		return siteDao.queryList(own);
 	}
 
 	@SuppressWarnings("unchecked")
