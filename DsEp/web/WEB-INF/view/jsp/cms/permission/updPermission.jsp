@@ -17,16 +17,24 @@
 <c:if test="${siteid>=0}">
 <head>
 <title></title>
-<style type="text/css">
-
-</style>
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
+$dswork.callback = function(){
+	if($dswork.result.type == 1){
+		location.reload();
+	}else if($dswork.result.type == 2){
+		var ids = $dswork.result.msg.split(",");
+		for(var i = 0; i < ids.length - 1; i++){
+			$('#mark_' + ids[i]).css({"background-color":"red"});
+			$('#aud_' + ids[i]).prop('checked', true);
+		}
+	}
+};
 function checkSelf(n){
 	n.prop("checked", true);
 	var ss = n.attr("id").split("_");
-	if(ss[1]=="all" || ss[1]=="own"){
-		var _n = $("#" + ss[0] + "_" + (ss[1]=="all"?"own":"all"));
+	if(ss[0]=="all" || ss[0]=="own"){
+		var _n = $("#" + ss[1] + "_" + (ss[0]=="all"?"own":"all"));
 		if(_n.prop("checked")){
 			uncheckSelf(_n);
 		}
@@ -48,13 +56,13 @@ $(function(){
 		var self = $(this);
 		var ss = self.attr("id").split("_");
 		var power = "";
-		switch(ss[1]){
+		switch(ss[0]){
 		case "all": power = "${permission.editall}"; break;
 		case "own": power = "${permission.editown}"; break;
 		case "aud": power = "${permission.audit}"; break;
 		case "pub": power = "${permission.publish}"; break;
 		}
-		if(power.indexOf("," + ss[0] + ",") != -1){
+		if(power.indexOf("," + ss[1] + ",") != -1){
 			checkSelf(self);
 		}
 	}).click(function(){
@@ -69,16 +77,16 @@ $(function(){
 function submit(){
 	var editall = ",", editown = ",", audit=",", publish = ",";
 	$("input[name='editall']:checked").each(function(){
-		editall += $(this).attr("id").split("_")[0] + ",";
+		editall += $(this).attr("id").split("_")[1] + ",";
 	});
 	$("input[name='editown']:checked").each(function(){
-		editown += $(this).attr("id").split("_")[0] + ",";
+		editown += $(this).attr("id").split("_")[1] + ",";
 	});
 	$("input[name='audit']:checked").each(function(){
-		audit += $(this).attr("id").split("_")[0] + ",";
+		audit += $(this).attr("id").split("_")[1] + ",";
 	});
 	$("input[name='publish']:checked").each(function(){
-		publish += $(this).attr("id").split("_")[0] + ",";
+		publish += $(this).attr("id").split("_")[1] + ",";
 	});
 	var form = $('<form action="updPermission2.htm" method="post"></form>')
 		.append('<input name="editall" value="' + editall + '">')
@@ -92,6 +100,9 @@ function submit(){
 	form.ajaxSubmit($dswork.doAjaxOption).remove();
 }
 </script>
+<style type="text/css">
+label {padding:2px;height:22px;}
+</style>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
@@ -144,12 +155,12 @@ function submit(){
 		</td>
 		<td style="text-align:left;">
 			&nbsp;&nbsp;
-			${d.label}<label><input id="${d.id}_all" pid="${d.pid}_all" name="editall" type="checkbox" />采编权</label>
-			<label style="color:red"><input id="${d.id}_own" pid="${d.pid}_own" name="editown" type="checkbox" />采编权【个人】</label>
+			${d.label}<label><input id="all_${d.id}" pid="all_${d.pid}" name="editall" type="checkbox" />采编权</label>
+			<label style="color:red"><input id="own_${d.id}" pid="own_${d.pid}" name="editown" type="checkbox" />采编权【个人】</label>
 			&nbsp;-&nbsp;
-			<label style="color:blue"><input id="${d.id}_aud" pid="${d.pid}_aud" name="audit" type="checkbox" />审核权</label>
+			<label style="color:blue" id="mark_${d.id}"><input id="aud_${d.id}" pid="aud_${d.pid}" name="audit" type="checkbox" />审核权</label>
 			&nbsp;-&nbsp;
-			<label style="color:green"><input id="${d.id}_pub" pid="${d.pid}_pub" name="publish" type="checkbox" />发布权</label>
+			<label style="color:green"><input id="pub_${d.id}" pid="pub_${d.pid}" name="publish" type="checkbox" />发布权</label>
 		</td>
 	</tr>
 </c:forEach>

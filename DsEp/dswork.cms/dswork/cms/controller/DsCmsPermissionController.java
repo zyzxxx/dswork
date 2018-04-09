@@ -1,9 +1,12 @@
 package dswork.cms.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsPermissionService;
@@ -108,9 +112,73 @@ public class DsCmsPermissionController extends DsCmsBaseController
 				permission.setSiteid(siteid);
 				permission.setAccount(account);
 			}
+
+			String audit_old = permission.getAudit();
+			String audit_new = req.getString("audit", "");
+			if(audit_old.length() > 2)
+			{
+				Set<String> set = new HashSet<String>(Arrays.asList(audit_old.split(",")));
+				set.removeAll(Arrays.asList(audit_new.split(",")));
+				set.remove("");
+				if(set.size() > 0)
+				{
+					List<DsCmsPermission> list = service.queryListPermission(siteid);
+					if(list.size() > 0)
+					{
+						for(DsCmsPermission p : list)
+						{
+							set.retainAll(Arrays.asList(p.getAudit().split(",")));
+						}
+						if(set.size() > 0)
+						{
+							List<Long> idList = new ArrayList<Long>();
+							for(String s : set)
+							{
+								try
+								{
+									long id = Long.parseLong(s);
+									DsCmsCategory c = service.getCategory(id);
+									if(c.getScope() == 0)
+									{
+										Map<String, Object> map = new HashMap<String, Object>();
+										map.put("categoryid", c.getId());
+										map.put("auditstatus", 1);// 状态为审核中的
+										if(service.queryCountPageEdit(map) > 0)
+										{
+											idList.add(c.getId());
+										}
+									}
+									else
+									{
+										DsCmsCategoryEdit _c = service.getCategoryEdit(c.getId());
+										if(_c != null && _c.getAuditstatus() == 1)
+										{
+											idList.add(_c.getId());
+										}
+									}
+								}
+								catch(NumberFormatException e)
+								{
+								}
+							}
+							if(idList.size() > 0)
+							{
+								String msg = "";
+								for(long id : idList)
+								{
+									msg += id + ",";
+								}
+								msg += "栏目正在由该用户审核，不能取消";
+								print("2:" + msg);
+								return;
+							}
+						}
+					}
+				}
+			}
+			permission.setAudit(req.getString("audit", ""));
 			permission.setEditall(req.getString("editall", ""));
 			permission.setEditown(req.getString("editown", ""));
-			permission.setAudit(req.getString("audit", ""));
 			permission.setPublish(req.getString("publish", ""));
 			service.save(permission);
 			print(1);

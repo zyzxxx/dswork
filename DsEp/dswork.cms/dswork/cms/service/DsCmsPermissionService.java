@@ -12,10 +12,14 @@ import org.springframework.stereotype.Service;
 
 import dswork.cms.controller.DsCmsBaseController;
 import dswork.cms.dao.DsCmsCategoryDao;
+import dswork.cms.dao.DsCmsCategoryEditDao;
+import dswork.cms.dao.DsCmsPageEditDao;
 import dswork.cms.dao.DsCmsPermissionDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.dao.DsCmsUserDao;
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsCategoryEdit;
+import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.core.page.Page;
@@ -33,6 +37,10 @@ public class DsCmsPermissionService
 	private DsCmsCategoryDao categoryDao;
 	@Autowired
 	private DsCmsUserDao userDao;
+	@Autowired
+	private DsCmsPageEditDao pageEditDao;
+	@Autowired
+	private DsCmsCategoryEditDao categoryEditDao;
 
 	public int save(DsCmsPermission po)
 	{
@@ -78,5 +86,25 @@ public class DsCmsPermissionService
 	public Page<Map<String, Object>> queryPageUser(PageRequest pr)
 	{
 		return userDao.queryPage(pr);
+	}
+
+	public List<DsCmsPermission> queryListPermission(long siteid)
+	{
+		return dao.queryList(siteid);
+	}
+
+	public DsCmsCategory getCategory(long id)
+	{
+		return (DsCmsCategory) categoryDao.get(id);
+	}
+
+	public int queryCountPageEdit(Map<String, Object> map)
+	{
+		return pageEditDao.queryCount(map);
+	}
+
+	public DsCmsCategoryEdit getCategoryEdit(Long id)
+	{
+		return (DsCmsCategoryEdit) categoryEditDao.get(id);
 	}
 }

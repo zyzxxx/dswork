@@ -57,10 +57,10 @@ public class DsCmsPermissionDao extends MyBatisDao
 		map.put("siteid", siteid);
 		return queryList("queryListCategory", map);
 	}
-	public List<DsCmsPermission> queryListPermission(Long siteid)
+	public List<DsCmsPermission> queryList(Long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		return queryList("queryListPermission", map);
+		return queryList("query", map);
 	}
 }
