@@ -1,10 +1,13 @@
-1.使用www.audit需要在cms数据库中创建DS_CMS_USER表(视图)
-2.DS_CMS_USER包括ID、ACCOUNT、NAME、OWN四个字段
-CREATE VIEW DS_CMS_USER AS 
-SELECT
-	ID,
-	ACCOUNT,
-	NAME,
-	concat('admin', ACCOUNT) AS OWN
-FROM
-	DS_COMMON_USER
+web.xml过滤器配置：
+使用单点登录SSO时：
+	<filter>
+		<filter-name>authOwnSSOFilter</filter-name>
+		<filter-class>common.authown.AuthOwnSSOFilter</filter-class>
+	</filter>
+	<filter-mapping><filter-name>AuthOwnSSOFilter</filter-name><url-pattern>/cms/*</url-pattern></filter-mapping>
+简单系统登陆时：
+	<filter>
+		<filter-name>authOwnFilter</filter-name>
+		<filter-class>common.authown.AuthOwnFilter</filter-class>
+	</filter>
+	<filter-mapping><filter-name>authOwnFilter</filter-name><url-pattern>/cms/*</url-pattern></filter-mapping>

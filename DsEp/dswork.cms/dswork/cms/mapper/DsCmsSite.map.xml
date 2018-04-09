@@ -70,9 +70,4 @@
 	<include refid="dynamicWhere" />
 </select>
 
-<select id="queryListByOwnAndAccount" resultMap="result">
-	select <include refid="columns" /> from DS_CMS_SITE s
-	where OWN=#{own} and exists (select 'X' from DS_CMS_PERMISSION p where p.SITEID=s.ID and p.ACCOUNT=#{account})
-</select>
-
 </mapper>

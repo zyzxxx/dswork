@@ -30,7 +30,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 		try
 		{
 			Long id = req.getLong("siteid", -1), siteid = -1L;
-			List<DsCmsSite> siteList = service.queryListSite(getOwn(), getAccount());
+			List<DsCmsSite> siteList = service.queryListSite(getOwn());
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);

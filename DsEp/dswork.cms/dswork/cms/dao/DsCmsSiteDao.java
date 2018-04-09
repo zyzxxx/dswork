@@ -22,11 +22,10 @@ public class DsCmsSiteDao extends BaseDao<DsCmsSite, Long>
 		return DsCmsSite.class;
 	}
 
-	public List<DsCmsSite> queryList(String own, String account)
+	public List<DsCmsSite> queryList(String own)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("own", own);
-		map.put("account", account);
-		return executeSelectList("queryListByOwnAndAccount", map);
+		return queryList(map);
 	}
 }

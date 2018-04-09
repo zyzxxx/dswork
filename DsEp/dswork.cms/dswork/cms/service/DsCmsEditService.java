@@ -259,9 +259,9 @@ public class DsCmsEditService
 		return (DsCmsPage) pageDao.get(id);
 	}
 
-	public List<DsCmsSite> queryListSite(String own, String accout)
+	public List<DsCmsSite> queryListSite(String own)
 	{
-		return siteDao.queryList(own, accout);
+		return siteDao.queryList(own);
 	}
 
 	@SuppressWarnings("unchecked")
