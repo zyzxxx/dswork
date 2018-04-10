@@ -104,16 +104,16 @@ public class DsCmsPermissionController extends DsCmsBaseController
 				print("0:参数错误");
 				return;
 			}
-			DsCmsPermission permission = service.get(siteid, account);
-			if(permission == null)
+			DsCmsPermission po = service.get(siteid, account);
+			if(po == null)
 			{
-				permission = new DsCmsPermission();
-				permission.setId(UniqueId.genId());
-				permission.setSiteid(siteid);
-				permission.setAccount(account);
+				po = new DsCmsPermission();
+				po.setId(UniqueId.genId());
+				po.setSiteid(siteid);
+				po.setAccount(account);
 			}
 
-			String audit_old = permission.getAudit();
+			String audit_old = po.getAudit();
 			String audit_new = req.getString("audit", "");
 			if(audit_old.length() > 2)
 			{
@@ -125,7 +125,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 					List<DsCmsPermission> list = service.queryListPermission(siteid);
 					for(DsCmsPermission p : list)
 					{
-						if(!p.getAccount().equals(permission.getAccount()))
+						if(!p.getAccount().equals(po.getAccount()))
 						{
 							set.removeAll(Arrays.asList(p.getAudit().split(",")));
 						}
@@ -174,11 +174,11 @@ public class DsCmsPermissionController extends DsCmsBaseController
 					}
 				}
 			}
-			permission.setAudit(req.getString("audit", ""));
-			permission.setEditall(req.getString("editall", ""));
-			permission.setEditown(req.getString("editown", ""));
-			permission.setPublish(req.getString("publish", ""));
-			service.save(permission);
+			po.setAudit(req.getString("audit", ""));
+			po.setEditall(req.getString("editall", ""));
+			po.setEditown(req.getString("editown", ""));
+			po.setPublish(req.getString("publish", ""));
+			service.save(po);
 			print(1);
 		}
 		catch(Exception e)
