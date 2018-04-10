@@ -111,10 +111,6 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		if(checkCategory(siteid, categoryid))
-		{
-			return true;
-		}
 		return categoryMap.get(categoryid).get("editown") == null
 			|| categoryMap.get(categoryid).get("editown").contains(getAccount());
 	}
