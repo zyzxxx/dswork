@@ -97,11 +97,8 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		if(checkCategory(siteid, categoryid))
-		{
-			return true;
-		}
-		return categoryMap.get(categoryid).get("editall") == null
+		return categoryMap.get(categoryid) == null
+			|| categoryMap.get(categoryid).get("editall") == null
 			|| categoryMap.get(categoryid).get("editall").contains(getAccount());
 	}
 
@@ -111,8 +108,9 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		return categoryMap.get(categoryid).get("editown") == null
-			|| categoryMap.get(categoryid).get("editown").contains(getAccount());
+		return categoryMap.get(categoryid) != null
+			&& categoryMap.get(categoryid).get("editown") != null
+			&& categoryMap.get(categoryid).get("editown").contains(getAccount());
 	}
 
 	public boolean checkEdit(long siteid, long categoryid)
@@ -131,12 +129,9 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		if(checkCategory(siteid, categoryid))
-		{
-			return false;
-		}
-		return categoryMap.get(categoryid).get("audit") == null
-			|| categoryMap.get(categoryid).get("audit").contains(getAccount());
+		return categoryMap.get(categoryid) != null
+			&& categoryMap.get(categoryid).get("audit") != null
+			&& categoryMap.get(categoryid).get("audit").contains(getAccount());
 	}
 
 	public boolean checkPublish(long siteid, long categoryid)
@@ -145,11 +140,8 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		if(checkCategory(siteid, categoryid))
-		{
-			return true;
-		}
-		return categoryMap.get(categoryid).get("publish") == null
+		return categoryMap.get(categoryid) == null
+			|| categoryMap.get(categoryid).get("publish") == null
 			|| categoryMap.get(categoryid).get("publish").contains(getAccount());
 	}
 
