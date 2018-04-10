@@ -1,9 +1,12 @@
 package dswork.cms.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -11,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsPermissionService;
@@ -100,20 +104,75 @@ public class DsCmsPermissionController extends DsCmsBaseController
 				print("0:参数错误");
 				return;
 			}
-			DsCmsPermission permission = service.get(siteid, account);
-			if(permission == null)
+			DsCmsPermission po = service.get(siteid, account);
+			if(po == null)
 			{
-				permission = new DsCmsPermission();
-				permission.setId(UniqueId.genId());
-				permission.setSiteid(siteid);
-				permission.setAccount(account);
+				po = new DsCmsPermission();
+				po.setId(UniqueId.genId());
+				po.setSiteid(siteid);
+				po.setAccount(account);
 			}
-			permission.setEditall(req.getString("editall", ""));
-			permission.setEditown(req.getString("editown", ""));
-			permission.setAudit(req.getString("audit", ""));
-			permission.setPublish(req.getString("publish", ""));
-			service.save(permission);
-			print(1);
+
+			String msg = "";
+			String audit_old = po.getAudit();
+			String audit_new = req.getString("audit", "");
+			if(audit_old.length() > 2)
+			{
+				Set<String> set = new HashSet<String>(Arrays.asList(audit_old.split(",")));
+				set.removeAll(Arrays.asList(audit_new.split(",")));
+				set.remove("");
+				if(set.size() > 0)
+				{
+					List<DsCmsPermission> list = service.queryListPermission(siteid);
+					for(DsCmsPermission p : list)
+					{
+						if(!p.getAccount().equals(po.getAccount()))
+						{
+							set.removeAll(Arrays.asList(p.getAudit().split(",")));
+						}
+					}
+					if(set.size() > 0)
+					{
+						List<Long> idList = new ArrayList<Long>();
+						for(String s : set)
+						{
+							long id = Long.parseLong(s);
+							DsCmsCategory c = service.getCategory(id);
+							if(c.getScope() == 0)
+							{
+								Map<String, Object> map = new HashMap<String, Object>();
+								map.put("categoryid", c.getId());
+								map.put("auditstatus", 1);// 状态为审核中的
+								if(service.queryCountPageEdit(map) > 0)
+								{
+									idList.add(c.getId());
+									continue;
+								}
+							}
+							DsCmsCategoryEdit _c = service.getCategoryEdit(c.getId());
+							if(_c != null && _c.getAuditstatus() == 1)
+							{
+								idList.add(_c.getId());
+							}
+						}
+						if(idList.size() > 0)
+						{
+							for(long id : idList)
+							{
+								msg += id + ",";
+								audit_new += id + ",";
+							}
+							msg += "栏目正在由该用户审核，不能取消";
+						}
+					}
+				}
+			}
+			po.setAudit(audit_new);
+			po.setEditall(req.getString("editall", ""));
+			po.setEditown(req.getString("editown", ""));
+			po.setPublish(req.getString("publish", ""));
+			service.save(po);
+			print(msg.length() > 0 ? "2:" + msg : 1);
 		}
 		catch(Exception e)
 		{

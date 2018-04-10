@@ -41,7 +41,7 @@ public class DsCmsBaseController extends BaseController
 		{
 			ownMap.put(site.getId(), site.getOwn());
 //			List<DsCmsCategory> categoryList = dao.queryListCategory(site.getId());
-			List<DsCmsPermission> permissionList = dao.queryListPermission(site.getId());
+			List<DsCmsPermission> permissionList = dao.queryList(site.getId());
 			Map<Long, Map<String, Set<String>>> map1 = new HashMap<Long, Map<String, Set<String>>>();
 			for(DsCmsPermission permission : permissionList)
 			{
@@ -101,8 +101,8 @@ public class DsCmsBaseController extends BaseController
 		{
 			return true;
 		}
-		return categoryMap.get(categoryid).get("editall") != null
-			&& categoryMap.get(categoryid).get("editall").contains(getAccount());
+		return categoryMap.get(categoryid).get("editall") == null
+			|| categoryMap.get(categoryid).get("editall").contains(getAccount());
 	}
 
 	public boolean checkEditown(long siteid, long categoryid)
@@ -115,8 +115,8 @@ public class DsCmsBaseController extends BaseController
 		{
 			return true;
 		}
-		return categoryMap.get(categoryid).get("editown") != null
-			&& categoryMap.get(categoryid).get("editown").contains(getAccount());
+		return categoryMap.get(categoryid).get("editown") == null
+			|| categoryMap.get(categoryid).get("editown").contains(getAccount());
 	}
 
 	public boolean checkEdit(long siteid, long categoryid)
@@ -139,8 +139,8 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		return categoryMap.get(categoryid).get("audit") != null
-			&& categoryMap.get(categoryid).get("audit").contains(getAccount());
+		return categoryMap.get(categoryid).get("audit") == null
+			|| categoryMap.get(categoryid).get("audit").contains(getAccount());
 	}
 
 	public boolean checkPublish(long siteid, long categoryid)
@@ -153,8 +153,8 @@ public class DsCmsBaseController extends BaseController
 		{
 			return true;
 		}
-		return categoryMap.get(categoryid).get("publish") != null
-			&& categoryMap.get(categoryid).get("publish").contains(getAccount());
+		return categoryMap.get(categoryid).get("publish") == null
+			|| categoryMap.get(categoryid).get("publish").contains(getAccount());
 	}
 
 	public boolean checkOwn(long siteid)
