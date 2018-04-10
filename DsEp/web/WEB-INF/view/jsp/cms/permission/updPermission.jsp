@@ -34,7 +34,7 @@ function checkSelf(n){
 	n.prop("checked", true);
 	var ss = n.attr("id").split("_");
 	if(ss[0]=="all" || ss[0]=="own"){
-		var _n = $("#" + ss[1] + "_" + (ss[0]=="all"?"own":"all"));
+		var _n = $("#" + (ss[0]=="all"?"own_":"all_") + ss[1]);
 		if(_n.prop("checked")){
 			uncheckSelf(_n);
 		}
