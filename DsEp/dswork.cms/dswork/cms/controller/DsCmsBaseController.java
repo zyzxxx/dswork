@@ -24,7 +24,7 @@ import dswork.spring.BeanFactory;
 
 public class DsCmsBaseController extends BaseController
 {
-	private static Map<Long, Map<String, Set<String>>> categoryMap = new HashMap<Long, Map<String, Set<String>>>();
+	private static Map<Long, Map<Long, Map<String, Set<String>>>> siteMap = new HashMap<Long, Map<Long, Map<String, Set<String>>>>();
 	private static Map<Long, String> ownMap = new HashMap<Long, String>();
 
 	static
@@ -34,7 +34,7 @@ public class DsCmsBaseController extends BaseController
 
 	public static void refresh()
 	{
-		Map<Long, Map<String, Set<String>>> map = new HashMap<Long, Map<String, Set<String>>>();
+		Map<Long, Map<Long, Map<String, Set<String>>>> map = new HashMap<Long, Map<Long, Map<String, Set<String>>>>();
 		DsCmsPermissionDao dao = (DsCmsPermissionDao) BeanFactory.getBean(DsCmsPermissionDao.class);
 		List<DsCmsSite> siteList = dao.queryListSite();
 		for(DsCmsSite site : siteList)
@@ -50,11 +50,14 @@ public class DsCmsBaseController extends BaseController
 				refreshMap2(map1, Arrays.asList(permission.getPublish().split(",")), "publish", permission);
 				refreshMap2(map1, Arrays.asList(permission.getAudit().split(",")), "audit", permission);
 			}
-			map.putAll(map1);
+			if(map1.size() > 0)
+			{
+				map.put(site.getId(), map1);
+			}
 		}
-		categoryMap = map;
+		siteMap = map;
 	}
-	
+
 	private static void refreshMap2(Map<Long, Map<String, Set<String>>> map1, List<String> idList, String key, DsCmsPermission permission)
 	{
 		for(String id : idList)
@@ -88,7 +91,7 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		return categoryMap.get(categoryid) == null;
+		return siteMap.get(siteid) == null;
 	}
 
 	public boolean checkEditall(long siteid, long categoryid)
@@ -97,9 +100,10 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		return categoryMap.get(categoryid) == null
-			|| categoryMap.get(categoryid).get("editall") == null
-			|| categoryMap.get(categoryid).get("editall").contains(getAccount());
+		return siteMap.get(siteid) == null
+			||(siteMap.get(siteid).get(categoryid) != null
+			&& siteMap.get(siteid).get(categoryid).get("editall") != null
+			&& siteMap.get(siteid).get(categoryid).get("editall").contains(getAccount()));
 	}
 
 	public boolean checkEditown(long siteid, long categoryid)
@@ -108,9 +112,10 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		return categoryMap.get(categoryid) != null
-			&& categoryMap.get(categoryid).get("editown") != null
-			&& categoryMap.get(categoryid).get("editown").contains(getAccount());
+		return siteMap.get(siteid) == null
+			||(siteMap.get(siteid).get(categoryid) != null
+			&& siteMap.get(siteid).get(categoryid).get("editown") != null
+			&& siteMap.get(siteid).get(categoryid).get("editown").contains(getAccount()));
 	}
 
 	public boolean checkEdit(long siteid, long categoryid)
@@ -129,9 +134,10 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		return categoryMap.get(categoryid) != null
-			&& categoryMap.get(categoryid).get("audit") != null
-			&& categoryMap.get(categoryid).get("audit").contains(getAccount());
+		return siteMap.get(siteid) == null
+			||(siteMap.get(siteid).get(categoryid) != null
+			&& siteMap.get(siteid).get(categoryid).get("audit") != null
+			&& siteMap.get(siteid).get(categoryid).get("audit").contains(getAccount()));
 	}
 
 	public boolean checkPublish(long siteid, long categoryid)
@@ -140,9 +146,10 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		return categoryMap.get(categoryid) == null
-			|| categoryMap.get(categoryid).get("publish") == null
-			|| categoryMap.get(categoryid).get("publish").contains(getAccount());
+		return siteMap.get(siteid) == null
+			||(siteMap.get(siteid).get(categoryid) != null
+			&& siteMap.get(siteid).get(categoryid).get("publish") != null
+			&& siteMap.get(siteid).get(categoryid).get("publish").contains(getAccount()));
 	}
 
 	public boolean checkOwn(long siteid)
