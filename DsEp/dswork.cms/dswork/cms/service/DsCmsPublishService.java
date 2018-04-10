@@ -56,6 +56,7 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
+		map.put("publishstatus", "true");
 		return categoryDao.queryList(map);
 	}
 
