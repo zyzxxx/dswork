@@ -179,4 +179,43 @@ public class DsCmsPermissionController extends DsCmsBaseController
 			print("0:" + e.getMessage());
 		}
 	}
+
+	// 获得栏目列表
+	@RequestMapping("/getCategory")
+	public String getCategory()
+	{
+		try
+		{
+			long siteid = req.getLong("siteid", -1);
+			List<DsCmsCategory> list = null;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("own", getOwn());
+			List<DsCmsSite> siteList = service.queryListSite(map);
+			if(siteList != null && siteList.size() > 0)
+			{
+				for(DsCmsSite s : siteList)
+				{
+					if(s.getId() == siteid)
+					{
+						list = service.queryListCategory(siteid);
+						break;
+					}
+				}
+				if(list == null)
+				{
+					siteid = siteList.get(0).getId();
+					list = service.queryListCategory(siteid);
+				}
+			}
+			put("siteid", siteid);
+			put("siteList", siteList);
+			put("list", categorySetting(list == null ? new ArrayList<DsCmsCategory>() : list));
+			put("sitePermission", getSitePermission(siteid));
+			return "/cms/permission/getCategory.jsp";
+		}
+		catch(Exception ex)
+		{
+		}
+		return null;
+	}
 }
