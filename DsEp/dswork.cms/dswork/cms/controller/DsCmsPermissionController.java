@@ -123,53 +123,53 @@ public class DsCmsPermissionController extends DsCmsBaseController
 				if(set.size() > 0)
 				{
 					List<DsCmsPermission> list = service.queryListPermission(siteid);
-					if(list.size() > 0)
+					for(DsCmsPermission p : list)
 					{
-						for(DsCmsPermission p : list)
+						if(!p.getAccount().equals(permission.getAccount()))
 						{
-							set.retainAll(Arrays.asList(p.getAudit().split(",")));
+							set.removeAll(Arrays.asList(p.getAudit().split(",")));
 						}
-						if(set.size() > 0)
+					}
+					if(set.size() > 0)
+					{
+						List<Long> idList = new ArrayList<Long>();
+						for(String s : set)
 						{
-							List<Long> idList = new ArrayList<Long>();
-							for(String s : set)
+							try
 							{
-								try
+								long id = Long.parseLong(s);
+								DsCmsCategory c = service.getCategory(id);
+								if(c.getScope() == 0)
 								{
-									long id = Long.parseLong(s);
-									DsCmsCategory c = service.getCategory(id);
-									if(c.getScope() == 0)
+									Map<String, Object> map = new HashMap<String, Object>();
+									map.put("categoryid", c.getId());
+									map.put("auditstatus", 1);// 状态为审核中的
+									if(service.queryCountPageEdit(map) > 0)
 									{
-										Map<String, Object> map = new HashMap<String, Object>();
-										map.put("categoryid", c.getId());
-										map.put("auditstatus", 1);// 状态为审核中的
-										if(service.queryCountPageEdit(map) > 0)
-										{
-											idList.add(c.getId());
-											continue;
-										}
-									}
-									DsCmsCategoryEdit _c = service.getCategoryEdit(c.getId());
-									if(_c != null && _c.getAuditstatus() == 1)
-									{
-										idList.add(_c.getId());
+										idList.add(c.getId());
+										continue;
 									}
 								}
-								catch(NumberFormatException e)
+								DsCmsCategoryEdit _c = service.getCategoryEdit(c.getId());
+								if(_c != null && _c.getAuditstatus() == 1)
 								{
+									idList.add(_c.getId());
 								}
 							}
-							if(idList.size() > 0)
+							catch(NumberFormatException e)
 							{
-								String msg = "";
-								for(long id : idList)
-								{
-									msg += id + ",";
-								}
-								msg += "栏目正在由该用户审核，不能取消";
-								print("2:" + msg);
-								return;
 							}
+						}
+						if(idList.size() > 0)
+						{
+							String msg = "";
+							for(long id : idList)
+							{
+								msg += id + ",";
+							}
+							msg += "栏目正在由该用户审核，不能取消";
+							print("2:" + msg);
+							return;
 						}
 					}
 				}
