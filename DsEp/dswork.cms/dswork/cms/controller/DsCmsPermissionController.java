@@ -146,15 +146,13 @@ public class DsCmsPermissionController extends DsCmsBaseController
 										if(service.queryCountPageEdit(map) > 0)
 										{
 											idList.add(c.getId());
+											continue;
 										}
 									}
-									else
+									DsCmsCategoryEdit _c = service.getCategoryEdit(c.getId());
+									if(_c != null && _c.getAuditstatus() == 1)
 									{
-										DsCmsCategoryEdit _c = service.getCategoryEdit(c.getId());
-										if(_c != null && _c.getAuditstatus() == 1)
-										{
-											idList.add(_c.getId());
-										}
+										idList.add(_c.getId());
 									}
 								}
 								catch(NumberFormatException e)
