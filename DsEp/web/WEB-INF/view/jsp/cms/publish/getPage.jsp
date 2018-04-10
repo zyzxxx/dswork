@@ -8,22 +8,22 @@
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
 function build(pageid){
-	$dswork.doAjaxObject.show("发布中");
+	$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
 	var v = {"siteid":"${po.siteid}"};
 	if(pageid != null){
 		v.categoryid = "${po.id}";
 		v.pageid = pageid;
 	}
-	$.post("build.htm",v,function(data){$dswork.showResponse(data);});
+	$.post("build.htm",v,function(data){$dswork.doAjaxShow(data, function(){});});
 }
 function unbuild(pageid){
-	$dswork.doAjaxObject.show("删除中");
+	$dswork.doAjaxObject.autoDelayHide("删除中", 2000);
 	var v = {"siteid":"${po.siteid}"};
 	if(pageid != null){
 		v.categoryid = "${po.id}";
 		v.pageid = pageid;
 	}
-	$.post("unbuild.htm",v,function(data){$dswork.showResponse(data);});
+	$.post("unbuild.htm",v,function(data){$dswork.doAjaxShow(data, function(){});});
 }
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-graph">预览</div>').bind("click", function(){
