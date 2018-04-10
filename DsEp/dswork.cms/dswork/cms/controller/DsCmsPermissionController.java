@@ -136,29 +136,23 @@ public class DsCmsPermissionController extends DsCmsBaseController
 						List<Long> idList = new ArrayList<Long>();
 						for(String s : set)
 						{
-							try
+							long id = Long.parseLong(s);
+							DsCmsCategory c = service.getCategory(id);
+							if(c.getScope() == 0)
 							{
-								long id = Long.parseLong(s);
-								DsCmsCategory c = service.getCategory(id);
-								if(c.getScope() == 0)
+								Map<String, Object> map = new HashMap<String, Object>();
+								map.put("categoryid", c.getId());
+								map.put("auditstatus", 1);// 状态为审核中的
+								if(service.queryCountPageEdit(map) > 0)
 								{
-									Map<String, Object> map = new HashMap<String, Object>();
-									map.put("categoryid", c.getId());
-									map.put("auditstatus", 1);// 状态为审核中的
-									if(service.queryCountPageEdit(map) > 0)
-									{
-										idList.add(c.getId());
-										continue;
-									}
-								}
-								DsCmsCategoryEdit _c = service.getCategoryEdit(c.getId());
-								if(_c != null && _c.getAuditstatus() == 1)
-								{
-									idList.add(_c.getId());
+									idList.add(c.getId());
+									continue;
 								}
 							}
-							catch(NumberFormatException e)
+							DsCmsCategoryEdit _c = service.getCategoryEdit(c.getId());
+							if(_c != null && _c.getAuditstatus() == 1)
 							{
+								idList.add(_c.getId());
 							}
 						}
 						if(idList.size() > 0)
