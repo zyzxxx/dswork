@@ -113,6 +113,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 				po.setAccount(account);
 			}
 
+			String msg = "";
 			String audit_old = po.getAudit();
 			String audit_new = req.getString("audit", "");
 			if(audit_old.length() > 2)
@@ -162,15 +163,12 @@ public class DsCmsPermissionController extends DsCmsBaseController
 						}
 						if(idList.size() > 0)
 						{
-							String msg = "";
 							for(long id : idList)
 							{
 								msg += id + ",";
 								audit_new = audit_new.replace(id + ",", "");
 							}
 							msg += "栏目正在由该用户审核，不能取消";
-							print("2:" + msg);
-							return;
 						}
 					}
 				}
@@ -180,7 +178,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 			po.setEditown(req.getString("editown", ""));
 			po.setPublish(req.getString("publish", ""));
 			service.save(po);
-			print(1);
+			print(msg.length() > 0 ? "2:" + msg : 1);
 		}
 		catch(Exception e)
 		{
