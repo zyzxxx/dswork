@@ -166,7 +166,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 							for(long id : idList)
 							{
 								msg += id + ",";
-								audit_new = audit_new.replace(id + ",", "");
+								audit_new += id + ",";
 							}
 							msg += "栏目正在由该用户审核，不能取消";
 						}
