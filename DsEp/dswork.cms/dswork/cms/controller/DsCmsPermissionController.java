@@ -166,6 +166,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 							for(long id : idList)
 							{
 								msg += id + ",";
+								audit_new = audit_new.replace(id + ",", "");
 							}
 							msg += "栏目正在由该用户审核，不能取消";
 							print("2:" + msg);
@@ -174,7 +175,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 					}
 				}
 			}
-			po.setAudit(req.getString("audit", ""));
+			po.setAudit(audit_new);
 			po.setEditall(req.getString("editall", ""));
 			po.setEditown(req.getString("editown", ""));
 			po.setPublish(req.getString("publish", ""));
