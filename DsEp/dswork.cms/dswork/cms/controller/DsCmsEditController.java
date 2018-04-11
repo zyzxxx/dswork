@@ -145,7 +145,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				if(checkOwn(s.getId()))
 				{
 					put("list", queryCategory(po.getSiteid(), false, categoryid));
-					return "/cms/page/copyPage.jsp";
+					return "/cms/edit/copyPage.jsp";
 				}
 			}
 		}

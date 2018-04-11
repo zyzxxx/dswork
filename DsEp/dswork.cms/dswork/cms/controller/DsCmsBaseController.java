@@ -85,6 +85,11 @@ public class DsCmsBaseController extends BaseController
 		}
 	}
 
+	public Map<Long, Map<String, Set<String>>> getSitePermission(long siteid)
+	{
+		return siteMap.get(siteid);
+	}
+
 	public boolean checkCategory(long siteid, long categoryid)
 	{
 		if(!checkOwn(siteid))
@@ -112,10 +117,10 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		return siteMap.get(siteid) == null
-			||(siteMap.get(siteid).get(categoryid) != null
+		return siteMap.get(siteid) != null
+			&& siteMap.get(siteid).get(categoryid) != null
 			&& siteMap.get(siteid).get(categoryid).get("editown") != null
-			&& siteMap.get(siteid).get(categoryid).get("editown").contains(getAccount()));
+			&& siteMap.get(siteid).get(categoryid).get("editown").contains(getAccount());
 	}
 
 	public boolean checkEdit(long siteid, long categoryid)
@@ -134,10 +139,10 @@ public class DsCmsBaseController extends BaseController
 		{
 			return false;
 		}
-		return siteMap.get(siteid) == null
-			||(siteMap.get(siteid).get(categoryid) != null
+		return siteMap.get(siteid) != null
+			&& siteMap.get(siteid).get(categoryid) != null
 			&& siteMap.get(siteid).get(categoryid).get("audit") != null
-			&& siteMap.get(siteid).get(categoryid).get("audit").contains(getAccount()));
+			&& siteMap.get(siteid).get(categoryid).get("audit").contains(getAccount());
 	}
 
 	public boolean checkPublish(long siteid, long categoryid)
