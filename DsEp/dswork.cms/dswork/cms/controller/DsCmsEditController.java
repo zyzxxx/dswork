@@ -360,7 +360,6 @@ public class DsCmsEditController extends DsCmsBaseController
 						p.setImg(page.getImg());
 						p.setImgtop(page.getImgtop());
 						p.setPagetop(page.getPagetop());
-						// p.setStatus(page.getStatus());
 						p.setAuditstatus(DsCmsPageEdit.PASS);
 						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
 					}
