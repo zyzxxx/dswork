@@ -367,20 +367,6 @@ public class DsCmsEditController extends DsCmsBaseController
 					print(1);
 					return;
 				}
-				if("save".equals(action))
-				{
-					if(p.isEdit() || p.isNopass() || p.isPass())
-					{
-						p.setAuditstatus(0);
-						p.pushEditidAndEditname(getAccount(), getName());
-						p.setEdittime(TimeUtil.getCurrentTime());
-						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
-						print(1);
-						return;
-					}
-					print("0:状态错误");
-					return;
-				}
 
 				p.setScope(po.getScope());
 				p.setTitle(po.getTitle());
@@ -395,6 +381,20 @@ public class DsCmsEditController extends DsCmsBaseController
 				p.setImgtop(po.getImgtop());
 				p.setPagetop(po.getPagetop());
 
+				if("save".equals(action))
+				{
+					if(p.isEdit() || p.isNopass() || p.isPass())
+					{
+						p.setAuditstatus(0);
+						p.pushEditidAndEditname(getAccount(), getName());
+						p.setEdittime(TimeUtil.getCurrentTime());
+						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
+						print(1);
+						return;
+					}
+					print("0:状态错误");
+					return;
+				}
 				if("submit".equals(action))
 				{
 					if(checkCategory(p.getSiteid(), p.getCategoryid()))
