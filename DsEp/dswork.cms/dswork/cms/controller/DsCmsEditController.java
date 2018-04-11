@@ -330,42 +330,6 @@ public class DsCmsEditController extends DsCmsBaseController
 			)
 			{
 				String action = req.getString("action");
-				if("save".equals(action))
-				{
-					if(p.isEdit() || p.isNopass() || p.isPass())
-					{
-						p.setAuditstatus(0);
-						p.pushEditidAndEditname(getAccount(), getName());
-						p.setEdittime(TimeUtil.getCurrentTime());
-						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
-						print(1);
-						return;
-					}
-					print("0:状态错误");
-					return;
-				}
-				if("submit".equals(action))
-				{
-					if(checkCategory(p.getSiteid(), p.getCategoryid()))
-					{
-						p.pushEditidAndEditname(getAccount(), getName());
-						p.setEdittime(TimeUtil.getCurrentTime());
-						service.updatePageEdit(p, true, s.isWriteLog(), getAccount(), getName());
-						print(1);
-						return;
-					}
-					if(p.isEdit() || p.isNopass() || p.isPass())
-					{
-						p.setAuditstatus(1);
-						p.pushEditidAndEditname(getAccount(), getName());
-						p.setEdittime(TimeUtil.getCurrentTime());
-						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
-						print(1);
-						return;
-					}
-					print("0:状态错误");
-					return;
-				}
 				if("revoke".equals(action))
 				{
 					if(p.isAudit())
@@ -401,6 +365,56 @@ public class DsCmsEditController extends DsCmsBaseController
 						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
 					}
 					print(1);
+					return;
+				}
+				if("save".equals(action))
+				{
+					if(p.isEdit() || p.isNopass() || p.isPass())
+					{
+						p.setAuditstatus(0);
+						p.pushEditidAndEditname(getAccount(), getName());
+						p.setEdittime(TimeUtil.getCurrentTime());
+						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
+						print(1);
+						return;
+					}
+					print("0:状态错误");
+					return;
+				}
+
+				p.setScope(po.getScope());
+				p.setTitle(po.getTitle());
+				p.setSummary(po.getSummary());
+				p.setMetakeywords(po.getMetakeywords());
+				p.setMetadescription(po.getMetadescription());
+				p.setReleasesource(po.getReleasesource());
+				p.setReleaseuser(po.getReleaseuser());
+				p.setReleasetime(po.getReleasetime());
+				p.setContent(po.getContent());
+				p.setImg(po.getImg());
+				p.setImgtop(po.getImgtop());
+				p.setPagetop(po.getPagetop());
+
+				if("submit".equals(action))
+				{
+					if(checkCategory(p.getSiteid(), p.getCategoryid()))
+					{
+						p.pushEditidAndEditname(getAccount(), getName());
+						p.setEdittime(TimeUtil.getCurrentTime());
+						service.updatePageEdit(p, true, s.isWriteLog(), getAccount(), getName());
+						print(1);
+						return;
+					}
+					if(p.isEdit() || p.isNopass() || p.isPass())
+					{
+						p.setAuditstatus(1);
+						p.pushEditidAndEditname(getAccount(), getName());
+						p.setEdittime(TimeUtil.getCurrentTime());
+						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
+						print(1);
+						return;
+					}
+					print("0:状态错误");
 					return;
 				}
 				print("0:参数错误");
