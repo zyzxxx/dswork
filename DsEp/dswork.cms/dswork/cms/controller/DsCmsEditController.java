@@ -482,8 +482,6 @@ public class DsCmsEditController extends DsCmsBaseController
 						p.setUrl(c.getUrl());
 						p.setAuditstatus(DsCmsCategoryEdit.PASS);
 						service.updateCategoryEdit(p, false, s.isWriteLog(), getAccount(), getName());
-						print(1);
-						return;
 					}
 					print(1);
 					return;
