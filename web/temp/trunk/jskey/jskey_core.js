@@ -1037,9 +1037,20 @@
 			return false;
 		}
 	};
-	
-	
-	
+
+
+
+	//          0	1	2	3	4	5	6	7	8	9	A	B	C	D	E	F
+	//0000-000F  	!	"	#	$	%	&	'	(	)	*	+	,	-	.	/
+	//0010-001F 0	1	2	3	4	5	6	7	8	9	:	;	<	=	>	?
+	//0020-002F @	A	B	C	D	E	F	G	H	I	J	K	L	M	N	O
+	//0030-003F P	Q	R	S	T	U	V	W	X	Y	Z	[	\	]	^	_
+	//0040-004F `	a	b	c	d	e	f	g	h	i	j	k	l	m	n	o
+	//0050-005F p	q	r	s	t	u	v	w	x	y	z	{	|	}	~	DEL
+	//0060-006F PAD	HOP	BPH	NBH	IND	NEL	SSA	ESA	HTS	HTJ	VTS	PLD	PLU	RI	SS2	SS3
+	//0070-007F DCS	PU1	PU2	STS	CCH	MW	SPA	EPA	SOS	SGCI	SCI	CSI	ST	OSC	PM	APC
+	//0080-008F NBSP	¡	¢	£	¤	¥	¦	§	¨	©	ª	«	¬	SHY	®	¯
+	//0090-009F °	±	²	³	´	µ	¶	·	¸	¹	º	»	¼	½	¾	¿
 	/**
 	 * 名称命名规则说明
 	 * 首字母大写,非常少用的尽可能用Custom
@@ -1063,6 +1074,7 @@
 		"Enterprise":{"v":/^[\u4e00-\u9fa5\uff08\uff09]+$/, "msg":"只允许中文"},
 		"Mobile":{"v":/^(1\d{10})$/, "msg":"请输入手机号码(纯数字)"},
 		"Money":{"v":/^(([1-9](\d+)?)|0)(\.\d+)?$/, "msg":"请输入金额"},
+		"Name":{"v":/^[\u0020\u0024-\u0025\u0028-\u002e\u0030-\u005b\u005d-\u007b\u007d-\uffef]+$/, "msg":"不允许特殊字符"},// \u0021\u0022\u0023\u0026\u0027\u002f\u005c\u007c
 		"Numeral":{"v":/^\d+$/, "msg":"请输入数字"},
 		"Phone":{"v":/^((0\d{2,3})|(\(0\d{2,3}\)))?(-)?[1-9]\d{6,10}(([\-0-9]+)?[^\D]{1})?$/, "msg":"请输入电话号码"},
 		"Require":{"v":/\S+/, "msg":"必填"},

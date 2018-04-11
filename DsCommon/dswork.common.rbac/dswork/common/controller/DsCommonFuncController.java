@@ -229,6 +229,7 @@ public class DsCommonFuncController extends BaseController
 			}
 			if(po.getAlias().length() != 0)
 			{
+				po.setAlias(po.getAlias().toLowerCase());
 				if(!po.getAlias().equals(_po.getAlias()))// 标识被修改
 				{
 					// 判断是否在该系统下唯一
@@ -512,7 +513,7 @@ public class DsCommonFuncController extends BaseController
 				po.setName(jsonObject.get("name").getAsString());
 				po.setUri("".equals(jsonObject.get("url").getAsString()) ? "#" : jsonObject.get("url").getAsString());
 				po.setImg(jsonObject.get("img").getAsString());
-				String status = jsonObject.get("status").getAsString();
+				String status = jsonObject.get("status")==null ? "1" : jsonObject.get("status").getAsString();
 				po.setStatus("0".equals(status) ? 0 : 1);
 				po.setSeq(seq++);
 				list.add(po);

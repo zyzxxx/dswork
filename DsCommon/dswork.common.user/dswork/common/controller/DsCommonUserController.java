@@ -2,6 +2,8 @@ package dswork.common.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import dswork.core.util.EncryptUtil;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
+import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
 import dswork.core.util.TimeUtil;
 import dswork.core.util.UniqueId;
 import dswork.common.model.DsCommonUser;
+import dswork.common.model.DsCommonUsertype;
 import dswork.common.service.DsCommonUserService;
 import dswork.mvc.BaseController;
 import dswork.web.MyRequest;
@@ -35,6 +39,17 @@ public class DsCommonUserController extends BaseController
 	@RequestMapping("/addUser1")
 	public String addUser1()
 	{
+		String xtype = req.getString("xtype", "");
+		if(xtype == null || xtype.length() == 0)
+		{
+			xtype = null;
+		}
+		List<DsCommonUsertype> list = service.queryListForUsertype(xtype);
+		if(list.size() == 0)
+		{
+			return null;
+		}
+		put("typeList", list);
 		return "/common/user/addUser.jsp";
 	}
 	@RequestMapping("/addUser2")
@@ -102,6 +117,17 @@ public class DsCommonUserController extends BaseController
 		Long id = req.getLong("keyIndex");
 		DsCommonUser po = service.get(id);
 		put("po", po);
+		String xtype = req.getString("xtype", "");
+		if(xtype == null || xtype.length() == 0)
+		{
+			xtype = null;
+		}
+		List<DsCommonUsertype> list = service.queryListForUsertype(xtype);
+		if(list.size() == 0)
+		{
+			return null;
+		}
+		put("typeList", list);
 		put("page", req.getInt("page", 1));
 		return "/common/user/updUser.jsp";
 	}
@@ -221,6 +247,17 @@ public class DsCommonUserController extends BaseController
 		PageNav pageNav = new PageNav(request, pageModel);
 		put("pageModel", pageModel);
 		put("pageNav", pageNav);
+		String xtype = req.getString("xtype", "");
+		if(xtype == null || xtype.length() == 0)
+		{
+			xtype = null;
+		}
+		List<DsCommonUsertype> list = service.queryListForUsertype(xtype);
+		if(list.size() == 0)
+		{
+			return null;
+		}
+		put("typeList", list);
 		return "/common/user/getUser.jsp";
 	}
 

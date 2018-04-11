@@ -6,7 +6,6 @@
 	<classpathentry kind="src" path="dswork.ep"/>
 	<classpathentry kind="src" path="dswork.person"/>
 	<classpathentry kind="src" path="dswork.cms"/>
-	<classpathentry kind="src" path="dswork.cms.permission"/>
 	<classpathentry kind="src" path="dswork.bbs"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
@@ -43,6 +42,10 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/sso/dswork.sso.jar" sourcepath="F:/leying/Workspaces/workspaceJava/DsSSO/sso-client"/>
+	<classpathentry kind="lib" path="/Lib/module/dswork/sso/dswork.sso.jar" sourcepath="F:/leying/Workspaces/workspaceJava/DsSSO/sso-client">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

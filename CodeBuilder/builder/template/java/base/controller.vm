@@ -75,7 +75,6 @@ public class ${Model}Controller extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		put("page", req.getInt("page", 1));
 		return "${Webmodule}/upd${Model}.jsp";
 	}
 	

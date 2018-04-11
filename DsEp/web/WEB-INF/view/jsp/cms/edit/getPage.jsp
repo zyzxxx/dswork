@@ -7,14 +7,14 @@
 <title></title>
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
-// $dswork.page.join = function(td, menu, id){
-// 	$(menu).append($('<div iconCls="menuTool-edit">操作</div>').bind("click", function(){
-// 		location.href = "updPage1.htm?page=${pageModel.currentPage}&keyIndex=" + id;
-// 	}));
-// };
 $(function(){
 	$dswork.page.menu("", "updPage1.htm", "", "${pageModel.currentPage}");
 });
+<c:if test="${po.siteid==0}">$dswork.page.join = function(td, menu, id){
+	$(menu).append($('<div iconCls="menuTool-graph">同步到栏目</div>').bind("click", function(){
+		$jskey.dialog.showDialog({title:'同步到栏目',fit:true,url:'copyPage1.htm?id=${po.id}&keyIndex='+id});
+	}));
+};</c:if>
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getPage.htm?id=${po.id}&page=${pageModel.currentPage}";
@@ -26,6 +26,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr>
 		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
 		<td class="menuTool">
+			<a class="update" href="updCategory1.htm?id=${po.id}">编辑本栏目</a>
 			<a class="insert" href="addPage1.htm?categoryid=${po.id}&page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>

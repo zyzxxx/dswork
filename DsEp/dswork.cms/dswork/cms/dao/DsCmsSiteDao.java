@@ -3,6 +3,10 @@
  */
 package dswork.cms.dao;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import dswork.cms.model.DsCmsSite;
@@ -16,5 +20,12 @@ public class DsCmsSiteDao extends BaseDao<DsCmsSite, Long>
 	public Class getEntityClass()
 	{
 		return DsCmsSite.class;
+	}
+
+	public List<DsCmsSite> queryList(String own)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("own", own);
+		return queryList(map);
 	}
 }

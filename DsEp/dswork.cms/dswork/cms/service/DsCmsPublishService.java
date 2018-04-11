@@ -12,11 +12,9 @@ import org.springframework.stereotype.Service;
 
 import dswork.cms.dao.DsCmsCategoryDao;
 import dswork.cms.dao.DsCmsPageDao;
-import dswork.cms.dao.DsCmsPermissionDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPage;
-import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.core.db.BaseService;
 import dswork.core.db.EntityDao;
@@ -31,7 +29,6 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 	@Autowired
 	private DsCmsSiteDao siteDao;
 	@Autowired
-	private DsCmsPermissionDao permissionDao;
 
 	@Override
 	protected EntityDao<DsCmsPage, Long> getEntityDao()
@@ -49,9 +46,9 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 		return (DsCmsCategory) categoryDao.get(categoryid);
 	}
 
-	public List<DsCmsSite> queryListSite(Map<String, Object> map)
+	public List<DsCmsSite> queryListSite(String own)
 	{
-		return permissionDao.queryListSite(map);
+		return siteDao.queryList(own);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -60,11 +57,6 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
 		return categoryDao.queryList(map);
-	}
-
-	public DsCmsPermission getPermission(Long siteid, String account)
-	{
-		return permissionDao.get(siteid, account);
 	}
 
 	public void updatePageStatus(Long id, int status)

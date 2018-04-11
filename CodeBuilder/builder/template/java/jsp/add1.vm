@@ -27,7 +27,7 @@ ${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.
 	<tr>
 		<td class="title">添加</td>
 		<td class="menuTool">
-			<a class="back" href="get${Model}.jsp?page=${mf}{param.page}">返回</a>
+			<a class="back" href="get${Model}.jsp?page=${mf}{fn:escapeXml(param.page)}">返回</a>
 		</td>
 	</tr>
 </table>

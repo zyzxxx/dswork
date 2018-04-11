@@ -48,9 +48,9 @@ $dswork.showNavigation = function(title){try{
 //form
 $dswork.callback = null;
 $dswork.validCallBack = function(){return true;};
-$dswork.result = {type:"", msg:""};
+$dswork.result = {type:"", msg:"", data:""};
 $dswork.checkResult = function(responseText){
-	$dswork.result = {type:"", msg:""};
+	$dswork.result = {type:"", msg:"", data:""};
 	try{
 		var _msg = "", _arr = (responseText + "").split(":");
 		if(_arr.length > 1){_msg = _arr[1];}
@@ -59,9 +59,9 @@ $dswork.checkResult = function(responseText){
 			case "1": _msg = "操作成功！";break;
 			default: _msg = (!isNaN(_arr[0]))?"":_arr[0];
 		}}
-		$dswork.result = {type:_arr[0], msg:_msg};
+		$dswork.result = {type:_arr[0], msg:_msg, data:(_arr.length>2?_arr[2]:"")};
 	}
-	catch(e){$dswork.result = {type:"", msg:""};}
+	catch(e){$dswork.result = {type:"", msg:"", data:""};}
 	return $dswork.result.msg;
 };
 /**

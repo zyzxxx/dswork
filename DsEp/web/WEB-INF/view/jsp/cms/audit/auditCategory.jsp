@@ -19,7 +19,8 @@ $(function(){
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
 		<td class="title">审核</td>
-	<c:if test="${po.audit}">
+		<c:if test="${scope==0}"><a class="back" href="getPage.htm?id=${po.id}">返回</a></c:if>
+		<c:if test="${po.audit}">
 		<td class="menuTool">
 			<a class="submit" onclick="_pass();" href="javascript:void(0);">通过</a>
 			<a class="close" onclick="_nopass();" href="javascript:void(0);">不通过</a>
@@ -34,7 +35,7 @@ $(function(){
 			}}
 			</script>
 		</td>
-	</c:if>
+		</c:if>
 	</tr>
 </table>
 <div class="line"></div>
@@ -46,7 +47,7 @@ $(function(){
 <c:if test="${po.audit}">
 <form id="dataForm" method="post" action="auditCategory2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-<c:if test="${scope==1}">
+<c:if test="${scope==0 || scope==1}">
 	<tr>
 		<td class="form_title">摘要</td>
 		<td class="form_input">${fn:escapeXml(po.summary)}</td>

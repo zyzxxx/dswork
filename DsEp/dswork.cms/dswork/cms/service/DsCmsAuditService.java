@@ -10,19 +10,17 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import dswork.cms.dao.DsCmsAuditCategoryDao;
+import dswork.cms.dao.DsCmsCategoryEditDao;
 import dswork.cms.dao.DsCmsLogDao;
-import dswork.cms.dao.DsCmsAuditPageDao;
+import dswork.cms.dao.DsCmsPageEditDao;
 import dswork.cms.dao.DsCmsCategoryDao;
 import dswork.cms.dao.DsCmsPageDao;
-import dswork.cms.dao.DsCmsPermissionDao;
 import dswork.cms.dao.DsCmsSiteDao;
-import dswork.cms.model.DsCmsAuditCategory;
+import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsLog;
-import dswork.cms.model.DsCmsAuditPage;
+import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPage;
-import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
@@ -32,13 +30,11 @@ import dswork.core.util.UniqueId;
 public class DsCmsAuditService
 {
 	@Autowired
-	private DsCmsAuditPageDao auditPageDao;
+	private DsCmsPageEditDao pageEditDao;
 	@Autowired
-	private DsCmsAuditCategoryDao auditCategoryDao;
+	private DsCmsCategoryEditDao categoryEditDao;
 	@Autowired
 	private DsCmsLogDao logDao;
-	@Autowired
-	private DsCmsPermissionDao permissionDao;
 	@Autowired
 	private DsCmsPageDao pageDao;
 	@Autowired
@@ -56,9 +52,9 @@ public class DsCmsAuditService
 		return (DsCmsCategory) categoryDao.get(categoryid);
 	}
 
-	public List<DsCmsSite> queryListSite(Map<String, Object> map)
+	public List<DsCmsSite> queryListSite(String own)
 	{
-		return permissionDao.queryListSite(map);
+		return siteDao.queryList(own);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -69,19 +65,14 @@ public class DsCmsAuditService
 		return categoryDao.queryList(map);
 	}
 
-	public DsCmsPermission getPermission(Long siteid, String account)
+	public DsCmsPageEdit getPage(Long pageid)
 	{
-		return permissionDao.get(siteid, account);
+		return (DsCmsPageEdit) pageDao.get(pageid);
 	}
 
-	public DsCmsAuditPage getPage(Long pageid)
+	public DsCmsCategoryEdit saveCategoryEdit(Long id)
 	{
-		return (DsCmsAuditPage) pageDao.get(pageid);
-	}
-
-	public DsCmsAuditCategory saveAuditCategory(Long id)
-	{
-		DsCmsAuditCategory po = new DsCmsAuditCategory();
+		DsCmsCategoryEdit po = new DsCmsCategoryEdit();
 		DsCmsCategory _po = (DsCmsCategory) categoryDao.get(id);
 		if(_po.getScope() != 0) // 非列表
 		{
@@ -96,54 +87,54 @@ public class DsCmsAuditService
 			po.setContent(_po.getContent());
 			po.setReleasetime(_po.getReleasetime());
 			po.setUrl(_po.getUrl());
-			po.setAuditstatus(DsCmsAuditCategory.EDIT);// 草稿
-			po.setStatus(0);// 初始设置为新增状态
-			auditCategoryDao.save(po);
+			po.setAuditstatus(DsCmsCategoryEdit.EDIT);// 草稿
+			po.setStatus(0);// page设置为新增状态
+			categoryEditDao.save(po);
 		}
 		return po;
 	}
 
-	public DsCmsAuditCategory getAuditCategory(Long id)
+	public DsCmsCategoryEdit getCategoryEdit(Long id)
 	{
-		return (DsCmsAuditCategory) auditCategoryDao.get(id);
+		return (DsCmsCategoryEdit) categoryEditDao.get(id);
 	}
 
-	public int updateAuditCategory(DsCmsAuditCategory po, DsCmsCategory cate, boolean isEnablelog)
+	public int updateCategoryEdit(DsCmsCategoryEdit po, DsCmsCategory c, boolean isEnablelog)
 	{
 		if(po.isPass())// 通过
 		{
-			if(cate.getScope() == 1)
+			if(c.getScope() == 0 || c.getScope() == 1)
 			{
-				cate.setSummary(po.getSummary());
-				cate.setMetakeywords(po.getMetakeywords());
-				cate.setMetadescription(po.getMetadescription());
-				cate.setReleasesource(po.getReleasesource());
-				cate.setReleaseuser(po.getReleaseuser());
-				cate.setImg(po.getImg());
-				cate.setContent(po.getContent());
-				cate.setReleasetime(po.getReleasetime());
-				if(cate.getStatus() != 0)
+				c.setSummary(po.getSummary());
+				c.setMetakeywords(po.getMetakeywords());
+				c.setMetadescription(po.getMetadescription());
+				c.setReleasesource(po.getReleasesource());
+				c.setReleaseuser(po.getReleaseuser());
+				c.setImg(po.getImg());
+				c.setContent(po.getContent());
+				c.setReleasetime(po.getReleasetime());
+				if(c.getStatus() != 0)
 				{
-					cate.setStatus(1);
+					c.setStatus(1);
 				}
-				categoryDao.updateContent(cate);
+				categoryDao.updateContent(c);
 			}
-			else
+			else if(c.getScope() == 2)
 			{
-				cate.setUrl(po.getUrl());
-				cate.setStatus(8);// 更改至已发布状态（因为外链不需要发布操作）
-				categoryDao.update(cate);
+				c.setUrl(po.getUrl());
+				c.setStatus(8);// category设置为已发布状态（因为外链不需要发布操作）
+				categoryDao.update(c);
 			}
-			po.setStatus(1);// 审核栏目设置为修改状态
+			po.setStatus(1);// categoryEdit设置为待更新状态
 		}
 		if(isEnablelog)
 		{
 			writeLogCategory(po);
 		}
-		return auditCategoryDao.update(po);
+		return categoryEditDao.update(po);
 	}
 
-	public int updateAuditPage(DsCmsAuditPage po, boolean isEnablelog)
+	public int updatePageEdit(DsCmsPageEdit po, boolean isEnablelog)
 	{
 		if(po.isPass())// 通过
 		{
@@ -172,7 +163,7 @@ public class DsCmsAuditService
 			page.setScope(po.getScope());
 			if(isSave)
 			{
-				page.setStatus(0);// 内容设置为新建未发布状态
+				page.setStatus(0);// page设置为新建未发布状态
 				pageDao.save(page);
 				pageDao.updateURL(po.getId(), po.getUrl());
 			}
@@ -180,20 +171,20 @@ public class DsCmsAuditService
 			{
 				if(page.getStatus() != 0)
 				{
-					page.setStatus(1);// 更新至更新未发布状态
+					page.setStatus(1);// page设置为更新未发布状态
 				}
 				pageDao.update(page);
 			}
-			po.setStatus(1);// 审核内容设置为修改状态
+			po.setStatus(1);// pageEdit设置为待更新状态
 		}
 		if(isEnablelog)
 		{
 			writeLogPage(po);
 		}
-		return auditPageDao.update(po);
+		return pageEditDao.update(po);
 	}
 
-	public int deleteAuditPage(DsCmsAuditPage po, boolean isEnablelog)
+	public int deletePageEdit(DsCmsPageEdit po, boolean isEnablelog)
 	{
 		if(po.isPass())// 通过
 		{
@@ -203,12 +194,12 @@ public class DsCmsAuditService
 				page.setStatus(-1);
 				pageDao.update(page);
 			}
-			auditPageDao.delete(po.getId());
+			pageEditDao.delete(po.getId());
 		}
 		else
 		{
-			po.setStatus(1);// 更新为修改状态
-			auditPageDao.update(po);
+			po.setStatus(1);// pageEdit为待更新状态
+			pageEditDao.update(po);
 		}
 		if(isEnablelog)
 		{
@@ -217,18 +208,18 @@ public class DsCmsAuditService
 		return 1;
 	}
 
-	public DsCmsAuditPage getAuditPage(Long id)
+	public DsCmsPageEdit getPageEdit(Long id)
 	{
-		return (DsCmsAuditPage) auditPageDao.get(id);
+		return (DsCmsPageEdit) pageEditDao.get(id);
 	}
 
 	@SuppressWarnings("unchecked")
-	public Page<DsCmsAuditPage> queryPageAuditPage(PageRequest pr)
+	public Page<DsCmsPageEdit> queryPagePageEdit(PageRequest pr)
 	{
-		return auditPageDao.queryPage(pr);
+		return pageEditDao.queryPage(pr);
 	}
 
-	private void writeLogPage(DsCmsAuditPage po)
+	private void writeLogPage(DsCmsPageEdit po)
 	{
 		try
 		{
@@ -263,7 +254,7 @@ public class DsCmsAuditService
 		}
 	}
 
-	private void writeLogCategory(DsCmsAuditCategory po)
+	private void writeLogCategory(DsCmsCategoryEdit po)
 	{
 		try
 		{

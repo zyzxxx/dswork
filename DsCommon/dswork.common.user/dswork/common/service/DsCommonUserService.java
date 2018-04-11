@@ -3,13 +3,17 @@
  */
 package dswork.common.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.common.dao.DsCommonUserDao;
+import dswork.common.dao.DsCommonUsertypeDao;
 import dswork.common.model.DsCommonUser;
+import dswork.common.model.DsCommonUsertype;
 import dswork.core.db.BaseService;
 import dswork.core.db.EntityDao;
 import dswork.core.util.EncryptUtil;
@@ -19,12 +23,14 @@ import dswork.core.util.EncryptUtil;
 public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Long>
 {
 	@Autowired
-	private DsCommonUserDao dao;
+	private DsCommonUserDao userDao;
+	@Autowired
+	private DsCommonUsertypeDao userTypeDao;
 
 	@Override
 	protected EntityDao getEntityDao()
 	{
-		return dao;
+		return userDao;
 	}
 
 	/**
@@ -34,7 +40,7 @@ public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Lon
 	 */
 	public void updateCAKey(long id, String cakey)
 	{
-		dao.updateCAKey(id, cakey);
+		userDao.updateCAKey(id, cakey);
 	}
 
 	/**
@@ -45,7 +51,7 @@ public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Lon
 	 */
 	public void updateOrg(long id, Long orgpid, Long orgid)
 	{
-		dao.updateOrg(id, orgpid, orgid);
+		userDao.updateOrg(id, orgpid, orgid);
 	}
 
 	/**
@@ -56,7 +62,7 @@ public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Lon
 	public void updatePassword(long id, String password)
 	{
 		password = EncryptUtil.encryptMd5(password);
-		dao.updatePassword(id, password);
+		userDao.updatePassword(id, password);
 	}
 
 	/**
@@ -66,7 +72,7 @@ public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Lon
 	 */
 	public void updateStatus(long id, int status)
 	{
-		dao.updateStatus(id, status);
+		userDao.updateStatus(id, status);
 	}
 
 	/**
@@ -76,7 +82,7 @@ public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Lon
 	 */
 	public boolean isExistsByAccount(String account)
 	{
-		return dao.isExistsByAccount(account);
+		return userDao.isExistsByAccount(account);
 	}
 
 	/**
@@ -86,6 +92,21 @@ public class DsCommonUserService extends BaseService<DsCommonUser, java.lang.Lon
 	 */
 	public DsCommonUser getByAccount(String account)
 	{
-		return dao.getByAccount(account);
+		return userDao.getByAccount(account);
+	}
+
+	/**
+	 * 取得所有配置的用户类型
+	 * @param alias 类型
+	 * @return List&lt;DsCommonUsertype&gt;
+	 */
+	public List<DsCommonUsertype> queryListForUsertype(String alias)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(alias != null)
+		{
+			map.put("xalias", alias);
+		}
+		return userTypeDao.queryList(map);
 	}
 }

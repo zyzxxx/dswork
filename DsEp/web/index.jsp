@@ -25,14 +25,14 @@ a:hover{outline:none;color:#182a2d;text-decoration:none;}
 a:focus{outline:none;}
 a:hover,a:active{outline:none;}:focus{outline:none;}
 
-label,a,a:link,a:visited,a:active{display:inline-block;font-size:14px;padding:3px 8px;line-height:1.2;}
+label,a,a:link,a:visited,a:active{display:inline-block;font-size:14px;padding:3px 8px;line-height:1.4;}
 label{border:solid 1px #bce8f1;color:#31708f;background-color:#d9edf7;}
 a,a:link,a:visited,a:active{border:solid 1px #0f9ae0;color:#fff;background-color:#3bb4f2;}
 a:hover {background-color:#0f9ae0;}
 .level1 {margin:8px 0 0 8px;}
-.level2 {margin:2px 0 0 48px;}
-.level3 {margin:2px 0 0 88px;}
-.level4 {margin:2px 0 0 128px;}
+.level2 {margin:2px 0 0 38px;}
+.level3 {margin:2px 0 0 68px;}
+.level4 {margin:2px 0 0 98px;}
 </style>
 <script type="text/javascript">
 <%if(model.isEnterprise()){%>
@@ -63,18 +63,18 @@ var nn = [
 		 {id:12,name:"栏目管理", img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
 		,{id:11,name:"模板编辑", img:"", imgOpen:"", url:'/cms/template/getTemplateTree.htm', items:[]}
 		,{id:12,name:"附件管理", img:"", imgOpen:"", url:'/cms/file/getFileTree.htm', items:[]}
-		
-		,{id:13,name:"信息发布", img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
-		
+// 		,{id:13,name:"信息发布", img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
+		,{id:14,name:"附加功能", img:"", imgOpen:"", url:'', items:[
+			 {id:141,name:'CMS日志', img:"", imgOpen:"", url:'/cms/log/getLog.jsp', items:[]}
+			,{id:143,name:'信息总数', img:"", imgOpen:"", url:'/cms/page/main.html', items:[]}
+			,{id:142,name:'批量更新', img:"", imgOpen:"", url:'/cms/page/updBatchPage.jsp', items:[]}
+		]}
 		,{id:15, name:"采编审核发布", img:"", imgOpen:"", url:"", items:[
-	   		 {id:151,name:'信息采编', img:"023.png", imgOpen:"023.png", url:'/cms/edit/getCategoryTree.htm', items:[]}
-			,{id:152,name:'信息审核', img:"023.png", imgOpen:"023.png", url:'/cms/audit/getCategoryTree.htm', items:[]}
-			,{id:153,name:'信息发布', img:"023.png", imgOpen:"023.png", url:'/cms/publish/getCategoryTree.htm', items:[]}
-			,{id:154,name:'采编审核发布', img:"023.png", imgOpen:"023.png", url:'/cms/edit/getCategoryTree.htm', items:[]}
+	   		 {id:151,name:'信息采编', img:"", imgOpen:"", url:'/cms/edit/getCategoryTree.htm', items:[]}
+			,{id:152,name:'信息审核', img:"", imgOpen:"", url:'/cms/audit/getCategoryTree.htm', items:[]}
+			,{id:153,name:'信息发布', img:"", imgOpen:"", url:'/cms/publish/getCategoryTree.htm', items:[]}
 			,{id:16, name:"权限管理", img:"", imgOpen:"", url:"", items:[
-				 {id:161,name:'系统用户授权', img:"", imgOpen:"", url:'/cms/permission/getCommonUser.htm', items:[]}
-				,{id:162,name:'企业用户授权', img:"", imgOpen:"", url:'/cms/permission/getEpUser.htm', items:[]}
-				,{id:163,name:'个人用户授权', img:"", imgOpen:"", url:'/cms/permission/getPersonUser.htm', items:[]}
+				 {id:161,name:'用户授权', img:"", imgOpen:"", url:'/cms/permission/getUser.htm', items:[]}
 			]}
 		]}
 	]}

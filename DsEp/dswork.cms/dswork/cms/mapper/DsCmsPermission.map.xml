@@ -41,9 +41,16 @@
 	select <include refid="columns" /> from DS_CMS_PERMISSION where SITEID=#{siteid} and ACCOUNT=#{account}
 </select>
 
+<select id="query" resultMap="result">
+	select <include refid="columns" /> from DS_CMS_PERMISSION
+	where SITEID=#{siteid}
+</select>
 <select id="queryListSite" resultMap="dswork.cms.model.DsCmsSite.result">
-	select <include refid="dswork.cms.model.DsCmsSite.columns" /> from DS_CMS_SITE s
-	where OWN=#{own} and exists (select 'X' from DS_CMS_PERMISSION p where p.SITEID=s.ID and p.ACCOUNT=#{account})
+	select <include refid="dswork.cms.model.DsCmsSite.columns" /> from DS_CMS_SITE
+</select>
+<select id="queryListCategory" resultMap="dswork.cms.model.DsCmsCategory.result">
+	select <include refid="dswork.cms.model.DsCmsCategory.columns" /> from DS_CMS_CATEGORY
+	where SITEID=#{siteid}
 </select>
 
 </mapper>

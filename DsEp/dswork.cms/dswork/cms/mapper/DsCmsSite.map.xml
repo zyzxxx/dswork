@@ -10,9 +10,9 @@
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_SITE
-	(OWN, NAME, FOLDER, URL, IMG, VIEWSITE, ENABLELOG)
+	(OWN, NAME, FOLDER, URL, IMG, VIEWSITE, ENABLELOG, METAKEYWORDS, METADESCRIPTION)
 	values
-	(#{own}, #{name}, #{folder}, #{url}, #{img}, #{viewsite}, #{enablelog})
+	(#{own}, #{name}, #{folder}, #{url}, #{img}, #{viewsite}, #{enablelog}, #{metakeywords}, #{metadescription})
 </insert>
 
 <delete id="delete">
@@ -25,7 +25,9 @@
 		URL=#{url},
 		IMG=#{img},
 		VIEWSITE=#{viewsite},
-		ENABLELOG=#{enablelog}
+		ENABLELOG=#{enablelog},
+		METAKEYWORDS=#{metakeywords},
+		METADESCRIPTION=#{metadescription}
 	where ID=#{id}
 </update>
 
@@ -38,10 +40,12 @@
 	<result property="img" column="IMG" />
 	<result property="viewsite" column="VIEWSITE" />
 	<result property="enablelog" column="ENABLELOG" />
+	<result property="metakeywords" column="METAKEYWORDS" />
+	<result property="metadescription" column="METADESCRIPTION" />
 </resultMap>
 
 <sql id="columns">
-	ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE, ENABLELOG
+	ID, OWN, NAME, FOLDER, URL, IMG, VIEWSITE, ENABLELOG, METAKEYWORDS, METADESCRIPTION
 </sql>
 
 <sql id="dynamicWhere">

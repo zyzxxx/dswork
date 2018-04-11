@@ -17,16 +17,24 @@
 <c:if test="${siteid>=0}">
 <head>
 <title></title>
-<style type="text/css">
-
-</style>
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
+$dswork.callback = function(){
+	if($dswork.result.type == 1){
+		location.reload();
+	}else if($dswork.result.type == 2){
+		var ids = $dswork.result.msg.split(",");
+		for(var i = 0; i < ids.length - 1; i++){
+			$('#mark_' + ids[i]).css({"background-color":"red"});
+			$('#aud_' + ids[i]).prop('checked', true);
+		}
+	}
+};
 function checkSelf(n){
 	n.prop("checked", true);
 	var ss = n.attr("id").split("_");
-	if(ss[1]=="all" || ss[1]=="own"){
-		var _n = $("#" + ss[0] + "_" + (ss[1]=="all"?"own":"all"));
+	if(ss[0]=="all" || ss[0]=="own"){
+		var _n = $("#" + (ss[0]=="all"?"own_":"all_") + ss[1]);
 		if(_n.prop("checked")){
 			uncheckSelf(_n);
 		}
@@ -37,22 +45,24 @@ function uncheckSelf(n){
 }
 $(function(){
 	$("#site").change(function(){
-		$('<form action="updPermission1.htm" method="post"></form>')
-		.append('<input name="siteid" value="' + $("#site").val() + '">')
-		.append('<input name="account" value="${fn:escapeXml(param.account)}">')
-		.submit();
+		var form = $('<form action="updPermission1.htm" method="post"></form>')
+			.append('<input name="siteid" value="' + $("#site").val() + '">')
+			.append('<input name="account" value="${fn:escapeXml(param.account)}">')
+			.hide();
+		$(document.body).append(form);
+		form.submit().remove();
 	});
 	$("#dataTable input[type='checkbox']").each(function(){
 		var self = $(this);
 		var ss = self.attr("id").split("_");
 		var power = "";
-		switch(ss[1]){
+		switch(ss[0]){
 		case "all": power = "${permission.editall}"; break;
 		case "own": power = "${permission.editown}"; break;
 		case "aud": power = "${permission.audit}"; break;
 		case "pub": power = "${permission.publish}"; break;
 		}
-		if(power.indexOf("," + ss[0] + ",") != -1){
+		if(power.indexOf("," + ss[1] + ",") != -1){
 			checkSelf(self);
 		}
 	}).click(function(){
@@ -67,27 +77,32 @@ $(function(){
 function submit(){
 	var editall = ",", editown = ",", audit=",", publish = ",";
 	$("input[name='editall']:checked").each(function(){
-		editall += $(this).attr("id").split("_")[0] + ",";
+		editall += $(this).attr("id").split("_")[1] + ",";
 	});
 	$("input[name='editown']:checked").each(function(){
-		editown += $(this).attr("id").split("_")[0] + ",";
+		editown += $(this).attr("id").split("_")[1] + ",";
 	});
 	$("input[name='audit']:checked").each(function(){
-		audit += $(this).attr("id").split("_")[0] + ",";
+		audit += $(this).attr("id").split("_")[1] + ",";
 	});
 	$("input[name='publish']:checked").each(function(){
-		publish += $(this).attr("id").split("_")[0] + ",";
+		publish += $(this).attr("id").split("_")[1] + ",";
 	});
-	$('<form action="updPermission2.htm" method="post"></form>')
-	.append('<input name="editall" value="' + editall + '">')
-	.append('<input name="editown" value="' + editown + '">')
-	.append('<input name="audit" value="' + audit + '">')
-	.append('<input name="publish" value="' + publish + '">')
-	.append('<input name="siteid" value="${siteid}">')
-	.append('<input name="account" value="${fn:escapeXml(param.account)}">')
-	.ajaxSubmit($dswork.doAjaxOption);
+	var form = $('<form action="updPermission2.htm" method="post"></form>')
+		.append('<input name="editall" value="' + editall + '">')
+		.append('<input name="editown" value="' + editown + '">')
+		.append('<input name="audit" value="' + audit + '">')
+		.append('<input name="publish" value="' + publish + '">')
+		.append('<input name="siteid" value="${siteid}">')
+		.append('<input name="account" value="${fn:escapeXml(param.account)}">')
+		.hide();
+	$(document.body).append(form);
+	form.ajaxSubmit($dswork.doAjaxOption).remove();
 }
 </script>
+<style type="text/css">
+label {padding:2px;height:22px;}
+</style>
 </head>
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
@@ -102,36 +117,51 @@ function submit(){
 	</tr>
 </table>
 <div class="line"></div>
+<div style="padding-left:20px;">
+	<label style="color:#111"><input class="checkAll" v="editall" type="checkbox" />全选采编权</label>
+	<label style="color:red"><input class="checkAll" v="editown" type="checkbox" />全选采编权【个人】</label>
+	<label style="color:blue"><input class="checkAll" v="audit" type="checkbox" />全选审核权</label>
+	<label style="color:green"><input class="checkAll" v="publish" type="checkbox" />全选发布权</label>
+	<script type="text/javascript">
+	$('.checkAll').change(function(){
+		var o = $(this);
+		var v = o.attr('v');
+		var c = o.is(":checked");
+		if(c){
+			if(v == 'editall' || v == 'editown'){
+				$('input[v="editall"]').prop("checked", false);
+				$('input[v="editown"]').prop("checked", false);
+				$('input[name="editall"]').prop("checked", false);
+				$('input[name="editown"]').prop("checked", false);
+			}
+			o.prop("checked", true);
+		}
+		$('input[name="' + v + '"]').prop("checked", c);
+	});
+	</script>
+</div>
+<div class="line"></div>
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td style="width:8%">栏目ID</td>
+		<td style="width:10%">栏目ID</td>
 		<td>栏目名称</td>
 		<td style="width:50%">权限</td>
-		<td style="width:5%">备注</td>
 	</tr>
 <c:forEach items="${categoryList}" var="d">
 	<tr>
 		<td>${d.id}</td>
 		<td style="text-align:left;">
-			&nbsp;${d.label}${fn:escapeXml(d.name)}<c:if test="${d.scope>0}">&nbsp;<a href="javascript:void(0);" title="${fn:escapeXml(d.url)}">[${d.scope==1?"单页":"外链"}]</a></c:if>
+			&nbsp;${d.label}${fn:escapeXml(d.name)}&nbsp;<a href="javascript:void(0);" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a>
 		</td>
-	<c:if test="${fn:length(d.list)==0}">
 		<td style="text-align:left;">
-			&nbsp;<label style="color:blue"><input id="${d.id}_aud" pid="${d.pid}_aud" name="audit" type="checkbox" />审核权</label>
+			&nbsp;&nbsp;
+			${d.label}<label><input id="all_${d.id}" pid="all_${d.pid}" name="editall" type="checkbox" />采编权</label>
+			<label style="color:red"><input id="own_${d.id}" pid="own_${d.pid}" name="editown" type="checkbox" />采编权【个人】</label>
 			&nbsp;-&nbsp;
-			<label style="color:green"><input id="${d.id}_pub" pid="${d.pid}_pub" name="publish" type="checkbox" />发布权</label>
+			<label style="color:blue" id="mark_${d.id}"><input id="aud_${d.id}" pid="aud_${d.pid}" name="audit" type="checkbox" />审核权</label>
 			&nbsp;-&nbsp;
-			<label><input id="${d.id}_all" pid="${d.pid}_all" name="editall" type="checkbox" />采编权</label>
-			<label style="color:red"><input id="${d.id}_own" pid="${d.pid}_own" name="editown" type="checkbox" />采编权【个人】</label>
+			<label style="color:green"><input id="pub_${d.id}" pid="pub_${d.pid}" name="publish" type="checkbox" />发布权</label>
 		</td>
-		<td>
-			${d.scope<=0?"列表":(d.scope==1?"单页":"外链")}
-		</td>
-	</c:if>
-	<c:if test="${fn:length(d.list)>0}">
-		<td></td>
-		<td>分类</td>
-	</c:if>
 	</tr>
 </c:forEach>
 </table>

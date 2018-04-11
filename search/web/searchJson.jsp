@@ -19,11 +19,13 @@ public String getString(HttpServletRequest request, String key)
 %><%
 response.addHeader("Access-Control-Allow-Origin", "*");
 String search = new String(getString(request, "v").getBytes("iso-8859-1"), "UTF-8");
+String type = new String(getString(request, "type").getBytes("iso-8859-1"), "UTF-8");
 search = java.net.URLDecoder.decode(search, "UTF-8");
+type = java.net.URLDecoder.decode(type, "UTF-8");
 java.util.Map<String, Object> map = new java.util.HashMap<String, Object>();
 try
 {
-	common.lucene.MyPage pageModel = common.lucene.LuceneUtil.search(search, getInt(request, "page", 1), getInt(request, "pagesize", 10));
+	common.lucene.MyPage pageModel = common.lucene.LuceneUtil.search(type.split(",", -1), search, getInt(request, "page", 1), getInt(request, "pagesize", 10));
 	map.put("status", "1");//success
 	map.put("msg", "success");
 	

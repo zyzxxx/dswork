@@ -36,6 +36,14 @@ public class IUser implements Serializable
 	private Long orgpid = 0L;
 	// 所属部门
 	private Long orgid = 0L;
+	// 类型
+	private String type = "";
+	// 类型名称
+	private String typename = "";
+	// 类型扩展标识
+	private String exalias = "";
+	// 类型扩展名称
+	private String exname = "";
 
 	public void setId(Long id)
 	{
@@ -173,5 +181,45 @@ public class IUser implements Serializable
 	public void setOrgid(Long orgid)
 	{
 		this.orgid = orgid;
+	}
+
+	public String getType()
+	{
+		return type;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
+	}
+
+	public String getTypename()
+	{
+		return typename;
+	}
+
+	public void setTypename(String typename)
+	{
+		this.typename = typename;
+	}
+
+	public String getExalias()
+	{
+		return exalias;
+	}
+
+	public void setExalias(String exalias)
+	{
+		this.exalias = exalias;
+	}
+
+	public String getExname()
+	{
+		return exname;
+	}
+
+	public void setExname(String exname)
+	{
+		this.exname = exname;
 	}
 }
