@@ -347,6 +347,8 @@ public class DsCmsEditController extends DsCmsBaseController
 					if(p.getStatus() > 0 && (p.isEdit() || p.isNopass()))
 					{
 						DsCmsPage page = service.getPage(po.getId());
+						p.setScope(page.getScope());
+						p.setUrl(page.getUrl());
 						p.setTitle(page.getTitle());
 						p.setMetakeywords(page.getMetakeywords());
 						p.setMetadescription(page.getMetadescription());
@@ -358,8 +360,6 @@ public class DsCmsEditController extends DsCmsBaseController
 						p.setImg(page.getImg());
 						p.setImgtop(page.getImgtop());
 						p.setPagetop(page.getPagetop());
-						p.setScope(page.getScope());
-						p.setUrl(page.getUrl());
 						// p.setStatus(page.getStatus());
 						p.setAuditstatus(DsCmsPageEdit.PASS);
 						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
@@ -369,6 +369,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				}
 
 				p.setScope(po.getScope());
+				p.setUrl(po.getUrl());
 				p.setTitle(po.getTitle());
 				p.setSummary(po.getSummary());
 				p.setMetakeywords(po.getMetakeywords());
