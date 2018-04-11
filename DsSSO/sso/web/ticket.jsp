@@ -7,7 +7,7 @@ for (int i = 0; i < cookies.length; i++)
 {
 	c = cookies[i];
 	v += ("<br />" + c.getName() + "=" + c.getValue());
-	if (c.getName().equals("__CookieTicket__"))
+	if (c.getName().equals("DS_SSO_TICKET"))
 	{
 		value = c.getValue();
 		break;

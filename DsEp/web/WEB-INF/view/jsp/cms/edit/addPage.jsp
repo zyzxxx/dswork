@@ -14,7 +14,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 }};
 $(function(){
 	$(".form_title").css("width", "8%");
-	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"${ctx}/cms/page/uploadFile.htm?categoryid=${fn:escapeXml(param.categoryid)}",upImgUrl:"${ctx}/cms/page/uploadImage.htm?categoryid=${fn:escapeXml(param.categoryid)}"});
+	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${fn:escapeXml(param.categoryid)}",upImgUrl:"uploadImage.htm?categoryid=${fn:escapeXml(param.categoryid)}"});
 	function show(){
 		var i = new Image();
 		i.src = $("#inputImg").val();
@@ -43,7 +43,7 @@ $(function(){
 		<td class="title">添加</td>
 		<td class="menuTool">
 			<a class="save" onclick="_save();" href="javascript:void(0);">保存</a>
-			<a class="submit" onclick="_submit();" href="javascript:void(0);">提交</a>
+			<a class="submit" onclick="_submit();" href="javascript:void(0);">保存并提交</a>
 			<a class="back" href="getPage.htm?id=${fn:escapeXml(param.categoryid)}&page=${fn:escapeXml(param.page)}">返回</a>
 			<script type="text/javascript">
 			function _save(){if(confirm("确认保存吗？")){

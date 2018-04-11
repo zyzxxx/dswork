@@ -8,22 +8,22 @@
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
 function build(pageid){
-	$dswork.doAjaxObject.show("发布中");
+	$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
 	var v = {"siteid":"${po.siteid}"};
 	if(pageid != null){
 		v.categoryid = "${po.id}";
 		v.pageid = pageid;
 	}
-	$.post("build.htm",v,function(data){$dswork.showResponse(data);});
+	$.post("build.htm",v,function(data){$dswork.doAjaxShow(data, function(){});});
 }
 function unbuild(pageid){
-	$dswork.doAjaxObject.show("删除中");
+	$dswork.doAjaxObject.autoDelayHide("删除中", 2000);
 	var v = {"siteid":"${po.siteid}"};
 	if(pageid != null){
 		v.categoryid = "${po.id}";
 		v.pageid = pageid;
 	}
-	$.post("unbuild.htm",v,function(data){$dswork.showResponse(data);});
+	$.post("unbuild.htm",v,function(data){$dswork.doAjaxShow(data, function(){});});
 }
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-graph">预览</div>').bind("click", function(){
@@ -72,7 +72,9 @@ $(function(){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
+		<td class="title">${fn:escapeXml(po.name)}-内容列表
+<%-- 			<c:if test="${po.status==0 || po.status==1}"> <label style="color:#f00;font-weight:600;">栏目内容已更新，请重新发布栏目和内容</label></c:if> --%>
+		</td>
 		<td class="menuTool">
 			<a class="delete" id="btn_category_d" href="#">删除栏目首页</a>
 			<a class="delete" id="btn_page_d" href="#">删除发布内容</a>

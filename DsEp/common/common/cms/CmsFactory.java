@@ -8,14 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import dswork.core.page.Page;
 
 public class CmsFactory
 {
-	private static DsCmsDao dao = null;
-
 	private static Long toLong(Object v)
 	{
 		try
@@ -27,10 +23,12 @@ public class CmsFactory
 			return 0L;
 		}
 	}
+	private static DsCmsDao dao = null;
+
 	private Long siteid = 0L;
 	Map<String, Object> site = new HashMap<String, Object>();
 
-	public CmsFactory(HttpServletRequest request)
+	public CmsFactory(Long _siteid)
 	{
 		try
 		{
@@ -38,8 +36,7 @@ public class CmsFactory
 			{
 				init();
 			}
-			String tmp = String.valueOf(request.getParameter("siteid"));
-			siteid = toLong(tmp);
+			siteid = _siteid;
 			site = getDao().getSite(siteid);
 		}
 		catch(Exception ex)

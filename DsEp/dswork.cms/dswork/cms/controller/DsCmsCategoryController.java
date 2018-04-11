@@ -57,7 +57,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			Long siteid = req.getLong("siteid");
 			DsCmsSite site = service.getSite(siteid);
 			put("templates", getTemplateName(site.getFolder()));
-			put("list", queryCategory(siteid, false, 0));
+			put("list", queryCategory(siteid, true, 0));
 			return "/cms/category/addCategory.jsp";
 		}
 		catch(Exception e)
@@ -74,12 +74,8 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			if(po.getSiteid() >= 0)
 			{
 				DsCmsSite s = service.getSite(po.getSiteid());
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
-					if(po.getScope() != 2)
-					{
-						po.setUrl("/a/" + po.getFolder() + "/index.html");
-					}
 					po.setStatus(0);// 没有新增状态，直接就是修改状态
 					service.save(po);
 					print(1);
@@ -113,7 +109,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 					return;
 				}
 				DsCmsSite s = service.getSite(siteid);
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					service.delete(id);
 					print(1);
@@ -141,10 +137,10 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			if(siteid == po.getSiteid())
 			{
 				DsCmsSite s = service.getSite(siteid);
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					put("po", po);
-					put("list", queryCategory(po.getSiteid(), false, id));
+					put("list", queryCategory(po.getSiteid(), true, id));
 					DsCmsSite site = service.getSite(siteid);
 					put("templates", getTemplateName(site.getFolder()));
 					return "/cms/category/updCategory.jsp";
@@ -164,20 +160,8 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		{
 			DsCmsCategory m = service.get(po.getId());
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getSiteid() == s.getId() && checkOwn(s.getOwn()))
+			if(m.getSiteid() == s.getId() && checkOwn(s.getId()))
 			{
-				if(m.getScope() == 0 && !po.getFolder().equals(m.getFolder()))// 列表栏目存在内容时，不可修改目录名称
-				{
-					if(service.getCountByCategoryid(m.getSiteid(), m.getId()) > 0)
-					{
-						print("0:存在内容时目录名称不可修改");
-						return;
-					}
-				}
-				if(m.getScope() != 2)
-				{
-					po.setUrl("/a/" + po.getFolder() + "/index.html");
-				}
 				service.update(po);
 				print(1);
 				return;
@@ -202,7 +186,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			if(idArr.length == seqArr.length)
 			{
 				DsCmsSite s = service.getSite(siteid);
-				if(checkOwn(s.getOwn()))
+				if(checkOwn(s.getId()))
 				{
 					service.updateSeq(idArr, seqArr, siteid);
 					print(1);
@@ -272,52 +256,8 @@ public class DsCmsCategoryController extends DsCmsBaseController
 	{
 		Map<String, Object> filters = new HashMap<String, Object>();
 		filters.put("siteid", siteid);
+		filters.put("publishstatus", "true");
 		List<DsCmsCategory> clist = service.queryList(filters);
-		Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
-		for(DsCmsCategory m : clist)
-		{
-			map.put(m.getId(), m);
-		}
-		List<DsCmsCategory> tlist = new ArrayList<DsCmsCategory>();
-		for(DsCmsCategory m : clist)
-		{
-			if(m.getId() != excludeId)
-			{
-				if(m.getPid() > 0)
-				{
-					try
-					{
-						if(m.getScope() == 0 || exclude)
-						{
-							map.get(m.getPid()).add(m);// 放入其余节点对应的父节点
-						}
-					}
-					catch(Exception ex)
-					{
-						ex.printStackTrace();// 找不到对应的父栏目
-					}
-				}
-				else if(m.getPid() == 0)
-				{
-					if(m.getScope() == 0 || exclude)
-					{
-						tlist.add(m);// 只把根节点放入list
-					}
-				}
-			}
-		}
-		if(excludeId > 0)
-		{
-			try
-			{
-				map.get(excludeId).clearList();
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();// 找不到对应的栏目
-			}
-		}
-		List<DsCmsCategory> list = DsCmsUtil.categorySettingList(tlist);
-		return list;
+		return queryCategory(clist, exclude, excludeId);
 	}
 }

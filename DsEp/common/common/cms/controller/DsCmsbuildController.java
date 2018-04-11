@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.cms.CmsFactory;
+import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 
 @Scope("prototype")
@@ -26,7 +27,7 @@ public class DsCmsbuildController extends BaseController
 		CmsFactory cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY);
 		if(cms == null)
 		{
-			cms = new CmsFactory(request);
+			cms = new CmsFactory(siteid);
 			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
 			request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
 		}
@@ -35,13 +36,14 @@ public class DsCmsbuildController extends BaseController
 			String siteidstr = String.valueOf(request.getSession().getAttribute(CMS_FACTORY_KEY_SITEID));
 			if(!siteidstr.equals(cms.getSite().get("id")))
 			{
-				cms = new CmsFactory(request);
+				cms = new CmsFactory(siteid);
 				request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
 				request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
 			}
 		}
 		
 		put("cms", cms);
+		put("year", TimeUtil.getCurrentTime("yyyy"));
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
 		if(req.getString("view").equals("true"))

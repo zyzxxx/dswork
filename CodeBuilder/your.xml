@@ -58,7 +58,7 @@
 	</params>
 
 	<connect name="MySqlModel.dll"  type="Builder.MySqlModel"  url="server=dbserver;Port=3306;Database=plant;User Id=plant;Password=plant" />
-	<builder developer="九五" project="E:/Workspaces/MySpace/skey/plant" templatename="base" src="src" web="web">
+	<builder developer="九五" project="E:/Workspaces/MySpace/temp" templatename="base" src="src" web="web">
 		<code frame="dswork" namespace="jwzz" module="" webmodule="/manage/jwzz/flow" table="PLANT_FLOW" model="PlantFlow" comment="mybatis" />
 		<code frame="dswork" namespace="jwzz" module="" webmodule="/manage/jwzz/flowdata" table="PLANT_FLOW_DATA" model="PlantFlowData" comment="mybatis" />
 	</builder>

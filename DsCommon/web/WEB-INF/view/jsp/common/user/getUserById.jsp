@@ -27,6 +27,10 @@
 		<td class="form_input">${fn:escapeXml(po.name)}</td>
 	</tr>
 	<tr>
+		<td class="form_title">类型</td>
+		<td class="form_input">${fn:escapeXml(po.typename)}&nbsp;&nbsp;&nbsp;&nbsp;${fn:escapeXml(po.exname)}</td>
+	</tr>
+	<tr>
 		<td class="form_title">身份证号</td>
 		<td class="form_input">${fn:escapeXml(po.idcard)}</td>
 	</tr>

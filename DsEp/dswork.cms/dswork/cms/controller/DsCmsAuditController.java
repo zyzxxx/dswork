@@ -1,19 +1,14 @@
 package dswork.cms.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.cms.model.DsCmsAuditCategory;
-import dswork.cms.model.DsCmsAuditPage;
+import dswork.cms.model.DsCmsCategoryEdit;
+import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
-import dswork.cms.model.DsCmsPermission;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsAuditService;
 import dswork.core.page.Page;
@@ -35,10 +30,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 		try
 		{
 			Long id = req.getLong("siteid", -1), siteid = -1L;
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("own", getOwn());
-			map.put("account", getAccount());
-			List<DsCmsSite> siteList = service.queryListSite(map);
+			List<DsCmsSite> siteList = service.queryListSite(getOwn());
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);
@@ -60,13 +52,8 @@ public class DsCmsAuditController extends DsCmsBaseController
 			}
 			if(siteid >= 0)
 			{
-				DsCmsPermission permission = service.getPermission(siteid, getAccount());
-				List<DsCmsCategory> categoryList = new ArrayList<DsCmsCategory>();
-				if(permission != null)
-				{
-					List<DsCmsCategory> _categoryList = service.queryListCategory(siteid);
-					categoryList = DsCmsUtil.categoryAccess(_categoryList, permission.getAudit());
-				}
+				List<DsCmsCategory> categoryList = service.queryListCategory(siteid);
+				categoryList = categoryAccess(categoryList, this);
 				put("siteList", siteList);
 				put("categoryList", categoryList);
 			}
@@ -86,21 +73,17 @@ public class DsCmsAuditController extends DsCmsBaseController
 		try
 		{
 			long id = req.getLong("id");
-			DsCmsAuditCategory po = service.getAuditCategory(id);
+			DsCmsCategoryEdit po = service.getCategoryEdit(id);
 			if(po == null)
 			{
-				po = service.saveAuditCategory(id);
+				po = service.saveCategoryEdit(id);
 			}
-			DsCmsSite s = service.getSite(po.getSiteid());
-			if(checkOwn(s.getOwn()))
+			if(checkAudit(po.getSiteid(), po.getId()))
 			{
-				if(checkAudit(po.getSiteid(), po.getId()))
-				{
-					DsCmsCategory m = service.getCategory(po.getId());
-					put("scope", m.getScope());
-					put("po", po);
-					return "/cms/audit/auditCategory.jsp";
-				}
+				DsCmsCategory m = service.getCategory(po.getId());
+				put("scope", m.getScope());
+				put("po", po);
+				return "/cms/audit/auditCategory.jsp";
 			}
 		}
 		catch(Exception e)
@@ -110,42 +93,39 @@ public class DsCmsAuditController extends DsCmsBaseController
 	}
 
 	@RequestMapping("/auditCategory2")
-	public void updCategory2(DsCmsAuditCategory po)
+	public void updCategory2(DsCmsCategoryEdit po)
 	{
 		try
 		{
 			DsCmsCategory m = service.getCategory(po.getId());
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getScope() != 0 && checkOwn(s.getOwn()))
+			if(checkAudit(s.getId(), m.getId()))
 			{
-				if(checkAudit(s.getId(), m.getId()))
+				DsCmsCategoryEdit _po = service.getCategoryEdit(po.getId());
+				if(_po.isAudit())
 				{
-					DsCmsAuditCategory _po = service.getAuditCategory(po.getId());
-					if(_po.isAudit())
+					String action = req.getString("action");
+					if("pass".equals(action))
 					{
-						String action = req.getString("action");
-						if("pass".equals(action))
-						{
-							_po.setAuditstatus(4);
-						}
-						else if("nopass".equals(action))
-						{
-							_po.setAuditstatus(2);
-						}
-						else
-						{
-							print("0:参数错误");
-							return;
-						}
-						_po.setMsg(po.getMsg());
-						_po.setAuditid(getAccount());
-						_po.setAuditname(getName());
-						_po.setAudittime(TimeUtil.getCurrentTime());
-						service.updateAuditCategory(_po, m, s.isEnablelog());
+						_po.setAuditstatus(4);
 					}
-					print(1);
-					return;
+					else if("nopass".equals(action))
+					{
+						_po.setAuditstatus(2);
+					}
+					else
+					{
+						print("0:参数错误");
+						return;
+					}
+					_po.setMsg(po.getMsg());
+					_po.setAuditid(getAccount());
+					_po.setAuditname(getName());
+					_po.setAudittime(TimeUtil.getCurrentTime());
+					service.updateCategoryEdit(_po, m, s.isWriteLog());
 				}
+				print(1);
+				return;
 			}
 			print("0:站点不存在");
 		}
@@ -165,23 +145,22 @@ public class DsCmsAuditController extends DsCmsBaseController
 			Long categoryid = req.getLong("id");
 			DsCmsCategory m = service.getCategory(categoryid);
 			DsCmsSite s = service.getSite(m.getSiteid());
-			if(checkOwn(s.getOwn()))
+			if(checkAudit(s.getId(), m.getId()))
 			{
-				if(checkAudit(s.getId(), m.getId()))
+				if(m.getScope() == 0)// 列表
 				{
-					if(m.getScope() == 0 && checkOwn(s.getOwn()))// 列表
-					{
-						PageRequest pr = getPageRequest();
-						pr.getFilters().remove("id");
-						pr.getFilters().put("siteid", m.getSiteid());
-						pr.getFilters().put("categoryid", m.getId());
-						pr.getFilters().put("auditstatus", DsCmsAuditPage.AUDIT);
-						Page<DsCmsAuditPage> pageModel = service.queryPageAuditPage(pr);
-						put("pageModel", pageModel);
-						put("pageNav", new PageNav<DsCmsAuditPage>(request, pageModel));
-						put("po", m);
-						return "/cms/audit/getPage.jsp";
-					}
+					PageRequest pr = getPageRequest();
+					pr.getFilters().remove("id");
+					pr.getFilters().put("siteid", m.getSiteid());
+					pr.getFilters().put("categoryid", m.getId());
+					pr.getFilters().put("auditstatus", DsCmsPageEdit.AUDIT);
+					Page<DsCmsPageEdit> pageModel = service.queryPagePageEdit(pr);
+					put("pageModel", pageModel);
+					put("pageNav", new PageNav<DsCmsPageEdit>(request, pageModel));
+					put("po", m);
+					DsCmsCategoryEdit c = service.getCategoryEdit(categoryid);
+					put("audit", c == null ? false : c.isAudit());
+					return "/cms/audit/getPage.jsp";
 				}
 			}
 		}
@@ -198,16 +177,13 @@ public class DsCmsAuditController extends DsCmsBaseController
 		try
 		{
 			Long id = req.getLong("keyIndex");
-			DsCmsAuditPage po = service.getAuditPage(id);
+			DsCmsPageEdit po = service.getPageEdit(id);
 			DsCmsSite s = service.getSite(po.getSiteid());
-			if(checkOwn(s.getOwn()))
+			if(checkAudit(s.getId(), po.getCategoryid()))
 			{
-				if(checkAudit(s.getId(), po.getCategoryid()))
-				{
-					put("po", po);
-					put("page", req.getInt("page", 1));
-					return "/cms/audit/auditPage.jsp";
-				}
+				put("po", po);
+				put("page", req.getInt("page", 1));
+				return "/cms/audit/auditPage.jsp";
 			}
 		}
 		catch(Exception e)
@@ -217,48 +193,45 @@ public class DsCmsAuditController extends DsCmsBaseController
 	}
 
 	@RequestMapping("/auditPage2")
-	public void auditPage2(DsCmsAuditPage po)
+	public void auditPage2(DsCmsPageEdit po)
 	{
 		try
 		{
-			DsCmsAuditPage _po = service.getAuditPage(po.getId());
+			DsCmsPageEdit _po = service.getPageEdit(po.getId());
 			DsCmsSite s = service.getSite(_po.getSiteid());
-			if(checkOwn(s.getOwn()))
+			if(checkAudit(s.getId(), _po.getCategoryid()))
 			{
-				if(checkAudit(s.getId(), _po.getCategoryid()))
+				if(_po.isAudit())
 				{
-					if(_po.isAudit())
+					String action = req.getString("action");
+					if("pass".equals(action))
 					{
-						String action = req.getString("action");
-						if("pass".equals(action))
-						{
-							_po.setAuditstatus(4);
-						}
-						else if("nopass".equals(action))
-						{
-							_po.setAuditstatus(2);
-						}
-						else
-						{
-							print("0:参数错误");
-							return;
-						}
-						_po.setMsg(po.getMsg());
-						_po.setAuditid(getAccount());
-						_po.setAuditname(getName());
-						_po.setAudittime(TimeUtil.getCurrentTime());
-						if(_po.getStatus() == -1)
-						{
-							service.deleteAuditPage(_po, s.isEnablelog());
-						}
-						else
-						{
-							service.updateAuditPage(_po, s.isEnablelog());
-						}
+						_po.setAuditstatus(4);
 					}
-					print(1);
-					return;
+					else if("nopass".equals(action))
+					{
+						_po.setAuditstatus(2);
+					}
+					else
+					{
+						print("0:参数错误");
+						return;
+					}
+					_po.setMsg(po.getMsg());
+					_po.setAuditid(getAccount());
+					_po.setAuditname(getName());
+					_po.setAudittime(TimeUtil.getCurrentTime());
+					if(_po.getStatus() == -1)
+					{
+						service.deletePageEdit(_po, s.isWriteLog());
+					}
+					else
+					{
+						service.updatePageEdit(_po, s.isWriteLog());
+					}
 				}
+				print(1);
+				return;
 			}
 			print("0:站点不存在");
 		}
@@ -269,15 +242,9 @@ public class DsCmsAuditController extends DsCmsBaseController
 		}
 	}
 
-	private boolean checkAudit(long siteid, long categoryid)
+	@Override
+	public boolean checkCategory(DsCmsCategory category)
 	{
-		try
-		{
-			return service.getPermission(siteid, getAccount()).checkAudit(categoryid);
-		}
-		catch(Exception e)
-		{
-			return false;
-		}
+		return checkAudit(category.getSiteid(), category.getId());
 	}
 }

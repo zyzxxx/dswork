@@ -14,7 +14,6 @@ $(function(){
 	$("#scope").bind("click", function(){
 		if($("#scope").val() == 2){
 			$("#mylink").show();
-			$("#myfolder").val("").hide();
 			$("#template_category").val("").hide();
 			$("#template_page").val("").hide();
 			$("#viewsite").val("");
@@ -23,7 +22,6 @@ $(function(){
 		}
 		else if($("#scope").val() == 1){
 			$("#mylink").val("").hide();
-			$("#myfolder").show();
 			$("#template_category").show();
 			$("#template_page").val("").hide();
 			$("#pageviewsite").val("");
@@ -31,7 +29,6 @@ $(function(){
 		}
 		else{
 			$("#mylink").val("").hide();
-			$("#myfolder").show();
 			$("#template_category").show();
 			$("#template_page").show();
 			$("#url").attr("require", "false");
@@ -60,7 +57,7 @@ $(function(){
 		<td class="form_title">上级栏目</td>
 		<td class="form_input"><select name="pid"><option value="0">≡顶级栏目≡</option>
 		<c:forEach items="${list}" var="d">
-			<option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option>
+			<option value="${d.id}">${d.label}${fn:escapeXml(d.name)}&nbsp;[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</option>
 		</c:forEach>
 		</select></td>
 	</tr>
@@ -68,19 +65,15 @@ $(function(){
 		<td class="form_title">栏目名称</td>
 		<td class="form_input"><input type="text" name="name" maxlength="100" dataType="Require" value="" /></td>
 	</tr>
-	<tbody id="myfolder">
-	<tr>
-		<td class="form_title">目录名称</td>
-		<td class="form_input"><input type="text" name="folder" maxlength="50" dataType="Char" value="" /></td>
-	</tr>
-	</tbody>
 	<tr>
 		<td class="form_title">类型</td>
-		<td class="form_input"><select id="scope" name="scope" style="width:100px;">
-			<option value="0">列表</option>
-			<option value="1">单页</option>
-			<option value="2">外链</option>
-		</select> <span style="font-weight:bold;">添加后不可修改</span></td>
+		<td class="form_input">
+			<select id="scope" name="scope" style="width:100px;">
+				<option value="0">列表</option>
+				<option value="1">单页</option>
+				<option value="2">外链</option>
+			</select>
+		</td>
 	</tr>
 	<tbody id="mylink">
 	<tr>

@@ -18,8 +18,6 @@ public class DsCmsCategory
 	private int status = 0;
 	// 栏目名称
 	private String name = "";
-	// 目录名称
-	private String folder = "";
 	// 类型(0列表,1单页,2外链)
 	private int scope = 0;
 	// 链接
@@ -49,7 +47,7 @@ public class DsCmsCategory
 	// 子栏目
 	private List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 	// 级别(管理时扩展显示)
-	private int level = 0;
+	private boolean enable = false;
 	// 树形标识(管理时扩展显示)
 	private String label = "";
 
@@ -101,16 +99,6 @@ public class DsCmsCategory
 	public void setName(String name)
 	{
 		this.name = name;
-	}
-
-	public String getFolder()
-	{
-		return folder;
-	}
-
-	public void setFolder(String folder)
-	{
-		this.folder = folder;
 	}
 
 	public int getScope()
@@ -258,14 +246,14 @@ public class DsCmsCategory
 		this.list.add(item);
 	}
 
-	public int getLevel()
+	public boolean isEnable()
 	{
-		return level;
+		return enable;
 	}
 
-	public void setLevel(int level)
+	public void setEnable(boolean enable)
 	{
-		this.level = level;
+		this.enable = enable;
 	}
 
 	public String getLabel()

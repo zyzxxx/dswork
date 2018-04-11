@@ -9,12 +9,13 @@
 <%@include file="/commons/include/editor.jsp" %>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type==1){
-	location.reload();
+	<c:if test="${scope==0}">location.href = 'getPage.htm?id=${po.id}';</c:if>
+	<c:if test="${scope!=0}">location.reload();</c:if>
 }}
 $(function(){
 	$(".form_title").css("width", "8%");
-<c:if test="${scope==1&&!po.audit}">
-	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"${ctx}/cms/page/uploadFile.htm?categoryid=${po.id}",upImgUrl:"${ctx}/cms/page/uploadImage.htm?categoryid=${po.id}"});
+<c:if test="${(scope==0 || scope==1)&&!po.audit}">
+	$('#content').xheditor({html5Upload:true,upMultiple:1,upLinkUrl:"uploadFile.htm?categoryid=${po.id}",upImgUrl:"uploadImage.htm?categoryid=${po.id}"});
 	function show(){
 		var i = new Image();
 		i.src = $("#inputImg").val();
@@ -42,35 +43,8 @@ $(function(){
 	<tr>
 		<td class="title">修改栏目</td>
 		<td class="menuTool">
-		<c:if test="${scope==1}">
-			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
-		</c:if>
-		<c:if test="${scope==2}">
-			<a class="look" target="_blank" href="${po.url}">预览外链</a>
-		</c:if>
-		<c:if test="${!po.audit}">
-			<a class="submit" onclick="_submit();" href="javascript:void(0);">提交</a>
-			<a class="save" onclick="_save();" href="javascript:void(0);">保存</a>
-			<script type="text/javascript">
-			function _save(){if(confirm("确认保存吗？")){
-				$('input[name="action"]').val('save');
-				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
-			}}
-			function _submit(){if(confirm("确认提交吗？")){
-				$('input[name="action"]').val('submit');
-				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
-			}}
-			</script>
-			<c:if test="${po.status>0 && (po.edit || po.nopass)}">
-				<a class="back" onclick="_restore();" href="javascript:void(0);">还原</a>
-				<script type="text/javascript">
-				function _restore(){if(confirm("确认还原吗？")){
-					$('input[name="action"]').val('restore');
-					$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
-				}}
-				</script>
-			</c:if>
-		</c:if>
+		<c:if test="${scope==2}"><a class="look" target="_blank" href="${po.url}">预览外链</a></c:if>
+		<c:if test="${scope!=2}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a></c:if>
 		<c:if test="${po.audit}">
 			<a class="back" onclick="_revoke();" href="javascript:void(0);">撤回提交</a>
 			<script type="text/javascript">
@@ -81,6 +55,30 @@ $(function(){
 			$(function(){$("input,textarea").attr("readonly", "readonly")});
 			</script>
 		</c:if>
+		<c:if test="${!po.audit}">
+			<c:if test="${po.status>0 && (po.edit || po.nopass)}">
+				<a class="back" onclick="_restore();" href="javascript:void(0);">还原</a>
+				<script type="text/javascript">
+				function _restore(){if(confirm("确认还原吗？")){
+					$('input[name="action"]').val('restore');
+					$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
+				}}
+				</script>
+			</c:if>
+			<a class="save" onclick="_save();" href="javascript:void(0);">保存</a>
+			<a class="submit" onclick="_submit();" href="javascript:void(0);">保存并提交</a>
+			<script type="text/javascript">
+			function _save(){if(confirm("确认保存吗？")){
+				$('input[name="action"]').val('save');
+				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
+			}}
+			function _submit(){if(confirm("确认提交吗？")){
+				$('input[name="action"]').val('submit');
+				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
+			}}
+			</script>
+		</c:if>
+		<c:if test="${scope==0}"><a class="back" href="getPage.htm?id=${po.id}">返回</a></c:if>
 		</td>
 	</tr>
 </table>
@@ -93,7 +91,7 @@ $(function(){
 </c:if>
 <c:if test="${!po.audit}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-<c:if test="${scope==1}">
+<c:if test="${scope==0 || scope==1}">
 	<tr>
 		<td class="form_title">摘要</td>
 		<td class="form_input"><input type="text" name="summary" maxlength="100" style="width:400px;" value="${fn:escapeXml(po.summary)}" /></td>

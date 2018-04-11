@@ -46,6 +46,24 @@ public class DsCmsCategoryDao extends BaseDao<DsCmsCategory, Long>
 	}
 
 	/**
+	 * 更新外链栏目
+	 * @param po 更新地址、摘要、图片及发布状态及时间状态
+	 */
+	public void updateURL(DsCmsCategory po)
+	{
+		executeUpdate("updateURL", po);
+	}
+
+	/**
+	 * 更新栏目类型
+	 * @param po 更新地址、摘要、图片及发布状态及时间状态
+	 */
+	public void updateScope(DsCmsCategory po)
+	{
+		executeUpdate("updateScope", po);
+	}
+
+	/**
 	 * 更新发布状态
 	 * @param id 
 	 * @param status 
