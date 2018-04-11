@@ -89,25 +89,6 @@ public class DsCmsEditController extends DsCmsBaseController
 			{
 				if(checkEdit(s.getId(), c.getId()))
 				{
-					String action = req.getString("action");
-					boolean writePage = false;
-					if("save".equals(action))
-					{
-						po.setAuditstatus(0);
-					}
-					else if("submit".equals(action))
-					{
-						if(checkCategory(s.getId(), c.getId()))
-						{
-							writePage = true;
-						}
-						po.setAuditstatus(1);
-					}
-					else
-					{
-						print("0:参数错误");
-						return;
-					}
 					po.setSiteid(c.getSiteid());
 					po.setCategoryid(c.getId());
 					po.pushEditidAndEditname(getAccount(), getName());
@@ -117,8 +98,29 @@ public class DsCmsEditController extends DsCmsBaseController
 						po.setReleasetime(TimeUtil.getCurrentTime());
 					}
 					po.setStatus(0); // 新增
-					service.savePageEdit(po, writePage, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
-					print(1);
+
+					String action = req.getString("action");
+					if("save".equals(action))
+					{
+						po.setAuditstatus(0);
+						service.savePageEdit(po, false, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
+						print(1);
+						return;
+					}
+					if("submit".equals(action))
+					{
+						if(checkCategory(s.getId(), c.getId()))
+						{
+							service.savePageEdit(po, true, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
+							print(1);
+							return;
+						}
+						po.setAuditstatus(1);
+						service.savePageEdit(po, false, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
+						print(1);
+						return;
+					}
+					print("0:参数错误");
 					return;
 				}
 			}
@@ -254,7 +256,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					print(1);
 					return;
 				}
-				else if(checkEditall(s.getId(), c.getId()) || checkEditown(s.getId(), c.getId()))
+				if(checkEditall(s.getId(), c.getId()) || checkEditown(s.getId(), c.getId()))
 				{
 					boolean editown = checkEditown(s.getId(), c.getId());
 					for(long id : idArray)
