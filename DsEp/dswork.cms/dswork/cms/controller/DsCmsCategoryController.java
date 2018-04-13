@@ -18,6 +18,7 @@ import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsCategoryService;
 import dswork.core.page.Page;
+import dswork.core.page.PageNav;
 
 @Scope("prototype")
 @Controller
@@ -285,10 +286,11 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			if(checkOwn(po.getSiteid()))
 			{
 				put("po", po);
-				if(po.getScope() == 1)
+				if(po.getScope() == 0)
 				{
-					Page<DsCmsPageEdit> pageModel = service.queryPagePageEdit(getPageRequest());
-					put("pageModel", pageModel);
+					Page<DsCmsPageEdit> page = service.queryPagePageEdit(getPageRequest());
+					put("pageModel", page);
+					put("pageNav", new PageNav<DsCmsPageEdit>(request, page));
 				}
 				return "/cms/category/getRecycledCategoryById.jsp";
 			}
