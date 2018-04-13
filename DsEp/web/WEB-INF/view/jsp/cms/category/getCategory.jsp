@@ -16,7 +16,6 @@
 </table>
 </body>
 </c:if>
-
 <c:if test="${siteid>=0}">
 <head>
 <title></title>

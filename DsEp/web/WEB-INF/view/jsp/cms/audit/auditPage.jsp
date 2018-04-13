@@ -22,8 +22,8 @@ $(function(){
 		<td class="title">审核页面</td>
 	<c:if test="${po.audit}">
 		<td class="menuTool">
-			<a class="submit" onclick="_pass();" href="javascript:void(0);">通过</a>
-			<a class="close" onclick="_nopass();" href="javascript:void(0);">不通过</a>
+			<a class="submit" onclick="_pass();" href="#">通过</a>
+			<a class="close" onclick="_nopass();" href="#">不通过</a>
 			<a class="back" href="getPage.htm?id=${po.categoryid}&page=${param.page}">返回</a>
 			<script type="text/javascript">
 			function _pass(){if(confirm('确认通过？')){

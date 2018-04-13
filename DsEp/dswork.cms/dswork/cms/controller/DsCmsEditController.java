@@ -93,11 +93,11 @@ public class DsCmsEditController extends DsCmsBaseController
 					po.setCategoryid(c.getId());
 					po.pushEditidAndEditname(getAccount(), getName());
 					po.setEdittime(TimeUtil.getCurrentTime());
+					po.setStatus(0);
 					if(po.getReleasetime().trim().equals(""))
 					{
 						po.setReleasetime(TimeUtil.getCurrentTime());
 					}
-					po.setStatus(0); // 新增
 
 					String action = req.getString("action");
 					if("save".equals(action))
@@ -247,10 +247,7 @@ public class DsCmsEditController extends DsCmsBaseController
 						DsCmsPageEdit p = service.getPageEdit(id);
 						if(c.getId() == p.getCategoryid())
 						{
-							if(p.getStatus() == 0)// 新增的数据，直接删除
-							{
-								service.deletePageEdit(p.getId(), true);
-							}
+							service.deletePageEdit(p.getId());
 						}
 					}
 					print(1);
@@ -270,7 +267,7 @@ public class DsCmsEditController extends DsCmsBaseController
 							}
 							if(p.getStatus() == 0)// 新增的数据，直接删除
 							{
-								service.deletePageEdit(p.getId(), false);
+								service.deletePageEdit(p.getId());
 							}
 							else// 非新增的数据，需审核后才能删除
 							{

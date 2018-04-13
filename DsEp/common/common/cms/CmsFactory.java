@@ -205,7 +205,7 @@ public class CmsFactory
 
 	private int initpage(int page, int total)
 	{
-		if(page < 0)
+		if(page <= 0)
 		{
 			page = 1;
 		}

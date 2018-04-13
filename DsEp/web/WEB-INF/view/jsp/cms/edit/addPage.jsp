@@ -7,7 +7,6 @@
 <title></title>
 <%@include file="/commons/include/addAjax.jsp" %>
 <%@include file="/commons/include/editor.jsp" %>
-<script type="text/javascript" src="${ctx}/js/smartImgAdd.js"></script>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getPage.htm?id=${fn:escapeXml(param.categoryid)}";
@@ -42,8 +41,8 @@ $(function(){
 	<tr>
 		<td class="title">添加</td>
 		<td class="menuTool">
-			<a class="save" onclick="_save();" href="javascript:void(0);">保存</a>
-			<a class="submit" onclick="_submit();" href="javascript:void(0);">保存并提交</a>
+			<a class="save" onclick="_save();" href="#">保存</a>
+			<a class="submit" onclick="_submit();" href="#">保存并提交</a>
 			<a class="back" href="getPage.htm?id=${fn:escapeXml(param.categoryid)}&page=${fn:escapeXml(param.page)}">返回</a>
 			<script type="text/javascript">
 			function _save(){if(confirm("确认保存吗？")){

@@ -61,9 +61,9 @@ var treedata = [
 var nn = [
 	{id:10, name:"CMS", img:"", imgOpen:"", url:"", items:[
 		 {id:12,name:"栏目管理", img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
+		,{id:13,name:"栏目回收站", img:"", imgOpen:"", url:'/cms/category/getRecycledCategory.htm', items:[]}
 		,{id:11,name:"模板编辑", img:"", imgOpen:"", url:'/cms/template/getTemplateTree.htm', items:[]}
 		,{id:12,name:"附件管理", img:"", imgOpen:"", url:'/cms/file/getFileTree.htm', items:[]}
-// 		,{id:13,name:"信息发布", img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
 		,{id:14,name:"附加功能", img:"", imgOpen:"", url:'', items:[
 			 {id:141,name:'CMS日志', img:"", imgOpen:"", url:'/cms/log/getLog.jsp', items:[]}
 			,{id:143,name:'信息总数', img:"", imgOpen:"", url:'/cms/page/main.html', items:[]}
