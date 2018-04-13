@@ -26,6 +26,7 @@ import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
 import dswork.core.util.UniqueId;
 
+@SuppressWarnings("unchecked")
 @Service
 public class DsCmsAuditService
 {
@@ -57,7 +58,6 @@ public class DsCmsAuditService
 		return siteDao.queryList(own);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<DsCmsCategory> queryListCategory(Long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -203,7 +203,6 @@ public class DsCmsAuditService
 		return (DsCmsPageEdit) pageEditDao.get(id);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Page<DsCmsPageEdit> queryPagePageEdit(PageRequest pr)
 	{
 		return pageEditDao.queryPage(pr);

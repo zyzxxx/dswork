@@ -26,6 +26,7 @@ import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
 import dswork.core.util.UniqueId;
 
+@SuppressWarnings("unchecked")
 @Service
 public class DsCmsEditService
 {
@@ -219,18 +220,18 @@ public class DsCmsEditService
 	public DsCmsCategoryEdit saveCategoryEdit(Long id)
 	{
 		DsCmsCategoryEdit po = new DsCmsCategoryEdit();
-		DsCmsCategory _po = (DsCmsCategory) categoryDao.get(id);
-		po.setId(_po.getId());
-		po.setSiteid(_po.getSiteid());
-		po.setSummary(_po.getSummary());
-		po.setMetakeywords(_po.getMetakeywords());
-		po.setMetadescription(_po.getMetadescription());
-		po.setReleasesource(_po.getReleasesource());
-		po.setReleaseuser(_po.getReleaseuser());
-		po.setImg(_po.getImg());
-		po.setContent(_po.getContent());
-		po.setReleasetime(_po.getReleasetime());
-		po.setUrl(_po.getUrl());
+		DsCmsCategory c = (DsCmsCategory) categoryDao.get(id);
+		po.setId(c.getId());
+		po.setSiteid(c.getSiteid());
+		po.setSummary(c.getSummary());
+		po.setMetakeywords(c.getMetakeywords());
+		po.setMetadescription(c.getMetadescription());
+		po.setReleasesource(c.getReleasesource());
+		po.setReleaseuser(c.getReleaseuser());
+		po.setImg(c.getImg());
+		po.setContent(c.getContent());
+		po.setReleasetime(c.getReleasetime());
+		po.setUrl(c.getUrl());
 		po.setAuditstatus(DsCmsCategoryEdit.EDIT);// 编辑状态
 		po.setStatus(0);// 初始设置为新增状态
 		categoryEditDao.save(po);
@@ -257,13 +258,11 @@ public class DsCmsEditService
 		return siteDao.queryList(own);
 	}
 
-	@SuppressWarnings("unchecked")
 	public Page<DsCmsPageEdit> queryPagePageEdit(PageRequest pr)
 	{
 		return pageEditDao.queryPage(pr);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<DsCmsCategory> queryListCategory(long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
