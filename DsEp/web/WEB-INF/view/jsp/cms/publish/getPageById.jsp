@@ -33,7 +33,7 @@ $(function(){
 		<c:if test="${po.scope!=2}">
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">预览</a>
 		</c:if>
-			<a class="graph" id="btn_category" href="javascript:void(0);">发布</a>
+			<a class="graph" id="btn_category" href="#">发布</a>
 			<a class="back" href="getPage.htm?id=${po.categoryid}&page=${page}">返回</a>
 		</td>
 	</tr>

@@ -22,8 +22,8 @@ $(function(){
 		<c:if test="${scope==0}"><a class="back" href="getPage.htm?id=${po.id}">返回</a></c:if>
 		<c:if test="${po.audit}">
 		<td class="menuTool">
-			<a class="submit" onclick="_pass();" href="javascript:void(0);">通过</a>
-			<a class="close" onclick="_nopass();" href="javascript:void(0);">不通过</a>
+			<a class="submit" onclick="_pass();" href="#">通过</a>
+			<a class="close" onclick="_nopass();" href="#">不通过</a>
 			<script type="text/javascript">
 			function _pass(){if(confirm('确认通过？')){
 				$('input[name="action"]').val('pass');

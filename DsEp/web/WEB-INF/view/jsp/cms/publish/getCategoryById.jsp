@@ -37,13 +37,13 @@ $(function(){
 		<td class="title">栏目明细</td>
 		<td class="menuTool">
 		<c:if test="${scope==1}">
-			<a class="graph" id="btn_category" href="javascript:void(0);">发布本栏目</a>
+			<a class="graph" id="btn_category" href="#">发布本栏目</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
 		</c:if>
 		<c:if test="${scope==2}">
 			<a class="look" target="_blank" href="${po.url}">预览本栏目</a>
 		</c:if>
-			<a class="graph" id="btn_site" href="javascript:void(0);">发布首页</a>
+			<a class="graph" id="btn_site" href="#">发布首页</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
 		</td>
 	</tr>

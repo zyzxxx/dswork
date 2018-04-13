@@ -46,7 +46,7 @@ $(function(){
 		<c:if test="${scope==2}"><a class="look" target="_blank" href="${po.url}">预览外链</a></c:if>
 		<c:if test="${scope!=2}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a></c:if>
 		<c:if test="${po.audit}">
-			<a class="back" onclick="_revoke();" href="javascript:void(0);">撤回提交</a>
+			<a class="back" onclick="_revoke();" href="#">撤回提交</a>
 			<script type="text/javascript">
 			function _revoke(){if(confirm("确认撤回吗？")){
 				$('input[name="action"]').val('revoke');
@@ -57,7 +57,7 @@ $(function(){
 		</c:if>
 		<c:if test="${!po.audit}">
 			<c:if test="${po.status>0 && (po.edit || po.nopass)}">
-				<a class="back" onclick="_restore();" href="javascript:void(0);">还原</a>
+				<a class="back" onclick="_restore();" href="#">还原</a>
 				<script type="text/javascript">
 				function _restore(){if(confirm("确认还原吗？")){
 					$('input[name="action"]').val('restore');
@@ -65,8 +65,8 @@ $(function(){
 				}}
 				</script>
 			</c:if>
-			<a class="save" onclick="_save();" href="javascript:void(0);">保存</a>
-			<a class="submit" onclick="_submit();" href="javascript:void(0);">保存并提交</a>
+			<a class="save" onclick="_save();" href="#">保存</a>
+			<a class="submit" onclick="_submit();" href="#">保存并提交</a>
 			<script type="text/javascript">
 			function _save(){if(confirm("确认保存吗？")){
 				$('input[name="action"]').val('save');
