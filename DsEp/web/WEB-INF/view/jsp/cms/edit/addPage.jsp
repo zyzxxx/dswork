@@ -7,7 +7,6 @@
 <title></title>
 <%@include file="/commons/include/addAjax.jsp" %>
 <%@include file="/commons/include/editor.jsp" %>
-<script type="text/javascript" src="${ctx}/js/smartImgAdd.js"></script>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.href = "getPage.htm?id=${fn:escapeXml(param.categoryid)}";
