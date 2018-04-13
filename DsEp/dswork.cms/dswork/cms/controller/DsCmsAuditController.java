@@ -204,34 +204,35 @@ public class DsCmsAuditController extends DsCmsBaseController
 			{
 				if(p.isAudit())
 				{
-					String action = req.getString("action");
-					if("pass".equals(action))
-					{
-						p.setAuditstatus(4);
-					}
-					else if("nopass".equals(action))
-					{
-						p.setAuditstatus(2);
-					}
-					else
-					{
-						print("0:参数错误");
-						return;
-					}
 					p.setMsg(po.getMsg());
 					p.setAuditid(getAccount());
 					p.setAuditname(getName());
 					p.setAudittime(TimeUtil.getCurrentTime());
-					if(p.getStatus() == -1)
+
+					String action = req.getString("action");
+					if("pass".equals(action))
 					{
-						service.deletePageEdit(p, s.isWriteLog());
+						p.setAuditstatus(4);
+						if(p.getStatus() == -1)
+						{
+							service.deletePageEdit(p, s.isWriteLog());
+						}
+						else
+						{
+							service.updatePageEdit(p, s.isWriteLog());
+						}
+						print(1);
+						return;
 					}
-					else
+					if("nopass".equals(action))
 					{
+						p.setAuditstatus(2);
 						service.updatePageEdit(p, s.isWriteLog());
+						print(1);
+						return;
 					}
 				}
-				print(1);
+				print("0:参数错误");
 				return;
 			}
 			print("0:站点不存在");

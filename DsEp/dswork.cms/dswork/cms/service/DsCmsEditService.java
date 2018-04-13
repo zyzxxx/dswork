@@ -50,25 +50,25 @@ public class DsCmsEditService
 			po.setUrl("/a/" + po.getCategoryid() + "/" + po.getId() + ".html");
 			if(writePage)
 			{
-				DsCmsPage page = new DsCmsPage();
-				page.setId(po.getId());
-				page.setSiteid(po.getSiteid());
-				page.setCategoryid(po.getCategoryid());
-				page.setStatus(po.getStatus());
-				page.setTitle(po.getTitle());
-				page.setMetakeywords(po.getMetakeywords());
-				page.setMetadescription(po.getMetadescription());
-				page.setSummary(po.getSummary());
-				page.setContent(po.getContent());
-				page.setReleasetime(po.getReleasetime());
-				page.setReleasesource(po.getReleasesource());
-				page.setReleaseuser(po.getReleaseuser());
-				page.setImg(po.getImg());
-				page.setImgtop(po.getImgtop());
-				page.setPagetop(po.getPagetop());
-				page.setScope(po.getScope());
-				page.setStatus(0);// page设置为新建未发布状态
-				pageDao.save(page);
+				DsCmsPage p = new DsCmsPage();
+				p.setId(po.getId());
+				p.setSiteid(po.getSiteid());
+				p.setCategoryid(po.getCategoryid());
+				p.setStatus(po.getStatus());
+				p.setTitle(po.getTitle());
+				p.setMetakeywords(po.getMetakeywords());
+				p.setMetadescription(po.getMetadescription());
+				p.setSummary(po.getSummary());
+				p.setContent(po.getContent());
+				p.setReleasetime(po.getReleasetime());
+				p.setReleasesource(po.getReleasesource());
+				p.setReleaseuser(po.getReleaseuser());
+				p.setImg(po.getImg());
+				p.setImgtop(po.getImgtop());
+				p.setPagetop(po.getPagetop());
+				p.setScope(po.getScope());
+				p.setStatus(0);// page设置为新建未发布状态
+				pageDao.save(p);
 				pageDao.updateURL(po.getId(), po.getUrl());
 				po.setAuditstatus(4);// pageEdit设置为已通过状态
 			}
@@ -148,42 +148,42 @@ public class DsCmsEditService
 		}
 		if(writePage)
 		{
-			DsCmsPage page = (DsCmsPage) pageDao.get(po.getId());
+			DsCmsPage p = (DsCmsPage) pageDao.get(po.getId());
 			boolean isSave = false;
-			if(page == null)
+			if(p == null)
 			{
-				page = new DsCmsPage();
-				page.setId(po.getId());
+				p = new DsCmsPage();
+				p.setId(po.getId());
 				isSave = true;
 			}
-			page.setSiteid(po.getSiteid());
-			page.setCategoryid(po.getCategoryid());
-			page.setStatus(po.getStatus());
-			page.setTitle(po.getTitle());
-			page.setMetakeywords(po.getMetakeywords());
-			page.setMetadescription(po.getMetadescription());
-			page.setSummary(po.getSummary());
-			page.setContent(po.getContent());
-			page.setReleasetime(po.getReleasetime());
-			page.setReleasesource(po.getReleasesource());
-			page.setReleaseuser(po.getReleaseuser());
-			page.setImg(po.getImg());
-			page.setImgtop(po.getImgtop());
-			page.setPagetop(po.getPagetop());
-			page.setScope(po.getScope());
+			p.setSiteid(po.getSiteid());
+			p.setCategoryid(po.getCategoryid());
+			p.setStatus(po.getStatus());
+			p.setTitle(po.getTitle());
+			p.setMetakeywords(po.getMetakeywords());
+			p.setMetadescription(po.getMetadescription());
+			p.setSummary(po.getSummary());
+			p.setContent(po.getContent());
+			p.setReleasetime(po.getReleasetime());
+			p.setReleasesource(po.getReleasesource());
+			p.setReleaseuser(po.getReleaseuser());
+			p.setImg(po.getImg());
+			p.setImgtop(po.getImgtop());
+			p.setPagetop(po.getPagetop());
+			p.setScope(po.getScope());
 			if(isSave)
 			{
-				page.setStatus(0);// page设置为新建未发布状态
-				pageDao.save(page);
+				p.setStatus(0);// page设置为新建未发布状态
+				pageDao.save(p);
 				pageDao.updateURL(po.getId(), po.getUrl());
 			}
 			else
 			{
-				if(page.getStatus() != 0)
+				if(p.getStatus() != 0)
 				{
-					page.setStatus(1);// page设置为更新未发布状态
+					p.setStatus(1);// page设置为更新未发布状态
 				}
-				pageDao.update(page);
+				pageDao.update(p);
 			}
 			po.setAuditstatus(4);// pageEdit设置为已通过状态
 		}
