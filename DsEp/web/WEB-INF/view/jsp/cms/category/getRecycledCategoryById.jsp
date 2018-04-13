@@ -31,15 +31,17 @@
 		<td class="form_title">链接</td>
 		<td class="form_input"><a href="${po.url}" target="_blank">${po.url}</a></td>
 	</tr>
-<c:if test="${po.scope!=2}">
+<c:if test="${po.scope==0 || po.scope==1}">
 	<tr>
 		<td class="form_title">栏目模板</td>
 		<td class="form_input">${po.viewsite}</td>
 	</tr>
+	<c:if test="${po.scope==0}">
 	<tr>
 		<td class="form_title">内容模板</td>
 		<td class="form_input">${po.pageviewsite}</td>
 	</tr>
+	</c:if>
 </c:if>
 </table>
 <c:if test="${po.scope==0}">
