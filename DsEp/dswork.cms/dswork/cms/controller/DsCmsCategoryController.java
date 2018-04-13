@@ -3,8 +3,10 @@ package dswork.cms.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -12,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsCategoryService;
+import dswork.core.page.Page;
 
 @Scope("prototype")
 @Controller
@@ -23,29 +27,84 @@ public class DsCmsCategoryController extends DsCmsBaseController
 	@Autowired
 	private DsCmsCategoryService service;
 
-	private String getCmsRoot()
+	// 获得栏目列表
+	@RequestMapping("/getCategory")
+	public String getCategory()
 	{
-		return request.getSession().getServletContext().getRealPath("/html") + "/";
-	}
-
-	private List<String> getTemplateName(String sitename)
-	{
-		List<String> list = new ArrayList<String>();
 		try
 		{
-			File file = new File(getCmsRoot() + sitename + "/templates");
-			for(File f : file.listFiles())
+			Long id = req.getLong("siteid"), siteid = -1L;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("own", getOwn());
+			List<DsCmsSite> siteList = service.queryListSite(map);
+			if(siteList != null && siteList.size() > 0)
 			{
-				if(f.isFile() && !f.isHidden() && f.getPath().endsWith(".jsp"))
+				put("siteList", siteList);
+				if(id >= 0)
 				{
-					list.add(f.getName());
+					for(DsCmsSite m : siteList)
+					{
+						if(m.getId() == id)
+						{
+							siteid = m.getId();
+							put("list", queryCategory(siteid, true, 0));
+							break;
+						}
+					}
+				}
+				if(siteid == -1)
+				{
+					siteid = siteList.get(0).getId();
+					put("list", queryCategory(siteid, true, 0));
 				}
 			}
+			put("siteid", siteid);
+			return "/cms/category/getCategory.jsp";
 		}
 		catch(Exception ex)
 		{
 		}
-		return list;
+		return null;
+	}
+
+	// 获得栏目列表
+	@RequestMapping("/getRecycledCategory")
+	public String getRecycledCategory()
+	{
+		try
+		{
+			Long id = req.getLong("siteid"), siteid = -1L;
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("own", getOwn());
+			List<DsCmsSite> siteList = service.queryListSite(map);
+			if(siteList != null && siteList.size() > 0)
+			{
+				put("siteList", siteList);
+				if(id >= 0)
+				{
+					for(DsCmsSite m : siteList)
+					{
+						if(m.getId() == id)
+						{
+							siteid = m.getId();
+							put("list", queryRecycledCategory(siteid));
+							break;
+						}
+					}
+				}
+				if(siteid == -1)
+				{
+					siteid = siteList.get(0).getId();
+					put("list", queryRecycledCategory(siteid));
+				}
+			}
+			put("siteid", siteid);
+			return "/cms/category/getRecycledCategory.jsp";
+		}
+		catch(Exception ex)
+		{
+		}
+		return null;
 	}
 
 	// 添加
@@ -91,30 +150,32 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		}
 	}
 
-	// 删除
+	// 删除到回收站
 	@RequestMapping("/delCategory")
 	public void delCategory()
 	{
 		try
 		{
-			Long siteid = req.getLong("siteid");
-			Long id = req.getLong("keyIndex", 0);
+			long id = req.getLong("keyIndex", -1);
 			DsCmsCategory po = service.get(id);
-			if(siteid == po.getSiteid())
+			if(checkOwn(po.getSiteid()))
 			{
-				int count = service.getCountByPid(id);
-				if(0 < count)
+				List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
+				Queue<DsCmsCategory> queue = new LinkedList<DsCmsCategory>();
+				queue.offer(po);
+				while(!queue.isEmpty())
 				{
-					print("0:下级节点不为空");
-					return;
+					DsCmsCategory c = queue.poll();
+					List<DsCmsCategory> clist = service.queryListByPid(c.getId());
+					for(DsCmsCategory e : clist)
+					{
+						queue.offer(e);
+					}
+					list.add(c);
 				}
-				DsCmsSite s = service.getSite(siteid);
-				if(checkOwn(s.getId()))
-				{
-					service.delete(id);
-					print(1);
-					return;
-				}
+				service.updateRecycled(list);
+				print(1);
+				return;
 			}
 			print("0:站点不存在");
 		}
@@ -123,6 +184,119 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
+	}
+
+	// 从回收站删除
+	@RequestMapping("/delRecycledCategory")
+	public void delRecycledCategory()
+	{
+		try
+		{
+			long[] ids = req.getLongArray("keyIndex", -1);
+			List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
+			String msg = "";
+			for(long id : ids)
+			{
+				DsCmsCategory po = service.get(id);
+				if(!checkOwn(po.getSiteid()))
+				{
+					msg += "栏目 [" + po.getId() + "] 站点不存在<br>";
+					continue;
+				}
+				if(po.getStatus() != -1)
+				{
+					msg += "栏目 [" + po.getId() + "] 状态不为-1<br>";
+				}
+				if(po.getPid() != 0)
+				{
+					msg += "栏目 [" + po.getId() + "] Pid不为空<br>";
+				}
+				list.add(po);
+			}
+			if(msg.length() > 0)
+			{
+				print("0:" + msg);
+				return;
+			}
+			service.deleteRecycled(list);
+			print(1);
+			return;
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
+
+	// 还原回收站栏目
+	@RequestMapping("updRecycledCategory1")
+	public String updRecycledCategory1()
+	{
+		try
+		{
+			long siteid = req.getLong("siteid", -1);
+			long id = req.getLong("keyIndex", -1);
+			if(checkOwn(siteid))
+			{
+				put("id", id);
+				put("siteid", siteid);
+				put("list", queryCategory(siteid, true, 0));
+				return "/cms/category/updRecycledCategory.jsp";
+			}
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
+	}
+
+	// 还原回收站栏目
+	@RequestMapping("updRecycledCategory2")
+	public void updRecycledCategory2()
+	{
+		try
+		{
+			long id = req.getLong("keyIndex", -1);
+			DsCmsCategory po = service.get(id);
+			if(checkOwn(po.getSiteid()))
+			{
+				po.setPid(req.getLong("pid"));
+				service.updateRestore(po);
+				print(1);
+				return;
+			}
+			print("0:站点不存在");
+		}
+		catch(Exception e)
+		{
+			print("0:" + e.getMessage());
+		}
+	}
+
+	// 回收站栏目明细
+	@RequestMapping("getRecycledCategoryById")
+	public String getRecycledCategoryById()
+	{
+		try
+		{
+			long id = req.getLong("keyIndex", -1);
+			DsCmsCategory po = service.get(id);
+			if(checkOwn(po.getSiteid()))
+			{
+				put("po", po);
+				if(po.getScope() == 1)
+				{
+					Page<DsCmsPageEdit> pageModel = service.queryPagePageEdit(getPageRequest());
+					put("pageModel", pageModel);
+				}
+				return "/cms/category/getRecycledCategoryById.jsp";
+			}
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
 	}
 
 	// 修改
@@ -206,46 +380,6 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		}
 	}
 
-	// 获得栏目列表
-	@RequestMapping("/getCategory")
-	public String getCategory()
-	{
-		try
-		{
-			Long id = req.getLong("siteid"), siteid = -1L;
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("own", getOwn());
-			List<DsCmsSite> siteList = service.queryListSite(map);
-			if(siteList != null && siteList.size() > 0)
-			{
-				put("siteList", siteList);
-				if(id >= 0)
-				{
-					for(DsCmsSite m : siteList)
-					{
-						if(m.getId() == id)
-						{
-							siteid = m.getId();
-							put("list", queryCategory(siteid, true, 0));
-							break;
-						}
-					}
-				}
-				if(siteid == -1)
-				{
-					siteid = siteList.get(0).getId();
-					put("list", queryCategory(siteid, true, 0));
-				}
-			}
-			put("siteid", siteid);
-			return "/cms/category/getCategory.jsp";
-		}
-		catch(Exception ex)
-		{
-		}
-		return null;
-	}
-
 	/**
 	 * 取出当前登录用户的栏目
 	 * @param exclude 是否包括非List的栏目
@@ -259,5 +393,38 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		filters.put("publishstatus", "true");
 		List<DsCmsCategory> clist = service.queryList(filters);
 		return queryCategory(clist, exclude, excludeId);
+	}
+
+	private List<DsCmsCategory> queryRecycledCategory(long siteid)
+	{
+		Map<String, Object> filters = new HashMap<String, Object>();
+		filters.put("siteid", siteid);
+		filters.put("status", -1);
+		return service.queryList(filters);
+	}
+
+	private String getCmsRoot()
+	{
+		return request.getSession().getServletContext().getRealPath("/html") + "/";
+	}
+
+	private List<String> getTemplateName(String sitename)
+	{
+		List<String> list = new ArrayList<String>();
+		try
+		{
+			File file = new File(getCmsRoot() + sitename + "/templates");
+			for(File f : file.listFiles())
+			{
+				if(f.isFile() && !f.isHidden() && f.getPath().endsWith(".jsp"))
+				{
+					list.add(f.getName());
+				}
+			}
+		}
+		catch(Exception ex)
+		{
+		}
+		return list;
 	}
 }

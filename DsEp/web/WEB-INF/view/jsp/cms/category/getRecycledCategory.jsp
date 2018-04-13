@@ -21,20 +21,26 @@
 <title></title>
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
+function showDetail(id){
+	$jskey.dialog.showDialog({title:'栏目明细',fit:true,url:'getRecycledCategoryById.htm?siteid=${siteid}&keyIndex=' + id});
+}
+$dswork.page.join = function(td, menu, id){
+	$(menu).append($('<div iconCls="menuTool-graph">还原到栏目</div>').bind("click", function(){
+		$jskey.dialog.showDialog({title:'还原到栏目',width:600,height:400,url:'updRecycledCategory1.htm?siteid=${siteid}&keyIndex=' + id});
+	}));
+	$(menu).append($('<div iconCls="menuTool-graph">栏目明细</div>').bind("click", function(){
+		showDetail(id);
+	}));
+};
 $(function(){
-	$dswork.page.menu("delCategory.htm?siteid=${siteid}", "updCategory1.htm?siteid=${siteid}", "", "");
-	$("#listFormSave").click(function(){if(confirm("确定保存排序吗？")){
-		$("#listForm").ajaxSubmit($dswork.doAjaxOption);
+	$dswork.page.menu("delRecycledCategory.htm?siteid=${siteid}", "", "", "");
+	$("#site").bind("click", function(){if($(this).val()!="${siteid}"){
+		location.href = "getRecycledCategory.htm?siteid="+$(this).val();
 	}});
-	$("#site").bind("click", function(){
-		if($(this).val()!="${siteid}"){
-			location.href = "getCategory.htm?siteid="+$(this).val();
-		}
-	});
 });
 $dswork.doAjax = true;
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getCategory.htm?siteid=${siteid}";
+	location.href = "getRecycledCategory.htm?siteid=${siteid}";
 }};
 </script>
 <style type="text/css">
@@ -51,28 +57,27 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 			切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
 		</td>
 		<td class="menuTool">
-			<a class="insert" href="addCategory1.htm?siteid=${siteid}">添加</a>
-			<a class="save" id="listFormSave" href="#">保存排序</a>
+			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
 </table>
 <div class="line"></div>
-<form id="listForm" method="post" action="updCategorySeq.htm?siteid=${siteid}">
+<form id="listForm" method="post" action="delRecycledCategory.htm?siteid=${siteid}">
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
+		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
-		<td style="width:5%">排序</td>
 		<td style="width:6%">栏目ID</td>
 		<td>名称</td>
 		<td style="width:17%">栏目模板</td>
 		<td style="width:13%">内容模板</td>
 	</tr>
 <c:forEach items="${list}" var="d">
-	<tr>
+	<tr ondblclick='return showDetail("${d.id}");' style="cursor:pointer;">
+		<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
-		<td><input name="seq" type="text" style="width:24px;" value="${d.seq}" /></td>
 		<td class="k"><input name="keyIndex" type="text" style="width:100%;" readonly="readonly" value="${d.id}" /></td>
-		<td class="v" style="text-align:left;">${d.label}${fn:escapeXml(d.name)}&nbsp;<a onclick="return false;" href="#" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a></td>
+		<td class="v" style="text-align:left;">${fn:escapeXml(d.name)}&nbsp;<a onclick="return false;" href="#" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a></td>
 		<td>${fn:escapeXml(d.viewsite)}</td>
 		<td>${fn:escapeXml(d.pageviewsite)}</td>
 	</tr>
