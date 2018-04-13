@@ -74,24 +74,21 @@ public class DsCmsAuditService
 	public DsCmsCategoryEdit saveCategoryEdit(Long id)
 	{
 		DsCmsCategoryEdit po = new DsCmsCategoryEdit();
-		DsCmsCategory _po = (DsCmsCategory) categoryDao.get(id);
-		if(_po.getScope() != 0) // 非列表
-		{
-			po.setId(_po.getId());
-			po.setSiteid(_po.getSiteid());
-			po.setSummary(_po.getSummary());
-			po.setMetakeywords(_po.getMetakeywords());
-			po.setMetadescription(_po.getMetadescription());
-			po.setReleasesource(_po.getReleasesource());
-			po.setReleaseuser(_po.getReleaseuser());
-			po.setImg(_po.getImg());
-			po.setContent(_po.getContent());
-			po.setReleasetime(_po.getReleasetime());
-			po.setUrl(_po.getUrl());
-			po.setAuditstatus(DsCmsCategoryEdit.EDIT);// 草稿
-			po.setStatus(0);// page设置为新增状态
-			categoryEditDao.save(po);
-		}
+		DsCmsCategory c = (DsCmsCategory) categoryDao.get(id);
+		po.setId(c.getId());
+		po.setSiteid(c.getSiteid());
+		po.setSummary(c.getSummary());
+		po.setMetakeywords(c.getMetakeywords());
+		po.setMetadescription(c.getMetadescription());
+		po.setReleasesource(c.getReleasesource());
+		po.setReleaseuser(c.getReleaseuser());
+		po.setImg(c.getImg());
+		po.setContent(c.getContent());
+		po.setReleasetime(c.getReleasetime());
+		po.setUrl(c.getUrl());
+		po.setAuditstatus(DsCmsCategoryEdit.EDIT);// 草稿
+		po.setStatus(0);// page设置为新增状态
+		categoryEditDao.save(po);
 		return po;
 	}
 
@@ -100,10 +97,11 @@ public class DsCmsAuditService
 		return (DsCmsCategoryEdit) categoryEditDao.get(id);
 	}
 
-	public int updateCategoryEdit(DsCmsCategoryEdit po, DsCmsCategory c, boolean isEnablelog)
+	public void updateCategoryEdit(DsCmsCategoryEdit po, boolean writeCategory, boolean enablelog)
 	{
-		if(po.isPass())// 通过
+		if(writeCategory)
 		{
+			DsCmsCategory c = (DsCmsCategory) categoryDao.get(po.getId());
 			if(c.getScope() == 0 || c.getScope() == 1)
 			{
 				c.setSummary(po.getSummary());
@@ -128,16 +126,16 @@ public class DsCmsAuditService
 			}
 			po.setStatus(1);// categoryEdit设置为待更新状态
 		}
-		if(isEnablelog)
+		categoryEditDao.update(po);
+		if(enablelog)
 		{
 			writeLogCategory(po);
 		}
-		return categoryEditDao.update(po);
 	}
 
-	public int updatePageEdit(DsCmsPageEdit po, boolean isEnablelog)
+	public void updatePageEdit(DsCmsPageEdit po, boolean writePage, boolean enablelog)
 	{
-		if(po.isPass())// 通过
+		if(writePage)
 		{
 			DsCmsPage p = (DsCmsPage) pageDao.get(po.getId());
 			boolean isSave = false;
@@ -179,14 +177,13 @@ public class DsCmsAuditService
 			po.setStatus(1);// pageEdit设置为待更新状态
 		}
 		pageEditDao.update(po);
-		if(isEnablelog)
+		if(enablelog)
 		{
 			writeLogPage(po);
 		}
-		return 1;
 	}
 
-	public int deletePageEdit(DsCmsPageEdit po, boolean isEnablelog)
+	public void deletePageEdit(DsCmsPageEdit po, boolean enablelog)
 	{
 		DsCmsPage p = (DsCmsPage) pageDao.get(po.getId());
 		if(p != null)
@@ -195,11 +192,10 @@ public class DsCmsAuditService
 			pageDao.update(p);
 		}
 		pageEditDao.delete(po.getId());
-		if(isEnablelog)
+		if(enablelog)
 		{
 			writeLogPage(po);
 		}
-		return 1;
 	}
 
 	public DsCmsPageEdit getPageEdit(Long id)

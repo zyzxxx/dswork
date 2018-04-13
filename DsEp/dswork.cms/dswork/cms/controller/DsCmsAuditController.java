@@ -97,11 +97,9 @@ public class DsCmsAuditController extends DsCmsBaseController
 	{
 		try
 		{
-			DsCmsCategory m = service.getCategory(po.getId());
-			DsCmsSite s = service.getSite(m.getSiteid());
-			if(checkAudit(s.getId(), m.getId()))
+			DsCmsCategoryEdit p = service.getCategoryEdit(po.getId());
+			if(checkAudit(p.getSiteid(), p.getId()))
 			{
-				DsCmsCategoryEdit p = service.getCategoryEdit(po.getId());
 				if(p.isAudit())
 				{
 					p.setMsg(po.getMsg());
@@ -110,17 +108,18 @@ public class DsCmsAuditController extends DsCmsBaseController
 					p.setAudittime(TimeUtil.getCurrentTime());
 
 					String action = req.getString("action");
+					DsCmsSite s = service.getSite(p.getSiteid());
 					if("pass".equals(action))
 					{
 						p.setAuditstatus(4);
-						service.updateCategoryEdit(p, m, s.isWriteLog());
+						service.updateCategoryEdit(p, true, s.isWriteLog());
 						print(1);
 						return;
 					}
 					if("nopass".equals(action))
 					{
 						p.setAuditstatus(2);
-						service.updateCategoryEdit(p, m, s.isWriteLog());
+						service.updateCategoryEdit(p, false, s.isWriteLog());
 						print(1);
 						return;
 					}
@@ -219,7 +218,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 						}
 						else
 						{
-							service.updatePageEdit(p, s.isWriteLog());
+							service.updatePageEdit(p, true, s.isWriteLog());
 						}
 						print(1);
 						return;
@@ -227,7 +226,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 					if("nopass".equals(action))
 					{
 						p.setAuditstatus(2);
-						service.updatePageEdit(p, s.isWriteLog());
+						service.updatePageEdit(p, false, s.isWriteLog());
 						print(1);
 						return;
 					}
