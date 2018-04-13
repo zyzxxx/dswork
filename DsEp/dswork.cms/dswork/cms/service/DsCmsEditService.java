@@ -81,13 +81,10 @@ public class DsCmsEditService
 		return 1;
 	}
 
-	public int deletePageEdit(Long id, boolean deletePage)
+	public int deletePageEdit(Long id)
 	{
 		pageEditDao.delete(id);
-		if(deletePage)
-		{
-			pageDao.delete(id);
-		}
+		pageDao.updateStatus(id, -1);
 		return 1;
 	}
 
