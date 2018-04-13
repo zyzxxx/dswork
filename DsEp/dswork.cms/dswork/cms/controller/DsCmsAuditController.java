@@ -101,30 +101,31 @@ public class DsCmsAuditController extends DsCmsBaseController
 			DsCmsSite s = service.getSite(m.getSiteid());
 			if(checkAudit(s.getId(), m.getId()))
 			{
-				DsCmsCategoryEdit _po = service.getCategoryEdit(po.getId());
-				if(_po.isAudit())
+				DsCmsCategoryEdit p = service.getCategoryEdit(po.getId());
+				if(p.isAudit())
 				{
+					p.setMsg(po.getMsg());
+					p.setAuditid(getAccount());
+					p.setAuditname(getName());
+					p.setAudittime(TimeUtil.getCurrentTime());
+
 					String action = req.getString("action");
 					if("pass".equals(action))
 					{
-						_po.setAuditstatus(4);
-					}
-					else if("nopass".equals(action))
-					{
-						_po.setAuditstatus(2);
-					}
-					else
-					{
-						print("0:参数错误");
+						p.setAuditstatus(4);
+						service.updateCategoryEdit(p, m, s.isWriteLog());
+						print(1);
 						return;
 					}
-					_po.setMsg(po.getMsg());
-					_po.setAuditid(getAccount());
-					_po.setAuditname(getName());
-					_po.setAudittime(TimeUtil.getCurrentTime());
-					service.updateCategoryEdit(_po, m, s.isWriteLog());
+					if("nopass".equals(action))
+					{
+						p.setAuditstatus(2);
+						service.updateCategoryEdit(p, m, s.isWriteLog());
+						print(1);
+						return;
+					}
 				}
-				print(1);
+				print("0:参数错误");
 				return;
 			}
 			print("0:站点不存在");
@@ -197,37 +198,37 @@ public class DsCmsAuditController extends DsCmsBaseController
 	{
 		try
 		{
-			DsCmsPageEdit _po = service.getPageEdit(po.getId());
-			DsCmsSite s = service.getSite(_po.getSiteid());
-			if(checkAudit(s.getId(), _po.getCategoryid()))
+			DsCmsPageEdit p = service.getPageEdit(po.getId());
+			DsCmsSite s = service.getSite(p.getSiteid());
+			if(checkAudit(s.getId(), p.getCategoryid()))
 			{
-				if(_po.isAudit())
+				if(p.isAudit())
 				{
 					String action = req.getString("action");
 					if("pass".equals(action))
 					{
-						_po.setAuditstatus(4);
+						p.setAuditstatus(4);
 					}
 					else if("nopass".equals(action))
 					{
-						_po.setAuditstatus(2);
+						p.setAuditstatus(2);
 					}
 					else
 					{
 						print("0:参数错误");
 						return;
 					}
-					_po.setMsg(po.getMsg());
-					_po.setAuditid(getAccount());
-					_po.setAuditname(getName());
-					_po.setAudittime(TimeUtil.getCurrentTime());
-					if(_po.getStatus() == -1)
+					p.setMsg(po.getMsg());
+					p.setAuditid(getAccount());
+					p.setAuditname(getName());
+					p.setAudittime(TimeUtil.getCurrentTime());
+					if(p.getStatus() == -1)
 					{
-						service.deletePageEdit(_po, s.isWriteLog());
+						service.deletePageEdit(p, s.isWriteLog());
 					}
 					else
 					{
-						service.updatePageEdit(_po, s.isWriteLog());
+						service.updatePageEdit(p, s.isWriteLog());
 					}
 				}
 				print(1);
