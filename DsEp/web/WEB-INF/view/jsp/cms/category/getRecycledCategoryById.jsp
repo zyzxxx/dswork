@@ -44,7 +44,7 @@
 </table>
 <c:if test="${po.scope==0}">
 <div class="line"></div>
-<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo" style="border-top:#c2c2c2 solid 1px;">
 	<tr>
 		<td class="title">栏目内容明细</td>
 	</tr>
@@ -73,7 +73,7 @@
 <input name="page" type="hidden" value="${pageModel.currentPage}" />
 </form>
 <div class="line"></div>
-<table border="0" cellspacing="0" cellpadding="0" class="bottomTable" style="border-top:#c2c2c2 solid 1px;">
+<table border="0" cellspacing="0" cellpadding="0" class="bottomTable" style="border-top:#c2c2c2 solid 1px;border-bottom:#c2c2c2 solid 1px;">
 	<tr><td>${pageNav.page}</td></tr>
 </table>
 </c:if>
