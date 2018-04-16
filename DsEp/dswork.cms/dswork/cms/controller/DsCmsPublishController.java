@@ -317,6 +317,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 							}
 							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除内容
 
+							// 先删除栏目下待删除的数据
 							Map<String, Object> map = new HashMap<String, Object>();
 							map.put("siteid", site.getId());
 							map.put("categoryid", c.getId());
@@ -332,6 +333,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 								{
 								}
 							}
+
 							if(isCreateOrDelete)
 							{
 								map.clear();
