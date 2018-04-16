@@ -316,9 +316,25 @@ public class DsCmsPublishController extends DsCmsBaseController
 								continue;
 							}
 							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除内容
+
+							Map<String, Object> map = new HashMap<String, Object>();
+							map.put("siteid", site.getId());
+							map.put("categoryid", c.getId());
+							map.put("status", -1);
+							List<DsCmsPage> plist = service.queryList(map);
+							for(DsCmsPage p : plist)
+							{
+								try
+								{
+									service.delete(p.getId());
+								}
+								catch(Exception e)
+								{
+								}
+							}
 							if(isCreateOrDelete)
 							{
-								Map<String, Object> map = new HashMap<String, Object>();
+								map.clear();
 								map.put("siteid", site.getId());
 								map.put("releasetime", TimeUtil.getCurrentTime());
 								map.put("categoryid", c.getId());
@@ -328,11 +344,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 								{
 									try
 									{
-										if(p.getStatus() == -1)
-										{
-											service.delete(p.getId());
-										}
-										else if(p.getScope() != 2)
+										if(p.getScope() != 2)
 										{
 											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
@@ -356,11 +368,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 									{
 										try
 										{
-											if(p.getStatus() == -1)
-											{
-												service.delete(p.getId());
-											}
-											else if(p.getScope() != 2)
+											if(p.getScope() != 2)
 											{
 												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
 												service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
