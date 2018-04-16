@@ -4,6 +4,7 @@
 package dswork.cms.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -75,5 +76,12 @@ public class DsCmsCategoryDao extends BaseDao<DsCmsCategory, Long>
 		map.put("id", id);
 		map.put("status", status);
 		return executeUpdate("updateStatus", map);
+	}
+
+	public List<DsCmsCategory> queryListByPid(long pid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("pid", pid);
+		return queryList(map);
 	}
 }

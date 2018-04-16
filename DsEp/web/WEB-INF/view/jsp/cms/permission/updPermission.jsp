@@ -112,7 +112,7 @@ label {padding:2px;height:22px;}
 			<label style="color:red">备注：采编权【个人】表示只能采编用户本人发布的信息</label>
 		</td>
 		<td class="menuTool">
-			<a class="user" href="javascript:void(0);" onclick="submit()">确定授权</a>
+			<a class="user" onclick="submit()" href="#">确定授权</a>
 		</td>
 	</tr>
 </table>
@@ -151,7 +151,7 @@ label {padding:2px;height:22px;}
 	<tr>
 		<td>${d.id}</td>
 		<td style="text-align:left;">
-			&nbsp;${d.label}${fn:escapeXml(d.name)}&nbsp;<a href="javascript:void(0);" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a>
+			&nbsp;${d.label}${fn:escapeXml(d.name)}&nbsp;<a href="#" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a>
 		</td>
 		<td style="text-align:left;">
 			&nbsp;&nbsp;

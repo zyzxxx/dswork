@@ -93,11 +93,11 @@ public class DsCmsEditController extends DsCmsBaseController
 					po.setCategoryid(c.getId());
 					po.pushEditidAndEditname(getAccount(), getName());
 					po.setEdittime(TimeUtil.getCurrentTime());
+					po.setStatus(0);
 					if(po.getReleasetime().trim().equals(""))
 					{
 						po.setReleasetime(TimeUtil.getCurrentTime());
 					}
-					po.setStatus(0); // 新增
 
 					String action = req.getString("action");
 					if("save".equals(action))
@@ -247,10 +247,7 @@ public class DsCmsEditController extends DsCmsBaseController
 						DsCmsPageEdit p = service.getPageEdit(id);
 						if(c.getId() == p.getCategoryid())
 						{
-							if(p.getStatus() == 0)// 新增的数据，直接删除
-							{
-								service.deletePageEdit(p.getId(), true);
-							}
+							service.deletePageEdit(p.getId());
 						}
 					}
 					print(1);
@@ -270,7 +267,7 @@ public class DsCmsEditController extends DsCmsBaseController
 							}
 							if(p.getStatus() == 0)// 新增的数据，直接删除
 							{
-								service.deletePageEdit(p.getId(), false);
+								service.deletePageEdit(p.getId());
 							}
 							else// 非新增的数据，需审核后才能删除
 							{
@@ -330,6 +327,57 @@ public class DsCmsEditController extends DsCmsBaseController
 			)
 			{
 				String action = req.getString("action");
+				if("revoke".equals(action))
+				{
+					if(p.isAudit())
+					{
+						p.setAuditstatus(0);
+						service.updateRevokePageEdit(p, s.isWriteLog(), getAccount(), getName());
+						print(1);
+						return;
+					}
+					print("0:状态错误");
+					return;
+				}
+				if("restore".equals(action))
+				{
+					if(p.getStatus() > 0 && (p.isEdit() || p.isNopass()))
+					{
+						DsCmsPage page = service.getPage(po.getId());
+						p.setScope(page.getScope());
+						p.setUrl(page.getUrl());
+						p.setTitle(page.getTitle());
+						p.setMetakeywords(page.getMetakeywords());
+						p.setMetadescription(page.getMetadescription());
+						p.setSummary(page.getSummary());
+						p.setContent(page.getContent());
+						p.setReleasetime(page.getReleasetime());
+						p.setReleasesource(page.getReleasesource());
+						p.setReleaseuser(page.getReleaseuser());
+						p.setImg(page.getImg());
+						p.setImgtop(page.getImgtop());
+						p.setPagetop(page.getPagetop());
+						p.setAuditstatus(DsCmsPageEdit.PASS);
+						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
+					}
+					print(1);
+					return;
+				}
+
+				p.setScope(po.getScope());
+				p.setUrl(po.getUrl());
+				p.setTitle(po.getTitle());
+				p.setSummary(po.getSummary());
+				p.setMetakeywords(po.getMetakeywords());
+				p.setMetadescription(po.getMetadescription());
+				p.setReleasesource(po.getReleasesource());
+				p.setReleaseuser(po.getReleaseuser());
+				p.setReleasetime(po.getReleasetime());
+				p.setContent(po.getContent());
+				p.setImg(po.getImg());
+				p.setImgtop(po.getImgtop());
+				p.setPagetop(po.getPagetop());
+
 				if("save".equals(action))
 				{
 					if(p.isEdit() || p.isNopass() || p.isPass())
@@ -364,43 +412,6 @@ public class DsCmsEditController extends DsCmsBaseController
 						return;
 					}
 					print("0:状态错误");
-					return;
-				}
-				if("revoke".equals(action))
-				{
-					if(p.isAudit())
-					{
-						p.setAuditstatus(0);
-						service.updateRevokePageEdit(p, s.isWriteLog(), getAccount(), getName());
-						print(1);
-						return;
-					}
-					print("0:状态错误");
-					return;
-				}
-				if("restore".equals(action))
-				{
-					if(p.getStatus() > 0 && (p.isEdit() || p.isNopass()))
-					{
-						DsCmsPage page = service.getPage(po.getId());
-						p.setTitle(page.getTitle());
-						p.setMetakeywords(page.getMetakeywords());
-						p.setMetadescription(page.getMetadescription());
-						p.setSummary(page.getSummary());
-						p.setContent(page.getContent());
-						p.setReleasetime(page.getReleasetime());
-						p.setReleasesource(page.getReleasesource());
-						p.setReleaseuser(page.getReleaseuser());
-						p.setImg(page.getImg());
-						p.setImgtop(page.getImgtop());
-						p.setPagetop(page.getPagetop());
-						p.setScope(page.getScope());
-						p.setUrl(page.getUrl());
-						// p.setStatus(page.getStatus());
-						p.setAuditstatus(DsCmsPageEdit.PASS);
-						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
-					}
-					print(1);
 					return;
 				}
 				print("0:参数错误");
