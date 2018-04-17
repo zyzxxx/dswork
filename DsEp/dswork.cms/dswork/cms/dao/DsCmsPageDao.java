@@ -46,4 +46,12 @@ public class DsCmsPageDao extends BaseDao<DsCmsPage, Long>
 		map.put("status", status);
 		executeUpdate("updateStatus", map);
 	}
+
+	public int delete(long siteid, long categoryid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		map.put("categoryid", categoryid);
+		return executeDelete("deleteNeedBeDelete", map);
+	}
 }

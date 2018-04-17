@@ -71,6 +71,52 @@ public class DsCmsPublishController extends DsCmsBaseController
 		}
 	}
 
+	@RequestMapping("getCategoryPublish")
+	public String getCategoryPublish()
+	{
+		try
+		{
+			long siteid = req.getLong("siteid", -1);
+			if(siteid == -1)
+			{
+				return null;
+			}
+			List<DsCmsCategory> list = service.queryListCategory(siteid);
+			Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
+			list = categoryAccess(list, this);
+			List<Long> idList = new ArrayList<Long>();
+			for(int i = 0; i < list.size(); i++)
+			{
+				DsCmsCategory c = list.get(i);
+				if(c.getScope() == 1 || c.getScope() == 2)
+				{
+					if(c.getScope() == 1
+						&&(c.getStatus() == -1
+						|| c.getStatus() == 0
+						|| c.getStatus() == 1)
+					)
+					{
+						c.setCount(1);
+					}
+					continue;
+				}
+				idList.add(c.getId());
+				map.put(c.getId(), c);
+			}
+			List<DsCmsCategory> _list = service.queryListCategoryCountPublish(siteid, idList, 0);
+			for(DsCmsCategory c : _list)
+			{
+				map.get(c.getId()).setCount(c.getCount());
+			}
+			put("list", list);
+			return "/cms/publish/getCategoryPublish.jsp";
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
+	}
+
 	// 获得page分页
 	@RequestMapping("/getPage")
 	public String getPage()
@@ -318,25 +364,17 @@ public class DsCmsPublishController extends DsCmsBaseController
 							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除内容
 
 							// 先删除栏目下待删除的数据
-							Map<String, Object> map = new HashMap<String, Object>();
-							map.put("siteid", site.getId());
-							map.put("categoryid", c.getId());
-							map.put("status", -1);
-							List<DsCmsPage> plist = service.queryList(map);
-							for(DsCmsPage p : plist)
+							try
 							{
-								try
-								{
-									service.delete(p.getId());
-								}
-								catch(Exception e)
-								{
-								}
+								service.deletePage(siteid, categoryid);
+							}
+							catch(Exception e)
+							{
 							}
 
 							if(isCreateOrDelete)
 							{
-								map.clear();
+								Map<String, Object> map = new HashMap<String, Object>();
 								map.put("siteid", site.getId());
 								map.put("releasetime", TimeUtil.getCurrentTime());
 								map.put("categoryid", c.getId());

@@ -49,7 +49,7 @@ $dswork.ztree.dblClick = function(){
 $(function(){
 	var v = [];
 	<c:forEach items="${categoryList}" var="d">
-	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}", "enable":"${d.enable}"});
+	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)} [${d.scope==0?'列表':d.scope==1?'单页':'外链'}]", "scope":"${d.scope}", "enable":"${d.enable}"});
 	</c:forEach>
 	$dswork.ztree.nodeArray = v;
 	$dswork.ztree.config.async.enable = false;

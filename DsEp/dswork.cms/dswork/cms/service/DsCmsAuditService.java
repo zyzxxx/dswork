@@ -129,7 +129,7 @@ public class DsCmsAuditService
 		categoryEditDao.update(po);
 		if(enablelog)
 		{
-			writeLogCategory(po);
+			writeLogCategory(po, po.isPass() ? 5 : 4);
 		}
 	}
 
@@ -179,22 +179,36 @@ public class DsCmsAuditService
 		pageEditDao.update(po);
 		if(enablelog)
 		{
-			writeLogPage(po);
+			writeLogPage(po, po.isPass() ? 5 : 4);
 		}
 	}
 
-	public void deletePageEdit(DsCmsPageEdit po, boolean enablelog)
+	public void updateDeletePageEdit(DsCmsPageEdit po, boolean enablelog)
 	{
 		DsCmsPage p = (DsCmsPage) pageDao.get(po.getId());
 		if(p != null)
 		{
-			p.setStatus(-1);
-			pageDao.update(p);
+			if(p.getStatus() == 1)
+			{
+				pageDao.delete(p.getId());
+				pageEditDao.delete(p.getId());
+			}
+			else// 逻辑删除
+			{
+				p.setStatus(-1);
+				po.setStatus(-1);
+				po.setAuditstatus(4);
+				pageDao.update(p);
+				pageEditDao.update(po);
+			}
 		}
-		pageEditDao.delete(po.getId());
+		else
+		{
+			pageEditDao.delete(po.getId());
+		}
 		if(enablelog)
 		{
-			writeLogPage(po);
+			writeLogPage(po, 5);
 		}
 	}
 
@@ -208,7 +222,7 @@ public class DsCmsAuditService
 		return pageEditDao.queryPage(pr);
 	}
 
-	private void writeLogPage(DsCmsPageEdit po)
+	private void writeLogPage(DsCmsPageEdit po, int action)
 	{
 		try
 		{
@@ -222,7 +236,7 @@ public class DsCmsAuditService
 			log.setAuditname(po.getAuditname());
 			log.setAudittime(po.getAudittime());
 			log.setStatus(po.getStatus());
-			log.setAuditstatus(po.getAuditstatus());
+			log.setAuditstatus(action);
 			log.setTitle(po.getTitle());
 			log.setScope(po.getScope());
 			log.setUrl(po.getUrl());
@@ -243,7 +257,7 @@ public class DsCmsAuditService
 		}
 	}
 
-	private void writeLogCategory(DsCmsCategoryEdit po)
+	private void writeLogCategory(DsCmsCategoryEdit po, int action)
 	{
 		try
 		{
@@ -256,7 +270,7 @@ public class DsCmsAuditService
 			log.setAuditname(po.getAuditname());
 			log.setAudittime(po.getAudittime());
 			log.setStatus(po.getStatus());
-			log.setAuditstatus(po.getAuditstatus());
+			log.setAuditstatus(action);
 			log.setTitle(po.getName());
 			log.setScope(po.getScope());
 			log.setUrl(po.getUrl());
@@ -273,5 +287,19 @@ public class DsCmsAuditService
 		catch(Exception e)
 		{
 		}
+	}
+
+	public List<DsCmsCategory> queryListCategoryCountAudit(long siteid, List<Long> idList, int scope)
+	{
+		String ids = "";
+		for(int i = 0; i < idList.size(); i++)
+		{
+			ids += idList.get(i);
+			if(i < idList.size() - 1)
+			{
+				ids += ",";
+			}
+		}
+		return categoryDao.queryListCountAudit(siteid, ids, scope);
 	}
 }

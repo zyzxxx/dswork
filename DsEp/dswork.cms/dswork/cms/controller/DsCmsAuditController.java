@@ -1,6 +1,10 @@
 package dswork.cms.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -64,6 +68,57 @@ public class DsCmsAuditController extends DsCmsBaseController
 		{
 			return null;
 		}
+	}
+
+	@RequestMapping("getCategoryAudit")
+	public String getCategoryAudit()
+	{
+		try
+		{
+			long siteid = req.getLong("siteid", -1);
+			if(siteid == -1)
+			{
+				return null;
+			}
+			List<DsCmsCategory> list = service.queryListCategory(siteid);
+			Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
+			list = categoryAccess(list, this);
+			List<Long> idListZero = new ArrayList<Long>();
+			List<Long> idListOne = new ArrayList<Long>();
+			for(int i = 0; i < list.size(); i++)
+			{
+				DsCmsCategory c = list.get(i);
+				if(c.getScope() == 0)
+				{
+					idListZero.add(c.getId());
+				}
+				else if(c.getScope() == 1)
+				{
+					idListOne.add(c.getId());
+				}
+				else if(c.getScope() == 2)
+				{
+					continue;
+				}
+				map.put(c.getId(), c);
+			}
+			List<DsCmsCategory> _list = service.queryListCategoryCountAudit(siteid, idListZero, 0);
+			for(DsCmsCategory c : _list)
+			{
+				map.get(c.getId()).setCount(c.getCount());
+			}
+			_list = service.queryListCategoryCountAudit(siteid, idListOne, 1);
+			for(DsCmsCategory c : _list)
+			{
+				map.get(c.getId()).setCount(c.getCount());
+			}
+			put("list", list);
+			return "/cms/audit/getCategoryAudit.jsp";
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
 	}
 
 	// 修改
@@ -214,7 +269,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 						p.setAuditstatus(4);
 						if(p.getStatus() == -1)
 						{
-							service.deletePageEdit(p, s.isWriteLog());
+							service.updateDeletePageEdit(p, s.isWriteLog());
 							print(1);
 							return;
 						}
