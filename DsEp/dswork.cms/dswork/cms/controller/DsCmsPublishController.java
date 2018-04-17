@@ -362,16 +362,14 @@ public class DsCmsPublishController extends DsCmsBaseController
 								continue;
 							}
 							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除内容
-
-							// 先删除栏目下待删除的数据
 							try
 							{
+								// 先删除栏目下待删除的数据
 								service.deletePage(siteid, categoryid);
 							}
 							catch(Exception e)
 							{
 							}
-
 							if(isCreateOrDelete)
 							{
 								Map<String, Object> map = new HashMap<String, Object>();

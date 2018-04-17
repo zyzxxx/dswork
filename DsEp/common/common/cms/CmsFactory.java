@@ -25,10 +25,12 @@ public class CmsFactory
 	}
 	private static DsCmsDao dao = null;
 
-	private Long siteid = 0L;
-	Map<String, Object> site = new HashMap<String, Object>();
+	private long siteid = 0L;
+	private Map<String, Object> site = new HashMap<String, Object>();
+	private List<Map<String, Object>> categoryList = new ArrayList<Map<String, Object>>();
+	private Map<String, Map<String, Object>> categoryMap = new HashMap<String, Map<String, Object>>();
 
-	public CmsFactory(Long _siteid)
+	public CmsFactory(long siteid)
 	{
 		try
 		{
@@ -36,8 +38,30 @@ public class CmsFactory
 			{
 				init();
 			}
-			siteid = _siteid;
-			site = getDao().getSite(siteid);
+			this.siteid = siteid;
+			this.site = getDao().getSite(siteid);
+
+			List<Map<String, Object>> clist = getDao().queryCategory(siteid);
+			for(Map<String, Object> m : clist)
+			{
+				if(m.get("pid") == null)
+				{
+					m.put("pid", "0");
+					categoryList.add(m);
+				}
+				m.put("list", new ArrayList<Map<String, Object>>());
+				categoryMap.put(String.valueOf(m.get("id")), m);
+			}
+			for(Map<String, Object> m : clist)
+			{
+				String pid = String.valueOf(m.get("pid"));
+				if(!pid.equals("0") && categoryMap.get(pid) != null)
+				{
+					@SuppressWarnings("unchecked")
+					List<Map<String, Object>> list = (List<Map<String, Object>>)(((Map<String, Object>)(categoryMap.get(pid))).get("list"));
+					list.add(m);
+				}
+			}
 		}
 		catch(Exception ex)
 		{
@@ -61,7 +85,7 @@ public class CmsFactory
 
 	public Map<String, Object> getCategory(Object categoryid)
 	{
-		return getDao().getCategory(siteid, toLong(categoryid));
+		return categoryMap.get(String.valueOf(categoryid));
 	}
 
 	public Map<String, Object> get(String pageid)
@@ -225,34 +249,17 @@ public class CmsFactory
 	public List<Map<String, Object>> queryCategory(Object categoryid)
 	{
 		String pid = String.valueOf(toLong(categoryid));
-		List<Map<String, Object>> list = getDao().queryCategory(siteid);
-		Map<String, Object> map = new HashMap<String, Object>();
-		List<Map<String, Object>> rs = new ArrayList<Map<String, Object>>();
-		for(Map<String, Object> m : list)
+		if("0".equals(pid))
 		{
-			String p = String.valueOf(m.get("pid"));
-			if(p.equals("null"))
-			{
-				m.put("pid", "0");
-				p = "0";
-			}
-			m.put("list", new ArrayList<Map<String, Object>>());
-			map.put(String.valueOf(m.get("id")), m);
-			if(p.equals(pid))
-			{
-				rs.add(m);
-			}
+			return categoryList;
 		}
-		for(Map<String, Object> m : list)
+		Map<String, Object> p = categoryMap.get(pid);
+		if(p == null)
 		{
-			String p = String.valueOf(m.get("pid"));
-			if(!p.equals("0") && map.get(p) != null)
-			{
-				@SuppressWarnings("unchecked")
-				List<Map<String, Object>> l = (ArrayList<Map<String, Object>>) (((Map<String, Object>) (map.get(p))).get("list"));
-				l.add(m);
-			}
+			return new ArrayList<Map<String, Object>>(); 
 		}
-		return rs;
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> list = (List<Map<String, Object>>)p.get("list");
+		return list;
 	}
 }

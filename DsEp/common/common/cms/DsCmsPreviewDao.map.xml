@@ -54,7 +54,8 @@
 </select>
 <select id="queryCategory" resultType="java.util.Map">
 	select <include refid="c_category" /> from DS_CMS_CATEGORY
-	where SITEID=#{siteid} order by SEQ
+	where SITEID=#{siteid}
+	order by SEQ
 </select>
 
 </mapper>
