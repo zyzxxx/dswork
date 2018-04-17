@@ -180,12 +180,7 @@ $(function(){
 			${fn:escapeXml(d.audittime)}
 		</td>
 		<td>
-		<c:if test="${!empty d.editname}">
-			${d.status==-1?'提交删除':d.status==0?'提交新增':d.status==2?'拷贝新增':d.status==1?'提交修改':d.status==4?'撤销提交':d.status==8?'信息发布':''}
-		</c:if>
-		<c:if test="${!empty d.auditname}">
-			${d.auditstatus==2?'审核不通过':d.auditstatus==4?'审核通过':''}
-		</c:if>
+			${d.auditstatus==0?'提交新增':d.auditstatus==1?'提交修改':d.auditstatus==2?'提交删除':d.auditstatus==3?'撤销提交':d.auditstatus==4?'不通过审核':d.auditstatus==5?'通过审核':''}
 		</td>
 	</tr>
 </c:forEach>
