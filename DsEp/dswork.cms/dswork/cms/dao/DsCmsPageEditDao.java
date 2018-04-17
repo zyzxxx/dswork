@@ -3,6 +3,7 @@
  */
 package dswork.cms.dao;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -22,5 +23,13 @@ public class DsCmsPageEditDao extends BaseDao<DsCmsPageEdit, Long>
 	public int queryCount(Map<String, Object> map)
 	{
 		return queryCount("queryCount", map);
+	}
+
+	public int delete(long siteid, long categoryid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		map.put("categoryid", categoryid);
+		return executeDelete("deleteNeedBeDelete", map);
 	}
 }

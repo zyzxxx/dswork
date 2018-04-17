@@ -84,4 +84,22 @@ public class DsCmsCategoryDao extends BaseDao<DsCmsCategory, Long>
 		map.put("pid", pid);
 		return queryList(map);
 	}
+
+	public List<DsCmsCategory> queryListCountAudit(long siteid, String ids, int scope)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		map.put("ids", ids);
+		map.put("scope", scope);
+		return queryList("queryCountAudit", map);
+	}
+
+	public List<DsCmsCategory> queryListCountPublish(long siteid, String ids, int scope)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		map.put("ids", ids);
+		map.put("scope", scope);
+		return queryList("queryCountPublish", map);
+	}
 }

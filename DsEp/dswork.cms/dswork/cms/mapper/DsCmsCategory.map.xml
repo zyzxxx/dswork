@@ -79,6 +79,7 @@
 	<result property="releaseuser" column="RELEASEUSER" />
 	<result property="img" column="IMG" />
 	<result property="content" column="CONTENT" />
+	<result property="count" column="COUNT" />
 </resultMap>
 
 <sql id="columns">
@@ -112,6 +113,30 @@
 <select id="queryCount" resultType="int">
 	select count(1) from DS_CMS_CATEGORY
 	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCountAudit" resultMap="result">
+<if test="scope == 0">
+	select CATEGORYID ID, count(1) COUNT from DS_CMS_PAGE_EDIT
+	where SITEID=#{siteid} and SCOPE='0' and AUDITSTATUS='1' and CATEGORYID in (${ids})
+	group by ID
+</if>
+<if test="scope == 1">
+	select ID, (select count(1) from DS_CMS_CATEGORY_EDIT b where b.ID=a.ID and b.AUDITSTATUS=1) COUNT from DS_CMS_CATEGORY a
+	where SITEID=#{siteid} and SCOPE='1' and ID in (${ids})
+</if>
+</select>
+
+<select id="queryCountPublish" resultMap="result">
+<if test="scope == 0">
+	select CATEGORYID ID, count(1) COUNT from DS_CMS_PAGE
+	where SITEID=#{siteid} and SCOPE='0' and STATUS in ('-1','0','1') and CATEGORYID in (${ids})
+	group by ID
+</if>
+<if test="scope == 1">
+	select ID, (select count(1) from DS_CMS_CATEGORY_EDIT b where b.ID=a.ID and b.STATUS in ('-1','0','1')) COUNT from DS_CMS_CATEGORY a
+	where SITEID=#{siteid} and SCOPE='1' and ID in (${ids})
+</if>
 </select>
 
 </mapper>

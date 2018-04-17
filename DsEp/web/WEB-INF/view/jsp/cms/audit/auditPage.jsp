@@ -48,7 +48,7 @@ $(function(){
 <c:if test="${po.audit}">
 <c:if test="${po.status==-1}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-	<tr><td class="form_input" style="color:red;text-align:center;">删除操作审核，审核通过后本条目将被删除</td></tr>
+	<tr><td class="form_input" style="color:red;text-align:center;">删除操作审核，审核通过后本条目将在该栏目发布时被删除</td></tr>
 </table>
 <div class="line"></div>
 </c:if>

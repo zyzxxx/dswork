@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import dswork.cms.dao.DsCmsCategoryDao;
 import dswork.cms.dao.DsCmsPageDao;
+import dswork.cms.dao.DsCmsPageEditDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPage;
@@ -29,6 +30,7 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 	@Autowired
 	private DsCmsSiteDao siteDao;
 	@Autowired
+	private DsCmsPageEditDao pageEditDao;
 
 	@Override
 	protected EntityDao<DsCmsPage, Long> getEntityDao()
@@ -68,5 +70,25 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 	public void updateCategoryStatus(Long id, int status)
 	{
 		categoryDao.updateStatus(id, status);
+	}
+
+	public List<DsCmsCategory> queryListCategoryCountPublish(long siteid, List<Long> idList, int scope)
+	{
+		String ids = "";
+		for(int i = 0; i < idList.size(); i++)
+		{
+			ids += idList.get(i);
+			if(i < idList.size() - 1)
+			{
+				ids += ",";
+			}
+		}
+		return categoryDao.queryListCountPublish(siteid, ids, scope);
+	}
+
+	public void deletePage(long siteid, long categoryid)
+	{
+		pageEditDao.delete(siteid, categoryid);
+		pageDao.delete(siteid, categoryid);
 	}
 }

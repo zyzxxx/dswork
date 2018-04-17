@@ -76,7 +76,7 @@ public class DsCmsEditService
 		pageEditDao.save(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
 		{
-			writeLogPage(po, editid, editname);
+			writeLogPage(po, 0, editid, editname);
 		}
 	}
 
@@ -119,7 +119,7 @@ public class DsCmsEditService
 		categoryEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
 		{
-			writeLogCategory(po, editid, editname);
+			writeLogCategory(po, 1, editid, editname);
 		}
 	}
 
@@ -134,7 +134,7 @@ public class DsCmsEditService
 		if(enablelog)
 		{
 			po.setStatus(4); // 撤销
-			writeLogCategory(po, editid, editname);
+			writeLogCategory(po, 3, editid, editname);
 		}
 	}
 
@@ -188,7 +188,7 @@ public class DsCmsEditService
 		pageEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
 		{
-			writeLogPage(po, editid, editname);
+			writeLogPage(po, po.getStatus() == -1 ? 2 : 1, editid, editname);
 		}
 	}
 
@@ -203,7 +203,7 @@ public class DsCmsEditService
 		if(enablelog)
 		{
 			po.setStatus(4); // 撤销
-			writeLogPage(po, editid, editname);
+			writeLogPage(po, 3, editid, editname);
 		}
 	}
 
@@ -271,7 +271,7 @@ public class DsCmsEditService
 		return categoryDao.queryList(map);
 	}
 
-	private void writeLogPage(DsCmsPageEdit po, String editid, String editname)
+	private void writeLogPage(DsCmsPageEdit po, int action, String editid, String editname)
 	{
 		try
 		{
@@ -284,7 +284,7 @@ public class DsCmsEditService
 			log.setEditname(editname);
 			log.setEdittime(po.getEdittime());
 			log.setStatus(po.getStatus());
-			log.setAuditstatus(po.getAuditstatus());
+			log.setAuditstatus(action);
 			log.setTitle(po.getTitle());
 			log.setScope(po.getScope());
 			log.setUrl(po.getUrl());
@@ -305,7 +305,7 @@ public class DsCmsEditService
 		}
 	}
 
-	private void writeLogCategory(DsCmsCategoryEdit po, String editid, String editname)
+	private void writeLogCategory(DsCmsCategoryEdit po, int action, String editid, String editname)
 	{
 		try
 		{
@@ -317,7 +317,7 @@ public class DsCmsEditService
 			log.setEditname(editname);
 			log.setEdittime(po.getEdittime());
 			log.setStatus(po.getStatus());
-			log.setAuditstatus(po.getAuditstatus());
+			log.setAuditstatus(action);
 			log.setTitle(po.getName());
 			log.setScope(po.getScope());
 			log.setUrl(po.getUrl());
