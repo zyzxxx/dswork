@@ -25,7 +25,7 @@
 	<tr>
 		<td class="k"><input name="keyIndex" type="text" style="width:100%;" readonly="readonly" value="${d.id}" /></td>
 		<td class="v" style="text-align:left;">${d.label}${fn:escapeXml(d.name)}&nbsp;<a onclick="return false;" href="#" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a></td>
-		<td>${fn:escapeXml(d.count)}</td>
+		<td>${fn:escapeXml(d.count>0 ? d.count : '')}</td>
 	</tr>
 </c:forEach>
 </table>
