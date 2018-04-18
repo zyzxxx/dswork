@@ -62,48 +62,6 @@ try
 			return;
 		}
 	}
-	if(categoryid > 0)// 栏目页
-	{
-		Map<String, Object> c = cms.getCategory(String.valueOf(categoryid));
-		map.put("id", getString(categoryid));
-		map.put("name", getString(c.get("name")));
-		map.put("scope", getString(c.get("scope")));
-		if(c.get("scope").equals(2))// 外链页面
-		{
-			map.put("url", getString(c.get("url")));
-			out.print(GsonUtil.toJson(map));
-			return;
-		}
-		if(c.get("scope").equals(1))// 单页页面
-		{
-			map.put("summary", getString(c.get("summary")));
-			map.put("metakeywords", getString(c.get("metakeywords")));
-			map.put("metadescription", getString(c.get("metadescription")));
-			map.put("releasetime", getString(c.get("releasetime")));
-			map.put("releasesource", getString(c.get("releasesource")));
-			map.put("releaseuser", getString(c.get("releaseuser")));
-			map.put("img", getString(c.get("img")));
-			map.put("content", getString(c.get("content")));
-			out.print(GsonUtil.toJson(map));
-			return;
-		}
-		if(c.get("scope").equals(0))// 列表
-		{
-			int currentPage = req.getInt("page", 1);
-			int pagesize = req.getInt("pagesize", 25);
-			Map<String, Object> mm = cms.queryPage(currentPage, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
-			Map<String, Object> datapage = (Map<String, Object>) mm.get("datapage");
-			map.put("list", mm.get("list"));
-			map.put("page", datapage.get("page"));
-			map.put("pagesize", datapage.get("pagesize"));
-			map.put("first", datapage.get("first"));
-			map.put("prev", datapage.get("prev"));
-			map.put("next", datapage.get("next"));
-			map.put("last", datapage.get("last"));
-			out.print(GsonUtil.toJson(map));
-			return;
-		}
-	}
 	map.put("msg", "参数错误");
 	out.print(GsonUtil.toJson(map));
 	return;
