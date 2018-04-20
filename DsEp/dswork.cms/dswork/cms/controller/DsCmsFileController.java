@@ -6,7 +6,6 @@ package dswork.cms.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -278,7 +277,7 @@ public class DsCmsFileController extends DsCmsBaseController
 			// File zipFile = new File(zipFilePath);
 			// InputStream is = new FileInputStream(zipFile);
 			InputStream is = FileUtil.getToInputStream(dataArray);
-			ZipInputStream zis = new ZipInputStream(is, Charset.forName("GBK"));
+			ZipInputStream zis = new ZipInputStream(is);//, java.nio.charset.Charset.forName("GBK")
 			ZipEntry entry = null;
 			outer:while((entry = zis.getNextEntry()) != null)
 			{
