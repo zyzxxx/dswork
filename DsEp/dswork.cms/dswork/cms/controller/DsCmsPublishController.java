@@ -303,6 +303,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 									if(c.getScope() == 2)// 外链没有东西生成的
 									{
 										_deleteFile(site.getFolder(), c.getId() + "", true, true);
+										service.updateCategoryStatus(c.getId(), 8);
 										continue;
 									}
 									_deleteFile(site.getFolder(), c.getId() + "", true, false);// 删除栏目首页
