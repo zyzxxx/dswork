@@ -126,7 +126,10 @@ public class DsCmsAuditService
 			else if(c.getScope() == 2)
 			{
 				c.setUrl(po.getUrl());
-				c.setStatus(8);// category设置为已发布状态（因为外链不需要发布操作）
+				if(c.getStatus() != 0)
+				{
+					c.setStatus(1);
+				}
 				categoryDao.update(c);
 			}
 			po.setStatus(1);// categoryEdit设置为待更新状态
