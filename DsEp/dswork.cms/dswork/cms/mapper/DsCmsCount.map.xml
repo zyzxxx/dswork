@@ -16,7 +16,7 @@
 	where SITEID=#{siteid} and AUDITSTATUS='1' and CATEGORYID in (${idsForPage})
 	group by CATEGORYID
 	union
-	select ID, 1 as SCOPE, 1 as COUNT from DS_CMS_CATEGORY
+	select ID, 1 as SCOPE, 1 as COUNT from DS_CMS_CATEGORY_EDIT
 	where SITEID=#{siteid} and AUDITSTATUS=1 and ID in (${idsForPageCategory})
 </select>
 
@@ -26,10 +26,7 @@
 	group by CATEGORYID
 	union
 	select ID, 1 as SCOPE, 1 as COUNT from DS_CMS_CATEGORY
-	where SITEID=#{siteid} and SCOPE in (0, 1) and ID in (
-		select ID from DS_CMS_CATEGORY_EDIT 
-		where SITEID=#{siteid} and STATUS in ('-1','0','1') and ID in (${idsForPageCategory})
-	)
+	where SITEID=#{siteid} and STATUS in ('-1','0','1') and ID in (${idsForPageCategory})
 </select>
 
 </mapper>
