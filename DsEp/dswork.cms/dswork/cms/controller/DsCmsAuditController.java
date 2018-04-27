@@ -102,15 +102,17 @@ public class DsCmsAuditController extends DsCmsBaseController
 				}
 				map.put(c.getId(), c);
 			}
+			// 统计列表栏目id和待审核数量
 			List<DsCmsCategory> _list = service.queryListCategoryCountAudit(siteid, idListZero, 0);
 			for(DsCmsCategory c : _list)
 			{
 				map.get(c.getId()).setCount(c.getCount());
 			}
+			// 统计列表栏目id和自己是否待审
 			_list = service.queryListCategoryCountAudit(siteid, idListOne, 1);
 			for(DsCmsCategory c : _list)
 			{
-				map.get(c.getId()).setCount(c.getCount());
+				map.get(c.getId()).setCount(1);
 			}
 			put("list", list);
 			return "/cms/audit/getCategoryAudit.jsp";

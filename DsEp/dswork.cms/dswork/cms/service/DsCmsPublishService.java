@@ -3,6 +3,7 @@
  */
 package dswork.cms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -83,7 +84,16 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 				ids += ",";
 			}
 		}
-		return categoryDao.queryListCountPublish(siteid, ids, scope);
+		List<DsCmsCategory> resultList;
+		if(ids.length() > 0)
+		{
+			resultList = categoryDao.queryListCountPublish(siteid, ids, scope);
+		}
+		else
+		{
+			resultList = new ArrayList<DsCmsCategory>();
+		}
+		return resultList;
 	}
 
 	public void deletePage(long siteid, long categoryid)

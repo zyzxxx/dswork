@@ -80,7 +80,7 @@ $(function(){
 	</div>
 </div>
 <div region="center" style="overflow:hidden;">
-	<iframe id="mainFrame" src="" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
+	<iframe id="mainFrame" src="about:blank" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
 </div>
 </body>
 </c:if>

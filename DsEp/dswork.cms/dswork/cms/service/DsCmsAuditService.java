@@ -3,6 +3,7 @@
  */
 package dswork.cms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -300,6 +301,15 @@ public class DsCmsAuditService
 				ids += ",";
 			}
 		}
-		return categoryDao.queryListCountAudit(siteid, ids, scope);
+		List<DsCmsCategory> resultList;
+		if(ids.length() > 0)
+		{
+			resultList = categoryDao.queryListCountAudit(siteid, ids, scope);
+		}
+		else
+		{
+			resultList = new ArrayList<DsCmsCategory>();
+		}
+		return resultList;
 	}
 }
