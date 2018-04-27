@@ -12,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.cms.dao.DsCmsCategoryEditDao;
+import dswork.cms.dao.DsCmsCountDao;
 import dswork.cms.dao.DsCmsLogDao;
 import dswork.cms.dao.DsCmsPageEditDao;
 import dswork.cms.dao.DsCmsCategoryDao;
 import dswork.cms.dao.DsCmsPageDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsCategoryEdit;
+import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsLog;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
@@ -43,6 +45,8 @@ public class DsCmsAuditService
 	private DsCmsCategoryDao categoryDao;
 	@Autowired
 	private DsCmsSiteDao siteDao;
+	@Autowired
+	private DsCmsCountDao countDao;
 
 	public DsCmsSite getSite(Long siteid)
 	{
@@ -290,25 +294,33 @@ public class DsCmsAuditService
 		}
 	}
 
-	public List<DsCmsCategory> queryListCategoryCountAudit(long siteid, List<Long> idList, int scope)
+	public List<DsCmsCount> queryCountForAudit(long siteid, List<Long> idsForPageList, List<Long> idsForCategoryList)
 	{
-		String ids = "";
-		for(int i = 0; i < idList.size(); i++)
+		String idsForPage = "", idsForCategory = "" ;
+		for(int i = 0; i < idsForPageList.size(); i++)
 		{
-			ids += idList.get(i);
-			if(i < idList.size() - 1)
+			idsForPage += idsForPageList.get(i);
+			if(i < idsForPageList.size() - 1)
 			{
-				ids += ",";
+				idsForPage += ",";
 			}
 		}
-		List<DsCmsCategory> resultList;
-		if(ids.length() > 0)
+		for(int i = 0; i < idsForCategoryList.size(); i++)
 		{
-			resultList = categoryDao.queryListCountAudit(siteid, ids, scope);
+			idsForCategory += idsForCategoryList.get(i);
+			if(i < idsForCategoryList.size() - 1)
+			{
+				idsForCategory += ",";
+			}
+		}
+		List<DsCmsCount> resultList;
+		if(idsForPage.length() > 0 || idsForCategory.length() > 0)
+		{
+			resultList = countDao.queryCountForAudit(siteid, idsForPage, idsForCategory);
 		}
 		else
 		{
-			resultList = new ArrayList<DsCmsCategory>();
+			resultList = new ArrayList<DsCmsCount>();
 		}
 		return resultList;
 	}
