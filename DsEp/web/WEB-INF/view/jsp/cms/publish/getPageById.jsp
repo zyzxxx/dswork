@@ -8,13 +8,16 @@
 <%@include file="/commons/include/updAjax.jsp" %>
 <%@include file="/commons/include/editor.jsp" %>
 <script type="text/javascript">
+$dswork.callback = function(){if($dswork.result.type==1){
+	location.reload();
+}};
 $(function(){
 	$(".form_title").css("width", "8%");
 	$("#btn_category").bind("click", function(){
 		if(confirm("是否发布")){
 			$dswork.doAjaxObject.show("发布中");
 			$.post("build.htm",{siteid:"${po.siteid}",categoryid:"${po.categoryid}",pageid:"${po.id}"},function(data){
-				$dswork.doAjaxShow(data, function(){});
+				$dswork.doAjaxShow(data, $dswork.callback);
 			});
 		}
 	});

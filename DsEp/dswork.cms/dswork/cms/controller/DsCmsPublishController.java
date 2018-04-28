@@ -254,6 +254,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 								else if(p.getScope() == 2)
 								{
 									_buildFile(null, "/a/" + p.getCategoryid() + "/" + p.getId() + ".html", site.getFolder());
+									service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 								}
 								else
 								{
@@ -341,8 +342,8 @@ public class DsCmsPublishController extends DsCmsBaseController
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 						if(categoryid == 0)// 全部栏目内容
 						{
-							List<DsCmsCategory> _list = service.queryListCategory(siteid);
-							for(DsCmsCategory c : _list)
+							List<DsCmsCategory> clist = service.queryListCategory(siteid);
+							for(DsCmsCategory c : clist)
 							{
 								if(checkPublish(c.getSiteid(), c.getId()))
 								{
@@ -363,9 +364,10 @@ public class DsCmsPublishController extends DsCmsBaseController
 							if(c.getScope() == 2)// 外链没有东西生成的
 							{
 								_deleteFile(site.getFolder(), c.getId() + "", true, true);
+								service.updateCategoryStatus(c.getId(), 8);
 								continue;
 							}
-							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除内容
+							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除栏目下所有内容
 							try
 							{
 								// 先删除栏目下待删除的数据
@@ -386,11 +388,8 @@ public class DsCmsPublishController extends DsCmsBaseController
 								{
 									try
 									{
-										if(p.getScope() != 2)
-										{
-											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
-											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
-										}
+										_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
+										service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 									}
 									catch(Exception e)
 									{
@@ -410,11 +409,8 @@ public class DsCmsPublishController extends DsCmsBaseController
 									{
 										try
 										{
-											if(p.getScope() != 2)
-											{
-												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
-												service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
-											}
+											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
+											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 										}
 										catch(Exception e)
 										{

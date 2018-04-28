@@ -93,13 +93,9 @@ public class DsCmsAuditController extends DsCmsBaseController
 				{
 					idListZero.add(c.getId());
 				}
-				else if(c.getScope() == 1)
+				else
 				{
 					idListOne.add(c.getId());
-				}
-				else if(c.getScope() == 2)
-				{
-					continue;
 				}
 				map.put(c.getId(), c);
 			}
