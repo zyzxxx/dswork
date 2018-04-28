@@ -105,8 +105,8 @@ public class DsCmsPublishController extends DsCmsBaseController
 				map.put(c.getId(), c);
 			}
 			List<Long> xList = new ArrayList<Long>();
-			List<DsCmsCount> _list = service.queryCountForPublish(siteid, idList, xList);
-			for(DsCmsCount c : _list)
+			List<DsCmsCount> clist = service.queryCountForPublish(siteid, idList, xList);
+			for(DsCmsCount c : clist)
 			{
 				DsCmsCategory x = map.get(c.getId());
 				x.setCount(x.getCount() + c.getCount());
@@ -278,8 +278,8 @@ public class DsCmsPublishController extends DsCmsBaseController
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 						if(categoryid == 0)// 全部栏目首页
 						{
-							List<DsCmsCategory> _list = service.queryListCategory(siteid);
-							for(DsCmsCategory c : _list)
+							List<DsCmsCategory> clist = service.queryListCategory(siteid);
+							for(DsCmsCategory c : clist)
 							{
 								if(checkPublish(c.getSiteid(), c.getId()))
 								{
@@ -367,7 +367,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 								service.updateCategoryStatus(c.getId(), 8);
 								continue;
 							}
-							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除栏目下所有内容
+							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除栏目内容
 							try
 							{
 								// 先删除栏目下待删除的数据
