@@ -11,7 +11,7 @@
 	<result property="count" column="COUNT" />
 </resultMap>
 
-<select id="queryCountForAudit" resultType="result">
+<select id="queryCountForAudit" resultMap="result">
 	select CATEGORYID ID, 0 as SCOPE, count(1) COUNT from DS_CMS_PAGE_EDIT
 	where SITEID=#{siteid} and AUDITSTATUS='1' and CATEGORYID in (${idsForPage})
 	group by CATEGORYID

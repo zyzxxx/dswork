@@ -8,6 +8,9 @@
 <%@include file="/commons/include/updAjax.jsp" %>
 <%@include file="/commons/include/editor.jsp" %>
 <script type="text/javascript">
+$dswork.callback = function(){if($dswork.result.type == 1){
+	location.reload();
+}};
 $(function(){
 	$(".form_title").css("width", "8%");
 <c:if test="${scope==1}">
@@ -15,7 +18,7 @@ $(function(){
 		if(confirm("是否发布栏目\"${fn:escapeXml(po.name)}\"")){
 			$dswork.doAjaxObject.show("发布中");
 			$.post("build.htm",{"siteid":"${po.siteid}", "categoryid":"${po.id}"},function(data){
-				$dswork.doAjaxShow(data, function(){});
+				$dswork.doAjaxShow(data, $dswork.callback);
 			});
 		}
 	});
@@ -24,7 +27,7 @@ $(function(){
 		if(confirm("是否发布首页")){
 			$dswork.doAjaxObject.show("发布中");
 			$.post("build.htm",{"siteid":"${po.siteid}"},function(data){
-				$dswork.doAjaxShow(data, function(){});
+				$dswork.doAjaxShow(data, $dswork.callback);
 			});
 		}
 	});
