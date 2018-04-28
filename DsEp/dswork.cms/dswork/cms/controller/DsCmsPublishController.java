@@ -388,7 +388,10 @@ public class DsCmsPublishController extends DsCmsBaseController
 								{
 									try
 									{
-										_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
+										if(p.getScope() != 2)
+										{
+											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
+										}
 										service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 									}
 									catch(Exception e)
@@ -409,7 +412,10 @@ public class DsCmsPublishController extends DsCmsBaseController
 									{
 										try
 										{
-											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
+											if(p.getScope() != 2)
+											{
+												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
+											}
 											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 										}
 										catch(Exception e)
