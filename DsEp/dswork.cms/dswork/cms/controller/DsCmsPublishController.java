@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsPublishService;
@@ -103,10 +104,12 @@ public class DsCmsPublishController extends DsCmsBaseController
 				idList.add(c.getId());
 				map.put(c.getId(), c);
 			}
-			List<DsCmsCategory> _list = service.queryListCategoryCountPublish(siteid, idList, 0);
-			for(DsCmsCategory c : _list)
+			List<Long> xList = new ArrayList<Long>();
+			List<DsCmsCount> _list = service.queryCountForPublish(siteid, idList, xList);
+			for(DsCmsCount c : _list)
 			{
-				map.get(c.getId()).setCount(c.getCount());
+				DsCmsCategory x = map.get(c.getId());
+				x.setCount(x.getCount() + c.getCount());
 			}
 			put("list", list);
 			return "/cms/publish/getCategoryPublish.jsp";
@@ -300,6 +303,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 									if(c.getScope() == 2)// 外链没有东西生成的
 									{
 										_deleteFile(site.getFolder(), c.getId() + "", true, true);
+										service.updateCategoryStatus(c.getId(), 8);
 										continue;
 									}
 									_deleteFile(site.getFolder(), c.getId() + "", true, false);// 删除栏目首页

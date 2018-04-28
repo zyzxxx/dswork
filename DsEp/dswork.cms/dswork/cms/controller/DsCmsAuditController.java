@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cms.model.DsCmsCategoryEdit;
+import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsSite;
@@ -102,15 +103,11 @@ public class DsCmsAuditController extends DsCmsBaseController
 				}
 				map.put(c.getId(), c);
 			}
-			List<DsCmsCategory> _list = service.queryListCategoryCountAudit(siteid, idListZero, 0);
-			for(DsCmsCategory c : _list)
+			List<DsCmsCount> _list = service.queryCountForAudit(siteid, idListZero, idListOne);
+			for(DsCmsCount c : _list)
 			{
-				map.get(c.getId()).setCount(c.getCount());
-			}
-			_list = service.queryListCategoryCountAudit(siteid, idListOne, 1);
-			for(DsCmsCategory c : _list)
-			{
-				map.get(c.getId()).setCount(c.getCount());
+				DsCmsCategory x = map.get(c.getId());
+				x.setCount(x.getCount() + c.getCount());
 			}
 			put("list", list);
 			return "/cms/audit/getCategoryAudit.jsp";

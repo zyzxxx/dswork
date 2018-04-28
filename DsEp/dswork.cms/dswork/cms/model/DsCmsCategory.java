@@ -268,12 +268,12 @@ public class DsCmsCategory
 		this.label = label;
 	}
 
-	public synchronized int getCount()
+	public int getCount()
 	{
 		return count;
 	}
 
-	public synchronized void setCount(int count)
+	public void setCount(int count)
 	{
 		this.count = count;
 	}
