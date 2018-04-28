@@ -1,6 +1,10 @@
 package dswork.core.util;
 
+import java.security.KeyFactory;
 import java.security.MessageDigest;
+import java.security.PrivateKey;
+import java.security.Signature;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -21,6 +25,56 @@ public class EncryptUtil
 		if(code != null)
 		{
 			return code.toUpperCase(Locale.ENGLISH);
+		}
+		return null;
+	}
+	
+	private static boolean isWhiteSpace(char octect)
+	{
+		return (octect == 0x20 || octect == 0xd || octect == 0xa || octect == 0x9);
+	}
+	private static int removeWhiteSpace(char[] data)
+	{
+		if(data == null)
+		{
+			return 0;
+		}
+		// count characters that's not whitespace
+		int newSize = 0;
+		int len = data.length;
+		for(int i = 0; i < len; i++)
+		{
+			if(!isWhiteSpace(data[i]))
+			{
+				data[newSize++] = data[i];
+			}
+		}
+		return newSize;
+	}
+	
+	/**
+	 * RSA2加密
+	 * @param str 需要加密的String
+	 * @param privateKey 私钥String，会对其进行去空处理
+	 * @return RSA2使用Base64编码的String，失败返回null
+	 */
+	public static String encryptRsa2(String str, String privateKey)
+	{
+		try
+		{
+			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+			char[] arr = privateKey.toCharArray();
+			removeWhiteSpace(arr);
+			byte[] encodeKey = decodeByteBase64(privateKey);
+			PrivateKey priKey = keyFactory.generatePrivate(new PKCS8EncodedKeySpec(encodeKey));
+			Signature signature = Signature.getInstance("SHA256WithRSA");
+			signature.initSign(priKey);
+			signature.update(str.getBytes("UTF-8"));
+			return encodeByteBase64(signature.sign());
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -103,7 +157,7 @@ public class EncryptUtil
 			try
 			{
 				Class.forName("java.util.Base64");
-				return java.util.Base64.getEncoder().encodeToString(str.getBytes("UTF-8"));
+				return java.util.Base64.getEncoder().encodeToString(str.getBytes("UTF-8")).replaceAll("\r", "").replaceAll("\n", "");
 			}
 			catch(ClassNotFoundException ex)
 			{
@@ -160,13 +214,13 @@ public class EncryptUtil
 			try
 			{
 				Class.forName("java.util.Base64");
-				return java.util.Base64.getEncoder().encodeToString(byteArray);
+				return java.util.Base64.getEncoder().encodeToString(byteArray).replaceAll("\r", "").replaceAll("\n", "");
 			}
 			catch(ClassNotFoundException ex)
 			{
 				// System.out.println("EncryptUtil ignore java.util.Base64 Class");
 			}
-			return (new sun.misc.BASE64Encoder()).encode(byteArray);
+			return (new sun.misc.BASE64Encoder()).encode(byteArray).replaceAll("\r", "").replaceAll("\n", "");
 		}
 		catch(Exception e)
 		{
