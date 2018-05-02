@@ -19,6 +19,10 @@
 	delete from DS_CMS_PAGE_EDIT where ID=#{id}
 </delete>
 
+<delete id="deleteNeedBeDelete">
+	delete from DS_CMS_PAGE_EDIT where SITEID=#{siteid} and CATEGORYID=#{categoryid} and STATUS='-1' and AUDITSTATUS='4'
+</delete>
+
 <update id="update" parameterType="dswork.cms.model.DsCmsPageEdit">
 	update DS_CMS_PAGE_EDIT set
 		STATUS=#{status},
@@ -84,6 +88,7 @@
 		<if test="@Ognl@isNotEmpty(auditstatus)"> and AUDITSTATUS=#{auditstatus} </if>
 		<if test="@Ognl@isNotEmpty(editid)"> and EDITID like #{editid, typeHandler=LikeTypeHandler} </if>
 		<if test="@Ognl@isNotEmpty(editname)"> and EDITNAME like #{editname, typeHandler=LikeTypeHandler} </if>
+		<if test="@Ognl@isNotEmpty(excluderemove)"> and (STATUS!='-1' or AUDITSTATUS!='4') </if>
 	</where>
 </sql>
 

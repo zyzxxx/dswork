@@ -79,6 +79,7 @@
 	<result property="releaseuser" column="RELEASEUSER" />
 	<result property="img" column="IMG" />
 	<result property="content" column="CONTENT" />
+	<result property="count" column="COUNT" />
 </resultMap>
 
 <sql id="columns">

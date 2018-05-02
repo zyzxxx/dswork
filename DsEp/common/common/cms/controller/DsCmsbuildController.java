@@ -15,7 +15,7 @@ import dswork.mvc.BaseController;
 public class DsCmsbuildController extends BaseController
 {
 	private static final String CMS_FACTORY_KEY = "CMS_FACTORY_KEY";
-	private static final String CMS_FACTORY_KEY_SITEID = "CMS_FACTORY_KEY_SITEID";
+//	private static final String CMS_FACTORY_KEY_SITEID = "CMS_FACTORY_KEY_SITEID";
 
 	@RequestMapping("/cmsbuild/buildHTML")
 	public String buildHTML()
@@ -29,18 +29,18 @@ public class DsCmsbuildController extends BaseController
 		{
 			cms = new CmsFactory(siteid);
 			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
-			request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
+//			request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
 		}
-		else
-		{
-			String siteidstr = String.valueOf(request.getSession().getAttribute(CMS_FACTORY_KEY_SITEID));
-			if(!siteidstr.equals(cms.getSite().get("id")))
-			{
-				cms = new CmsFactory(siteid);
-				request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
-				request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
-			}
-		}
+//		else
+//		{
+//			String siteidstr = String.valueOf(request.getSession().getAttribute(CMS_FACTORY_KEY_SITEID));
+//			if(!siteidstr.equals(String.valueOf(cms.getSite().get("id"))))
+//			{
+//				cms = new CmsFactory(siteid);
+//				request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
+//				request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
+//			}
+//		}
 		
 		put("cms", cms);
 		put("year", TimeUtil.getCurrentTime("yyyy"));
@@ -57,7 +57,7 @@ public class DsCmsbuildController extends BaseController
 		if(pageid > 0)// 内容页
 		{
 			Map<String, Object> p = cms.get(pageid + "");
-			Map<String, Object> c = cms.getCategory(String.valueOf(p.get("categoryid")));
+			Map<String, Object> c = cms.getCategory(p.get("categoryid"));
 			put("category", c);
 			put("id", getString(p.get("id")));
 			put("categoryid", getString(p.get("categoryid")));
@@ -86,15 +86,8 @@ public class DsCmsbuildController extends BaseController
 			{
 				return null;// 外链
 			}
-			try
-			{
-				Map<String, Object> categoryparent = cms.getCategory(c.get("pid"));
-				put("categoryparent", categoryparent);
-			}
-			catch (Exception e)
-			{
-				e.printStackTrace();
-			}
+			put("categoryparent", cms.getCategory(c.get("pid")));
+			put("categorylist", cms.queryCategory("0"));
 			put("categoryid", categoryid);
 			put("category", c);
 			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);

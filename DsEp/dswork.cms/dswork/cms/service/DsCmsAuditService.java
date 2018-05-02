@@ -3,6 +3,7 @@
  */
 package dswork.cms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,12 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.cms.dao.DsCmsCategoryEditDao;
+import dswork.cms.dao.DsCmsCountDao;
 import dswork.cms.dao.DsCmsLogDao;
 import dswork.cms.dao.DsCmsPageEditDao;
 import dswork.cms.dao.DsCmsCategoryDao;
 import dswork.cms.dao.DsCmsPageDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsCategoryEdit;
+import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsLog;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
@@ -42,6 +45,8 @@ public class DsCmsAuditService
 	private DsCmsCategoryDao categoryDao;
 	@Autowired
 	private DsCmsSiteDao siteDao;
+	@Autowired
+	private DsCmsCountDao countDao;
 
 	public DsCmsSite getSite(Long siteid)
 	{
@@ -121,7 +126,10 @@ public class DsCmsAuditService
 			else if(c.getScope() == 2)
 			{
 				c.setUrl(po.getUrl());
-				c.setStatus(8);// category设置为已发布状态（因为外链不需要发布操作）
+				if(c.getStatus() != 0)
+				{
+					c.setStatus(1);
+				}
 				categoryDao.update(c);
 			}
 			po.setStatus(1);// categoryEdit设置为待更新状态
@@ -129,7 +137,7 @@ public class DsCmsAuditService
 		categoryEditDao.update(po);
 		if(enablelog)
 		{
-			writeLogCategory(po);
+			writeLogCategory(po, po.isPass() ? 5 : 4);
 		}
 	}
 
@@ -179,22 +187,36 @@ public class DsCmsAuditService
 		pageEditDao.update(po);
 		if(enablelog)
 		{
-			writeLogPage(po);
+			writeLogPage(po, po.isPass() ? 5 : 4);
 		}
 	}
 
-	public void deletePageEdit(DsCmsPageEdit po, boolean enablelog)
+	public void updateDeletePageEdit(DsCmsPageEdit po, boolean enablelog)
 	{
 		DsCmsPage p = (DsCmsPage) pageDao.get(po.getId());
 		if(p != null)
 		{
-			p.setStatus(-1);
-			pageDao.update(p);
+			if(p.getStatus() == 1)
+			{
+				pageDao.delete(p.getId());
+				pageEditDao.delete(p.getId());
+			}
+			else// 逻辑删除
+			{
+				p.setStatus(-1);
+				po.setStatus(-1);
+				po.setAuditstatus(4);
+				pageDao.update(p);
+				pageEditDao.update(po);
+			}
 		}
-		pageEditDao.delete(po.getId());
+		else
+		{
+			pageEditDao.delete(po.getId());
+		}
 		if(enablelog)
 		{
-			writeLogPage(po);
+			writeLogPage(po, 5);
 		}
 	}
 
@@ -208,7 +230,7 @@ public class DsCmsAuditService
 		return pageEditDao.queryPage(pr);
 	}
 
-	private void writeLogPage(DsCmsPageEdit po)
+	private void writeLogPage(DsCmsPageEdit po, int action)
 	{
 		try
 		{
@@ -222,7 +244,7 @@ public class DsCmsAuditService
 			log.setAuditname(po.getAuditname());
 			log.setAudittime(po.getAudittime());
 			log.setStatus(po.getStatus());
-			log.setAuditstatus(po.getAuditstatus());
+			log.setAuditstatus(action);
 			log.setTitle(po.getTitle());
 			log.setScope(po.getScope());
 			log.setUrl(po.getUrl());
@@ -243,7 +265,7 @@ public class DsCmsAuditService
 		}
 	}
 
-	private void writeLogCategory(DsCmsCategoryEdit po)
+	private void writeLogCategory(DsCmsCategoryEdit po, int action)
 	{
 		try
 		{
@@ -256,7 +278,7 @@ public class DsCmsAuditService
 			log.setAuditname(po.getAuditname());
 			log.setAudittime(po.getAudittime());
 			log.setStatus(po.getStatus());
-			log.setAuditstatus(po.getAuditstatus());
+			log.setAuditstatus(action);
 			log.setTitle(po.getName());
 			log.setScope(po.getScope());
 			log.setUrl(po.getUrl());
@@ -273,5 +295,36 @@ public class DsCmsAuditService
 		catch(Exception e)
 		{
 		}
+	}
+
+	public List<DsCmsCount> queryCountForAudit(long siteid, List<Long> idsForPageList, List<Long> idsForCategoryList)
+	{
+		String idsForPage = "", idsForCategory = "" ;
+		for(int i = 0; i < idsForPageList.size(); i++)
+		{
+			idsForPage += idsForPageList.get(i);
+			if(i < idsForPageList.size() - 1)
+			{
+				idsForPage += ",";
+			}
+		}
+		for(int i = 0; i < idsForCategoryList.size(); i++)
+		{
+			idsForCategory += idsForCategoryList.get(i);
+			if(i < idsForCategoryList.size() - 1)
+			{
+				idsForCategory += ",";
+			}
+		}
+		List<DsCmsCount> resultList;
+		if(idsForPage.length() > 0 || idsForCategory.length() > 0)
+		{
+			resultList = countDao.queryCountForAudit(siteid, idsForPage, idsForCategory);
+		}
+		else
+		{
+			resultList = new ArrayList<DsCmsCount>();
+		}
+		return resultList;
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsPublishService;
@@ -69,6 +70,54 @@ public class DsCmsPublishController extends DsCmsBaseController
 		{
 			return null;
 		}
+	}
+
+	@RequestMapping("getCategoryPublish")
+	public String getCategoryPublish()
+	{
+		try
+		{
+			long siteid = req.getLong("siteid", -1);
+			if(siteid == -1)
+			{
+				return null;
+			}
+			List<DsCmsCategory> list = service.queryListCategory(siteid);
+			Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
+			list = categoryAccess(list, this);
+			List<Long> idList = new ArrayList<Long>();
+			for(int i = 0; i < list.size(); i++)
+			{
+				DsCmsCategory c = list.get(i);
+				if(c.getScope() == 1 || c.getScope() == 2)
+				{
+					if(c.getScope() == 1
+						&&(c.getStatus() == -1
+						|| c.getStatus() == 0
+						|| c.getStatus() == 1)
+					)
+					{
+						c.setCount(1);
+					}
+					continue;
+				}
+				idList.add(c.getId());
+				map.put(c.getId(), c);
+			}
+			List<Long> xList = new ArrayList<Long>();
+			List<DsCmsCount> clist = service.queryCountForPublish(siteid, idList, xList);
+			for(DsCmsCount c : clist)
+			{
+				DsCmsCategory x = map.get(c.getId());
+				x.setCount(x.getCount() + c.getCount());
+			}
+			put("list", list);
+			return "/cms/publish/getCategoryPublish.jsp";
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
 	}
 
 	// 获得page分页
@@ -205,6 +254,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 								else if(p.getScope() == 2)
 								{
 									_buildFile(null, "/a/" + p.getCategoryid() + "/" + p.getId() + ".html", site.getFolder());
+									service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 								}
 								else
 								{
@@ -228,8 +278,8 @@ public class DsCmsPublishController extends DsCmsBaseController
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 						if(categoryid == 0)// 全部栏目首页
 						{
-							List<DsCmsCategory> _list = service.queryListCategory(siteid);
-							for(DsCmsCategory c : _list)
+							List<DsCmsCategory> clist = service.queryListCategory(siteid);
+							for(DsCmsCategory c : clist)
 							{
 								if(checkPublish(c.getSiteid(), c.getId()))
 								{
@@ -254,6 +304,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 									if(c.getScope() == 2)// 外链没有东西生成的
 									{
 										_deleteFile(site.getFolder(), c.getId() + "", true, true);
+										service.updateCategoryStatus(c.getId(), 8);
 										continue;
 									}
 									_deleteFile(site.getFolder(), c.getId() + "", true, false);// 删除栏目首页
@@ -291,8 +342,8 @@ public class DsCmsPublishController extends DsCmsBaseController
 						List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 						if(categoryid == 0)// 全部栏目内容
 						{
-							List<DsCmsCategory> _list = service.queryListCategory(siteid);
-							for(DsCmsCategory c : _list)
+							List<DsCmsCategory> clist = service.queryListCategory(siteid);
+							for(DsCmsCategory c : clist)
 							{
 								if(checkPublish(c.getSiteid(), c.getId()))
 								{
@@ -313,9 +364,18 @@ public class DsCmsPublishController extends DsCmsBaseController
 							if(c.getScope() == 2)// 外链没有东西生成的
 							{
 								_deleteFile(site.getFolder(), c.getId() + "", true, true);
+								service.updateCategoryStatus(c.getId(), 8);
 								continue;
 							}
-							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除内容
+							_deleteFile(site.getFolder(), c.getId() + "", false, true);// 删除栏目内容
+							try
+							{
+								// 先删除栏目下待删除的数据
+								service.deletePage(siteid, categoryid);
+							}
+							catch(Exception e)
+							{
+							}
 							if(isCreateOrDelete)
 							{
 								Map<String, Object> map = new HashMap<String, Object>();
@@ -328,15 +388,11 @@ public class DsCmsPublishController extends DsCmsBaseController
 								{
 									try
 									{
-										if(p.getStatus() == -1)
-										{
-											service.delete(p.getId());
-										}
-										else if(p.getScope() != 2)
+										if(p.getScope() != 2)
 										{
 											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
-											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 										}
+										service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 									}
 									catch(Exception e)
 									{
@@ -356,15 +412,11 @@ public class DsCmsPublishController extends DsCmsBaseController
 									{
 										try
 										{
-											if(p.getStatus() == -1)
-											{
-												service.delete(p.getId());
-											}
-											else if(p.getScope() != 2)
+											if(p.getScope() != 2)
 											{
 												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder());
-												service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 											}
+											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
 										}
 										catch(Exception e)
 										{

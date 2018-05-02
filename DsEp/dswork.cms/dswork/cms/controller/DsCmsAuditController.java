@@ -1,12 +1,17 @@
 package dswork.cms.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cms.model.DsCmsCategoryEdit;
+import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsSite;
@@ -64,6 +69,49 @@ public class DsCmsAuditController extends DsCmsBaseController
 		{
 			return null;
 		}
+	}
+
+	@RequestMapping("getCategoryAudit")
+	public String getCategoryAudit()
+	{
+		try
+		{
+			long siteid = req.getLong("siteid", -1);
+			if(siteid == -1)
+			{
+				return null;
+			}
+			List<DsCmsCategory> list = service.queryListCategory(siteid);
+			Map<Long, DsCmsCategory> map = new HashMap<Long, DsCmsCategory>();
+			list = categoryAccess(list, this);
+			List<Long> idListZero = new ArrayList<Long>();
+			List<Long> idListOne = new ArrayList<Long>();
+			for(int i = 0; i < list.size(); i++)
+			{
+				DsCmsCategory c = list.get(i);
+				if(c.getScope() == 0)
+				{
+					idListZero.add(c.getId());
+				}
+				else
+				{
+					idListOne.add(c.getId());
+				}
+				map.put(c.getId(), c);
+			}
+			List<DsCmsCount> _list = service.queryCountForAudit(siteid, idListZero, idListOne);
+			for(DsCmsCount c : _list)
+			{
+				DsCmsCategory x = map.get(c.getId());
+				x.setCount(x.getCount() + c.getCount());
+			}
+			put("list", list);
+			return "/cms/audit/getCategoryAudit.jsp";
+		}
+		catch(Exception e)
+		{
+		}
+		return null;
 	}
 
 	// 修改
@@ -214,7 +262,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 						p.setAuditstatus(4);
 						if(p.getStatus() == -1)
 						{
-							service.deletePageEdit(p, s.isWriteLog());
+							service.updateDeletePageEdit(p, s.isWriteLog());
 							print(1);
 							return;
 						}

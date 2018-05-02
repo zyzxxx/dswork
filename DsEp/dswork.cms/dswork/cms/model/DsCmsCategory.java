@@ -50,6 +50,8 @@ public class DsCmsCategory
 	private boolean enable = false;
 	// 树形标识(管理时扩展显示)
 	private String label = "";
+	// 审核/待发布计数
+	private int count = 0;
 
 	public Long getId()
 	{
@@ -264,5 +266,15 @@ public class DsCmsCategory
 	public void setLabel(String label)
 	{
 		this.label = label;
+	}
+
+	public int getCount()
+	{
+		return count;
+	}
+
+	public void setCount(int count)
+	{
+		this.count = count;
 	}
 }

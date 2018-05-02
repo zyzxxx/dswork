@@ -211,6 +211,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					pr.getFilters().remove("id");
 					pr.getFilters().put("siteid", c.getSiteid());
 					pr.getFilters().put("categoryid", c.getId());
+					pr.getFilters().put("excluderemove", "true");
 					if(checkEditown(s.getId(), c.getId()))
 					{
 						pr.getFilters().put("editid", "," + getAccount() + ",");

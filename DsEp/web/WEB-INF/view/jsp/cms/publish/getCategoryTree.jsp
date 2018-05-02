@@ -53,7 +53,7 @@ function unbuild(categoryid, pageid){
 $(function(){
 	var v = [];
 	<c:forEach items="${categoryList}" var="d">
-	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}", "enable":"${d.enable}"});
+	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)} [${d.scope==0?'列表':d.scope==1?'单页':'外链'}]", "scope":"${d.scope}", "enable":"${d.enable}"});
 	</c:forEach>
 	$dswork.ztree.nodeArray = v;
 	$dswork.ztree.config.async.enable = false;
@@ -120,7 +120,7 @@ $(function(){
 	</div>
 </div>
 <div region="center" style="overflow:hidden;">
-	<iframe id="mainFrame" src="" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
+	<iframe id="mainFrame" src="getCategoryPublish.htm?siteid=${siteid}" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
 </div>
 </body>
 </c:if>

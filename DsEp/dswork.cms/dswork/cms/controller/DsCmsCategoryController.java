@@ -19,6 +19,7 @@ import dswork.cms.model.DsCmsSite;
 import dswork.cms.service.DsCmsCategoryService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
+import dswork.core.util.FileUtil;
 
 @Scope("prototype")
 @Controller
@@ -159,7 +160,8 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		{
 			long id = req.getLong("keyIndex", -1);
 			DsCmsCategory po = service.get(id);
-			if(checkOwn(po.getSiteid()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkOwn(s.getId()))
 			{
 				List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 				Queue<DsCmsCategory> queue = new LinkedList<DsCmsCategory>();
@@ -175,6 +177,10 @@ public class DsCmsCategoryController extends DsCmsBaseController
 					list.add(c);
 				}
 				service.updateRecycled(list);
+				for(DsCmsCategory c : list)
+				{
+					deleteCategoryFolder(s.getFolder(), c.getId() + "");
+				}
 				print(1);
 				return;
 			}
@@ -408,6 +414,15 @@ public class DsCmsCategoryController extends DsCmsBaseController
 	private String getCmsRoot()
 	{
 		return request.getSession().getServletContext().getRealPath("/html") + "/";
+	}
+
+	private void deleteCategoryFolder(String siteFolder, String categoryFolder)
+	{
+		if(siteFolder != null && siteFolder.trim().length() > 0 && categoryFolder != null && categoryFolder.trim().length() > 0)
+		{
+			java.io.File file = new java.io.File(getCmsRoot() + "/html/" + siteFolder + "/html/a/" + categoryFolder);
+			FileUtil.delete(file.getPath());
+		}
 	}
 
 	private List<String> getTemplateName(String sitename)
