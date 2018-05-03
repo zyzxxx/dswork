@@ -25,34 +25,6 @@
 	<listener><listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class></listener>
 	<listener><listener-class>org.springframework.web.context.ContextLoaderListener</listener-class></listener>
 
-	<servlet>
-		<servlet-name>springmvc</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>springmvc</servlet-name>
-		<url-pattern>*.htm</url-pattern>
-	</servlet-mapping>
-
-	<servlet>
-		<servlet-name>springmvc-cms</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>springmvc-cms</servlet-name>
-		<url-pattern>*.chtml</url-pattern>
-	</servlet-mapping>
-
-	<servlet><servlet-name>xxx</servlet-name><servlet-class>dswork.web.MyAuthCodeServlet</servlet-class></servlet>
-	<servlet-mapping>
-		<servlet-name>xxx</servlet-name>
-		<url-pattern>/authcode</url-pattern>
-	</servlet-mapping>
-
-
-
 	<error-page><error-code>400</error-code><location>/50x.jsp</location></error-page>
 	<error-page><error-code>404</error-code><location>/50x.jsp</location></error-page>
 	<error-page><error-code>500</error-code><location>/50x.jsp</location></error-page>
