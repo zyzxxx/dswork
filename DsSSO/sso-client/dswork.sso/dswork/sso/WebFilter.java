@@ -365,51 +365,68 @@ public class WebFilter implements Filter
 
 	public void init(FilterConfig config) throws ServletException
 	{
-		String ssoURL = String.valueOf(config.getInitParameter("ssoURL")).trim();
-		String ssoName = String.valueOf(config.getInitParameter("ssoName")).trim();
-		String ssoPassword = String.valueOf(config.getInitParameter("ssoPassword")).trim();
-		AuthGlobal.init(ssoURL, ssoName, ssoPassword);
-		
-		webURL = String.valueOf(config.getInitParameter("webURL")).trim();
-
-		if("null".equals(webURL))
+		String ssoURL, ssoName, ssoPassword, ignoreURL, hasSameDoamin;
+		ssoURL = String.valueOf(config.getInitParameter("ssoURL")).trim();
+		if("null".equals(ssoURL))// 不使用web.xml中的配置
 		{
-			loginURL = String.valueOf(config.getInitParameter("loginURL")).trim();
-			
-			logoutURL = String.valueOf(config.getInitParameter("logoutURL")).trim();
+			String configFile = String.valueOf(config.getServletContext().getInitParameter("dsworkSSOConfiguration")).trim();
+			java.util.Properties CONFIG = new java.util.Properties();
+			java.io.InputStream stream = WebFilter.class.getResourceAsStream(configFile);
+			if (stream != null)
+			{
+				try{CONFIG.load(stream);}
+				catch (Exception e){}
+				finally{try{stream.close();}catch (IOException ioe){}}
+			}
+			ssoURL = String.valueOf(CONFIG.getProperty("sso.ssoURL")).trim();
+			ssoName = String.valueOf(CONFIG.getProperty("sso.ssoName")).trim();
+			ssoPassword = String.valueOf(CONFIG.getProperty("sso.ssoPassword")).trim();
+			webURL = String.valueOf(CONFIG.getProperty("sso.webURL")).trim();
+			if("null".equals(webURL))
+			{
+				loginURL = String.valueOf(CONFIG.getProperty("sso.loginURL")).trim();
+				logoutURL = String.valueOf(CONFIG.getProperty("sso.logoutURL")).trim();
+			}
+			else
+			{
+				loginURL  = webURL + "/login";
+				logoutURL = webURL + "/logout";
+				passwordURL = webURL + "/password";
+			}
+			systemURL = String.valueOf(CONFIG.getProperty("sso.systemURL")).trim();
+			hasSameDoamin = String.valueOf(CONFIG.getProperty("sso.sameDomain")).trim();
+			ignoreURL = String.valueOf(CONFIG.getProperty("sso.ignoreURL")).trim();
 		}
 		else
 		{
-			loginURL  = webURL + "/login";
-			logoutURL = webURL + "/logout";
-			passwordURL = webURL + "/password";
+			ssoURL = String.valueOf(config.getInitParameter("ssoURL")).trim();
+			ssoName = String.valueOf(config.getInitParameter("ssoName")).trim();
+			ssoPassword = String.valueOf(config.getInitParameter("ssoPassword")).trim();
+			webURL = String.valueOf(config.getInitParameter("webURL")).trim();
+			if("null".equals(webURL))
+			{
+				loginURL = String.valueOf(config.getInitParameter("loginURL")).trim();
+				logoutURL = String.valueOf(config.getInitParameter("logoutURL")).trim();
+			}
+			else
+			{
+				loginURL  = webURL + "/login";
+				logoutURL = webURL + "/logout";
+				passwordURL = webURL + "/password";
+			}
+			systemURL = String.valueOf(config.getInitParameter("systemURL")).trim();
+			hasSameDoamin = String.valueOf(config.getInitParameter("sameDomain")).trim();
+			ignoreURL = String.valueOf(config.getInitParameter("ignoreURL")).trim();
 		}
-		systemURL = String.valueOf(config.getInitParameter("systemURL")).trim();
-		if("null".equals(systemURL))
-		{
-			systemURL = "";
-		}
-		
-		String hasSameDoamin = String.valueOf(config.getInitParameter("sameDomain")).trim();
-		if(hasSameDoamin.equals("true"))
-		{
-			sameDomain = true;// 和sso在同一域名下时，可跳过ticket远程访问，直接读取cookie
-		}
-		
+		AuthGlobal.init(ssoURL, ssoName, ssoPassword);
+		if("null".equals(systemURL)){systemURL = "";}
 		ignoreURLSet.clear();
-		
-		String ignoreURL = String.valueOf(config.getInitParameter("ignoreURL")).trim();
 		if(ignoreURL.length() > 0)
 		{
 			String[] values = ignoreURL.trim().split(",");
-			for(String value : values)
-			{
-				if(value.trim().length() > 0)
-				{
-					ignoreURLSet.add(value.trim());
-				}
-			}
+			for(String value : values){if(value.trim().length() > 0){ignoreURLSet.add(value.trim());}}
 		}
+		if(hasSameDoamin.equals("true")){sameDomain = true;}// 和sso在同一域名下时，可跳过ticket远程访问，直接读取cookie
 	}
 
 	public void destroy()

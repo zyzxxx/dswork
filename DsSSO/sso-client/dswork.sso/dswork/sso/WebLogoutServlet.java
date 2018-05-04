@@ -3,12 +3,8 @@ package dswork.sso;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,20 +12,29 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class WebLogoutFilter implements Filter
+public class WebLogoutServlet extends HttpServlet
 {
+	private static final long serialVersionUID = 1L;
 	static Logger log = LoggerFactory.getLogger("dswork.sso.logout");
 
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException
+	public WebLogoutServlet()
 	{
-		HttpServletRequest request = (HttpServletRequest) req;
-		HttpServletResponse response = (HttpServletResponse) resp;
+		super();
+	}
+
+	public void destroy()
+	{
+		super.destroy();
+	}
+
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
+	{
 		try
 		{
 			HttpSession session = request.getSession();
 			session.removeAttribute(WebFilter.LOGINER);
 			session.invalidate();
-			String jsoncallback  = request.getParameter("jsoncallback").replaceAll("<", "").replaceAll(">", "").replaceAll("\"", "").replaceAll("'", "");
+			String jsoncallback = request.getParameter("jsoncallback").replaceAll("<", "").replaceAll(">", "").replaceAll("\"", "").replaceAll("'", "");
 			PrintWriter out = response.getWriter();
 			out.print(jsoncallback + "([])");
 		}
@@ -41,11 +46,8 @@ public class WebLogoutFilter implements Filter
 		return;
 	}
 
-	public void init(FilterConfig config) throws ServletException
+	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
 	{
-	}
-
-	public void destroy()
-	{
+		doGet(request, response);
 	}
 }
