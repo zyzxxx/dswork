@@ -70,5 +70,14 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		encodingFilter.setInitParameter("encoding", "UTF-8");
 		encodingFilter.setInitParameter("forceEncoding", "true");
 		encodingFilter.addMappingForUrlPatterns(null, false, "/*");// false指最优先加载
+		
+		try
+		{
+			javax.servlet.ServletRegistration.Dynamic authcodeServlet = context.addServlet("AuthcodeServlet", "dswork.web.MyAuthCodeServlet");
+			authcodeServlet.addMapping("/authcode");
+		}
+		catch(Exception e)
+		{
+		}
 	}
 }
