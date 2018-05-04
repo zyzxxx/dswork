@@ -35,7 +35,6 @@ public class ImageUtil
 	 * @param height 缩放目标最大高，为0则不缩放
 	 * @return byte[]
 	 */
-	@SuppressWarnings("restriction")
 	public static byte[] resize(InputStream inStream, int width, int height)
 	{
 		try
