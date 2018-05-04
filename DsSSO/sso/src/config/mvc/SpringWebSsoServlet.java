@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebServlet;
 @WebServlet(
 	name="SpringWebSsoServlet", 
 	loadOnStartup=1, 
-	urlPatterns={"/login","/loginAction","/logout","/password","/passwordAction","/api/*","","","","","","","",""}, 
+	urlPatterns={"/login","/loginAction","/logout","/password","/passwordAction","/api/*"}, 
 	initParams={@WebInitParam(name="contextConfigLocation",value="classpath*:/config/mvc/SpringWebSsoServlet.xml")}
 )
 public class SpringWebSsoServlet extends org.springframework.web.servlet.DispatcherServlet
