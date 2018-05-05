@@ -96,8 +96,8 @@ memcachedNodes对应不同的存储方案，分别为redis和memcached，需要�
 		</dependency>
 	***************************************************************************************
 	memcached
-		需要的jar包: spymemcached-2.12.1.jar
-		<dependency><groupId>net.spy</groupId><artifactId>spymemcached</artifactId><version>2.12.1</version>
+		需要的jar包: spymemcached-2.12.3.jar
+		<dependency><groupId>net.spy</groupId><artifactId>spymemcached</artifactId><version>2.12.3</version>
 			<exclusions>
 				<exclusion><groupId>com.codahale.metrics</groupId><artifactId>metrics-core</artifactId></exclusion>
 				<exclusion><groupId>log4j</groupId><artifactId>log4j</artifactId></exclusion>
@@ -109,10 +109,10 @@ memcachedNodes对应不同的存储方案，分别为redis和memcached，需要�
 ***************************************************************************************
 
 ***************************************************************************************
-transcoderFactoryClass对应序列化到memcached中的五种处理方式，都必须的jar有两个：
+transcoderFactoryClass对应序列化到memcached中的五种处理方式，两种算过时，我不再介绍，都必须的jar有两个：
 ***************************************************************************************
 	memcached-session-manager.jar    == > memcached-session-manager-2.1.1.jar
-	memcached-session-manager-tc.jar == > memcached-session-manager-tc(6-8)-2.1.1.jar  【其中tc*，对应tomcat版本6-8】
+	memcached-session-manager-tc.jar == > memcached-session-manager-tc(6-9)-2.1.1.jar  【其中tc*，对应tomcat版本6-8】
 		<dependency>
 			<groupId>de.javakaffee.msm</groupId><artifactId>memcached-session-manager</artifactId><version>${de.javakaffee.msm.version}</version>
 			<exclusions>
@@ -123,6 +123,16 @@ transcoderFactoryClass对应序列化到memcached中的五种处理方式，都�
 				<exclusion><groupId>org.jboss.netty</groupId><artifactId>netty</artifactId></exclusion>
 				<exclusion><groupId>net.spy</groupId><artifactId>spymemcached</artifactId></exclusion>
 				<exclusion><groupId>redis.clients</groupId><artifactId>jedis</artifactId></exclusion>
+			</exclusions>
+		</dependency>
+		<dependency><groupId>de.javakaffee.msm</groupId><artifactId>memcached-session-manager-tc9</artifactId><version>${de.javakaffee.msm.version}</version>
+			<exclusions>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>annotations</artifactId></exclusion>
+				<exclusion><groupId>com.google.code.findbugs</groupId><artifactId>jsr305</artifactId></exclusion>
+				<exclusion><groupId>net.jcip</groupId><artifactId>jcip-annotations</artifactId></exclusion>
+				<exclusion><groupId>org.jboss.netty</groupId><artifactId>netty</artifactId></exclusion>
+				<exclusion><groupId>com.couchbase.client</groupId><artifactId>couchbase-client</artifactId></exclusion>
+				<exclusion><groupId>net.spy</groupId><artifactId>spymemcached</artifactId></exclusion>
 			</exclusions>
 		</dependency>
 		<dependency><groupId>de.javakaffee.msm</groupId><artifactId>memcached-session-manager-tc8</artifactId><version>${de.javakaffee.msm.version}</version>
@@ -162,7 +172,7 @@ transcoderFactoryClass对应序列化到memcached中的五种处理方式，都�
 	<de.javakaffee.msm.version>2.1.1</de.javakaffee.msm.version>
 </properties>
 ***************************************************************************************
-	java默认序列化无额外依赖jar
+	java默认序列化无额外依赖jar，但需要保证所有的tomcat使用相同版本的java环境
 		de.javakaffee.web.msm.JavaSerializationTranscoderFactory
 	***************************************************************************************
 	javolution序列化
@@ -220,5 +230,5 @@ transcoderFactoryClass对应序列化到memcached中的五种处理方式，都�
 		de.javakaffee.web.msm.serializer.json.JSONTranscoderFactory
 		需要的jar包: msm-flexjson-serializer, flexjson
 		<dependency><groupId>de.javakaffee.msm</groupId><artifactId>msm-flexjson-serializer</artifactId><version>2.1.1</version></dependency>
-
+		
 ***************************************************************************************
