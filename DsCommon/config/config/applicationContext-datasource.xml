@@ -10,24 +10,22 @@
 		<property name="url" value="${jdbc.url}" />
 		<property name="username" value="${jdbc.username}" />
 		<property name="password" value="${jdbc.password}" />
-		
-		<property name="minEvictableIdleTimeMillis" value="900000" />
-		<property name="timeBetweenEvictionRunsMillis" value="900000" />
-		<property name="maxActive" value="50" />
-		<property name="maxIdle" value="50" />
-		<property name="maxWait" value="60000" />
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.minEvictableIdleTimeMillis}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.timeBetweenEvictionRunsMillis}" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
+		<property name="maxIdle" value="${jdbc.maxIdle}" />
+		<property name="maxWait" value="${jdbc.maxWait}" />
 	</bean>
 	<bean id="slaveDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${jdbc.driverClassName}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
-		
-		<property name="minEvictableIdleTimeMillis" value="900000" />
-		<property name="timeBetweenEvictionRunsMillis" value="900000" />
-		<property name="maxActive" value="50" />
-		<property name="maxIdle" value="50" />
-		<property name="maxWait" value="60000" />
+		<property name="url" value="${jdbc.read.url}" />
+		<property name="username" value="${jdbc.read.username}" />
+		<property name="password" value="${jdbc.read.password}" />
+		<property name="minEvictableIdleTimeMillis" value="${jdbc.read.minEvictableIdleTimeMillis}" />
+		<property name="timeBetweenEvictionRunsMillis" value="${jdbc.read.timeBetweenEvictionRunsMillis}" />
+		<property name="maxActive" value="${jdbc.read.maxActive}" />
+		<property name="maxIdle" value="${jdbc.read.maxIdle}" />
+		<property name="maxWait" value="${jdbc.read.maxWait}" />
 	</bean>
 	<bean id="dataSource" class="dswork.core.datasource.DataSource">
 		<property name="masterDataSource" ref="masterDataSource" />
