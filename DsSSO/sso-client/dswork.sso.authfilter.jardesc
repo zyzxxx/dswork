@@ -11,6 +11,6 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <javaElement handleIdentifier="=sso-client/src&lt;dswork.sso{AuthFilter.java"/>
+        <javaElement handleIdentifier="=sso-client/dswork.sso.authfilter"/>
     </selectedElements>
 </jardesc>
