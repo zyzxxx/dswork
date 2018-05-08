@@ -22,11 +22,11 @@
 		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<logger level="WARN"  additivity="false" name="common.gov.XzspFactory"><appender-ref ref="logfilexzsp" /></logger>
-		<logger level="WARN"  additivity="false" name="jdbc.sqlonly"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
-		<logger level="WARN"  additivity="false" name="org.mybatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
-		<logger level="WARN"  additivity="false" name="org.apache.ibatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
-		<logger level="WARN"  additivity="false" name="org.springframework"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
-		<Root level="WARN"><AppenderRef ref="logfile" /><AppenderRef ref="stdout" /></Root>
+		<logger level="INFO"  additivity="false" name="common.gov.XzspFactory"><appender-ref ref="logfilexzsp" /></logger>
+		<logger level="DEBUG" additivity="false" name="jdbc.sqlonly"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="WARN" additivity="false" name="org.mybatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="WARN" additivity="false" name="org.apache.ibatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="WARN" additivity="false" name="org.springframework"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<Root level="DEBUG"><AppenderRef ref="logfile" /><AppenderRef ref="stdout" /></Root>
 	</Loggers>
 </Configuration>
