@@ -4,6 +4,8 @@ import java.io.File;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 
+import org.apache.logging.log4j.LogManager;
+
 import dswork.core.util.EnvironmentUtil;
 
 public class WebInitializer implements dswork.web.MyWebInitializer
@@ -12,6 +14,7 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 	public void onStartup(ServletContext context) throws ServletException
 	{
 		String dsworkActive = EnvironmentUtil.getToString("dswork.active", "");
+		String log4j2 = "/WEB-INF/classes/config/log4j2.xml";
 		if(dsworkActive.length() > 0)
 		{
 			String webRoot = context.getRealPath("/");
@@ -49,7 +52,8 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 				System.out.println("config=" + "/config/config.properties");
 			}
 			String log4jFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/log4j2.xml")).isFile() ? "/" + dsworkActive: "";
-			context.setInitParameter("log4jConfiguration", "/WEB-INF/classes/config" + log4jFile + "/log4j2.xml");
+			// context.setInitParameter("log4jConfiguration", "/WEB-INF/classes/config" + log4jFile + "/log4j2.xml");
+			log4j2 = "/WEB-INF/classes/config" + log4jFile + "/log4j2.xml";
 			String ssoFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/sso.properties")).isFile() ? "/" + dsworkActive : "";
 			context.setInitParameter("dsworkSSOConfiguration", "/config" + ssoFile + "/sso.properties");
 
@@ -59,11 +63,20 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		}
 		else
 		{
-			context.setInitParameter("log4jConfiguration", "/WEB-INF/classes/config/log4j2.xml");
+			// context.setInitParameter("log4jConfiguration", "/WEB-INF/classes/config/log4j2.xml");
 			context.setInitParameter("contextConfigLocation", "/WEB-INF/classes/config/applicationContext*.xml");
 			context.setInitParameter("dsworkSSOConfiguration", "/config/sso.properties");
 		}
-		context.addListener("org.apache.logging.log4j.web.Log4jServletContextListener");
+		try
+		{
+			org.apache.logging.log4j.core.LoggerContext c = (org.apache.logging.log4j.core.LoggerContext)LogManager.getContext(false);
+			c.setConfigLocation(context.getResource(log4j2).toURI());
+			c.reconfigure();
+		}
+		catch(Exception e)
+		{
+		}
+		
 		context.addListener("org.springframework.web.util.IntrospectorCleanupListener");
 		context.addListener("org.springframework.web.context.ContextLoaderListener");
 		javax.servlet.FilterRegistration.Dynamic encodingFilter = context.addFilter("encodingFilter", "org.springframework.web.filter.CharacterEncodingFilter");
