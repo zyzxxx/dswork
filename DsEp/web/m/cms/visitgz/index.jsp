@@ -14,7 +14,7 @@ common.cms.CmsFactory,
 			%>,{"name":"资讯网","type":"url", "img":"/www-visitgz/m/cms/visitgz/ico/visitgz.png","url":"http://192.168.1.10"}<%
 			%>,{"name":"提醒"  ,"type":"func","img":"/www-visitgz/m/cms/visitgz/ico/tx.png"     ,"url":""}<%
 	%>]<%
-	%>,"dataurl":"/www-visitgz/m/cms/visitgz/category.jsp?siteid=7&categoryid=14&categoryid=15&categoryid=16&pagesize=5&page=1"<%
+	%>,"dataurl":"/www-visitgz/m/cms/category.jsp?pagesize=5&page=1&siteid=7&categoryids=13,14,15,16&categoryids=22,23,24,25,26&categoryids=28&categoryids=17,18,19,20,21&categoryids=33,34,35,36&categoryids=37,38,39,40"<%
 	%><%
 	%><%
 	%><%
