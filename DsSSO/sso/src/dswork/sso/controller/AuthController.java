@@ -50,9 +50,9 @@ public class AuthController
 		String cookieTicket = cookie.getValue(SessionListener.DS_SSO_TICKET);
 		if(cookieTicket != null)// 有cookie存在
 		{
-			String account;
-			account = TicketService.getAccountByTicket(cookieTicket);
-			if(account != null)
+			String value;
+			value = TicketService.getValueByTicket(cookieTicket);
+			if(value != null)
 			{
 				// 无需登录，生成ticket给应用去登录
 				if(serviceURL.startsWith(request.getContextPath() + "/password"))
@@ -201,7 +201,7 @@ public class AuthController
 		String cookieTicket = cookie.getValue(SessionListener.DS_SSO_TICKET);
 		if(cookieTicket != null)// 有cookie存在
 		{
-			String _account = TicketService.getAccountByTicket(cookieTicket);
+			String _account = TicketService.getValueByTicket(cookieTicket);
 			if(_account != null)
 			{
 				request.setAttribute("account", _account);
@@ -240,7 +240,7 @@ public class AuthController
 			String cookieTicket = cookie.getValue(SessionListener.DS_SSO_TICKET);
 			if(cookieTicket != null)// 有cookie存在
 			{
-				String _account = TicketService.getAccountByTicket(cookieTicket);
+				String _account = TicketService.getValueByTicket(cookieTicket);
 				newpassword = EncryptUtil.decodeDes(newpassword, authcode);// 解密输入的新密码
 				if(_account != null && _account.equals(account))
 				{
