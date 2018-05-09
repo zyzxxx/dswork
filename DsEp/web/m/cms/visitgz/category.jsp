@@ -43,30 +43,23 @@ try
 			{
 				one.put("status", "0");
 				one.put("msg", "栏目不存在");
-				rows.add(one);
 			}
 			else
 			{
+				one.put("status", "1");
+				one.put("msg", "success");
+				one.put("category", c);
 				if(c.get("scope").equals(0))// 列表
 				{
-					one.put("status", "1");
-					one.put("msg", "success");
-					one.put("category", c);
 					List<Map<String, Object>> list = cms.queryList(currentPage, pagesize, false, false, true, cid);
 					for(Map<String, Object> p : list)
 					{
 						p.remove("content");
 					}
 					one.put("rows", list);
-					rows.add(one);
-				}
-				else
-				{
-					one.put("status", "0");
-					one.put("msg", "非列表栏目");
-					rows.add(one);
 				}
 			}
+			rows.add(one);
 		}
 	}
 	/*
@@ -77,10 +70,8 @@ try
 				{
 					status:1,
 					msg:"success",
-					// categoryid:栏目ID,
-					categoryname:栏目名称,
+					categoryid:栏目ID,
 					category:{栏目对象},
-					rows:[当前页数据]
 				},
 				...
 			]
