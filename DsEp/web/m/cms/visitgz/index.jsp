@@ -1,6 +1,4 @@
-<%@page language="java" pageEncoding="UTF-8" import="
-common.cms.CmsFactory,
-"%><%
+<%@page language="java" pageEncoding="UTF-8"%><%
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/plain;charset=UTF-8");
 %>{<%
