@@ -40,26 +40,28 @@ public class CmsFactory
 			}
 			this.siteid = siteid;
 			this.site = getDao().getSite(siteid);
-
-			List<Map<String, Object>> clist = getDao().queryCategory(siteid);
-			for(Map<String, Object> m : clist)
+			if(this.site != null)
 			{
-				if(m.get("pid") == null)
+				List<Map<String, Object>> clist = getDao().queryCategory(siteid);
+				for(Map<String, Object> m : clist)
 				{
-					m.put("pid", "0");
-					categoryList.add(m);
+					if(m.get("pid") == null)
+					{
+						m.put("pid", "0");
+						categoryList.add(m);
+					}
+					m.put("list", new ArrayList<Map<String, Object>>());
+					categoryMap.put(String.valueOf(m.get("id")), m);
 				}
-				m.put("list", new ArrayList<Map<String, Object>>());
-				categoryMap.put(String.valueOf(m.get("id")), m);
-			}
-			for(Map<String, Object> m : clist)
-			{
-				String pid = String.valueOf(m.get("pid"));
-				if(!pid.equals("0") && categoryMap.get(pid) != null)
+				for(Map<String, Object> m : clist)
 				{
-					@SuppressWarnings("unchecked")
-					List<Map<String, Object>> list = (List<Map<String, Object>>)(((Map<String, Object>)(categoryMap.get(pid))).get("list"));
-					list.add(m);
+					String pid = String.valueOf(m.get("pid"));
+					if(!pid.equals("0") && categoryMap.get(pid) != null)
+					{
+						@SuppressWarnings("unchecked")
+						List<Map<String, Object>> list = (List<Map<String, Object>>)(((Map<String, Object>)(categoryMap.get(pid))).get("list"));
+						list.add(m);
+					}
 				}
 			}
 		}
