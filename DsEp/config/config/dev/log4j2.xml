@@ -12,12 +12,21 @@
 			</Policies>
 			<DefaultRolloverStrategy max="20" />
 		</RollingFile>
+		<RollingFile name="logfilexzsp" fileName="${web:rootDir}/../../logs${web:contextPath}/log4jxzsp.log" filePattern="${web:rootDir}/../../logs${web:contextPath}/log4jxzsp%d{yyyy-MM-dd}-%i.txt.gz" ignoreExceptions="false">
+			<PatternLayout pattern="%-d{yyyy-MM-dd HH:mm:ss,SSS} [%p] %c - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="24" modulate="true" />
+				<SizeBasedTriggeringPolicy size="5 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="20" />
+		</RollingFile>
 	</Appenders>
 	<Loggers>
-		<logger level="WARN" additivity="false" name="jdbc.sqlonly"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="INFO"  additivity="false" name="common.gov.XzspFactory"><appender-ref ref="logfilexzsp" /></logger>
+		<logger level="DEBUG" additivity="false" name="jdbc.sqlonly"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="WARN" additivity="false" name="org.mybatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="WARN" additivity="false" name="org.apache.ibatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="WARN" additivity="false" name="org.springframework"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
-		<Root level="WARN"><AppenderRef ref="logfile" /><AppenderRef ref="stdout" /></Root>
+		<Root level="DEBUG"><AppenderRef ref="logfile" /><AppenderRef ref="stdout" /></Root>
 	</Loggers>
 </Configuration>

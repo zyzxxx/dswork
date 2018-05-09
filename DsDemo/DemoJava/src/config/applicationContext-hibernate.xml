@@ -5,7 +5,7 @@
 	   default-autowire="byName" default-lazy-init="false">
 <!---->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-		<property name="dataSource" ref="dataSource"/>
+		<property name="dataSource" ref="dataSourceHibernate"/>
 		<property name="mappingLocations" >
 			<list>
 				<value>classpath*:/testwork/mapper/**/*.hbm.xml</value>

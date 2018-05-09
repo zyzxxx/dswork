@@ -66,7 +66,7 @@ public class APIController
 		String account = null;
 		if(onceTicket.length() > 0)
 		{
-			account = TicketService.getAccountByOnceTicket(onceTicket);
+			account = TicketService.getValueByOnceTicket(onceTicket);
 		}
 		try
 		{

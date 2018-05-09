@@ -1,14 +1,12 @@
-package dswork.core.datasource;
+package dswork.core.datasource.hibernate4;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.transaction.TransactionDefinition;
 
-/**
- * 重载DataSourceTransactionManager事务管理
- * @author skey
- */
-public class DataSourceTransactionManager extends org.springframework.jdbc.datasource.DataSourceTransactionManager
+import dswork.core.datasource.DataSourceHolder;
+
+public class HibernateTransactionManager extends org.springframework.orm.hibernate4.HibernateTransactionManager
 {
 	private final static Logger log = LoggerFactory.getLogger("jdbc.sqlonly");
 	private static final long serialVersionUID = 1L;

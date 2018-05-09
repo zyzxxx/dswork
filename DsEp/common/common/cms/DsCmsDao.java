@@ -45,7 +45,7 @@ public class DsCmsDao extends MyBatisDao
 		return (Map)executeSelect("get", map);
 	}
 
-	public Page<Map<String, Object>> queryPage(Long siteid, int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImage, boolean onlyPage, String keyvalue)
+	public Page<Map<String, Object>> queryPage(Long siteid, int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue)
 	{
 		if(currentPage <= 0){currentPage = 1;}
 		if(pageSize <= 0){pageSize = 25;}
@@ -54,8 +54,8 @@ public class DsCmsDao extends MyBatisDao
 		rq.getFilters().put("siteid", siteid);
 		rq.getFilters().put("idArray", idArray);
 		rq.getFilters().put("order", isDesc==null||isDesc?" desc ":"");
-		rq.getFilters().put("imgtop", onlyImage?"1":"");
-		rq.getFilters().put("pagetop", onlyPage?"1":"");
+		rq.getFilters().put("imgtop", onlyImageTop?"1":"");
+		rq.getFilters().put("pagetop", onlyPageTop?"1":"");
 		rq.getFilters().put("releasetime", TimeUtil.getCurrentTime());
 		rq.getFilters().put("status", "8");// 已发布
 		rq.getFilters().put("keyvalue", keyvalue);

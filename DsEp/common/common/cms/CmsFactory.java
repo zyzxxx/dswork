@@ -40,26 +40,28 @@ public class CmsFactory
 			}
 			this.siteid = siteid;
 			this.site = getDao().getSite(siteid);
-
-			List<Map<String, Object>> clist = getDao().queryCategory(siteid);
-			for(Map<String, Object> m : clist)
+			if(this.site != null)
 			{
-				if(m.get("pid") == null)
+				List<Map<String, Object>> clist = getDao().queryCategory(siteid);
+				for(Map<String, Object> m : clist)
 				{
-					m.put("pid", "0");
-					categoryList.add(m);
+					if(m.get("pid") == null)
+					{
+						m.put("pid", "0");
+						categoryList.add(m);
+					}
+					m.put("list", new ArrayList<Map<String, Object>>());
+					categoryMap.put(String.valueOf(m.get("id")), m);
 				}
-				m.put("list", new ArrayList<Map<String, Object>>());
-				categoryMap.put(String.valueOf(m.get("id")), m);
-			}
-			for(Map<String, Object> m : clist)
-			{
-				String pid = String.valueOf(m.get("pid"));
-				if(!pid.equals("0") && categoryMap.get(pid) != null)
+				for(Map<String, Object> m : clist)
 				{
-					@SuppressWarnings("unchecked")
-					List<Map<String, Object>> list = (List<Map<String, Object>>)(((Map<String, Object>)(categoryMap.get(pid))).get("list"));
-					list.add(m);
+					String pid = String.valueOf(m.get("pid"));
+					if(!pid.equals("0") && categoryMap.get(pid) != null)
+					{
+						@SuppressWarnings("unchecked")
+						List<Map<String, Object>> list = (List<Map<String, Object>>)(((Map<String, Object>)(categoryMap.get(pid))).get("list"));
+						list.add(m);
+					}
 				}
 			}
 		}
@@ -93,7 +95,7 @@ public class CmsFactory
 		return getDao().get(siteid, toLong(pageid));
 	}
 
-	public List<Map<String, Object>> queryList(int currentPage, int pageSize, boolean onlyImage, boolean onlyPage, boolean isDesc, Object... categoryids)
+	public List<Map<String, Object>> queryList(int currentPage, int pageSize, boolean onlyImageTop, boolean onlyPageTop, boolean isDesc, Object... categoryids)
 	{
 		StringBuilder idArray = new StringBuilder();
 		idArray.append("0");
@@ -101,11 +103,11 @@ public class CmsFactory
 		{
 			idArray.append(",").append(toLong(categoryids[i]));
 		}
-		Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage, null);
+		Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, null);
 		return page.getResult();
 	}
 
-	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean onlyImage, boolean onlyPage, boolean isDesc, String url, Object categoryid)
+	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean onlyImageTop, boolean onlyPageTop, boolean isDesc, String url, Object categoryid)
 	{
 		if(currentPage <= 0)
 		{
@@ -117,7 +119,7 @@ public class CmsFactory
 		}
 		StringBuilder idArray = new StringBuilder();
 		idArray.append(toLong(categoryid));
-		Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImage, onlyPage, null);
+		Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		currentPage = page.getCurrentPage();// 更新当前页
 		map.put("list", page.getResult());

@@ -92,7 +92,7 @@
 	update DS_COMMON_USER set PASSWORD=#{password} where ACCOUNT=#{account}
 </update>
 <select id="getLoginUserByAccount" resultMap="resultLoginUser" parameterType="String">
-	select <include refid="columnsLoginUser" /> from DS_COMMON_USER u where LOWER(u.ACCOUNT)=LOWER(#{account})
+	select <include refid="columnsLoginUser" /> from DS_COMMON_USER u where u.ACCOUNT=LOWER(#{account})
 </select>
 <select id="getLoginUserByCAKEY" resultMap="resultLoginUser" parameterType="String">
 	select <include refid="columnsLoginUser" /> from DS_COMMON_USER u where u.CAKEY=#{cakey}

@@ -21,10 +21,10 @@ public class TicketService
 	 * @param IUser
 	 * @return
 	 */
-	public static String saveSession(String account)
+	public static String saveSession(String value)
 	{
 		String ticket = UUID.randomUUID().toString().toUpperCase();//46CAA926-307D-4D44-BEE7-B1438E2F840F
-		map.put(ticket, account);// 这里可以考虑放到数据库或者memcache中
+		map.put(ticket, value);// 这里可以考虑放到数据库或者memcache中
 		return ticket;
 	}
 	public static void removeSession(String ticket)
@@ -38,7 +38,7 @@ public class TicketService
 	 * @param ticket
 	 * @return
 	 */
-	public static String getAccountByTicket(String ticket)
+	public static String getValueByTicket(String ticket)
 	{
 		try
 		{
@@ -66,9 +66,9 @@ public class TicketService
 	 * @param onceTicket
 	 * @return String
 	 */
-	public static String getAccountByOnceTicket(String onceTicket)
+	public static String getValueByOnceTicket(String onceTicket)
 	{
-		String account = null;
+		String value = null;
 		try
 		{
 			if(onceTicket != null && onceTicket.length() > 144)
@@ -88,7 +88,7 @@ public class TicketService
 						if(_key != null && _key == _outtime_key)// 密钥存在，且相同
 						{
 							mapOnce.remove(_ticket);// 使用后必须移除
-							account = TicketService.getAccountByTicket(_ticket);
+							value = TicketService.getValueByTicket(_ticket);
 						}
 					}
 				}
@@ -97,6 +97,6 @@ public class TicketService
 		catch (Exception e)
 		{
 		}
-		return account;
+		return value;
 	}
 }
