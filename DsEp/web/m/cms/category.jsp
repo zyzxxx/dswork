@@ -31,7 +31,7 @@ try{
 	MyRequest req = new MyRequest(request);
 
 	long siteid = req.getLong("siteid", -1);
-	String[] categoryid = req.getStringArray("categoryid", true);
+	String[] categoryids = req.getStringArray("categoryids", true);
 	int currentPage = req.getInt("page", 1);
 	int pagesize = req.getInt("pagesize", 10);
 
@@ -42,7 +42,7 @@ try{
 	map.put("status", "1");
 	map.put("msg", "success");
 	map.put("rows", rows);
-	for(String cid : categoryid){
+	for(String cid : categoryids){
 		List<Long> _ids = splitString(cid);
 		if(_ids.size() > 0){// 栏目页
 			Map<String, Object> one = new HashMap<String, Object>();
