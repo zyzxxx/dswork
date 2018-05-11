@@ -12,7 +12,7 @@ private String getCmsRoot(HttpServletRequest request)
 {
 	return request.getSession().getServletContext().getRealPath("/") + "/html/";
 }
-private String cleanImage(String path, Map<String, String> map)
+private String cleanTemplate(String path, Map<String, String> map)
 {
 	String echo = "";
 	File file = new File(path);
@@ -52,9 +52,9 @@ try
 		map.put(String.valueOf(m.get("ID")), String.valueOf(m.get("FOLDER")));
 	}
 	String htmlRoot = new File(getCmsRoot(request) + s.getFolder() + "/templates").getPath();
-	String echo = cleanImage(htmlRoot, map);
+	String echo = cleanTemplate(htmlRoot, map);
 	htmlRoot = new File(getCmsRoot(request) + s.getFolder() + "/templates/include").getPath();
-	echo = echo + cleanImage(htmlRoot, map);
+	echo = echo + cleanTemplate(htmlRoot, map);
 	out.print("1:" + echo);
 }
 catch(Exception e)
