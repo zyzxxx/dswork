@@ -17,49 +17,57 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		String log4j2 = "/WEB-INF/classes/config/log4j2.xml";
 		if(dsworkActive.length() > 0)
 		{
+			
 			String webRoot = context.getRealPath("/");
-			String springRoot = "/WEB-INF/classes/config/";
 			String springTest = "/WEB-INF/classes/config/" + dsworkActive + "/";
-			
 			File file = new File(webRoot + springTest);
-			File[] files = file.listFiles(new java.io.FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("applicationContext")){return true;}return false;}});
-			java.util.Map<String, String> map = new java.util.HashMap<String, String>();
-			String paths = "";
-			for(java.io.File f : files)
+			if(file.isDirectory())
 			{
-				map.put(f.getName(), "1");
-				paths += (paths.length()==0 ? "" : ",") + springTest + f.getName();
-			}
-			
-			file = new File(webRoot + springRoot);
-			files = file.listFiles(new java.io.FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("applicationContext")){return true;}return false;}});
-			for(java.io.File f : files)
-			{
-				if(map.get(f.getName()) == null)
+				String springRoot = "/WEB-INF/classes/config/";
+				File[] files = file.listFiles(new java.io.FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("applicationContext")){return true;}return false;}});
+				java.util.Map<String, String> map = new java.util.HashMap<String, String>();
+				String paths = "";
+				for(File f : files)
 				{
-					paths += (paths.length()==0 ? "" : ",") + springRoot + f.getName();
+					map.put(f.getName(), "1");
+					paths += (paths.length()==0 ? "" : ",") + springTest + f.getName();
 				}
-			}
-			context.setInitParameter("contextConfigLocation", paths);
-			boolean configFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/config.properties")).isFile();
-			if(configFile)
-			{
-				EnvironmentUtil.setSystemProperties("/config/" + dsworkActive + "/config.properties");
-				System.out.println("config=" + "/config/" + dsworkActive + "/config.properties");
+				
+				file = new File(webRoot + springRoot);
+				files = file.listFiles(new java.io.FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("applicationContext")){return true;}return false;}});
+				for(File f : files)
+				{
+					if(map.get(f.getName()) == null)
+					{
+						paths += (paths.length()==0 ? "" : ",") + springRoot + f.getName();
+					}
+				}
+				context.setInitParameter("contextConfigLocation", paths);
+				boolean configFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/config.properties")).isFile();
+				if(configFile)
+				{
+					EnvironmentUtil.setSystemProperties("/config/" + dsworkActive + "/config.properties");
+					System.out.println("config=" + "/config/" + dsworkActive + "/config.properties");
+				}
+				else
+				{
+					System.out.println("config=" + "/config/config.properties");
+				}
+				String log4jFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/log4j2.xml")).isFile() ? "/" + dsworkActive: "";
+				// context.setInitParameter("log4jConfiguration", "/WEB-INF/classes/config" + log4jFile + "/log4j2.xml");
+				log4j2 = "/WEB-INF/classes/config" + log4jFile + "/log4j2.xml";
+				String ssoFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/sso.properties")).isFile() ? "/" + dsworkActive : "";
+				context.setInitParameter("dsworkSSOConfiguration", "/config" + ssoFile + "/sso.properties");
+
+				System.out.println("contextConfigLocation=" + context.getInitParameter("contextConfigLocation"));
+				System.out.println("log4jConfiguration=" + context.getInitParameter("log4jConfiguration"));
+				System.out.println("dsworkSSOConfiguration=" + context.getInitParameter("dsworkSSOConfiguration"));
 			}
 			else
 			{
-				System.out.println("config=" + "/config/config.properties");
+				context.setInitParameter("contextConfigLocation", "/WEB-INF/classes/config/applicationContext*.xml");
+				context.setInitParameter("dsworkSSOConfiguration", "/config/sso.properties");
 			}
-			String log4jFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/log4j2.xml")).isFile() ? "/" + dsworkActive: "";
-			// context.setInitParameter("log4jConfiguration", "/WEB-INF/classes/config" + log4jFile + "/log4j2.xml");
-			log4j2 = "/WEB-INF/classes/config" + log4jFile + "/log4j2.xml";
-			String ssoFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/sso.properties")).isFile() ? "/" + dsworkActive : "";
-			context.setInitParameter("dsworkSSOConfiguration", "/config" + ssoFile + "/sso.properties");
-
-			System.out.println("contextConfigLocation=" + context.getInitParameter("contextConfigLocation"));
-			System.out.println("log4jConfiguration=" + context.getInitParameter("log4jConfiguration"));
-			System.out.println("dsworkSSOConfiguration=" + context.getInitParameter("dsworkSSOConfiguration"));
 		}
 		else
 		{
