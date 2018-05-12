@@ -15,9 +15,9 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 	{
 		String dsworkActive = EnvironmentUtil.getToString("dswork.active", "");
 		String log4j2 = "/WEB-INF/classes/config/log4j2.xml";
+		String dsworkConfiguration = "classpath*:/config/config.properties";
 		if(dsworkActive.length() > 0)
 		{
-			
 			String webRoot = context.getRealPath("/");
 			String springTest = "/WEB-INF/classes/config/" + dsworkActive + "/";
 			File file = new File(webRoot + springTest);
@@ -46,12 +46,13 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 				boolean configFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/config.properties")).isFile();
 				if(configFile)
 				{
+					dsworkConfiguration = "classpath*:/config/" + dsworkActive + "/config.properties";
 					EnvironmentUtil.setSystemProperties("/config/" + dsworkActive + "/config.properties");
-					System.out.println("config=" + "/config/" + dsworkActive + "/config.properties");
+					System.out.println("dsworkConfiguration=" + "/config/" + dsworkActive + "/config.properties");
 				}
 				else
 				{
-					System.out.println("config=" + "/config/config.properties");
+					System.out.println("dsworkConfiguration=" + "/config/config.properties");
 				}
 				String log4jFile = (new File(webRoot + "/WEB-INF/classes/config/" + dsworkActive + "/log4j2.xml")).isFile() ? "/" + dsworkActive: "";
 				// context.setInitParameter("log4jConfiguration", "/WEB-INF/classes/config" + log4jFile + "/log4j2.xml");
@@ -75,6 +76,7 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 			context.setInitParameter("contextConfigLocation", "/WEB-INF/classes/config/applicationContext*.xml");
 			context.setInitParameter("dsworkSSOConfiguration", "/config/sso.properties");
 		}
+		context.setInitParameter("dsworkConfiguration", dsworkConfiguration);
 		try
 		{
 			org.apache.logging.log4j.core.LoggerContext c = (org.apache.logging.log4j.core.LoggerContext)LogManager.getContext(false);
