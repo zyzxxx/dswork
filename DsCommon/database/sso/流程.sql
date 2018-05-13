@@ -78,11 +78,11 @@ CREATE TABLE IF NOT EXISTS DS_FLOW_PI_WAITING
    TNAME                VARCHAR(300) COMMENT '任务名称',
    TCOUNT               INT COMMENT '合并任务个数(只有一个任务时等于1，其余大于1)',
    TPREV                VARCHAR(300) COMMENT '上级任务(从哪过来的)',
-   TNEXT                VARCHAR(4000) COMMENT '下级任务(以逗号分隔节点标识，以|线分隔分支任务)',
+   TNEXT                VARCHAR(3000) COMMENT '下级任务(以逗号分隔节点标识，以|线分隔分支任务)',
    TSTART               VARCHAR(19) COMMENT '任务开始时间',
-   TUSER                VARCHAR(4000) COMMENT '经办人',
-   TUSERS               VARCHAR(4000) COMMENT '候选经办人',
-   TMEMO                VARCHAR(4000) COMMENT '参数',
+   TUSER                VARCHAR(3000) COMMENT '经办人',
+   TUSERS               VARCHAR(3000) COMMENT '候选经办人',
+   TMEMO                VARCHAR(3000) COMMENT '参数',
    TINTERFACE           VARCHAR(300) COMMENT '处理接口类',
    PRIMARY KEY (ID),
    CONSTRAINT FK_DS_FLOW_PI_DOING FOREIGN KEY (PIID)
@@ -96,9 +96,9 @@ CREATE TABLE IF NOT EXISTS DS_FLOW_TASK
    TALIAS               VARCHAR(300) COMMENT '节点标识(start开始，end结束)',
    TNAME                VARCHAR(300) COMMENT '节点名称',
    TCOUNT               INT COMMENT '合并任务个数(只有一个任务时等于1，其余大于1)',
-   TNEXT                VARCHAR(4000) COMMENT '下级任务(以逗号分隔节点标识，以|线分隔分支任务)',
-   TUSERS               VARCHAR(4000) COMMENT '当前任务的用户ID(以逗号分隔节点标识)',
-   TMEMO                VARCHAR(4000) COMMENT '参数',
+   TNEXT                VARCHAR(3000) COMMENT '下级任务(以逗号分隔节点标识，以|线分隔分支任务)',
+   TUSERS               VARCHAR(3000) COMMENT '当前任务的用户ID(以逗号分隔节点标识)',
+   TMEMO                VARCHAR(3000) COMMENT '参数',
    PRIMARY KEY (ID),
    CONSTRAINT FK_DS_FLOW_TASK FOREIGN KEY (FLOWID)
       REFERENCES DS_FLOW (ID) ON DELETE CASCADE ON UPDATE CASCADE
