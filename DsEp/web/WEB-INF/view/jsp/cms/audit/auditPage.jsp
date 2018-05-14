@@ -86,10 +86,11 @@ $(function(){
 		<td class="form_title">操作</td>
 		<td class="form_input menuTool">
 		<c:if test="${po.scope==2}">
-			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">查看栏目内容</a>
+			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">查看外链</a>
 		</c:if>
 		<c:if test="${po.scope!=2}">
-			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">查看栏目内容</a>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">查看内容</a>
+			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}&mobile=true">查看移动版内容</a></c:if>
 		</c:if>
 		</td>
 	</tr>

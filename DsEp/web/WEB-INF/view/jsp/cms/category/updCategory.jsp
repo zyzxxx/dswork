@@ -14,9 +14,21 @@ $(function(){
 	$('#scope').change(function(){
 		$('#listTable>.choice').remove();
 		switch($(this).val()){
-		case '0':$('#listTable').append($('#scope_0_1').html()).append($('#scope_0').html());$("#viewsite").val("${po.viewsite}");$("#pageviewsite").val("${po.pageviewsite}");break;
-		case '1':$('#listTable').append($('#scope_0_1').html());$("#viewsite").val("${po.viewsite}");break;
-		case '2':$('#listTable').append($('#scope_2').html());break;
+		case '0':
+			$('#listTable').append($('#scope_0_1').html()).append($('#scope_0').html());
+			$("#viewsite").val("${po.viewsite}");
+			$("#pageviewsite").val("${po.pageviewsite}");
+			$("#mviewsite").val("${po.mviewsite}");
+			$("#mpageviewsite").val("${po.mpageviewsite}");
+			break;
+		case '1':
+			$('#listTable').append($('#scope_0_1').html());
+			$("#viewsite").val("${po.viewsite}");
+			$("#mviewsite").val("${po.mviewsite}");
+			break;
+		case '2':
+			$('#listTable').append($('#scope_2').html());
+			break;
 		}
 	});
 	$('#scope').change();
@@ -39,6 +51,14 @@ $(function(){
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
+<c:if test="${enablemobile}">
+	<tr>
+		<td class="form_title">栏目模板</td>
+		<td class="form_input"><select id="mviewsite" name="mviewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
+	</tr>
+</c:if>
 </script>
 <script type="text/template" id="scope_0">
 	<tr class="choice">
@@ -47,6 +67,14 @@ $(function(){
 			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
 		</select></td>
 	</tr>
+<c:if test="${enablemobile}">
+	<tr>
+		<td class="form_title">内容模板</td>
+		<td class="form_input"><select id="mpageviewsite" name="mpageviewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		</select></td>
+	</tr>
+</c:if>
 </script>
 </head>
 <body>

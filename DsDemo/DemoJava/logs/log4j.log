@@ -1,0 +1,84 @@
+2018-05-08 13:53:44,595 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 13:53:44,690 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 13:53:44,692 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 13:53:44,693 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 13:53:45,127 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 13:53:45,143 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 13:54:52,207 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 13:54:52,305 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 13:54:52,310 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 13:54:52,311 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 13:54:52,763 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 13:54:52,781 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 13:56:03,987 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 13:56:04,096 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 13:56:04,098 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 13:56:04,100 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 13:56:04,599 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 13:56:04,616 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 13:56:04,645 [INFO] jdbc.sqlonly - 3. Connection opened
+2018-05-08 14:11:43,397 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:11:43,495 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 14:11:43,498 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 14:11:43,499 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 14:11:43,961 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:11:43,978 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:11:44,009 [INFO] jdbc.sqlonly - 3. Connection opened
+2018-05-08 14:12:54,740 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:12:54,848 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 14:12:54,850 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 14:12:54,852 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 14:12:55,277 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:12:55,294 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:12:55,321 [INFO] jdbc.sqlonly - 3. Connection opened
+2018-05-08 14:16:04,571 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:16:04,665 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 14:16:04,667 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 14:16:04,669 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 14:16:05,088 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:16:05,104 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:16:05,132 [INFO] jdbc.sqlonly - 3. Connection opened
+2018-05-08 14:17:10,713 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:17:10,806 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 14:17:10,808 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 14:17:10,809 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 14:17:11,277 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:17:11,297 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:17:11,326 [INFO] jdbc.sqlonly - 3. Connection opened
+2018-05-08 14:17:46,727 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:17:46,820 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 14:17:46,822 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 14:17:46,823 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 14:17:47,262 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:17:47,280 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:19:40,321 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:19:40,417 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 14:19:40,419 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 14:19:40,421 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 14:19:40,845 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:19:40,862 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:20:47,663 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:20:47,760 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 14:20:47,762 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 14:20:47,763 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 14:20:48,222 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:20:48,240 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:23:43,650 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:23:43,746 [INFO] jdbc.sqlonly - 1. Connection opened
+2018-05-08 14:23:43,748 [INFO] jdbc.sqlonly - 1. Connection closed 
+2018-05-08 14:23:43,750 [INFO] jdbc.sqlonly - 2. Connection opened
+2018-05-08 14:23:44,209 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:23:44,210 [INFO] jdbc.sqlonly - 3. Connection opened
+2018-05-08 14:23:44,210 [INFO] jdbc.sqlonly - 3. Connection closed 
+2018-05-08 14:23:44,211 [INFO] jdbc.sqlonly - 4. Connection opened
+2018-05-08 14:23:44,229 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:23:44,307 [INFO] jdbc.sqlonly - 
+4. insert into DEMO
+	(ID, TITLE, CONTENT, FOUNDTIME)
+	values
+	(null, 'Title', 'Content', '2010-01-01')
+2018-05-08 14:23:44,308 [INFO] jdbc.sqlonly - 
+4. select LAST_INSERT_ROWID()
+2018-05-08 14:23:44,386 [INFO] jdbc.sqlonly - set master datasource
+2018-05-08 14:23:44,387 [INFO] jdbc.sqlonly - 
+4. select    ID, TITLE, CONTENT, FOUNDTIME  from DEMO

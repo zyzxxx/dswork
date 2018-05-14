@@ -34,6 +34,13 @@ $dswork.page.join = function(td, menu, id){
 		if(!url){url = "${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&pageid=" + id;}
 		window.open(url);
 	}));
+<c:if test="${enablemobile}">
+	$(menu).append($('<div iconCls="menuTool-graph">预览移动版</div>').bind("click", function(){
+		var url = td.attr("url");
+		if(!url){url = "${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&mobile=true&pageid=" + id;}
+		window.open(url);
+	}));
+</c:if>
 	$(menu).append($('<div iconCls="menuTool-graph">发布</div>').bind("click", function(){
 		if(confirm("是否发布内容")){build(id);}
 	}));
@@ -84,11 +91,13 @@ $(function(){
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_category" href="#">发布栏目首页</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览栏目首页</a>
+			<c:if test="enablemobile"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&mobile=true">预览移动版栏目首页</a></c:if>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_page" href="#">发布栏目内容</a>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_site" href="#">发布首页</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
+			<c:if test="enablemobile"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&mobile=true">预览移动版首页</a></c:if>
 		</td>
 	</tr>
 </table>

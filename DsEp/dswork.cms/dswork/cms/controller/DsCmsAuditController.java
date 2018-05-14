@@ -126,9 +126,11 @@ public class DsCmsAuditController extends DsCmsBaseController
 			{
 				po = service.saveCategoryEdit(id);
 			}
-			if(checkAudit(po.getSiteid(), po.getId()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkAudit(s.getId(), po.getId()))
 			{
 				DsCmsCategory m = service.getCategory(po.getId());
+				put("enablemobile", s.getEnablemobile() == 1);
 				put("scope", m.getScope());
 				put("po", po);
 				return "/cms/audit/auditCategory.jsp";
@@ -231,6 +233,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 			{
 				put("po", po);
 				put("page", req.getInt("page", 1));
+				put("enablemobile", s.getEnablemobile() == 1);
 				return "/cms/audit/auditPage.jsp";
 			}
 		}

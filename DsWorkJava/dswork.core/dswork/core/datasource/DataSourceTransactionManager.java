@@ -45,6 +45,6 @@ public class DataSourceTransactionManager extends org.springframework.jdbc.datas
 	protected void doCleanupAfterCompletion(Object arg0)
 	{
 		super.doCleanupAfterCompletion(arg0);
-		DataSourceHolder.removeDataSource();
+		DataSourceHolder.removeDataSource();// 处理完才释放连接主从信息
 	}
 }
