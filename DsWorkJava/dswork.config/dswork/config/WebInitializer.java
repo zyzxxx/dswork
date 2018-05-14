@@ -78,8 +78,8 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 			{
 				if(p.length() > 0)
 				{
-					p = "/" + p.replace('.', '/');
-					context.setInitParameter("dswork.base-mapper-" + i, p);
+					context.setInitParameter("dswork.base-package-" + i, p);/*旧版本的spring，如4.0.9的mvc不支持多个扫描包的配置，有bug，这是兼容模式*/
+					context.setInitParameter("dswork.base-mapper-" + i, "/" + p.replace('.', '/'));
 					i++;
 				}
 			}
