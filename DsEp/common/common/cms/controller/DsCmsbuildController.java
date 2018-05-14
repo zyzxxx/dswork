@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.cms.CmsFactory;
+import common.cms.CmsFactoryMobile;
 import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 
@@ -42,7 +43,11 @@ public class DsCmsbuildController extends BaseController
 //				request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
 //			}
 //		}
-		
+		if(mobile)
+		{
+			cms = new CmsFactoryMobile(cms);
+		}
+
 		put("cms", cms);
 		put("year", TimeUtil.getCurrentTime("yyyy"));
 		Map<String, Object> s = cms.getSite();
@@ -91,16 +96,9 @@ public class DsCmsbuildController extends BaseController
 			put("categorylist", cms.queryCategory("0"));
 			put("categoryid", categoryid);
 			put("category", c);
-			String url = String.valueOf(c.get("url"));
-			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, url, categoryid);
+			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
 			put("datalist", mm.get("list"));
-			String datapageview = String.valueOf(mm.get("datapageview"));
-			if(mobile)// ugly hack
-			{
-				url = url.replace(".html", "");
-				datapageview = datapageview.replace(url, "/m" + url);
-			}
-			put("datapageview", datapageview);
+			put("datapageview", String.valueOf(mm.get("datapageview")));
 			put("datauri", mm.get("datauri"));
 			put("datapage", mm.get("datapage"));
 			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mviewsite") : "/templates/"+c.get("viewsite"));
