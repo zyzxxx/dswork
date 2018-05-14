@@ -84,37 +84,44 @@ public class DsCmsTemplateController extends DsCmsBaseController
 			long pid = req.getLong("pid", 0);
 			if(siteid >= 0 && uriPath.indexOf("..") == -1)// 防止读取上级目录
 			{
-				DsCmsSite site = service.get(siteid);
-				if(site != null)
+				DsCmsSite s = service.get(siteid);
+				boolean enablemobile = s.getEnablemobile() == 1;
+				if(s != null)
 				{
-					site.setFolder(String.valueOf(site.getFolder()).replace("\\", "").replace("/", ""));
+					s.setFolder(String.valueOf(s.getFolder()).replace("\\", "").replace("/", ""));
 				}
-				if(site != null && site.getFolder().trim().length() > 0 && checkOwn(site.getId()))
+				if(s != null && s.getFolder().trim().length() > 0 && checkOwn(s.getId()))
 				{
-					String filePath = getCmsRoot() + site.getFolder() + "/templates/";
+					String filePath = getCmsRoot() + s.getFolder() + "/templates/";
 					File froot = new File(filePath);
 					File finclude = new File(filePath + "include");
+					File fmobile = new File(filePath + "m");
 					File f = new File(filePath + uriPath);
-					// 限制为只能读取根目录和include目录
-					if(f.isDirectory() && (f.getPath().equals(froot.getPath()) || f.getPath().equals(finclude.getPath())))
+					// 限制为只能读取根目录、include目录、m目录
+					if(f.isDirectory() && (
+							f.getPath().equals(froot.getPath())
+							|| f.getPath().equals(finclude.getPath())
+							|| f.getPath().equals(fmobile.getPath())
+					))
 					{
-						int i = 0;
-						boolean b = f.getName().equals("include");
-						if(!b)
+						boolean first = true;
+						if(!f.getName().equals("include"))
 						{
-							sb.append("{id:1,pid:0,isParent:true,name:\"include\",path:\"include/\"}");
-							i++;
+							sb.append(enablemobile?
+									"{id:1,pid:0,isParent:true,name:\"include\",path:\"include/\",name:\"m\",path:\"m/\"}":
+									"{id:1,pid:0,isParent:true,name:\"include\",path:\"include/\"}");
+							first = false;
 						}
 						for(File o : f.listFiles())
 						{
 							if(o.isFile())
 							{
-								if(i > 0)
-								{
-									sb.append(",");
-								}
-								sb.append("{id:").append(UniqueId.genId()).append(",pid:").append(pid).append(",name:\"").append(o.getName()).append("\",path:\"").append(uriPath).append(o.getName()).append("\"}");
-								i++;
+								sb.append(first? "{id:" : ",{id:").append(UniqueId.genId())
+									.append(",pid:").append(pid)
+									.append(",name:\"").append(o.getName())
+									.append("\",path:\"").append(uriPath).append(o.getName())
+									.append("\"}");
+								first = false;
 							}
 						}
 					}
