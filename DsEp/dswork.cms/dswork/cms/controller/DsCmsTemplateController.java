@@ -95,21 +95,30 @@ public class DsCmsTemplateController extends DsCmsBaseController
 					String filePath = getCmsRoot() + s.getFolder() + "/templates/";
 					File froot = new File(filePath);
 					File finclude = new File(filePath + "include");
-					File fmobile = new File(filePath + "m");
+					File mroot = new File(filePath + "m");
+					File minclude = new File(filePath + "m/include");
 					File f = new File(filePath + uriPath);
-					// 限制为只能读取根目录、include目录、m目录
+					// 限制为只能读取根目录、include目录、m根目录、m下include目录
 					if(f.isDirectory() && (
 							f.getPath().equals(froot.getPath())
 							|| f.getPath().equals(finclude.getPath())
-							|| f.getPath().equals(fmobile.getPath())
+							|| f.getPath().equals(mroot.getPath())
+							|| f.getPath().equals(minclude.getPath())
 					))
 					{
 						boolean first = true;
-						if(!f.getName().equals("include"))
+						if(f.getPath().equals(froot.getPath()))
 						{
-							sb.append(enablemobile?
-									"{id:1,pid:0,isParent:true,name:\"include\",path:\"include/\",name:\"m\",path:\"m/\"}":
-									"{id:1,pid:0,isParent:true,name:\"include\",path:\"include/\"}");
+							sb.append("{id:1,pid:0,isParent:true,name:\"include\",path:\"include/\"}");
+							if(enablemobile)
+							{
+								sb.append(",{id:2,pid:0,isParent:true,name:\"m\",path:\"m/\"}");
+							}
+							first = false;
+						}
+						else if(f.getPath().equals(mroot.getPath()))
+						{
+							sb.append("{id:21,pid:0,isParent:true,name:\"include\",path:\"m/include/\"}");
 							first = false;
 						}
 						for(File o : f.listFiles())
@@ -155,9 +164,16 @@ public class DsCmsTemplateController extends DsCmsBaseController
 					String filePath = getCmsRoot() + site.getFolder() + "/templates/";
 					File froot = new File(filePath);
 					File finclude = new File(filePath + "include");
+					File mroot = new File(filePath + "m");
+					File minclude = new File(filePath + "m/include");
 					File f = new File(filePath + uriPath);
-					// 限制为只能读取根目录和include目录下的文件
-					if(f.isFile() && (f.getParent().equals(froot.getPath()) || f.getParent().equals(finclude.getPath())))
+					// 限制为只能读取根目录、include目录、m根目录、m下include目录
+					if(f.isFile() && (
+							f.getParent().equals(froot.getPath())
+							|| f.getParent().equals(finclude.getPath())
+							|| f.getParent().equals(mroot.getPath())
+							|| f.getParent().equals(minclude.getPath())
+					))
 					{
 						put("content", FileUtil.readFile(f.getPath(), "UTF-8"));
 						put("path", uriPath);
@@ -193,12 +209,19 @@ public class DsCmsTemplateController extends DsCmsBaseController
 				{
 					String filePath = getCmsRoot() + site.getFolder() + "/templates/";
 					File froot = new File(filePath);
+					File finclude = new File(filePath + "include");
+					File mroot = new File(filePath + "m");
+					File minclude = new File(filePath + "m/include");
 					File bak = new File(filePath + "bak");
 					bak.mkdirs();
-					File finclude = new File(filePath + "include");
 					File f = new File(filePath + uriPath);
-					// 限制为只能读取根目录和include目录下的文件
-					if(f.isFile() && (f.getParent().equals(froot.getPath()) || f.getParent().equals(finclude.getPath())))
+					// 限制为只能读取根目录、include目录、m根目录、m下include目录
+					if(f.isFile() && (
+							f.getParent().equals(froot.getPath())
+							|| f.getParent().equals(finclude.getPath())
+							|| f.getParent().equals(mroot.getPath())
+							|| f.getParent().equals(minclude.getPath())
+					))
 					{
 						try
 						{
