@@ -25,13 +25,13 @@ if(value == null)
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no,minimal-ui"/>
 <title>Ticket</title>
 <style>body{width:38em;margin:0 auto;font-family:Tahoma, Verdana, Arial, sans-serif, 微软雅黑;}</style>
-<script language="javascript">
+<script type="text/javascript">
 function WinNew(){window.location.href = "/portal";}
-window.setTimeout("WinNew()",5000);
+//window.setTimeout("WinNew()",5000);
 </script>
 </head>
 <body>
-<h1>用户账号是:<%=String.valueOf(TicketService.getAccountByTicket(String.valueOf(value))) %>。</h1>
+<h1>用户账号是:<%=String.valueOf(TicketService.getValueByTicket(String.valueOf(value))) %>。</h1>
 <!--<%=v %>-->
 <p><a href="<%=request.getContextPath()%>/logout">退出系统</a></p>
 <p><em>system administrator.</em></p>

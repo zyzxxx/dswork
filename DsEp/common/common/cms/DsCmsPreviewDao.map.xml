@@ -6,10 +6,10 @@
 <mapper namespace="common.cms.DsCmsPreviewDao">
 
 <sql id="c_site">
-	id, own, name, folder, url, img, viewsite, metakeywords, metadescription
+	id, own, name, folder, url, img, viewsite, mviewsite, metakeywords, metadescription
 </sql>
 <sql id="c_category">
-	id, pid, siteid, name, scope, status, url, viewsite, pageviewsite, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content
+	id, pid, siteid, name, scope, status, url, viewsite, pageviewsite, mviewsite, mpageviewsite, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content
 </sql>
 <sql id="c_page">
 	id, siteid, categoryid, title, scope, status, url, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content

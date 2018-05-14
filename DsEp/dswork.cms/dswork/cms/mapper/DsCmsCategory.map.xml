@@ -10,9 +10,9 @@
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_CATEGORY
-	(PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT)
+	(PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, MVIEWSITE, MPAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT)
 	values
-	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{scope}, #{status}, #{url}, #{seq}, #{viewsite}, #{pageviewsite}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content})
+	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{scope}, #{status}, #{url}, #{seq}, #{viewsite}, #{pageviewsite}, #{mviewsite}, #{mpageviewsite}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content})
 </insert>
 
 <delete id="delete">
@@ -25,7 +25,9 @@
 		NAME=#{name},
 		URL=#{url},
 		VIEWSITE=#{viewsite},
-		PAGEVIEWSITE=#{pageviewsite}
+		PAGEVIEWSITE=#{pageviewsite},
+		MVIEWSITE=#{mviewsite},
+		MPAGEVIEWSITE=#{mpageviewsite}
 	where ID=#{id}
 </update>
 <update id="updateScope">
@@ -71,6 +73,8 @@
 	<result property="seq" column="SEQ" />
 	<result property="viewsite" column="VIEWSITE" />
 	<result property="pageviewsite" column="PAGEVIEWSITE" />
+	<result property="mviewsite" column="MVIEWSITE" />
+	<result property="mpageviewsite" column="MPAGEVIEWSITE" />
 	<result property="metakeywords" column="METAKEYWORDS" />
 	<result property="metadescription" column="METADESCRIPTION" />
 	<result property="summary" column="SUMMARY" />
@@ -83,7 +87,7 @@
 </resultMap>
 
 <sql id="columns">
-	ID, PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT
+	ID, PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, MVIEWSITE, MPAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT
 </sql>
 
 <sql id="dynamicWhere">
