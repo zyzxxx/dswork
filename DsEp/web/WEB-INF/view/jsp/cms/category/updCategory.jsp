@@ -52,7 +52,7 @@ $(function(){
 		</select></td>
 	</tr>
 <c:if test="${enablemobile}">
-	<tr>
+	<tr class="choice">
 		<td class="form_title">栏目模板</td>
 		<td class="form_input"><select id="mviewsite" name="mviewsite" style="width:400px;"><option value=""></option>
 			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${v}</option></c:forEach>
@@ -68,7 +68,7 @@ $(function(){
 		</select></td>
 	</tr>
 <c:if test="${enablemobile}">
-	<tr>
+	<tr class="choice">
 		<td class="form_title">内容模板</td>
 		<td class="form_input"><select id="mpageviewsite" name="mpageviewsite" style="width:400px;"><option value=""></option>
 			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${v}</option></c:forEach>

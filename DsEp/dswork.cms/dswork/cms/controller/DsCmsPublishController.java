@@ -37,27 +37,27 @@ public class DsCmsPublishController extends DsCmsBaseController
 		try
 		{
 			Long id = req.getLong("siteid", -1), siteid = -1L;
-			DsCmsSite s = null;
 			List<DsCmsSite> siteList = service.queryListSite(getOwn());
 			if(siteList != null && siteList.size() > 0)
 			{
 				put("siteList", siteList);
 				if(id >= 0)
 				{
-					for(DsCmsSite m : siteList)
+					for(DsCmsSite s : siteList)
 					{
-						if(m.getId() == id)
+						if(s.getId() == id)
 						{
-							s = m;
-							siteid = m.getId();
+							siteid = s.getId();
+							put("enablemobile", s.getEnablemobile() == 1);
 							break;
 						}
 					}
 				}
 				if(siteid == -1)
 				{
-					s = siteList.get(0);
+					DsCmsSite s = siteList.get(0);
 					siteid = s.getId();
+					put("enablemobile", s.getEnablemobile() == 1);
 				}
 			}
 			if(siteid >= 0)
@@ -66,10 +66,6 @@ public class DsCmsPublishController extends DsCmsBaseController
 				categoryList = categoryAccess(categoryList, this);
 				put("siteList", siteList);
 				put("categoryList", categoryList);
-				if(s != null)
-				{
-					put("enablemobile", s.getEnablemobile() == 1);
-				}
 			}
 			put("siteid", siteid);
 			return "/cms/publish/getCategoryTree.jsp";
