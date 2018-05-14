@@ -33,7 +33,11 @@
         	<list>
         		<value>classpath*:/dswork/*/mapper/**/*.map.xml</value>
         		<value>classpath*:/common/**/*.map.xml</value>
-        		<value>classpath*:${dswork.base-mapper:/dswork}/mapper/**/*.map.xml</value>
+        		<value>classpath*:${dswork.base-mapper-1:/dswork}/mapper/**/*.map.xml</value>
+        		<value>classpath*:${dswork.base-mapper-2:/dswork}/mapper/**/*.map.xml</value>
+        		<value>classpath*:${dswork.base-mapper-3:/dswork}/mapper/**/*.map.xml</value>
+        		<value>classpath*:${dswork.base-mapper-4:/dswork}/mapper/**/*.map.xml</value>
+        		<value>classpath*:${dswork.base-mapper-5:/dswork}/mapper/**/*.map.xml</value>
         		<value>${dswork.base-mapper-extend:classpath*:/dswork/*/mapper/**/*.map.xml}</value>
         	</list>
         </property>

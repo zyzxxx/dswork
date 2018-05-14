@@ -72,6 +72,17 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		if(dsworkBasePackage.length() > 0)
 		{
 			context.setInitParameter("dswork.base-package", dsworkBasePackage);
+			String[] basePackages = dsworkBasePackage.split(",");
+			int i = 1;
+			for(String p : basePackages)
+			{
+				if(p.length() > 0)
+				{
+					p = "/" + p.replace('.', '/');
+					context.setInitParameter("dswork.base-mapper-" + i, p);
+					i++;
+				}
+			}
 		}
 		context.setInitParameter("dsworkConfiguration", dswork);
 		context.setInitParameter("dsworkSSOConfiguration", dsworkSSO);
