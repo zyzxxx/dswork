@@ -116,8 +116,10 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		try
 		{
 			Long siteid = req.getLong("siteid");
-			DsCmsSite site = service.getSite(siteid);
-			put("templates", getTemplateName(site.getFolder()));
+			DsCmsSite s = service.getSite(siteid);
+			put("enablemobile", s.getEnablemobile() == 1);
+			put("templates", getTemplateName(s.getFolder(), false));
+			put("mtemplates", getTemplateName(s.getFolder(), true));
 			put("list", queryCategory(siteid, true, 0));
 			return "/cms/category/addCategory.jsp";
 		}
@@ -177,9 +179,10 @@ public class DsCmsCategoryController extends DsCmsBaseController
 					list.add(c);
 				}
 				service.updateRecycled(list);
+				boolean enablemobile = s.getEnablemobile() == 1;
 				for(DsCmsCategory c : list)
 				{
-					deleteCategoryFolder(s.getFolder(), c.getId() + "");
+					deleteCategoryFolder(s.getFolder(), c.getId() + "", enablemobile);
 				}
 				print(1);
 				return;
@@ -200,6 +203,11 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		try
 		{
 			long[] ids = req.getLongArray("keyIndex", -1);
+			if(ids.length == 0)
+			{
+				print("0:没有指定栏目");
+				return;
+			}
 			List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 			String msg = "";
 			for(long id : ids)
@@ -289,9 +297,11 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		{
 			long id = req.getLong("keyIndex", -1);
 			DsCmsCategory po = service.get(id);
-			if(checkOwn(po.getSiteid()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkOwn(s.getId()))
 			{
 				put("po", po);
+				put("enablemobile", s.getEnablemobile() == 1);
 				if(po.getScope() == 0)
 				{
 					Page<DsCmsPageEdit> page = service.queryPagePageEdit(getPageRequest());
@@ -323,8 +333,9 @@ public class DsCmsCategoryController extends DsCmsBaseController
 				{
 					put("po", po);
 					put("list", queryCategory(po.getSiteid(), true, id));
-					DsCmsSite site = service.getSite(siteid);
-					put("templates", getTemplateName(site.getFolder()));
+					put("enablemobile", s.getEnablemobile() == 1);
+					put("templates", getTemplateName(s.getFolder(), false));
+					put("mtemplates", getTemplateName(s.getFolder(), true));
 					return "/cms/category/updCategory.jsp";
 				}
 			}
@@ -416,21 +427,26 @@ public class DsCmsCategoryController extends DsCmsBaseController
 		return request.getSession().getServletContext().getRealPath("/html") + "/";
 	}
 
-	private void deleteCategoryFolder(String siteFolder, String categoryFolder)
+	private void deleteCategoryFolder(String siteFolder, String categoryFolder, boolean enablemobile)
 	{
 		if(siteFolder != null && siteFolder.trim().length() > 0 && categoryFolder != null && categoryFolder.trim().length() > 0)
 		{
-			java.io.File file = new java.io.File(getCmsRoot() + "/html/" + siteFolder + "/html/a/" + categoryFolder);
+			File file = new File(getCmsRoot() + "/html/" + siteFolder + "/html/a/" + categoryFolder);
 			FileUtil.delete(file.getPath());
+			if(enablemobile)
+			{
+				file = new File(getCmsRoot() + "/html/" + siteFolder + "/html/m/a/" + categoryFolder);
+				FileUtil.delete(file.getPath());
+			}
 		}
 	}
 
-	private List<String> getTemplateName(String sitename)
+	private List<String> getTemplateName(String sitename, boolean mobile)
 	{
 		List<String> list = new ArrayList<String>();
 		try
 		{
-			File file = new File(getCmsRoot() + sitename + "/templates");
+			File file = new File(getCmsRoot() + sitename + (mobile ? "/templates/m" : "/templates"));
 			for(File f : file.listFiles())
 			{
 				if(f.isFile() && !f.isHidden() && f.getPath().endsWith(".jsp"))

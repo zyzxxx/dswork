@@ -306,6 +306,7 @@ public class DsCmsEditController extends DsCmsBaseController
 			)
 			{
 				put("po", po);
+				put("enablemobile", s.getEnablemobile() == 1);
 				return "/cms/edit/updPage.jsp";
 			}
 		}
@@ -439,13 +440,15 @@ public class DsCmsEditController extends DsCmsBaseController
 			{
 				po = service.saveCategoryEdit(id);
 			}
-			if(checkEdit(po.getSiteid(), po.getId()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkEdit(s.getId(), po.getId()))
 			{
 				if(po.getReleasetime().isEmpty())
 				{
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
 				DsCmsCategory c = service.getCategory(po.getId());
+				put("enablemobile", s.getEnablemobile() == 1);
 				put("scope", c.getScope());
 				put("po", po);
 				return "/cms/edit/updCategory.jsp";

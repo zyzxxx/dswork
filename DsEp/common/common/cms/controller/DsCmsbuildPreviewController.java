@@ -19,12 +19,14 @@ public class DsCmsbuildPreviewController extends BaseController
 		Long siteid = req.getLong("siteid", -1);
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
+		boolean mobile = req.getString("mobile", "false").equals("true");
+
 		DsCmsPreview cms = new DsCmsPreview(siteid);
 		put("cms", cms);
 		put("year", TimeUtil.getCurrentTime("yyyy"));
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
-		put("ctx", request.getContextPath() + "/html/" + s.get("folder") + "/html");// 预览时，现在可以不需要运行服务器，即可浏览相对地址
+		put("ctx", request.getContextPath() + "/html/" + s.get("folder") + (mobile ? "/html/m" : "/html"));// 预览时，现在可以不需要运行服务器，即可浏览相对地址
 		if(pageid > 0)// 内容页
 		{
 			Map<String, Object> p = cms.get(pageid.toString());
@@ -42,7 +44,7 @@ public class DsCmsbuildPreviewController extends BaseController
 			put("img", getString(p.get("img")));
 			put("url", getString(p.get("url")));
 			put("content", getString(p.get("content")));
-			return "/" + s.get("folder") + "/templates/" + c.get("pageviewsite");
+			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mpageviewsite") : "/templates/"+c.get("pageviewsite"));
 		}
 		if(categoryid > 0)// 栏目页
 		{
@@ -62,10 +64,10 @@ public class DsCmsbuildPreviewController extends BaseController
 			put("datapageview", mm.get("datapageview"));
 			put("datauri", mm.get("datauri"));
 			put("datapage", mm.get("datapage"));
-			return "/" + s.get("folder") + "/templates/" + c.get("viewsite");
+			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mviewsite") : "/templates/"+c.get("viewsite"));
 		}
 		// 首页
-		return "/" + s.get("folder") + "/templates/" + s.get("viewsite");
+		return "/" + s.get("folder") + (mobile ? "/templates/m/"+s.get("mviewsite") : "/templates/"+s.get("viewsite"));
 	}
 	
 	private String getString(Object object)

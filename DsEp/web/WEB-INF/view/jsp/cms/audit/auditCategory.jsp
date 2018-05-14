@@ -76,6 +76,7 @@ $(function(){
 		<td class="form_title">预览</td>
 		<td class="form_input menuTool">
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">查看栏目内容</a>
+			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}&mobile=true">查看移动版栏目内容</a></c:if>
 		</td>
 	</tr>
 	<tr>
@@ -93,7 +94,7 @@ $(function(){
 	<tr>
 		<td class="form_title">预览</td>
 		<td class="form_input menuTool">
-			<a class="look" target="_blank" href="${po.url}">查看栏目内容</a>
+			<a class="look" target="_blank" href="${po.url}">查看外链</a>
 		</td>
 	</tr>
 </c:if>

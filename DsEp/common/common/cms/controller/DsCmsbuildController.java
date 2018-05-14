@@ -23,6 +23,7 @@ public class DsCmsbuildController extends BaseController
 		Long siteid = req.getLong("siteid", -1);
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
+		boolean mobile = req.getString("mobile", "false").equals("true");
 		
 		CmsFactory cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY);
 		if(cms == null)
@@ -48,11 +49,11 @@ public class DsCmsbuildController extends BaseController
 		put("site", s);
 		if(req.getString("view").equals("true"))
 		{
-			put("ctx", request.getContextPath() + "/html/" + s.get("folder") + "/html");// 预览时，现在可以不需要运行服务器，即可浏览相对地址
+			put("ctx", request.getContextPath() + "/html/" + s.get("folder") + (mobile ? "/html/m" : "/html"));// 预览时，现在可以不需要运行服务器，即可浏览相对地址
 		}
 		else
 		{
-			put("ctx", getString(s.get("url")));
+			put("ctx", getString(s.get("url")) + (mobile ? "/m" : ""));
 		}
 		if(pageid > 0)// 内容页
 		{
@@ -71,7 +72,7 @@ public class DsCmsbuildController extends BaseController
 			put("img", getString(p.get("img")));
 			put("url", getString(p.get("url")));
 			put("content", getString(p.get("content")));
-			return "/" + s.get("folder") + "/templates/" + c.get("pageviewsite");
+			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mpageviewsite") : "/templates/"+c.get("pageviewsite"));
 		}
 		if(categoryid > 0)// 栏目页
 		{
@@ -95,9 +96,9 @@ public class DsCmsbuildController extends BaseController
 			put("datapageview", mm.get("datapageview"));
 			put("datauri", mm.get("datauri"));
 			put("datapage", mm.get("datapage"));
-			return "/" + s.get("folder") + "/templates/" + c.get("viewsite");
+			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mviewsite") : "/templates/"+c.get("viewsite"));
 		}
-		return "/" + s.get("folder") + "/templates/" + s.get("viewsite");
+		return "/" + s.get("folder") + (mobile ? "/templates/m/"+s.get("mviewsite") : "/templates/"+s.get("viewsite"));
 	}
 	
 	private String getString(Object object)

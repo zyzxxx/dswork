@@ -13,7 +13,10 @@
 		<td class="title">栏目 [${po.id}] 明细</td>
 		<td class="menuTool">
 			<c:if test="${po.scope==2}"><a class="look" target="_blank" href="${fn:escapeXml(po.url)}">预览外链</a></c:if>
-			<c:if test="${po.scope!=2}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览栏目</a></c:if>
+			<c:if test="${po.scope!=2}">
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览栏目</a>
+			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}&mobile=true">预览移动版栏目</a></c:if>
+			</c:if>
 		</td>
 	</tr>
 </table>
@@ -67,7 +70,10 @@
 		<td>${d.scope==2?'外链':'内容'}</td>
 		<td class="menuTool">
 			<c:if test="${d.scope==2}"><a class="look" target="_blank" href="${fn:escapeXml(d.url)}">预览外链</a></c:if>
-			<c:if test="${d.scope!=2}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${d.siteid}&categoryid=${d.categoryid}&pageid=${d.id}">预览页面</a></c:if>
+			<c:if test="${d.scope!=2}">
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${d.siteid}&categoryid=${d.categoryid}&pageid=${d.id}">预览页面</a>
+			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${d.siteid}&categoryid=${d.categoryid}&pageid=${d.id}&mobile=true">预览移动版</a></c:if>
+			</c:if>
 		</td>
 	</tr>
 </c:forEach>
