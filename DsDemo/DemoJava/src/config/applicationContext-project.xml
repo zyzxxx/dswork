@@ -9,8 +9,16 @@
 			http://www.springframework.org/schema/context/spring-context-4.0.xsd"
 	   default-autowire="byName" default-lazy-init="false">
 
-    <!--<context:annotation-config />-->
-	<context:component-scan base-package="testwork.dao" />
-	<context:component-scan base-package="testwork.service" />
-	
+	<bean id="myDaoEntity" class="dswork.core.data.MyDao">
+		<property name="sqlSessionTemplate" ref="sqlSessionTemplate" />
+	</bean>
+	<bean id="myService" class="dswork.core.data.MyService">
+		<property name="myDaoEntity" ref="myDaoEntity" />
+	</bean>
+<!--
+	<context:component-scan base-package="${dswork.base-package:dswork}" use-default-filters="false">
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
+	</context:component-scan>
+-->
 </beans>
