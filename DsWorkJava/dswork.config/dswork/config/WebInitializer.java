@@ -19,8 +19,8 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		String dswork = "classpath*:/config/config.properties";
 		String dsworkSSO = "/config/sso.properties";
 		
-		String spring = ",/WEB-INF/classes/config/applicationContext*.xml";
-		String springmvc = ",classpath*:/config/springmvc*.xml";
+		String spring = ",/WEB-INF/classes/config/spring-*.xml";
+		String springmvc = ",classpath*:/config/springmvc-*.xml";
 		
 		if(active.length() > 0)
 		{
@@ -35,17 +35,17 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 				StringBuilder v = new StringBuilder(256);
 				java.util.Map<String, String> map = new java.util.HashMap<String, String>();
 				
-				files = devfiles.listFiles(new FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("applicationContext")){return true;}return false;}});
+				files = devfiles.listFiles(new FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("spring-")){return true;}return false;}});
 				for(File f : files){map.put(f.getName(), "1");v.append(",").append(pathDev).append(f.getName());}
-				files = usefiles.listFiles(new FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("applicationContext")){return true;}return false;}});
+				files = usefiles.listFiles(new FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("spring-")){return true;}return false;}});
 				for(File f : files){if(map.get(f.getName()) == null){v.append(",").append(pathUse).append(f.getName());}}
 				if(v.length() > 0) {spring = v.toString();}
 				map.clear();
 				v.setLength(0);
 
-				files = devfiles.listFiles(new FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("springmvc")){return true;}return false;}});
+				files = devfiles.listFiles(new FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("springmvc-")){return true;}return false;}});
 				for(File f : files){map.put(f.getName(), "1");v.append(",").append(pathDev).append(f.getName());}
-				files = usefiles.listFiles(new FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("springmvc")){return true;}return false;}});
+				files = usefiles.listFiles(new FileFilter(){public boolean accept(File f){if(f.isFile() && f.getName().startsWith("springmvc-")){return true;}return false;}});
 				for(File f : files){if(map.get(f.getName()) == null){v.append(",").append(pathUse).append(f.getName());}}
 				if(v.length() > 0) {springmvc = v.toString();}
 				map.clear();
@@ -68,7 +68,11 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 				System.out.println("contextConfigLocation=" + spring);
 			}
 		}
-		
+		String dsworkBasePackage = EnvironmentUtil.getToString("dswork.base-package", "");
+		if(dsworkBasePackage.length() > 0)
+		{
+			context.setInitParameter("dswork.base-package", dsworkBasePackage);
+		}
 		context.setInitParameter("dsworkConfiguration", dswork);
 		context.setInitParameter("dsworkSSOConfiguration", dsworkSSO);
 		context.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/spring/*.xml" + spring);
@@ -90,10 +94,10 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		encodingFilter.setInitParameter("forceEncoding", "true");
 		encodingFilter.addMappingForUrlPatterns(null, false, "/*");// false指最优先加载
 
-		javax.servlet.ServletRegistration.Dynamic springWebServlet = context.addServlet("SpringWebServlet", "org.springframework.web.servlet.DispatcherServlet");
-		springWebServlet.setLoadOnStartup(1);
-		springWebServlet.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/mvc/SpringWebServlet.xml" + springmvc);
-		springWebServlet.addMapping("*.htm");
+		javax.servlet.ServletRegistration.Dynamic springmvcServlet = context.addServlet("springmvcServlet", "org.springframework.web.servlet.DispatcherServlet");
+		springmvcServlet.setLoadOnStartup(1);
+		springmvcServlet.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/mvc/springmvc-servlet.xml" + springmvc);
+		springmvcServlet.addMapping("*.htm");
 		
 		try
 		{
