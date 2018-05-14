@@ -38,7 +38,9 @@ CREATE TABLE IF NOT EXISTS DS_CMS_SITE
    URL                  VARCHAR(300) COMMENT '链接',
    IMG                  VARCHAR(300) COMMENT '图片',
    VIEWSITE             VARCHAR(300) COMMENT '网站模板',
+   MVIEWSITE            VARCHAR(300) COMMENT '移动版网站模板',
    ENABLELOG            INT(1) COMMENT '开启日志(0否,1是)',
+   ENABLEMOBILE         INT(1) COMMENT '开启移动版(0否,1是)',
    METAKEYWORDS         VARCHAR(300) COMMENT 'meta关键词',
    METADESCRIPTION      VARCHAR(300) COMMENT 'meta描述',
    PRIMARY KEY (ID)
@@ -56,6 +58,8 @@ CREATE TABLE IF NOT EXISTS DS_CMS_CATEGORY
    SEQ                  VARCHAR(300) COMMENT '排序',
    VIEWSITE             VARCHAR(300) COMMENT '栏目模板',
    PAGEVIEWSITE         VARCHAR(300) COMMENT '内容模板',
+   MVIEWSITE            VARCHAR(300) COMMENT '移动版栏目模板',
+   MPAGEVIEWSITE        VARCHAR(300) COMMENT '移动版内容模板',
    METAKEYWORDS         VARCHAR(300) COMMENT 'meta关键词',
    METADESCRIPTION      VARCHAR(300) COMMENT 'meta描述',
    SUMMARY              VARCHAR(300) COMMENT '摘要',
