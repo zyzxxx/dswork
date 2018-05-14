@@ -59,9 +59,13 @@ try{
 				one.put("msg", "success");
 				one.put("category", c);
 				if(_ids.size() > 0){
-					List<Map<String, Object>> list = cms.queryList(currentPage, pagesize, false, false, true, _ids);
+					one.put("pages", "true");
+					List<Map<String, Object>> list = cms.queryList(currentPage, pagesize, false, false, true, _ids.toArray(new Long[_ids.size()]));
 					for(Map<String, Object> p : list){p.remove("content");}
 					one.put("rows", list);
+				}
+				else{
+					one.put("pages", "false");
 				}
 				rows.add(one);
 			}

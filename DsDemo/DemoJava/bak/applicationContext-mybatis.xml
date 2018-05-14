@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	   xsi:schemaLocation="
+			http://www.springframework.org/schema/beans 
+			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
 	   default-autowire="byName" default-lazy-init="false">
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="plugins">
@@ -9,7 +11,7 @@
 				<bean class="dswork.core.mybatis.OffsetLimitInterceptor">
        				<property name="properties">
        					<props>
-		        			<prop key="1">${jdbc.dialect.mybatis}</prop>
+		        			<prop key="1">${jdbc.dialect.mybatis:dswork.core.mybatis.dialect.LimitOffsetDialect}</prop>
 		        		</props>
 					</property>
 				</bean>
@@ -29,8 +31,9 @@
         </property>
         <property name="mapperLocations">
         	<list>
+        		<value>classpath*:/dswork/*/mapper/**/*.map.xml</value>
         		<value>classpath*:/common/**/*.map.xml</value>
-        		<value>classpath*:/testwork/mapper/**/*.map.xml</value>
+        		<value>${dswork.mapper.mybatis:classpath*:/dswork/*/mapper/**/*.map.xml}</value>
         	</list>
         </property>
         <property name="dataSource" ref="dataSource"/>
