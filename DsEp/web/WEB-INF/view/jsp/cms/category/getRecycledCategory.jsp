@@ -80,7 +80,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr class="list_body" onclick='return showDetail("${d.id}");' style="cursor:pointer;">
 		<td><input name="keyIndex" type="checkbox" value="${d.id}" /></td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
-		<td class="k"><input name="keyIndex" type="text" style="width:100%;" readonly="readonly" value="${d.id}" /></td>
+		<td class="k"><input type="text" style="width:100%;" readonly="readonly" value="${d.id}" /></td>
 		<td class="v" style="text-align:left;">${fn:escapeXml(d.name)}&nbsp;<a onclick="return false;" href="#" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a></td>
 	</tr>
 </c:forEach>
