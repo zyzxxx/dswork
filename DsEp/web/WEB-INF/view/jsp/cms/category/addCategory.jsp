@@ -85,14 +85,14 @@ $(function(){
 	<tr>
 		<td class="form_title">栏目模板</td>
 		<td class="form_input"><select class="viewsite" name="viewsite" style="width:400px;"><option value=""></option>
-			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:forEach>
 		</select></td>
 	</tr>
 <c:if test="${enablemobile}">
 	<tr>
 		<td class="form_title">移动版栏目模板</td>
 		<td class="form_input"><select class="viewsite" name="mviewsite" style="width:400px;"><option value=""></option>
-			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${v}</option></c:forEach>
+			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:forEach>
 		</select></td>
 	</tr>
 </c:if>
