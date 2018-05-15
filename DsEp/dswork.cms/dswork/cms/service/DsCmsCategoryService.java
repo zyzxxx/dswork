@@ -45,7 +45,8 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 	{
 		return dao;
 	}
-	
+
+	@Override
 	public int save(DsCmsCategory po)
 	{
 		dao.save(po);
@@ -56,7 +57,8 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 		}
 		return 1;
 	}
-	
+
+	@Override
 	public int update(DsCmsCategory po)
 	{
 		if(po.getScope() != 2)
