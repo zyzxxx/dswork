@@ -38,7 +38,7 @@
 		</property>
 	</bean>
 	
-	<context:component-scan base-package="dswork,common,${dswork.base-package:dswork}" use-default-filters="false">
+	<context:component-scan base-package="dswork,common,${dswork.p1:x},${dswork.p2:x},${dswork.p3:x},${dswork.p4:x},${dswork.p5:x}" use-default-filters="false">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
 	</context:component-scan>
