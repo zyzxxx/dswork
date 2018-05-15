@@ -109,6 +109,7 @@ public class MyStart
 			// 方法二
 			java.net.URL url = MyStart.class.getResource(System.getProperty("log4jConfiguration"));
 			source = new org.apache.logging.log4j.core.config.ConfigurationSource(new java.io.FileInputStream(new java.io.File(url.getPath())), url);
+			// org.apache.logging.log4j.core.LoggerContext c = 
 			org.apache.logging.log4j.core.config.Configurator.initialize(null, source);
 			System.out.println("Log4j load completed");
 		}
@@ -124,9 +125,11 @@ public class MyStart
 		try
 		{
 			// ********初始化spring容器********
-			org.springframework.context.support.GenericXmlApplicationContext context =  new org.springframework.context.support.GenericXmlApplicationContext();
+			System.out.println("contextConfigLocation=" + System.getProperty("contextConfigLocation"));
+			org.springframework.context.support.GenericXmlApplicationContext context;
+			context =  new org.springframework.context.support.GenericXmlApplicationContext();
 			context.setValidating(false);
-			context.load(System.getProperty("contextConfigLocation"));
+			context.load(System.getProperty("contextConfigLocation").split(","));
 			context.refresh();
 			try
 			{
