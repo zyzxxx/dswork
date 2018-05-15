@@ -10,9 +10,9 @@ public class MyStart
 {
 	static
 	{
-		MyConfigLoad();
+		myConfigLoad();
 	}
-	private static void MyConfigLoad()
+	private static void myConfigLoad()
 	{
 		try
 		{
@@ -96,7 +96,7 @@ public class MyStart
 		}
 	}
 	
-	public static void MyLog4jLoad()
+	public static void myLog4jLoad()
 	{
 		// log4j 1.x
 		//org.apache.log4j.PropertyConfigurator.configure(System.getProperty("log4jConfiguration"));
@@ -119,7 +119,7 @@ public class MyStart
 		
 	}
 	
-	public static void MySpringLoad()
+	public static void mySpringLoad()
 	{
 		try
 		{
