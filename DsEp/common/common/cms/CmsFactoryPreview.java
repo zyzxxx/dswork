@@ -3,7 +3,7 @@
  */
 package common.cms;
 
-public class DsCmsPreview extends CmsFactory
+public class CmsFactoryPreview extends CmsFactory
 {
 	private static DsCmsDao dao = null;
 
@@ -19,7 +19,7 @@ public class DsCmsPreview extends CmsFactory
 		dao = (DsCmsDao) dswork.spring.BeanFactory.getBean("dsCmsPreviewDao");
 	}
 
-	public DsCmsPreview(Long siteid)
+	public CmsFactoryPreview(Long siteid)
 	{
 		super(siteid);
 	}

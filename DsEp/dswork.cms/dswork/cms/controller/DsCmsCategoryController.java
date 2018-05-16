@@ -44,11 +44,12 @@ public class DsCmsCategoryController extends DsCmsBaseController
 				put("siteList", siteList);
 				if(id >= 0)
 				{
-					for(DsCmsSite m : siteList)
+					for(DsCmsSite s : siteList)
 					{
-						if(m.getId() == id)
+						if(s.getId() == id)
 						{
-							siteid = m.getId();
+							siteid = s.getId();
+							put("enablemobile", s.getEnablemobile() == 1);
 							put("list", queryCategory(siteid, true, 0));
 							break;
 						}
@@ -56,7 +57,9 @@ public class DsCmsCategoryController extends DsCmsBaseController
 				}
 				if(siteid == -1)
 				{
-					siteid = siteList.get(0).getId();
+					DsCmsSite s = siteList.get(0);
+					siteid = s.getId();
+					put("enablemobile", s.getEnablemobile() == 1);
 					put("list", queryCategory(siteid, true, 0));
 				}
 			}

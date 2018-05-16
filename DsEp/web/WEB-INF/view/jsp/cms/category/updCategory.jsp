@@ -48,14 +48,14 @@ $(function(){
 	<tr class="choice">
 		<td class="form_title">栏目模板</td>
 		<td class="form_input"><select id="viewsite" name="viewsite" style="width:400px;"><option value=""></option>
-			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:forEach>
 		</select></td>
 	</tr>
 <c:if test="${enablemobile}">
-	<tr>
-		<td class="form_title">栏目模板</td>
+	<tr class="choice">
+		<td class="form_title">移动版栏目模板</td>
 		<td class="form_input"><select id="mviewsite" name="mviewsite" style="width:400px;"><option value=""></option>
-			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${v}</option></c:forEach>
+			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:forEach>
 		</select></td>
 	</tr>
 </c:if>
@@ -64,14 +64,14 @@ $(function(){
 	<tr class="choice">
 		<td class="form_title">内容模板</td>
 		<td class="form_input"><select id="pageviewsite" name="pageviewsite" style="width:400px;"><option value=""></option>
-			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+			<c:forEach items="${templates}" var="v"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:forEach>
 		</select></td>
 	</tr>
 <c:if test="${enablemobile}">
-	<tr>
-		<td class="form_title">内容模板</td>
+	<tr class="choice">
+		<td class="form_title">移动版内容模板</td>
 		<td class="form_input"><select id="mpageviewsite" name="mpageviewsite" style="width:400px;"><option value=""></option>
-			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${v}</option></c:forEach>
+			<c:forEach items="${mtemplates}" var="v"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:forEach>
 		</select></td>
 	</tr>
 </c:if>
