@@ -12,7 +12,7 @@ import dswork.core.page.Page;
 
 public class CmsFactory
 {
-	private static Long toLong(Object v)
+	protected static Long toLong(Object v)
 	{
 		try
 		{
@@ -23,12 +23,16 @@ public class CmsFactory
 			return 0L;
 		}
 	}
-	private static DsCmsDao dao = null;
+	protected static DsCmsDao dao = null;
 
-	private long siteid = 0L;
-	private Map<String, Object> site = new HashMap<String, Object>();
-	private List<Map<String, Object>> categoryList = new ArrayList<Map<String, Object>>();
-	private Map<String, Map<String, Object>> categoryMap = new HashMap<String, Map<String, Object>>();
+	protected long siteid = 0L;
+	protected Map<String, Object> site = new HashMap<String, Object>();
+	protected List<Map<String, Object>> categoryList = new ArrayList<Map<String, Object>>();
+	protected Map<String, Map<String, Object>> categoryMap = new HashMap<String, Map<String, Object>>();
+
+	public CmsFactory()
+	{
+	}
 
 	public CmsFactory(long siteid)
 	{
@@ -229,7 +233,7 @@ public class CmsFactory
 		return map;
 	}
 
-	private int initpage(int page, int total)
+	protected int initpage(int page, int total)
 	{
 		if(page <= 0)
 		{

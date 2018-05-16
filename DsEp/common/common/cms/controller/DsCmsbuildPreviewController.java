@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.cms.DsCmsPreview;
+import common.cms.CmsFactory;
+import common.cms.CmsFactoryMobile;
+import common.cms.CmsFactoryPreview;
 import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 @Scope("prototype")
@@ -21,7 +23,11 @@ public class DsCmsbuildPreviewController extends BaseController
 		Long pageid = req.getLong("pageid", -1);
 		boolean mobile = req.getString("mobile", "false").equals("true");
 
-		DsCmsPreview cms = new DsCmsPreview(siteid);
+		CmsFactory cms = new CmsFactoryPreview(siteid);
+		if(mobile)
+		{
+			cms = new CmsFactoryMobile(cms);
+		}
 		put("cms", cms);
 		put("year", TimeUtil.getCurrentTime("yyyy"));
 		Map<String, Object> s = cms.getSite();
@@ -61,7 +67,7 @@ public class DsCmsbuildPreviewController extends BaseController
 			put("category", c);
 			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
 			put("datalist", mm.get("list"));
-			put("datapageview", mm.get("datapageview"));
+			put("datapageview", String.valueOf(mm.get("datapageview")));
 			put("datauri", mm.get("datauri"));
 			put("datapage", mm.get("datapage"));
 			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mviewsite") : "/templates/"+c.get("viewsite"));

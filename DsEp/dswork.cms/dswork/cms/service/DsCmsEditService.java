@@ -45,6 +45,7 @@ public class DsCmsEditService
 
 	public void savePageEdit(DsCmsPageEdit po, boolean writePage, boolean enablelog, String editid, String editname)
 	{
+		pageEditDao.save(po);
 		if(po.getScope() != 2) // 不为外链
 		{
 			po.setUrl("/a/" + po.getCategoryid() + "/" + po.getId() + ".html");
@@ -73,7 +74,7 @@ public class DsCmsEditService
 			pageDao.updateURL(po.getId(), po.getUrl());
 			po.setAuditstatus(4);// pageEdit设置为已通过状态
 		}
-		pageEditDao.save(po);
+		pageEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
 		{
 			writeLogPage(po, 0, editid, editname);
