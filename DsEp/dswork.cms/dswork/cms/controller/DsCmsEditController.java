@@ -112,11 +112,12 @@ public class DsCmsEditController extends DsCmsBaseController
 						if(checkCategory(s.getId(), c.getId()))
 						{
 							service.savePageEdit(po, true, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
-							print(1);
-							return;
 						}
-						po.setAuditstatus(1);
-						service.savePageEdit(po, false, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
+						else
+						{
+							po.setAuditstatus(1);
+							service.savePageEdit(po, false, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
+						}
 						print(1);
 						return;
 					}

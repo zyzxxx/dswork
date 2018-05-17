@@ -10,9 +10,9 @@
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(<if test="id&gt;0">ID, </if>SITEID, CATEGORYID, SCOPE, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT)
+	(<if test="id!=null and id!=0">ID, </if>SITEID, CATEGORYID, SCOPE, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT)
 	values
-	(<if test="id&gt;0">#{id}, </if>#{siteid}, #{categoryid}, #{scope}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{url}, #{content})
+	(<if test="id!=null and id!=0">#{id}, </if>#{siteid}, #{categoryid}, #{scope}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{url}, #{content})
 </insert>
 
 <delete id="delete">
@@ -40,10 +40,6 @@
 		URL=#{url},
 		CONTENT=#{content}
 	where ID=#{id}
-</update>
-
-<update id="updateURL">
-	update DS_CMS_PAGE set URL=#{url} where ID=#{id}
 </update>
 
 <update id="updateStatus">

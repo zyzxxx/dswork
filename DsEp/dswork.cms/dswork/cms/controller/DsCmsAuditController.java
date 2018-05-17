@@ -266,10 +266,11 @@ public class DsCmsAuditController extends DsCmsBaseController
 						if(p.getStatus() == -1)
 						{
 							service.updateDeletePageEdit(p, s.isWriteLog());
-							print(1);
-							return;
 						}
-						service.updatePageEdit(p, true, s.isWriteLog());
+						else
+						{
+							service.updatePageEdit(p, true, s.isWriteLog());
+						}
 						print(1);
 						return;
 					}

@@ -146,15 +146,15 @@ public class DsCmsAuditService
 		if(writePage)
 		{
 			DsCmsPage p = (DsCmsPage) pageDao.get(po.getId());
-			boolean isSave = false;
+			boolean save = false;
 			if(p == null)
 			{
 				p = new DsCmsPage();
 				p.setId(po.getId());
-				isSave = true;
+				p.setSiteid(po.getSiteid());
+				p.setCategoryid(po.getCategoryid());
+				save = true;
 			}
-			p.setSiteid(po.getSiteid());
-			p.setCategoryid(po.getCategoryid());
 			p.setStatus(po.getStatus());
 			p.setTitle(po.getTitle());
 			p.setMetakeywords(po.getMetakeywords());
@@ -168,11 +168,11 @@ public class DsCmsAuditService
 			p.setImgtop(po.getImgtop());
 			p.setPagetop(po.getPagetop());
 			p.setScope(po.getScope());
-			if(isSave)
+			if(save)
 			{
 				p.setStatus(0);// page设置为新建未发布状态
+				p.setUrl(po.getUrl());
 				pageDao.save(p);
-				pageDao.updateURL(po.getId(), po.getUrl());
 			}
 			else
 			{

@@ -22,7 +22,6 @@
 <select id="getCategory" resultType="java.util.Map">
 	select <include refid="c_category" /> from DS_CMS_CATEGORY
 	where ID=#{id} and SITEID=#{siteid}
-	order by SEQ
 </select>
 <select id="get" resultType="java.util.Map">
 	select <include refid="c_page" /> from DS_CMS_PAGE
