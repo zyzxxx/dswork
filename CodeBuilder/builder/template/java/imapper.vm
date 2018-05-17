@@ -86,7 +86,7 @@
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="common.top" /><include refid="columns" /> from ${vo.TableName}
+	select <include refid="dswork.top" /><include refid="columns" /> from ${vo.TableName}
 	<include refid="dynamicWhere" />
 </select>
 

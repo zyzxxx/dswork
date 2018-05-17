@@ -55,7 +55,7 @@
 
 <insert id="insert" parameterType="${Namespace}.model${Module}.${Model}">
 	<selectKey resultType="Long" order="AFTER" keyProperty="id">
-		<include refid="common.rowid" />
+		<include refid="dswork.rowid" />
 	</selectKey>
 	insert into ${vo.TableName}
 	(#getCommonColumns($v))
@@ -89,7 +89,7 @@
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="common.top" /><include refid="columns" /> from ${vo.TableName}
+	select <include refid="dswork.top" /><include refid="columns" /> from ${vo.TableName}
 	<include refid="dynamicWhere" />
 </select>
 
