@@ -90,7 +90,7 @@ public class DsCmsbuildController extends BaseController
 			}
 			if(String.valueOf(c.get("viewsite")).equals(""))
 			{
-				return null;// 外链
+				return null;// 兼容模板为空
 			}
 			put("categoryparent", cms.getCategory(c.get("pid")));
 			put("categorylist", cms.queryCategory("0"));

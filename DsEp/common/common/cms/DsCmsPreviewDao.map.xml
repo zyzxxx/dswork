@@ -9,7 +9,8 @@
 	id, own, name, folder, url, img, viewsite, mviewsite, metakeywords, metadescription
 </sql>
 <sql id="c_category">
-	id, pid, siteid, name, scope, status, url, viewsite, pageviewsite, mviewsite, mpageviewsite, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content
+	a.id, a.pid, a.siteid, a.name, a.status, a.url, a.viewsite, a.pageviewsite,
+	b.metakeywords, b.metadescription, b.summary, b.releasetime, b.releasesource, b.releaseuser, b.img, b.content
 </sql>
 <sql id="c_page">
 	id, siteid, categoryid, title, scope, status, url, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content
@@ -20,11 +21,9 @@
 	where ID=#{id}
 </select>
 <select id="getCategory" resultType="java.util.Map">
-	select a.id, a.pid, a.siteid, a.name, a.status, a.url, a.viewsite, a.pageviewsite,
-	b.metakeywords, b.metadescription, b.summary, b.releasetime, b.releasesource, b.releaseuser, b.img, b.content
-	from DS_CMS_CATEGORY a left join DS_CMS_CATEGORY_EDIT b on a.ID=b.ID
+	select <include refid="c_category" /> from DS_CMS_CATEGORY a
+	left join DS_CMS_CATEGORY_EDIT b on a.ID=b.ID
 	where a.ID=#{id} and a.SITEID=#{siteid}
-	order by a.SEQ
 </select>
 <select id="get" resultType="java.util.Map">
 	select <include refid="c_page" /> from DS_CMS_PAGE_EDIT
@@ -53,8 +52,9 @@
 		<if test="@Ognl@isNotEmpty(keyvalue)"> and (TITLE like #{keyvalue, typeHandler=LikeTypeHandler} or SUMMARY like #{keyvalue, typeHandler=LikeTypeHandler} or CONTENT like #{keyvalue, typeHandler=LikeTypeHandler}) </if>
 </select>
 <select id="queryCategory" resultType="java.util.Map">
-	select <include refid="c_category" /> from DS_CMS_CATEGORY
-	where SITEID=#{siteid}
+	select <include refid="c_category" /> from DS_CMS_CATEGORY a
+	left join DS_CMS_CATEGORY_EDIT b on a.ID=b.ID
+	where a.SITEID=#{siteid}
 	order by SEQ
 </select>
 
