@@ -29,7 +29,7 @@
 </resultMap>
 
 <select id="query" resultMap="result">
-	select <include refid="common.top" />ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO
+	select <include refid="dswork.top" />ID, FLOWID, DEPLOYID, TALIAS, TNAME, TCOUNT, TNEXT, TUSERS, TMEMO
 	from DS_FLOW_TASK where FLOWID=#{flowid} order by ID
 </select>
 
