@@ -31,6 +31,7 @@
         </property>
         <property name="mapperLocations">
         	<list>
+        		<value>classpath*:/dswork/config/mybatis/${dswork.dialect}.map.xml</value>
         		<value>classpath*:/dswork/*/mapper/**/*.map.xml</value>
         		<value>classpath*:/common/**/*.map.xml</value>
         		<value>classpath*:${dswork.m1:/x}/mapper/**/*.map.xml</value>

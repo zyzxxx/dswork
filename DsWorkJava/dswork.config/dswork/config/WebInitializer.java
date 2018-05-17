@@ -68,6 +68,71 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 				System.out.println("contextConfigLocation=" + spring);
 			}
 		}
+
+		String jdbcDialect = EnvironmentUtil.getToString("jdbc.dialect", "");
+		String dsworkDialect = "mysql";
+		String mybatisDialect = "dswork.core.mybatis.dialect.LimitOffsetDialect";
+		String hibernateDialect = "";
+		if(jdbcDialect.length() > 0)
+		{
+			if("mysql".equals(jdbcDialect) || "gbase".equals(jdbcDialect))
+			{
+			}
+			else if("oracle".equals(jdbcDialect))
+			{
+				dsworkDialect = "null";
+				mybatisDialect = "dswork.core.mybatis.dialect.OracleDialect";
+				hibernateDialect = "org.hibernate.dialect.OracleDialect";
+			}
+			else if("db2".equals(jdbcDialect))
+			{
+				dsworkDialect = "null";
+				mybatisDialect = "dswork.core.mybatis.dialect.DB2Dialect";
+				hibernateDialect = "org.hibernate.dialect.DB2Dialect";
+			}
+			else if("sqlite".equals(jdbcDialect))
+			{
+				dsworkDialect = "sqlite";
+				hibernateDialect = "org.hibernate.dialect.SQLiteDialect";
+			}
+			else if(jdbcDialect.startsWith("mssql"))
+			{
+				dsworkDialect = "mssql";
+				if("mssql2000".equals(jdbcDialect))
+				{
+					mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2000Dialect";
+					hibernateDialect = "org.hibernate.dialect.SQLServer2000Dialect";
+				}
+				else if("mssql2005".equals(jdbcDialect))
+				{
+					mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2005Dialect";
+					hibernateDialect = "org.hibernate.dialect.SQLServer2005Dialect";
+				}
+				else if("mssql2008".equals(jdbcDialect))
+				{
+					mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2008Dialect";
+					hibernateDialect = "org.hibernate.dialect.SQLServer2008Dialect";
+				}
+				else if("mssql2012".equals(jdbcDialect))
+				{
+					mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2012Dialect";
+					hibernateDialect = "org.hibernate.dialect.SQLServer2012Dialect";
+				}
+				else
+				{
+					mybatisDialect = "dswork.core.mybatis.dialect.SQLServerDialect";
+					hibernateDialect = "org.hibernate.dialect.SQLServerDialect";
+				}
+			}
+			else
+			{
+				dsworkDialect = "null";
+			}
+		}
+		context.setInitParameter("dswork.dialect", dsworkDialect);
+		context.setInitParameter("jdbc.dialect.mybatis", mybatisDialect);
+		context.setInitParameter("jdbc.dialect.hibernate", hibernateDialect);
+		
 		String dsworkBasePackage = EnvironmentUtil.getToString("dswork.base-package", "");
 		if(dsworkBasePackage.length() > 0)
 		{

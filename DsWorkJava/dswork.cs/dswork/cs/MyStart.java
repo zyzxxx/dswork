@@ -3,6 +3,8 @@ package dswork.cs;
 import java.io.File;
 import java.io.FileFilter;
 
+import dswork.core.util.EnvironmentUtil;
+
 /**
  * 本地方式启动应用
  */
@@ -68,6 +70,51 @@ public class MyStart
 			}
 			if(isEnvironmentUtil)
 			{
+				String jdbcDialect = EnvironmentUtil.getToString("jdbc.dialect", "");
+				String dsworkDialect = "null";
+				if(jdbcDialect.length() > 0)
+				{
+					String mybatisDialect = "dswork.core.mybatis.dialect.LimitOffsetDialect";
+					if("mysql".equals(jdbcDialect) || "gbase".equals(jdbcDialect))
+					{
+						dsworkDialect = "mysql";
+					}
+					else if("oracle".equals(jdbcDialect))
+					{
+						mybatisDialect = "dswork.core.mybatis.dialect.OracleDialect";
+					}
+					else if("db2".equals(jdbcDialect))
+					{
+						mybatisDialect = "dswork.core.mybatis.dialect.DB2Dialect";
+					}
+					else if("sqlite".equals(jdbcDialect))
+					{
+						dsworkDialect = "sqlite";
+					}
+					else if(jdbcDialect.startsWith("mssql"))
+					{
+						dsworkDialect = "mssql";
+						if("mssql2000".equals(jdbcDialect))
+						{
+							mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2000Dialect";
+						}
+						else if("mssql2005".equals(jdbcDialect))
+						{
+							mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2005Dialect";
+						}
+						else if("mssql2008".equals(jdbcDialect))
+						{
+							mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2008Dialect";
+						}
+						else
+						{
+							mybatisDialect = "dswork.core.mybatis.dialect.SQLServerDialect";
+						}
+					}
+					System.setProperty("jdbc.dialect.mybatis",  mybatisDialect);
+				}
+				System.setProperty("dswork.dialect",  dsworkDialect);
+				
 				String dsworkBasePackage = dswork.core.util.EnvironmentUtil.getToString("dswork.base-package", "");
 				if(dsworkBasePackage.length() > 0)
 				{
