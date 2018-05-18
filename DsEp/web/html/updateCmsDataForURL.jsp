@@ -6,7 +6,7 @@ java.io.File,
 dswork.web.MyRequest,
 dswork.cms.model.DsCmsSite,
 dswork.cms.dao.DsCmsSiteDao,
-common.any.AnyDao
+dswork.cms.dao.DsCmsAnyDao
 "%><%!
 private String getCmsRoot(HttpServletRequest request)
 {
@@ -42,10 +42,10 @@ try
 	long siteid = req.getLong("siteid");
 	DsCmsSite s = (DsCmsSite)sdao.get(siteid);
 	
-	AnyDao dao = (AnyDao)BeanFactory.getBean("anyDao");
+	DsCmsAnyDao dao = (DsCmsAnyDao)BeanFactory.getBean("dsCmsAnyDao");
 	String sql = "SELECT ID, FOLDER FROM DS_CMS_CATEGORY where SITEID=" + siteid;
 
-	List<Map<String, Object>> list = (List<Map<String, Object>>)dao.executeSelectList(AnyDao.initSql(sql));
+	List<Map<String, Object>> list = (List<Map<String, Object>>)dao.executeSelectList(DsCmsAnyDao.initSql(sql));
 	Map<String, String> map = new HashMap<String, String>();
 	for(Map<String, Object> m : list)
 	{

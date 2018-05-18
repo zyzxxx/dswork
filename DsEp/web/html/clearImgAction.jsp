@@ -4,7 +4,7 @@ java.io.File,
 dswork.web.MyRequest,
 dswork.cms.model.DsCmsSite,
 dswork.cms.dao.DsCmsSiteDao,
-common.any.AnyDao
+dswork.cms.dao.DsCmsAnyDao
 "%><%!
 private String getCmsRoot(HttpServletRequest request)
 {
@@ -39,16 +39,16 @@ private String cleanImage(String path, String htmlRoot)
 	{
 		String u = file.getName().split("\\.", -1)[0];
 		String pp = file.getPath().replace(htmlRoot, "").replace("\\", "/");
-		AnyDao dao = (AnyDao)BeanFactory.getBean("anyDao");
+		DsCmsAnyDao dao = (DsCmsAnyDao)BeanFactory.getBean("dsCmsAnyDao");
 		String sql1 = "SELECT COUNT(1) FROM DS_CMS_CATEGORY WHERE CONTENT LIKE '%" + u + "%' OR IMG LIKE '%" + u + "%' OR SUMMARY LIKE '%" + u + "%'";
 		int count = 0;
-		count = (Integer)dao.executeCount(AnyDao.initSql(sql1));
+		count = (Integer)dao.executeCount(DsCmsAnyDao.initSql(sql1));
 		if(count > 0)
 		{
 			return "";
 		}
 		String sql2 = "SELECT COUNT(1) FROM DS_CMS_PAGE WHERE CONTENT LIKE '%" + u + "%' OR IMG LIKE '%" + u + "%' OR SUMMARY LIKE '%" + u + "%'";
-		count = (Integer)dao.executeCount(AnyDao.initSql(sql2));
+		count = (Integer)dao.executeCount(DsCmsAnyDao.initSql(sql2));
 		if(count > 0)
 		{
 			return "";
