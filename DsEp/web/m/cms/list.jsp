@@ -5,12 +5,22 @@ dswork.web.MyRequest,
 common.cms.CmsFactory,
 common.json.GsonUtil,
 java.util.List,
+java.util.ArrayList,
 java.util.Map,
 java.util.HashMap
 "%><%!
-private String getString(Object object)
-{
-	return object == null ? "" : String.valueOf(object);
+private List<Long> splitString(String values){
+	List<Long> list = new ArrayList<Long>();
+	try{String[] _v = values.split(",", -1);
+		if(_v.length > 0){
+			for(int i = 0; i < _v.length; i++){
+				try{list.add(Long.parseLong(_v[i].trim()));}
+				catch(NumberFormatException e){}
+			}
+		}
+	}
+	catch(Exception e){}
+	return list;
 }
 %><%
 Map<String, Object> map = new HashMap<String, Object>();
@@ -19,33 +29,39 @@ try
 	MyRequest req = new MyRequest(request);
 
 	long siteid = req.getLong("siteid", -1);
-	long categoryid = req.getLong("categoryid", -1L);
+	String categoryids = req.getString("categoryids", "0");
+	List<Long> _idsLong = splitString(categoryids);
+	String categoryid = String.valueOf(_idsLong.get(0));
+	_idsLong.remove(0);
 	int currentPage = req.getInt("page", 1);
 	int pagesize = req.getInt("pagesize", 25);
 
 	CmsFactory cms = new CmsFactory(siteid);
 	Map<String, Object> s = cms.getSite();
 
-	Map<String, Object> c = cms.getCategory(String.valueOf(categoryid));
+	Map<String, Object> c = cms.getCategory(categoryid);
 	if(c == null)
 	{
 		map.put("status", "0");
 		map.put("msg", "栏目不存在");
-		map.put("categoryid", cid);
+		map.put("categoryids", categoryids);
+		map.put("categoryid", categoryid);
 		return;
 	}
-	map.put("categoryid", cid);
+	map.put("categoryids", categoryids);
+	map.put("categoryid", categoryid);
 	map.put("catetory", c);
 	if(c.get("scope").equals(0))// 列表
 	{
-		Map<String, Object> mm = cms.queryPage(currentPage, pageSize, true, null, categoryid);
+		Map<String, Object> mm = cms.queryPage(currentPage, pagesize, true, null, _ids.toArray(new Long[_ids.size()]));
 		List<Map<String, Object>> list = (List<Map<String, Object>>)mm.get("rows");
 		for(Map<String, Object> p : list)
 		{
 			p.remove("content");
 		}
-		
-		mm.put("categoryid", cid);
+
+		mm.put("categoryids", categoryids);
+		mm.put("categoryid", categoryid);
 		mm.put("catetory", c);
 		/*
 			{
