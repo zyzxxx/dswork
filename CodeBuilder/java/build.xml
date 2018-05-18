@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<project default="init">
+<target name="init">
+	<java classname="dswork.builder.Builder" fork="true">
+		<arg value="bulider.xml" />
+		<classpath>
+			<pathelement path="./lib/dswork.builder.jar" />
+			<pathelement path="./lib/freemarker-2.3.27.jar" />
+		</classpath>
+		<sysproperty key="file.encoding" value="UTF-8" />
+	</java>
+</target>
+</project>
