@@ -32,4 +32,17 @@ public class DsCmsPageEditDao extends BaseDao<DsCmsPageEdit, Long>
 		map.put("categoryid", categoryid);
 		return executeDelete("deleteNeedBeDelete", map);
 	}
+
+	public DsCmsPageEdit getByPushkey(String pushkey)
+	{
+		return (DsCmsPageEdit) executeSelect("selectByPushkey", pushkey);
+	}
+
+	public int updateUrl(Long id, String url)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("url", url);
+		return executeUpdate("updateUrl", map);
+	}
 }

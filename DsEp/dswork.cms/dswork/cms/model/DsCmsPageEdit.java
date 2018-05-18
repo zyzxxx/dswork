@@ -23,6 +23,8 @@ public class DsCmsPageEdit extends DsCmsPage
 	private String audittime = "";
 	// 审核意见
 	private String msg = "";
+	// 推送KEY
+	private String pushkey = "";
 
 	public static final int EDIT = 0;
 	public static final int AUDIT = 1;
@@ -123,6 +125,16 @@ public class DsCmsPageEdit extends DsCmsPage
 	public void setMsg(String msg)
 	{
 		this.msg = msg;
+	}
+
+	public String getPushkey()
+	{
+		return pushkey;
+	}
+
+	public void setPushkey(String pushkey)
+	{
+		this.pushkey = pushkey;
 	}
 
 	public void pushEditidAndEditname(String editid, String editname)
