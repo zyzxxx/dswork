@@ -3,6 +3,16 @@
 	<!--outputEncoding:UTF-8(65001) | GBK(936)-->
 	<charset outputEncoding="936">UTF-8</charset>
 
+	<params>
+		<param name="frame" value="dswork" />
+		<param name="developer" value="无名氏" />
+	</params>
+
+	<builds templatename="java" rootpath="E:/Workspaces/MySpace/temp" src="src" web="web" url="jdbc:mysql://dbserver:3306/plant?user=plant&amp;password=plant@DB321&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true">
+		<build namespace="jwzz" module="/manage/jwzz/flow" table="PLANT_FLOW" model="PlantFlow" comment="mybatis" />
+		<build namespace="/jwzz" module="/manage/jwzz/flowdata" table="PLANT_FLOW_DATA" model="PlantFlowData" comment="mybatis" />
+	</builds>
+
 	<templates path="E:/Workspaces/MySpace/dswork/CodeBuilder/java/template">
 		<template name="csharp" id="idao"		viewpath="/csharp/idao.ftl"          path="/{src}/Dao/{model}Dao.cs" comment="ibatisnet" />
 		<template name="csharp" id="imapper"	viewpath="/csharp/imapper.ftl"       path="/{src}/Mapper/{model}.map.config" comment="ibatisnet" />
@@ -40,16 +50,6 @@
 		<template name="java"   id="add"		viewpath="/java/base/add.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/add{model}.jsp" />
 		<template name="java"   id="upd"		viewpath="/java/base/upd.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/upd{model}.jsp" />
 	</templates>
-
-	<params>
-		<param name="frame" value="dswork" />
-		<param name="developer" value="无名氏" />
-	</params>
-
-	<builds templatename="java" rootpath="E:/Workspaces/MySpace/temp" src="src" web="web" url="jdbc:mysql://dbserver:3306/plant?user=plant&amp;password=plant@DB321&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true">
-		<build namespace="jwzz" module="/manage/jwzz/flow" table="PLANT_FLOW" model="PlantFlow" comment="mybatis" />
-		<build namespace="/jwzz" module="/manage/jwzz/flowdata" table="PLANT_FLOW_DATA" model="PlantFlowData" comment="mybatis" />
-	</builds>
 </config>
 
 <!--
@@ -90,6 +90,6 @@ builds：
 		</builder>
 
 params：
-	自定义属性(不可以为vo)，可往模板中增加自定义变量，默认加入developer和当前时间：currentDate
+	自定义属性(不可以为vo)，可往模板中增加自定义变量，默认加入developer和当前时间：.now
 	可以在模板中使用此变量的值，不能使用语言关键字
 -->
