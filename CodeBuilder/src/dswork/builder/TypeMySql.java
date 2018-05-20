@@ -16,16 +16,10 @@ public class TypeMySql extends Type
 	private String dbName;
 
 	@Override
-	public void initConnect(String url)
+	public void initConnect(String url) throws SQLException
 	{
-		try
-		{
-			conn = DriverManager.getConnection(url);
-			dbName = conn.getCatalog();
-		}
-		catch(Exception e)
-		{
-		}
+		conn = DriverManager.getConnection(url);
+		dbName = conn.getCatalog();
 	}
 
 	private void querySetTableComment(Table table)

@@ -5,7 +5,7 @@ package ${namespace}.model;
 public class ${table.nameUpperCamel}
 {
 <#list columnList as c>
-	//${c.comment}
+	// ${c.comment}
 	<#if c.type == 'Long' || c.type == 'long'>
 	private ${c.type} ${c.nameLowerCamel} = ${c.defaults!'0'}L;
 	<#elseif c.type == 'Integer' || c.type == 'int'>
