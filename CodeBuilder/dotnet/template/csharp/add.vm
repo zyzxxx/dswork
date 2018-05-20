@@ -1,0 +1,52 @@
+﻿#set($mf="$")
+#set($pk="ID")
+#set($memo="MEMO")
+#set($Frame=$vo.GetParam('Frame'))
+#set($Model=$vo.GetParam('Model'))
+@{
+    Layout = "~/Views/Commons/AddAjax.cshtml";
+}
+@section head{
+	<script type="text/javascript">
+	${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.type == 1){
+		location.href = "Get${Model}.htm";
+	}};
+	</script>
+}
+@{
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">添加</td>
+		<td class="menuTool">
+			<a class="save" id="dataFormSave" href="#">保存</a>
+			<a class="back" href="Get${Model}.htm?page=@Request["page"]">返回</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<form id="dataForm" method="post" action="Add${Model}2.htm">
+<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+#foreach($columnList in $vo.ColumnList)
+	#set($colComment=$columnList.Comment)
+	#set($colName=$columnList.ColumnName)
+#if($colName!=$memo)
+#if($colName!=$pk)
+	<tr>
+		<td class="form_title">$colComment</td>
+		<td class="form_input"><input type="text" name="$colName.ToLower()" maxlength="100" value="" /></td>
+	</tr>
+#end
+#end
+#end
+#foreach($columnList in $vo.ColumnList)
+	#set($colName=$columnList.ColumnName)
+#if($colName==$memo)
+	<tr>
+		<td class="form_title">$columnList.Comment</td>
+		<td class="form_input"><textarea name="$colName.ToLower()" style="width:400px;height:60px;"></textarea></td>
+	</tr>
+#end
+#end
+</table>
+</form>
+}

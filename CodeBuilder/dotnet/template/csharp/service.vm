@@ -1,0 +1,26 @@
+#set($myService="Service")
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Module'))
+#set($Model=$vo.GetParam('Model'))
+#set($ModelName=$vo.GetParam('ModelName'))
+using System;
+
+using ${Frame}.Core.Db;
+
+using ${Namespace}.Dao;
+using ${Namespace}.Model;
+
+namespace ${Namespace}.Service
+{
+	//${vo.TableComment}${myService}
+	public class ${Model}Service : BaseService<${Model}, long>
+	{
+		public virtual ${Model}Dao ${ModelName}Dao { set; protected get; }
+	
+		protected override EntityDao<${Model}, long> GetEntityDao()
+		{
+			return ${ModelName}Dao;
+		}
+	}
+}

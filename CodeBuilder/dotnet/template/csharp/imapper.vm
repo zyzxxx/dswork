@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+#set($jf="#")
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Module'))
+#set($Model=$vo.GetParam('Model'))
+#set($ModelName=$vo.GetParam('ModelName'))
+<sqlMap namespace="${Namespace}.Model.${Model}" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+	<resultMaps>
+		<resultMap id="result" class="${Namespace}.Model.${Model}">
+#foreach($columnModel in $vo.ColumnList)
+			<result property="$columnModel.ColumnName.ToLower()" column="$columnModel.ColumnName" />
+#end
+		</resultMap>
+	</resultMaps>
+	<statements>
+		<insert id="insert" parameterClass="${Namespace}.Model.${Model}" resultClass="${Namespace}.Model.${Model}">
+			<selectKey resultClass="long" type="post" property="id">
+				select LAST_INSERT_ID()
+			</selectKey>
+			insert into $vo.TableName
+			(#set($count=0)
+#foreach($columnModel in $vo.ColumnList)
+	#set($count=$count+1)
+	#set($tmp=$columnModel.ColumnName)
+#if($count<$vo.ColumnList.Count)$tmp, #else$tmp#end
+#end)
+			values
+			(#set($count=0)
+#foreach($columnModel in $vo.ColumnList)
+#set($count=$count+1)#set($tmp=$columnModel.ColumnName.ToLower())
+#if($count<$vo.ColumnList.Count)#$tmp#, #else#$tmp$jf#end
+#end)
+		</insert>
+		<delete id="delete" parameterClass="long">
+			delete from $vo.TableName where ID=#id#
+		</delete>
+		<update id="update" parameterClass="${Namespace}.Model.${Model}">
+			update $vo.TableName set#set($count=0)
+#foreach($columnModel in $vo.ColumnList)
+#set($count=$count+1)
+#set($tmp=$columnModel.ColumnName)
+#if($count==1)
+
+				#elseif($count<$vo.ColumnList.Count)$tmp=#$tmp.ToLower()#,
+				#else$tmp=#$tmp.ToLower()#
+#end
+#end
+			where ID=#id#
+		</update>
+		<sql id="columns">
+			#set($count=0)
+#foreach($columnModel in $vo.ColumnList)
+	#set($count=$count+1)
+	#set($tmp=$columnModel.ColumnName)
+#if($count<$vo.ColumnList.Count)$tmp, #else$tmp#end
+#end
+
+		</sql>
+		<sql id="dynamicWhere">
+			<dynamic prepend="where">
+				<isParameterPresent>
+#foreach($columnModel in $vo.ColumnList)
+#set($tmp=$columnModel.ColumnName)
+					<isNotEmpty prepend="AND" property="$tmp.ToLower()">
+						$tmp like concat('%',#$tmp.ToLower()#,'%')
+					</isNotEmpty>
+#end
+				</isParameterPresent>
+			</dynamic>
+		</sql>
+		<select id="select" parameterClass="long" resultMap="result">
+			select <include refid="columns" /> from $vo.TableName where ID=#id#
+		</select>
+		<select id="query" parameterClass="Hashtable" resultMap="result">
+			select <include refid="columns" /> from $vo.TableName <include refid="dynamicWhere" />
+		</select>
+		<select id="queryCount" parameterClass="Hashtable" resultClass="int">
+			select count(1) from $vo.TableName <include refid="dynamicWhere" />
+		</select>
+	</statements>
+</sqlMap>

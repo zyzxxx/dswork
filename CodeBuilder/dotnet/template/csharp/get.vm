@@ -1,0 +1,70 @@
+#set($mf="$")
+#set($pk="ID")
+#set($Frame=$vo.GetParam('Frame'))
+#set($Model=$vo.GetParam('Model'))
+@{
+    Layout = "~/Views/Commons/Get.cshtml";
+}
+@section head{
+<script type="text/javascript">
+${mf}(function(){
+    ${mf}${Frame.ToLower()}.page.menu("Del${Model}.htm", "Upd${Model}1.htm", "Get${Model}ById.htm", "@ViewBag.pageModel.CurrentPage");
+});
+${mf}${Frame.ToLower()}.doAjax = true;
+${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.type == 1){
+	location.href = "Get${Model}.htm?page=@ViewBag.pageModel.CurrentPage";
+}};
+</script>
+}
+@{
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">${vo.TableComment}列表</td>
+		<td class="menuTool">
+			<a class="insert" href="Add${Model}1.htm?page=@ViewBag.pageModel.CurrentPage">添加</a>
+			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<form id="queryForm" method="post" action="Get${Model}.htm">
+<table border="0" cellspacing="0" cellpadding="0" class="queryTable">
+	<tr>
+		<td class="input">
+#foreach($col in $vo.ColumnList)#if($col.ColumnName!=$pk)
+			&nbsp;$col.Comment：<input type="text" class="text" name="$col.ColumnName.ToLower()" value="@Request["$col.ColumnName.ToLower()"]" />
+#end#end
+		</td>
+		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
+	</tr>
+</table>
+</form>
+<div class="line"></div>
+<form id="listForm" method="post" action="Del${Model}.htm">
+<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr class="list_title">
+		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
+		<td style="width:5%">操作</td>
+#foreach($col in $vo.ColumnList)#if($col.ColumnName!=$pk)
+		<td>$col.Comment</td>
+#end#end
+	</tr>
+@foreach(var d in @ViewBag.result)
+{
+	<tr>
+		<td><input name="keyIndex" type="checkbox" value="@d.id" /></td>
+		<td class="menuTool" keyIndex="@d.id">&nbsp;</td>
+#foreach($col in $vo.ColumnList)
+#if($col.ColumnName!=$pk)#set($property=$col.ColumnName.ToLower())
+		<td>@d.$col.ColumnName.ToLower()</td>
+#end
+#end
+	</tr>
+}
+</table>
+<input name="page" type="hidden" value="@ViewBag.pageModel.CurrentPage" />
+</form>
+<table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
+	<tr><td>@Html.Raw(@ViewBag.pageNav.GetPage())</td></tr>
+</table>
+}

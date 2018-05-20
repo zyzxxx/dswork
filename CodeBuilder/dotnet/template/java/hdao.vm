@@ -1,0 +1,53 @@
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Model=$vo.GetParam('Model'))
+#set($v=$vo.ColumnList)
+#macro (getCode $list)
+#foreach($columnModel in $list)
+	#set($tmp=$columnModel.ColumnName.ToLower())#set($colDbType=$columnModel.ColDbType)#set($colType=$columnModel.ColType)
+	tmp = map.get("$tmp");
+		if(tmp != null)
+		{
+	#if($columnModel.IsPK)
+		criteria.add(Restrictions.eq("$tmp", String.valueOf(tmp).trim()));
+		}
+	#else
+		criteria.add(Restrictions.like("$tmp", String.valueOf(tmp).trim(), MatchMode.ANYWHERE));
+		}
+	#end
+#end
+#end
+/**
+ * ${vo.TableComment}Dao
+ */
+package ${Namespace}.dao${Module};
+
+import java.util.Map;
+
+import ${Frame}.core.db.HibernateBaseDao;
+import ${Namespace}.model${Module}.${Model};
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.MatchMode;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
+
+@Repository
+@SuppressWarnings("all")
+public class ${Model}Dao extends HibernateBaseDao<${Model}, Long>
+{
+	@Override
+	public Class getEntityClass()
+	{
+		return ${Model}.class;
+	}
+	
+	@Override
+	protected void queryParam(Map map, Criteria criteria)
+	{
+		Object tmp;
+		#getCode($v)
+}
+
+}

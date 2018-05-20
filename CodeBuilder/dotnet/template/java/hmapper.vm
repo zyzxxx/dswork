@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Model=$vo.GetParam('Model'))
+#set($ModelName=$vo.GetParam('ModelName'))
+#set($v=$vo.ColumnList)
+
+#macro (getHbmResult $list)
+#foreach($columnModel in $list)
+	#set($tmp=$columnModel.ColumnName.ToLower())
+	#set($tmp2=$columnModel.ColumnName)
+	#getHbmProType($columnModel)
+#if($columnModel.IsPK)<id name="$tmp" column="$tmp2" type="$proType">
+			<generator class="assigned" />
+		</id>
+	#else<property name="$tmp" column="$tmp2" type="$proType" unique="true" length="50" not-null="true" />
+	#end
+#end
+#end
+#macro (getHbmProType $obj)
+#set($precision=$obj.Precision)
+#set($scale=$obj.Scale)
+#set($colDbType=$obj.ColDbType)
+#set($colType=$obj.ColType)
+#if($colType=="long")#set($proType="long")
+#elseif($colType=="int")#set($proType="integer")
+#elseif($colType=="float")#set($proType="float")
+#elseif($precision==0)#set($proType="string")
+#elseif($precision>0 && $scale>0)#set($proType="float")
+#elseif($precision>=13)#set($proType="long")
+#elseif($precision>=4 && $precision<=10)#set($proType="integer")
+#end
+#end
+<hibernate-mapping package="${Namespace}.model${Module}">
+	<class name="${Model}" table="${vo.TableName}" dynamic-insert="true" dynamic-update="true">
+	#getHbmResult($v)
+</class>
+	
+</hibernate-mapping>
