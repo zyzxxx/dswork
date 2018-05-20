@@ -26,7 +26,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 <form id="dataForm" method="post" action="upd${model}2.htm">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 <#list columnList as c>
-	<#if !c.iskey>
+	<#if !c.key>
 		<#if c.nameLowerCamel != 'memo'>
 	<tr>
 		<td class="form_title">${c.comment}</td>
@@ -42,7 +42,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 </#list>
 </table>
 <#list columnList as c>
-	<#if c.iskey>
+	<#if c.key>
 <input type="hidden" name="${c.nameLowerCamel}" value="${r'$'}{po.${c.nameLowerCamel}}" />
 	</#if>
 </#list>

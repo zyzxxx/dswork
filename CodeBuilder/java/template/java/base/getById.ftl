@@ -19,7 +19,7 @@
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
 <#list columnList as c>
-	<#if !c.iskey>
+	<#if !c.key>
 		<#if c.nameLowerCamel != 'memo'>
 	<tr>
 		<td class="form_title">${c.comment}</td>

@@ -3,7 +3,7 @@
  * 开发人员:${developer}
  * 创建时间:${.now}
  */
-package ${namespace}.controller${module};
+package ${namespace}.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -14,12 +14,12 @@ import ${frame}.mvc.BaseController;
 import ${frame}.core.page.Page;
 import ${frame}.core.page.PageNav;
 import ${frame}.core.util.CollectionUtil;
-import ${namespace}.model${module}.${model};
-import ${namespace}.service${module}.${model}Service;
+import ${namespace}.model.${model};
+import ${namespace}.service.${model}Service;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("${webmodule}")
+@RequestMapping("${module}")
 public class ${model}Controller extends BaseController
 {
 	@Autowired
@@ -29,7 +29,7 @@ public class ${model}Controller extends BaseController
 	@RequestMapping("/add${model}1")
 	public String add${model}1()
 	{
-		return "${webmodule}/add${model}.jsp";
+		return "${module}/add${model}.jsp";
 	}
 
 	@RequestMapping("/add${model}2")
@@ -70,7 +70,7 @@ public class ${model}Controller extends BaseController
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
 		put("page", req.getInt("page", 1));
-		return "${webmodule}/upd${model}.jsp";
+		return "${module}/upd${model}.jsp";
 	}
 
 	@RequestMapping("/upd${model}2")
@@ -95,7 +95,7 @@ public class ${model}Controller extends BaseController
 		Page<${model}> pageModel = service.queryPage(getPageRequest());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<${model}>(request, pageModel));
-		return "${webmodule}/get${model}.jsp";
+		return "${module}/get${model}.jsp";
 	}
 
 	//明细
@@ -104,6 +104,6 @@ public class ${model}Controller extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "${webmodule}/get${model}ById.jsp";
+		return "${module}/get${model}ById.jsp";
 	}
 }

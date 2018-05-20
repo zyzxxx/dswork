@@ -32,7 +32,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 	<tr>
 		<td class="input">
 <#list columnList as c>
-	<#if !c.iskey>
+	<#if !c.key>
 			&nbsp;${c.comment}：<input type="text" class="text" name="${c.nameLowerCamel}" value="${r'$'}{fn:escapeXml(param.${c.nameLowerCamel})}" />
 	</#if>
 </#list>
@@ -48,7 +48,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
 		<td style="width:5%">操作</td>
 <#list columnList as c>
-	<#if !c.iskey>
+	<#if !c.key>
 		<td>${c.comment}</td>
 	</#if>
 </#list>
@@ -58,7 +58,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 		<td><input name="keyIndex" type="checkbox" value="${r'$'}{d.id}" /></td>
 		<td class="menuTool" keyIndex="${r'$'}{d.id}">&nbsp;</td>
 <#list columnList as c>
-	<#if !c.iskey>
+	<#if !c.key>
 		<td>${r'$'}{fn:escapeXml(d.${c.nameLowerCamel})}</td>
 	</#if>
 </#list>
