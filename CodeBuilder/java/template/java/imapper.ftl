@@ -3,9 +3,9 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="${namespace}.model${module}.${model}">
+<mapper namespace="${namespace}.model.${model}">
 
-<insert id="insert" parameterType="${namespace}.model${module}.${model}">
+<insert id="insert" parameterType="${namespace}.model.${model}">
 	insert into ${table.name}
 	(<#list columnList as c>${c.name}<#if c_has_next>, </#if></#list>)
 	values
@@ -16,19 +16,19 @@
 	delete from ${table.name} where ID=${r'#'}{id}
 </delete>
 
-<update id="update" parameterType="${namespace}.model${module}.${model}">
+<update id="update" parameterType="${namespace}.model.${model}">
 	update ${table.name} set
 <#list columnList as c>
-	<#if !c.iskey>
+	<#if !c.key>
 		${c.name}=${r'#'}{${c.nameLowerCamel}}<#if c_has_next>,</#if>
 	</#if>
 </#list>
 	where ID=${r'#'}{id}
 </update>
 
-<resultMap id="result" type="${namespace}.model${module}.${model}">
+<resultMap id="result" type="${namespace}.model.${model}">
 <#list columnList as c>
-	<#if c.iskey>
+	<#if c.key>
 	<id property="${c.nameLowerCamel}" column="${c.name}" />
 	<#else>
 	<result property="${c.nameLowerCamel}" column="${c.name}" />
@@ -41,7 +41,7 @@
 <sql id="dynamicWhere">
 	<where>
 <#list columnList as c>
-	<#if c.iskey>
+	<#if c.key>
 		<if test="@Ognl@isNotEmpty(${c.nameLowerCamel})"> and ${c.name}=${r'#'}{id} </if>
 	<#else>
 		<if test="@Ognl@isNotEmpty(${c.nameLowerCamel})"> and ${c.name} like ${r'#'}{${c.nameLowerCamel}, typeHandler=LikeTypeHandler} </if>

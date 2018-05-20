@@ -249,7 +249,7 @@ public class Builder
 	
 	public static void main(String[] args)
 	{
-		String configPath = Builder.getLocation("Builder.xml");
+		String configPath = Builder.getLocation("builder.xml");
 		if(args.length > 0)
 		{
 			configPath = System.getProperty("user.dir") + "/" + args[0];

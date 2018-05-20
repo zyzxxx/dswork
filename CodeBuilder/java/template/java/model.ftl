@@ -1,7 +1,7 @@
 /**
  * ${table.comment}Model
  */
-package ${namespace}.model${module};
+package ${namespace}.model;
 public class ${table.nameUpperCamel}
 {
 <#list columnList as c>

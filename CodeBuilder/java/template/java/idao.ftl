@@ -1,11 +1,11 @@
 /**
  * ${table.comment}Dao
  */
-package ${namespace}.dao${module};
+package ${namespace}.dao;
 
 import org.springframework.stereotype.Repository;
 import ${frame}.core.db.BaseDao;
-import ${namespace}.model${module}.${model};
+import ${namespace}.model.${model};
 
 @Repository
 @SuppressWarnings("all")

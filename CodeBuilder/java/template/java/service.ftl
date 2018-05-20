@@ -1,14 +1,14 @@
 /**
  * ${table.comment}Service
  */
-package ${namespace}.service${module};
+package ${namespace}.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ${frame}.core.db.EntityDao;
 import ${frame}.core.db.BaseService;
-import ${namespace}.model${module}.${model};
-import ${namespace}.dao${module}.${model}Dao;
+import ${namespace}.model.${model};
+import ${namespace}.dao.${model}Dao;
 
 @Service
 @SuppressWarnings("all")
