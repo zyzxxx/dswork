@@ -104,7 +104,7 @@ public class BuilderParser
 		for(int i = 0; i < ns.getLength(); i++)
 		{
 			Element n = (Element)ns.item(i);
-			config.addParam(getAttr(n, "name"), "value");
+			config.addParam(getAttr(n, "name"), getAttr(n, "value"));
 		}
 	}
 
