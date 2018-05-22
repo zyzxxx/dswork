@@ -1,0 +1,25 @@
+使用前请查看说明文件：
+	1、/CodeBuilder/dotnet/template/说明.txt
+	2、/CodeBuilder/dotnet/Builder.xml 里面的注释说明
+		主要看connect节点和builder节点
+
+默认配置文件：dotnet/Builder.xml
+	修改templates节点的path属性：E:/Workspaces/MySpace/dswork/CodeBuilder改为当前CodeBuilder目录路径
+	修改charset节点的outputEncoding属性
+		MyEclipse或Eclipse修改为：<charset outputEncoding="65001">UTF-8</charset>
+		Window下运行修改为：<charset outputEncoding="936">UTF-8</charset>
+
+使用Builder生成代码有三种方式：Builder.exe程序第一个运行参数为相对于其所在目录路径的配置文件
+	1、MyEclipse/Eclipse
+		build.xml中exec节点的command属性修改为当前CodeBuilder/dotnet/Builder.exe的路径
+		复制根目录下的your.xml为mime.xml文件
+		右键build.xml，选择“Run As” -> “Ant Build”
+
+	2、通过命令行运行Builder.exe程序
+		进入Builder.exe所在目录，输入：Builder.exe ../mime.xml
+
+	3、双击Builder.exe程序
+		仅能使用默认配置文件Builder.xml
+		注意，Builder.xml和Builder.exe必须为同一目录
+
+如果使用Oracle免安装客户端方式使用代码生成器，需要把oracle客户端dll的6个dll文件放到builder目录中(oci.dll,ocijdbc11.dll,ociw32.dll,orannzsbb11.dll,oraocci11.dll,oraociei11.dll)

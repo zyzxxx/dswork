@@ -14,6 +14,7 @@
         <javaElement handleIdentifier="=DsWorkJava/dswork.config&lt;dswork.config.spring"/>
         <file path="/DsWorkJava/dswork.config/MANIFEST.MF"/>
         <javaElement handleIdentifier="=DsWorkJava/dswork.config&lt;dswork.config.mvc"/>
+        <javaElement handleIdentifier="=DsWorkJava/dswork.config&lt;dswork.config.mybatis"/>
         <javaElement handleIdentifier="=DsWorkJava/dswork.config&lt;dswork.config"/>
     </selectedElements>
 </jardesc>

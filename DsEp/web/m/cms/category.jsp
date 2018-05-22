@@ -9,9 +9,6 @@ java.util.ArrayList,
 java.util.Map,
 java.util.HashMap
 "%><%!
-private String getString(Object object){
-	return object == null ? "" : String.valueOf(object);
-}
 private List<Long> splitString(String values){
 	List<Long> list = new ArrayList<Long>();
 	try{String[] _v = values.split(",", -1);
@@ -31,7 +28,7 @@ try{
 	MyRequest req = new MyRequest(request);
 
 	long siteid = req.getLong("siteid", -1);
-	String[] categoryids = req.getStringArray("categoryids", true);
+	String[] idsArray = req.getStringArray("categoryids", true);
 	int currentPage = req.getInt("page", 1);
 	int pagesize = req.getInt("pagesize", 10);
 
@@ -42,13 +39,15 @@ try{
 	map.put("status", "1");
 	map.put("msg", "success");
 	map.put("rows", rows);
-	for(String cid : categoryids){
-		List<Long> _ids = splitString(cid);
-		if(_ids.size() > 0){// 栏目页
+	for(String categoryids : idsArray){
+		List<Long> _idsLong = splitString(categoryids);
+		if(_idsLong.size() > 0){// 栏目页
+			String categoryid = String.valueOf(_idsLong.get(0));
+			_idsLong.remove(0);
 			Map<String, Object> one = new HashMap<String, Object>();
-			one.put("categoryids", cid);
-			Map<String, Object> c = cms.getCategory(String.valueOf(_ids.get(0)));
-			_ids.remove(0);
+			one.put("categoryids", categoryids);
+			one.put("categoryid", categoryid);
+			Map<String, Object> c = cms.getCategory(categoryid);
 			if(c == null){
 				one.put("status", "0");
 				one.put("msg", "栏目不存在");
@@ -58,14 +57,17 @@ try{
 				one.put("status", "1");
 				one.put("msg", "success");
 				one.put("category", c);
-				if(_ids.size() > 0){
-					one.put("pages", "true");
-					List<Map<String, Object>> list = cms.queryList(currentPage, pagesize, false, false, true, _ids.toArray(new Long[_ids.size()]));
-					for(Map<String, Object> p : list){p.remove("content");}
-					one.put("rows", list);
+				if(_idsLong.size() > 0){
+					Map<String, Object> datamap = cms.queryPage(currentPage, pagesize, true, null, _idsLong.toArray(new Long[_idsLong.size()]));
+					for(Map<String, Object> p : (List<Map<String, Object>>)datamap.get("rows")){p.remove("content");}
+					one.put("size", datamap.get("size"));
+					one.put("page", datamap.get("page"));
+					one.put("pagesize", datamap.get("pagesize"));
+					one.put("totalpage", datamap.get("totalpage"));
+					one.put("rows", datamap.get("rows"));
 				}
 				else{
-					one.put("pages", "false");
+					one.put("size", -1);
 				}
 				rows.add(one);
 			}

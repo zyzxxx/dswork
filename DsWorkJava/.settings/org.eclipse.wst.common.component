@@ -17,6 +17,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.html"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.webio"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.flow"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.builder"/>
         <property name="context-root" value="DsWorkJava"/>
         <property name="java-output-path" value="/DsWorkJava/web/WEB-INF/classes"/>
     </wb-module>
