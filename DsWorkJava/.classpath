@@ -4,9 +4,10 @@
 	<classpathentry kind="src" path="dswork.test"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.analyzer"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.builder"/>
 	<classpathentry kind="src" path="dswork.config"/>
 	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.core"/>
-	<classpathentry kind="src" path="dswork.cs"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.cs"/>
 	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.flow"/>
 	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.html"/>
 	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.http"/>
@@ -38,5 +39,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Lib/module/lucene/lucene-core-5.5.4.jar"/>
+	<classpathentry kind="lib" path="/Lib/module/template/freemarker-2.3.27.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

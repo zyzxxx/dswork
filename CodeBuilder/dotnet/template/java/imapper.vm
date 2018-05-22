@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Model=$vo.GetParam('Model'))
+#set($ModelName=$vo.GetParam('ModelName'))
+#set($v=$vo.ColumnList)
+
+#macro (getResult $list)
+#foreach($columnModel in $list)
+	#set($tmp=$columnModel.ColumnName.ToLower())
+	#set($tmp2=$columnModel.ColumnName)
+	#if($columnModel.IsPK)<id property="$tmp" column="$tmp2" />
+#else<result property="$tmp" column="$tmp2" />
+#end
+#end
+#end
+#macro (getCommonColumns $list)
+#set($count=0)
+#foreach($columnModel in $list)
+	#set($count=$count+1)
+	#set($tmp=$columnModel.ColumnName)
+#if($count<$list.Count)$tmp, #else$tmp#end
+#end
+#end
+#macro (getInsertValues $list)
+#set($count=0)
+#foreach($columnModel in $list)
+	#set($count=$count+1)
+	#set($tmp=$columnModel.ColumnName.ToLower())
+#if($count<$list.Count)#if($columnModel.IsPK)#{$tmp}#else#{$tmp}#end, #else#if($columnModel.IsPK)null#else#{$tmp}#end#end
+#end
+#end
+#macro (getUpdateValues $list)
+#set($count=0)
+#foreach($columnModel in $list)
+	#set($count=$count+1)
+	#set($tmp=$columnModel.ColumnName.ToLower())
+#if($count==1)
+
+		#elseif($count<$list.Count)$tmp.ToUpper()=#{$tmp},
+		#else$tmp.ToUpper()=#{$tmp}
+#end
+#end
+#end
+#macro (getIfs $list)
+#foreach($columnModel in $list)
+#set($tmp=$columnModel.ColumnName.ToLower())#if($columnModel.IsPK)
+		<if test="@Ognl@isNotEmpty($tmp)"> and $tmp.ToUpper() like #{$tmp, typeHandler=LikeTypeHandler} </if>
+#end#end
+#end
+<mapper namespace="${Namespace}.model${Module}.${Model}">
+
+<insert id="insert" parameterType="${Namespace}.model${Module}.${Model}">
+	insert into ${vo.TableName}
+	(#getCommonColumns($v))
+	values
+	(#getInsertValues($v))
+</insert>
+
+<delete id="delete">
+	delete from ${vo.TableName} where ID=#{id}
+</delete>
+
+<update id="update" parameterType="${Namespace}.model${Module}.${Model}">
+	update ${vo.TableName} set#getUpdateValues($v)
+	where ID=#{id}
+</update>
+
+<resultMap id="result" type="${Namespace}.model${Module}.${Model}">
+#getResult($v)
+</resultMap>
+
+<sql id="columns">#getCommonColumns($v)</sql>
+	
+<sql id="dynamicWhere">
+	<where>
+#getIfs($v)
+	</where>
+</sql>
+
+<select id="select" resultMap="result">
+	select <include refid="columns" /> from ${vo.TableName} where ID=#{id}
+</select>
+
+<select id="query" resultMap="result">
+	select <include refid="dswork.top" /><include refid="columns" /> from ${vo.TableName}
+	<include refid="dynamicWhere" />
+</select>
+
+<select id="queryCount" resultType="int">
+	select count(1) from ${vo.TableName}
+	<include refid="dynamicWhere" />
+</select>
+
+</mapper>

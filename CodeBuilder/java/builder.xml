@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<!--outputEncoding:UTF-8(65001) | GBK(936)-->
+	<charset outputEncoding="936">UTF-8</charset>
+
+	<params>
+		<param name="frame" value="dswork" />
+		<param name="developer" value="无名氏" />
+	</params>
+
+	<builds templatename="java" rootpath="E:/Workspaces/MySpace/temp" src="src" web="web" url="jdbc:mysql://dbserver:3306/plant?user=plant&amp;password=plant@DB321&amp;characterEncoding=UTF-8&amp;allowMultiQueries=true">
+		<build namespace="jwzz" module="/manage/jwzz/flow" table="PLANT_FLOW" model="PlantFlow" comment="mybatis" />
+		<build namespace="/jwzz" module="/manage/jwzz/flowdata" table="PLANT_FLOW_DATA" model="PlantFlowData" comment="mybatis" />
+	</builds>
+
+	<templates path="E:/Workspaces/MySpace/dswork/CodeBuilder/java/template">
+		<template name="csharp" id="idao"		viewpath="/csharp/idao.ftl"          path="/{src}/Dao/{model}Dao.cs" comment="ibatisnet" />
+		<template name="csharp" id="imapper"	viewpath="/csharp/imapper.ftl"       path="/{src}/Mapper/{model}.map.config" comment="ibatisnet" />
+		<template name="csharp" id="model"		viewpath="/csharp/model.ftl"         path="/{src}/Model/{model}.cs" />
+		<template name="csharp" id="service"	viewpath="/csharp/service.ftl"       path="/{src}/Service/{model}.Service.cs" />
+		<template name="csharp" id="controller" viewpath="/csharp/controller.ftl"    path="/{web}/Areas/{module}/Controllers/{model}Controller.cs" />
+		<template name="csharp" id="get"		viewpath="/csharp/get.ftl"     		path="/{web}/Areas/{module}/Views/{model}/Get{model}.cshtml" />
+		<template name="csharp" id="getById"	viewpath="/csharp/getById.ftl"       path="/{web}/Areas/{module}/Views/{model}/Get{model}ById.cshtml" />
+		<template name="csharp" id="add"		viewpath="/csharp/add.ftl"           path="/{web}/Areas/{module}/Views/{model}/Add{model}1.cshtml" />
+		<template name="csharp" id="upd"		viewpath="/csharp/upd.ftl"           path="/{web}/Areas/{module}/Views/{model}/Upd{model}1.cshtml" />
+
+		<template name="jsp"    id="hdao"		viewpath="/java/hdao.ftl"            path="/{src}/{namespace}/dao/{model}Dao.java" comment="hibernate" />
+		<template name="jsp"    id="hmapper"	viewpath="/java/hmapper.ftl"         path="/{src}/{namespace}/mapper/{model}.map.xml" comment="hibernate" />
+		<template name="jsp"    id="idao"		viewpath="/java/idao.ftl"            path="/{src}/{namespace}/dao/{model}Dao.java" comment="mybatis" />
+		<template name="jsp"    id="imapper"	viewpath="/java/imapper.ftl"         path="/{src}/{namespace}/mapper/{model}.map.xml" comment="mybatis" />
+		<template name="jsp"    id="model"		viewpath="/java/model.ftl"           path="/{src}/{namespace}/model/{model}.java" />
+		<template name="jsp"    id="service"	viewpath="/java/service.ftl"         path="/{src}/{namespace}/service/{model}Service.java" />
+		<template name="jsp"    id="jspget"		viewpath="/java/jsp/get.ftl"         path="/{web}/{webmodule}/get{model}.jsp" />
+		<template name="jsp"    id="jspgetById"	viewpath="/java/jsp/getById.ftl"     path="/{web}/{webmodule}/get{model}ById.jsp" />
+		<template name="jsp"    id="jspadd1"	viewpath="/java/jsp/add1.ftl"        path="/{web}/{webmodule}/add{model}1.jsp" />
+		<template name="jsp"    id="jspadd2"	viewpath="/java/jsp/add2.ftl"        path="/{web}/{webmodule}/add{model}2.jsp" />
+		<template name="jsp"    id="jspupd1"	viewpath="/java/jsp/upd1.ftl"        path="/{web}/{webmodule}/upd{model}1.jsp" />
+		<template name="jsp"    id="jspupd2"	viewpath="/java/jsp/upd2.ftl"        path="/{web}/{webmodule}/upd{model}2.jsp" />
+		<template name="jsp"    id="jspdel"		viewpath="/java/jsp/del.ftl"         path="/{web}/{webmodule}/del{model}.jsp" />
+
+		<template name="java"   id="hdao"		viewpath="/java/hdao.ftl"            path="/{src}/{namespace}/dao/{model}Dao.java" comment="hibernate" />
+		<template name="java"   id="hmapper"	viewpath="/java/hmapper.ftl"         path="/{src}/{namespace}/mapper/{model}.map.xml" comment="hibernate" />
+		<template name="java"   id="idao"		viewpath="/java/idao.ftl"            path="/{src}/{namespace}/dao/{model}Dao.java" comment="mybatis" />
+		<template name="java"   id="imapper"	viewpath="/java/imapper.ftl"         path="/{src}/{namespace}/mapper/{model}.map.xml" comment="mybatis" />
+		<template name="java"   id="model"		viewpath="/java/model.ftl"           path="/{src}/{namespace}/model/{model}.java" />
+		<template name="java"   id="service"	viewpath="/java/service.ftl"         path="/{src}/{namespace}/service/{model}Service.java" />
+		<template name="java"   id="controller"	viewpath="/java/base/controller.ftl" path="/{src}/{namespace}/controller/{model}Controller.java" />
+		<template name="java"   id="get"		viewpath="/java/base/get.ftl"  		path="/{web}/WEB-INF/view/jsp/{module}/get{model}.jsp" />
+		<template name="java"   id="getById"	viewpath="/java/base/getById.ftl"    path="/{web}/WEB-INF/view/jsp/{module}/get{model}ById.jsp" />
+		<template name="java"   id="add"		viewpath="/java/base/add.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/add{model}.jsp" />
+		<template name="java"   id="upd"		viewpath="/java/base/upd.ftl"        path="/{web}/WEB-INF/view/jsp/{module}/upd{model}.jsp" />
+	</templates>
+</config>
+
+<!--
+params：
+	frame：使用的框架。dswork(Java) | Dswork(C#)
+	developer：输入你的名字
+template：
+	template中的path均自动补上builder标签中的project路径
+	namespace值、module值和webmodule值其中的“.”和“\”会自动替换为“/”
+	“//”会被处理一次为“/”，即“///”只处理为“//”
+builds：
+	templatename：base | mvc | jsp | csharp
+	rootpath：根目录。项目目录根路径(Java) | 解决方案目录根路径(C#)
+	src：源代码目录。src目录(Java) | 类库Lib目录(C#)
+	web：网页程序目录。web目录(Java) | MVC项目目录(C#，首字母大写)
+		
+	build：(在模板中可用vo中的GetParam来获取，key为Frame、Namespace、Module、Model、ModelName[Model首字母小写])
+		namespace：package或namespace前缀，用“.”分隔，有“.”则会创建出多级目录
+		module：模块名，页面文件存放相对路径(Java) | MVC域的名称只能一个单词(C#)
+		table：数据库表名，大写
+		model：映射数据库的模型类名，首字母大写
+		comment：mybatis | hibernate | ibatisnet，当template存在comment时，如果和它不一致，则不生成该template
+	模板变量：code中的值被处理为首字母大写，且作模板变量vo中的子变量使用
+		namespace值、module值和webmodule值其中的“.”和“\”会自动替换为“/”，“//”会被处理一次为“/”，即“///”只处理为“//”
+		Namespace：vo.Namespace变量中“/”会处理为“.”，并且不以“.”开头
+		Module：vo.Module变量会去掉所有“/”，可为空，为空时C#中模板会出错
+	例子：
+		<builder templatename="base" project="E:/Workspaces/workspaceTemp/java/DemoJava" src="src" web="web">
+			<code frame="dswork" namespace="/com.testwork" module="/demo.vv" webmodule="/manage/demo" table="DEMO" model="Demo" comment="mybatis" />
+			<code frame="dswork" namespace="com/testwork" module="demo1/vv" webmodule="/manage/demo" table="DEMO" model="Demo1" comment="hibernate" />
+		</builder>
+		<builder templatename="jsp" project="E:/Workspaces/workspaceTemp/jsp/DemoJava" src="src" web="web">
+			<code frame="dswork" namespace="com.testwork" module="demo" webmodule="/manage/demo" table="DEMO" model="Demo" comment="mybatis" />
+		</builder>
+		
+		<builder templatename="csharp" project="E:/Workspaces/workspaceTemp/c/DemoNet" src="DemoNetLib" web="DemoNet">
+			<code frame="Dswork" namespace="Com.Testwork" module="demo" webmodule="" table="DEMO" model="Demo" comment="ibatisnet" />
+		</builder>
+
+params：
+	自定义属性(不可以为vo)，可往模板中增加自定义变量，默认加入developer和当前时间：.now
+	可以在模板中使用此变量的值，不能使用语言关键字
+-->

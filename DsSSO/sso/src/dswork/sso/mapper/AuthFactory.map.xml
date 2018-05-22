@@ -114,6 +114,7 @@
 	    )
 	  )
 	)
+	order by s.SEQ
 </select>
 
 <select id="getOrgByOrgid" resultMap="resultOrg" parameterType="String">

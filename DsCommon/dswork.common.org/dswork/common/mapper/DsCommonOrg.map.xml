@@ -60,7 +60,7 @@
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="common.top" /><include refid="columns" /> from DS_COMMON_ORG
+	select <include refid="dswork.top" /><include refid="columns" /> from DS_COMMON_ORG
 	<include refid="dynamicWhere" /> order by STATUS desc, SEQ, ID
 </select>
 
