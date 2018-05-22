@@ -28,7 +28,7 @@ public class ${table.nameUpperCamel}
 	{
 		return ${c.nameLowerCamel};
 	}
-	
+
 	<#if c.datatype == 'date'>
 	public void set${c.nameUpperCamel}(java.util.Date ${c.nameLowerCamel})
 	{

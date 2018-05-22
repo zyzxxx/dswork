@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class DaoMSSQL extends Dao
 {
 	private static final String SQL_TABLE_PK = "sp_pkeys N'%s'";
-	private static final String SQL_TABLE_COMMENT = "select b.value as CCOMMEN from sys.tables a, sys.extended_properties b where a.type='U' and a.object_id=b.major_id and b.minor_id=0 and a.name='%s'";
+	private static final String SQL_TABLE_COMMENT = "select cast(b.value as varchar(500)) as CCOMMEN from sys.tables a, sys.extended_properties b where a.type='U' and a.object_id=b.major_id and b.minor_id=0 and a.name='%s'";
 	private static final String SQL_TABLE_COLUMN = "select "
 			+ "a.name as CNAME, "
 			+ "c.name as CDATATYPE, "
@@ -17,8 +17,8 @@ public class DaoMSSQL extends Dao
 			+ "a.is_nullable as CNULLABLE, "
 			+ "a.precision as CPRECISION, "
 			+ "a.scale as CSCALE, "
-			+ "(select value from sys.extended_properties where sys.extended_properties.major_id = a.object_id and sys.extended_properties.minor_id = a.column_id"
-			+ ") as CCOMMEN, "
+			+ "(select cast(value as varchar(500)) from sys.extended_properties where sys.extended_properties.major_id = a.object_id and sys.extended_properties.minor_id = a.column_id"
+			+ ") as CCOMMENT, "
 			+ "(select count(*) from sys.identity_columns where sys.identity_columns.object_id = a.object_id and a.column_id = sys.identity_columns.column_id"
 			+ ") as CAUTO "
 			+ "from sys.columns a, sys.tables b, sys.types c "
@@ -60,6 +60,7 @@ public class DaoMSSQL extends Dao
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 	}
 
@@ -78,6 +79,7 @@ public class DaoMSSQL extends Dao
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 		table.setComment(comment);
 	}
@@ -161,6 +163,7 @@ public class DaoMSSQL extends Dao
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 	}
 

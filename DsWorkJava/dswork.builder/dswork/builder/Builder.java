@@ -138,7 +138,7 @@ public class Builder
 			}
 			else
 			{
-				System.out.println("生成失败：目前系统只支持mysql");
+				System.out.println("生成失败：目前系统只支持mysql和mssql");
 			}
 		}
 		catch(Exception e)

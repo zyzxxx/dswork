@@ -49,6 +49,7 @@ public class DaoMySql extends Dao
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 		table.setComment(comment);
 	}
@@ -128,6 +129,7 @@ public class DaoMySql extends Dao
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 	}
 
