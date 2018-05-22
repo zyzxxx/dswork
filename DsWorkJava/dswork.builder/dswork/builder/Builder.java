@@ -51,7 +51,7 @@ public class Builder
 	
 	public static void build(BuilderConfig config)
 	{
-		Type dao = null;
+		Dao dao = null;
 		try
 		{
 			Configuration conf = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
@@ -60,8 +60,8 @@ public class Builder
 			String url = config.builds.url;
 			if(url.startsWith("jdbc:mysql"))
 			{
-				dao = TypeMySql.class.newInstance();
-				dao.initConnect(url);
+				dao = DaoMySql.class.newInstance();
+				dao.connect(url);
 			}
 			else if(url.startsWith("jdbc:sqlserver"))
 			{
@@ -80,7 +80,7 @@ public class Builder
 				for(BuilderConfig.Build m : config.builds.build)
 				{
 					System.out.println("生成build模块：表格：" + m.table + "，模型：" + m.model);
-					Table table = dao.queryTable(m.table);
+					Table table = dao.query(m.table);
 					Map<String, Object> param = new HashMap<String, Object>();
 					param.putAll(config.params);
 					// param.put("params", config.params);

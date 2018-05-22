@@ -6,7 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TypeMySql extends Type
+public class DaoMySql extends Dao
 {
 	private static final String SQL_TABLE_COMMENT = "select TABLE_COMMENT from information_schema.TABLES where TABLE_SCHEMA='%s' and TABLE_NAME='%s'";
 	private static final String SQL_TABLE_COLUMN = "select COLUMN_NAME,COLUMN_DEFAULT,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,NUMERIC_PRECISION,NUMERIC_SCALE,COLUMN_COMMENT,COLUMN_KEY,EXTRA from information_schema.COLUMNS where TABLE_SCHEMA='%s' and TABLE_NAME='%s'";
@@ -16,7 +16,7 @@ public class TypeMySql extends Type
 	private String dbName;
 
 	@Override
-	public void initConnect(String url) throws SQLException
+	public void connect(String url) throws SQLException
 	{
 		conn = DriverManager.getConnection(url);
 		dbName = conn.getCatalog();
@@ -119,7 +119,7 @@ public class TypeMySql extends Type
 	}
 
 	@Override
-	public Table queryTable(String tableName)
+	public Table query(String tableName)
 	{
 		Table table = new Table();
 		table.setName(tableName);
