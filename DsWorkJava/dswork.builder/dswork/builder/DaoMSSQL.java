@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class DaoMSSQL extends Dao
 {
 	private static final String SQL_TABLE_PK = "sp_pkeys N'%s'";
-	private static final String SQL_TABLE_COMMENT = "select b.value from sys.tables a, sys.extended_properties b where a.type='U' and a.object_id=b.major_id and b.minor_id=0 and a.name='%s'";
+	private static final String SQL_TABLE_COMMENT = "select b.value as CCOMMEN from sys.tables a, sys.extended_properties b where a.type='U' and a.object_id=b.major_id and b.minor_id=0 and a.name='%s'";
 	private static final String SQL_TABLE_COLUMN = "select "
 			+ "a.name as CNAME, "
 			+ "c.name as CDATATYPE, "
@@ -18,7 +18,7 @@ public class DaoMSSQL extends Dao
 			+ "a.precision as CPRECISION, "
 			+ "a.scale as CSCALE, "
 			+ "(select value from sys.extended_properties where sys.extended_properties.major_id = a.object_id and sys.extended_properties.minor_id = a.column_id"
-			+ ") as CCOMMEN,T "
+			+ ") as CCOMMEN, "
 			+ "(select count(*) from sys.identity_columns where sys.identity_columns.object_id = a.object_id and a.column_id = sys.identity_columns.column_id"
 			+ ") as CAUTO "
 			+ "from sys.columns a, sys.tables b, sys.types c "
@@ -26,18 +26,18 @@ public class DaoMSSQL extends Dao
 //	private static final String SQL_ALL_TABLES = "select name from sys.tables where type='U' and name<>'sysdiagrams'";
 	
 	private Connection conn;
-	private String dbName;
+	// private String dbName;
 
 	@Override
 	public void connect(String url) throws SQLException
 	{
 		conn = DriverManager.getConnection(url);
-		dbName = conn.getCatalog();
+		// dbName = conn.getCatalog();
 	}
 	
 	private void querySetTablePk(Table table)
 	{
-		String sql = String.format(SQL_TABLE_PK, dbName, table.getName());
+		String sql = String.format(SQL_TABLE_PK, table.getName());
 		try
 		{
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -72,7 +72,7 @@ public class DaoMSSQL extends Dao
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
-			comment = rs.getString("TABLE_COMMENT");
+			comment = rs.getString("CCOMMEN");
 			rs.close();
 			stmt.close();
 		}
@@ -84,7 +84,7 @@ public class DaoMSSQL extends Dao
 
 	private void querySetTableColumn(Table table)
 	{
-		String sql = String.format(SQL_TABLE_COLUMN, dbName, table.getName());
+		String sql = String.format(SQL_TABLE_COLUMN, table.getName());
 		try
 		{
 			PreparedStatement stmt = conn.prepareStatement(sql);
@@ -95,7 +95,7 @@ public class DaoMSSQL extends Dao
 				col.setName(rs.getString("CNAME"));
 				col.setDatatype(rs.getString("CDATATYPE"));
 				col.setLength(rs.getInt("CLENGTH"));
-				col.setNullable("TRUE".equalsIgnoreCase(rs.getString("CNULLABLE")));
+				col.setNullable("1".equalsIgnoreCase(rs.getString("CNULLABLE")));
 				col.setPrecision(rs.getInt("CPRECISION"));
 				col.setDigit(rs.getInt("CSCALE"));
 				col.setComment(rs.getString("CCOMMENT"));

@@ -61,20 +61,18 @@ public class Builder
 			if(url.startsWith("jdbc:mysql"))
 			{
 				dao = DaoMySql.class.newInstance();
-				dao.connect(url);
 			}
 			else if(url.startsWith("jdbc:sqlserver"))
 			{
-				//dao = TypeMSSQL.class.newInstance();
-				//dao.initConnect(url);
+				dao = DaoMSSQL.class.newInstance();
 			}
 			else if(url.startsWith("jdbc:oracle"))
 			{
-				//dao = TypeMySql.class.newInstance();
-				//dao.initConnect(url);
+				//dao = DaoMySql.class.newInstance();
 			}
 			if(dao != null)
 			{
+				dao.connect(url);
 				String errMsg = "";
 				System.out.println("==============================开始执行代码生成操作=============================");
 				for(BuilderConfig.Build m : config.builds.build)
