@@ -8,15 +8,16 @@ public class Table
 	public class Column
 	{
 		private String name;// 列名
-		private String type;// 类型
-		private String comment;// 列注释
-		private String defaults;// 默认值
+		private String datatype;// 类型
 		private int length;// 长度
-		private boolean key = false;// 是否主键
-		private boolean auto = false;// 是否自增
+		private boolean nullable = true;
 		private int precision = 0;// 整数位
 		private int digit = 0;// 小数位
-		
+		private String comment;// 列注释
+		private boolean auto = false;// 是否自增
+		private String defaultvalue = "";// 类型
+		private boolean key = false;// 是否主键
+
 		public String getNameLowerCamel()
 		{
 			return Builder.lowerCamel(name);
@@ -37,24 +38,14 @@ public class Table
 			this.name = name;
 		}
 
-		public String getType()
+		public String getDatatype()
 		{
-			return type;
+			return datatype;
 		}
 
-		public void setType(String type)
+		public void setDatatype(String datatype)
 		{
-			this.type = type;
-		}
-
-		public String getDefaults()
-		{
-			return defaults;
-		}
-
-		public void setDefaults(String defaults)
-		{
-			this.defaults = defaults;
+			this.datatype = datatype;
 		}
 
 		public String getComment()
@@ -77,7 +68,7 @@ public class Table
 			this.length = length;
 		}
 
-		public boolean iskey()
+		public boolean isKey()
 		{
 			return key;
 		}
@@ -116,10 +107,31 @@ public class Table
 		{
 			this.digit = digit;
 		}
+
+		public boolean isNullable()
+		{
+			return nullable;
+		}
+
+		public void setNullable(boolean nullable)
+		{
+			this.nullable = nullable;
+		}
+
+		public String getDefaultvalue()
+		{
+			return defaultvalue;
+		}
+
+		public void setDefaultvalue(String defaultvalue)
+		{
+			this.defaultvalue = defaultvalue;
+		}
 	}
 	private String name;// 表名
 	private String comment;// 表注释
 	public List<Column> column = new ArrayList<Column>();// 表列list
+
 	public Column addColumn()
 	{
 		Column c = new Column();

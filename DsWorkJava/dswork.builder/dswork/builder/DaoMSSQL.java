@@ -6,24 +6,25 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DaoMySql extends Dao
+public class DaoMSSQL extends Dao
 {
-	private static final String SQL_TABLE_COMMENT = "select TABLE_COMMENT as CCOMMENT from information_schema.TABLES where TABLE_SCHEMA='%s' and TABLE_NAME='%s'";
+	private static final String SQL_TABLE_PK = "sp_pkeys N'%s'";
+	private static final String SQL_TABLE_COMMENT = "select b.value from sys.tables a, sys.extended_properties b where a.type='U' and a.object_id=b.major_id and b.minor_id=0 and a.name='%s'";
 	private static final String SQL_TABLE_COLUMN = "select "
-			+ "COLUMN_NAME as CNAME, "
-			+ "DATA_TYPE as CDATATYPE, "
-			+ "CHARACTER_MAXIMUM_LENGTH as CLENGTH, "
-			+ "IS_NULLABLE as CNULLABLE, "
-			+ "NUMERIC_PRECISION as CPRECISION, "
-			+ "NUMERIC_SCALE as CSCALE, "
-			+ "COLUMN_COMMENT as CCOMMENT, "
-			+ "EXTRA as CAUTO, "
-			+ "COLUMN_DEFAULT as CDEFAULT,"
-			+ "COLUMN_KEY as CKEY "
-			+ "from information_schema.COLUMNS "
-			+ "where TABLE_SCHEMA='%s' and TABLE_NAME='%s'";
-//	private static final String SQL_ALL_TABLES = "select TABLE_NAME from information_schema.TABLES where TABLE_SCHEMA='%s'";
-
+			+ "a.name as CNAME, "
+			+ "c.name as CDATATYPE, "
+			+ "a.max_length as CLENGTH, "
+			+ "a.is_nullable as CNULLABLE, "
+			+ "a.precision as CPRECISION, "
+			+ "a.scale as CSCALE, "
+			+ "(select value from sys.extended_properties where sys.extended_properties.major_id = a.object_id and sys.extended_properties.minor_id = a.column_id"
+			+ ") as CCOMMEN,T "
+			+ "(select count(*) from sys.identity_columns where sys.identity_columns.object_id = a.object_id and a.column_id = sys.identity_columns.column_id"
+			+ ") as CAUTO "
+			+ "from sys.columns a, sys.tables b, sys.types c "
+			+ "where a.object_id = b.object_id and a.system_type_id=c.system_type_id and b.name='%s' and c.name<>'sysname' order by a.column_id;";
+//	private static final String SQL_ALL_TABLES = "select name from sys.tables where type='U' and name<>'sysdiagrams'";
+	
 	private Connection conn;
 	private String dbName;
 
@@ -33,17 +34,45 @@ public class DaoMySql extends Dao
 		conn = DriverManager.getConnection(url);
 		dbName = conn.getCatalog();
 	}
+	
+	private void querySetTablePk(Table table)
+	{
+		String sql = String.format(SQL_TABLE_PK, dbName, table.getName());
+		try
+		{
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			ResultSet rs = stmt.executeQuery();
+			String pk = null;
+			while(rs.next())
+			{
+				pk = rs.getString("COLUMN_NAME");
+				for(Table.Column c : table.column)
+				{
+					if(c.getName().equalsIgnoreCase(pk))
+					{
+						c.setKey(true);
+						break;
+					}
+				}
+			}
+			rs.close();
+			stmt.close();
+		}
+		catch(Exception e)
+		{
+		}
+	}
 
 	private void querySetTableComment(Table table)
 	{
 		String comment = "";
-		String sql = String.format(SQL_TABLE_COMMENT, dbName, table.getName());
+		String sql = String.format(SQL_TABLE_COMMENT, table.getName());
 		try
 		{
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
-			comment = rs.getString("CCOMMENT");
+			comment = rs.getString("TABLE_COMMENT");
 			rs.close();
 			stmt.close();
 		}
@@ -70,14 +99,13 @@ public class DaoMySql extends Dao
 				col.setPrecision(rs.getInt("CPRECISION"));
 				col.setDigit(rs.getInt("CSCALE"));
 				col.setComment(rs.getString("CCOMMENT"));
-				col.setAuto("auto_increment".equals(rs.getString("CAUTO")));
-				col.setDefaultvalue(rs.getString("CDEFAULT"));
-				col.setKey("PRI".equals(rs.getString("CKEY")));
+				col.setAuto(!"0".equals(rs.getString("CAUTO")));
+				// col.setKey();
 				switch(col.getDatatype())
 				{
+					case "smallint":
 					case "int":
 					case "tinyint":
-					case "mediumint":
 						col.setDatatype("int"); break;
 					case "bigint":
 						if("id".equalsIgnoreCase(col.getName()))
@@ -89,10 +117,12 @@ public class DaoMySql extends Dao
 							col.setDatatype("long");
 						}
 						break;
-					case "float":
-					case "double":
+					case "real":
+					case "smallmoney":
+					case "money":
 						col.setDatatype("float"); break;
 					case "decimal":
+					case "numeric":
 					{
 						if(col.getDigit() == 0)
 						{
@@ -107,17 +137,20 @@ public class DaoMySql extends Dao
 							col.setDatatype("float"); break;
 						}
 					}
-					case "char":
+					case "bit":
+						col.setDatatype("boolean"); break;
+					case "smalldatetime":
 					case "datetime":
-					case "json":
-					case "longtext":
-					case "mediumtext":
-					case "text":
-					case "timestamp":
-					case "time":
-					case "tinytext":
+						col.setDatatype("date"); break;
+					case "char":
+					case "nchar":
 					case "varchar":
+					case "nvarchar":
+					case "timestamp":
+					case "text":
+					case "ntext":
 					case "xml":
+					case "uniqueidentifier":
 						col.setDatatype("String"); break;
 					default:
 						break;
@@ -138,6 +171,7 @@ public class DaoMySql extends Dao
 		table.setName(tableName);
 		querySetTableComment(table);
 		querySetTableColumn(table);
+		querySetTablePk(table);
 		return table;
 	}
 
