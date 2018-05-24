@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.cms.DsCmsPreview;
+import common.cms.CmsFactory;
+import common.cms.CmsFactoryMobile;
+import common.cms.CmsFactoryPreview;
 import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 @Scope("prototype")
@@ -19,60 +21,59 @@ public class DsCmsbuildPreviewController extends BaseController
 		Long siteid = req.getLong("siteid", -1);
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
-		DsCmsPreview cms = new DsCmsPreview(siteid);
+		boolean mobile = req.getString("mobile", "false").equals("true");
+
+		CmsFactory cms = new CmsFactoryPreview(siteid);
+		if(mobile)
+		{
+			cms = new CmsFactoryMobile(cms);
+		}
 		put("cms", cms);
 		put("year", TimeUtil.getCurrentTime("yyyy"));
-		Map<String, Object> site = cms.getSite();
-		put("site", site);
-		put("ctx", request.getContextPath() + "/html/" + site.get("folder") + "/html");// 预览时，现在可以不需要运行服务器，即可浏览相对地址
+		Map<String, Object> s = cms.getSite();
+		put("site", s);
+		put("ctx", request.getContextPath() + "/html/" + s.get("folder") + (mobile ? "/html/m" : "/html"));// 预览时，现在可以不需要运行服务器，即可浏览相对地址
 		if(pageid > 0)// 内容页
 		{
-			Map<String, Object> page = cms.get(pageid.toString());
-			Map<String, Object> cate = cms.getCategory((Long)page.get("categoryid"));
-			put("category", cate);
-			put("id", getString(page.get("id")));
-			put("categoryid", getString(page.get("categoryid")));
-			put("title", getString(page.get("title")));
-			put("summary", getString(page.get("summary")));
-			put("metakeywords", getString(page.get("metakeywords")));
-			put("metadescription", getString(page.get("metadescription")));
-			put("releasetime", getString(page.get("releasetime")));
-			put("releasesource", getString(page.get("releasesource")));
-			put("releaseuser", getString(page.get("releaseuser")));
-			put("img", getString(page.get("img")));
-			put("url", getString(page.get("url")));
-			put("content", getString(page.get("content")));
-			return "/" + site.get("folder") + "/templates/" + cate.get("pageviewsite");
+			Map<String, Object> p = cms.get(pageid.toString());
+			Map<String, Object> c = cms.getCategory(p.get("categoryid"));
+			put("category", c);
+			put("id", getString(p.get("id")));
+			put("categoryid", getString(p.get("categoryid")));
+			put("title", getString(p.get("title")));
+			put("summary", getString(p.get("summary")));
+			put("metakeywords", getString(p.get("metakeywords")));
+			put("metadescription", getString(p.get("metadescription")));
+			put("releasetime", getString(p.get("releasetime")));
+			put("releasesource", getString(p.get("releasesource")));
+			put("releaseuser", getString(p.get("releaseuser")));
+			put("img", getString(p.get("img")));
+			put("url", getString(p.get("url")));
+			put("content", getString(p.get("content")));
+			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mpageviewsite") : "/templates/"+c.get("pageviewsite"));
 		}
 		if(categoryid > 0)// 栏目页
 		{
 			int page = req.getInt("page", 1);
 			int pagesize = req.getInt("pagesize", 25);
-			Map<String, Object> cate = cms.getCategory(categoryid);
-			if(String.valueOf(cate.get("viewsite")).equals(""))
+			Map<String, Object> c = cms.getCategory(categoryid + "");
+			if(String.valueOf(c.get("viewsite")).equals(""))
 			{
 				return null;
 			}
-			try
-			{
-				Map<String, Object> categoryparent = cms.getCategory((Long)cate.get("pid"));
-				put("categoryparent", categoryparent);
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
+			put("categoryparent", cms.getCategory(c.get("pid")));
+			put("categorylist", cms.queryCategory("0"));
 			put("categoryid", categoryid);
-			put("category", cate);
-			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(cate.get("url")), categoryid);
+			put("category", c);
+			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
 			put("datalist", mm.get("list"));
-			put("datapageview", mm.get("datapageview"));
+			put("datapageview", String.valueOf(mm.get("datapageview")));
 			put("datauri", mm.get("datauri"));
 			put("datapage", mm.get("datapage"));
-			return "/" + site.get("folder") + "/templates/" + cate.get("viewsite");
+			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mviewsite") : "/templates/"+c.get("viewsite"));
 		}
 		// 首页
-		return "/" + site.get("folder") + "/templates/" + site.get("viewsite");
+		return "/" + s.get("folder") + (mobile ? "/templates/m/"+s.get("mviewsite") : "/templates/"+s.get("viewsite"));
 	}
 	
 	private String getString(Object object)

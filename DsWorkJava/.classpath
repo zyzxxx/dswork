@@ -3,19 +3,20 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="dswork.test"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="src" path="dswork.analyzer"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.analyzer"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.builder"/>
 	<classpathentry kind="src" path="dswork.config"/>
-	<classpathentry kind="src" path="dswork.core"/>
-	<classpathentry kind="src" path="dswork.cs"/>
-	<classpathentry kind="src" path="dswork.flow"/>
-	<classpathentry kind="src" path="dswork.html"/>
-	<classpathentry kind="src" path="dswork.http"/>
-	<classpathentry kind="src" path="dswork.jdbc"/>
-	<classpathentry kind="src" path="dswork.mvc"/>
-	<classpathentry kind="src" path="dswork.ognl"/>
-	<classpathentry kind="src" path="dswork.spring"/>
-	<classpathentry kind="src" path="dswork.web"/>
-	<classpathentry kind="src" path="dswork.webio"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.core"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.cs"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.flow"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.html"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.http"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.jdbc"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.mvc"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.ognl"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.spring"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.web"/>
+	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.webio"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
@@ -38,5 +39,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Lib/module/lucene/lucene-core-5.5.4.jar"/>
+	<classpathentry kind="lib" path="/Lib/module/template/freemarker-2.3.27.jar"/>
+	<classpathentry kind="lib" path="/Lib/database/mssql/mssql-jdbc4.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

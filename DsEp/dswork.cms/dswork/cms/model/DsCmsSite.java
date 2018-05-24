@@ -19,8 +19,12 @@ public class DsCmsSite
 	private String img = "";
 	// 网站模板
 	private String viewsite = "";
+	// 移动版网站模板
+	private String mviewsite = "";
 	// 开始日志(0否,1是)
 	private int enablelog = 0;
+	// 开启移动版(0否,1是)
+	private int enablemobile = 0;
 	// meta关键词
 	private String metakeywords = "";
 	// meta描述
@@ -96,6 +100,16 @@ public class DsCmsSite
 		this.viewsite = viewsite;
 	}
 
+	public String getMviewsite()
+	{
+		return mviewsite;
+	}
+
+	public void setMviewsite(String mviewsite)
+	{
+		this.mviewsite = mviewsite;
+	}
+
 	public int getEnablelog()
 	{
 		return enablelog;
@@ -114,6 +128,16 @@ public class DsCmsSite
 	public boolean isWriteLog()
 	{
 		return this.enablelog == 1;
+	}
+
+	public int getEnablemobile()
+	{
+		return enablemobile;
+	}
+
+	public void setEnablemobile(int enablemobile)
+	{
+		this.enablemobile = enablemobile;
 	}
 
 	public String getMetakeywords()

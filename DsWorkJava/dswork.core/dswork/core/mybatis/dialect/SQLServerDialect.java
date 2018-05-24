@@ -1,7 +1,7 @@
 package dswork.core.mybatis.dialect;
 
 /**
- * 可用于支持ROW_NUMBER() over(order by *)语法的数据库，如：SQLServer2005、SQLServer2008
+ * Dialect for SQLServer2012 and later
  * @author skey
  */
 public class SQLServerDialect extends Dialect
@@ -14,7 +14,7 @@ public class SQLServerDialect extends Dialect
 	{
 		return true;
 	}
-
+	
 	/**
 	 * 将sql变成分页sql
 	 * @param sql 原始sql语句
@@ -24,13 +24,13 @@ public class SQLServerDialect extends Dialect
 	 */
 	public String getLimitString(String sql, int offset, int limit)
 	{
-		StringBuilder sb = new StringBuilder(sql.length() + 170);
-		sb.append("select * from ( select ROW_NUMBER() over(order by m_.temp__) rn, m_.* from (")
-		.append("select 0 as temp__, t_.* from (")
-		.append(sql)
-		.append(") t_ ")
-		.append(") m_ ")
-		.append(") n_ where n_.rn>").append(offset).append(" and n_.rn<=").append(offset + limit);
+		StringBuilder sb = new StringBuilder(sql.length() + 36);
+		sb.append(sql)
+		.append(" offset ")
+		.append(offset)
+		.append(" rows fetch next ")
+		.append(limit)
+		.append(" rows only");
 		return sb.toString();
 	}
 }

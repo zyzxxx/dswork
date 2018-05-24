@@ -22,8 +22,8 @@ $(function(){
 		<c:if test="${scope==0}"><a class="back" href="getPage.htm?id=${po.id}">返回</a></c:if>
 		<c:if test="${po.audit}">
 		<td class="menuTool">
-			<a class="submit" onclick="_pass();" href="javascript:void(0);">通过</a>
-			<a class="close" onclick="_nopass();" href="javascript:void(0);">不通过</a>
+			<a class="submit" onclick="_pass();" href="#">通过</a>
+			<a class="close" onclick="_nopass();" href="#">不通过</a>
 			<script type="text/javascript">
 			function _pass(){if(confirm('确认通过？')){
 				$('input[name="action"]').val('pass');
@@ -76,6 +76,7 @@ $(function(){
 		<td class="form_title">预览</td>
 		<td class="form_input menuTool">
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">查看栏目内容</a>
+			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}&mobile=true">查看移动版栏目内容</a></c:if>
 		</td>
 	</tr>
 	<tr>
@@ -93,7 +94,7 @@ $(function(){
 	<tr>
 		<td class="form_title">预览</td>
 		<td class="form_input menuTool">
-			<a class="look" target="_blank" href="${po.url}">查看栏目内容</a>
+			<a class="look" target="_blank" href="${po.url}">查看外链</a>
 		</td>
 	</tr>
 </c:if>

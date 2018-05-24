@@ -39,7 +39,7 @@ function empower(account){
 <c:forEach items="${pageModel.result}" var="d" varStatus="status">
 	<tr>
 		<td>${fn:escapeXml(d.name)}(${fn:escapeXml(d.account)})</td>
-		<td class="menuTool"><a class="user" href="javascript:void(0);" onclick="empower('${fn:escapeXml(d.account)}')">授予权限</a></td>
+		<td class="menuTool"><a class="user" onclick="empower('${fn:escapeXml(d.account)}');return false;" href="#">授予权限</a></td>
 	</tr>
 </c:forEach>
 </table>

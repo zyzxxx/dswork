@@ -19,7 +19,7 @@ public class WebioTempUtil extends Thread
 	// ################################################################################################
 	private static final String toPathString(String key)
 	{
-		String s = EnvironmentUtil.getToString(key, "");
+		String s = EnvironmentUtil.getToString(key, "/WorkServer/WebIO/temp");
 		String c = s.substring(s.length()-1);
 		if(!c.equals("\\") && !c.equals("/"))
 		{
@@ -29,7 +29,7 @@ public class WebioTempUtil extends Thread
 	}
 
 	private static final boolean CLEAR = EnvironmentUtil.getToBoolean("webiotemp.clear", false);// 是否定时执行临时目录清理工作
-	private static final long TIMEOUT = EnvironmentUtil.getToLong("webiotemp.timeout", 600000L);// 文件保存时长（毫秒）
+	private static final long TIMEOUT = EnvironmentUtil.getToLong("webiotemp.timeout", 21600000L);// 文件保存时长（毫秒）
 	
 	/**
 	 * 临时上传总目录

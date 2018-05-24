@@ -22,19 +22,6 @@ public class DsCmsPageDao extends BaseDao<DsCmsPage, Long>
 	}
 
 	/**
-	 * 更新链接
-	 * @param id 主键
-	 * @param url 链接
-	 */
-	public void updateURL(long id, String url)
-	{
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("id", id);
-		map.put("url", url);
-		executeUpdate("updateURL", map);
-	}
-
-	/**
 	 * 更新状态
 	 * @param id 主键
 	 * @param status 状态
@@ -45,5 +32,13 @@ public class DsCmsPageDao extends BaseDao<DsCmsPage, Long>
 		map.put("id", id);
 		map.put("status", status);
 		executeUpdate("updateStatus", map);
+	}
+
+	public int delete(long siteid, long categoryid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		map.put("categoryid", categoryid);
+		return executeDelete("deleteNeedBeDelete", map);
 	}
 }

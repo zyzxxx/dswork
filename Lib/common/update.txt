@@ -89,3 +89,14 @@
 2017-12-19
 	升级大部分jar至最新版本
 		slf4j-1.7.22升级到slf4j-1.7.25
+2018-05-04
+	全面升级至servlet3.0
+	dswork修改了dswork.web，新增了servlet3.0的ServletContainerInitializer类MyServletContainerInitializer和MyWebInitializer
+	dswork新增了dswork.config基础包，该包作用于精减掉原web.xml中所有log4j、Spring、验证码、单点登录配置文件路径参数等基础环境配置
+		加入该包可扩展支持config.property文件配置参数dswork.active=dev
+		对/config/config.property下文件新加配置dswork.active=dev，其中dev可以为其它名称用于开启开发环境配置文件，使原只读取存放于/config目录下的
+		配置文件，扩展为优先读取/config/dev/下的同名文件，包括config.property文件（dswork.active参数仅识别/config/config.propert文件的配置）
+2018-05-13
+	dswork增加了dswork.config.spring包，集成配置mybatis中的默认spring系统配置，包括配置文件、数据源、mybatis配置
+	dswork修改了dswork.config包，增加了dswork.config.spring配置文件，增加内容及作用同上。
+	dswork修改了dswork.core包，对"jskey.upload.savePath"参数增加默认值：/WorkServer/WebIO/temp

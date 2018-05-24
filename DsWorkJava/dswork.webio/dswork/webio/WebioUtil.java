@@ -17,7 +17,7 @@ public class WebioUtil extends Thread
 	// ################################################################################################
 	private static final String toPathString(String key)
 	{
-		String s = EnvironmentUtil.getToString(key, "");
+		String s = EnvironmentUtil.getToString(key, "/WorkServer/WebIO");
 		String c = s.substring(s.length()-1);
 		if(!c.equals("\\") && !c.equals("/"))
 		{

@@ -1,6 +1,6 @@
 <%@page language="java" pageEncoding="UTF-8" import="dswork.spring.BeanFactory,
 dswork.web.MyRequest,
-common.any.AnyDao
+dswork.cms.dao.DsCmsAnyDao
 "%><%
 try
 {
@@ -10,7 +10,7 @@ try
 	long categoryid = req.getLong("categoryid", 0L);
 	int updtype = req.getInt("updtype", -1);
 	
-	AnyDao dao = (AnyDao)BeanFactory.getBean("anyDao");
+	DsCmsAnyDao dao = (DsCmsAnyDao)BeanFactory.getBean("dsCmsAnyDao");
 	if(updtype == 1)//更新发布时间
 	{
 		String time = req.getString("time", "");
@@ -33,8 +33,8 @@ try
 				sql_1 += " and RELEASETIME <='"+endtime+"'";
 				sql_2 += " and CATEGORYID="+categoryid;
 			}
-			dao.executeUpdate(AnyDao.initSql(sql_1));
-			dao.executeUpdate(AnyDao.initSql(sql_2));
+			dao.executeUpdate(DsCmsAnyDao.initSql(sql_1));
+			dao.executeUpdate(DsCmsAnyDao.initSql(sql_2));
 			out.print("1:更新成功！");
 		}
 		else
@@ -69,7 +69,7 @@ try
 			{
 				sql = sql + " and RELEASETIME <=\'"+endtime+"\'";
 			}
-			dao.executeUpdate(AnyDao.initSql(sql));
+			dao.executeUpdate(DsCmsAnyDao.initSql(sql));
 			out.print("1:更新成功！");
 		}
 	}

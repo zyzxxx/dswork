@@ -135,7 +135,7 @@ $(function(){
 		<input type="hidden" name="siteid" value="${siteid}">
 		</form>
 		<input type="button" class="button" onclick="cleanFile();return false;" value="清理模板" />
-	<div id="log" style="line-height:25px;"></div>
+	<div id="log" style="line-height:25px;">用于升级cms系统，原使用栏目自定义目录改为ID目录</div>
 </div>
 </body>
 </c:if>

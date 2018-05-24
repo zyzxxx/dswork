@@ -6,10 +6,10 @@
 <mapper namespace="common.cms.DsCmsDao">
 
 <sql id="c_site">
-	id, own, name, folder, url, img, viewsite, metakeywords, metadescription
+	id, own, name, folder, url, img, viewsite, mviewsite, metakeywords, metadescription
 </sql>
 <sql id="c_category">
-	id, pid, siteid, name, scope, status, url, viewsite, pageviewsite, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content
+	id, pid, siteid, name, scope, status, url, viewsite, pageviewsite, mviewsite, mpageviewsite, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content
 </sql>
 <sql id="c_page">
 	id, siteid, categoryid, title, scope, status, url, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content
@@ -22,7 +22,6 @@
 <select id="getCategory" resultType="java.util.Map">
 	select <include refid="c_category" /> from DS_CMS_CATEGORY
 	where ID=#{id} and SITEID=#{siteid}
-	order by SEQ
 </select>
 <select id="get" resultType="java.util.Map">
 	select <include refid="c_page" /> from DS_CMS_PAGE
@@ -52,7 +51,8 @@
 </select>
 <select id="queryCategory" resultType="java.util.Map">
 	select <include refid="c_category" /> from DS_CMS_CATEGORY
-	where SITEID=#{siteid} order by SEQ
+	where SITEID=#{siteid} and STATUS&gt;-1
+	order by SEQ
 </select>
 
 </mapper>

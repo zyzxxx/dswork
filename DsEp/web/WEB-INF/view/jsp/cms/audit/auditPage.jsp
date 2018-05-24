@@ -22,8 +22,8 @@ $(function(){
 		<td class="title">审核页面</td>
 	<c:if test="${po.audit}">
 		<td class="menuTool">
-			<a class="submit" onclick="_pass();" href="javascript:void(0);">通过</a>
-			<a class="close" onclick="_nopass();" href="javascript:void(0);">不通过</a>
+			<a class="submit" onclick="_pass();" href="#">通过</a>
+			<a class="close" onclick="_nopass();" href="#">不通过</a>
 			<a class="back" href="getPage.htm?id=${po.categoryid}&page=${param.page}">返回</a>
 			<script type="text/javascript">
 			function _pass(){if(confirm('确认通过？')){
@@ -48,7 +48,7 @@ $(function(){
 <c:if test="${po.audit}">
 <c:if test="${po.status==-1}">
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-	<tr><td class="form_input" style="color:red;text-align:center;">删除操作审核，审核通过后本条目将被删除</td></tr>
+	<tr><td class="form_input" style="color:red;text-align:center;">删除操作审核，审核通过后本条目将在该栏目发布时被删除</td></tr>
 </table>
 <div class="line"></div>
 </c:if>
@@ -86,10 +86,11 @@ $(function(){
 		<td class="form_title">操作</td>
 		<td class="form_input menuTool">
 		<c:if test="${po.scope==2}">
-			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">查看栏目内容</a>
+			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">查看外链</a>
 		</c:if>
 		<c:if test="${po.scope!=2}">
-			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">查看栏目内容</a>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">查看内容</a>
+			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}&mobile=true">查看移动版内容</a></c:if>
 		</c:if>
 		</td>
 	</tr>

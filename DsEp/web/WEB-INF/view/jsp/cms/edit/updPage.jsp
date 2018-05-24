@@ -42,15 +42,33 @@ $(function(){
 	<tr>
 		<td class="title">修改页面</td>
 		<td class="menuTool">
-		<c:if test="${po.scope==2}">
-			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">预览页面</a>
-		</c:if>
+		<c:if test="${po.scope==2}"><a class="look" target="_blank" href="${fn:escapeXml(po.url)}">预览外链</a></c:if>
 		<c:if test="${po.scope!=2}">
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">预览页面</a>
+			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}&mobile=true">预览移动版页面</a></c:if>
+		</c:if>
+		<c:if test="${po.audit}">
+			<a class="back" onclick="_revoke();" href="#">撤回审核</a>
+			<script type="text/javascript">
+			function _revoke(){if(confirm("确认撤回吗？")){
+				$('input[name="action"]').val('revoke');
+				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
+			}}
+			$(function(){$("input,textarea").attr("readonly", "readonly")});
+			</script>
 		</c:if>
 		<c:if test="${!po.audit}">
-			<a class="save" onclick="_save();" href="javascript:void(0);">保存</a>
-			<a class="submit" onclick="_submit();" href="javascript:void(0);">提交</a>
+			<c:if test="${po.status>0 && (po.edit || po.nopass)}">
+				<a class="back" onclick="_restore();" href="#">还原</a>
+				<script type="text/javascript">
+				function _restore(){if(confirm("确认还原吗？")){
+					$('input[name="action"]').val('restore');
+					$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
+				}}
+				</script>
+			</c:if>
+			<a class="save" onclick="_save();" href="#">保存</a>
+			<a class="submit" onclick="_submit();" href="#">保存并提交</a>
 			<script type="text/javascript">
 			function _save(){if(confirm("确认保存吗？")){
 				$('input[name="action"]').val('save');
@@ -60,25 +78,6 @@ $(function(){
 				$('input[name="action"]').val('submit');
 				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
 			}}
-			</script>
-			<c:if test="${po.status>0 && (po.edit || po.nopass)}">
-				<a class="back" onclick="_restore();" href="javascript:void(0);">还原</a>
-				<script type="text/javascript">
-				function _restore(){if(confirm("确认还原吗？")){
-					$('input[name="action"]').val('restore');
-					$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
-				}}
-				</script>
-			</c:if>
-		</c:if>
-		<c:if test="${po.audit}">
-			<a class="back" onclick="_revoke();" href="javascript:void(0);">撤回审核</a>
-			<script type="text/javascript">
-			function _revoke(){if(confirm("确认撤回吗？")){
-				$('input[name="action"]').val('revoke');
-				$('#dataForm').ajaxSubmit($dswork.doAjaxOption);
-			}}
-			$(function(){$("input,textarea").attr("readonly", "readonly")});
 			</script>
 		</c:if>
 			<a class="back" href="getPage.htm?id=${po.categoryid}&page=${fn:escapeXml(param.page)}">返回</a>

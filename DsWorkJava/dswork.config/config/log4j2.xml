@@ -17,11 +17,10 @@
 		<!-- <Failover name="failover" primary="logfile"> <Failovers> <AppenderRef ref="stdout" /> </Failovers> </Failover> -->
 	</Appenders>
 	<Loggers>
-		<logger level="INFO"  additivity="false" name="jdbc.sqlonly"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="WARN"  additivity="false" name="jdbc.sqlonly"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
+		<logger level="WARN"  additivity="false" name="org.mybatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="WARN"  additivity="false" name="org.apache.ibatis"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="WARN"  additivity="false" name="org.springframework"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
-		<logger level="WARN"  additivity="false" name="org.springframework.jdbc.core.JdbcTemplate"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
-		<logger level="WARN"  additivity="false" name="org.springframework.web.servlet.PageNotFound"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="FATAL" additivity="false" name="org.hibernate"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="FATAL" additivity="false" name="org.hibernate.SQL"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>
 		<logger level="FATAL" additivity="false" name="org.apache.commons.validator.ValidatorResources"><appender-ref ref="stdout" /><appender-ref ref="logfile" /></logger>

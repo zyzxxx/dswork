@@ -1,6 +1,0 @@
-<?xml version="1.0"?>
-<project default="init">
-<target name="init">
-	<exec command="E:/Workspaces/MySpace/dswork/CodeBuilder/builder/Builder.exe your.xml" failonerror="true"></exec>
-</target>
-</project>

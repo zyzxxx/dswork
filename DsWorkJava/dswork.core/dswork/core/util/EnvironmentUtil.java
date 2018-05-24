@@ -20,7 +20,7 @@ public class EnvironmentUtil
 		setSystemProperties(SYSTEM_PROPERTIES_PATH);
 	}
 
-	private static void setSystemProperties(String path)
+	public static void setSystemProperties(String path)
 	{
 		SYSTEM_PROPERTIES = new Properties();
 		InputStream stream = EnvironmentUtil.class.getResourceAsStream(path);
@@ -50,7 +50,6 @@ public class EnvironmentUtil
 		{
 			System.out.println(SYSTEM_PROPERTIES_PATH + "无法加载");
 		}
-		System.getProperties();
 	}
 
 	/**

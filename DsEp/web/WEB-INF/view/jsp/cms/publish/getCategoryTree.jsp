@@ -39,13 +39,13 @@ $dswork.ztree.click = function(){
 	return false;
 };
 function build(categoryid, pageid){
-	$dswork.doAjaxObject.show("发布中");
+	$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
 	$.post("build.htm",{"siteid":"${siteid}", "categoryid":categoryid, "pageid":pageid},function(data){
 		$dswork.doAjaxShow(data, function(){});
 	});
 }
 function unbuild(categoryid, pageid){
-	$dswork.doAjaxObject.show("删除中");
+	$dswork.doAjaxObject.autoDelayHide("删除中", 2000);
 	$.post("unbuild.htm",{"siteid":"${siteid}", "categoryid":categoryid, "pageid":pageid},function(data){
 		$dswork.doAjaxShow(data, function(){});
 	});
@@ -53,7 +53,7 @@ function unbuild(categoryid, pageid){
 $(function(){
 	var v = [];
 	<c:forEach items="${categoryList}" var="d">
-	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)}", "scope":"${d.scope}", "enable":"${d.enable}"});
+	v.push({"id":"${d.id}", "pid":"${d.pid}", "name":"${fn:escapeXml(d.name)} [${d.scope==0?'列表':d.scope==1?'单页':'外链'}]", "scope":"${d.scope}", "enable":"${d.enable}"});
 	</c:forEach>
 	$dswork.ztree.nodeArray = v;
 	$dswork.ztree.config.async.enable = false;
@@ -85,6 +85,14 @@ $(function(){
 			window.open('${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${siteid}&categoryid='+v);
 		}
 	});
+<c:if test="${enablemobile}">
+	$("#mview").bind("click", function(){
+		var v = $('#category').find('option:selected').val();
+		if(v!="0"){
+			window.open('${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${siteid}&mobile=true&categoryid='+v);
+		}
+	});
+</c:if>
 	$("#btn_category_d").bind("click", function(){
 		var m = $("#category").find("option:selected");
 		if(confirm("是否删除栏目\"" + m.text() + "\"已发布首页")){unbuild(m.val(), -1);}
@@ -103,11 +111,13 @@ $(function(){
 	<tr>
 		<td class="title">切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select>
 			<input id="btn_site" type="button" class="button" value="发布首页" />&nbsp;<input type="button" class="button" value="预览首页" onclick="window.open('${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${siteid}');" />
+			<c:if test="${enablemobile}"><input type="button" class="button" value="预览移动版首页" onclick="window.open('${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${siteid}&mobile=true');" /></c:if>
 			&nbsp;&nbsp;
 			选择需要发布的栏目：<select id="category"><option value="0">全部栏目</option><c:forEach items="${categoryList}" var="d"><option value="${d.id}">${d.label}${fn:escapeXml(d.name)}</option></c:forEach></select>
 			<input id="btn_category" type="button" class="button" value="发布栏目首页" />
 			<input id="btn_page" type="button" class="button" value="发布栏目内容" />
 			<input id="view" type="button" class="button" value="预览栏目" />
+			<c:if test="${enablemobile}"><input id="mview" type="button" class="button" value="预览移动版栏目" /></c:if>
 			<input id="btn_category_d" type="button" class="button" value="删除栏目首页" />
 			<input id="btn_page_d" type="button" class="button" value="删除发布内容" />
 		</td>
@@ -120,7 +130,7 @@ $(function(){
 	</div>
 </div>
 <div region="center" style="overflow:hidden;">
-	<iframe id="mainFrame" src="" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
+	<iframe id="mainFrame" src="getCategoryPublish.htm?siteid=${siteid}" frameborder="0" scrolling="auto" style="width:100%;height:100%;"></iframe>
 </div>
 </body>
 </c:if>

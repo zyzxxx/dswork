@@ -33,9 +33,9 @@ public class DsCmsLog
 	private String publishname = "";
 	// 发布时间
 	private String publishtime = "";
-	// 状态(-1删除,0新增,1修改,2拷贝新增,4撤销提交,8已发)
+	// 状态(-1删除,0新增,1修改,8已发)
 	private int status = 0;
-	// 审核状态(0草稿,1未审核,2不通过,4通过)
+	// 动作(0提交新增,1提交修改,2提交删除,3撤销提交,4不通过审核,5通过审核)
 	private int auditstatus = 0;
 	// 标题(栏目:NAME,内容:TITLE)
 	private String title = "";

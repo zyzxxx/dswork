@@ -14,7 +14,7 @@ public class DsCmsCategory
 	private Long pid = null;
 	// 站点ID
 	private long siteid = 0L;
-	// 状态(-1待删除,0待发布,1待更新,8已发布)
+	// 状态(-1删除,0新增,1修改,8已发)
 	private int status = 0;
 	// 栏目名称
 	private String name = "";
@@ -26,6 +26,10 @@ public class DsCmsCategory
 	private String viewsite = "";
 	// 内容模板
 	private String pageviewsite = "";
+	// 移动版栏目模板
+	private String mviewsite = "";
+	// 移动版内容模板
+	private String mpageviewsite = "";
 	// 排序
 	private int seq = 0;
 	// meta关键词
@@ -50,6 +54,8 @@ public class DsCmsCategory
 	private boolean enable = false;
 	// 树形标识(管理时扩展显示)
 	private String label = "";
+	// 审核/待发布计数
+	private int count = 0;
 
 	public Long getId()
 	{
@@ -139,6 +145,26 @@ public class DsCmsCategory
 	public void setPageviewsite(String pageviewsite)
 	{
 		this.pageviewsite = pageviewsite;
+	}
+
+	public String getMviewsite()
+	{
+		return mviewsite;
+	}
+
+	public void setMviewsite(String mviewsite)
+	{
+		this.mviewsite = mviewsite;
+	}
+
+	public String getMpageviewsite()
+	{
+		return mpageviewsite;
+	}
+
+	public void setMpageviewsite(String mpageviewsite)
+	{
+		this.mpageviewsite = mpageviewsite;
 	}
 
 	public int getSeq()
@@ -264,5 +290,15 @@ public class DsCmsCategory
 	public void setLabel(String label)
 	{
 		this.label = label;
+	}
+
+	public int getCount()
+	{
+		return count;
+	}
+
+	public void setCount(int count)
+	{
+		this.count = count;
 	}
 }

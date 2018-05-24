@@ -61,9 +61,9 @@ var treedata = [
 var nn = [
 	{id:10, name:"CMS", img:"", imgOpen:"", url:"", items:[
 		 {id:12,name:"栏目管理", img:"", imgOpen:"", url:'/cms/category/getCategory.htm', items:[]}
+		,{id:13,name:"栏目回收站", img:"", imgOpen:"", url:'/cms/category/getRecycledCategory.htm', items:[]}
 		,{id:11,name:"模板编辑", img:"", imgOpen:"", url:'/cms/template/getTemplateTree.htm', items:[]}
 		,{id:12,name:"附件管理", img:"", imgOpen:"", url:'/cms/file/getFileTree.htm', items:[]}
-// 		,{id:13,name:"信息发布", img:"", imgOpen:"", url:'/cms/page/getCategoryTree.htm', items:[]}
 		,{id:14,name:"附加功能", img:"", imgOpen:"", url:'', items:[
 			 {id:141,name:'CMS日志', img:"", imgOpen:"", url:'/cms/log/getLog.jsp', items:[]}
 			,{id:143,name:'信息总数', img:"", imgOpen:"", url:'/cms/page/main.html', items:[]}
@@ -73,8 +73,9 @@ var nn = [
 	   		 {id:151,name:'信息采编', img:"", imgOpen:"", url:'/cms/edit/getCategoryTree.htm', items:[]}
 			,{id:152,name:'信息审核', img:"", imgOpen:"", url:'/cms/audit/getCategoryTree.htm', items:[]}
 			,{id:153,name:'信息发布', img:"", imgOpen:"", url:'/cms/publish/getCategoryTree.htm', items:[]}
-			,{id:16, name:"权限管理", img:"", imgOpen:"", url:"", items:[
-				 {id:161,name:'用户授权', img:"", imgOpen:"", url:'/cms/permission/getUser.htm', items:[]}
+			,{id:154, name:"权限管理", img:"", imgOpen:"", url:"", items:[
+				 {id:1541,name:'用户授权', img:"", imgOpen:"", url:'/cms/permission/getUser.htm', items:[]}
+				,{id:1542,name:'授权情况', img:"", imgOpen:"", url:'/cms/permission/getCategory.htm', items:[]}
 			]}
 		]}
 	]}

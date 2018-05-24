@@ -1,15 +1,15 @@
 <%@page language="java" pageEncoding="UTF-8" import="
 dswork.spring.BeanFactory,
 dswork.web.MyRequest,
+dswork.cms.dao.DsCmsAnyDao,
 java.util.Map,
-java.util.HashMap,
-common.any.AnyDao
+java.util.HashMap
 "%><%
 Map<String, Object> map = new HashMap<String, Object>();
 try
 {
 	MyRequest req = new MyRequest(request);
-	AnyDao dao = (AnyDao)BeanFactory.getBean("anyDao");
+	DsCmsAnyDao dao = (DsCmsAnyDao)BeanFactory.getBean("dsCmsAnyDao");
 
 	Map<String, Object> mapx = new HashMap<String, Object>();
 	long siteid = req.getLong("siteid");
