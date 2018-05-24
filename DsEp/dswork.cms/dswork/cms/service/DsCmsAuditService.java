@@ -20,17 +20,15 @@ import dswork.cms.dao.DsCmsPageDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsCount;
-import dswork.cms.model.DsCmsLog;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
-import dswork.core.util.UniqueId;
 
-@SuppressWarnings("unchecked")
 @Service
+@SuppressWarnings("unchecked")
 public class DsCmsAuditService
 {
 	@Autowired
@@ -137,7 +135,7 @@ public class DsCmsAuditService
 		categoryEditDao.update(po);
 		if(enablelog)
 		{
-			writeLogCategory(po, po.isPass() ? 5 : 4);
+			logDao.saveForAuditCategory(po, po.isPass() ? 5 : 4);
 		}
 	}
 
@@ -187,7 +185,7 @@ public class DsCmsAuditService
 		pageEditDao.update(po);
 		if(enablelog)
 		{
-			writeLogPage(po, po.isPass() ? 5 : 4);
+			logDao.saveForAuditPage(po, po.isPass() ? 5 : 4);
 		}
 	}
 
@@ -216,7 +214,7 @@ public class DsCmsAuditService
 		}
 		if(enablelog)
 		{
-			writeLogPage(po, 5);
+			logDao.saveForAuditPage(po, 5);
 		}
 	}
 
@@ -228,73 +226,6 @@ public class DsCmsAuditService
 	public Page<DsCmsPageEdit> queryPagePageEdit(PageRequest pr)
 	{
 		return pageEditDao.queryPage(pr);
-	}
-
-	private void writeLogPage(DsCmsPageEdit po, int action)
-	{
-		try
-		{
-			DsCmsLog log = new DsCmsLog();
-			log.setId(UniqueId.genId());
-			log.setSiteid(po.getSiteid());
-			log.setCategoryid(po.getCategoryid());
-			log.setPageid(po.getId());
-			log.setAuditid(po.getAuditid());
-			log.setAuditmsg(po.getMsg());
-			log.setAuditname(po.getAuditname());
-			log.setAudittime(po.getAudittime());
-			log.setStatus(po.getStatus());
-			log.setAuditstatus(action);
-			log.setTitle(po.getTitle());
-			log.setScope(po.getScope());
-			log.setUrl(po.getUrl());
-			log.setMetakeywords(po.getMetakeywords());
-			log.setMetadescription(po.getMetadescription());
-			log.setSummary(po.getSummary());
-			log.setReleasetime(po.getReleasetime());
-			log.setReleasesource(po.getReleasesource());
-			log.setReleaseuser(po.getReleaseuser());
-			log.setImg(po.getImg());
-			log.setContent(po.getContent());
-			log.setImgtop(po.getImgtop());
-			log.setPagetop(po.getPagetop());
-			logDao.save(log);
-		}
-		catch(Exception e)
-		{
-		}
-	}
-
-	private void writeLogCategory(DsCmsCategoryEdit po, int action)
-	{
-		try
-		{
-			DsCmsLog log = new DsCmsLog();
-			log.setId(UniqueId.genId());
-			log.setSiteid(po.getSiteid());
-			log.setCategoryid(po.getId());
-			log.setAuditid(po.getAuditid());
-			log.setAuditmsg(po.getMsg());
-			log.setAuditname(po.getAuditname());
-			log.setAudittime(po.getAudittime());
-			log.setStatus(po.getStatus());
-			log.setAuditstatus(action);
-			log.setTitle(po.getName());
-			log.setScope(po.getScope());
-			log.setUrl(po.getUrl());
-			log.setMetakeywords(po.getMetakeywords());
-			log.setMetadescription(po.getMetadescription());
-			log.setSummary(po.getSummary());
-			log.setReleasetime(po.getReleasetime());
-			log.setReleasesource(po.getReleasesource());
-			log.setReleaseuser(po.getReleaseuser());
-			log.setImg(po.getImg());
-			log.setContent(po.getContent());
-			logDao.save(log);
-		}
-		catch(Exception e)
-		{
-		}
 	}
 
 	public List<DsCmsCount> queryCountForAudit(long siteid, List<Long> idsForPageList, List<Long> idsForCategoryList)
