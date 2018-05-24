@@ -73,6 +73,7 @@ public class AliyunSMS
 		return java.net.URLEncoder.encode(value, "UTF-8").replace("+", "%20").replace("*", "%2A").replace("%7E", "~");
 	}
 
+	@SuppressWarnings("restriction")
 	private static String sign(String accessSecret, String stringToSign) throws Exception
 	{
 		javax.crypto.Mac mac = javax.crypto.Mac.getInstance("HmacSHA1");
