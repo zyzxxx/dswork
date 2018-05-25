@@ -87,7 +87,7 @@ public class Builder
 					String namespace = m.namespace;
 					if(namespace.startsWith("/"))
 					{
-						namespace = namespace.substring(1, namespace.length() - 1);
+						namespace = namespace.substring(1, namespace.length());
 					}
 					param.put("namespace", namespace.replace('/', '.'));
 					param.put("model", m.model);
