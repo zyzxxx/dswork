@@ -64,8 +64,12 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td style="width:5%">排序</td>
 		<td style="width:6%">栏目ID</td>
 		<td>名称</td>
-		<td style="width:17%">栏目模板</td>
-		<td style="width:13%">内容模板</td>
+		<td style="width:15%">栏目模板</td>
+		<td style="width:12%">内容模板</td>
+	<c:if test="${enablemobile}">
+		<td style="width:15%">移动版栏目模板</td>
+		<td style="width:12%">移动版内容模板</td>
+	</c:if>
 	</tr>
 <c:forEach items="${list}" var="d">
 	<tr>
@@ -73,8 +77,12 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 		<td><input name="seq" type="text" style="width:24px;" value="${d.seq}" /></td>
 		<td class="k"><input name="keyIndex" type="text" style="width:100%;" readonly="readonly" value="${d.id}" /></td>
 		<td class="v" style="text-align:left;">${d.label}${fn:escapeXml(d.name)}&nbsp;<a onclick="return false;" href="#" title="${fn:escapeXml(d.url)}">[${d.scope==0?'列表':d.scope==1?'单页':'外链'}]</a></td>
-		<td>${fn:escapeXml(d.viewsite)}</td>
-		<td>${fn:escapeXml(d.pageviewsite)}</td>
+		<td>${fn:replace(d.viewsite,'.jsp','')}</td>
+		<td>${fn:replace(d.pageviewsite,'.jsp','')}</td>
+	<c:if test="${enablemobile}">
+		<td>${fn:replace(d.mviewsite,'.jsp','')}</td>
+		<td>${fn:replace(d.mpageviewsite,'.jsp','')}</td>
+	</c:if>
 	</tr>
 </c:forEach>
 </table>

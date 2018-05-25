@@ -26,6 +26,10 @@ public class DsCmsCategory
 	private String viewsite = "";
 	// 内容模板
 	private String pageviewsite = "";
+	// 移动版栏目模板
+	private String mviewsite = "";
+	// 移动版内容模板
+	private String mpageviewsite = "";
 	// 排序
 	private int seq = 0;
 	// meta关键词
@@ -141,6 +145,26 @@ public class DsCmsCategory
 	public void setPageviewsite(String pageviewsite)
 	{
 		this.pageviewsite = pageviewsite;
+	}
+
+	public String getMviewsite()
+	{
+		return mviewsite;
+	}
+
+	public void setMviewsite(String mviewsite)
+	{
+		this.mviewsite = mviewsite;
+	}
+
+	public String getMpageviewsite()
+	{
+		return mpageviewsite;
+	}
+
+	public void setMpageviewsite(String mpageviewsite)
+	{
+		this.mpageviewsite = mpageviewsite;
 	}
 
 	public int getSeq()
@@ -268,12 +292,12 @@ public class DsCmsCategory
 		this.label = label;
 	}
 
-	public synchronized int getCount()
+	public int getCount()
 	{
 		return count;
 	}
 
-	public synchronized void setCount(int count)
+	public void setCount(int count)
 	{
 		this.count = count;
 	}

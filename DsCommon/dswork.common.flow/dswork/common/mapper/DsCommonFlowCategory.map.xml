@@ -51,7 +51,7 @@
 </select>
 
 <select id="query" resultMap="result">
-	select <include refid="common.top" /><include refid="columns" /> from DS_FLOW_CATEGORY
+	select <include refid="dswork.top" /><include refid="columns" /> from DS_FLOW_CATEGORY
 	<include refid="dynamicWhere" /> order by SEQ asc
 </select>
 

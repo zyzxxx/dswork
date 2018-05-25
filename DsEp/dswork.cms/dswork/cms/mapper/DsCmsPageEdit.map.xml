@@ -10,9 +10,9 @@
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_PAGE_EDIT
-	(SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG)
+	(SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG, PUSHKEY)
 	values
-	(#{siteid}, #{categoryid}, #{status}, #{title}, #{scope}, #{url}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg})
+	(#{siteid}, #{categoryid}, #{status}, #{title}, #{scope}, #{url}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg}, #{pushkey})
 </insert>
 
 <delete id="delete">
@@ -50,6 +50,10 @@
 	where ID=#{id}
 </update>
 
+<update id="updateUrl">
+	update DS_CMS_PAGE set URL=#{url} where ID=#{id}
+</update>
+
 <resultMap id="result" type="dswork.cms.model.DsCmsPageEdit">
 	<id property="id" column="ID" />
 	<result property="siteid" column="SITEID" />
@@ -76,9 +80,10 @@
 	<result property="auditname" column="AUDITNAME" />
 	<result property="audittime" column="AUDITTIME" />
 	<result property="msg" column="MSG" />
+	<result property="pushkey" column="PUSHKEY" />
 </resultMap>
 
-<sql id="columns">ID, SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG</sql>
+<sql id="columns">ID, SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG, PUSHKEY</sql>
 	
 <sql id="dynamicWhere">
 	<where>
@@ -94,6 +99,10 @@
 
 <select id="select" resultMap="result">
 	select <include refid="columns" /> from DS_CMS_PAGE_EDIT where ID=#{id}
+</select>
+
+<select id="selectByPushkey" resultMap="result">
+	select <include refid="columns" /> from DS_CMS_PAGE_EDIT where PUSHKEY=#{pushkey}
 </select>
 
 <select id="query" resultMap="result">

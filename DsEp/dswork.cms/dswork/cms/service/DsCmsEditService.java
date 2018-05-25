@@ -45,6 +45,7 @@ public class DsCmsEditService
 
 	public void savePageEdit(DsCmsPageEdit po, boolean writePage, boolean enablelog, String editid, String editname)
 	{
+		pageEditDao.save(po);
 		if(po.getScope() != 2) // 不为外链
 		{
 			po.setUrl("/a/" + po.getCategoryid() + "/" + po.getId() + ".html");
@@ -69,11 +70,11 @@ public class DsCmsEditService
 			p.setPagetop(po.getPagetop());
 			p.setScope(po.getScope());
 			p.setStatus(0);// page设置为新建未发布状态
+			p.setUrl(po.getUrl());
 			pageDao.save(p);
-			pageDao.updateURL(po.getId(), po.getUrl());
 			po.setAuditstatus(4);// pageEdit设置为已通过状态
 		}
-		pageEditDao.save(po);
+		pageEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
 		{
 			writeLogPage(po, 0, editid, editname);
@@ -147,15 +148,15 @@ public class DsCmsEditService
 		if(writePage)
 		{
 			DsCmsPage p = (DsCmsPage) pageDao.get(po.getId());
-			boolean isSave = false;
+			boolean save = false;
 			if(p == null)
 			{
 				p = new DsCmsPage();
 				p.setId(po.getId());
-				isSave = true;
+				p.setSiteid(po.getSiteid());
+				p.setCategoryid(po.getCategoryid());
+				save = true;
 			}
-			p.setSiteid(po.getSiteid());
-			p.setCategoryid(po.getCategoryid());
 			p.setStatus(po.getStatus());
 			p.setTitle(po.getTitle());
 			p.setMetakeywords(po.getMetakeywords());
@@ -169,11 +170,11 @@ public class DsCmsEditService
 			p.setImgtop(po.getImgtop());
 			p.setPagetop(po.getPagetop());
 			p.setScope(po.getScope());
-			if(isSave)
+			p.setUrl(po.getUrl());
+			if(save)
 			{
 				p.setStatus(0);// page设置为新建未发布状态
 				pageDao.save(p);
-				pageDao.updateURL(po.getId(), po.getUrl());
 			}
 			else
 			{

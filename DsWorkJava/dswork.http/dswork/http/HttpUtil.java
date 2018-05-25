@@ -14,9 +14,6 @@ import java.util.Locale;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * 封装http请求
  * @author skey
@@ -24,7 +21,6 @@ import org.slf4j.LoggerFactory;
  */
 public class HttpUtil
 {
-	static Logger log = LoggerFactory.getLogger(HttpUtil.class.getName());
 	private HttpURLConnection http;
 	private SSLSocketFactory sslSocketFactory;
 	private boolean isHttps = false;
@@ -92,20 +88,12 @@ public class HttpUtil
 	 */
 	public HttpUtil setRequestMethod(String requestMethod)
 	{
-		if(http == null)
+		try
 		{
-			log.error("http is not create");
+			this.http.setRequestMethod(requestMethod.toUpperCase(Locale.ROOT));
 		}
-		else
+		catch(Exception e)
 		{
-			try
-			{
-				this.http.setRequestMethod(requestMethod.toUpperCase(Locale.ROOT));
-			}
-			catch(Exception e)
-			{
-				log.error(e.getMessage());
-			}
 		}
 		return this;
 	}
@@ -118,20 +106,12 @@ public class HttpUtil
 	 */
 	public HttpUtil setRequestProperty(String key, String value)
 	{
-		if(http == null)
+		try
 		{
-			log.error("http is not create");
+			this.http.setRequestProperty(key, value);
 		}
-		else
+		catch(Exception e)
 		{
-			try
-			{
-				this.http.setRequestProperty(key, value);
-			}
-			catch(Exception e)
-			{
-				log.error(e.getMessage());
-			}
 		}
 		return this;
 	}
@@ -154,14 +134,7 @@ public class HttpUtil
 	 */
 	public HttpUtil setUseCaches(boolean usecaches)
 	{
-		if(http == null)
-		{
-			log.error("http is not create");
-		}
-		else
-		{
-			this.http.setUseCaches(usecaches);
-		}
+		this.http.setUseCaches(usecaches);
 		return this;
 	}
 
@@ -228,7 +201,6 @@ public class HttpUtil
 		}
 		catch(Exception e)
 		{
-			e.printStackTrace();
 		}
 		return this;
 	}
@@ -273,10 +245,6 @@ public class HttpUtil
 				this.http.setUseCaches(false);
 				if(this.http.getRequestMethod().toUpperCase().equals("GET"))// DELETE, PUT, POST
 				{
-					if(log.isDebugEnabled())
-					{
-						log.debug("RequestMethod GET change to POST");
-					}
 					this.http.setRequestMethod("POST");
 				}
 				// this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
@@ -306,10 +274,6 @@ public class HttpUtil
 							this.addCookie(m.getName(), m.getValue());
 						}
 					}
-					if(log.isDebugEnabled())
-					{
-						log.debug("Cookie:" + m);
-					}
 				}
 				in = new BufferedReader(new InputStreamReader(http.getInputStream(), charsetName));
 				String temp = in.readLine();
@@ -330,7 +294,6 @@ public class HttpUtil
 		}
 		catch(Exception e)
 		{
-			log.error(e.getMessage());
 		}
 		try
 		{
@@ -338,7 +301,6 @@ public class HttpUtil
 		}
 		catch(Exception e)
 		{
-			log.error(e.getMessage());
 		}
 		return result;
 	}
@@ -382,10 +344,6 @@ public class HttpUtil
 				this.http.setUseCaches(false);
 				if(this.http.getRequestMethod().toUpperCase().equals("GET"))// DELETE, PUT, POST
 				{
-					if(log.isDebugEnabled())
-					{
-						log.debug("RequestMethod GET change to POST");
-					}
 					this.http.setRequestMethod("POST");
 				}
 				// this.http.setRequestProperty("Content-Length", String.valueOf(data.length()));
@@ -414,17 +372,12 @@ public class HttpUtil
 							this.addCookie(m.getName(), m.getValue());
 						}
 					}
-					if(log.isDebugEnabled())
-					{
-						log.debug("Cookie:" + m);
-					}
 				}
 				return http.getInputStream();
 			}
 		}
 		catch(Exception e)
 		{
-			log.error(e.getMessage());
 		}
 		try
 		{
@@ -432,7 +385,6 @@ public class HttpUtil
 		}
 		catch(Exception e)
 		{
-			log.error(e.getMessage());
 		}
 		return null;
 	}

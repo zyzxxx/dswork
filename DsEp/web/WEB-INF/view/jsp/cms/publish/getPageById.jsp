@@ -8,13 +8,16 @@
 <%@include file="/commons/include/updAjax.jsp" %>
 <%@include file="/commons/include/editor.jsp" %>
 <script type="text/javascript">
+$dswork.callback = function(){if($dswork.result.type==1){
+	location.reload();
+}};
 $(function(){
 	$(".form_title").css("width", "8%");
 	$("#btn_category").bind("click", function(){
 		if(confirm("是否发布")){
 			$dswork.doAjaxObject.show("发布中");
 			$.post("build.htm",{siteid:"${po.siteid}",categoryid:"${po.categoryid}",pageid:"${po.id}"},function(data){
-				$dswork.doAjaxShow(data, function(){});
+				$dswork.doAjaxShow(data, $dswork.callback);
 			});
 		}
 	});
@@ -28,10 +31,11 @@ $(function(){
 		<td class="title">页面明细</td>
 		<td class="menuTool">
 		<c:if test="${po.scope==2}">
-			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">预览</a>
+			<a class="look" target="_blank" href="${fn:escapeXml(po.url)}">预览外链</a>
 		</c:if>
 		<c:if test="${po.scope!=2}">
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}">预览</a>
+			<c:if test="enablemobile"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.categoryid}&pageid=${po.id}&mobile=true">预览</a></c:if>
 		</c:if>
 			<a class="graph" id="btn_category" href="#">发布</a>
 			<a class="back" href="getPage.htm?id=${po.categoryid}&page=${page}">返回</a>

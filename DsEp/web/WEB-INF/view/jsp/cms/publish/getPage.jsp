@@ -7,6 +7,9 @@
 <title></title>
 <%@include file="/commons/include/get.jsp" %>
 <script type="text/javascript">
+$dswork.callback = function(){if($dswork.result.type==1){
+	location.reload();
+}};
 function build(pageid){
 	$dswork.doAjaxObject.autoDelayHide("发布中", 2000);
 	var v = {"siteid":"${po.siteid}"};
@@ -14,7 +17,7 @@ function build(pageid){
 		v.categoryid = "${po.id}";
 		v.pageid = pageid;
 	}
-	$.post("build.htm",v,function(data){$dswork.doAjaxShow(data, function(){});});
+	$.post("build.htm",v,function(data){$dswork.doAjaxShow(data, $dswork.callback);});
 }
 function unbuild(pageid){
 	$dswork.doAjaxObject.autoDelayHide("删除中", 2000);
@@ -23,7 +26,7 @@ function unbuild(pageid){
 		v.categoryid = "${po.id}";
 		v.pageid = pageid;
 	}
-	$.post("unbuild.htm",v,function(data){$dswork.doAjaxShow(data, function(){});});
+	$.post("unbuild.htm",v,function(data){$dswork.doAjaxShow(data, $dswork.callback);});
 }
 $dswork.page.join = function(td, menu, id){
 	$(menu).append($('<div iconCls="menuTool-graph">预览</div>').bind("click", function(){
@@ -31,6 +34,13 @@ $dswork.page.join = function(td, menu, id){
 		if(!url){url = "${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&pageid=" + id;}
 		window.open(url);
 	}));
+<c:if test="${enablemobile}">
+	$(menu).append($('<div iconCls="menuTool-graph">预览移动版</div>').bind("click", function(){
+		var url = td.attr("url");
+		if(!url){url = "${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&mobile=true&pageid=" + id;}
+		window.open(url);
+	}));
+</c:if>
 	$(menu).append($('<div iconCls="menuTool-graph">发布</div>').bind("click", function(){
 		if(confirm("是否发布内容")){build(id);}
 	}));
@@ -81,11 +91,13 @@ $(function(){
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_category" href="#">发布栏目首页</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览栏目首页</a>
+			<c:if test="enablemobile"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&mobile=true">预览移动版栏目首页</a></c:if>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_page" href="#">发布栏目内容</a>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_site" href="#">发布首页</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
+			<c:if test="enablemobile"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&mobile=true">预览移动版首页</a></c:if>
 		</td>
 	</tr>
 </table>

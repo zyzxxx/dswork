@@ -4,7 +4,7 @@ web.xml过滤器配置：
 		<filter-name>authOwnSSOFilter</filter-name>
 		<filter-class>common.authown.AuthOwnSSOFilter</filter-class>
 	</filter>
-	<filter-mapping><filter-name>AuthOwnSSOFilter</filter-name><url-pattern>/cms/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>authOwnSSOFilter</filter-name><url-pattern>/cms/*</url-pattern></filter-mapping>
 简单系统登陆时：
 	<filter>
 		<filter-name>authOwnFilter</filter-name>

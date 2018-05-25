@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.cms.model.DsCmsCategoryEdit;
+import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsSite;
@@ -92,25 +93,17 @@ public class DsCmsAuditController extends DsCmsBaseController
 				{
 					idListZero.add(c.getId());
 				}
-				else if(c.getScope() == 1)
+				else
 				{
 					idListOne.add(c.getId());
 				}
-				else if(c.getScope() == 2)
-				{
-					continue;
-				}
 				map.put(c.getId(), c);
 			}
-			List<DsCmsCategory> _list = service.queryListCategoryCountAudit(siteid, idListZero, 0);
-			for(DsCmsCategory c : _list)
+			List<DsCmsCount> _list = service.queryCountForAudit(siteid, idListZero, idListOne);
+			for(DsCmsCount c : _list)
 			{
-				map.get(c.getId()).setCount(c.getCount());
-			}
-			_list = service.queryListCategoryCountAudit(siteid, idListOne, 1);
-			for(DsCmsCategory c : _list)
-			{
-				map.get(c.getId()).setCount(c.getCount());
+				DsCmsCategory x = map.get(c.getId());
+				x.setCount(x.getCount() + c.getCount());
 			}
 			put("list", list);
 			return "/cms/audit/getCategoryAudit.jsp";
@@ -133,9 +126,11 @@ public class DsCmsAuditController extends DsCmsBaseController
 			{
 				po = service.saveCategoryEdit(id);
 			}
-			if(checkAudit(po.getSiteid(), po.getId()))
+			DsCmsSite s = service.getSite(po.getSiteid());
+			if(checkAudit(s.getId(), po.getId()))
 			{
 				DsCmsCategory m = service.getCategory(po.getId());
+				put("enablemobile", s.getEnablemobile() == 1);
 				put("scope", m.getScope());
 				put("po", po);
 				return "/cms/audit/auditCategory.jsp";
@@ -238,6 +233,7 @@ public class DsCmsAuditController extends DsCmsBaseController
 			{
 				put("po", po);
 				put("page", req.getInt("page", 1));
+				put("enablemobile", s.getEnablemobile() == 1);
 				return "/cms/audit/auditPage.jsp";
 			}
 		}
@@ -270,10 +266,11 @@ public class DsCmsAuditController extends DsCmsBaseController
 						if(p.getStatus() == -1)
 						{
 							service.updateDeletePageEdit(p, s.isWriteLog());
-							print(1);
-							return;
 						}
-						service.updatePageEdit(p, true, s.isWriteLog());
+						else
+						{
+							service.updatePageEdit(p, true, s.isWriteLog());
+						}
 						print(1);
 						return;
 					}

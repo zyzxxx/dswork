@@ -16,15 +16,15 @@ $(function(){
 			$("#mylink").show();
 			$("#template_category").val("").hide();
 			$("#template_page").val("").hide();
-			$("#viewsite").val("");
-			$("#pageviewsite").val("");
+			$(".viewsite").val("");
+			$(".pageviewsite").val("");
 			$("#url").attr("require", "true");
 		}
 		else if($("#scope").val() == 1){
 			$("#mylink").val("").hide();
 			$("#template_category").show();
 			$("#template_page").val("").hide();
-			$("#pageviewsite").val("");
+			$(".pageviewsite").val("");
 			$("#url").attr("require", "false");
 		}
 		else{
@@ -84,18 +84,34 @@ $(function(){
 	<tbody id="template_category">
 	<tr>
 		<td class="form_title">栏目模板</td>
-		<td class="form_input"><select id="viewsite" name="viewsite" style="width:400px;"><option value=""></option>
-			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		<td class="form_input"><select class="viewsite" name="viewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><c:if test="${not fn:startsWith(v,'page')}"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:if></c:forEach>
 		</select></td>
 	</tr>
+<c:if test="${enablemobile}">
+	<tr>
+		<td class="form_title">移动版栏目模板</td>
+		<td class="form_input"><select class="viewsite" name="mviewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${mtemplates}" var="v"><c:if test="${not fn:startsWith(v,'page')}"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:if></c:forEach>
+		</select></td>
+	</tr>
+</c:if>
 	</tbody>
 	<tbody id="template_page">
 	<tr>
 		<td class="form_title">内容模板</td>
-		<td class="form_input"><select id="pageviewsite" name="pageviewsite" style="width:400px;"><option value=""></option>
-			<c:forEach items="${templates}" var="v"><option value="${v}">${v}</option></c:forEach>
+		<td class="form_input"><select class="pageviewsite" name="pageviewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${templates}" var="v"><c:if test="${fn:startsWith(v,'page')}"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:if></c:forEach>
 		</select></td>
 	</tr>
+<c:if test="${enablemobile}">
+	<tr>
+		<td class="form_title">移动版内容模板</td>
+		<td class="form_input"><select class="pageviewsite" name="mpageviewsite" style="width:400px;"><option value=""></option>
+			<c:forEach items="${mtemplates}" var="v"><c:if test="${fn:startsWith(v,'page')}"><option value="${v}">${fn:replace(v,'.jsp','')}</option></c:if></c:forEach>
+		</select></td>
+	</tr>
+</c:if>
 	</tbody>
 </table>
 <input type="hidden" name="siteid" value="${fn:escapeXml(param.siteid)}" />

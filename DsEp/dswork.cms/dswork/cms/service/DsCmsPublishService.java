@@ -3,6 +3,7 @@
  */
 package dswork.cms.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.cms.dao.DsCmsCategoryDao;
+import dswork.cms.dao.DsCmsCountDao;
 import dswork.cms.dao.DsCmsPageDao;
 import dswork.cms.dao.DsCmsPageEditDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsCategory;
+import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
 import dswork.core.db.BaseService;
@@ -31,6 +34,8 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 	private DsCmsSiteDao siteDao;
 	@Autowired
 	private DsCmsPageEditDao pageEditDao;
+	@Autowired
+	private DsCmsCountDao countDao;
 
 	@Override
 	protected EntityDao<DsCmsPage, Long> getEntityDao()
@@ -72,18 +77,35 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 		categoryDao.updateStatus(id, status);
 	}
 
-	public List<DsCmsCategory> queryListCategoryCountPublish(long siteid, List<Long> idList, int scope)
+	public List<DsCmsCount> queryCountForPublish(long siteid, List<Long> idsForPageList, List<Long> idsForCategoryList)
 	{
-		String ids = "";
-		for(int i = 0; i < idList.size(); i++)
+		String idsForPage = "", idsForCategory = "" ;
+		for(int i = 0; i < idsForPageList.size(); i++)
 		{
-			ids += idList.get(i);
-			if(i < idList.size() - 1)
+			idsForPage += idsForPageList.get(i);
+			if(i < idsForPageList.size() - 1)
 			{
-				ids += ",";
+				idsForPage += ",";
 			}
 		}
-		return categoryDao.queryListCountPublish(siteid, ids, scope);
+		for(int i = 0; i < idsForCategoryList.size(); i++)
+		{
+			idsForCategory += idsForCategoryList.get(i);
+			if(i < idsForCategoryList.size() - 1)
+			{
+				idsForCategory += ",";
+			}
+		}
+		List<DsCmsCount> resultList;
+		if(idsForPage.length() > 0 || idsForCategory.length() > 0)
+		{
+			resultList = countDao.queryCountForPublish(siteid, idsForPage, idsForCategory);
+		}
+		else
+		{
+			resultList = new ArrayList<DsCmsCount>();
+		}
+		return resultList;
 	}
 
 	public void deletePage(long siteid, long categoryid)
