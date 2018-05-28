@@ -10,21 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
 import dswork.common.model.DsCommonOrg;
+import dswork.common.model.DsCommonUser;
+import dswork.common.service.DsCommonExUserOrgService;
 import dswork.common.service.DsCommonUserOrgService;
 
+@SuppressWarnings("unused")
 @Scope("prototype")
 @Controller
 @RequestMapping("/common/ex/userorg")
 public class DsCommonExUserOrgController extends BaseController
 {
 	@Autowired
-	private DsCommonUserOrgService service;
+	private DsCommonExUserOrgService service;
 
 	// 树形管理
 	@RequestMapping("/getOrgTree")
 	public String getOrgTree()
 	{
-		Long rootid = req.getLong("rootid");// 作为限制根节点显示
+		Long rootid = getLoginUser().getOrgpid();// 作为限制根节点显示
 		DsCommonOrg po = null;
 		if(rootid > 0)
 		{
@@ -127,5 +130,10 @@ public class DsCommonExUserOrgController extends BaseController
 			print("0:" + e.getMessage());
 		}
 	}
-	
+
+	private DsCommonUser getLoginUser()
+	{
+		String account = dswork.sso.WebFilter.getAccount(session);
+		return service.getUserByAccount(account);
+	}
 }
