@@ -3,6 +3,7 @@ package dswork.common.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +21,10 @@ import dswork.core.page.PageRequest;
 import dswork.core.util.CollectionUtil;
 import dswork.core.util.TimeUtil;
 import dswork.core.util.UniqueId;
+import dswork.common.model.DsCommonOrg;
 import dswork.common.model.DsCommonUser;
 import dswork.common.model.DsCommonUsertype;
-import dswork.common.service.DsCommonUserService;
+import dswork.common.service.DsCommonExUserService;
 import dswork.mvc.BaseController;
 import dswork.web.MyRequest;
 
@@ -33,7 +35,7 @@ import dswork.web.MyRequest;
 public class DsCommonExUserController extends BaseController
 {
 	@Autowired
-	private DsCommonUserService service;
+	private DsCommonExUserService service;
 
 	// 添加
 	@RequestMapping("/addUser1")
@@ -243,7 +245,8 @@ public class DsCommonExUserController extends BaseController
 	@RequestMapping("/getUser")
 	public String getUser()
 	{
-		Page<DsCommonUser> pageModel = service.queryPage(getPageRequest());
+		PageRequest pr = getPageRequest();
+		Page<DsCommonUser> pageModel = service.queryPageByOrgpid(getPageRequest(), getLoginUser().getOrgpid());
 		PageNav pageNav = new PageNav(request, pageModel);
 		put("pageModel", pageModel);
 		put("pageNav", pageNav);
