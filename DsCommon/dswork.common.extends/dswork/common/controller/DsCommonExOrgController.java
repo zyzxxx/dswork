@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.mvc.BaseController;
 import dswork.common.model.DsCommonOrg;
-import dswork.common.service.DsCommonOrgService;
+import dswork.common.model.DsCommonUser;
+import dswork.common.service.DsCommonExOrgService;
 import dswork.core.util.CollectionUtil;
 
 @Scope("prototype")
@@ -18,7 +19,7 @@ import dswork.core.util.CollectionUtil;
 public class DsCommonExOrgController extends BaseController
 {
 	@Autowired
-	private DsCommonOrgService service;
+	private DsCommonExOrgService service;
 
 	// 添加
 	@RequestMapping("/addOrg1")
@@ -256,7 +257,7 @@ public class DsCommonExOrgController extends BaseController
 	@RequestMapping("/updOrgMove1")
 	public String updOrgMove1()
 	{
-		Long rootid = req.getLong("rootid");// 作为限制根节点显示
+		Long rootid = getLoginUser().getOrgpid();// 作为限制根节点显示
 		put("po", (rootid > 0) ? service.get(rootid) : null);
 		put("rootid", rootid);
 		return "/common/ex/org/updOrgMove.jsp";
@@ -308,7 +309,7 @@ public class DsCommonExOrgController extends BaseController
 	@RequestMapping("/getOrgTree")
 	public String getOrgTree()
 	{
-		Long rootid = req.getLong("rootid");// 作为限制根节点显示
+		long rootid = getLoginUser().getOrgpid();
 		DsCommonOrg po = null;
 		if(rootid > 0)
 		{
@@ -334,7 +335,7 @@ public class DsCommonExOrgController extends BaseController
 	@RequestMapping("/getOrg")
 	public String getOrg()
 	{
-		Long rootid = req.getLong("rootid");// 作为限制根节点显示
+		Long rootid = getLoginUser().getOrgpid();// 作为限制根节点显示
 		Long pid = req.getLong("pid");
 		List<DsCommonOrg> list = service.queryList(pid);
 		put("list", list);
@@ -389,4 +390,28 @@ public class DsCommonExOrgController extends BaseController
 		}
 		return new Long[0];
 	}
+
+	private DsCommonUser getLoginUser()
+	{
+		String account = dswork.sso.WebFilter.getAccount(session);
+		return service.getUserByAccount(account);
+	}
+
+//	private boolean checkOrgid(Long orgid)
+//	{
+//		Long orgpid = getLoginUser().getOrgpid();
+//		do
+//		{
+//			if(orgpid == null || orgpid.equals(orgid))
+//			{
+//				return true;
+//			}
+//			if(orgid == null)
+//			{
+//				return false;
+//			}
+//			orgid = service.get(orgid).getPid();
+//		}
+//		while(true);
+//	}
 }

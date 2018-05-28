@@ -8,9 +8,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.mvc.BaseController;
 import dswork.common.model.DsCommonOrg;
-import dswork.common.service.DsCommonOrgRoleService;
+import dswork.common.model.DsCommonUser;
+import dswork.common.service.DsCommonExOrgRoleService;
+import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
@@ -18,13 +19,13 @@ import dswork.common.service.DsCommonOrgRoleService;
 public class DsCommonExOrgRoleController extends BaseController
 {
 	@Autowired
-	private DsCommonOrgRoleService service;
+	private DsCommonExOrgRoleService service;
 
 	// 树形管理
 	@RequestMapping("/getOrgTree")
 	public String getOrgTree()
 	{
-		Long rootid = req.getLong("rootid");// 作为限制根节点显示
+		Long rootid = getLoginUser().getOrgpid();// 作为限制根节点显示
 		DsCommonOrg po = null;
 		if(rootid > 0)
 		{
@@ -102,5 +103,11 @@ public class DsCommonExOrgRoleController extends BaseController
 			e.printStackTrace();
 			print("0:" + e.getMessage());
 		}
+	}
+
+	private DsCommonUser getLoginUser()
+	{
+		String account = dswork.sso.WebFilter.getAccount(session);
+		return service.getUserByAccount(account);
 	}
 }
