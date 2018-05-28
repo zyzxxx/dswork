@@ -8,8 +8,20 @@ import java.sql.SQLException;
 
 public class DaoMySql extends Dao
 {
-	private static final String SQL_TABLE_COMMENT = "select TABLE_COMMENT from information_schema.TABLES where TABLE_SCHEMA='%s' and TABLE_NAME='%s'";
-	private static final String SQL_TABLE_COLUMN = "select COLUMN_NAME,COLUMN_DEFAULT,DATA_TYPE,CHARACTER_MAXIMUM_LENGTH,NUMERIC_PRECISION,NUMERIC_SCALE,COLUMN_COMMENT,COLUMN_KEY,EXTRA from information_schema.COLUMNS where TABLE_SCHEMA='%s' and TABLE_NAME='%s'";
+	private static final String SQL_TABLE_COMMENT = "select TABLE_COMMENT as CCOMMENT from information_schema.TABLES where TABLE_SCHEMA='%s' and TABLE_NAME='%s'";
+	private static final String SQL_TABLE_COLUMN = "select "
+			+ "COLUMN_NAME as CNAME, "
+			+ "DATA_TYPE as CDATATYPE, "
+			+ "CHARACTER_MAXIMUM_LENGTH as CLENGTH, "
+			+ "IS_NULLABLE as CNULLABLE, "
+			+ "NUMERIC_PRECISION as CPRECISION, "
+			+ "NUMERIC_SCALE as CSCALE, "
+			+ "COLUMN_COMMENT as CCOMMENT, "
+			+ "EXTRA as CAUTO, "
+			+ "COLUMN_DEFAULT as CDEFAULT,"
+			+ "COLUMN_KEY as CKEY "
+			+ "from information_schema.COLUMNS "
+			+ "where TABLE_SCHEMA='%s' and TABLE_NAME='%s'";
 //	private static final String SQL_ALL_TABLES = "select TABLE_NAME from information_schema.TABLES where TABLE_SCHEMA='%s'";
 
 	private Connection conn;
@@ -31,12 +43,13 @@ public class DaoMySql extends Dao
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			ResultSet rs = stmt.executeQuery();
 			rs.next();
-			comment = rs.getString("TABLE_COMMENT");
+			comment = rs.getString("CCOMMENT");
 			rs.close();
 			stmt.close();
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 		table.setComment(comment);
 	}
@@ -51,47 +64,48 @@ public class DaoMySql extends Dao
 			while(rs.next())
 			{
 				Table.Column col = table.addColumn();
-				col.setName(rs.getString("COLUMN_NAME"));
-				col.setDefaults(rs.getString("COLUMN_DEFAULT"));
-				col.setType(rs.getString("DATA_TYPE"));
-				col.setLength(rs.getInt("CHARACTER_MAXIMUM_LENGTH"));
-				col.setComment(rs.getString("COLUMN_COMMENT"));
-				col.setKey("PRI".equals(rs.getString("COLUMN_KEY")));
-				col.setPrecision(rs.getInt("NUMERIC_PRECISION"));
-				col.setDigit(rs.getInt("NUMERIC_SCALE"));
-				col.setAuto("auto_increment".equals(rs.getString("EXTRA")));
-				switch(col.getType())
+				col.setName(rs.getString("CNAME"));
+				col.setDatatype(rs.getString("CDATATYPE"));
+				col.setLength(rs.getInt("CLENGTH"));
+				col.setNullable("TRUE".equalsIgnoreCase(rs.getString("CNULLABLE")));
+				col.setPrecision(rs.getInt("CPRECISION"));
+				col.setDigit(rs.getInt("CSCALE"));
+				col.setComment(rs.getString("CCOMMENT"));
+				col.setAuto("auto_increment".equals(rs.getString("CAUTO")));
+				col.setDefaultvalue(rs.getString("CDEFAULT"));
+				col.setKey("PRI".equals(rs.getString("CKEY")));
+				switch(col.getDatatype())
 				{
 					case "int":
 					case "tinyint":
 					case "mediumint":
-						col.setType("int"); break;
+						col.setDatatype("int"); break;
 					case "bigint":
 						if("id".equalsIgnoreCase(col.getName()))
 						{
-							col.setType("Long");
+							col.setDatatype("Long");
 						}
 						else
 						{
-							col.setType("long");
+							col.setDatatype("long");
 						}
 						break;
 					case "float":
 					case "double":
-						col.setType("float"); break;
+						col.setDatatype("float"); break;
 					case "decimal":
 					{
 						if(col.getDigit() == 0)
 						{
 							if(col.getPrecision() < 11)
 							{
-								col.setType("int"); break;
+								col.setDatatype("int"); break;
 							}
-							col.setType("long"); break;
+							col.setDatatype("long"); break;
 						}
 						else
 						{
-							col.setType("float"); break;
+							col.setDatatype("float"); break;
 						}
 					}
 					case "char":
@@ -105,7 +119,7 @@ public class DaoMySql extends Dao
 					case "tinytext":
 					case "varchar":
 					case "xml":
-						col.setType("String"); break;
+						col.setDatatype("String"); break;
 					default:
 						break;
 				}
@@ -115,6 +129,7 @@ public class DaoMySql extends Dao
 		}
 		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 	}
 

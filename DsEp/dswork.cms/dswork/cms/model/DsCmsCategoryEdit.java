@@ -23,6 +23,7 @@ public class DsCmsCategoryEdit extends DsCmsCategory
 	private String audittime = "";
 	// 审核意见
 	private String msg = "";
+
 	public static final int EDIT = 0;
 	public static final int AUDIT = 1;
 	public static final int NOPASS = 2;

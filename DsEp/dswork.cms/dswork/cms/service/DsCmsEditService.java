@@ -19,15 +19,13 @@ import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsCategory;
-import dswork.cms.model.DsCmsLog;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
-import dswork.core.util.UniqueId;
 
-@SuppressWarnings("unchecked")
 @Service
+@SuppressWarnings("unchecked")
 public class DsCmsEditService
 {
 	@Autowired
@@ -77,7 +75,7 @@ public class DsCmsEditService
 		pageEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
 		{
-			writeLogPage(po, 0, editid, editname);
+			logDao.saveForEditPage(po, 0, editid, editname);
 		}
 	}
 
@@ -120,7 +118,7 @@ public class DsCmsEditService
 		categoryEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
 		{
-			writeLogCategory(po, 1, editid, editname);
+			logDao.saveForEditCategory(po, 1, editid, editname);
 		}
 	}
 
@@ -134,8 +132,7 @@ public class DsCmsEditService
 		categoryEditDao.update(po);
 		if(enablelog)
 		{
-			po.setStatus(4); // 撤销
-			writeLogCategory(po, 3, editid, editname);
+			logDao.saveForEditCategory(po, 3, editid, editname);
 		}
 	}
 
@@ -189,7 +186,7 @@ public class DsCmsEditService
 		pageEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
 		{
-			writeLogPage(po, po.getStatus() == -1 ? 2 : 1, editid, editname);
+			logDao.saveForEditPage(po, po.getStatus() == -1 ? 2 : 1, editid, editname);
 		}
 	}
 
@@ -197,14 +194,13 @@ public class DsCmsEditService
 	{
 		if(po.getStatus() == -1)
 		{
-			po.setStatus(1); // 修改
+			po.setStatus(1); // 删除撤销为修改
 		}
-		po.setAuditstatus(0); // 草稿
+		po.setAuditstatus(0);
 		pageEditDao.update(po);
 		if(enablelog)
 		{
-			po.setStatus(4); // 撤销
-			writeLogPage(po, 3, editid, editname);
+			logDao.saveForEditPage(po, 3, editid, editname);
 		}
 	}
 
@@ -270,70 +266,5 @@ public class DsCmsEditService
 		map.put("siteid", siteid);
 		map.put("publishstatus", "true");
 		return categoryDao.queryList(map);
-	}
-
-	private void writeLogPage(DsCmsPageEdit po, int action, String editid, String editname)
-	{
-		try
-		{
-			DsCmsLog log = new DsCmsLog();
-			log.setId(UniqueId.genId());
-			log.setSiteid(po.getSiteid());
-			log.setCategoryid(po.getCategoryid());
-			log.setPageid(po.getId());
-			log.setEditid(editid);
-			log.setEditname(editname);
-			log.setEdittime(po.getEdittime());
-			log.setStatus(po.getStatus());
-			log.setAuditstatus(action);
-			log.setTitle(po.getTitle());
-			log.setScope(po.getScope());
-			log.setUrl(po.getUrl());
-			log.setMetakeywords(po.getMetakeywords());
-			log.setMetadescription(po.getMetadescription());
-			log.setSummary(po.getSummary());
-			log.setReleasetime(po.getReleasetime());
-			log.setReleasesource(po.getReleasesource());
-			log.setReleaseuser(po.getReleaseuser());
-			log.setImg(po.getImg());
-			log.setContent(po.getContent());
-			log.setImgtop(po.getImgtop());
-			log.setPagetop(po.getPagetop());
-			logDao.save(log);
-		}
-		catch(Exception e)
-		{
-		}
-	}
-
-	private void writeLogCategory(DsCmsCategoryEdit po, int action, String editid, String editname)
-	{
-		try
-		{
-			DsCmsLog log = new DsCmsLog();
-			log.setId(UniqueId.genId());
-			log.setSiteid(po.getSiteid());
-			log.setCategoryid(po.getId());
-			log.setEditid(editid);
-			log.setEditname(editname);
-			log.setEdittime(po.getEdittime());
-			log.setStatus(po.getStatus());
-			log.setAuditstatus(action);
-			log.setTitle(po.getName());
-			log.setScope(po.getScope());
-			log.setUrl(po.getUrl());
-			log.setMetakeywords(po.getMetakeywords());
-			log.setMetadescription(po.getMetadescription());
-			log.setSummary(po.getSummary());
-			log.setReleasetime(po.getReleasetime());
-			log.setReleasesource(po.getReleasesource());
-			log.setReleaseuser(po.getReleaseuser());
-			log.setImg(po.getImg());
-			log.setContent(po.getContent());
-			logDao.save(log);
-		}
-		catch(Exception e)
-		{
-		}
 	}
 }
