@@ -39,12 +39,12 @@ function choose(data){
 			try{window.frames["mainFrame"].callback(map);}catch(e){alert(e.name + "\n" + e.message);}
 		}
 	};
-	$jskey.dialog.showChoose({id:"chooseSystem", title:"选择角色", args:{url:"../rolechoose/getRoleChoose.htm", data:data}, width:"600", height:"450"});
+	$jskey.dialog.showChoose({id:"chooseSystem", title:"选择角色", args:{url:"../../rolechoose/getRoleChoose.htm", data:data}, width:"600", height:"450"});
 	return false;
 }
 function showRole(id, name){
 	$jskey.dialog.callback = function(){};
-	$jskey.dialog.showDialog({id:"role", title:name, url:"../rolechoose/getRoleById.htm?roleid=" + id, args:{}, width:"350", height:"450"});
+	$jskey.dialog.showDialog({id:"role", title:name, url:"../../rolechoose/getRoleById.htm?roleid=" + id, args:{}, width:"350", height:"450"});
 	return false;
 }
 </script>

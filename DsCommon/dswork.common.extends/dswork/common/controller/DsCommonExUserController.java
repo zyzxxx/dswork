@@ -57,6 +57,16 @@ public class DsCommonExUserController extends BaseController
 	@RequestMapping("/addUser2")
 	public void addUser2(DsCommonUser po)
 	{
+		if(po.getOrgpid() == null)
+		{
+			print("0:所属单位为空！");
+			return;
+		}
+		if(!checkOrgid(po.getOrgpid()))
+		{
+			print("0:您没有添加的所属单位的权限！");
+			return;
+		}
 		try
 		{
 			if(po.getAccount().length() <= 0 || "null".equals(po.getAccount()))
@@ -97,6 +107,21 @@ public class DsCommonExUserController extends BaseController
 			long[] ids = req.getLongArray("keyIndex", 0);
 			for(long id : ids)
 			{
+				DsCommonUser po = service.get(id);
+				if(po.getOrgpid() == null)
+				{
+					print("0:有用户所属单位为空！");
+					return;
+				}
+				if(!checkOrgid(po.getOrgpid()))
+				{
+					print("0:您没有删除的所属单位的权限！");
+					return;
+				}
+			}
+			
+			for(long id : ids)
+			{
 				if(id <= 0)
 				{
 					continue;
@@ -118,6 +143,10 @@ public class DsCommonExUserController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		DsCommonUser po = service.get(id);
+		if(!checkOrgid(po.getOrgpid()))
+		{
+			return null;
+		}
 		put("po", po);
 		String xtype = req.getString("xtype", "");
 		if(xtype == null || xtype.length() == 0)
@@ -133,9 +162,20 @@ public class DsCommonExUserController extends BaseController
 		put("page", req.getInt("page", 1));
 		return "/common/ex/user/updUser.jsp";
 	}
+	
 	@RequestMapping("/updUser2")
 	public void updUser2(DsCommonUser po)
 	{
+		if(po.getOrgpid() == null)
+		{
+			print("0:用户所属单位为空！");
+			return;
+		}
+		if(!checkOrgid(po.getOrgpid()))
+		{
+			print("0:您没有修改的所属单位的权限！");
+			return;
+		}
 		try
 		{
 			service.update(po);
@@ -153,6 +193,12 @@ public class DsCommonExUserController extends BaseController
 	public void updUserStatus()
 	{
 		long id = req.getLong("keyIndex");
+		DsCommonUser po = service.get(id);
+		if(!checkOrgid(po.getOrgpid()))
+		{
+			print("0:您没有修改的所属单位的权限！");
+			return;
+		}
 		int status = req.getInt("status", -1);
 		try
 		{
@@ -187,6 +233,10 @@ public class DsCommonExUserController extends BaseController
 		if(id > 0 || id == -1)
 		{
 			DsCommonUser po = service.get(id);
+			if(!checkOrgid(po.getOrgpid()))
+			{
+				return null;
+			}
 			put("po", po);
 			put("page", req.getInt("page", 1));
 			return "/common/ex/user/updUserOrg.jsp";
@@ -196,6 +246,12 @@ public class DsCommonExUserController extends BaseController
 	@RequestMapping("/updUserOrg2")
 	public void updUserOrg2()
 	{
+		DsCommonUser po = service.get(req.getLong("id"));
+		if(!checkOrgid(po.getOrgpid()))
+		{
+			print("0:您没有修改的所属单位的权限！");
+			return;
+		}
 		try
 		{
 			long id = req.getLong("id");
@@ -218,6 +274,10 @@ public class DsCommonExUserController extends BaseController
 		if(id > 0)
 		{
 			DsCommonUser po = service.get(id);
+			if(!checkOrgid(po.getOrgpid()))
+			{
+				return null;
+			}
 			put("po", po);
 			put("page", req.getInt("page", 1));
 			return "/common/ex/user/updUserPassword.jsp";
@@ -227,6 +287,12 @@ public class DsCommonExUserController extends BaseController
 	@RequestMapping("/updUserPassword2")
 	public void updUserPassword2()
 	{
+		DsCommonUser po = service.get(req.getLong("id"));
+		if(!checkOrgid(po.getOrgpid()))
+		{
+			print("0:您没有修改的所属单位的权限！");
+			return;
+		}
 		try
 		{
 			long id = req.getLong("id");
@@ -269,7 +335,12 @@ public class DsCommonExUserController extends BaseController
 	public String getUserById()
 	{
 		Long id = req.getLong("keyIndex");
-		put("po", service.get(id));
+		DsCommonUser po = service.get(id);
+		if(!checkOrgid(po.getOrgpid()))
+		{
+			return null;
+		}
+		put("po", po);
 		return "/common/ex/user/getUserById.jsp";
 	}
 
