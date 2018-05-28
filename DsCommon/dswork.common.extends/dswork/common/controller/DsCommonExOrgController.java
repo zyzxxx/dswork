@@ -396,22 +396,4 @@ public class DsCommonExOrgController extends BaseController
 		String account = dswork.sso.WebFilter.getAccount(session);
 		return service.getUserByAccount(account);
 	}
-
-//	private boolean checkOrgid(Long orgid)
-//	{
-//		Long orgpid = getLoginUser().getOrgpid();
-//		do
-//		{
-//			if(orgpid == null || orgpid.equals(orgid))
-//			{
-//				return true;
-//			}
-//			if(orgid == null)
-//			{
-//				return false;
-//			}
-//			orgid = service.get(orgid).getPid();
-//		}
-//		while(true);
-//	}
 }
