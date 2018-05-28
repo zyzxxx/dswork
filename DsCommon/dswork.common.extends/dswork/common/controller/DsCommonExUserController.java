@@ -269,4 +269,28 @@ public class DsCommonExUserController extends BaseController
 		put("po", service.get(id));
 		return "/common/ex/user/getUserById.jsp";
 	}
+
+	private DsCommonUser getLoginUser()
+	{
+		String account = dswork.sso.WebFilter.getAccount(session);
+		return service.getByAccount(account);
+	}
+
+	private boolean checkOrgid(Long orgid)
+	{
+		Long orgpid = getLoginUser().getOrgpid();
+		do
+		{
+			if(orgpid == null || orgpid.equals(orgid))
+			{
+				return true;
+			}
+			if(orgid == null)
+			{
+				return false;
+			}
+			orgid = service.get(orgid).getOrgpid();
+		}
+		while(true);
+	}
 }
