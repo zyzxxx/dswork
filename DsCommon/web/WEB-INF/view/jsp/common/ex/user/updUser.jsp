@@ -8,7 +8,7 @@
 <%@include file="/commons/include/updAjax.jsp"%>
 <script type="text/javascript">
 $dswork.callback = function(){if($dswork.result.type == 1){
-	location.href = "getUser.htm?xtype=${fn:escapeXml(param.xtype)}&page=${page}";
+	location.href = "getUser.htm?xtype=${fn:escapeXml(param.xtype)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${page}";
 }};
 $dswork.readySubmit = function(){
 	$("#password").val($("#password1").val());
@@ -55,7 +55,7 @@ $(function(){
 		<td class="title">修改</td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getUser.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${page}">返回</a> 
+			<a class="back" href="getUser.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${page}">返回</a> 
 		</td>
 	</tr>
 </table>

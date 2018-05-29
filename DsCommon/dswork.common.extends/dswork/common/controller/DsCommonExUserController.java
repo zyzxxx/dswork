@@ -13,7 +13,6 @@ import dswork.common.model.DsCommonUsertype;
 import dswork.common.service.DsCommonExUserService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
-import dswork.core.page.PageRequest;
 import dswork.core.util.EncryptUtil;
 import dswork.core.util.TimeUtil;
 import dswork.core.util.UniqueId;
@@ -334,12 +333,13 @@ public class DsCommonExUserController extends BaseController
 	public String getUser()
 	{
 		Page<DsCommonUser> pageModel;
-		PageRequest pr = getPageRequest();
-		switch(req.getInt("tag"))
+		if(req.getLong("orgid") > 0)
 		{
-			case 1: pageModel = service.queryPage(pr); break;
-			case 2: pageModel = service.queryPageByOrgpid(pr, req.getLong("orgpid")); break;
-			default: pageModel = new Page<DsCommonUser>(pr.getCurrentPage(), pr.getPageSize(), 0);
+			pageModel = service.queryPage(getPageRequest());// 部门下的用户
+		}
+		else
+		{
+			pageModel = service.queryPageByOrgpid(getPageRequest(), req.getLong("orgpid"));// 单位下的用户
 		}
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsCommonUser>(request, pageModel));

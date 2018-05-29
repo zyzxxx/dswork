@@ -12,8 +12,8 @@ $dswork.callback = null;
 function refreshNode(re){$dswork.ztree.refreshNode(re);}
 $dswork.ztree.click = function(){
 	var node = $dswork.ztree.getSelectedNode();
-	if(node.status == 1){attachUrl("getUser.htm?tag=1&orgid=" + node.id);}// 部门
-	else if(node.status == 2){attachUrl("getUser.htm?tag=2&orgpid=" + node.id);}// 单位
+	if(node.status == 1){attachUrl("getUser.htm?orgid=" + node.id);}// 部门
+	else if(node.status == 2){attachUrl("getUser.htm?orgpid=" + node.id);}// 单位
 	else{attachUrl("about:blank");}
 	return false;
 };

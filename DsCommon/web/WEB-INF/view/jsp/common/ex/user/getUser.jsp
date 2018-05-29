@@ -29,14 +29,14 @@ function updStatus(objid, id){
 $dswork.page.join = function(td, menu, id){
 	if(td.attr("v") != 'true'){
 	$(menu).append($('<div iconCls="menuTool-update">重置密码</div>').bind("click", function(){
-		location.href = "updUserPassword1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=" + id;
+		location.href = "updUserPassword1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 	$(menu).append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(){
-		location.href = "updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=" + id;
+		location.href = "updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 	}
 	$(menu).append($('<div iconCls="menuTool-user">调动</div>').bind("click", function(){
-		location.href = "updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=" + id;
+		location.href = "updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 };
 $(function(){
@@ -73,7 +73,6 @@ $(function(){
 		<td class="query"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
 	</tr>
 </table>
-<input type="hidden" name="tag" value="${param.tag}" />
 <input type="hidden" name="orgid" value="${param.orgid}" />
 <input type="hidden" name="orgpid" value="${param.orgpid}" />
 </form>
