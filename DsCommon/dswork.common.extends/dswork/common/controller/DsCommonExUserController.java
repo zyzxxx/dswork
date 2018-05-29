@@ -1,36 +1,24 @@
 package dswork.common.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.core.util.EncryptUtil;
-import dswork.core.page.Page;
-import dswork.core.page.PageNav;
-import dswork.core.page.PageRequest;
-import dswork.core.util.CollectionUtil;
-import dswork.core.util.TimeUtil;
-import dswork.core.util.UniqueId;
-import dswork.common.model.DsCommonOrg;
 import dswork.common.model.DsCommonUser;
 import dswork.common.model.DsCommonUsertype;
 import dswork.common.service.DsCommonExUserService;
+import dswork.core.page.Page;
+import dswork.core.page.PageNav;
+import dswork.core.util.EncryptUtil;
+import dswork.core.util.TimeUtil;
+import dswork.core.util.UniqueId;
 import dswork.mvc.BaseController;
-import dswork.web.MyRequest;
 
 @Scope("prototype")
 @Controller
-@SuppressWarnings("all")
 @RequestMapping("/common/ex/user")
 public class DsCommonExUserController extends BaseController
 {
@@ -103,7 +91,6 @@ public class DsCommonExUserController extends BaseController
 	{
 		try
 		{
-			int v = 0;
 			long[] ids = req.getLongArray("keyIndex", 0);
 			for(long id : ids)
 			{
@@ -317,11 +304,9 @@ public class DsCommonExUserController extends BaseController
 	@RequestMapping("/getUser")
 	public String getUser()
 	{
-		PageRequest pr = getPageRequest();
 		Page<DsCommonUser> pageModel = service.queryPageByOrgpid(getPageRequest(), getLoginUser().getOrgpid());
-		PageNav pageNav = new PageNav(request, pageModel);
 		put("pageModel", pageModel);
-		put("pageNav", pageNav);
+		put("pageNav", new PageNav<DsCommonUser>(request, pageModel));
 		String xtype = req.getString("xtype", "");
 		if(xtype == null || xtype.length() == 0)
 		{
