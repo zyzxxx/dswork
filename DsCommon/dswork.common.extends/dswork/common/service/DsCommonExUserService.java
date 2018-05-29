@@ -87,7 +87,7 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 	{
 		List<DsCommonOrg> rawList = orgDao.queryList(new HashMap<String, Object>());
 		Map<Long, List<DsCommonOrg>> map = new HashMap<Long, List<DsCommonOrg>>();
-		Queue<DsCommonOrg> queue = new LinkedList<DsCommonOrg>();
+		List<DsCommonOrg> list = new ArrayList<DsCommonOrg>();
 		for(DsCommonOrg org : rawList)
 		{
 			List<DsCommonOrg> ls = map.get(org.getPid());
@@ -97,12 +97,13 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 				map.put(org.getPid(), ls);
 			}
 			ls.add(org);
-			if(org.getId() == id || org.getId().equals(id))
+			if(id == org.getId() || id.equals(org.getId()))
 			{
-				queue.offer(org);
+				list.add(org);
 			}
 		}
-		List<DsCommonOrg> list = new ArrayList<DsCommonOrg>();
+		Queue<DsCommonOrg> queue = new LinkedList<DsCommonOrg>();
+		queue.addAll(map.get(id));
 		while(queue.size() > 0)
 		{
 			DsCommonOrg org = queue.poll();
