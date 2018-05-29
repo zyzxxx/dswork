@@ -97,13 +97,13 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 				map.put(org.getPid(), ls);
 			}
 			ls.add(org);
-			if(id == org.getId() || id.equals(org.getId()))
+			if(id == org.getId() || id.equals(org.getId()))// 将根节点放入结果集
 			{
 				list.add(org);
 			}
 		}
 		Queue<DsCommonOrg> queue = new LinkedList<DsCommonOrg>();
-		queue.addAll(map.get(id));
+		queue.addAll(map.get(id));// 将根节点的 直接子节点放入队列
 		while(queue.size() > 0)
 		{
 			DsCommonOrg org = queue.poll();
