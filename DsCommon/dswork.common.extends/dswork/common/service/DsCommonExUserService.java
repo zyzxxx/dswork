@@ -110,9 +110,9 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 			List<DsCommonOrg> ls = map.get(org.getId());
 			if(ls != null)
 			{
-				queue.addAll(ls);// 队列中取出的节点放入结果集
+				queue.addAll(ls);// 将节点的直接子节点放入队列
 			}
-			list.add(org);
+			list.add(org);// 队列中取出的节点放入结果集
 		}
 		return list;
 	}
