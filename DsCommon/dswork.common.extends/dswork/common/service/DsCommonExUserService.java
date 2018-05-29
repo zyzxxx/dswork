@@ -151,4 +151,9 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 		page.setResult(result);
 		return page;
 	}
+
+	public DsCommonOrg getOrg(Long id)
+	{
+		return (DsCommonOrg) orgDao.get(id);
+	}
 }

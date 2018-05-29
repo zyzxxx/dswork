@@ -64,7 +64,7 @@ public class DsCommonExUserController extends BaseController
 		}
 		if(!checkOrgid(po.getOrgpid()))
 		{
-			print("0:您没有添加的所属单位的权限！");
+			print("0:您无权将用户添加至该单位！");
 			return;
 		}
 		try
@@ -115,7 +115,7 @@ public class DsCommonExUserController extends BaseController
 				}
 				if(!checkOrgid(po.getOrgpid()))
 				{
-					print("0:您没有删除的所属单位的权限！");
+					print("0:您没有删除该用户的权限！");
 					return;
 				}
 			}
@@ -173,7 +173,7 @@ public class DsCommonExUserController extends BaseController
 		}
 		if(!checkOrgid(po.getOrgpid()))
 		{
-			print("0:您没有修改的所属单位的权限！");
+			print("0:您没有操作该用户的权限！");
 			return;
 		}
 		try
@@ -196,7 +196,7 @@ public class DsCommonExUserController extends BaseController
 		DsCommonUser po = service.get(id);
 		if(!checkOrgid(po.getOrgpid()))
 		{
-			print("0:您没有修改的所属单位的权限！");
+			print("0:您没有操作该用户的权限！");
 			return;
 		}
 		int status = req.getInt("status", -1);
@@ -249,7 +249,7 @@ public class DsCommonExUserController extends BaseController
 		DsCommonUser po = service.get(req.getLong("id"));
 		if(!checkOrgid(po.getOrgpid()))
 		{
-			print("0:您没有修改的所属单位的权限！");
+			print("0:您无权修改的该用户的权限！");
 			return;
 		}
 		try
@@ -257,6 +257,11 @@ public class DsCommonExUserController extends BaseController
 			long id = req.getLong("id");
 			long orgpid = req.getLong("orgpid");
 			long orgid = req.getLong("orgid");
+			if(!checkOrgid(orgpid))
+			{
+				print("0:您无权将用户调动至该单位！");
+				return;
+			}
 			service.updateOrg(id, orgpid, orgid);
 			print(1);
 		}
@@ -290,7 +295,7 @@ public class DsCommonExUserController extends BaseController
 		DsCommonUser po = service.get(req.getLong("id"));
 		if(!checkOrgid(po.getOrgpid()))
 		{
-			print("0:您没有修改的所属单位的权限！");
+			print("0:您没有操作该用户的权限！");
 			return;
 		}
 		try
@@ -353,18 +358,18 @@ public class DsCommonExUserController extends BaseController
 	private boolean checkOrgid(Long orgid)
 	{
 		Long orgpid = getLoginUser().getOrgpid();
-		do
+		for(int i = 0; i < 100; i++)// 防止死循环，检查层级最多一百层
 		{
-			if(orgpid == null || orgpid.equals(orgid))
+			if(orgpid == null || orgpid == 0 || orgpid.equals(orgid))
 			{
 				return true;
 			}
-			if(orgid == null)
+			if(orgid == null || orgid == 0)
 			{
 				return false;
 			}
-			orgid = service.get(orgid).getOrgpid();
+			orgid = service.getOrg(orgid).getPid();
 		}
-		while(true);
+		return false;
 	}
 }
