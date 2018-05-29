@@ -83,10 +83,11 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 		return userTypeDao.queryList(map);
 	}
 
-	public List<DsCommonOrg> queryListOrgByPid(Long pid)
+	public List<DsCommonOrg> queryListOrgById(Long id)
 	{
 		List<DsCommonOrg> rawList = orgDao.queryList(new HashMap<String, Object>());
 		Map<Long, List<DsCommonOrg>> map = new HashMap<Long, List<DsCommonOrg>>();
+		Queue<DsCommonOrg> queue = new LinkedList<DsCommonOrg>();
 		for(DsCommonOrg org : rawList)
 		{
 			List<DsCommonOrg> ls = map.get(org.getPid());
@@ -96,14 +97,20 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 				map.put(org.getPid(), ls);
 			}
 			ls.add(org);
+			if(org.getId() == id || org.getId().equals(id))
+			{
+				queue.offer(org);
+			}
 		}
-		Queue<DsCommonOrg> queue = new LinkedList<DsCommonOrg>();
 		List<DsCommonOrg> list = new ArrayList<DsCommonOrg>();
-		queue.addAll(map.get(pid));
 		while(queue.size() > 0)
 		{
 			DsCommonOrg org = queue.poll();
-			queue.addAll(map.get(org.getId()));
+			List<DsCommonOrg> ls = map.get(org.getId());
+			if(ls != null)
+			{
+				queue.addAll(ls);
+			}
 			list.add(org);
 		}
 		return list;
@@ -111,8 +118,8 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 
 	public Page<DsCommonUser> queryPageByOrgpid(PageRequest pr, Long orgpid)
 	{
-		List<DsCommonUser> rawList = dao.queryList(pr);
-		List<DsCommonOrg> orgList = queryListOrgByPid(orgpid);
+		List<DsCommonUser> rawList = dao.queryList(pr.getFilters());
+		List<DsCommonOrg> orgList = queryListOrgById(orgpid);
 		Map<Long, DsCommonOrg> map = new HashMap<Long, DsCommonOrg>();
 		for(DsCommonOrg org : orgList)
 		{
