@@ -7,11 +7,13 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import dswork.common.model.DsCommonOrg;
 import dswork.common.model.DsCommonUser;
 import dswork.common.model.DsCommonUsertype;
 import dswork.common.service.DsCommonExUserService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
+import dswork.core.page.PageRequest;
 import dswork.core.util.EncryptUtil;
 import dswork.core.util.TimeUtil;
 import dswork.core.util.UniqueId;
@@ -24,6 +26,33 @@ public class DsCommonExUserController extends BaseController
 {
 	@Autowired
 	private DsCommonExUserService service;
+
+	// 树形管理
+	@RequestMapping("/getOrgTree")
+	public String getOrgTree()
+	{
+		long rootid = getLoginUser().getOrgpid();
+		DsCommonOrg po = null;
+		if(rootid > 0)
+		{
+			po = service.getOrg(rootid);
+			if(po == null)
+			{
+				return null;// 没有此根节点
+			}
+			if(po.getStatus() == 0)
+			{
+				return null;// 不能以岗位作为根节点
+			}
+		}
+		else
+		{
+			po = new DsCommonOrg();
+			po.setStatus(2);
+		}
+		put("po", po);
+		return "/common/ex/user/getOrgTree.jsp";
+	}
 
 	// 添加
 	@RequestMapping("/addUser1")
@@ -304,7 +333,14 @@ public class DsCommonExUserController extends BaseController
 	@RequestMapping("/getUser")
 	public String getUser()
 	{
-		Page<DsCommonUser> pageModel = service.queryPageByOrgpid(getPageRequest(), getLoginUser().getOrgpid());
+		Page<DsCommonUser> pageModel;
+		PageRequest pr = getPageRequest();
+		switch(req.getInt("tag"))
+		{
+			case 1: pageModel = service.queryPage(pr); break;
+			case 2: pageModel = service.queryPageByOrgpid(pr, req.getLong("orgpid")); break;
+			default: pageModel = new Page<DsCommonUser>(pr.getCurrentPage(), pr.getPageSize(), 0);
+		}
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsCommonUser>(request, pageModel));
 		String xtype = req.getString("xtype", "");
