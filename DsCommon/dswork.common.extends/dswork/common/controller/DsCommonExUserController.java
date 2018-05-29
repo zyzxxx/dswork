@@ -171,7 +171,8 @@ public class DsCommonExUserController extends BaseController
 			print("0:用户所属单位为空！");
 			return;
 		}
-		if(!checkOrgid(po.getOrgpid()))
+		DsCommonUser u = service.get(po.getId());
+		if(!checkOrgid(u.getOrgpid()))
 		{
 			print("0:您没有操作该用户的权限！");
 			return;
