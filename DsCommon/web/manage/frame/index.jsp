@@ -60,6 +60,7 @@ var treedata = [
 	]}
 ]}
 ,{id:112,name:'字典样例', img:"", imgOpen:"", url:'/x.jsp', items:[]}
+,{id:113,name:'退出', img:"", imgOpen:"", url:'/manage/frame/logout.jsp', items:[]}
 ];
 </script>
 </head>
