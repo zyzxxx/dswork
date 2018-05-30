@@ -1,39 +1,57 @@
 package dswork.common.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.core.util.EncryptUtil;
-import dswork.core.page.Page;
-import dswork.core.page.PageNav;
-import dswork.core.page.PageRequest;
-import dswork.core.util.CollectionUtil;
-import dswork.core.util.TimeUtil;
-import dswork.core.util.UniqueId;
+import dswork.common.model.DsCommonOrg;
 import dswork.common.model.DsCommonUser;
 import dswork.common.model.DsCommonUsertype;
-import dswork.common.service.DsCommonUserService;
+import dswork.common.service.DsCommonExUserService;
+import dswork.core.page.Page;
+import dswork.core.page.PageNav;
+import dswork.core.util.EncryptUtil;
+import dswork.core.util.TimeUtil;
+import dswork.core.util.UniqueId;
 import dswork.mvc.BaseController;
-import dswork.web.MyRequest;
 
 @Scope("prototype")
 @Controller
-@SuppressWarnings("all")
 @RequestMapping("/common/ex/user")
 public class DsCommonExUserController extends BaseController
 {
 	@Autowired
-	private DsCommonUserService service;
+	private DsCommonExUserService service;
+
+	// 树形管理
+	@RequestMapping("/getOrgTree")
+	public String getOrgTree()
+	{
+		long rootid = getLoginUser().getOrgpid();
+		DsCommonOrg po = null;
+		if(rootid > 0)
+		{
+			po = service.getOrg(rootid);
+			if(po == null)
+			{
+				return null;// 没有此根节点
+			}
+			if(po.getStatus() == 0)
+			{
+				return null;// 不能以岗位作为根节点
+			}
+		}
+		else
+		{
+			po = new DsCommonOrg();
+			po.setStatus(2);
+		}
+		put("po", po);
+		return "/common/ex/user/getOrgTree.jsp";
+	}
 
 	// 添加
 	@RequestMapping("/addUser1")
@@ -62,7 +80,7 @@ public class DsCommonExUserController extends BaseController
 		}
 		if(!checkOrgid(po.getOrgpid()))
 		{
-			print("0:您没有添加的所属单位的权限！");
+			print("0:您无权将用户添加至该单位！");
 			return;
 		}
 		try
@@ -101,7 +119,6 @@ public class DsCommonExUserController extends BaseController
 	{
 		try
 		{
-			int v = 0;
 			long[] ids = req.getLongArray("keyIndex", 0);
 			for(long id : ids)
 			{
@@ -113,7 +130,7 @@ public class DsCommonExUserController extends BaseController
 				}
 				if(!checkOrgid(po.getOrgpid()))
 				{
-					print("0:您没有删除的所属单位的权限！");
+					print("0:您没有删除该用户的权限！");
 					return;
 				}
 			}
@@ -169,9 +186,10 @@ public class DsCommonExUserController extends BaseController
 			print("0:用户所属单位为空！");
 			return;
 		}
-		if(!checkOrgid(po.getOrgpid()))
+		DsCommonUser u = service.get(po.getId());
+		if(!checkOrgid(u.getOrgpid()))
 		{
-			print("0:您没有修改的所属单位的权限！");
+			print("0:您没有操作该用户的权限！");
 			return;
 		}
 		try
@@ -194,7 +212,7 @@ public class DsCommonExUserController extends BaseController
 		DsCommonUser po = service.get(id);
 		if(!checkOrgid(po.getOrgpid()))
 		{
-			print("0:您没有修改的所属单位的权限！");
+			print("0:您没有操作该用户的权限！");
 			return;
 		}
 		int status = req.getInt("status", -1);
@@ -247,7 +265,7 @@ public class DsCommonExUserController extends BaseController
 		DsCommonUser po = service.get(req.getLong("id"));
 		if(!checkOrgid(po.getOrgpid()))
 		{
-			print("0:您没有修改的所属单位的权限！");
+			print("0:您无权修改的该用户的权限！");
 			return;
 		}
 		try
@@ -255,6 +273,11 @@ public class DsCommonExUserController extends BaseController
 			long id = req.getLong("id");
 			long orgpid = req.getLong("orgpid");
 			long orgid = req.getLong("orgid");
+			if(!checkOrgid(orgpid))
+			{
+				print("0:您无权将用户调动至该单位！");
+				return;
+			}
 			service.updateOrg(id, orgpid, orgid);
 			print(1);
 		}
@@ -288,7 +311,7 @@ public class DsCommonExUserController extends BaseController
 		DsCommonUser po = service.get(req.getLong("id"));
 		if(!checkOrgid(po.getOrgpid()))
 		{
-			print("0:您没有修改的所属单位的权限！");
+			print("0:您没有操作该用户的权限！");
 			return;
 		}
 		try
@@ -309,10 +332,17 @@ public class DsCommonExUserController extends BaseController
 	@RequestMapping("/getUser")
 	public String getUser()
 	{
-		Page<DsCommonUser> pageModel = service.queryPage(getPageRequest());
-		PageNav pageNav = new PageNav(request, pageModel);
+		Page<DsCommonUser> pageModel;
+		if(req.getLong("orgid") > 0)
+		{
+			pageModel = service.queryPage(getPageRequest());// 部门下的用户
+		}
+		else
+		{
+			pageModel = service.queryPageByOrgpid(getPageRequest(), req.getLong("orgpid"));// 单位下的用户
+		}
 		put("pageModel", pageModel);
-		put("pageNav", pageNav);
+		put("pageNav", new PageNav<DsCommonUser>(request, pageModel));
 		String xtype = req.getString("xtype", "");
 		if(xtype == null || xtype.length() == 0)
 		{
@@ -350,18 +380,18 @@ public class DsCommonExUserController extends BaseController
 	private boolean checkOrgid(Long orgid)
 	{
 		Long orgpid = getLoginUser().getOrgpid();
-		do
+		for(int i = 0; i < 100; i++)// 防止死循环，检查层级最多一百层
 		{
-			if(orgpid == null || orgpid.equals(orgid))
+			if(orgpid == null || orgpid == 0 || orgpid.equals(orgid))
 			{
 				return true;
 			}
-			if(orgid == null)
+			if(orgid == null || orgid == 0)
 			{
 				return false;
 			}
-			orgid = service.get(orgid).getOrgpid();
+			orgid = service.getOrg(orgid).getPid();
 		}
-		while(true);
+		return false;
 	}
 }

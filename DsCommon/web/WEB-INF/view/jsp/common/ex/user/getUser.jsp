@@ -29,14 +29,14 @@ function updStatus(objid, id){
 $dswork.page.join = function(td, menu, id){
 	if(td.attr("v") != 'true'){
 	$(menu).append($('<div iconCls="menuTool-update">重置密码</div>').bind("click", function(){
-		location.href = "updUserPassword1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=" + id;
+		location.href = "updUserPassword1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 	$(menu).append($('<div iconCls="menuTool-update">修改</div>').bind("click", function(){
-		location.href = "updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=" + id;
+		location.href = "updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 	}
 	$(menu).append($('<div iconCls="menuTool-user">调动</div>').bind("click", function(){
-		location.href = "updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=" + id;
+		location.href = "updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${pageModel.currentPage}&keyIndex=" + id;
 	}));
 };
 $(function(){
@@ -55,7 +55,7 @@ $(function(){
 	<tr>
 		<td class="title">用户账号列表</td>
 		<td class="menuTool">
-			<a class="insert" href="addUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}">添加</a>
+			<a class="insert" href="addUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
@@ -73,6 +73,8 @@ $(function(){
 		<td class="query"><input id="_querySubmit_" type="submit" class="button" value="查询" /></td>
 	</tr>
 </table>
+<input type="hidden" name="orgid" value="${param.orgid}" />
+<input type="hidden" name="orgpid" value="${param.orgpid}" />
 </form>
 <div class="line"></div>
 <form id="listForm" method="post" action="delUser.htm">

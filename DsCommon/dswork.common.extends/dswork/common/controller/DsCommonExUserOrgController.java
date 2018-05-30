@@ -8,13 +8,11 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import dswork.mvc.BaseController;
 import dswork.common.model.DsCommonOrg;
 import dswork.common.model.DsCommonUser;
 import dswork.common.service.DsCommonExUserOrgService;
-import dswork.common.service.DsCommonUserOrgService;
+import dswork.mvc.BaseController;
 
-@SuppressWarnings("unused")
 @Scope("prototype")
 @Controller
 @RequestMapping("/common/ex/userorg")
