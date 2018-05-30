@@ -134,4 +134,14 @@ public class DsCommonExAuthorizeController extends BaseController
 		String account = dswork.sso.WebFilter.getAccount(session);
 		return service.getUserByAccount(account);
 	}
+	
+	
+	@RequestMapping("/getUserById")
+	public String getUserById()
+	{
+		Long id = req.getLong("id");
+		put("user", service.getUserById(id));
+		put("list", service.queryListByUserid(id));
+		return "/common/ex/authorize/getUserById.jsp";
+	}
 }
