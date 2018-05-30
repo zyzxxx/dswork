@@ -144,4 +144,61 @@ public class DsCommonExAuthorizeController extends BaseController
 		put("list", service.queryOrgListByUserid(id));
 		return "/common/ex/authorize/getUserById.jsp";
 	}
+	
+	// 授权
+	@RequestMapping("/updOrgRole1")
+	public String updOrgRole1()
+	{
+		Long id = req.getLong("keyIndex");
+		DsCommonOrg po = service.get(id);
+		if(null == po)
+		{
+			return null;// 非法访问，否则肯定存在id
+		}
+		if(0 == po.getStatus())// 岗位才可以授权
+		{
+			put("po", po);
+			put("list", service.queryOrgRoleList(id));
+			return "/common/ex/authorize/updOrgRole.jsp";
+		}
+		return null;
+	}
+
+	@RequestMapping("/updOrgRole2")
+	public void updOrgRole2()
+	{
+		try
+		{
+			Long id = req.getLong("orgid");
+			DsCommonOrg po = service.get(id);
+			if(null == po)
+			{
+				print(0);
+				return;// 非法访问，否则肯定存在id
+			}
+			if(0 == po.getStatus())// 岗位才可以授权
+			{
+				String ids = req.getString("roleids", "");
+				List<Long> list = new ArrayList<Long>();
+				if(ids.length() > 0)
+				{
+					for(String tmp : ids.split(","))
+					{
+						list.add(new Long(tmp));
+					}
+				}
+				service.saveOrgRole(id, list);
+				print(1);
+			}
+			else
+			{
+				print(0);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
 }
