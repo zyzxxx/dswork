@@ -47,7 +47,7 @@ function selectTypeOption(){
 }
 $(function(){
 	$("#orgpname").bind("click", function(e){
-		$dswork.showTree({id:"treeid1",width:400,height:200,root:{name:"选择单位"}
+		$dswork.showTree({id:"treeid1",width:400,height:200,root:{id:"${orgpid}", name:"${orgpname}"}
 			,left:$(this).offset().left, top:$(this).offset().top+20
 			,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
 			,check:function(id, node){if(node.id==0){return false;}else{$("#orgpname").val(node.name);$("#orgpid").val(node.id);$("#orgname").val();$("#orgid").val();}}
@@ -111,7 +111,7 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">所属单位</td>
-		<td class="form_input"><input type="text" id="orgpname" name="orgpname" value="" /><input type="hidden" id="orgpid" name="orgpid" value="" /></td>
+		<td class="form_input"><input type="text" id="orgpname" name="orgpname" value="${orgpname}" /><input type="hidden" id="orgpid" name="orgpid" value="${orgpid}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">所属部门</td>
