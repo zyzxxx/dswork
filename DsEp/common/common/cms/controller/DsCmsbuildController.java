@@ -27,29 +27,16 @@ public class DsCmsbuildController extends BaseController
 		Long pageid = req.getLong("pageid", -1);
 		boolean mobile = req.getString("mobile", "false").equals("true");
 
-		CmsFactory cms;
-		if(mobile)
+		CmsFactory cms = (CmsFactory) request.getSession().getAttribute(mobile ? CMS_FACTORY_KEY_M : CMS_FACTORY_KEY);
+		if(cms == null)
 		{
-			cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY_M);
-			if(cms == null)
+			cms = new CmsFactory(siteid);
+			CmsFactory cms_m = new CmsFactoryMobile(cms);
+			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
+			request.getSession().setAttribute(CMS_FACTORY_KEY_M, cms_m);
+			if(mobile)
 			{
-				cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY);
-				if(cms == null)
-				{
-					cms = new CmsFactory(siteid);
-					request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
-				}
-				cms = new CmsFactoryMobile(cms);
-				request.getSession().setAttribute(CMS_FACTORY_KEY_M, cms);
-			}
-		}
-		else
-		{
-			cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY);
-			if(cms == null)
-			{
-				cms = new CmsFactory(siteid);
-				request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
+				cms = cms_m;
 			}
 		}
 //		if(cms == null)

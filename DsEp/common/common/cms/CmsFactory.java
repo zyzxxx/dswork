@@ -113,13 +113,7 @@ public class CmsFactory
 
 	public List<Map<String, Object>> queryList(int currentPage, int pageSize, boolean onlyImageTop, boolean onlyPageTop, boolean isDesc, Object... categoryids)
 	{
-		StringBuilder idArray = new StringBuilder();
-		idArray.append("0");
-		for(int i = 0; i < categoryids.length; i++)
-		{
-			idArray.append(",").append(toLong(categoryids[i]));
-		}
-		return queryList(currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, null);
+		return queryList(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, null, categoryids);
 	}
 
 	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean onlyImageTop, boolean onlyPageTop, boolean isDesc, String url, Object categoryid)
@@ -215,6 +209,11 @@ public class CmsFactory
 
 	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean isDesc, String keyvalue, Object... categoryids)
 	{
+		return queryPage(currentPage, pageSize, isDesc, false, false, keyvalue, categoryids);
+	}
+
+	private List<Map<String, Object>> queryList(int currentPage, int pageSize, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
+	{
 		StringBuilder idArray = new StringBuilder();
 		if(categoryids.length > 0)
 		{
@@ -224,20 +223,24 @@ public class CmsFactory
 				idArray.append(",").append(toLong(categoryids[i]));
 			}
 		}
-		return queryPage(currentPage, pageSize, idArray.toString(), isDesc, false, false, keyvalue);
-	}
-
-	private List<Map<String, Object>> queryList(int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue)
-	{
 		return getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, keyvalue).getResult();
 	}
 
-	private Map<String, Object> queryPage(int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue)
+	private Map<String, Object> queryPage(int currentPage, int pageSize, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
 	{
+		StringBuilder idArray = new StringBuilder();
+		if(categoryids.length > 0)
+		{
+			idArray.append("0");
+			for(int i = 0; i < categoryids.length; i++)
+			{
+				idArray.append(",").append(toLong(categoryids[i]));
+			}
+		}
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
 		{
-			Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray, isDesc, onlyImageTop, onlyPageTop, keyvalue);
+			Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, keyvalue);
 			map.put("status", "1");// success
 			map.put("msg", "success");
 			map.put("size", page.getTotalCount());
@@ -254,15 +257,15 @@ public class CmsFactory
 		return map;
 	}
 
-	public void put(String name, boolean pageOrList, int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue)
+	public void put(String name, boolean listOrPage, int currentPage, int pageSize, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
 	{
-		if(pageOrList)
+		if(listOrPage)
 		{
-			request.setAttribute(name, queryPage(currentPage, pageSize, idArray, isDesc, onlyImageTop, onlyPageTop, keyvalue));
+			request.setAttribute(name, queryList(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, keyvalue, categoryids));
 		}
 		else
 		{
-			request.setAttribute(name, queryList(currentPage, pageSize, idArray, isDesc, onlyImageTop, onlyPageTop, keyvalue));
+			request.setAttribute(name, queryPage(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, keyvalue, categoryids));
 		}
 	}
 
