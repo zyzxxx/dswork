@@ -29,7 +29,7 @@ public class DsCommonExAuthorizeController extends BaseController
 		DsCommonOrg po = null;
 		if(rootid > 0)
 		{
-			po = service.get(rootid);
+			po = service.getOrg(rootid);
 			if(null == po)
 			{
 				return null;// 没有此根节点
@@ -134,8 +134,7 @@ public class DsCommonExAuthorizeController extends BaseController
 		String account = dswork.sso.WebFilter.getAccount(session);
 		return service.getUserByAccount(account);
 	}
-	
-	
+
 	@RequestMapping("/getUserById")
 	public String getUserById()
 	{
@@ -144,13 +143,22 @@ public class DsCommonExAuthorizeController extends BaseController
 		put("list", service.queryOrgListByUserid(id));
 		return "/common/ex/authorize/getUserById.jsp";
 	}
+
+	@RequestMapping("/getOrgById")
+	public String getOrgById()
+	{
+		Long id = req.getLong("id");
+		put("po", service.getOrg(id));
+		put("list", service.queryUserListByOrgid(id));
+		return "/common/ex/authorize/getOrgById.jsp";
+	}
 	
 	// 授权
 	@RequestMapping("/updOrgRole1")
 	public String updOrgRole1()
 	{
 		Long id = req.getLong("keyIndex");
-		DsCommonOrg po = service.get(id);
+		DsCommonOrg po = service.getOrg(id);
 		if(null == po)
 		{
 			return null;// 非法访问，否则肯定存在id
@@ -170,7 +178,7 @@ public class DsCommonExAuthorizeController extends BaseController
 		try
 		{
 			Long id = req.getLong("orgid");
-			DsCommonOrg po = service.get(id);
+			DsCommonOrg po = service.getOrg(id);
 			if(null == po)
 			{
 				print(0);

@@ -36,7 +36,7 @@ $(function(){
 	$("#orgTable>tbody>tr>td>a.select").each(function(){
 		var o = $(this);var id = o.attr("keyIndex");if(id == null || typeof(id)=="undefined"){return true;}
 		o.click(function(event){
-			// TODO
+			$jskey.dialog.showDialog({url:"getOrgById.htm?id=" + id,title:"岗位授权信息",fit:true,draggable:false});
 		});
 	});
 	$("#orgTable>tbody>tr>td>a.edit").each(function(){
@@ -45,9 +45,7 @@ $(function(){
 			$jskey.dialog.showDialog({url:"updOrgRole1.htm?keyIndex=" + id,title:"岗位授予角色",fit:true,draggable:false});
 		});
 	});
-	
 });
-
 function choose(data){
 	$jskey.dialog.callback = function(){
 		var result = $jskey.dialog.returnValue;

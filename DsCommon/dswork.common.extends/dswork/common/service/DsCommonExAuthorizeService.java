@@ -81,7 +81,7 @@ public class DsCommonExAuthorizeService
 		return userorgDao.queryListByUserid(userid);
 	}
 
-	public DsCommonOrg get(Long primaryKey)
+	public DsCommonOrg getOrg(Long primaryKey)
 	{
 		return (DsCommonOrg) orgDao.get(primaryKey);
 	}
@@ -114,6 +114,18 @@ public class DsCommonExAuthorizeService
 		{
 			DsCommonOrg org = (DsCommonOrg) orgDao.get(u.getOrgid());
 			list.add(org);
+		}
+		return list;
+	}
+
+	public List<DsCommonUser> queryUserListByOrgid(Long orgid)
+	{
+		List<DsCommonUserOrg> ls = userorgDao.queryListByOrgid(orgid);
+		List<DsCommonUser> list = new ArrayList<DsCommonUser>();
+		for(DsCommonUserOrg u : ls)
+		{
+			DsCommonUser user = (DsCommonUser) userDao.get(u.getUserid());
+			list.add(user);
 		}
 		return list;
 	}
