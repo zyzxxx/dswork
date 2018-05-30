@@ -154,9 +154,12 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		context.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/spring/*.xml" + spring);
 		try
 		{
-			org.apache.logging.log4j.core.LoggerContext c = (org.apache.logging.log4j.core.LoggerContext)LogManager.getContext(false);
-			c.setConfigLocation(context.getResource(log4j2).toURI());
-			c.reconfigure();
+			if((new File(context.getRealPath("/") + log4j2)).isFile())
+			{
+				org.apache.logging.log4j.core.LoggerContext c = (org.apache.logging.log4j.core.LoggerContext)LogManager.getContext(false);
+				c.setConfigLocation(context.getResource(log4j2).toURI());
+				c.reconfigure();
+			}
 		}
 		catch(Exception e)
 		{

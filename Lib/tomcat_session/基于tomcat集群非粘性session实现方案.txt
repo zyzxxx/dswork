@@ -22,7 +22,7 @@ $CATALINA_BASE/conf/context.xml添加，也可在$CATALINA_BASE/conf/server.xml�
 		sessionBackupAsync="false"
 		sessionBackupTimeout="100"
 		requestUriIgnorePattern=".*\.(png|gif|jpg|css|js|ico|eot|svg|ttf|woff)$"
-		transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
+		transcoderFactoryClass="de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory"
 		/>
 	###################################################################################
 	<Manager className="de.javakaffee.web.msm.MemcachedBackupSessionManager"
@@ -32,7 +32,7 @@ $CATALINA_BASE/conf/context.xml添加，也可在$CATALINA_BASE/conf/server.xml�
 		sessionBackupAsync="false"
 		sessionBackupTimeout="100"
 		requestUriIgnorePattern=".*\.(png|gif|jpg|css|js|ico|eot|svg|ttf|woff)$"
-		transcoderFactoryClass="de.javakaffee.web.msm.serializer.kryo.KryoTranscoderFactory"
+		transcoderFactoryClass="de.javakaffee.web.msm.serializer.javolution.JavolutionTranscoderFactory"
 		/>
 	###################################################################################
 	Manager标签属性说明
@@ -109,7 +109,7 @@ memcachedNodes对应不同的存储方案，分别为redis和memcached，需要�
 ***************************************************************************************
 
 ***************************************************************************************
-transcoderFactoryClass对应序列化到memcached中的五种处理方式，两种算过时，我不再介绍，都必须的jar有两个：
+transcoderFactoryClass对应序列化到memcached中的五种处理方式，两种不再介绍，都必须的jar有两个：
 ***************************************************************************************
 	memcached-session-manager.jar    == > memcached-session-manager-2.1.1.jar
 	memcached-session-manager-tc.jar == > memcached-session-manager-tc(6-9)-2.1.1.jar  【其中tc*，对应tomcat版本6-8】
