@@ -3,6 +3,7 @@
  */
 package dswork.common.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -94,5 +95,22 @@ public class DsCommonExAuthorizeService
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("orgid", pid);
 		return userDao.queryList(map);
+	}
+	
+	public DsCommonUser getUserById(Long userid)
+	{
+		return (DsCommonUser) userDao.get(userid);
+	}
+	
+	public List<DsCommonOrg> queryOrgListByUserid(Long userid)
+	{
+		List<DsCommonUserOrg> ls = userorgDao.queryListByUserid(userid);
+		List<DsCommonOrg> list = new ArrayList<DsCommonOrg>();
+		for(DsCommonUserOrg u : ls)
+		{
+			DsCommonOrg org = (DsCommonOrg) orgDao.get(u.getOrgid());
+			list.add(org);
+		}
+		return list;
 	}
 }
