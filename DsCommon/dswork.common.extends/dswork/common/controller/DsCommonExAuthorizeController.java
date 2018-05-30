@@ -141,7 +141,7 @@ public class DsCommonExAuthorizeController extends BaseController
 	{
 		Long id = req.getLong("id");
 		put("user", service.getUserById(id));
-		put("list", service.queryListByUserid(id));
+		put("list", service.queryOrgListByUserid(id));
 		return "/common/ex/authorize/getUserById.jsp";
 	}
 }
