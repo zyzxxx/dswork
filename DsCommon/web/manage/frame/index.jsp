@@ -35,6 +35,13 @@ var treedata = [
 	,{id:100007,name:'用户管理', img:"", imgOpen:"", url:'/common/user/getUser.htm', items:[]}
 	,{id:100008,name:'用户授权管理', img:"", imgOpen:"", url:'/common/userorg/getOrgTree.htm', items:[]}
 	,{id:100009,name:'登录日志', img:"", imgOpen:"", url:'/common/log/getCommonLogin.jsp', items:[]}
+	,{id:100010,name:'扩展', img:"", imgOpen:"", url:'', items:[
+		{id:100011,name:'组织管理', img:"", imgOpen:"", url:'/common/ex/org/getOrgTree.htm', items:[]}
+		,{id:100012,name:'岗位授权管理', img:"", imgOpen:"", url:'/common/ex/orgrole/getOrgTree.htm', items:[]}
+		,{id:100013,name:'用户管理', img:"", imgOpen:"", url:'/common/ex/user/getOrgTree.htm', items:[]}
+		,{id:100014,name:'用户授权管理', img:"", imgOpen:"", url:'/common/ex/userorg/getOrgTree.htm', items:[]}
+		,{id:100015,name:'授权管理', img:"", imgOpen:"", url:'/common/ex/authorize/getOrgTree.htm', items:[]}
+	]}
 ]}
 ,{id:200000, name:'业务管理', img:"", imgOpen:"", url:"", items:[
 	 {id:200001,name:'字典管理', img:"", imgOpen:"", url:'/common/dict/getDict.htm', items:[]}
@@ -54,6 +61,7 @@ var treedata = [
 	]}
 ]}
 ,{id:112,name:'字典样例', img:"", imgOpen:"", url:'/x.jsp', items:[]}
+,{id:113,name:'退出', img:"", imgOpen:"", url:'/manage/frame/logout.jsp', items:[]}
 ];
 </script>
 </head>

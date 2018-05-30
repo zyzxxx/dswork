@@ -221,13 +221,13 @@ public class DsCmsPublishController extends DsCmsBaseController
 
 	/**
 	 * 生成或删除信息
-	 * @param isCreateOrDelete true生成，false删除
+	 * @param createOrDelete true生成，false删除
 	 * @param siteid
 	 * @param categoryid
 	 * @param pageid
 	 * @param pagesize
 	 */
-	private void _building(boolean isCreateOrDelete, long siteid, long categoryid, long pageid, int pagesize)
+	private void _building(boolean createOrDelete, long siteid, long categoryid, long pageid, int pagesize)
 	{
 		pagesize = (pagesize <= 0) ? 25 : pagesize;
 		try
@@ -264,12 +264,12 @@ public class DsCmsPublishController extends DsCmsBaseController
 								else if(p.getScope() == 2)
 								{
 									_buildFile(null, "/a/" + p.getCategoryid() + "/" + p.getId() + ".html", site.getFolder(), enablemobile);
-									service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
+									service.updatePageStatus(p.getId(), createOrDelete ? 8 : 0);
 								}
 								else
 								{
-									_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder(), enablemobile);
-									service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
+									_buildFile(createOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder(), enablemobile);
+									service.updatePageStatus(p.getId(), createOrDelete ? 8 : 0);
 								}
 								print("1");
 							}
@@ -318,7 +318,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 										continue;
 									}
 									_deleteFile(site.getFolder(), c.getId() + "", true, false, enablemobile);// 删除栏目首页
-									if(isCreateOrDelete)
+									if(createOrDelete)
 									{
 										_buildFile(path + "&categoryid=" + c.getId() + "&page=1&pagesize=" + pagesize, c.getUrl(), site.getFolder(), enablemobile);
 										Map<String, Object> map = new HashMap<String, Object>();
@@ -334,7 +334,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 											_buildFile(path + "&categoryid=" + c.getId() + "&page=" + i + "&pagesize=" + pagesize, c.getUrl().replaceAll("\\.html", "_" + i + ".html"), site.getFolder(), enablemobile);
 										}
 									}
-									service.updateCategoryStatus(c.getId(), isCreateOrDelete ? 8 : 0);
+									service.updateCategoryStatus(c.getId(), createOrDelete ? 8 : 0);
 								}
 								catch(Exception e)
 								{
@@ -343,7 +343,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 						}
 						else// 首页
 						{
-							_buildFile(isCreateOrDelete ? path : null, "/index.html", site.getFolder(), enablemobile);
+							_buildFile(createOrDelete ? path : null, "/index.html", site.getFolder(), enablemobile);
 						}
 						print("1");
 					}
@@ -386,7 +386,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 							catch(Exception e)
 							{
 							}
-							if(isCreateOrDelete)
+							if(createOrDelete)
 							{
 								Map<String, Object> map = new HashMap<String, Object>();
 								map.put("siteid", site.getId());
@@ -400,9 +400,9 @@ public class DsCmsPublishController extends DsCmsBaseController
 									{
 										if(p.getScope() != 2)
 										{
-											_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder(), enablemobile);
+											_buildFile(createOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder(), enablemobile);
 										}
-										service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
+										service.updatePageStatus(p.getId(), createOrDelete ? 8 : 0);
 									}
 									catch(Exception e)
 									{
@@ -424,9 +424,9 @@ public class DsCmsPublishController extends DsCmsBaseController
 										{
 											if(p.getScope() != 2)
 											{
-												_buildFile(isCreateOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder(), enablemobile);
+												_buildFile(createOrDelete ? path + "&pageid=" + p.getId() : null, p.getUrl(), site.getFolder(), enablemobile);
 											}
-											service.updatePageStatus(p.getId(), isCreateOrDelete ? 8 : 0);
+											service.updatePageStatus(p.getId(), createOrDelete ? 8 : 0);
 										}
 										catch(Exception e)
 										{
@@ -455,7 +455,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 		catch(Exception e)
 		{
 			e.printStackTrace();
-			print(isCreateOrDelete ? "0:生成失败" : "0:删除失败");
+			print(createOrDelete ? "0:生成失败" : "0:删除失败");
 		}
 	}
 
