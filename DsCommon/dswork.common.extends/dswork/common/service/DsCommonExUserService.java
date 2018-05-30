@@ -103,7 +103,7 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 			}
 		}
 		Queue<DsCommonOrg> queue = new LinkedList<DsCommonOrg>();
-		// 将根节点的 直接子节点放入队列
+		// 将根节点的直接子节点放入队列
 		// Q:为什么不直接把根节点放入队列? A:因为根节点可能不存在
 		queue.addAll(map.get(id));
 		while(queue.size() > 0)
