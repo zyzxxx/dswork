@@ -42,11 +42,24 @@ $(function(){
 	$("#orgTable>tbody>tr>td>a.edit").each(function(){
 		var o = $(this);var id = o.attr("keyIndex");if(id == null || typeof(id)=="undefined"){return true;}
 		o.click(function(event){
-			// TODO
+			$jskey.dialog.showDialog({url:"updOrgRole1.htm?keyIndex=" + id,title:"岗位授予角色",fit:true,draggable:false});
 		});
 	});
 	
 });
+
+function choose(data){
+	$jskey.dialog.callback = function(){
+		var result = $jskey.dialog.returnValue;
+		if(result != null){
+			var map = new $jskey.Map(), o;
+			for(var i = 0; i < result.length; i++){o=result[i];map.put(o.id + "", o);}
+			try{window.frames["mainFrame"].callback(map);}catch(e){alert(e.name + "\n" + e.message);}
+		}
+	};
+	$jskey.dialog.showChoose({id:"chooseSystem", title:"选择角色", args:{url:"../../rolechoose/getRoleChoose.htm", data:data}, width:"600", height:"450"});
+	return false;
+}
 </script>
 </head>
 <body class="easyui-tabs" fit="true">

@@ -12,9 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dswork.common.dao.DsCommonOrgDao;
+import dswork.common.dao.DsCommonOrgRoleDao;
 import dswork.common.dao.DsCommonUserDao;
 import dswork.common.dao.DsCommonUserOrgDao;
 import dswork.common.model.DsCommonOrg;
+import dswork.common.model.DsCommonOrgRole;
 import dswork.common.model.DsCommonUser;
 import dswork.common.model.DsCommonUserOrg;
 import dswork.core.util.UniqueId;
@@ -29,6 +31,8 @@ public class DsCommonExAuthorizeService
 	private DsCommonOrgDao orgDao;
 	@Autowired
 	private DsCommonUserDao userDao;
+	@Autowired
+	private DsCommonOrgRoleDao orgroleDao;
 
 	public DsCommonUser getUserByAccount(String account)
 	{
@@ -112,5 +116,26 @@ public class DsCommonExAuthorizeService
 			list.add(org);
 		}
 		return list;
+	}
+	
+	public List<DsCommonOrgRole> queryOrgRoleList(Long orgid)
+	{
+		return orgroleDao.queryList(orgid);
+	}
+	
+	public void saveOrgRole(Long orgid, List<Long> roleidList)
+	{
+		orgroleDao.deleteByOrgid(orgid);
+		DsCommonOrgRole o = new DsCommonOrgRole();
+		o.setOrgid(orgid);
+		for(Long roleid : roleidList)
+		{
+			if(roleid > 0)
+			{
+				o.setId(UniqueId.genUniqueId());
+				o.setRoleid(roleid);
+				orgroleDao.save(o);
+			}
+		}
 	}
 }
