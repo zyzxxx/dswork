@@ -13,7 +13,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 }};
 $(function(){
 	$("#orgpname").bind("click", function(e){
-		$dswork.showTree({id:"treeid1",width:400,height:200,root:{name:"选择单位"}
+		$dswork.showTree({id:"treeid1",width:400,height:200,root:{id:"${po.orgpid}",name:"${po.orgpname}",nocheck:false}
 			,left:$(this).offset().left, top:$(this).offset().top+20
 			,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
 			,check:function(id, node){if(node.id==0){return false;}else{$("#orgpname").val(node.name);$("#orgpid").val(node.id);$("#orgname").val();$("#orgid").val();}}
@@ -52,11 +52,11 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">所属单位</td>
-		<td class="form_input"><input type="text" id="orgpname" name="orgpname" readonly="readonly" value="" /><input type="hidden" id="orgpid" name="orgpid" value="${po.orgpid}" /></td>
+		<td class="form_input"><input type="text" id="orgpname" name="orgpname" readonly="readonly" value="${po.orgpname}" /><input type="hidden" id="orgpid" name="orgpid" value="${po.orgpid}" /></td>
 	</tr>
 	<tr>
 		<td class="form_title">所属部门</td>
-		<td class="form_input"><input type="text" id="orgname" name="orgname" readonly="readonly" value="" /><input type="hidden" id="orgid" name="orgid" value="${po.orgid}" /></td>
+		<td class="form_input"><input type="text" id="orgname" name="orgname" readonly="readonly" value="${po.orgname}" /><input type="hidden" id="orgid" name="orgid" value="${po.orgid}" /></td>
 	</tr>
 </table>
 <input type="hidden" name="id" value="${po.id}" />

@@ -101,9 +101,9 @@ $(function(){
 		<td class="menuTool">
 			<a ${'admin'==d.account?'style="display:none;"':''} id="a_status${status.index}" name="a_status" v="${d.status}" class="${1==d.status?'pause':'start'}" href="#" onclick="return updStatus('a_status${status.index}', '${d.id}');">${1==d.status?'禁用':'启用'}</a>
 			<c:if test="${'admin'!=d.account}">
-				<a class="update" href="updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=${d.id}">修改</a>
+				<a class="update" href="updUser1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${pageModel.currentPage}&keyIndex=${d.id}">修改</a>
 			</c:if>
-			<a class="user" href="updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
+			<a class="user" href="updUserOrg1.htm?xtype=${fn:escapeXml(param.xtype)}&type=${fn:escapeXml(param.type)}&orgpid=${param.orgpid}&orgid=${param.orgid}&page=${pageModel.currentPage}&keyIndex=${d.id}">调动</a>
 			<c:if test="${'admin'==d.account}"><a class="select" href="getUserById.htm?xtype=${fn:escapeXml(param.xtype)}&keyIndex=${d.id}">明细</a></c:if>
 		</td>
 	</tr>

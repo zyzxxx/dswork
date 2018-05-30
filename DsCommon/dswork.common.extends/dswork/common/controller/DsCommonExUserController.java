@@ -67,6 +67,8 @@ public class DsCommonExUserController extends BaseController
 		{
 			return null;
 		}
+		put("orgpid", getLoginUser().getOrgpid());
+		put("orgpname", getLoginUser().getOrgpname());
 		put("typeList", list);
 		return "/common/ex/user/addUser.jsp";
 	}
