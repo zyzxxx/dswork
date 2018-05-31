@@ -82,7 +82,7 @@ function choose(data){
 <table id="orgTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td>岗位名称</td>
-		<td style="width:15%">操作</td>
+		<td style="width:22%">操作</td>
 	</tr>
 <c:forEach items="${orgList}" var="d">
 	<tr>
