@@ -153,7 +153,7 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 					{
 						pageDao.updateStatus(p.getId(), 0);
 						DsCmsPageEdit pe = (DsCmsPageEdit) pageEditDao.get(p.getId());
-						// 防止因两表数据可能不一致而产生错误
+						// 防止因两表数据可能不一致而产生NPE
 						if(pe != null)
 						{
 							pe.setStatus(0);
