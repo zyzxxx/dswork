@@ -41,4 +41,9 @@ public class DsCmsPageDao extends BaseDao<DsCmsPage, Long>
 		map.put("categoryid", categoryid);
 		return executeDelete("deleteNeedBeDelete", map);
 	}
+
+	public int deleteByCategoryid(Long categoryid)
+	{
+		return executeDelete("deleteByCategoryid", categoryid);
+	}
 }

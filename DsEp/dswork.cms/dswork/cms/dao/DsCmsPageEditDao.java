@@ -45,4 +45,9 @@ public class DsCmsPageEditDao extends BaseDao<DsCmsPageEdit, Long>
 		map.put("url", url);
 		return executeUpdate("updateUrl", map);
 	}
+
+	public int deleteByCategoryid(Long categoryid)
+	{
+		return executeDelete("deleteByCategoryid", categoryid);
+	}
 }
