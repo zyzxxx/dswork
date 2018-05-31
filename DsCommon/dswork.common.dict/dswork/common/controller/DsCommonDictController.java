@@ -23,7 +23,7 @@ import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/dict")
+@RequestMapping("/ds/common/dict")
 public class DsCommonDictController extends BaseController
 {
 	@Autowired
@@ -33,7 +33,7 @@ public class DsCommonDictController extends BaseController
 	@RequestMapping("/addDict1")
 	public String addDict1()
 	{
-		return "/common/dict/addDict.jsp";
+		return "/ds/common/dict/addDict.jsp";
 	}
 	@RequestMapping("/addDict2")
 	public void addDict2(DsCommonDict po)
@@ -86,7 +86,7 @@ public class DsCommonDictController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/common/dict/updDict.jsp";
+		return "/ds/common/dict/updDict.jsp";
 	}
 	@RequestMapping("/updDict2")
 	public void updDict2(DsCommonDict po)//, String changeName
@@ -124,7 +124,7 @@ public class DsCommonDictController extends BaseController
 		Page<DsCommonDict> pageModel = service.queryPage(getPageRequest());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsCommonDict>(request, pageModel));
-		return "/common/dict/getDict.jsp";
+		return "/ds/common/dict/getDict.jsp";
 	}
 	// 树形管理
 	@RequestMapping("/getDictDataTree")
@@ -132,7 +132,7 @@ public class DsCommonDictController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/common/dict/getDictDataTree.jsp";
+		return "/ds/common/dict/getDictDataTree.jsp";
 	}
 	// 获得树形管理时的json数据
 	@RequestMapping("/getDictDataJson")//ByDictidAndPid
@@ -153,7 +153,7 @@ public class DsCommonDictController extends BaseController
 		put("list", list);
 		put("po", po);
 		put("pid", pid);
-		return "/common/dict/getDictData.jsp";
+		return "/ds/common/dict/getDictData.jsp";
 	}
 
 	// 添加
@@ -163,7 +163,7 @@ public class DsCommonDictController extends BaseController
 		Long dictid = req.getLong("dictid");
 		put("pid", req.getLong("pid"));
 		put("dict", service.get(dictid));
-		return "/common/dict/addDictData.jsp";
+		return "/ds/common/dict/addDictData.jsp";
 	}
 	@RequestMapping("/addDictData2")
 	public void addDictData2()
@@ -250,7 +250,7 @@ public class DsCommonDictController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.getData(id));
-		return "/common/dict/updDictData.jsp";
+		return "/ds/common/dict/updDictData.jsp";
 	}
 	@RequestMapping("/updDictData2")
 	public void updDictData2(DsCommonDictData po)
@@ -292,7 +292,7 @@ public class DsCommonDictController extends BaseController
 		put("list", list);
 		put("po", po);
 		put("pid", pid);
-		return "/common/dict/updDictDataSeq.jsp";
+		return "/ds/common/dict/updDictDataSeq.jsp";
 	}
 	@RequestMapping("/updDictDataSeq2")
 	public void updDictDataSeq2()
@@ -323,7 +323,7 @@ public class DsCommonDictController extends BaseController
 	{
 		DsCommonDict po = service.get(req.getLong("dictid"));
 		put("po", po);
-		return "/common/dict/updDictDataMove.jsp";
+		return "/ds/common/dict/updDictDataMove.jsp";
 	}
 	@RequestMapping("/updDictDataMove2")
 	public void updDictDataMove2()
@@ -369,7 +369,7 @@ public class DsCommonDictController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.getData(id));
-		return "/common/dict/getDictDataById.jsp";
+		return "/ds/common/dict/getDictDataById.jsp";
 	}
 	
 	private Long[] getLongArray(String value)

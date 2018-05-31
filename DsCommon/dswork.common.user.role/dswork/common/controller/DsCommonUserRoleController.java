@@ -17,7 +17,7 @@ import dswork.core.page.PageNav;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/userrole")
+@RequestMapping("/ds/common/userrole")
 @SuppressWarnings("all")
 public class DsCommonUserRoleController extends BaseController
 {
@@ -32,7 +32,7 @@ public class DsCommonUserRoleController extends BaseController
 		put("pageModel", pageModel);
 		put("pageNav", pageNav);
 		put("systemid", req.getLong("systemid"));
-		return "/common/userrole/getUser.jsp";
+		return "/ds/common/userrole/getUser.jsp";
 	}
 
 	@RequestMapping("/updSetUser1")
@@ -42,7 +42,7 @@ public class DsCommonUserRoleController extends BaseController
 		put("systemid", req.getLong("systemid"));
 		put("userid", id);
 		put("list", service.queryListByUserid(id));
-		return "/common/userrole/updSetUser.jsp";
+		return "/ds/common/userrole/updSetUser.jsp";
 	}
 	@RequestMapping("/updSetUser2")
 	public void updSetUser2()
@@ -74,7 +74,7 @@ public class DsCommonUserRoleController extends BaseController
 	{
 		long systemid = req.getLong("systemid");
 		put("systemid", systemid);
-		return "/common/userrole/getRoleTree.jsp";
+		return "/ds/common/userrole/getRoleTree.jsp";
 	}
 	@RequestMapping("/getRole")
 	public String getRole()
@@ -85,7 +85,7 @@ public class DsCommonUserRoleController extends BaseController
 		put("list", list);
 		put("systemid", systemid);
 		put("pid", pid);
-		return "/common/userrole/getRole.jsp";
+		return "/ds/common/userrole/getRole.jsp";
 	}
 	
 	@RequestMapping("/updSetRole1")
@@ -94,7 +94,7 @@ public class DsCommonUserRoleController extends BaseController
 		Long id = req.getLong("id");
 		put("roleid", id);
 		put("list", service.queryListByRoleid(id));
-		return "/common/userrole/updSetRole.jsp";
+		return "/ds/common/userrole/updSetRole.jsp";
 	}
 	@RequestMapping("/updSetRole2")
 	public void updSetRole2()
@@ -134,13 +134,13 @@ public class DsCommonUserRoleController extends BaseController
 		PageNav pageNav = new PageNav(request, pageModel);
 		put("pageModel", pageModel);
 		put("pageNav", pageNav);
-		return "/common/userrole/getUserChoose.jsp";
+		return "/ds/common/userrole/getUserChoose.jsp";
 	}
 	@RequestMapping("/getUserById")
 	public String getUserById()
 	{
 		Long id = req.getLong("userid");
 		put("po", service.getUser(id));
-		return "/common/userrole/getUserById.jsp";
+		return "/ds/common/userrole/getUserById.jsp";
 	}
 }

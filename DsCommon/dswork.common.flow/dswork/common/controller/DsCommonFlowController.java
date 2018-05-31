@@ -20,7 +20,7 @@ import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/flow")
+@RequestMapping("/ds/common/flow")
 public class DsCommonFlowController extends BaseController
 {
 	@Autowired
@@ -29,7 +29,7 @@ public class DsCommonFlowController extends BaseController
 	@RequestMapping("/addFlow1")
 	public String addFlow1()
 	{
-		return "/common/flow/addFlowXML.jsp";
+		return "/ds/common/flow/addFlowXML.jsp";
 	}
 
 	@RequestMapping("/addFlow2")
@@ -132,7 +132,7 @@ public class DsCommonFlowController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.getFlow(id));
-		return "/common/flow/updFlowXML.jsp";
+		return "/ds/common/flow/updFlowXML.jsp";
 	}
 
 	@RequestMapping("/updFlow2")
@@ -202,7 +202,7 @@ public class DsCommonFlowController extends BaseController
 				rq.getFilters().put("vnum", 0);
 				put("po", po);
 				put("list", service.queryListFlow(rq.getFilters()));
-				return "/common/flow/getFlow.jsp";
+				return "/ds/common/flow/getFlow.jsp";
 			}
 		}
 		return null;
@@ -214,7 +214,7 @@ public class DsCommonFlowController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.getFlow(id));
-		return "/common/flow/getFlowById.jsp";
+		return "/ds/common/flow/getFlowById.jsp";
 	}
 
 	// 更改状态
@@ -275,7 +275,7 @@ public class DsCommonFlowController extends BaseController
 		}
 		put("parent", parent);
 		put("pid", pid);
-		return "/common/flow/addFlowCategory.jsp";
+		return "/ds/common/flow/addFlowCategory.jsp";
 	}
 
 	@RequestMapping("/addFlowCategory2")
@@ -365,7 +365,7 @@ public class DsCommonFlowController extends BaseController
 		}
 		put("po", po);
 		put("parent", parent);
-		return "/common/flow/updFlowCategory.jsp";
+		return "/ds/common/flow/updFlowCategory.jsp";
 	}
 
 	@RequestMapping("/updFlowCategory2")
@@ -410,7 +410,7 @@ public class DsCommonFlowController extends BaseController
 		long pid = req.getLong("pid");
 		List<DsCommonFlowCategory> list = service.queryList(pid);
 		put("list", list);
-		return "/common/flow/updFlowCategorySeq.jsp";
+		return "/ds/common/flow/updFlowCategorySeq.jsp";
 	}
 
 	@RequestMapping("/updFlowCategorySeq2")
@@ -443,7 +443,7 @@ public class DsCommonFlowController extends BaseController
 		Long rootid = req.getLong("rootid");// 作为限制根节点显示
 		put("po", (rootid > 0) ? service.get(rootid) : null);
 		put("rootid", rootid);
-		return "/common/flow/updFlowCategoryMove.jsp";
+		return "/ds/common/flow/updFlowCategoryMove.jsp";
 	}
 
 	@RequestMapping("/updFlowCategoryMove2")
@@ -502,7 +502,7 @@ public class DsCommonFlowController extends BaseController
 			po = new DsCommonFlowCategory();
 		}
 		put("po", po);
-		return "/common/flow/getFlowCategoryTree.jsp";
+		return "/ds/common/flow/getFlowCategoryTree.jsp";
 	}
 
 	// 获得列表
@@ -515,7 +515,7 @@ public class DsCommonFlowController extends BaseController
 		put("list", list);
 		put("rootid", rootid);
 		put("pid", pid);
-		return "/common/flow/getFlowCategory.jsp";
+		return "/ds/common/flow/getFlowCategory.jsp";
 	}
 
 	// 获得树形管理时的json数据
@@ -534,7 +534,7 @@ public class DsCommonFlowController extends BaseController
 		Long id = req.getLong("keyIndex");
 		DsCommonFlowCategory po = service.get(id);
 		put("po", po);
-		return "/common/flow/getFlowCategoryById.jsp";
+		return "/ds/common/flow/getFlowCategoryById.jsp";
 	}
 
 	private Long[] getLongArray(String value)

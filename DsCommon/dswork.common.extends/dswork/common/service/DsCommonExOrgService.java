@@ -70,7 +70,7 @@ public class DsCommonExOrgService
 	{
 		return (DsCommonOrg) dao.get(primaryKey);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<DsCommonOrg> queryList(Long pid)
 	{

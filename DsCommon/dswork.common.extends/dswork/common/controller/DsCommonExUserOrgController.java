@@ -15,7 +15,7 @@ import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/ex/userorg")
+@RequestMapping("/ds/common/ex/userorg")
 public class DsCommonExUserOrgController extends BaseController
 {
 	@Autowired
@@ -45,7 +45,7 @@ public class DsCommonExUserOrgController extends BaseController
 			po.setName("组织机构");
 		}
 		put("po", po);
-		return "/common/ex/userorg/getOrgTree.jsp";
+		return "/ds/common/ex/userorg/getOrgTree.jsp";
 	}
 
 	@RequestMapping("/getUserOrg")
@@ -55,7 +55,7 @@ public class DsCommonExUserOrgController extends BaseController
 		put("pid", pid);
 		put("orgList", service.queryOrgList(pid));
 		put("userList", service.queryUserList(pid));
-		return "/common/ex/userorg/getUserOrg.jsp";
+		return "/ds/common/ex/userorg/getUserOrg.jsp";
 	}
 
 	@RequestMapping("/updSetUser1")
@@ -63,7 +63,7 @@ public class DsCommonExUserOrgController extends BaseController
 	{
 		Long id = req.getLong("id");
 		put("list", service.queryListByUserid(id));
-		return "/common/ex/userorg/updSetUser.jsp";
+		return "/ds/common/ex/userorg/updSetUser.jsp";
 	}
 	@RequestMapping("/updSetUser2")
 	public void updSetUser2()
@@ -95,7 +95,7 @@ public class DsCommonExUserOrgController extends BaseController
 	{
 		Long id = req.getLong("id");
 		put("list", service.queryListByOrgid(id));
-		return "/common/ex/userorg/updSetOrg.jsp";
+		return "/ds/common/ex/userorg/updSetOrg.jsp";
 	}
 	@RequestMapping("/updSetOrg2")
 	public void updSetOrg2()
@@ -139,9 +139,9 @@ public class DsCommonExUserOrgController extends BaseController
 	public String getUserById()
 	{
 		Long id = req.getLong("id");
-		put("user", service.getUserById(id));
+		put("po", service.getUserById(id));
 		put("list", service.queryOrgListByUserid(id));
-		return "/common/ex/userorg/getUserById.jsp";
+		return "/ds/common/ex/userorg/getUserById.jsp";
 	}
 
 	@RequestMapping("/getOrgById")
@@ -150,9 +150,9 @@ public class DsCommonExUserOrgController extends BaseController
 		Long id = req.getLong("id");
 		put("po", service.getOrg(id));
 		put("list", service.queryUserListByOrgid(id));
-		return "/common/ex/userorg/getOrgById.jsp";
+		return "/ds/common/ex/userorg/getOrgById.jsp";
 	}
-	
+
 	// 授权
 	@RequestMapping("/updOrgRole1")
 	public String updOrgRole1()
@@ -167,7 +167,7 @@ public class DsCommonExUserOrgController extends BaseController
 		{
 			put("po", po);
 			put("list", service.queryOrgRoleList(id));
-			return "/common/ex/userorg/updOrgRole.jsp";
+			return "/ds/common/ex/userorg/updOrgRole.jsp";
 		}
 		return null;
 	}

@@ -178,13 +178,8 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 			{
 				if(c.getScope() == 1)
 				{
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("categoryid", c.getId());
-					List<DsCmsPageEdit> plist = pageEditDao.queryList(map);
-					for(DsCmsPageEdit p : plist)
-					{
-						pageEditDao.delete(p.getId());
-					}
+					pageDao.deleteByCategoryid(c.getId());
+					pageEditDao.deleteByCategoryid(c.getId());
 				}
 				dao.delete(c.getId());
 			}

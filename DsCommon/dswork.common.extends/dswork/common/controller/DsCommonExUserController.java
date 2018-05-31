@@ -20,7 +20,7 @@ import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/ex/user")
+@RequestMapping("/ds/common/ex/user")
 public class DsCommonExUserController extends BaseController
 {
 	@Autowired
@@ -50,7 +50,7 @@ public class DsCommonExUserController extends BaseController
 			po.setStatus(2);
 		}
 		put("po", po);
-		return "/common/ex/user/getOrgTree.jsp";
+		return "/ds/common/ex/user/getOrgTree.jsp";
 	}
 
 	// 添加
@@ -67,10 +67,11 @@ public class DsCommonExUserController extends BaseController
 		{
 			return null;
 		}
-		put("orgpid", getLoginUser().getOrgpid());
-		put("orgpname", getLoginUser().getOrgpname());
+		DsCommonUser user = getLoginUser();
+		put("orgpid", user.getOrgpid());
+		put("orgpname", user.getOrgpname());
 		put("typeList", list);
-		return "/common/ex/user/addUser.jsp";
+		return "/ds/common/ex/user/addUser.jsp";
 	}
 	@RequestMapping("/addUser2")
 	public void addUser2(DsCommonUser po)
@@ -136,7 +137,7 @@ public class DsCommonExUserController extends BaseController
 					return;
 				}
 			}
-			
+
 			for(long id : ids)
 			{
 				if(id <= 0)
@@ -177,9 +178,9 @@ public class DsCommonExUserController extends BaseController
 		}
 		put("typeList", list);
 		put("page", req.getInt("page", 1));
-		return "/common/ex/user/updUser.jsp";
+		return "/ds/common/ex/user/updUser.jsp";
 	}
-	
+
 	@RequestMapping("/updUser2")
 	public void updUser2(DsCommonUser po)
 	{
@@ -255,9 +256,12 @@ public class DsCommonExUserController extends BaseController
 			{
 				return null;
 			}
+			DsCommonUser user = getLoginUser();
+			put("orgpid", user.getOrgpid());
+			put("orgpname", user.getOrgpname());
 			put("po", po);
 			put("page", req.getInt("page", 1));
-			return "/common/ex/user/updUserOrg.jsp";
+			return "/ds/common/ex/user/updUserOrg.jsp";
 		}
 		return null;
 	}
@@ -303,7 +307,7 @@ public class DsCommonExUserController extends BaseController
 			}
 			put("po", po);
 			put("page", req.getInt("page", 1));
-			return "/common/ex/user/updUserPassword.jsp";
+			return "/ds/common/ex/user/updUserPassword.jsp";
 		}
 		return null;
 	}
@@ -356,7 +360,7 @@ public class DsCommonExUserController extends BaseController
 			return null;
 		}
 		put("typeList", list);
-		return "/common/ex/user/getUser.jsp";
+		return "/ds/common/ex/user/getUser.jsp";
 	}
 
 	// 明细
@@ -370,7 +374,7 @@ public class DsCommonExUserController extends BaseController
 			return null;
 		}
 		put("po", po);
-		return "/common/ex/user/getUserById.jsp";
+		return "/ds/common/ex/user/getUserById.jsp";
 	}
 
 	private DsCommonUser getLoginUser()

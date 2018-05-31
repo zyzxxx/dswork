@@ -85,7 +85,7 @@ public class DsCommonExUserOrgService
 	{
 		return (DsCommonOrg) orgDao.get(primaryKey);
 	}
-	
+
 	public List<DsCommonOrg> queryOrgList(Long pid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -93,19 +93,19 @@ public class DsCommonExUserOrgService
 		map.put("status", 0);
 		return orgDao.queryList(map);
 	}
-	
+
 	public List<DsCommonUser> queryUserList(Long pid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("orgid", pid);
 		return userDao.queryList(map);
 	}
-	
+
 	public DsCommonUser getUserById(Long userid)
 	{
 		return (DsCommonUser) userDao.get(userid);
 	}
-	
+
 	public List<DsCommonOrg> queryOrgListByUserid(Long userid)
 	{
 		List<DsCommonUserOrg> ls = userorgDao.queryListByUserid(userid);
@@ -129,12 +129,12 @@ public class DsCommonExUserOrgService
 		}
 		return list;
 	}
-	
+
 	public List<DsCommonOrgRole> queryOrgRoleList(Long orgid)
 	{
 		return orgroleDao.queryList(orgid);
 	}
-	
+
 	public void saveOrgRole(Long orgid, List<Long> roleidList)
 	{
 		orgroleDao.deleteByOrgid(orgid);

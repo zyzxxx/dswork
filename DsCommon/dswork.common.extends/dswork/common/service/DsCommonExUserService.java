@@ -159,7 +159,7 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 	{
 		return (DsCommonOrg) orgDao.get(id);
 	}
-	
+
 	public List<DsCommonOrg> queryOrgList(Long pid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();

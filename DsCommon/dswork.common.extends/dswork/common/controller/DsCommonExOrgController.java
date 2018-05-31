@@ -15,7 +15,7 @@ import dswork.core.util.CollectionUtil;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/ex/org")
+@RequestMapping("/ds/common/ex/org")
 public class DsCommonExOrgController extends BaseController
 {
 	@Autowired
@@ -41,7 +41,7 @@ public class DsCommonExOrgController extends BaseController
 		}
 		put("parent", parent);
 		put("pid", pid);
-		return "/common/ex/org/addOrg.jsp";
+		return "/ds/common/ex/org/addOrg.jsp";
 	}
 
 	@RequestMapping("/addOrg2")
@@ -150,7 +150,7 @@ public class DsCommonExOrgController extends BaseController
 		}
 		put("po", po);
 		put("parent", parent);
-		return "/common/ex/org/updOrg.jsp";
+		return "/ds/common/ex/org/updOrg.jsp";
 	}
 
 	@RequestMapping("/updOrg2")
@@ -227,7 +227,7 @@ public class DsCommonExOrgController extends BaseController
 		long pid = req.getLong("pid");
 		List<DsCommonOrg> list = service.queryList(pid);
 		put("list", list);
-		return "/common/ex/org/updOrgSeq.jsp";
+		return "/ds/common/ex/org/updOrgSeq.jsp";
 	}
 
 	@RequestMapping("/updOrgSeq2")
@@ -260,7 +260,7 @@ public class DsCommonExOrgController extends BaseController
 		Long rootid = getLoginUser().getOrgpid();// 作为限制根节点显示
 		put("po", (rootid > 0) ? service.get(rootid) : null);
 		put("rootid", rootid);
-		return "/common/ex/org/updOrgMove.jsp";
+		return "/ds/common/ex/org/updOrgMove.jsp";
 	}
 
 	@RequestMapping("/updOrgMove2")
@@ -328,7 +328,7 @@ public class DsCommonExOrgController extends BaseController
 			po = new DsCommonOrg();
 		}
 		put("po", po);
-		return "/common/ex/org/getOrgTree.jsp";
+		return "/ds/common/ex/org/getOrgTree.jsp";
 	}
 
 	// 获得列表
@@ -341,7 +341,7 @@ public class DsCommonExOrgController extends BaseController
 		put("list", list);
 		put("rootid", rootid);
 		put("pid", pid);
-		return "/common/ex/org/getOrg.jsp";
+		return "/ds/common/ex/org/getOrg.jsp";
 	}
 
 	// 获得树形管理时的json数据
@@ -360,7 +360,7 @@ public class DsCommonExOrgController extends BaseController
 		Long id = req.getLong("keyIndex");
 		DsCommonOrg po = service.get(id);
 		put("po", po);
-		return "/common/ex/org/getOrgById.jsp";
+		return "/ds/common/ex/org/getOrgById.jsp";
 	}
 
 	private Long[] getLongArray(String value)
