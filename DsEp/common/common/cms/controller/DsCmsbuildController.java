@@ -60,6 +60,7 @@ public class DsCmsbuildController extends BaseController
 		put("year", TimeUtil.getCurrentTime("yyyy"));
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
+		put("categorylist", cms.queryCategory("0"));// 顶层节点列表
 		if(req.getString("view").equals("true"))
 		{
 			put("ctx", request.getContextPath() + "/html/" + s.get("folder") + (mobile ? "/html/m" : "/html"));// 预览时，现在可以不需要运行服务器，即可浏览相对地址
@@ -73,7 +74,6 @@ public class DsCmsbuildController extends BaseController
 			Map<String, Object> p = cms.get(pageid + "");
 			Map<String, Object> c = cms.getCategory(p.get("categoryid"));
 			put("category", c);
-			put("categorylist", cms.queryCategory("0"));// 顶层节点列表
 			put("id", getString(p.get("id")));
 			put("categoryid", getString(p.get("categoryid")));
 			put("title", getString(p.get("title")));
@@ -102,7 +102,6 @@ public class DsCmsbuildController extends BaseController
 				return null;// 兼容模板为空
 			}
 			put("categoryparent", cms.getCategory(c.get("pid")));// 不再推荐使用
-			put("categorylist", cms.queryCategory("0"));// 顶层节点列表
 			put("categoryid", categoryid);
 			put("category", c);
 			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
