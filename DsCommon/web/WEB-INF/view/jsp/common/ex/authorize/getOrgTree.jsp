@@ -58,7 +58,7 @@ function callfn(isuser, title, id, url, uList, oList){
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
-<div region="west" split="true" title="用户授权管理（选择部门）" style="width:300px;">
+<div region="west" split="true" title="授权管理（选择部门）" style="width:300px;">
 	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />
 	</div>
