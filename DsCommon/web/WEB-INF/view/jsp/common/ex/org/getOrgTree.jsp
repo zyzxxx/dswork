@@ -13,7 +13,7 @@ function refreshNode(re){$dswork.ztree.refreshNode(re);}
 $dswork.ztree.click = function(){
 	treeNode = $dswork.ztree.getSelectedNode();
 	if(treeNode.status > 0 || treeNode.id == 0){attachUrl("getOrg.htm?rootid=${po.id}&pid=" + treeNode.id);}
-	else{attachUrl("getOrgById.htm?keyIndex=" + treeNode.id);}
+	else{attachUrl("getOrgById.htm?noback=true&keyIndex=" + treeNode.id);}
 	return false;
 };
 $dswork.ztree.showMenu = function(type, x, y){
