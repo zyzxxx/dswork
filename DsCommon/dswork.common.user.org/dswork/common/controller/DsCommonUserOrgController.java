@@ -14,7 +14,7 @@ import dswork.common.service.DsCommonUserOrgService;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/userorg")
+@RequestMapping("/ds/common/userorg")
 public class DsCommonUserOrgController extends BaseController
 {
 	@Autowired
@@ -44,7 +44,7 @@ public class DsCommonUserOrgController extends BaseController
 			po.setName("组织机构");
 		}
 		put("po", po);
-		return "/common/userorg/getOrgTree.jsp";
+		return "/ds/common/userorg/getOrgTree.jsp";
 	}
 
 	@RequestMapping("/getUserOrg")
@@ -54,7 +54,7 @@ public class DsCommonUserOrgController extends BaseController
 		put("pid", pid);
 		put("orgList", service.queryOrgList(pid));
 		put("userList", service.queryUserList(pid));
-		return "/common/userorg/getUserOrg.jsp";
+		return "/ds/common/userorg/getUserOrg.jsp";
 	}
 
 	@RequestMapping("/updSetUser1")
@@ -62,7 +62,7 @@ public class DsCommonUserOrgController extends BaseController
 	{
 		Long id = req.getLong("id");
 		put("list", service.queryListByUserid(id));
-		return "/common/userorg/updSetUser.jsp";
+		return "/ds/common/userorg/updSetUser.jsp";
 	}
 	@RequestMapping("/updSetUser2")
 	public void updSetUser2()
@@ -94,7 +94,7 @@ public class DsCommonUserOrgController extends BaseController
 	{
 		Long id = req.getLong("id");
 		put("list", service.queryListByOrgid(id));
-		return "/common/userorg/updSetOrg.jsp";
+		return "/ds/common/userorg/updSetOrg.jsp";
 	}
 	@RequestMapping("/updSetOrg2")
 	public void updSetOrg2()

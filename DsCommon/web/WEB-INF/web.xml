@@ -13,25 +13,25 @@
 		<filter-name>websso</filter-name>
 		<filter-class>dswork.sso.WebFilter</filter-class>
 	</filter>
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/dict/*</url-pattern></filter-mapping>
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/flow/*</url-pattern></filter-mapping>
-	
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/system/*</url-pattern></filter-mapping>
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/func/*</url-pattern></filter-mapping>
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/role/*</url-pattern></filter-mapping>
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/rolechoose/*</url-pattern></filter-mapping>
-	
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/org/*</url-pattern></filter-mapping>
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/orgrole/*</url-pattern></filter-mapping>
-	
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/user/*</url-pattern></filter-mapping>
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/userrole/*</url-pattern></filter-mapping>
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/userorg/*</url-pattern></filter-mapping>
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/usertype/*</url-pattern></filter-mapping>
-
-	<filter-mapping><filter-name>websso</filter-name><url-pattern>/common/ex/*</url-pattern></filter-mapping>
-	
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/*</url-pattern></filter-mapping>
 	<filter-mapping><filter-name>websso</filter-name><url-pattern>/index.jsp</url-pattern></filter-mapping>
+<!--
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/dict/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/flow/*</url-pattern></filter-mapping>
 
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/system/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/func/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/role/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/rolechoose/*</url-pattern></filter-mapping>
 
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/org/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/orgrole/*</url-pattern></filter-mapping>
+
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/user/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/userrole/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/userorg/*</url-pattern></filter-mapping>
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/usertype/*</url-pattern></filter-mapping>
+
+	<filter-mapping><filter-name>websso</filter-name><url-pattern>/ds/common/ex/*</url-pattern></filter-mapping>
+-->
 </web-app>

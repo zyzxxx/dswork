@@ -26,7 +26,7 @@ import dswork.mvc.BaseController;
 // 功能
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/func")
+@RequestMapping("/ds/common/func")
 public class DsCommonFuncController extends BaseController
 {
 	@Autowired
@@ -54,7 +54,7 @@ public class DsCommonFuncController extends BaseController
 		put("parent", parent);
 		put("systemid", systemid);
 		put("pid", req.getLong("pid"));
-		return "/common/func/addFunc.jsp";
+		return "/ds/common/func/addFunc.jsp";
 	}
 
 	@RequestMapping("/addFunc2")
@@ -208,7 +208,7 @@ public class DsCommonFuncController extends BaseController
 		put("parent", parent);
 		put("list", list);
 		put("count", count);
-		return "/common/func/updFunc.jsp";
+		return "/ds/common/func/updFunc.jsp";
 	}
 
 	@RequestMapping("/updFunc2")
@@ -301,7 +301,7 @@ public class DsCommonFuncController extends BaseController
 		long pid = req.getLong("pid");
 		List<DsCommonFunc> list = service.queryList(systemid, pid);
 		put("list", list);
-		return "/common/func/updFuncSeq.jsp";
+		return "/ds/common/func/updFuncSeq.jsp";
 	}
 
 	@RequestMapping("/updFuncSeq2")
@@ -333,7 +333,7 @@ public class DsCommonFuncController extends BaseController
 	{
 		DsCommonSystem po = service.getSystem(req.getLong("systemid"));
 		put("po", po);
-		return "/common/func/updFuncMove.jsp";
+		return "/ds/common/func/updFuncMove.jsp";
 	}
 
 	@RequestMapping("/updFuncMove2")
@@ -380,7 +380,7 @@ public class DsCommonFuncController extends BaseController
 	{
 		long systemid = req.getLong("systemid");
 		put("systemid", systemid);
-		return "/common/func/getFuncTree.jsp";
+		return "/ds/common/func/getFuncTree.jsp";
 	}
 
 	// 获得列表
@@ -393,7 +393,7 @@ public class DsCommonFuncController extends BaseController
 		put("list", list);
 		put("systemid", systemid);
 		put("pid", pid);
-		return "/common/func/getFunc.jsp";
+		return "/ds/common/func/getFunc.jsp";
 	}
 
 	// 获得树形管理时的json数据
@@ -414,7 +414,7 @@ public class DsCommonFuncController extends BaseController
 		List<DsCommonRes> list = po.getResourcesList();
 		put("po", po);
 		put("list", list);
-		return "/common/func/getFuncById.jsp";
+		return "/ds/common/func/getFuncById.jsp";
 	}
 
 	// 菜单导入页面
@@ -442,7 +442,7 @@ public class DsCommonFuncController extends BaseController
 			}
 		}
 		put("json", rootList.toString());
-		return "/common/func/getFuncEdit.jsp";
+		return "/ds/common/func/getFuncEdit.jsp";
 	}
 
 	// 菜单导入

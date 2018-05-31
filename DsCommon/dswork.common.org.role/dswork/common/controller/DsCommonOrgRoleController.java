@@ -14,7 +14,7 @@ import dswork.common.service.DsCommonOrgRoleService;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/orgrole")
+@RequestMapping("/ds/common/orgrole")
 public class DsCommonOrgRoleController extends BaseController
 {
 	@Autowired
@@ -44,7 +44,7 @@ public class DsCommonOrgRoleController extends BaseController
 			po.setName("组织机构");
 		}
 		put("po", po);
-		return "/common/orgrole/getOrgTree.jsp";
+		return "/ds/common/orgrole/getOrgTree.jsp";
 	}
 
 	// 授权
@@ -61,7 +61,7 @@ public class DsCommonOrgRoleController extends BaseController
 		{
 			put("po", po);
 			put("list", service.queryList(id));
-			return "/common/orgrole/updOrgRole.jsp";
+			return "/ds/common/orgrole/updOrgRole.jsp";
 		}
 		return null;
 	}
