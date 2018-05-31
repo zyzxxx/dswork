@@ -122,11 +122,6 @@ public class DsCommonExUserService extends BaseService<DsCommonUser, java.lang.L
 	public Page<DsCommonUser> queryPageByOrgpid(PageRequest pr, Long orgpid)
 	{
 		pr.getFilters().remove("orgpid");
-		if(orgpid == null || orgpid == 0)
-		{
-			return dao.queryPage(pr);
-		}
-
 		List<DsCommonUser> rawList = dao.queryList(pr.getFilters());
 		List<DsCommonOrg> orgList = queryListOrgById(orgpid);
 		Map<Long, DsCommonOrg> map = new HashMap<Long, DsCommonOrg>();
