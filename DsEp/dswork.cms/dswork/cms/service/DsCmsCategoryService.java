@@ -143,9 +143,13 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 				List<DsCmsPageEdit> pelist = pageEditDao.queryList(map);
 				for(DsCmsPage p : plist)
 				{
-					if(p.getStatus() != -1)
+					if(p.getStatus() == -1)
 					{
-						pageDao.updateStatus(p.getStatus(), 0);
+						pageDao.delete(p.getId());
+					}
+					else
+					{
+						pageDao.updateStatus(p.getId(), 0);
 					}
 				}
 				for(DsCmsPageEdit p : pelist)
