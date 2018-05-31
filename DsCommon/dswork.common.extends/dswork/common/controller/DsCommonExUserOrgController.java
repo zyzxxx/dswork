@@ -10,16 +10,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import dswork.common.model.DsCommonOrg;
 import dswork.common.model.DsCommonUser;
-import dswork.common.service.DsCommonExAuthorizeService;
+import dswork.common.service.DsCommonExUserOrgService;
 import dswork.mvc.BaseController;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/ex/authorize")
-public class DsCommonExAuthorizeController extends BaseController
+@RequestMapping("/common/ex/userorg")
+public class DsCommonExUserOrgController extends BaseController
 {
 	@Autowired
-	private DsCommonExAuthorizeService service;
+	private DsCommonExUserOrgService service;
 
 	// 树形管理
 	@RequestMapping("/getOrgTree")
@@ -45,7 +45,7 @@ public class DsCommonExAuthorizeController extends BaseController
 			po.setName("组织机构");
 		}
 		put("po", po);
-		return "/common/ex/authorize/getOrgTree.jsp";
+		return "/common/ex/userorg/getOrgTree.jsp";
 	}
 
 	@RequestMapping("/getUserOrg")
@@ -55,7 +55,7 @@ public class DsCommonExAuthorizeController extends BaseController
 		put("pid", pid);
 		put("orgList", service.queryOrgList(pid));
 		put("userList", service.queryUserList(pid));
-		return "/common/ex/authorize/getUserOrg.jsp";
+		return "/common/ex/userorg/getUserOrg.jsp";
 	}
 
 	@RequestMapping("/updSetUser1")
@@ -63,7 +63,7 @@ public class DsCommonExAuthorizeController extends BaseController
 	{
 		Long id = req.getLong("id");
 		put("list", service.queryListByUserid(id));
-		return "/common/ex/authorize/updSetUser.jsp";
+		return "/common/ex/userorg/updSetUser.jsp";
 	}
 	@RequestMapping("/updSetUser2")
 	public void updSetUser2()
@@ -95,7 +95,7 @@ public class DsCommonExAuthorizeController extends BaseController
 	{
 		Long id = req.getLong("id");
 		put("list", service.queryListByOrgid(id));
-		return "/common/ex/authorize/updSetOrg.jsp";
+		return "/common/ex/userorg/updSetOrg.jsp";
 	}
 	@RequestMapping("/updSetOrg2")
 	public void updSetOrg2()
@@ -141,7 +141,7 @@ public class DsCommonExAuthorizeController extends BaseController
 		Long id = req.getLong("id");
 		put("user", service.getUserById(id));
 		put("list", service.queryOrgListByUserid(id));
-		return "/common/ex/authorize/getUserById.jsp";
+		return "/common/ex/userorg/getUserById.jsp";
 	}
 
 	@RequestMapping("/getOrgById")
@@ -150,7 +150,7 @@ public class DsCommonExAuthorizeController extends BaseController
 		Long id = req.getLong("id");
 		put("po", service.getOrg(id));
 		put("list", service.queryUserListByOrgid(id));
-		return "/common/ex/authorize/getOrgById.jsp";
+		return "/common/ex/userorg/getOrgById.jsp";
 	}
 	
 	// 授权
@@ -167,7 +167,7 @@ public class DsCommonExAuthorizeController extends BaseController
 		{
 			put("po", po);
 			put("list", service.queryOrgRoleList(id));
-			return "/common/ex/authorize/updOrgRole.jsp";
+			return "/common/ex/userorg/updOrgRole.jsp";
 		}
 		return null;
 	}

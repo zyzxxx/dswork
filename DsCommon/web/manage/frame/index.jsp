@@ -38,7 +38,7 @@ var treedata = [
 	,{id:100010,name:'扩展', img:"", imgOpen:"", url:'', items:[
 		{id:100011,name:'组织管理', img:"", imgOpen:"", url:'/common/ex/org/getOrgTree.htm', items:[]}
 		,{id:100013,name:'用户管理', img:"", imgOpen:"", url:'/common/ex/user/getOrgTree.htm', items:[]}
-		,{id:100015,name:'授权管理', img:"", imgOpen:"", url:'/common/ex/authorize/getOrgTree.htm', items:[]}
+		,{id:100015,name:'授权管理', img:"", imgOpen:"", url:'/common/ex/userorg/getOrgTree.htm', items:[]}
 	]}
 ]}
 ,{id:200000, name:'业务管理', img:"", imgOpen:"", url:"", items:[

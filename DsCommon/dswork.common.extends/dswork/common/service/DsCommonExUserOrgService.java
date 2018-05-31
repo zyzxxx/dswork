@@ -23,7 +23,7 @@ import dswork.core.util.UniqueId;
 
 @Service
 @SuppressWarnings("all")
-public class DsCommonExAuthorizeService
+public class DsCommonExUserOrgService
 {
 	@Autowired
 	private DsCommonUserOrgDao userorgDao;
