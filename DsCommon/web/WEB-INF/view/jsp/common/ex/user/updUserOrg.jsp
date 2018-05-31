@@ -13,7 +13,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 }};
 $(function(){
 	$("#orgpname").bind("click", function(e){
-		$dswork.showTree({id:"treeid1",width:400,height:200,root:{id:"${po.orgpid}",name:"${po.orgpname}",nocheck:false}
+		$dswork.showTree({id:"treeid1",width:400,height:200,root:{id:"${orgpid}",name:"${orgpid==0?'组织机构':orgpname}"${orgpid==0?'':',nocheck:false'}}
 			,left:$(this).offset().left, top:$(this).offset().top+20
 			,url:function(node){return "${ctx}/common/share/getJsonOrg.htm?pid="+node.id;}
 			,check:function(id, node){if(node.id==0){return false;}else{$("#orgpname").val(node.name);$("#orgpid").val(node.id);$("#orgname").val();$("#orgid").val();}}

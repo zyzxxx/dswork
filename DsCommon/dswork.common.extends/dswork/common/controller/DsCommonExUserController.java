@@ -67,8 +67,9 @@ public class DsCommonExUserController extends BaseController
 		{
 			return null;
 		}
-		put("orgpid", getLoginUser().getOrgpid());
-		put("orgpname", getLoginUser().getOrgpname());
+		DsCommonUser user = getLoginUser();
+		put("orgpid", user.getOrgpid());
+		put("orgpname", user.getOrgpname());
 		put("typeList", list);
 		return "/common/ex/user/addUser.jsp";
 	}
@@ -136,7 +137,7 @@ public class DsCommonExUserController extends BaseController
 					return;
 				}
 			}
-			
+
 			for(long id : ids)
 			{
 				if(id <= 0)
@@ -179,7 +180,7 @@ public class DsCommonExUserController extends BaseController
 		put("page", req.getInt("page", 1));
 		return "/common/ex/user/updUser.jsp";
 	}
-	
+
 	@RequestMapping("/updUser2")
 	public void updUser2(DsCommonUser po)
 	{
@@ -255,6 +256,9 @@ public class DsCommonExUserController extends BaseController
 			{
 				return null;
 			}
+			DsCommonUser user = getLoginUser();
+			put("orgpid", user.getOrgpid());
+			put("orgpname", user.getOrgpname());
 			put("po", po);
 			put("page", req.getInt("page", 1));
 			return "/common/ex/user/updUserOrg.jsp";

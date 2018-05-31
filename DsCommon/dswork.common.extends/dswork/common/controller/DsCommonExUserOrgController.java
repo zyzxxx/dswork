@@ -152,7 +152,7 @@ public class DsCommonExUserOrgController extends BaseController
 		put("list", service.queryUserListByOrgid(id));
 		return "/common/ex/userorg/getOrgById.jsp";
 	}
-	
+
 	// 授权
 	@RequestMapping("/updOrgRole1")
 	public String updOrgRole1()
