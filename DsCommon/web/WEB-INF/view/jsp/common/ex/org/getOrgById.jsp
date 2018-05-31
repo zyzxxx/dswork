@@ -13,7 +13,7 @@
 	<tr>
 		<td class="title">明细</td>
 		<td class="menuTool">
-			<a class="back" onclick="parent.$dswork.ztree.click();return false;" href="#">返回</a>
+			<c:if test="${empty param.noback}"><a class="back" onclick="parent.$dswork.ztree.click();return false;" href="#">返回</a></c:if>
 		</td>
 	</tr>
 </table>

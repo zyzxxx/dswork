@@ -29,7 +29,7 @@ public class DsCommonExUserOrgController extends BaseController
 		DsCommonOrg po = null;
 		if(rootid > 0)
 		{
-			po = service.get(rootid);
+			po = service.getOrg(rootid);
 			if(null == po)
 			{
 				return null;// 没有此根节点
@@ -133,5 +133,80 @@ public class DsCommonExUserOrgController extends BaseController
 	{
 		String account = dswork.sso.WebFilter.getAccount(session);
 		return service.getUserByAccount(account);
+	}
+
+	@RequestMapping("/getUserById")
+	public String getUserById()
+	{
+		Long id = req.getLong("id");
+		put("user", service.getUserById(id));
+		put("list", service.queryOrgListByUserid(id));
+		return "/common/ex/userorg/getUserById.jsp";
+	}
+
+	@RequestMapping("/getOrgById")
+	public String getOrgById()
+	{
+		Long id = req.getLong("id");
+		put("po", service.getOrg(id));
+		put("list", service.queryUserListByOrgid(id));
+		return "/common/ex/userorg/getOrgById.jsp";
+	}
+	
+	// 授权
+	@RequestMapping("/updOrgRole1")
+	public String updOrgRole1()
+	{
+		Long id = req.getLong("keyIndex");
+		DsCommonOrg po = service.getOrg(id);
+		if(null == po)
+		{
+			return null;// 非法访问，否则肯定存在id
+		}
+		if(0 == po.getStatus())// 岗位才可以授权
+		{
+			put("po", po);
+			put("list", service.queryOrgRoleList(id));
+			return "/common/ex/userorg/updOrgRole.jsp";
+		}
+		return null;
+	}
+
+	@RequestMapping("/updOrgRole2")
+	public void updOrgRole2()
+	{
+		try
+		{
+			Long id = req.getLong("orgid");
+			DsCommonOrg po = service.getOrg(id);
+			if(null == po)
+			{
+				print(0);
+				return;// 非法访问，否则肯定存在id
+			}
+			if(0 == po.getStatus())// 岗位才可以授权
+			{
+				String ids = req.getString("roleids", "");
+				List<Long> list = new ArrayList<Long>();
+				if(ids.length() > 0)
+				{
+					for(String tmp : ids.split(","))
+					{
+						list.add(new Long(tmp));
+					}
+				}
+				service.saveOrgRole(id, list);
+				print(1);
+			}
+			else
+			{
+				print(0);
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
 	}
 }

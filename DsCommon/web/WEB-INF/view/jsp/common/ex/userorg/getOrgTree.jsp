@@ -16,13 +16,13 @@ $dswork.ztree.click = function(){
 	else{attachUrl("about:blank");}
 	return false;
 };
-$dswork.ztree.root.name = "${po.id > 0?fn:escapeXml(po.name):'组织机构'}";
+$dswork.ztree.root.name = "${po.id>0?fn:escapeXml(po.name):'组织机构'}";
 $dswork.ztree.root.id = ${po.id};
 $dswork.ztree.root.status = ${po.status};
 $dswork.ztree.url = function(treeNode){return "${ctx}/common/share/getJsonOrg.htm?pid=" + treeNode.id;};
 $dswork.ztree.dataFilter = function (treeId, parentNode, data){
 	var d=[];for(var i =0; i < data.length; i++){
-		if(data[i].status == 1){data[i].iconSkin = "group";}
+		if(data[i].status == 1){data[i].iconSkin = "group";data[i].isParent=false;}
 		if(data[i].status > 0){d.push(data[i]);}
 	}return d;
 };
@@ -42,8 +42,7 @@ function callfn(isuser, title, id, url, uList, oList){
 			}
 			$jskey.dialog.close();
 		}}];
-	}
-	else{
+	}else{
 		o.buttons = [{text:"保存",iconCls:"menuTool-save",handler:function(){
 			var ids = $jskey.dialog.returnValue;
 			if(ids != null){
@@ -59,7 +58,7 @@ function callfn(isuser, title, id, url, uList, oList){
 </script>
 </head>
 <body class="easyui-layout treebody" fit="true">
-<div region="west" split="true" title="用户授权管理（选择部门）" style="width:300px;">
+<div region="west" split="true" title="授权管理（选择部门）" style="width:300px;">
 	<div class="treediv">
 		<ul id="mytree" class="ztree tree" />
 	</div>
