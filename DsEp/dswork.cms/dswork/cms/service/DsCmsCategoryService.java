@@ -16,12 +16,11 @@ import dswork.cms.dao.DsCmsPageDao;
 import dswork.cms.dao.DsCmsPageEditDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsCategory;
-import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsSite;
-import dswork.core.db.EntityDao;
 import dswork.core.db.BaseService;
+import dswork.core.db.EntityDao;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
 
@@ -140,7 +139,6 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("categoryid", c.getId());
 				List<DsCmsPage> plist = pageDao.queryList(map);
-				List<DsCmsPageEdit> pelist = pageEditDao.queryList(map);
 				for(DsCmsPage p : plist)
 				{
 					// 以DsCmsPage表的状态为基准，保证DsCmsPage和DsCmsPageEdit是一致的
