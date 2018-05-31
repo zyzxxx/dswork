@@ -143,26 +143,23 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 				List<DsCmsPageEdit> pelist = pageEditDao.queryList(map);
 				for(DsCmsPage p : plist)
 				{
+					// 以DsCmsPage表的状态为基准，保证DsCmsPage和DsCmsPageEdit是一致的
 					if(p.getStatus() == -1)
 					{
 						pageDao.delete(p.getId());
-					}
-					else
-					{
-						pageDao.updateStatus(p.getId(), 0);
-					}
-				}
-				for(DsCmsPageEdit p : pelist)
-				{
-					if(p.getStatus() == -1)
-					{
 						pageEditDao.delete(p.getId());
 					}
 					else
 					{
-						p.setStatus(0);
-						p.setAuditstatus(0);
-						pageEditDao.update(p);
+						pageDao.updateStatus(p.getId(), 0);
+						DsCmsPageEdit pe = (DsCmsPageEdit) pageEditDao.get(p.getId());
+						// 防止因两表数据可能不一致而产生错误
+						if(pe != null)
+						{
+							pe.setStatus(0);
+							pe.setAuditstatus(0);
+							pageEditDao.update(pe);
+						}
 					}
 				}
 			}
