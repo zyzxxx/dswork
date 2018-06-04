@@ -130,6 +130,11 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 			}
 		}
 		context.setInitParameter("dswork.dialect", dsworkDialect);
+		String dsworkDataSource = EnvironmentUtil.getToString("dswork.datasource", "");
+		if(dsworkDataSource.length() > 0)
+		{
+			context.setInitParameter("dswork.datasource", dsworkDataSource);
+		}
 		context.setInitParameter("jdbc.dialect.mybatis", mybatisDialect);
 		context.setInitParameter("jdbc.dialect.hibernate", hibernateDialect);
 		
