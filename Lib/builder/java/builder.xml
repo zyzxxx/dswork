@@ -38,7 +38,7 @@
 	<!--
 		template中的path是相对路径，实际路径均自动补上builds标签中的rootpath路径，path中的{key}变量将会使用build标签中的值，“//”会被处理一次为“/”，即“///”只处理为“//”
 	-->
-	<templates path="E:/Workspaces/MySpace/dswork/Lib/builder/java/template">
+	<templates>
 		<template name="csharp" id="idao"       viewpath="/csharp/idao.ftl"          path="/{src}/Dao/{model}Dao.cs" comment="ibatisnet" />
 		<template name="csharp" id="imapper"    viewpath="/csharp/imapper.ftl"       path="/{src}/Mapper/{model}.map.config" comment="ibatisnet" />
 		<template name="csharp" id="model"      viewpath="/csharp/model.ftl"         path="/{src}/Model/{model}.cs" />

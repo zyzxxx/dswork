@@ -9,7 +9,7 @@
 	<builds templatename="java" rootpath="E:/Workspaces/MySpace/temp2" src="src" web="web" url="jdbc:sqlserver://192.168.1.18:1433;DatabaseName=GZ_DMS;user=sa;password=sa">
 		<build namespace="/jwzz" module="/manage/1" table="DMS_CMS_CONTENT" model="DmsCmsContent" comment="mybatis" />
 	</builds>
-	<templates path="E:/Workspaces/MySpace/dswork/Lib/builder/java/template">
+	<templates>
 		<template name="csharp" id="idao"		viewpath="/csharp/idao.ftl"          path="/{src}/Dao/{model}Dao.cs" comment="ibatisnet" />
 		<template name="csharp" id="imapper"	viewpath="/csharp/imapper.ftl"       path="/{src}/Mapper/{model}.map.config" comment="ibatisnet" />
 		<template name="csharp" id="model"		viewpath="/csharp/model.ftl"         path="/{src}/Model/{model}.cs" />
