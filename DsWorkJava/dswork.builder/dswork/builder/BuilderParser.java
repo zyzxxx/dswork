@@ -80,7 +80,6 @@ public class BuilderParser
 
 	private void parseTemplates(Element e)
 	{
-		config.templates.path = getAttr(e, "path");
 		NodeList ns = getElements(e, "template");
 		for(int i = 0; i < ns.getLength(); i++)
 		{

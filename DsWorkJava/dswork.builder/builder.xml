@@ -3,7 +3,7 @@
 	<!--outputEncoding:UTF-8(65001) | GBK(936)-->
 	<charset outputEncoding="936">UTF-8</charset>
 
-	<templates path="E:/Workspaces/MySpace/dswork/DsWorkJava/dswork.builder/template">
+	<templates>
 		<template name="csharp" id="idao"		viewpath="/csharp/idao.ftl"          path="/{src}/Dao/{model}Dao.cs" comment="ibatisnet" />
 		<template name="csharp" id="imapper"	viewpath="/csharp/imapper.ftl"       path="/{src}/Mapper/{model}.map.config" comment="ibatisnet" />
 		<template name="csharp" id="model"		viewpath="/csharp/model.ftl"         path="/{src}/Model/{model}.cs" />

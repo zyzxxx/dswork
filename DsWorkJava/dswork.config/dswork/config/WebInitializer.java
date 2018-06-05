@@ -140,16 +140,16 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 			context.setInitParameter("dswork.datasource", dsworkDataSource);
 			if("com.alibaba.druid.pool.DruidDataSource".equalsIgnoreCase(dsworkDataSource))
 			{
-				spring = ",classpath*:/dswork/config/spring/datasource-druid.xml" + spring;
+				spring = ",classpath*:/dswork/config/spring/spring-datasource-druid.xml" + spring;
 			}
 			else
 			{
-				spring = ",classpath*:/dswork/config/spring/datasource.xml" + spring;
+				spring = ",classpath*:/dswork/config/spring/spring-datasource.xml" + spring;
 			}
 		}
 		else
 		{
-			spring = ",classpath*:/dswork/config/spring/datasource.xml" + spring;
+			spring = ",classpath*:/dswork/config/spring/spring-datasource.xml" + spring;
 		}
 		context.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/spring/spring-property.xml,classpath*:/dswork/config/spring/spring-mybatis.xml,classpath*:/dswork/config/spring/spring-project.xml" + spring);
 		spring = null;

@@ -18,7 +18,6 @@ public class BuilderConfig
 	public class Templates
 	{
 		public int max = 0;
-		public String path;
 		public List<Template> template = new ArrayList<Template>();
 	}
 	public class Build
