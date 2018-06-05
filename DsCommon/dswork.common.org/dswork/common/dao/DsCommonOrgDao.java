@@ -24,11 +24,10 @@ public class DsCommonOrgDao extends BaseDao<DsCommonOrg, Long>
 	 * 移动节点
 	 * @param id 组织机构主键
 	 * @param pid 小于等于0则是根节点
-	 * @param map 临时map对象，传递进来后会被clear，并放入id和seq
 	 */
-	public void updatePid(Long id, long pid, Map<String, Object> map)
+	public void updatePid(Long id, long pid)
 	{
-		map.clear();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("id", id);
 		map.put("pid", pid);
 		executeUpdate("updatePid", map);
