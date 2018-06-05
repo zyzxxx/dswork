@@ -1,14 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app metadata-complete="true">
-	<filter>
-		<filter-name>encodingFilter</filter-name>
-		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
-		<init-param><param-name>encoding</param-name><param-value>UTF-8</param-value></init-param>
-		<init-param><param-name>forceEncoding</param-name><param-value>true</param-value></init-param>
-	</filter>
-	<filter-mapping><filter-name>encodingFilter</filter-name><url-pattern>/*</url-pattern></filter-mapping>
-
-    
 	<!--
 	各种web服务器默认Servlet的名字 ：
 		Tomcat, Jetty, JBoss, GlassFish："default"
@@ -57,28 +48,6 @@
 	</context-param>
 	-->
 
-	<context-param>
-		<param-name>log4jConfiguration</param-name>
-		<param-value>classpath:config/log4j2.xml</param-value>
-	</context-param>
-	<listener><listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class></listener>
-
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/classes/config/applicationContext*.xml</param-value>
-	</context-param>
-	<listener><listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class></listener>
-	<listener><listener-class>org.springframework.web.context.ContextLoaderListener</listener-class></listener>
-	<!--
-	<listener>
-		<description>log4j</description>
-		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-	</listener>
-	-->
-	<!-- 使Spring支持request与session的scope,如:<bean id="loginAction" class="com.foo.LoginAction" scope="request"/> -->
-	<listener>
-		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
-	</listener>
 	
 	<!-- Spring 视图层使用完后才关闭数据库连接，使用hibernate时需要 -->
 	<filter>
@@ -89,25 +58,6 @@
     	<filter-name>openSessionInViewFilter</filter-name>
     	<url-pattern>/*</url-pattern>
     </filter-mapping>
-
-    <!-- SpringMVC 分派器及相关映射，需要在WEB-INF目录找到[servlet-name]-servlet.xml这个文件名-->
-	<servlet>
-		<servlet-name>springmvc</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
-    	<!--
-    	<init-param>
-    		<param-name>contextConfigLocation</param-name>
-    		<param-value><!- - 配置XML文件名 - -></param-value>
-    	</init-param>
-    	-->
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>springmvc</servlet-name>
-		<url-pattern>*.htm</url-pattern>
-	</servlet-mapping>
-
-
 
 	<error-page><error-code>400</error-code><location>/50x.jsp</location></error-page>
 	<error-page><error-code>404</error-code><location>/50x.jsp</location></error-page>

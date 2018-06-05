@@ -2,8 +2,9 @@
 	response.setCharacterEncoding("UTF-8");
 	response.setContentType("text/plain;charset=UTF-8");
 	String rootpath = "http://192.168.1.10";
-	String dataspath = rootpath + "/www-visitgz/m/cms/category.jsp?siteid=7&pagesize=5";
-	String datapath = rootpath + "/www-visitgz/m/cms/list.jsp?siteid=7&pagesize=5";
+	String dataspath = rootpath + "/www-visitgz/m/cms/category.jsp?siteid=7&pagesize=10";
+	String datapath = rootpath + "/www-visitgz/m/cms/list.jsp?siteid=7&pagesize=10";
+	String xtpath = "http://192.168.1.77";
 %>{<%
 	%>"siteid":"7"<%
 	%>,"siteurl":"<%=rootpath%>"<%
@@ -18,4 +19,9 @@
 			%>,{"name":"旅游服务","type":"func","img":"/www-visitgz/m/cms/visitgz/ico/tx.png"     ,"url":"<%=dataspath%>&categoryids=55,55&categoryids=118,118"}<%
 	%>]<%
 	%>,"url":"<%=dataspath%>&categoryids=13,14,15,16&categoryids=22,23,24,25,26&categoryids=28&categoryids=17,18,19,20,21&categoryids=33,34,35,36&categoryids=37,38,39,40"<%
+	%>,"gifurl":""<%
+	%>,"tzgg":"<%=rootpath%>/gzly/category.jsp?siteid=0&pagesize=10&categoryids=59,59"<%
+	%>,"bsdt_login_auto":"<%=xtpath%>/lxsydb/enterprise/login/autoLoginAction.jsp"<%
+	%>,"bsdt_login":"<%=xtpath%>/lxsydb/enterprise/login/loginVerificationAction.jsp"<%
+	%>,"lydl":"<%=datapath%>&categoryids=2002,2002"<%
 %>}

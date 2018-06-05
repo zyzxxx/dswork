@@ -9,3 +9,4 @@ Locale locale = Locale.CHINA;
  
 //等同于Locale("zh")   
 Locale locale = Locale.CHINESE;
+Thread.currentThread().getContextClassLoader().getResourceAsStream(resourcePath);

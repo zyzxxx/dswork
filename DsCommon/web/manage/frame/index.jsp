@@ -28,32 +28,38 @@ a:hover {background-color:#0f9ae0;}
 <script type="text/javascript">
 var treedata = [
 {id:100000, name:'门户管理', img:"", imgOpen:"", url:"", items:[
-	 {id:100002,name:'系统管理', img:"", imgOpen:"", url:'/common/system/getSystem.htm', items:[]}
-	,{id:100003,name:'组织管理', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm', items:[]}
-	,{id:100004,name:'岗位授权管理', img:"", imgOpen:"", url:'/common/orgrole/getOrgTree.htm', items:[]}
-	,{id:100006,name:'用户类型管理', img:"", imgOpen:"", url:'/common/usertype/getUsertype.htm', items:[]}
-	,{id:100007,name:'用户管理', img:"", imgOpen:"", url:'/common/user/getUser.htm', items:[]}
-	,{id:100008,name:'用户授权管理', img:"", imgOpen:"", url:'/common/userorg/getOrgTree.htm', items:[]}
+	 {id:100002,name:'系统管理', img:"", imgOpen:"", url:'/ds/common/system/getSystem.htm', items:[]}
+	,{id:100003,name:'组织管理', img:"", imgOpen:"", url:'/ds/common/org/getOrgTree.htm', items:[]}
+	,{id:100004,name:'岗位授权管理', img:"", imgOpen:"", url:'/ds/common/orgrole/getOrgTree.htm', items:[]}
+	,{id:100006,name:'用户类型管理', img:"", imgOpen:"", url:'/ds/common/usertype/getUsertype.htm', items:[]}
+	,{id:100007,name:'用户管理', img:"", imgOpen:"", url:'/ds/common/user/getUser.htm', items:[]}
+	,{id:100008,name:'用户授权管理', img:"", imgOpen:"", url:'/ds/common/userorg/getOrgTree.htm', items:[]}
 	,{id:100009,name:'登录日志', img:"", imgOpen:"", url:'/common/log/getCommonLogin.jsp', items:[]}
+	,{id:100010,name:'扩展', img:"", imgOpen:"", url:'', items:[
+		{id:100011,name:'组织管理', img:"", imgOpen:"", url:'/ds/common/ex/org/getOrgTree.htm', items:[]}
+		,{id:100013,name:'用户管理', img:"", imgOpen:"", url:'/ds/common/ex/user/getOrgTree.htm', items:[]}
+		,{id:100015,name:'授权管理', img:"", imgOpen:"", url:'/ds/common/ex/userorg/getOrgTree.htm', items:[]}
+	]}
 ]}
 ,{id:200000, name:'业务管理', img:"", imgOpen:"", url:"", items:[
-	 {id:200001,name:'字典管理', img:"", imgOpen:"", url:'/common/dict/getDict.htm', items:[]}
-	,{id:200005,name:'流程管理', img:"", imgOpen:"", url:'/common/flow/getFlowCategoryTree.htm', items:[]}
+	 {id:200001,name:'字典管理', img:"", imgOpen:"", url:'/ds/common/dict/getDict.htm', items:[]}
+	,{id:200005,name:'流程管理', img:"", imgOpen:"", url:'/ds/common/flow/getFlowCategoryTree.htm', items:[]}
 ]}
 ,{id:300000, name:'单系统管理', img:"", imgOpen:"", url:"", items:[
-	 {id:300001,name:'资源管理', img:"", imgOpen:"", url:'/common/func/getFuncTree.htm?systemid=0', items:[]}
-	,{id:300002,name:'角色管理', img:"", imgOpen:"", url:'/common/role/getRoleTree.htm?systemid=0', items:[]}
-	,{id:300003,name:'权限管理', img:"", imgOpen:"", url:'/common/userrole/getUser.htm?systemid=0', items:[]}
+	 {id:300001,name:'资源管理', img:"", imgOpen:"", url:'/ds/common/func/getFuncTree.htm?systemid=0', items:[]}
+	,{id:300002,name:'角色管理', img:"", imgOpen:"", url:'/ds/common/role/getRoleTree.htm?systemid=0', items:[]}
+	,{id:300003,name:'权限管理', img:"", imgOpen:"", url:'/ds/common/userrole/getUser.htm?systemid=0', items:[]}
 ]}
 ,{id:100, name:'扩展功能', img:"", imgOpen:"", url:"", items:[
-	 {id:901,name:'指定组织机构', img:"", imgOpen:"", url:'/common/org/getOrgTree.htm?rootid=1', items:[]}
-	,{id:902,name:'指定用户授权', img:"", imgOpen:"", url:'/common/userorg/getOrgTree.htm?rootid=1', items:[]}
-	,{id:903,name:'指定类型用户管理', img:"", imgOpen:"", url:'/common/user/getUser.htm?xtype=0', items:[]}
+	 {id:901,name:'指定组织机构', img:"", imgOpen:"", url:'/ds/common/org/getOrgTree.htm?rootid=1', items:[]}
+	,{id:902,name:'指定用户授权', img:"", imgOpen:"", url:'/ds/common/userorg/getOrgTree.htm?rootid=1', items:[]}
+	,{id:903,name:'指定类型用户管理', img:"", imgOpen:"", url:'/ds/common/user/getUser.htm?xtype=0', items:[]}
 	,{id:11,name:'流程示例', img:"", imgOpen:"", url:'', items:[
 		{id:111,name:'流程测试', img:"", imgOpen:"", url:'/flow/waiting.jsp', items:[]}
 	]}
 ]}
 ,{id:112,name:'字典样例', img:"", imgOpen:"", url:'/x.jsp', items:[]}
+,{id:113,name:'退出', img:"", imgOpen:"", url:'/manage/frame/logout.jsp', items:[]}
 ];
 </script>
 </head>
@@ -80,7 +86,6 @@ for(var i = 0; i < treedata.length; i++){
 		else{
 			document.write("<a class='level2' target='main' href='<%=path%>" + m.url + "'>" + m.name + "</a><br />");
 		}
-		
 		for(var k = 0; k < m.items.length; k++){
 			var mm = m.items[k];
 			document.write("<a class='level3' target='main' href='<%=path%>" + mm.url + "'>" + mm.name + "</a><br />");

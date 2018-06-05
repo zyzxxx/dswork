@@ -16,6 +16,7 @@ import dswork.mvc.BaseController;
 public class DsCmsbuildController extends BaseController
 {
 	private static final String CMS_FACTORY_KEY = "CMS_FACTORY_KEY";
+	private static final String CMS_FACTORY_KEY_M = "CMS_FACTORY_KEY_M";
 //	private static final String CMS_FACTORY_KEY_SITEID = "CMS_FACTORY_KEY_SITEID";
 
 	@RequestMapping("/cmsbuild/buildHTML")
@@ -25,14 +26,25 @@ public class DsCmsbuildController extends BaseController
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
 		boolean mobile = req.getString("mobile", "false").equals("true");
-		
-		CmsFactory cms = (CmsFactory) request.getSession().getAttribute(CMS_FACTORY_KEY);
+
+		CmsFactory cms = (CmsFactory) request.getSession().getAttribute(mobile ? CMS_FACTORY_KEY_M : CMS_FACTORY_KEY);
 		if(cms == null)
 		{
 			cms = new CmsFactory(siteid);
+			CmsFactory cms_m = new CmsFactoryMobile(cms);
 			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
-//			request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
+			request.getSession().setAttribute(CMS_FACTORY_KEY_M, cms_m);
+			if(mobile)
+			{
+				cms = cms_m;
+			}
 		}
+//		if(cms == null)
+//		{
+//			cms = new CmsFactory(siteid);
+//			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
+//			request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
+//		}
 //		else
 //		{
 //			String siteidstr = String.valueOf(request.getSession().getAttribute(CMS_FACTORY_KEY_SITEID));
@@ -43,15 +55,12 @@ public class DsCmsbuildController extends BaseController
 //				request.getSession().setAttribute(CMS_FACTORY_KEY_SITEID, siteid + "");
 //			}
 //		}
-		if(mobile)
-		{
-			cms = new CmsFactoryMobile(cms);
-		}
 
 		put("cms", cms);
 		put("year", TimeUtil.getCurrentTime("yyyy"));
 		Map<String, Object> s = cms.getSite();
 		put("site", s);
+		put("categorylist", cms.queryCategory("0"));// 顶层节点列表
 		if(req.getString("view").equals("true"))
 		{
 			put("ctx", request.getContextPath() + "/html/" + s.get("folder") + (mobile ? "/html/m" : "/html"));// 预览时，现在可以不需要运行服务器，即可浏览相对地址
@@ -92,8 +101,7 @@ public class DsCmsbuildController extends BaseController
 			{
 				return null;// 兼容模板为空
 			}
-			put("categoryparent", cms.getCategory(c.get("pid")));
-			put("categorylist", cms.queryCategory("0"));
+			put("categoryparent", cms.getCategory(c.get("pid")));// 不再推荐使用
 			put("categoryid", categoryid);
 			put("category", c);
 			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);

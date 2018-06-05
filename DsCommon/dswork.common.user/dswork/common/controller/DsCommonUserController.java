@@ -29,7 +29,7 @@ import dswork.web.MyRequest;
 @Scope("prototype")
 @Controller
 @SuppressWarnings("all")
-@RequestMapping("/common/user")
+@RequestMapping("/ds/common/user")
 public class DsCommonUserController extends BaseController
 {
 	@Autowired
@@ -50,7 +50,7 @@ public class DsCommonUserController extends BaseController
 			return null;
 		}
 		put("typeList", list);
-		return "/common/user/addUser.jsp";
+		return "/ds/common/user/addUser.jsp";
 	}
 	@RequestMapping("/addUser2")
 	public void addUser2(DsCommonUser po)
@@ -129,7 +129,7 @@ public class DsCommonUserController extends BaseController
 		}
 		put("typeList", list);
 		put("page", req.getInt("page", 1));
-		return "/common/user/updUser.jsp";
+		return "/ds/common/user/updUser.jsp";
 	}
 	@RequestMapping("/updUser2")
 	public void updUser2(DsCommonUser po)
@@ -187,7 +187,7 @@ public class DsCommonUserController extends BaseController
 			DsCommonUser po = service.get(id);
 			put("po", po);
 			put("page", req.getInt("page", 1));
-			return "/common/user/updUserOrg.jsp";
+			return "/ds/common/user/updUserOrg.jsp";
 		}
 		return null;
 	}
@@ -218,7 +218,7 @@ public class DsCommonUserController extends BaseController
 			DsCommonUser po = service.get(id);
 			put("po", po);
 			put("page", req.getInt("page", 1));
-			return "/common/user/updUserPassword.jsp";
+			return "/ds/common/user/updUserPassword.jsp";
 		}
 		return null;
 	}
@@ -258,7 +258,7 @@ public class DsCommonUserController extends BaseController
 			return null;
 		}
 		put("typeList", list);
-		return "/common/user/getUser.jsp";
+		return "/ds/common/user/getUser.jsp";
 	}
 
 	// 明细
@@ -267,6 +267,6 @@ public class DsCommonUserController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/common/user/getUserById.jsp";
+		return "/ds/common/user/getUserById.jsp";
 	}
 }

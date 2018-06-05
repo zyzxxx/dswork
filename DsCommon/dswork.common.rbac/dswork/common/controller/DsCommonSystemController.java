@@ -20,7 +20,7 @@ import dswork.mvc.BaseController;
 //应用系统
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/system")
+@RequestMapping("/ds/common/system")
 public class DsCommonSystemController extends BaseController
 {
 	@Autowired
@@ -30,7 +30,7 @@ public class DsCommonSystemController extends BaseController
 	@RequestMapping("/addSystem1")
 	public String addSystem1()
 	{
-		return "/common/system/addSystem.jsp";
+		return "/ds/common/system/addSystem.jsp";
 	}
 	@RequestMapping("/addSystem2")
 	public void addSystem2(DsCommonSystem po)
@@ -106,7 +106,7 @@ public class DsCommonSystemController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/common/system/updSystem.jsp";
+		return "/ds/common/system/updSystem.jsp";
 	}
 	@RequestMapping("/updSystem2")
 	public void updSystem2(DsCommonSystem po)
@@ -155,7 +155,7 @@ public class DsCommonSystemController extends BaseController
 		Page<DsCommonSystem> pageModel = service.queryPage(getPageRequest());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsCommonSystem>(request, pageModel));
-		return "/common/system/getSystem.jsp";
+		return "/ds/common/system/getSystem.jsp";
 	}
 	
 	// 明细
@@ -164,7 +164,7 @@ public class DsCommonSystemController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/common/system/getSystemById.jsp";
+		return "/ds/common/system/getSystemById.jsp";
 	}
 	
 	// 排序
@@ -174,7 +174,7 @@ public class DsCommonSystemController extends BaseController
 		Map<String,Object> map = new HashMap<String,Object>();
 		List<DsCommonSystem> list = service.queryList(map);
 		put("list", list);
-		return "/common/system/updSystemSeq.jsp";
+		return "/ds/common/system/updSystemSeq.jsp";
 	}
 	
 	@RequestMapping("/updSystemSeq2")
