@@ -35,7 +35,7 @@ public class Builder
 			//,"org.hsqldb.jdbcDriver"
 			//,"org.h2.Driver"
 			//,"dm.jdbc.driver.DmDriver"//达梦
-			//,"com.gbase.jdbc.Driver"//gbase
+			,"com.gbase.jdbc.Driver"//gbase
 		};
 		for(String driver : drivers)
 		{
@@ -58,17 +58,17 @@ public class Builder
 			conf.setDefaultEncoding(config.charset.text);
 			conf.setDirectoryForTemplateLoading(new File(config.templates.path));
 			String url = config.builds.url;
-			if(url.startsWith("jdbc:mysql"))
+			if(url.startsWith("jdbc:mysql") || url.startsWith("jdbc:gbase"))
 			{
 				dao = DaoMySql.class.newInstance();
 			}
-			else if(url.startsWith("jdbc:sqlserver"))
+			else if(url.startsWith("jdbc:sqlserver") || url.startsWith("jdbc:microsoft:sqlserver"))
 			{
 				dao = DaoMSSQL.class.newInstance();
 			}
 			else if(url.startsWith("jdbc:oracle"))
 			{
-				//dao = DaoMySql.class.newInstance();
+				dao = DaoOracle.class.newInstance();
 			}
 			if(dao != null)
 			{
@@ -138,7 +138,7 @@ public class Builder
 			}
 			else
 			{
-				System.out.println("生成失败：目前系统只支持mysql和mssql");
+				System.out.println("生成失败：目前程序仅支持[mysql、mssql、oracle、gbase]");
 			}
 		}
 		catch(Exception e)
