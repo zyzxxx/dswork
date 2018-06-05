@@ -113,7 +113,7 @@ public class CmsFactory
 
 	public List<Map<String, Object>> queryList(int currentPage, int pageSize, boolean onlyImageTop, boolean onlyPageTop, boolean isDesc, Object... categoryids)
 	{
-		return queryList(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, null, categoryids);
+		return doQueryList(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, null, categoryids);
 	}
 
 	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean onlyImageTop, boolean onlyPageTop, boolean isDesc, String url, Object categoryid)
@@ -209,10 +209,10 @@ public class CmsFactory
 
 	public Map<String, Object> queryPage(int currentPage, int pageSize, boolean isDesc, String keyvalue, Object... categoryids)
 	{
-		return queryPage(currentPage, pageSize, isDesc, false, false, keyvalue, categoryids);
+		return doQueryPage(currentPage, pageSize, isDesc, false, false, keyvalue, categoryids);
 	}
 
-	private List<Map<String, Object>> queryList(int currentPage, int pageSize, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
+	private List<Map<String, Object>> doQueryList(int currentPage, int pageSize, boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
 	{
 		StringBuilder idArray = new StringBuilder();
 		if(categoryids.length > 0)
@@ -226,7 +226,7 @@ public class CmsFactory
 		return getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, keyvalue).getResult();
 	}
 
-	private Map<String, Object> queryPage(int currentPage, int pageSize, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
+	private Map<String, Object> doQueryPage(int currentPage, int pageSize, boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
 	{
 		StringBuilder idArray = new StringBuilder();
 		if(categoryids.length > 0)
@@ -257,15 +257,15 @@ public class CmsFactory
 		return map;
 	}
 
-	public void put(String name, boolean listOrPage, int currentPage, int pageSize, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
+	public void put(String name, boolean listOrPage, int currentPage, int pageSize, boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
 	{
 		if(listOrPage)
 		{
-			request.setAttribute(name, queryList(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, keyvalue, categoryids));
+			request.setAttribute(name, doQueryList(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, keyvalue, categoryids));
 		}
 		else
 		{
-			request.setAttribute(name, queryPage(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, keyvalue, categoryids));
+			request.setAttribute(name, doQueryPage(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, keyvalue, categoryids));
 		}
 	}
 

@@ -33,8 +33,8 @@
 	where SITEID=#{siteid} 
 		<if test="@Ognl@isNotEmpty(idArray)"> and CATEGORYID in (${idArray}) </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
-		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=1 </if>
+		<if test="imgtop == true"> and IMGTOP=1 </if>
+		<if test="pagetop == true"> and PAGETOP=1 </if>
 		<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME&lt;=#{releasetime} </if>
 		<if test="@Ognl@isNotEmpty(keyvalue)"> and (TITLE like #{keyvalue, typeHandler=LikeTypeHandler} or SUMMARY like #{keyvalue, typeHandler=LikeTypeHandler} or CONTENT like #{keyvalue, typeHandler=LikeTypeHandler}) </if>
 	order by RELEASETIME ${order}
@@ -44,8 +44,8 @@
 	where SITEID=#{siteid} 
 		<if test="@Ognl@isNotEmpty(idArray)"> and CATEGORYID in (${idArray}) </if>
 		<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
-		<if test="@Ognl@isNotEmpty(imgtop)"> and IMGTOP=1 </if>
-		<if test="@Ognl@isNotEmpty(pagetop)"> and PAGETOP=1 </if>
+		<if test="imgtop == true"> and IMGTOP=1 </if>
+		<if test="pagetop == true"> and PAGETOP=1 </if>
 		<if test="@Ognl@isNotEmpty(releasetime)"> and RELEASETIME&lt;=#{releasetime} </if>
 		<if test="@Ognl@isNotEmpty(keyvalue)"> and (TITLE like #{keyvalue, typeHandler=LikeTypeHandler} or SUMMARY like #{keyvalue, typeHandler=LikeTypeHandler} or CONTENT like #{keyvalue, typeHandler=LikeTypeHandler}) </if>
 </select>
