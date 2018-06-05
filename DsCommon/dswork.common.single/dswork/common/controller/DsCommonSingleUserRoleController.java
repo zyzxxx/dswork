@@ -60,7 +60,7 @@ public class DsCommonSingleUserRoleController extends BaseController
 	public String getUserById()
 	{
 		Long id = req.getLong("id");
-		put("po", service.getUserById(id));
+		put("po", service.getUser(id));
 		put("list", service.queryOrgRoleList(id));
 		return "/ds/common/single/userrole/getUserById.jsp";
 	}
@@ -77,7 +77,7 @@ public class DsCommonSingleUserRoleController extends BaseController
 		}
 		if(0 == po.getStatus())// 岗位才可以授权
 		{
-			put("po", service.getUserById(id));
+			put("po", service.getUser(id));
 			put("list", service.queryOrgRoleList(id));
 			return "/ds/common/single/userrole/updUserRole.jsp";
 		}

@@ -43,48 +43,6 @@ public class DsCommonSingleUserRoleService
 		return userDao.getByAccount(account);
 	}
 
-	public void saveByOrg(Long orgid, List<Long> useridList)
-	{
-		userorgDao.deleteByOrgid(orgid);
-		DsCommonUserOrg o = new DsCommonUserOrg();
-		o.setOrgid(orgid);
-		for(Long id : useridList)
-		{
-			if(id != 0)
-			{
-				o.setId(UniqueId.genUniqueId());
-				o.setUserid(id);
-				userorgDao.save(o);
-			}
-		}
-	}
-
-	public void saveByUser(Long userid, List<Long> orgidList)
-	{
-		userorgDao.deleteByUserid(userid);
-		DsCommonUserOrg o = new DsCommonUserOrg();
-		o.setUserid(userid);
-		for(Long id : orgidList)
-		{
-			if(id > 0)
-			{
-				o.setId(UniqueId.genUniqueId());
-				o.setOrgid(id);
-				userorgDao.save(o);
-			}
-		}
-	}
-
-	public List<DsCommonUserOrg> queryListByOrgid(Long orgid)
-	{
-		return userorgDao.queryListByOrgid(orgid);
-	}
-
-	public List<DsCommonUserOrg> queryListByUserid(Long userid)
-	{
-		return userorgDao.queryListByUserid(userid);
-	}
-
 	public DsCommonOrg getOrg(Long id)
 	{
 		return (DsCommonOrg) orgDao.get(id);
@@ -100,23 +58,6 @@ public class DsCommonSingleUserRoleService
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("orgid", pid);
 		return userDao.queryList(map);
-	}
-
-	public DsCommonUser getUserById(Long userid)
-	{
-		return (DsCommonUser) userDao.get(userid);
-	}
-
-	public List<DsCommonUser> queryUserListByOrgid(Long orgid)
-	{
-		List<DsCommonUserOrg> ls = userorgDao.queryListByOrgid(orgid);
-		List<DsCommonUser> list = new ArrayList<DsCommonUser>();
-		for(DsCommonUserOrg u : ls)
-		{
-			DsCommonUser user = (DsCommonUser) userDao.get(u.getUserid());
-			list.add(user);
-		}
-		return list;
 	}
 
 	public List<DsCommonOrgRole> queryOrgRoleList(Long orgid)
