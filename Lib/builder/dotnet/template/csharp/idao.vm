@@ -1,0 +1,20 @@
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Model=$vo.GetParam('Model'))
+using System;
+
+using ${Frame}.Core.Db;
+
+using ${Namespace}.Model;
+
+namespace ${Namespace}.Dao
+{
+	//${vo.TableComment}Dao
+	public class ${Model}Dao:BaseDao<${Model}, long>
+	{
+		protected override Type GetEntityClass()
+		{
+			return typeof(${Model});
+		}
+	}
+}

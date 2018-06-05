@@ -1,0 +1,90 @@
+﻿#set($list=$model.ColumnList)##数据表的所有列
+#set($tableName=$model.TableName)##数据表的表名称
+#set($tmp="$")
+#set($p="&")
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title></title>
+<link rel="stylesheet" type="text/css" href="../../../web/js/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="../../../web/themes/default/frame.css" />
+<script type="text/javascript" src="../../../web/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../../../web/js/easyui/jquery.easyui.js"></script>
+<script type="text/javascript" src="../../../web/js/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="../../../web/js/jskey/jskey_core.js"></script>
+<script type="text/javascript" src="../../../web/js/dswork/dswork.js"></script>
+<script type="text/javascript" src="../../../web/js/dswork/get.js"></script>
+<style>.bottomTable{padding:0;margin:0;width:100%;position:fixed;left:0;bottom:0;border-top:#c2c2c2 solid 1px;}.listTable{margin-bottom:35px;}</style>
+<!--[if IE 6]><style>.bottomTable{position:absolute;left:0;top:expression(eval(document.documentElement.scrollTop+document.documentElement.clientHeight-this.offsetHeight-parseInt(this.currentStyle.marginTop)-parseInt(this.currentStyle.marginBottom)))}</style><![endif]-->
+<script type="text/javascript">
+${tmp}(function()
+{
+	${tmp}dswork.page.menu("#", "edit.html", "edit.html", "1");
+});
+</script>
+</head> 
+<body>
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">${tableName}列表</td>
+		<td class="menuTool">
+			<a class="add" href="edit.html">添加</a>
+			<a class="del" id="listFormDelAll" href="#">删除所选</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<form id="queryForm" method="post" action="#">
+<table border="0" cellspacing="0" cellpadding="0" class="queryTable">
+	<tr>
+		<td class="input">
+#foreach($col in $list)
+		${p}nbsp;$col：<input value="" style="width:100px;"/>
+#end
+		</td>
+		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
+	</tr>
+</table>
+</form>
+<div class="line"></div>
+<form id="listForm" method="post" action="#">
+<table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
+	<tr class="list_title">
+		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
+		<td style="width:3%">操作</td>
+#foreach($col in $list)
+		<td>$col</td>
+#end
+		<td>操作</td>
+	</tr>
+	<tr class="list_odd">
+		<td><input name="keyIndex" type="checkbox" value="1" /></td>
+		<td class="menuTool" keyIndex="1">&nbsp;</td>
+#foreach($col in $list)
+		<td>$col</td>
+#end
+		<td class="menuTool">
+			<a class="upd" href="edit.html">修改</a>
+			<a class="get" href="edit.html">明细</a>
+		</td>
+	</tr>
+	<tr class="list_even">
+		<td><input name="keyIndex" type="checkbox" value="2" /></td>
+		<td class="menuTool" keyIndex="2">&nbsp;</td>
+#foreach($col in $list)
+		<td>$col</td>
+#end
+		<td class="menuTool">
+			<a class="upd" href="edit.html">修改</a>
+			<a class="get" href="edit.html">明细</a>
+		</td>
+	</tr>
+</table>
+</form>
+<table border="0" cellspacing="0" cellpadding="0" class="bottomTable">
+	<tr><td><div class='pageview'> 共2条记录  第1/1页 <a class="first">首页</a>&nbsp;<a class="prev">上页</a>&nbsp;<a class="next">下页</a>&nbsp;<a class="last">尾页</a>&nbsp;转到第 <input type="text" class="input" /> 页 <input type="button" class="go" value="GO" /></div></td></tr>
+</table>
+<br />
+</body>
+</html>

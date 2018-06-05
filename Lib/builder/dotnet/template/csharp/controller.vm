@@ -1,0 +1,101 @@
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Module'))
+#set($Model=$vo.GetParam('Model'))
+#set($ModelName=$vo.GetParam('ModelName'))
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+using ${Frame}.Core.Page;
+using ${Frame}.Web;
+using ${Frame}.Mvc;
+
+using ${Namespace}.Model;
+using ${Namespace}.Service;
+
+namespace Areas.${Module}.Controllers
+{
+	/// <summary>
+	/// 功能:${vo.TableComment}Controller
+	/// 开发人员:${developer}
+	/// 创建时间:${currentDate}
+	/// </summary>
+	public class ${Model}Controller : BaseController
+	{
+		public virtual ${Model}Service ${ModelName}Service { set; protected get; }
+	
+		public ActionResult Add${Model}1()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public String Add${Model}2(${Model} po)
+		{
+			try
+			{
+				${ModelName}Service.Save(po);
+				return "1";
+			}
+			catch (Exception e)
+			{
+				return "0:" + e.Message;
+			}
+		}
+		
+		[AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
+		public String Del${Model}()
+		{
+			try
+			{
+				${ModelName}Service.DeleteBatch(req.GetLongArray("keyIndex", 0));
+				return "1";
+			}
+			catch(Exception e)
+			{
+				return "0:" + e.Message;
+			}
+		}
+	
+		public ActionResult Upd${Model}1(long keyIndex)
+		{
+			ViewBag.po = ${ModelName}Service.Get(keyIndex);
+			ViewBag.page = req.GetInt("page", 1);
+			return View();
+		}
+
+		[HttpPost]
+		public String Upd${Model}2(${Model} po)
+		{
+			try
+			{
+				${ModelName}Service.Update(po);
+				return "1";
+			}
+			catch(Exception e)
+			{
+				return "0:" + e.Message;
+			}
+		}
+
+		[AcceptVerbs(HttpVerbs.Post | HttpVerbs.Get)]
+        public ActionResult Get${Model}()
+		{
+			Page<${Model}> pageModel = ${ModelName}Service.QueryPage(GetPageRequest());
+			ViewBag.pageModel = pageModel;
+			ViewBag.result = pageModel.GetResult<${Model}>();
+			ViewBag.pageNav = (new PageNav<${Model}>(Request, pageModel));
+			return View();
+		}
+
+		public ActionResult Get${Model}ById(long keyIndex)
+		{
+			ViewBag.po = ${ModelName}Service.Get(keyIndex);
+			return View();
+        }
+	}
+}

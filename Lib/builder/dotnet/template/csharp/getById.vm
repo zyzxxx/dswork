@@ -1,0 +1,39 @@
+#set($mf="$")
+#set($pk="ID")
+#set($memo="MEMO")##用于textarea的表单元素
+@{
+    Layout = "~/Views/Commons/GetById.cshtml";
+}
+@{
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">明细</td>
+		<td class="menuTool">
+			<a class="back" onclick="window.history.back();return false;" href="#">返回</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+#foreach($columnList in $vo.ColumnList)
+	#set($colName=$columnList.ColumnName)
+#if($colName!=$memo)
+#if($colName!=$pk)
+	<tr>
+		<td class="form_title">$columnList.Comment</td>
+		<td class="form_input">@ViewBag.po.$colName.ToLower()</td>
+	</tr>
+#end
+#end
+#end
+#foreach($columnList in $vo.ColumnList)
+	#set($colName=$columnList.ColumnName)
+#if($colName==$memo)
+	<tr>
+		<td class="form_title">$columnList.Comment</td>
+		<td class="form_input"><textarea class="readonlytext" style="width:400px;height:60px;">@ViewBag.po.$colName.ToLower()</textarea></td>
+	</tr>
+#end
+#end
+</table>
+}

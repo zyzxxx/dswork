@@ -1,0 +1,30 @@
+#set($myService="Service")
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Model=$vo.GetParam('Model'))
+/**
+ * ${vo.TableComment}${myService}
+ */
+package ${Namespace}.service${Module};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import ${Frame}.core.db.EntityDao;
+import ${Frame}.core.db.BaseService;
+import ${Namespace}.model${Module}.${Model};
+import ${Namespace}.dao${Module}.${Model}Dao;
+
+@Service
+@SuppressWarnings("all")
+public class ${Model}Service extends BaseService<${Model}, Long>
+{
+	@Autowired
+	private ${Model}Dao dao;
+
+	@Override
+	protected EntityDao getEntityDao()
+	{
+		return dao;
+	}
+}

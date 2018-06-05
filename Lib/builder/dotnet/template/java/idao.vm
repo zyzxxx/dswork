@@ -1,0 +1,23 @@
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Model=$vo.GetParam('Model'))
+/**
+ * ${vo.TableComment}Dao
+ */
+package ${Namespace}.dao${Module};
+
+import org.springframework.stereotype.Repository;
+import ${Frame}.core.db.BaseDao;
+import ${Namespace}.model${Module}.${Model};
+
+@Repository
+@SuppressWarnings("all")
+public class ${Model}Dao extends BaseDao<${Model}, Long>
+{
+	@Override
+	public Class getEntityClass()
+	{
+		return ${Model}.class;
+	}
+}

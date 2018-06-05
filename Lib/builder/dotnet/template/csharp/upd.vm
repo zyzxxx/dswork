@@ -1,0 +1,52 @@
+#set($mf="$")
+#set($pk="ID")
+#set($memo="MEMO")
+#set($Frame=$vo.GetParam('Frame'))
+#set($Model=$vo.GetParam('Model'))
+@{
+    Layout = "~/Views/Commons/UpdAjax.cshtml";
+}
+@section head{
+	<script type="text/javascript">
+	${mf}${Frame.ToLower()}.callback = function(){if(${mf}${Frame.ToLower()}.result.type == 1){
+		location.href = "Get${Model}.htm?page=@ViewBag.page";
+	}};
+	</script>
+}
+@{
+<table border="0" cellspacing="0" cellpadding="0" class="listLogo">
+	<tr>
+		<td class="title">修改</td>
+		<td class="menuTool">
+			<a class="save" id="dataFormSave" href="#">保存</a>
+			<a class="back" href="Get${Model}.htm?page=@ViewBag.page">返回</a>
+		</td>
+	</tr>
+</table>
+<div class="line"></div>
+<form id="dataForm" method="post" action="Upd${Model}2.htm">
+<table border="0" cellspacing="1" cellpadding="0" class="listTable">
+#foreach($columnList in $vo.ColumnList)
+	#set($colName=$columnList.ColumnName)
+#if($colName!=$memo)
+#if($colName!=$pk)
+	<tr>
+		<td class="form_title">$columnList.Comment</td>
+		<td class="form_input"><input type="text" name="$colName.ToLower()" maxlength="100" value="@ViewBag.po.$colName.ToLower()" /></td>
+	</tr>
+#end
+#end
+#end
+#foreach($columnList in $vo.ColumnList)
+	#set($colName=$columnList.ColumnName)
+#if($colName==$memo)
+	<tr>
+		<td class="form_title">$columnList.Comment</td>
+		<td class="form_input"><textarea name="$colName.ToLower()" style="width:400px;height:60px;">@ViewBag.po.$colName.ToLower()</textarea></td>
+	</tr>
+#end
+#end
+</table>
+<input type="hidden" name="$pk.ToLower()" value="@ViewBag.po.$pk.ToLower()" />
+</form>
+}

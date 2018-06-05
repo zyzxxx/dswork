@@ -1,0 +1,17 @@
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Model=$vo.GetParam('Model'))
+<%@page language="java" pageEncoding="UTF-8" import="java.util.*,${Frame}.web.MyRequest,${Frame}.core.util.*,
+${Namespace}.MyFactory"%><%
+MyRequest req = new MyRequest(request);
+try
+{
+	MyFactory.get${Model}Service().deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+	out.print(1);
+}
+catch (Exception e)
+{
+	e.printStackTrace();
+	out.print("0:" + e.getMessage());
+}
+%>

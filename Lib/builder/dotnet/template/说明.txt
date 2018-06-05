@@ -1,0 +1,50 @@
+关于selectKey配置和字符串拼接，在db目录已经放了不同数据库的对应模板
+	mysql：
+		select LAST_INSERT_ID()
+		concat('%',#{key},'%')
+	
+	sqlite：
+		select LAST_INSERT_ROWID()
+		'%'||#{key}||'%'
+	
+	sqlserver：
+		select @@IDENTITY as value
+		'%'+#{key}+'%'
+	
+	oracle：
+		select SEQ_ID.NEXTVAL from dual
+		'%'||#{key}||'%'
+
+使用数据库自增时，insert中values的id值改为null
+
+IBatisNet:
+	执行后运行使用：type="post"
+	执行前运行使用：type="pre"
+	值引用语法：#key#或$key$
+
+MyBatis:
+	执行后运行使用：order="AFTER"
+	执行前运行使用：order="BEFORE"
+	值引用语法：#{key}或${key}
+
+列表页面，如果不想使用右键式的菜单，想使用右边显示按钮的话
+在列表页面模块的数据表中
+	head标签
+		去掉内容：
+		<script type="text/javascript">
+		${mf}(function()
+		{
+			${mf}tecamo.page.menu("del${Model}.htm", "upd${Model}1.htm", "get${Model}ById.htm", "${mf}{pageModel.currentPage}");
+		});
+		</script>
+	标题列
+		去掉第二列：<td style="width:5%">操作</td>
+		最后面增加：<td style="width:20%;">操作</td>
+	数据列
+		去掉第二列：<td class="menuTool" keyIndex="${mf}{d.id}">&nbsp;</td>
+		最后面增加：
+		<td class="menuTool">
+			<a class="del" href="del${Model}.htm?keyIndex=${mf}{d.id}${p}page=${mf}{pageModel.currentPage}">删除</a>
+			<a class="upd" href="upd${Model}1.htm?keyIndex=${mf}{d.id}${p}page=${mf}{pageModel.currentPage}">修改</a>
+			<a class="get" href="get${Model}ById.htm?keyIndex=${mf}{d.id}">明细</a>
+		</td>

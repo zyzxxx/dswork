@@ -1,0 +1,85 @@
+#set($myModel="Model")
+#set($proType="")
+#set($proName="")
+#set($defaultValue="")
+#set($setMethod="")
+#set($getMethod="")
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Model=$vo.GetParam('Model'))
+#macro (getProType $obj)
+#set($precision=$obj.Precision)
+#set($scale=$obj.Scale)
+#set($colDbType=$obj.ColDbType)
+#set($colType=$obj.ColType)
+#if($colType=="long")#set($proType="Long")
+#elseif($colType=="int")#set($proType="Integer")
+#elseif($colType=="float")#set($proType="Float")
+#elseif($colDbType=="BLOB")#set($proType="byte[]")
+#elseif($precision==0)#set($proType="String")
+#elseif($precision>0 && $scale>0)#set($proType="Float")
+#elseif($precision>=13)#set($proType="Long")
+#elseif($precision>=1 && $precision<=10)#set($proType="Integer")
+#elseif($precision>=1 && $precision<=10)#set($proType="Integer")
+#end
+#end
+#macro (getProName $obj)
+#set($proName=$columnModel.ColumnName.ToLower())
+#end
+#macro (getGetMethod $obj)
+#set($proname=$obj.ColumnName)
+#set($pre=$proname.Substring(0,1).ToUpper())
+#set($len=$proname.Length)
+#set($len1=$len+(-1))
+#set($suf=$proname.Substring(1,$len1).ToLower())
+#set($getMethod="get$pre$suf()")
+#end
+#macro (getSetMethod $obj)
+#set($proname=$obj.ColumnName)
+#set($pre=$proname.Substring(0,1).ToUpper())
+#set($len=$proname.Length)
+#set($len1=$len+(-1))
+#set($suf=$proname.Substring(1,$len1).ToLower())
+#getProType($obj)
+#getProName($obj)
+#set($setMethod="set$pre$suf($proType $proName)")
+#end
+/**
+ * ${vo.TableComment}${myModel}
+ */
+package ${Namespace}.model${Module};
+public class $Model
+{
+#foreach($columnModel in $vo.ColumnList)
+	#getProType($columnModel)#getProName($columnModel)//$columnModel.Comment
+#if($proType=="Long")
+		#set($defaultValue='0L')
+	#elseif($proType=="Integer")
+		#set($defaultValue='0')
+	#elseif($proType=="Float")
+		#set($defaultValue='0.0F')
+	#elseif($proType=="String")
+		#set($defaultValue='""')
+	#else
+		##do nothing.
+	#end
+private $proType $proName = ${defaultValue};
+#end
+#foreach($columnModel in $vo.ColumnList)
+#getProType($columnModel)
+#getGetMethod($columnModel)
+#getProName($columnModel)
+
+	public $proType $getMethod
+	{
+		return $proName;
+	}
+#getSetMethod($columnModel)
+#getProName($columnModel)
+
+	public void $setMethod
+	{
+		this.$proName = $proName;
+	}
+#end
+}

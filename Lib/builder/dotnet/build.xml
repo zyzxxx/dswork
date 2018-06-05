@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<project default="init">
+<target name="init">
+	<exec command="E:/Workspaces/MySpace/dswork/Lib/builder/dotnet/Builder.exe Builder.xml" failonerror="true"></exec>
+</target>
+</project>

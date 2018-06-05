@@ -1,0 +1,48 @@
+﻿#set($myModel="Model")
+#set($proType="")
+#set($proName="")
+#set($defaultValue="")
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Model=$vo.GetParam('Model'))
+#macro (getCProType $obj)
+#set($precision=$obj.Precision)
+#set($scale=$obj.Scale)
+#if($precision==0)#set($proType="string")
+#elseif($precision>0 && $scale>0)#set($proType="float")
+#elseif($precision>=13)#set($proType="long")
+#elseif($precision>=4 && $precision<=10)#set($proType="int")
+#end
+#end
+using System;
+
+namespace ${Namespace}.Model
+{
+	//${vo.TableComment}${myModel}
+	public class $Model
+	{
+#foreach($columnModel in $vo.ColumnList)
+		#getCProType($columnModel)//$columnModel.Comment
+#if($proType=="long")
+	#set($defaultValue="0L")
+#elseif($proType=="int")
+	#set($defaultValue="0")
+#elseif($proType=="float")
+	#set($defaultValue="0.0F")
+#elseif($proType=="string")
+	#set($defaultValue='""')
+#else
+	##do nothing.
+#end
+		private $proType _${columnModel.ColumnName.ToLower()} = ${defaultValue};
+#end
+#foreach($columnModel in $vo.ColumnList)
+#getCProType($columnModel)
+
+		public $proType ${columnModel.ColumnName.ToLower()}
+		{
+			get {return _$columnModel.ColumnName.ToLower();}
+			set {_$columnModel.ColumnName.ToLower() = value;}
+		}
+#end
+	}
+}

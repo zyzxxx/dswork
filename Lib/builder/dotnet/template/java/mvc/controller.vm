@@ -1,0 +1,135 @@
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Webmodule=$vo.GetParam('Webmodule'))
+#set($Model=$vo.GetParam('Model'))
+#set($ModelName=$vo.GetParam('ModelName'))
+/**
+ * 功能:${vo.TableComment}Controller
+ * 开发人员:${developer}
+ * 创建时间:${currentDate}
+ */
+package ${Namespace}.controller${Module};
+
+import java.io.PrintWriter;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import ${Frame}.web.MyRequest;
+import ${Frame}.core.page.Page;
+import ${Frame}.core.page.PageNav;
+import ${Frame}.core.page.PageRequest;
+import ${Frame}.core.util.CollectionUtil;
+import ${Namespace}.model${Module}.${Model};
+import ${Namespace}.service${Module}.${Model}Service;
+
+@Controller
+@RequestMapping("${Webmodule}")
+public class ${Model}Controller
+{
+	@Autowired
+	private ${Model}Service service;
+
+	//添加
+	@RequestMapping("/add${Model}1")
+	public String add${Model}1()
+	{
+		return "${Webmodule}/add${Model}.jsp";
+	}
+	
+	@RequestMapping("/add${Model}2")
+	public void add${Model}2(PrintWriter out, ${Model} po)
+	{
+		try
+		{
+			service.save(po);
+			out.print(1);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			out.print("0:" + e.getMessage());
+		}
+	}
+
+	//删除
+	@RequestMapping("/del${Model}")
+	public void del${Model}(HttpServletRequest request, PrintWriter out)
+	{
+		try
+		{
+			MyRequest req = new MyRequest(request);
+			service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+			out.print(1);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			out.print("0:" + e.getMessage());
+		}
+	}
+
+	//修改
+	@RequestMapping("/upd${Model}1")
+	public String upd${Model}1(HttpServletRequest request)
+	{
+		MyRequest req = new MyRequest(request);
+		Long id = req.getLong("keyIndex");
+		request.setAttribute("po", service.get(id));
+		request.setAttribute("page", req.getInt("page", 1));
+		return "${Webmodule}/upd${Model}.jsp";
+	}
+	
+	@RequestMapping("/upd${Model}2")
+	public void upd${Model}2(PrintWriter out, ${Model} po)
+	{
+		try
+		{
+			service.update(po);
+			out.print(1);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			out.print("0:" + e.getMessage());
+		}
+	}
+
+	//获得分页
+	@RequestMapping("/get${Model}")
+	public String get${Model}(HttpServletRequest request)
+	{
+		MyRequest req = new MyRequest(request);
+		PageRequest pr = new PageRequest();
+		pr.setFilters(req.getParameterValueMap(false, false));
+		pr.setCurrentPage(req.getInt("page", 1));
+		try
+		{
+			pagesize = Integer.parseInt(String.valueOf(session.getAttribute(PageSize_SessionName)).trim());
+		}
+		catch(Exception ex)
+		{
+			pagesize = 10;
+		}
+		pagesize = req.getInt("pageSize", pagesize);
+		session.setAttribute(PageSize_SessionName, pagesize);
+		pr.setPageSize(pagesize);
+		Page<${Model}> pageModel = service.queryPage(pr);
+		PageNav pageNav = new PageNav(request, pageModel);
+		request.setAttribute("pageModel", pageModel);
+		request.setAttribute("pageNav", pageNav);
+		return "${Webmodule}/get${Model}.jsp";
+	}
+
+	//明细
+	@RequestMapping("/get${Model}ById")
+	public String get${Model}ById(HttpServletRequest request)
+	{
+		MyRequest req = new MyRequest(request);
+		Long keyIndex = req.getLong("keyIndex");
+		request.setAttribute("po", service.get(keyIndex));
+		return "${Webmodule}/get${Model}ById.jsp";
+	}
+}

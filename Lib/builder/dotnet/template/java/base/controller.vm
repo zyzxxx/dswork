@@ -1,0 +1,114 @@
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Webmodule=$vo.GetParam('Webmodule'))
+#set($Model=$vo.GetParam('Model'))
+#set($ModelName=$vo.GetParam('ModelName'))
+/**
+ * 功能:${vo.TableComment}Controller
+ * 开发人员:${developer}
+ * 创建时间:${currentDate}
+ */
+package ${Namespace}.controller${Module};
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import ${Frame}.mvc.BaseController;
+import ${Frame}.core.page.Page;
+import ${Frame}.core.page.PageNav;
+import ${Frame}.core.util.CollectionUtil;
+import ${Namespace}.model${Module}.${Model};
+import ${Namespace}.service${Module}.${Model}Service;
+
+@Scope("prototype")
+@Controller
+@RequestMapping("${Webmodule}")
+public class ${Model}Controller extends BaseController
+{
+	@Autowired
+	private ${Model}Service service;
+
+	//添加
+	@RequestMapping("/add${Model}1")
+	public String add${Model}1()
+	{
+		return "${Webmodule}/add${Model}.jsp";
+	}
+	
+	@RequestMapping("/add${Model}2")
+	public void add${Model}2(${Model} po)
+	{
+		try
+		{
+			service.save(po);
+			print(1);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
+
+	//删除
+	@RequestMapping("/del${Model}")
+	public void del${Model}()
+	{
+		try
+		{
+			service.deleteBatch(CollectionUtil.toLongArray(req.getLongArray("keyIndex", 0)));
+			print(1);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
+
+	//修改
+	@RequestMapping("/upd${Model}1")
+	public String upd${Model}1()
+	{
+		Long id = req.getLong("keyIndex");
+		put("po", service.get(id));
+		return "${Webmodule}/upd${Model}.jsp";
+	}
+	
+	@RequestMapping("/upd${Model}2")
+	public void upd${Model}2(${Model} po)
+	{
+		try
+		{
+			service.update(po);
+			print(1);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			print("0:" + e.getMessage());
+		}
+	}
+
+	//获得分页
+	@RequestMapping("/get${Model}")
+	public String get${Model}()
+	{
+		Page<${Model}> pageModel = service.queryPage(getPageRequest());
+		put("pageModel", pageModel);
+		put("pageNav", new PageNav<${Model}>(request, pageModel));
+		return "${Webmodule}/get${Model}.jsp";
+	}
+
+	//明细
+	@RequestMapping("/get${Model}ById")
+	public String get${Model}ById()
+	{
+		Long id = req.getLong("keyIndex");
+		put("po", service.get(id));
+		return "${Webmodule}/get${Model}ById.jsp";
+	}
+}

@@ -1,0 +1,21 @@
+#set($Frame=$vo.GetParam('Frame'))
+#set($Namespace=$vo.GetParam('Namespace'))
+#set($Module=$vo.GetParam('Javamodule'))
+#set($Model=$vo.GetParam('Model'))
+<%@page language="java" pageEncoding="UTF-8" import="java.util.*,${Frame}.web.MyRequest,${Frame}.core.util.*,
+${Namespace}.model${Module}.${Model},
+${Namespace}.MyFactory"%><%
+try
+{
+	${Model} po = new ${Model}();
+	MyRequest req = new MyRequest(request);
+	req.getFillObject(po);
+	MyFactory.get${Model}Service().update(po);
+	out.print(1);
+}
+catch (Exception e)
+{
+	e.printStackTrace();
+	out.print("0:" + e.getMessage());
+}
+%>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<charset>UTF-8</charset>
+	<templates>
+		<template id="get" path="template/get.vm" />
+		<template id="edit" path="template/edit.vm" />
+	</templates>
+
+	<codes projectdir="E:/Workspaces/workspaceTemp/yx">
+		<code path="/manage/demo" tablename="原型中文模块名" columns="字段,字段2,字段3,字段4" />
+	</codes>
+</config>
+<!--
+	配置说明：
+	<codes projectdir="项目目录路径">
+		<code path="项目目录路径下的子目录以/分隔" tablename="模块名" columns="以逗号,分隔的中文字段名" />
+	</codes>
+	templates中的文件对应在htmlgen目录中，path是相对路径，生成规则：templates中配置的id对应生成的id.html文件
+-->
