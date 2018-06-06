@@ -138,7 +138,7 @@
 <select id="queryUserByPostid" resultMap="resultUser" parameterType="String">
 	select <include refid="columnsUser" /> from DS_COMMON_USERORG uo
 	left join DS_COMMON_USER u on u.ID=uo.USERID
-	where uo.POSTID=#{postid}
+	where uo.ORGID=#{postid}
 </select>
 
 <select id="queryFuncBySystemid" resultMap="resultFunc" parameterType="String">
