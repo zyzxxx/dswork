@@ -1,5 +1,5 @@
 /**
- * 用户角色Dao
+ * 单系统用户资源dao
  */
 package dswork.common.dao;
 
