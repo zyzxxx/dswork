@@ -60,9 +60,18 @@ public class DsCommonSingleUserRoleService
 		return userDao.queryList(map);
 	}
 
-	public List<DsCommonOrgRole> queryOrgRoleList(Long orgid)
+	public List<DsCommonOrgRole> queryOrgRoleList(Long orgid, Long systemid)
 	{
-		return orgroleDao.queryList(orgid);
+		List<DsCommonOrgRole> list = new ArrayList<DsCommonOrgRole>();
+		List<DsCommonOrgRole> rawList = orgroleDao.queryList(orgid);
+		for(DsCommonOrgRole e : rawList)
+		{
+			if(e.getSystemid().equals(systemid))
+			{
+				list.add(e);
+			}
+		}
+		return list;
 	}
 
 	public void saveOrgRole(Long orgid, List<Long> roleidList)
