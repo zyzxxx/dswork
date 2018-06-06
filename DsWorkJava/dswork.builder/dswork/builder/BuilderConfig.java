@@ -10,7 +10,6 @@ public class BuilderConfig
 	public class Template
 	{
 		public String name;
-		public String id;
 		public String viewpath;
 		public String path;
 		public String comment;

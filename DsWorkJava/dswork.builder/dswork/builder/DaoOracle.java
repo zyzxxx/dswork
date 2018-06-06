@@ -42,7 +42,7 @@ public class DaoOracle extends Dao
 			while(rs.next())
 			{
 				pk = rs.getString("COLUMN_NAME");
-				for(Table.Column c : table.column)
+				for(Table.Column c : table.getColumn())
 				{
 					if(c.getName().equalsIgnoreCase(pk))
 					{
@@ -92,7 +92,7 @@ public class DaoOracle extends Dao
 				Table.Column col = table.addColumn();
 				col.setName(rs.getString("CNAME"));
 				col.setDatatype(rs.getString("CDATATYPE"));
-				col.setLength(rs.getInt("CLENGTH"));
+				col.setLength(rs.getLong("CLENGTH"));
 				col.setNullable(true);// oracle没有空字符串，只有null
 				col.setPrecision(rs.getInt("CPRECISION"));
 				col.setDigit(rs.getInt("CSCALE"));
@@ -102,24 +102,24 @@ public class DaoOracle extends Dao
 				switch(col.getDatatype())
 				{
 					case "FLOAT":
-						col.setDatatype("float"); break;
+						col.setType("float"); break;
 					case "NUMBER":
 					{
 						if(col.getDigit() == 0)
 						{
 							if(col.getPrecision() < 11)
 							{
-								col.setDatatype("int"); break;
+								col.setType("int"); break;
 							}
-							col.setDatatype("long"); break;
+							col.setType("long"); break;
 						}
 						else
 						{
-							col.setDatatype("float"); break;
+							col.setType("float"); break;
 						}
 					}
 					case "DATE":
-						col.setDatatype("date"); break;
+						col.setType("date"); break;
 					case "CHAR":
 					case "NCHAR":
 					case "VARCHAR":
@@ -127,7 +127,7 @@ public class DaoOracle extends Dao
 					case "NVARCHAR2":
 					case "CLOB":
 					case "NCLOB":
-						col.setDatatype("String"); break;
+						col.setType("String"); break;
 					default:
 						break;
 				}

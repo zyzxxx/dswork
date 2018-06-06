@@ -57,6 +57,7 @@ public class Builder
 			Configuration conf = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
 			conf.setDefaultEncoding(config.charset.text);
 			conf.setDirectoryForTemplateLoading(new File(templatepath));
+			conf.setNumberFormat("#");
 			String url = config.builds.url;
 			if(url.startsWith("jdbc:mysql") || url.startsWith("jdbc:gbase"))
 			{
@@ -92,7 +93,6 @@ public class Builder
 					param.put("namespace", namespace.replace('/', '.'));
 					param.put("model", m.model);
 					param.put("module", m.module);
-					param.put("columnList", table.column);
 					param.put("table", table);
 					
 					for(BuilderConfig.Template tpl : config.templates.template)
@@ -101,7 +101,7 @@ public class Builder
 						{
 							continue;
 						}
-						if(tpl.comment != null && !"".equals(tpl.comment) && !m.comment.equals(tpl.comment))
+						if(tpl.comment != null && !"".equals(tpl.comment) && !"".equals(m.comment) && !m.comment.equals(tpl.comment))
 						{
 							continue;
 						}
@@ -113,7 +113,7 @@ public class Builder
 							.replace("{module}", m.module)
 							.replace("{namespace}", m.namespace)
 							.replace("//", "/");
-						String x = "    " + printf(tpl.id, config.templates.max) + "生成";
+						String x = "  " + printf(tpl.viewpath, config.templates.max) + "生成";
 						try
 						{
 							Template template = conf.getTemplate(viewpath);
@@ -158,7 +158,7 @@ public class Builder
 	{
 		if(x.length() < max)
 		{
-			x = "                    ".substring(x.length(), max) + x;
+			x = x + "                                                                                                    ".substring(x.length(), max);
 		}
 		return x + " ";
 	}

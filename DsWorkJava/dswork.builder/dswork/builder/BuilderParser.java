@@ -86,13 +86,12 @@ public class BuilderParser
 			Element n = (Element)ns.item(i);
 			BuilderConfig.Template t = config.addTemplate();
 			t.name = getAttr(n, "name");
-			t.id = getAttr(n, "id");
 			t.viewpath = getAttr(n, "viewpath");
 			t.path = getAttr(n, "path");
 			t.comment = getAttr(n, "comment");
-			if(config.templates.max < t.id.length())
+			if(config.templates.max < t.viewpath.length())
 			{
-				config.templates.max = t.id.length();
+				config.templates.max = t.viewpath.length();
 			}
 		}
 	}
