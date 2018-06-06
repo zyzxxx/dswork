@@ -12,7 +12,7 @@ $dswork.callback = null;
 function refreshNode(re){$dswork.ztree.refreshNode(re);}
 $dswork.ztree.click = function(){
 	var node = $dswork.ztree.getSelectedNode();
-	if(node.status == 1){attachUrl("getUser.htm?pid=" + node.id);}
+	if(node.status == 1){attachUrl("getUser.htm?systemid=${param.systemid}&pid=" + node.id);}
 	else{attachUrl("about:blank");}
 	return false;
 };

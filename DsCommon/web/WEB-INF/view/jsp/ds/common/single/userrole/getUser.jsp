@@ -15,10 +15,10 @@ $dswork.page.join = function(td, menu, id){
 	}));
 };
 function updUserRole(id){
-	$jskey.dialog.showDialog({url:"updUserRole1.htm?id=" + id,title:"用户受权",fit:true,draggable:false});
+	$jskey.dialog.showDialog({url:"updUserRole1.htm?systemid=${param.systemid}&id=" + id,title:"用户受权",fit:true,draggable:false});
 }
 function getUserById(id){
-	$jskey.dialog.showDialog({url:"getUserById.htm?id=" + id,title:"用户授权信息",fit:true,draggable:false});
+	$jskey.dialog.showDialog({url:"getUserById.htm?systemid=${param.systemid}&id=" + id,title:"用户授权信息",fit:true,draggable:false});
 }
 $(function(){
 	$dswork.page.menu("", "", "", "");

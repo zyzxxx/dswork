@@ -10,9 +10,9 @@
 var map = new $jskey.Map();
 function init(){
 	var o;
-	map = new $jskey.Map();//初始化或还原,对象中的sname是原节点名称,因为tree修改了name属性
+	map=new $jskey.Map();//初始化或还原,对象中的sname是原节点名称,因为tree修改了name属性
 	<c:forEach items="${list}" var="d">
-	o = {};o.id = "${d.roleid}";o.name = "${fn:escapeXml(d.rolename)}";o.sname=o.name;o.systemname = "${fn:escapeXml(d.systemname)}";
+	o={};o.id="${d.roleid}";o.name="${fn:escapeXml(d.rolename)}";o.sname=o.name;o.systemname="${fn:escapeXml(d.systemname)}";
 	map.put("${d.roleid}", o);
 	</c:forEach>
 	refreshRole();domsg(false);
@@ -39,7 +39,7 @@ function choose(data){
 			map = m;refreshRole();domsg(true);
 		}
 	};
-	$jskey.dialog.showChoose({id:"chooseSystem", title:"选择角色", args:{url:"../../rolechoose/getRoleChoose.htm", data:data}, width:"600", height:"450"});
+	$jskey.dialog.showChoose({id:"chooseSystem", title:"选择角色", args:{url:"../../rolechoose/getRoleChoose.htm?systemid=${param.systemid}", data:data}, width:"600", height:"450"});
 	return false;
 }
 $dswork.deleteRow = function (obj,id){map.remove(id);$(obj).parent().parent().remove();domsg(true);};
