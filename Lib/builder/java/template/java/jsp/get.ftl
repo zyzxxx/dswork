@@ -1,4 +1,12 @@
-<%@page language="java" pageEncoding="UTF-8"%>
+<%@page language="java" pageEncoding="UTF-8" import="java.util.*,${frame}.web.MyRequest,${frame}.core.page.*,
+${namespace}.MyFactory"%><%
+MyRequest req = new MyRequest(request);
+Map map = req.getParameterValueMap(false, false);
+Page pageModel = MyFactory.get${model}Service().queryPage(req.getInt("page"), req.getInt("pageSize", 10), map);
+request.setAttribute("pageModel", pageModel);
+request.setAttribute("pageNav", (new PageNav(request, pageModel)));
+request.setAttribute("param", map);
+%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
@@ -8,11 +16,11 @@
 <%@include file="/commons/include/get.jsp"%>
 <script type="text/javascript">
 $(function(){
-	$${frame}.page.menu("del${model}.htm", "upd${model}1.htm", "get${model}ById.htm", "${'$'}{pageModel.currentPage}");
+	$${frame}.page.menu("del${model}.jsp", "upd${model}1.jsp", "get${model}ById.jsp", "${'$'}{pageModel.currentPage}");
 });
 $${frame}.doAjax = true;
 $${frame}.callback = function(){if($${frame}.result.type == 1){
-	location.href = "get${model}.htm?page=${'$'}{pageModel.currentPage}";
+	location.href = "get${model}.jsp?page=${'$'}{pageModel.currentPage}";
 }};
 </script>
 </head> 
@@ -21,13 +29,13 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 	<tr>
 		<td class="title">${table.comment}列表</td>
 		<td class="menuTool">
-			<a class="insert" href="add${model}1.htm?page=${'$'}{pageModel.currentPage}">添加</a>
+			<a class="insert" href="add${model}1.jsp?page=${'$'}{pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
 		</td>
 	</tr>
 </table>
 <div class="line"></div>
-<form id="queryForm" method="post" action="get${model}.htm">
+<form id="queryForm" method="post" action="get${model}.jsp">
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
 		<td class="input">
@@ -40,7 +48,7 @@ $${frame}.callback = function(){if($${frame}.result.type == 1){
 </table>
 </form>
 <div class="line"></div>
-<form id="listForm" method="post" action="del${model}.htm">
+<form id="listForm" method="post" action="del${model}.jsp">
 <table id="dataTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
 		<td style="width:2%"><input id="chkall" type="checkbox" /></td>
