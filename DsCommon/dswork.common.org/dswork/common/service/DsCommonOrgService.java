@@ -59,12 +59,11 @@ public class DsCommonOrgService
 	 */
 	public void updatePid(Long[] ids, long targetId)
 	{
-		Map<String, Object> map = new HashMap<String, Object>();
 		for(int i = 0; i < ids.length; i++)
 		{
 			if(ids[i] > 0)
 			{
-				orgDao.updatePid(ids[i], targetId, map);
+				orgDao.updatePid(ids[i], targetId);
 			}
 		}
 	}

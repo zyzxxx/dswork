@@ -36,9 +36,14 @@ var treedata = [
 	,{id:100008,name:'用户授权管理', img:"", imgOpen:"", url:'/ds/common/userorg/getOrgTree.htm', items:[]}
 	,{id:100009,name:'登录日志', img:"", imgOpen:"", url:'/common/log/getCommonLogin.jsp', items:[]}
 	,{id:100010,name:'扩展', img:"", imgOpen:"", url:'', items:[
-		{id:100011,name:'组织管理', img:"", imgOpen:"", url:'/ds/common/ex/org/getOrgTree.htm', items:[]}
-		,{id:100013,name:'用户管理', img:"", imgOpen:"", url:'/ds/common/ex/user/getOrgTree.htm', items:[]}
-		,{id:100015,name:'授权管理', img:"", imgOpen:"", url:'/ds/common/ex/userorg/getOrgTree.htm', items:[]}
+		{id:1000101,name:'组织管理', img:"", imgOpen:"", url:'/ds/common/ex/org/getOrgTree.htm', items:[]}
+		,{id:1000102,name:'用户管理', img:"", imgOpen:"", url:'/ds/common/ex/user/getOrgTree.htm', items:[]}
+		,{id:1000103,name:'授权管理', img:"", imgOpen:"", url:'/ds/common/ex/userorg/getOrgTree.htm', items:[]}
+	]}
+	,{id:100011,name:'单系统', img:"", imgOpen:"", url:'', items:[
+		{id:1000101,name:'组织管理', img:"", imgOpen:"", url:'/ds/common/single/org/getOrgTree.htm', items:[]}
+		,{id:1000111,name:'用户管理', img:"", imgOpen:"", url:'/ds/common/single/user/getOrgTree.htm', items:[]}
+		,{id:1000112,name:'授权管理', img:"", imgOpen:"", url:'/ds/common/single/userrole/getOrgTree.htm?systemid=1', items:[]}
 	]}
 ]}
 ,{id:200000, name:'业务管理', img:"", imgOpen:"", url:"", items:[

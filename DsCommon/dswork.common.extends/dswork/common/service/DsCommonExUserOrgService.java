@@ -86,6 +86,11 @@ public class DsCommonExUserOrgService
 		return (DsCommonOrg) orgDao.get(primaryKey);
 	}
 
+	public DsCommonUser getUser(Long userid)
+	{
+		return (DsCommonUser) userDao.get(userid);
+	}
+
 	public List<DsCommonOrg> queryOrgList(Long pid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -99,11 +104,6 @@ public class DsCommonExUserOrgService
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("orgid", pid);
 		return userDao.queryList(map);
-	}
-
-	public DsCommonUser getUserById(Long userid)
-	{
-		return (DsCommonUser) userDao.get(userid);
 	}
 
 	public List<DsCommonOrg> queryOrgListByUserid(Long userid)

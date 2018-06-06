@@ -18,7 +18,7 @@ import dswork.core.page.PageRequest;
 import dswork.core.util.UniqueId;
 
 @Service
-public class DsCommonExOrgService
+public class DsCommonSingleOrgService
 {
 	@Autowired
 	private DsCommonOrgDao dao;
