@@ -164,6 +164,16 @@ public class AuthFactoryDao extends MyBatisDao
 		return this.executeSelectList("queryUserByPostid", postid);
 	}
 
+	public List<IUser> queryUserByOrgPid(String orgpid)
+	{
+		return this.executeSelectList("queryUserByOrgPid", orgpid);
+	}
+
+	public List<IUser> queryUserByOrgId(String orgid)
+	{
+		return this.executeSelectList("queryUserByOrgId", orgid);
+	}
+	
 	// func //////////////////////////////////////////////////////////////////
 	public List<IFunc> queryFuncBySystemAlias(String systemAlias)
 	{
