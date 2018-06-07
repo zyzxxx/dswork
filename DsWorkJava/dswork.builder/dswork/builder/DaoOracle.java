@@ -6,25 +6,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class DaoMSSQL extends Dao
+public class DaoOracle extends Dao
 {
-	private static final String SQL_TABLE_PK = "sp_pkeys N'%s'";
-	private static final String SQL_TABLE_COMMENT = "select cast(b.value as varchar(500)) as CCOMMEN from sys.tables a, sys.extended_properties b where a.type='U' and a.object_id=b.major_id and b.minor_id=0 and a.name='%s'";
+	private static final String SQL_TABLE_PK = "select COLUMN_NAME from USER_CONSTRAINTS c, USER_CONS_COLUMNS col where c.CONSTRAINT_NAME=col.CONSTRAINT_NAME and c.CONSTRAINT_TYPE='P'and c.TABLE_NAME='%s'";
+	private static final String SQL_TABLE_COMMENT = "select COMMENTS as CCOMMEN from USER_TAB_COMMENTS  where TABLE_TYPE='TABLE' and TABLE_NAME ='%s'";
 	private static final String SQL_TABLE_COLUMN = "select "
-			+ "a.name as CNAME, "
-			+ "c.name as CDATATYPE, "
-			+ "a.max_length as CLENGTH, "
-			+ "a.is_nullable as CNULLABLE, "
-			+ "a.precision as CPRECISION, "
-			+ "a.scale as CSCALE, "
-			+ "(select cast(value as varchar(500)) from sys.extended_properties where sys.extended_properties.major_id = a.object_id and sys.extended_properties.minor_id = a.column_id"
-			+ ") as CCOMMENT, "
-			+ "(select count(*) from sys.identity_columns where sys.identity_columns.object_id = a.object_id and a.column_id = sys.identity_columns.column_id"
-			+ ") as CAUTO "
-			+ "from sys.columns a, sys.tables b, sys.types c "
-			+ "where a.object_id = b.object_id and a.system_type_id=c.system_type_id and b.name='%s' and c.name<>'sysname' order by a.column_id;";
-//	private static final String SQL_ALL_TABLES = "select name from sys.tables where type='U' and name<>'sysdiagrams'";
-	
+			+ "A.COLUMN_NAME as CNAME, "
+			+ "A.DATA_TYPE as CDATATYPE, "
+			+ "A.DATA_LENGTH as CLENGTH, "
+			+ "A.DATA_PRECISION as CPRECISION, "
+			+ "A.DATA_SCALE as CSCALE, "
+			+ "B.COMMENTS as CCOMMENT "
+			+ "from USER_TAB_COLUMNS A, USER_COL_COMMENTS B  "
+			+ "where A.COLUMN_NAME=B.COLUMN_NAME and A.TABLE_NAME=B.TABLE_NAME and A.TABLE_NAME='%s' ";
+//	private static final String SQL_ALL_TABLES = "select TABLE_NAME from USER_TABLES where STATUS='VALID'";
+	// A.DATA_DEFAULT
 	private Connection conn;
 	// private String dbName;
 
@@ -97,41 +93,20 @@ public class DaoMSSQL extends Dao
 				col.setName(rs.getString("CNAME"));
 				col.setDatatype(rs.getString("CDATATYPE"));
 				col.setLength(rs.getLong("CLENGTH"));
-				col.setNullable("1".equalsIgnoreCase(rs.getString("CNULLABLE")));
+				col.setNullable(true);// oracle没有空字符串，只有null
 				col.setPrecision(rs.getInt("CPRECISION"));
 				col.setDigit(rs.getInt("CSCALE"));
 				col.setComment(rs.getString("CCOMMENT"));
-				col.setAuto(!"0".equals(rs.getString("CAUTO")));
+				col.setAuto(false);// oracle没有自增列
 				// col.setKey();
 				switch(col.getDatatype())
 				{
-					case "smallint":
-					case "int":
-					case "tinyint":
-						col.setLength(col.getPrecision());
-						col.setType("int"); break;
-					case "bigint":
-						col.setLength(col.getPrecision());
-						if("id".equalsIgnoreCase(col.getName()))
-						{
-							col.setType("Long");
-						}
-						else
-						{
-							col.setType("long");
-						}
-						break;
-					case "real":
-					case "smallmoney":
-					case "money":
-						col.setLength(col.getPrecision() + (col.getDigit() > 0 ? col.getDigit() + 1 : col.getDigit()));
+					case "FLOAT":
 						col.setType("float"); break;
-					case "decimal":
-					case "numeric":
+					case "NUMBER":
 					{
 						if(col.getDigit() == 0)
 						{
-							col.setLength(col.getPrecision());
 							if(col.getPrecision() < 11)
 							{
 								col.setType("int"); break;
@@ -140,25 +115,18 @@ public class DaoMSSQL extends Dao
 						}
 						else
 						{
-							col.setLength(col.getPrecision() + (col.getDigit() > 0 ? col.getDigit() + 1 : col.getDigit()));
 							col.setType("float"); break;
 						}
 					}
-					case "bit":
-						col.setLength(1);
-						col.setType("boolean"); break;
-					case "smalldatetime":
-					case "datetime":
+					case "DATE":
 						col.setType("date"); break;
-					case "char":
-					case "nchar":
-					case "varchar":
-					case "nvarchar":
-					case "timestamp":
-					case "text":
-					case "ntext":
-					case "xml":
-					case "uniqueidentifier":
+					case "CHAR":
+					case "NCHAR":
+					case "VARCHAR":
+					case "VARCHAR2":
+					case "NVARCHAR2":
+					case "CLOB":
+					case "NCLOB":
 						col.setType("String"); break;
 					default:
 						break;

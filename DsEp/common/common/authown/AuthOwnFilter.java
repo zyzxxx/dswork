@@ -11,8 +11,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class AuthOwnFilter implements Filter {
-
+public class AuthOwnFilter implements Filter
+{
 	public AuthOwnFilter()
 	{
 	}
@@ -21,7 +21,6 @@ public class AuthOwnFilter implements Filter {
 	public void destroy()
 	{
 	}
-
 
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException

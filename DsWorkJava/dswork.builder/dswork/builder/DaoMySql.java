@@ -66,7 +66,7 @@ public class DaoMySql extends Dao
 				Table.Column col = table.addColumn();
 				col.setName(rs.getString("CNAME"));
 				col.setDatatype(rs.getString("CDATATYPE"));
-				col.setLength(rs.getInt("CLENGTH"));
+				col.setLength(rs.getLong("CLENGTH"));
 				col.setNullable("TRUE".equalsIgnoreCase(rs.getString("CNULLABLE")));
 				col.setPrecision(rs.getInt("CPRECISION"));
 				col.setDigit(rs.getInt("CSCALE"));
@@ -77,49 +77,74 @@ public class DaoMySql extends Dao
 				switch(col.getDatatype())
 				{
 					case "int":
+					case "integer":
 					case "tinyint":
+					case "smallint":
 					case "mediumint":
-						col.setDatatype("int"); break;
+						col.setLength(col.getPrecision());
+						col.setDefaultvalue("0");
+						col.setType("int"); break;
 					case "bigint":
+						col.setDefaultvalue("0L");
+						col.setLength(col.getPrecision());
 						if("id".equalsIgnoreCase(col.getName()))
 						{
-							col.setDatatype("Long");
+							col.setType("Long");
 						}
 						else
 						{
-							col.setDatatype("long");
+							col.setType("long");
 						}
 						break;
 					case "float":
 					case "double":
-						col.setDatatype("float"); break;
+						col.setDefaultvalue("0F");
+						col.setLength(col.getPrecision() + (col.getDigit() > 0 ? col.getDigit() + 1 : col.getDigit()));
+						col.setType("float"); break;
 					case "decimal":
+					case "numeric":
 					{
 						if(col.getDigit() == 0)
 						{
+							col.setLength(col.getPrecision());
 							if(col.getPrecision() < 11)
 							{
-								col.setDatatype("int"); break;
+								col.setDefaultvalue("0");
+								col.setType("int"); break;
 							}
-							col.setDatatype("long"); break;
+							col.setDefaultvalue("0L");
+							col.setType("long"); break;
 						}
 						else
 						{
-							col.setDatatype("float"); break;
+							col.setLength(col.getPrecision() + (col.getDigit() > 0 ? col.getDigit() + 1 : col.getDigit()));
+							col.setDefaultvalue("0F");
+							col.setType("float"); break;
 						}
 					}
-					case "char":
+					case "time":
+						col.setLength(8);
+						col.setType("String"); break;
+					case "date":
+						col.setLength(10);
+						col.setType("String"); break;
 					case "datetime":
+					case "timestamp":
+						col.setLength(19);
+						col.setType("String"); break;
 					case "json":
+					case "xml":
+					case "char":
 					case "longtext":
 					case "mediumtext":
 					case "text":
-					case "timestamp":
-					case "time":
 					case "tinytext":
 					case "varchar":
-					case "xml":
-						col.setDatatype("String"); break;
+						if(col.getLength() <= 0)
+						{
+							col.setLength(Integer.MAX_VALUE);
+						}
+						col.setType("String"); break;
 					default:
 						break;
 				}

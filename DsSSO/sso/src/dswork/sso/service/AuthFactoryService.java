@@ -92,6 +92,26 @@ public class AuthFactoryService
 		return null;
 	}
 
+	public IUser[] queryUserByOrgPid(String orgpid)
+	{
+		List<IUser> list = dao.queryUserByOrgPid(orgpid);
+		if (list != null)
+		{
+			return list.toArray(new IUser[list.size()]);
+		}
+		return null;
+	}
+
+	public IUser[] queryUserByOrgId(String orgid)
+	{
+		List<IUser> list = dao.queryUserByOrgId(orgid);
+		if (list != null)
+		{
+			return list.toArray(new IUser[list.size()]);
+		}
+		return null;
+	}
+
 	public IOrg[] getPostByUserId(Long userid)
 	{
 		List<IOrg> list = dao.queryPostByUserId(userid);

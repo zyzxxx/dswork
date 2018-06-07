@@ -129,9 +129,30 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 				dsworkDialect = "null";
 			}
 		}
+		context.setInitParameter("dsworkConfiguration", dswork);
+		context.setInitParameter("dsworkSSOConfiguration", dsworkSSO);
 		context.setInitParameter("dswork.dialect", dsworkDialect);
 		context.setInitParameter("jdbc.dialect.mybatis", mybatisDialect);
 		context.setInitParameter("jdbc.dialect.hibernate", hibernateDialect);
+		String dsworkDataSource = EnvironmentUtil.getToString("dswork.datasource", "");
+		if(dsworkDataSource.length() > 0)
+		{
+			context.setInitParameter("dswork.datasource", dsworkDataSource);
+			if("com.alibaba.druid.pool.DruidDataSource".equalsIgnoreCase(dsworkDataSource))
+			{
+				spring = ",classpath*:/dswork/config/spring/spring-datasource-druid.xml" + spring;
+			}
+			else
+			{
+				spring = ",classpath*:/dswork/config/spring/spring-datasource.xml" + spring;
+			}
+		}
+		else
+		{
+			spring = ",classpath*:/dswork/config/spring/spring-datasource.xml" + spring;
+		}
+		context.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/spring/spring-property.xml,classpath*:/dswork/config/spring/spring-mybatis.xml,classpath*:/dswork/config/spring/spring-project.xml" + spring);
+		spring = null;
 		
 		String dsworkBasePackage = EnvironmentUtil.getToString("dswork.base-package", "");
 		if(dsworkBasePackage.length() > 0)
@@ -149,9 +170,6 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 				}
 			}
 		}
-		context.setInitParameter("dsworkConfiguration", dswork);
-		context.setInitParameter("dsworkSSOConfiguration", dsworkSSO);
-		context.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/spring/*.xml" + spring);
 		try
 		{
 			if((new File(context.getRealPath("/") + log4j2)).isFile())

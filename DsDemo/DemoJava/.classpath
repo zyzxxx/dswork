@@ -42,5 +42,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Lib/module/dswork/cs/dswork.cs.jar"/>
+	<classpathentry kind="lib" path="/Lib/module/datasource/druid-1.1.10.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

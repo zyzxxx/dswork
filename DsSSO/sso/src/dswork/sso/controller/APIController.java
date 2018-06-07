@@ -449,6 +449,66 @@ public class APIController
 	}
 
 	/**
+	 * @note 获取指定单位下的用户，不含子单位
+	 * @param orgPid 单位ID
+	 * @return IUser[]
+	 */
+	@RequestMapping("/queryUserByOrgParent")
+	public void queryUserByOrgParent(HttpServletRequest request, HttpServletResponse response)
+	{
+		MyRequest req = new MyRequest(request);
+		String systemAlias = req.getString("name");
+		String pwd = req.getString("pwd");
+		String orgPid = req.getString("orgPid");
+		try
+		{
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			if(isSystemCheck(systemAlias, pwd))
+			{
+				IUser[] m = service.queryUserByOrgPid(orgPid);
+				out.print(toJson(m));
+			}
+			out.print("");
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * @note 获取指定部门下的用户，不含子部门
+	 * @param orgId 部门 ID
+	 * @return IUser[]
+	 */
+	@RequestMapping("/queryUserByOrg")
+	public void queryUserByOrg(HttpServletRequest request, HttpServletResponse response)
+	{
+		MyRequest req = new MyRequest(request);
+		String systemAlias = req.getString("name");
+		String pwd = req.getString("pwd");
+		String orgId = req.getString("orgId");
+		try
+		{
+			response.setCharacterEncoding("UTF-8");
+			response.setContentType("text/plain;charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			if(isSystemCheck(systemAlias, pwd))
+			{
+				IUser[] m = service.queryUserByOrgId(orgId);
+				out.print(toJson(m));
+			}
+			out.print("");
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+
+	/**
 	 * @note 获取指定用户拥有的岗位
 	 * @param userAccount 用户帐号
 	 * @return IOrg[]
