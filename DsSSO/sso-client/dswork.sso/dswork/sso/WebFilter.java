@@ -28,6 +28,8 @@ public class WebFilter implements Filter
 {
 	static com.google.gson.Gson gson = AuthGlobal.getGson();
 	static Logger log = LoggerFactory.getLogger("dswork.sso");
+	
+	private static boolean use = false;// 用于判断是否加载sso模块
 
 	private final static String TICKET = "ticket";// url中传来的sessionKey的变量名
 	public final static String LOGINER = "sso.web.loginer";// sessionUser在session中的key
@@ -362,6 +364,11 @@ public class WebFilter implements Filter
 		session.removeAttribute(LOGINER);
 		session.removeAttribute(TICKET);
 	}
+	
+	public static boolean isUse()
+	{
+		return WebFilter.use;
+	}
 
 	public void init(FilterConfig config) throws ServletException
 	{
@@ -419,6 +426,7 @@ public class WebFilter implements Filter
 			ignoreURL = String.valueOf(config.getInitParameter("ignoreURL")).trim();
 		}
 		AuthGlobal.init(ssoURL, ssoName, ssoPassword);
+		WebFilter.use = true;
 		if("null".equals(systemURL)){systemURL = "";}
 		ignoreURLSet.clear();
 		if(ignoreURL.length() > 0)
