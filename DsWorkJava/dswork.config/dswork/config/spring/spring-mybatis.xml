@@ -2,48 +2,48 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xsi:schemaLocation="
-			http://www.springframework.org/schema/beans 
-			http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
+	        http://www.springframework.org/schema/beans 
+	        http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"
 	   default-autowire="byName" default-lazy-init="false">
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="plugins">
-        	<list>
+		<property name="plugins">
+			<list>
 				<bean class="dswork.core.mybatis.OffsetLimitInterceptor">
-       				<property name="properties">
-       					<props>
-		        			<prop key="1">${jdbc.dialect.mybatis:dswork.core.mybatis.dialect.LimitOffsetDialect}</prop>
-		        		</props>
+	   				<property name="properties">
+	   					<props>
+							<prop key="1">${jdbc.dialect.mybatis:dswork.core.mybatis.dialect.LimitOffsetDialect}</prop>
+						</props>
 					</property>
 				</bean>
-        	</list>
-        </property>
-        <property name="typeHandlers">
-        	<list>
+			</list>
+		</property>
+		<property name="typeHandlers">
+			<list>
 				<bean class="dswork.core.mybatis.LikeTypeHandler" />
 				<bean class="dswork.core.mybatis.LikePrefixTypeHandler" />
-        	</list>
-        </property>
-        <property name="typeAliases">
-        	<list>
+			</list>
+		</property>
+		<property name="typeAliases">
+			<list>
 				<value>dswork.core.mybatis.LikeTypeHandler</value>
 				<value>dswork.core.mybatis.LikePrefixTypeHandler</value>
-        	</list>
-        </property>
-        <property name="mapperLocations">
-        	<list>
-        		<value>classpath*:/dswork/config/mybatis/${dswork.dialect}.map.xml</value>
-        		<value>classpath*:/dswork/*/mapper/**/*.map.xml</value>
-        		<value>classpath*:/common/**/*.map.xml</value>
-        		<value>classpath*:${dswork.m1:/x}/mapper/**/*.map.xml</value>
-        		<value>classpath*:${dswork.m2:/x}/mapper/**/*.map.xml</value>
-        		<value>classpath*:${dswork.m3:/x}/mapper/**/*.map.xml</value>
-        		<value>classpath*:${dswork.m4:/x}/mapper/**/*.map.xml</value>
-        		<value>classpath*:${dswork.m5:/x}/mapper/**/*.map.xml</value>
-        		<value>${dswork.base-mapper-extend:classpath*:/x/*/mapper/**/*.map.xml}</value>
-        	</list>
-        </property>
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
+			</list>
+		</property>
+		<property name="mapperLocations">
+			<list>
+				<value>classpath*:/dswork/config/mybatis/${dswork.dialect}.map.xml</value>
+				<value>classpath*:/dswork/*/mapper/**/*.map.xml</value>
+				<value>classpath*:/common/**/*.map.xml</value>
+				<value>classpath*:${dswork.m1:/x}/mapper/**/*.map.xml</value>
+				<value>classpath*:${dswork.m2:/x}/mapper/**/*.map.xml</value>
+				<value>classpath*:${dswork.m3:/x}/mapper/**/*.map.xml</value>
+				<value>classpath*:${dswork.m4:/x}/mapper/**/*.map.xml</value>
+				<value>classpath*:${dswork.m5:/x}/mapper/**/*.map.xml</value>
+				<value>${dswork.base-mapper-extend:classpath*:/x/*/mapper/**/*.map.xml}</value>
+			</list>
+		</property>
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
 	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
