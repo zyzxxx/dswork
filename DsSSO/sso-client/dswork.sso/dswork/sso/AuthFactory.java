@@ -215,6 +215,40 @@ public class AuthFactory
 	}
 	
 	/**
+	 * @note 获取指定单位下的用户，不含子单位
+	 * @param orgPid 单位ID
+	 * @return IUser[]
+	 */
+	public static IUser[] queryUserByOrgParent(String orgPid)
+	{
+		String u = getPath("queryUserByOrgParent").append("&orgPid=").append(orgPid).toString();
+		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
+		if(log.isDebugEnabled())
+		{
+			log.debug("AuthFactory:url=" + u + ", json:" + v);
+		}
+		List<IUser> list = gson.fromJson(v, new TypeToken<List<IUser>>(){}.getType());
+		return list.toArray(new IUser[list.size()]);
+	}
+	
+	/**
+	 * @note 获取指定部门下的用户，不含子部门
+	 * @param orgId 部门 ID
+	 * @return IUser[]
+	 */
+	public static IUser[] queryUserByOrg(String orgId)
+	{
+		String u = getPath("queryUserByOrg").append("&orgId=").append(orgId).toString();
+		String v = new HttpUtil().create(u, u.startsWith("https:")).connect().trim();
+		if(log.isDebugEnabled())
+		{
+			log.debug("AuthFactory:url=" + u + ", json:" + v);
+		}
+		List<IUser> list = gson.fromJson(v, new TypeToken<List<IUser>>(){}.getType());
+		return list.toArray(new IUser[list.size()]);
+	}
+	
+	/**
 	 * @note 获取指定用户拥有的岗位
 	 * @param userAccount 用户帐号
 	 * @return IOrg[]
