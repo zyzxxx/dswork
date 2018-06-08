@@ -11,7 +11,7 @@
 				<bean class="dswork.core.mybatis.OffsetLimitInterceptor">
 	   				<property name="properties">
 	   					<props>
-							<prop key="1">${jdbc.dialect.mybatis:dswork.core.mybatis.dialect.LimitOffsetDialect}</prop>
+							<prop key="name">${jdbc.dialect.name:mysql}</prop>
 						</props>
 					</property>
 				</bean>
@@ -31,15 +31,14 @@
 		</property>
 		<property name="mapperLocations">
 			<list>
-				<value>classpath*:/dswork/config/mybatis/${dswork.dialect}.map.xml</value>
+				<value>classpath*:/dswork/config/mybatis/${jdbc.dialect.name:mysql}.map.xml</value>
 				<value>classpath*:/dswork/*/mapper/**/*.map.xml</value>
 				<value>classpath*:/common/**/*.map.xml</value>
-				<value>classpath*:${dswork.m1:/x}/mapper/**/*.map.xml</value>
-				<value>classpath*:${dswork.m2:/x}/mapper/**/*.map.xml</value>
-				<value>classpath*:${dswork.m3:/x}/mapper/**/*.map.xml</value>
-				<value>classpath*:${dswork.m4:/x}/mapper/**/*.map.xml</value>
-				<value>classpath*:${dswork.m5:/x}/mapper/**/*.map.xml</value>
-				<value>${dswork.base-mapper-extend:classpath*:/x/*/mapper/**/*.map.xml}</value>
+				<value>${dswork.m1:classpath*:/x/mapper/**/*.map.xml}</value>
+				<value>${dswork.m2:classpath*:/x/mapper/**/*.map.xml}</value>
+				<value>${dswork.m3:classpath*:/x/mapper/**/*.map.xml}</value>
+				<value>${dswork.m4:classpath*:/x/mapper/**/*.map.xml}</value>
+				<value>${dswork.m5:classpath*:/x/mapper/**/*.map.xml}</value>
 			</list>
 		</property>
 		<property name="dataSource" ref="dataSource"/>
