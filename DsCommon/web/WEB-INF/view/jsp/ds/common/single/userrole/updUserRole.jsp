@@ -43,6 +43,7 @@ function choose(data){
 	return false;
 }
 $dswork.deleteRow = function (obj,id){map.remove(id);$(obj).parent().parent().remove();domsg(true);};
+$dswork.callback = function(){if($dswork.result.type == 1){$("#showmsg").html("");}};
 function domsg(type){$("#showmsg").html(type?"数据已修改，未保存":"");}
 $(function(){init();
 	$("#vchoose").click(function(){
