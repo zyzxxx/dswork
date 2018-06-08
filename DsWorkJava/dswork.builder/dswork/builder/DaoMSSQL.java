@@ -46,7 +46,7 @@ public class DaoMSSQL extends Dao
 			while(rs.next())
 			{
 				pk = rs.getString("COLUMN_NAME");
-				for(Table.Column c : table.column)
+				for(Table.Column c : table.getColumn())
 				{
 					if(c.getName().equalsIgnoreCase(pk))
 					{
@@ -96,7 +96,7 @@ public class DaoMSSQL extends Dao
 				Table.Column col = table.addColumn();
 				col.setName(rs.getString("CNAME"));
 				col.setDatatype(rs.getString("CDATATYPE"));
-				col.setLength(rs.getInt("CLENGTH"));
+				col.setLength(rs.getLong("CLENGTH"));
 				col.setNullable("1".equalsIgnoreCase(rs.getString("CNULLABLE")));
 				col.setPrecision(rs.getInt("CPRECISION"));
 				col.setDigit(rs.getInt("CSCALE"));
@@ -108,42 +108,48 @@ public class DaoMSSQL extends Dao
 					case "smallint":
 					case "int":
 					case "tinyint":
-						col.setDatatype("int"); break;
+						col.setLength(col.getPrecision());
+						col.setType("int"); break;
 					case "bigint":
+						col.setLength(col.getPrecision());
 						if("id".equalsIgnoreCase(col.getName()))
 						{
-							col.setDatatype("Long");
+							col.setType("Long");
 						}
 						else
 						{
-							col.setDatatype("long");
+							col.setType("long");
 						}
 						break;
 					case "real":
 					case "smallmoney":
 					case "money":
-						col.setDatatype("float"); break;
+						col.setLength(col.getPrecision() + (col.getDigit() > 0 ? col.getDigit() + 1 : col.getDigit()));
+						col.setType("float"); break;
 					case "decimal":
 					case "numeric":
 					{
 						if(col.getDigit() == 0)
 						{
+							col.setLength(col.getPrecision());
 							if(col.getPrecision() < 11)
 							{
-								col.setDatatype("int"); break;
+								col.setType("int"); break;
 							}
-							col.setDatatype("long"); break;
+							col.setType("long"); break;
 						}
 						else
 						{
-							col.setDatatype("float"); break;
+							col.setLength(col.getPrecision() + (col.getDigit() > 0 ? col.getDigit() + 1 : col.getDigit()));
+							col.setType("float"); break;
 						}
 					}
 					case "bit":
-						col.setDatatype("boolean"); break;
+						col.setLength(1);
+						col.setType("boolean"); break;
 					case "smalldatetime":
 					case "datetime":
-						col.setDatatype("date"); break;
+						col.setType("date"); break;
 					case "char":
 					case "nchar":
 					case "varchar":
@@ -153,7 +159,7 @@ public class DaoMSSQL extends Dao
 					case "ntext":
 					case "xml":
 					case "uniqueidentifier":
-						col.setDatatype("String"); break;
+						col.setType("String"); break;
 					default:
 						break;
 				}

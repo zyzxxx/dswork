@@ -10,7 +10,6 @@ public class BuilderConfig
 	public class Template
 	{
 		public String name;
-		public String id;
 		public String viewpath;
 		public String path;
 		public String comment;
@@ -18,7 +17,6 @@ public class BuilderConfig
 	public class Templates
 	{
 		public int max = 0;
-		public String path;
 		public List<Template> template = new ArrayList<Template>();
 	}
 	public class Build

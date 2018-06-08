@@ -49,14 +49,15 @@ public class Builder
 		}
 	}
 	
-	public static void build(BuilderConfig config)
+	public static void build(String templatepath, BuilderConfig config)
 	{
 		Dao dao = null;
 		try
 		{
 			Configuration conf = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
 			conf.setDefaultEncoding(config.charset.text);
-			conf.setDirectoryForTemplateLoading(new File(config.templates.path));
+			conf.setDirectoryForTemplateLoading(new File(templatepath));
+			conf.setNumberFormat("#");
 			String url = config.builds.url;
 			if(url.startsWith("jdbc:mysql") || url.startsWith("jdbc:gbase"))
 			{
@@ -92,7 +93,6 @@ public class Builder
 					param.put("namespace", namespace.replace('/', '.'));
 					param.put("model", m.model);
 					param.put("module", m.module);
-					param.put("columnList", table.column);
 					param.put("table", table);
 					
 					for(BuilderConfig.Template tpl : config.templates.template)
@@ -101,7 +101,7 @@ public class Builder
 						{
 							continue;
 						}
-						if(tpl.comment != null && !"".equals(tpl.comment) && !m.comment.equals(tpl.comment))
+						if(tpl.comment != null && !"".equals(tpl.comment) && !"".equals(m.comment) && !m.comment.equals(tpl.comment))
 						{
 							continue;
 						}
@@ -113,7 +113,7 @@ public class Builder
 							.replace("{module}", m.module)
 							.replace("{namespace}", m.namespace)
 							.replace("//", "/");
-						String x = "    " + printf(tpl.id, config.templates.max) + "生成";
+						String x = "  " + printf(tpl.viewpath, config.templates.max) + "生成";
 						try
 						{
 							Template template = conf.getTemplate(viewpath);
@@ -158,7 +158,7 @@ public class Builder
 	{
 		if(x.length() < max)
 		{
-			x = "                    ".substring(x.length(), max) + x;
+			x = x + "                                                                                                    ".substring(x.length(), max);
 		}
 		return x + " ";
 	}
@@ -202,16 +202,6 @@ public class Builder
 		}
 		return sb.toString();
 	}
-
-	public static String getLocation(String name)
-	{
-		String location = Builder.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-		if(location.endsWith(".jar"))
-		{
-			location = location.substring(0, location.lastIndexOf("/") + 1);
-		}
-		return location + name;
-	}
 	
 	public static String lowerCamel(String name)
 	{
@@ -251,13 +241,29 @@ public class Builder
 	
 	public static void main(String[] args)
 	{
-		String configPath = Builder.getLocation("builder.xml");
+		java.net.URL url = Thread.currentThread().getContextClassLoader().getResource("");
+		// if(url == null)
+		// {
+		// 	url = Builder.class.getProtectionDomain().getCodeSource().getLocation();
+		// }
+		String loadpath = url == null ? System.getProperty("user.dir") + "/" : url.getPath();
+		loadpath = String.valueOf(loadpath).replace('\\', '/').replace("//", "/");
+		String templatepath, configPath;
+		// String configPath = Builder.getLocation("builder.xml");
 		if(args.length > 0)
 		{
-			configPath = System.getProperty("user.dir") + "/" + args[0];
-			configPath = configPath.replace("//", "/");
+			configPath = loadpath + args[0].replace('\\', '/').replace("//", "/");
+			templatepath = loadpath + "template";
+			if(args.length > 1)
+			{
+				templatepath = loadpath + args[1].replace('\\', '/').replace("//", "/");
+			}
 		}
-		System.out.println(configPath);
-		Builder.build((new BuilderParser().parse(Builder.readTextFile(configPath))));
+		else
+		{
+			configPath = loadpath + "builder.xml";
+			templatepath = loadpath + "template";
+		}
+		Builder.build(templatepath, (new BuilderParser().parse(Builder.readTextFile(configPath))));
 	}
 }

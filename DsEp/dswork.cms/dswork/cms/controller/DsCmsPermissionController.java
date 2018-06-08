@@ -86,7 +86,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 			put("categoryList", categorySetting(categoryList == null ? new ArrayList<DsCmsCategory>() : categoryList));
 			return "/cms/permission/updPermission.jsp";
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
 			return null;
 		}
@@ -213,7 +213,7 @@ public class DsCmsPermissionController extends DsCmsBaseController
 			put("sitePermission", getSitePermission(siteid));
 			return "/cms/permission/getCategory.jsp";
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
 		}
 		return null;

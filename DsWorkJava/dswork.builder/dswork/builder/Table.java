@@ -2,18 +2,20 @@ package dswork.builder;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Table
 {
 	public class Column
 	{
-		private String name;// 列名
-		private String datatype;// 类型
-		private int length;// 长度
+		private String name = "";// 列名
+		private String type = "";// 类型
+		private String datatype = "";// 数据库类型
+		private long length = 0;// 长度
 		private boolean nullable = true;
 		private int precision = 0;// 整数位
 		private int digit = 0;// 小数位
-		private String comment;// 列注释
+		private String comment = "";// 列注释
 		private boolean auto = false;// 是否自增
 		private String defaultvalue = "";// 类型
 		private boolean key = false;// 是否主键
@@ -28,6 +30,16 @@ public class Table
 			return Builder.upperCamel(name);
 		}// 大驼峰命名
 
+		public String getNameLowerCase()
+		{
+			return name.toLowerCase(Locale.ENGLISH);
+		}
+
+		public String getNameUpperCase()
+		{
+			return name.toUpperCase(Locale.ENGLISH);
+		}
+
 		public String getName()
 		{
 			return name;
@@ -37,6 +49,26 @@ public class Table
 		{
 			this.name = name;
 		}
+
+		public String getType()
+		{
+			return type;
+		}
+
+		public void setType(String type)
+		{
+			this.type = type;
+		}
+
+		public String getTypeLowerCamel()
+		{
+			return Builder.lowerCamel(type);
+		}// 小驼峰命名
+
+		public String getTypeUpperCamel()
+		{
+			return Builder.upperCamel(type);
+		}// 大驼峰命名
 
 		public String getDatatype()
 		{
@@ -58,12 +90,12 @@ public class Table
 			this.comment = comment;
 		}
 
-		public int getLength()
+		public long getLength()
 		{
 			return length;
 		}
 
-		public void setLength(int length)
+		public void setLength(long length)
 		{
 			this.length = length;
 		}
@@ -128,9 +160,11 @@ public class Table
 			this.defaultvalue = defaultvalue;
 		}
 	}
-	private String name;// 表名
-	private String comment;// 表注释
-	public List<Column> column = new ArrayList<Column>();// 表列list
+	private String name = "";// 表名
+	private String comment = "";// 表注释
+	private List<Column> column = new ArrayList<Column>();// 表列list
+	private List<Column> columnKey = null;// 表列list
+	private List<Column> columnNokey = null;// 表列list
 
 	public Column addColumn()
 	{
@@ -148,6 +182,16 @@ public class Table
 	{
 		return Builder.upperCamel(name);
 	}// 大驼峰命名
+
+	public String getNameLowerCase()
+	{
+		return name.toLowerCase(Locale.ENGLISH);
+	}
+
+	public String getNameUpperCase()
+	{
+		return name.toUpperCase(Locale.ENGLISH);
+	}
 
 	public String getName()
 	{
@@ -167,5 +211,42 @@ public class Table
 	public void setComment(String comment)
 	{
 		this.comment = comment;
+	}
+	
+	public List<Column> getColumn()
+	{
+		return column;
+	}
+	
+	public List<Column> getColumnKey()
+	{
+		if(columnKey == null)
+		{
+			columnKey = new ArrayList<Column>();
+			for(Column c : column)
+			{
+				if(c.key)
+				{
+					columnKey.add(c);
+				}
+			}
+		}
+		return columnKey;
+	}
+	
+	public List<Column> getColumnNokey()
+	{
+		if(columnNokey == null)
+		{
+			columnNokey = new ArrayList<Column>();
+			for(Column c : column)
+			{
+				if(!c.key)
+				{
+					columnNokey.add(c);
+				}
+			}
+		}
+		return columnNokey;
 	}
 }

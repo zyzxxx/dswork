@@ -3,18 +3,18 @@ DsWork框架包括java版本和C#版本
 	除MVC层不完全一致外，java和C#版本各分层及类方法基本一致
 	ibatisnet及MyBatis均支持Dialect分页
 	Dao层 -> Service层 -> Controller层
-		java版：采用Hibernate3.5.6|MyBatis、SpringMVC
+		java版：采用Hibernate4.2.12|MyBatis、SpringMVC
 		  C#版：采用ibatisnet、Spring.Net、MVC4
 
 目录说明：
-CodeBuilder：通用代码生成器，使用数据库表结构结合自定义模板生成文件。
-	不限本框架使用，但里面已经写好基于本框架和web项目进行开发的业务单表模板文件。
 DsWorkJava：java框架的核心源代码（编译后的jar在Lib项目中）
 DsWorkNet：C#框架的核心源代码（编译后的dll在LibNet项目中）
 web：项目的一套web框架，可选用，包括了常用的js，css等
 	对于web项目，获取web作为项目“web”
 	其中java或C#版本需要的不同文件，看/web/说明.txt
 Lib：java版需要的大部份基础类库，获取/Lib作为Eclipse项目“Lib”
+	builder子文件夹为通用代码生成器，使用数据库表结构结合自定义模板生成文件。
+	不限本框架使用，但里面已经写好基于本框架和web项目进行开发的业务单表模板文件。
 LibNet：C#版类库引用目录，获取/LibNet作为类库引用目录
 
 DsDemo：简单的演示demo程序，需要web项目的支持
@@ -31,6 +31,7 @@ DsSSO：单点登录和门户
 	portal：单点登录门户，用于集成第三方系统
 	sso：单点登录和api系统
 	sso-client：单点登录接入第三方系统示例
+	websso：用于开放注册和绑定第三方功能时使用的sso项目的扩展系统模块（结合weblogin项目[qq、微信、支付宝]等第三方登录）
 DsCommon：单点登录后台管理系统
 	集成版本权限设置
 		组织机构表（包括岗位，叶子节点为岗位）
@@ -44,5 +45,4 @@ DsCommon：单点登录后台管理系统
 		组织机构（只针对岗位节点） - 所有子系统角色
 		组织机构（只针对岗位节点） - 用户（用户只有在同一组织机构部门下的岗位才可选）
 		
-	另外还支持单系统使用时，简化版的用户权限管理设置
-		即：去掉岗位设置，权限绑定不绑定岗位，直接用户和系统角色进行绑定。
+	另外还支持简化配置使用，通常用于单系统，简化版的用户权限管理设置，即一个用户由程序创建一个同名岗位（该岗位不可见）（只给这个用户使用）

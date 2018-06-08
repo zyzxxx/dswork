@@ -139,7 +139,7 @@ public class DsCommonExUserOrgController extends BaseController
 	public String getUserById()
 	{
 		Long id = req.getLong("id");
-		put("po", service.getUserById(id));
+		put("po", service.getUser(id));
 		put("list", service.queryOrgListByUserid(id));
 		return "/ds/common/ex/userorg/getUserById.jsp";
 	}
