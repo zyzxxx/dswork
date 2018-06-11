@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="${namespace}.model.${model}">
+<mapper namespace="${namespace}.dao.${model}Dao">
 
 <insert id="insert" parameterType="${namespace}.model.${model}">
 	insert into ${table.nameUpperCase}

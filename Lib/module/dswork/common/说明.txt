@@ -1,0 +1,36 @@
+如果配置端(flow，org，dict)数据在另一个数据源，则可直接对配置文件添加common数据源，否则不需要增加
+主要启动开关为：jdbc.common.dialect.name
+配置了该参数，则启动以下配置，其中以#开头的配置可根据是否读写分离再启用，同时#号中的值也是默认值
+
+jdbc.common.dialect.name=mysql
+jdbc.common.url=jdbc:mysql://dbserver:3306/sso?characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
+jdbc.common.username=sso
+jdbc.common.password=sso@DB321
+#jdbc.common.minEvictableIdleTimeMillis=900000
+#jdbc.common.timeBetweenEvictionRunsMillis=900000
+#jdbc.common.initialSize=1
+#jdbc.common.minIdle=1
+#jdbc.common.maxIdle=5
+#jdbc.common.maxActive=50
+#jdbc.common.maxWait=60000
+#jdbc.common.validationQuery=select 'x'
+#jdbc.common.testWhileIdle=true
+#jdbc.common.testOnBorrow=false
+#jdbc.common.testOnReturn=false
+#jdbc.common.poolPreparedStatements=false
+
+#jdbc.common.read.url=jdbc:mysql://readserver:3306/sso?characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
+#jdbc.common.read.username=sso
+#jdbc.common.read.password=sso@DB321
+#jdbc.common.read.minEvictableIdleTimeMillis=900000
+#jdbc.common.read.timeBetweenEvictionRunsMillis=900000
+#jdbc.common.read.initialSize=1
+#jdbc.common.read.minIdle=1
+#jdbc.common.read.maxIdle=5
+#jdbc.common.read.maxActive=50
+#jdbc.common.read.maxWait=60000
+#jdbc.common.read.validationQuery=select 'x'
+#jdbc.common.read.testWhileIdle=true
+#jdbc.common.read.testOnBorrow=false
+#jdbc.common.read.testOnReturn=false
+#jdbc.common.read.poolPreparedStatements=false

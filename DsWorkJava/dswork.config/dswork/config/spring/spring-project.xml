@@ -8,9 +8,9 @@
 			http://www.springframework.org/schema/context 
 			http://www.springframework.org/schema/context/spring-context-4.0.xsd"
 	   default-autowire="byName" default-lazy-init="false">
-    <bean id="transactionManager" class="dswork.core.datasource.DataSourceTransactionManager">
+	<bean id="transactionManager" class="dswork.core.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
-    </bean>
+	</bean>
 	<bean id="transactionInterceptor" class="org.springframework.transaction.interceptor.TransactionInterceptor">
 		<property name="transactionManager" ref="transactionManager" />
 		<property name="transactionAttributes">

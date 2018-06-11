@@ -14,3 +14,7 @@ dswork.common.user.role 目录===用户授权：需要使用common下“组织�
 
 
 common                  目录===公共功能：“流程调用”、“字典调用”、“组织机构调用”@Scope("prototype")
+
+
+
+

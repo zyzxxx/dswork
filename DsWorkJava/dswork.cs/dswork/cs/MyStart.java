@@ -70,50 +70,11 @@ public class MyStart
 			}
 			if(isEnvironmentUtil)
 			{
-				String jdbcDialect = EnvironmentUtil.getToString("jdbc.dialect", "");
-				String dsworkDialect = "null";
+				String jdbcDialect = EnvironmentUtil.getToString("jdbc.dialect.name", "");
 				if(jdbcDialect.length() > 0)
 				{
-					String mybatisDialect = "dswork.core.mybatis.dialect.LimitOffsetDialect";
-					if("mysql".equals(jdbcDialect) || "gbase".equals(jdbcDialect))
-					{
-						dsworkDialect = "mysql";
-					}
-					else if("oracle".equals(jdbcDialect))
-					{
-						mybatisDialect = "dswork.core.mybatis.dialect.OracleDialect";
-					}
-					else if("db2".equals(jdbcDialect))
-					{
-						mybatisDialect = "dswork.core.mybatis.dialect.DB2Dialect";
-					}
-					else if("sqlite".equals(jdbcDialect))
-					{
-						dsworkDialect = "sqlite";
-					}
-					else if(jdbcDialect.startsWith("mssql"))
-					{
-						dsworkDialect = "mssql";
-						if("mssql2000".equals(jdbcDialect))
-						{
-							mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2000Dialect";
-						}
-						else if("mssql2005".equals(jdbcDialect))
-						{
-							mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2005Dialect";
-						}
-						else if("mssql2008".equals(jdbcDialect))
-						{
-							mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2008Dialect";
-						}
-						else
-						{
-							mybatisDialect = "dswork.core.mybatis.dialect.SQLServerDialect";
-						}
-					}
-					System.setProperty("jdbc.dialect.mybatis",  mybatisDialect);
+					System.setProperty("jdbc.dialect.name", jdbcDialect);
 				}
-				System.setProperty("dswork.dialect",  dsworkDialect);
 				
 				String dsworkBasePackage = dswork.core.util.EnvironmentUtil.getToString("dswork.base-package", "");
 				if(dsworkBasePackage.length() > 0)
@@ -126,7 +87,7 @@ public class MyStart
 						if(p.length() > 0)
 						{
 							System.setProperty("dswork.p" + i, p);/*旧版本的spring，如4.0.9的mvc不支持多个扫描包的配置，有bug，这是兼容模式*/
-							System.setProperty("dswork.m" + i, "/" + p.replace('.', '/'));
+							System.setProperty("dswork.m" + i, "classpath*:/" + p.replace('.', '/') + "/mapper/**/*.map.xml");
 							i++;
 						}
 					}
