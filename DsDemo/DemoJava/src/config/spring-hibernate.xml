@@ -18,7 +18,7 @@
 		<!--< property name="configurationClass" value="org.hibernate.cfg.AnnotationConfiguration" / >-->
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">${jdbc.dialect.hibernate:org.hibernate.dialect.SQLiteDialect}</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLiteDialect</prop>
 				<prop key="hibernate.show_sql">false</prop>
 				<!--
 				<prop key="hibernate.hbm2ddl.auto">create</prop>
