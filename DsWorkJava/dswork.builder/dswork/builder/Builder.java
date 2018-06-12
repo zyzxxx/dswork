@@ -78,8 +78,12 @@ public class Builder
 				System.out.println("==============================开始执行代码生成操作=============================");
 				for(BuilderConfig.Build m : config.builds.build)
 				{
+					Table t = dao.query(m.table);
+					if(m.model == null || m.model.length() == 0)
+					{
+						m.model = t.getNameUpperCamel();
+					}
 					System.out.println("生成build模块：表格：" + m.table + "，模型：" + m.model);
-					Table table = dao.query(m.table);
 					Map<String, Object> param = new HashMap<String, Object>();
 					param.putAll(config.params);
 					// param.put("params", config.params);
@@ -93,7 +97,7 @@ public class Builder
 					param.put("namespace", namespace.replace('/', '.'));
 					param.put("model", m.model);
 					param.put("module", m.module);
-					param.put("table", table);
+					param.put("table", t);
 					
 					for(BuilderConfig.Template tpl : config.templates.template)
 					{
