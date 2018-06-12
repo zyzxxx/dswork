@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="dswork.sso.model.ISystem">
+<mapper namespace="dswork.sso.dao.AuthFactoryDao">
 
 <sql id="columnsSystem">
 	s.ID as S_ID, s.NAME as S_NAME, s.ALIAS as S_ALIAS, s.PASSWORD as S_PASSWORD, s.MEMO as S_MEMO, s.DOMAINURL as S_DOMAINURL, s.ROOTURL as S_ROOTURL, s.MENUURL as S_MENUURL, s.STATUS as S_STATUS
@@ -56,7 +56,7 @@
 <sql id="columnsLoginUser">
 	<include refid="columnsUser" />, u.PASSWORD as U_PASSWORD, u.CAKEY as U_CAKEY
 </sql>
-<resultMap id="resultLoginUser" type="dswork.sso.model.LoginUser" extends="dswork.sso.model.ISystem.resultUser">
+<resultMap id="resultLoginUser" type="dswork.sso.model.LoginUser" extends="dswork.sso.dao.AuthFactoryDao.resultUser">
 	<result property="password" column="U_PASSWORD" />
 	<result property="cakey" column="U_CAKEY" />
 </resultMap>
