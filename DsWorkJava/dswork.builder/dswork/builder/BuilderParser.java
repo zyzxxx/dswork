@@ -122,6 +122,10 @@ public class BuilderParser
 			m.module = Builder.getToPath(getAttr(n, "module"));
 			m.table = getAttr(n, "table");
 			m.model = getAttr(n, "model");
+			if(m.model.length() == 0)
+			{
+				m.model = Builder.upperCamel(m.table);
+			}
 			m.comment = getAttr(n, "comment");
 		}
 	}
