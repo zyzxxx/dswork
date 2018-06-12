@@ -21,9 +21,9 @@
 			namespace：package或namespace前缀，用“/”分隔
 			module：模块名，页面文件存放相对路径(Java) | MVC域的名称只能一个单词(C#)
 			table：数据库表名，大写
-			model：映射数据库的模型类名，首字母大写
+			model：映射数据库的模型类名，首字母大写，不写的情况下，值为table属性去掉下划线并以大驼峰方式命名
 			comment：mybatis | hibernate | ibatisnet，当template标签中存在comment时，如果和它不一致，则不生成该template
-		<builds templatename="jsp"    rootpath="E:/Workspaces/workspaceTemp/jsp/DemoJava" src="src" web="web" url="jdbc:sqlserver://192.168.1.18:1433;DatabaseName=GZ_DMS;user=sa;password=sa">
+		<builds templatename="jsp"    rootpath="E:/Workspaces/workspaceTemp/jsp/DemoJava1" src="src" web="web" url="jdbc:sqlserver://192.168.1.18:1433;DatabaseName=GZ_DMS;user=sa;password=sa">
 			<build namespace="/com/testwork" module="demo" table="DEMO" model="Demo" comment="mybatis" />
 		</builds>
 		<builds templatename="csharp" rootpath="E:/Workspaces/workspaceTemp/c/DemoNet" src="DemoNetLib" web="DemoNet" url="jdbc:sqlserver://192.168.1.18:1433;DatabaseName=GZ_DMS;user=sa;password=sa">
@@ -31,8 +31,8 @@
 		</builds>
 	-->
 	<builds templatename="mvc" rootpath="E:/Workspaces/MySpace/temp" src="src" web="web" url="jdbc:mysql://myserver:3306/demo?characterEncoding=UTF-8&amp;useSSL=false&amp;allowMultiQueries=true&amp;user=plant&amp;password=plant@DB321">
-		<build namespace="/jwzz" module="/manage/demo" table="PLANT_FLOW" model="PlantFlow" comment="mybatis" />
-		<build namespace="/jwzz" module="/manage/jwzz/flowdata" table="PLANT_FLOW_DATA" model="PlantFlowData" comment="mybatis" />
+		<build namespace="/jwzz" module="/manage/demo" table="PLANT_FLOW" comment="mybatis" />
+		<build namespace="/jwzz" module="/manage/jwzz/flowdata" table="PLANT_FLOW_DATA" comment="mybatis" />
 	</builds>
 
 	<!--
