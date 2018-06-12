@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.common.model.DsCommonFlowTask">
+<mapper namespace="dswork.common.dao.DsCommonFlowTaskDao">
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFlowTask">
 	insert into DS_FLOW_TASK

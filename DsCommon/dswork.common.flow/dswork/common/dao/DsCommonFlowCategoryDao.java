@@ -17,7 +17,7 @@ public class DsCommonFlowCategoryDao extends BaseDao<DsCommonFlowCategory, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCommonFlowCategory.class;
+		return DsCommonFlowCategoryDao.class;
 	}
 
 	/**

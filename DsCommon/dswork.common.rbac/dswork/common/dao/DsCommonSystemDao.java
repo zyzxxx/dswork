@@ -19,7 +19,7 @@ public class DsCommonSystemDao extends BaseDao<DsCommonSystem, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCommonSystem.class;
+		return DsCommonSystemDao.class;
 	}
 
 	/**

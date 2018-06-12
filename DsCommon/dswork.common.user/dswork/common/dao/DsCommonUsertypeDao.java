@@ -17,7 +17,7 @@ public class DsCommonUsertypeDao extends BaseDao<DsCommonUsertype, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCommonUsertype.class;
+		return DsCommonUsertypeDao.class;
 	}
 
 	/**

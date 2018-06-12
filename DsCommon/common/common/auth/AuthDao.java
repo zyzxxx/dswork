@@ -19,7 +19,7 @@ public class AuthDao extends MyBatisDao
 	@Override
 	public Class getEntityClass()
 	{
-		return Auth.class;
+		return AuthDao.class;
 	}
 
 	////////////////////////////
