@@ -23,7 +23,7 @@
 		<template name="jsp" viewpath="/java/hdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="hibernate" />
 		<template name="jsp" viewpath="/java/hmapper.ftl"        path="/{src}/{namespace}/mapper/{model}.hbm.xml" comment="hibernate" />
 		<template name="jsp" viewpath="/java/mdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="mybatis" />
-		<template name="jsp" viewpath="/java/mmapper.ftl"        path="/{src}/{namespace}/mapper/{model}.map.xml" comment="mybatis" />
+		<template name="jsp" viewpath="/java/mmapper.ftl"        path="/{src}/{namespace}/mapper/{model}Dao.map.xml" comment="mybatis" />
 		<template name="jsp" viewpath="/java/model.ftl"          path="/{src}/{namespace}/model/{model}.java" />
 		<template name="jsp" viewpath="/java/service.ftl"        path="/{src}/{namespace}/service/{model}Service.java" />
 		<template name="jsp" viewpath="/java/jsp/get.ftl"        path="/{web}/{module}/get{model}.jsp" />
@@ -37,7 +37,7 @@
 		<template name="mvc" viewpath="/java/hdao.ftl"           path="/{src}/{namespace}/dao/{model}HbmDao.java" comment="hibernate" />
 		<template name="mvc" viewpath="/java/hmapper.ftl"        path="/{src}/{namespace}/mapper/{model}.hbm.xml" comment="hibernate" />
 		<template name="mvc" viewpath="/java/mdao.ftl"           path="/{src}/{namespace}/dao/{model}Dao.java" comment="mybatis" />
-		<template name="mvc" viewpath="/java/mmapper.ftl"        path="/{src}/{namespace}/mapper/{model}.map.xml" comment="mybatis" />
+		<template name="mvc" viewpath="/java/mmapper.ftl"        path="/{src}/{namespace}/mapper/{model}Dao.map.xml" comment="mybatis" />
 		<template name="mvc" viewpath="/java/model.ftl"          path="/{src}/{namespace}/model/{model}.java" />
 		<template name="mvc" viewpath="/java/service.ftl"        path="/{src}/{namespace}/service/{model}Service.java" />
 		<template name="mvc" viewpath="/java/mvc/controller.ftl" path="/{src}/{namespace}/controller/{model}Controller.java" />
