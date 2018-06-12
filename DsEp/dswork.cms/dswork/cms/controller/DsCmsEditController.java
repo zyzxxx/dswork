@@ -109,7 +109,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					}
 					if("submit".equals(action))
 					{
-						if(checkCategory(s.getId(), c.getId()))
+						if(categoryNotNeedAudit(s.getId(), c.getId()))
 						{
 							service.savePageEdit(po, true, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
 						}
@@ -242,7 +242,7 @@ public class DsCmsEditController extends DsCmsBaseController
 			if(c.getScope() == 0)
 			{
 				long[] idArray = req.getLongArray("keyIndex", 0);
-				if(checkCategory(s.getId(), c.getId()))
+				if(siteNotBePermission(s.getId()))
 				{
 					for(long id : idArray)
 					{
@@ -397,7 +397,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				}
 				if("submit".equals(action))
 				{
-					if(checkCategory(p.getSiteid(), p.getCategoryid()))
+					if(categoryNotNeedAudit(p.getSiteid(), p.getCategoryid()))
 					{
 						p.pushEditidAndEditname(getAccount(), getName());
 						p.setEdittime(TimeUtil.getCurrentTime());
@@ -531,7 +531,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				}
 				if("submit".equals(action))
 				{
-					if(checkCategory(p.getSiteid(), p.getId()))
+					if(categoryNotNeedAudit(p.getSiteid(), p.getId()))
 					{
 						service.updateCategoryEdit(p, true, s.isWriteLog(), getAccount(), getName());
 						print(1);

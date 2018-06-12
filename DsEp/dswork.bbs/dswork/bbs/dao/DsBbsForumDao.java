@@ -18,7 +18,7 @@ public class DsBbsForumDao extends BaseDao<DsBbsForum, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsBbsForum.class;
+		return DsBbsForumDao.class;
 	}
 
 	/**

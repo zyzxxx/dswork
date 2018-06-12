@@ -18,7 +18,7 @@ public class DsCmsPageDao extends BaseDao<DsCmsPage, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCmsPage.class;
+		return DsCmsPageDao.class;
 	}
 
 	/**

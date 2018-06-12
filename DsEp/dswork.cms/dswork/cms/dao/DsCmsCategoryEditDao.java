@@ -14,6 +14,6 @@ public class DsCmsCategoryEditDao extends BaseDao<DsCmsCategoryEdit, Long>
 	@Override
 	public Class<?> getEntityClass()
 	{
-		return DsCmsCategoryEdit.class;
+		return DsCmsCategoryEditDao.class;
 	}
 }

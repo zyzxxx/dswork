@@ -17,7 +17,7 @@ public class DsCmsPageEditDao extends BaseDao<DsCmsPageEdit, Long>
 	@Override
 	public Class<?> getEntityClass()
 	{
-		return DsCmsPageEdit.class;
+		return DsCmsPageEditDao.class;
 	}
 
 	public int queryCount(Map<String, Object> map)

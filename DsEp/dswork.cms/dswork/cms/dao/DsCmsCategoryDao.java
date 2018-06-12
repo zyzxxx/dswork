@@ -19,7 +19,7 @@ public class DsCmsCategoryDao extends BaseDao<DsCmsCategory, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCmsCategory.class;
+		return DsCmsCategoryDao.class;
 	}
 
 	/**
