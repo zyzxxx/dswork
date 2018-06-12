@@ -17,7 +17,7 @@ public class DsCommonFlowTaskDao extends MyBatisDao
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCommonFlowTask.class;
+		return DsCommonFlowTaskDao.class;
 	}
 
 	public int save(DsCommonFlowTask entity)

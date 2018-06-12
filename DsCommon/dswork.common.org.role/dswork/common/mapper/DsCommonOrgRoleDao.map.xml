@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.common.model.DsCommonOrgRole">
+<mapper namespace="dswork.common.dao.DsCommonOrgRoleDao">
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonOrgRole">
 	insert into DS_COMMON_ORGROLE

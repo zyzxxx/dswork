@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.person.model.DsPersonUser">
+<mapper namespace="dswork.person.dao.DsPersonUserDao">
 
 <insert id="insert" parameterType="dswork.person.model.DsPersonUser">
 	insert into DS_PERSON_USER

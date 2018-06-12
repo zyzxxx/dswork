@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.common.model.DsCommonFunc">
+<mapper namespace="dswork.common.dao.DsCommonFuncDao">
 
 <insert id="insert" parameterType="dswork.common.model.DsCommonFunc">
 	insert into DS_COMMON_FUNC
@@ -77,7 +77,7 @@
 	<include refid="dynamicWhere" />
 </select>
 
-<resultMap id="resultView" type="dswork.common.model.view.DsCommonFuncView" extends="dswork.common.model.DsCommonFunc.result">
+<resultMap id="resultView" type="dswork.common.model.view.DsCommonFuncView" extends="dswork.common.dao.DsCommonFuncDao.result">
 	<result property="url" column="URL"/>
 </resultMap>
 

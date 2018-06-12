@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="common.auth.Auth">
+<mapper namespace="common.auth.AuthDao">
 
 	<resultMap id="result" type="common.auth.Auth">
 		<id property="id" column="ID" />
@@ -21,7 +21,7 @@
 	</resultMap>
 	
 	<select id="getUserByAccount" resultMap="result">
-		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, -1 as LOGINTYPE, STATUS as LOGINSTATUS, 1 as USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
+		select ID, ACCOUNT, PASSWORD, NAME, EMAIL, MOBILE, 0 as LOGINTYPE, STATUS as LOGINSTATUS, 1 as USERTYPE, '' as QYBM, '' as SSDW, '' as SSBM
 		from DS_COMMON_USER where ACCOUNT=LOWER(#{account})
 	</select>
 	<update id="updateUserPassword">

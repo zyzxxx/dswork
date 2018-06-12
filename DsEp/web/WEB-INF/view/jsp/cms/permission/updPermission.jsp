@@ -23,28 +23,28 @@ $dswork.callback = function(){
 	if($dswork.result.type == 1){
 		location.reload();
 	}else if($dswork.result.type == 2){
-		var ids = $dswork.result.msg.split(",");
+		var ids = $dswork.result.msg.split(',');
 		for(var i = 0; i < ids.length - 1; i++){
-			$('#mark_' + ids[i]).css({"background-color":"red"});
+			$('#mark_' + ids[i]).css({'background-color':'red'});
 			$('#aud_' + ids[i]).prop('checked', true);
 		}
 	}
 };
 function checkSelf(n){
-	n.prop("checked", true);
-	var ss = n.attr("id").split("_");
-	if(ss[0]=="all" || ss[0]=="own"){
-		var _n = $("#" + (ss[0]=="all"?"own_":"all_") + ss[1]);
-		if(_n.prop("checked")){
+	n.prop('checked', true);
+	var ss = n.attr('id').split('_');
+	if(ss[0]=='all' || ss[0]=='own'){
+		var _n = $('#' + (ss[0]=='all'?'own_':'all_') + ss[1]);
+		if(_n.prop('checked')){
 			uncheckSelf(_n);
 		}
 	}
 }
 function uncheckSelf(n){
-	n.prop("checked", false);
+	n.prop('checked', false);
 }
 $(function(){
-	$("#site").change(function(){
+	$('#site').change(function(){
 		var form = $('<form action="updPermission1.htm" method="post"></form>')
 			.append('<input name="siteid" value="' + $("#site").val() + '">')
 			.append('<input name="account" value="${fn:escapeXml(param.account)}">')
@@ -52,40 +52,40 @@ $(function(){
 		$(document.body).append(form);
 		form.submit().remove();
 	});
-	$("#dataTable input[type='checkbox']").each(function(){
+	$('#dataTable input[type="checkbox"]').each(function(){
 		var self = $(this);
-		var ss = self.attr("id").split("_");
-		var power = "";
+		var ss = self.attr('id').split('_');
+		var power = '';
 		switch(ss[0]){
-		case "all": power = "${permission.editall}"; break;
-		case "own": power = "${permission.editown}"; break;
-		case "aud": power = "${permission.audit}"; break;
-		case "pub": power = "${permission.publish}"; break;
+		case 'all': power = '${permission.editall}'; break;
+		case 'own': power = '${permission.editown}'; break;
+		case 'aud': power = '${permission.audit}'; break;
+		case 'pub': power = '${permission.publish}'; break;
 		}
-		if(power.indexOf("," + ss[1] + ",") != -1){
+		if(power.indexOf(',' + ss[1] + ',') != -1){
 			checkSelf(self);
 		}
 	}).click(function(){
 		var self = $(this);
-		if(self.prop("checked")){
+		if(self.prop('checked')){
 			checkSelf(self);
 		}else{
 			uncheckSelf(self);
 		}
 	});
 });
-function submit(){
-	var editall = ",", editown = ",", audit=",", publish = ",";
-	$("input[name='editall']:checked").each(function(){
+function submit(){if(confirm('确认授权？')){
+	var editall = ',', editown = ',', audit=',', publish = ',';
+	$('input[name="editall"]:checked').each(function(){
 		editall += $(this).attr("id").split("_")[1] + ",";
 	});
-	$("input[name='editown']:checked").each(function(){
+	$('input[name="editown"]:checked').each(function(){
 		editown += $(this).attr("id").split("_")[1] + ",";
 	});
-	$("input[name='audit']:checked").each(function(){
+	$('input[name="audit"]:checked').each(function(){
 		audit += $(this).attr("id").split("_")[1] + ",";
 	});
-	$("input[name='publish']:checked").each(function(){
+	$('input[name="publish"]:checked').each(function(){
 		publish += $(this).attr("id").split("_")[1] + ",";
 	});
 	var form = $('<form action="updPermission2.htm" method="post"></form>')
@@ -98,7 +98,7 @@ function submit(){
 		.hide();
 	$(document.body).append(form);
 	form.ajaxSubmit($dswork.doAjaxOption).remove();
-}
+}}
 </script>
 <style type="text/css">
 label {padding:2px;height:22px;}

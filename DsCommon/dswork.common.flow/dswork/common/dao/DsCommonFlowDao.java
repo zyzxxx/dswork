@@ -18,7 +18,7 @@ public class DsCommonFlowDao extends BaseDao<DsCommonFlow, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCommonFlow.class;
+		return DsCommonFlowDao.class;
 	}
 
 	public void updateStatus(Long id, int status)

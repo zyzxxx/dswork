@@ -3,7 +3,7 @@
 	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
 	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
 
-<mapper namespace="dswork.ep.model.DsEpUser">
+<mapper namespace="dswork.ep.dao.DsEpUserDao">
 
 <insert id="insert" parameterType="dswork.ep.model.DsEpUser">
 	insert into DS_EP_USER

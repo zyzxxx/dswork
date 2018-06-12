@@ -19,7 +19,7 @@ public class DsCommonOrgRoleDao extends MyBatisDao
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCommonOrgRole.class;
+		return DsCommonOrgRoleDao.class;
 	}
 
 	/**

@@ -19,7 +19,7 @@ public class DsCmsSiteDao extends BaseDao<DsCmsSite, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCmsSite.class;
+		return DsCmsSiteDao.class;
 	}
 
 	public List<DsCmsSite> queryList(String own)
