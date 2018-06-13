@@ -19,7 +19,7 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		String dswork = "classpath*:/config/config.properties";
 		String dsworkSSO = "/config/sso.properties";
 		
-		String spring = ",/WEB-INF/classes/config/spring-*.xml";
+		String spring = ",classpath*:/config/spring-*.xml";
 		String springmvc = ",classpath*:/config/springmvc-*.xml";
 		
 		if(active.length() > 0)
