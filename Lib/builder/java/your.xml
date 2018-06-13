@@ -7,7 +7,7 @@
 		<param name="developer" value="无名氏" />
 	</params>
 	<builds templatename="mvc" rootpath="E:/Workspaces/MySpace/temp6" src="src" web="web" url="jdbc:mysql://myserver:3306/demo?characterEncoding=UTF-8&amp;useSSL=false&amp;allowMultiQueries=true&amp;user=demo&amp;password=demo">
-		<build namespace="/jwzz" module="/manage/demo" table="DEMO" model="Demo" comment="" />
+		<build namespace="/jwzz" module="/manage/demo" table="DEMO" model="" comment="" />
 	</builds>
 	<templates>
 		<template name="c#"  viewpath="/csharp/idao.ftl"         path="/{src}/Dao/{model}Dao.cs" comment="ibatisnet" />
