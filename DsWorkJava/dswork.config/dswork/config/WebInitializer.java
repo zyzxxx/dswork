@@ -19,7 +19,7 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		String dswork = "classpath*:/config/config.properties";
 		String dsworkSSO = "/config/sso.properties";
 		
-		String spring = ",/WEB-INF/classes/config/spring-*.xml";
+		String spring = ",classpath*:/config/spring-*.xml";
 		String springmvc = ",classpath*:/config/springmvc-*.xml";
 		
 		if(active.length() > 0)
@@ -93,6 +93,42 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		{
 			spring = ",classpath*:/dswork/config/spring/spring-datasource.xml" + spring;
 		}
+		String dsworkCommon = EnvironmentUtil.getToString("jdbc.common.dialect.name", "");
+		if(dsworkCommon.length() > 0)
+		{
+			spring = ",classpath*:/dswork/config/spring/spring-mybatis-common.xml" + spring;
+		}
+		String jdbc1 = EnvironmentUtil.getToString("jdbc1.dialect.name", "");
+		if(jdbc1.length() > 0)
+		{
+			String[] mapperArray = {null, null, null, null, null, null};
+			spring = ",classpath*:/dswork/config/ex/spring-mybatis1.xml" + spring;
+			String[] mappers = EnvironmentUtil.getToString("jdbc1.mapper", "").split(",");
+			int i = 1;
+			for(String p : mappers){if(p.length() > 0 && i < 6){mapperArray[i] = p;i++;}}
+			for(i = 1; i < 6; i++){if(mapperArray[i] != null){context.setInitParameter("dswork1.m" + i, mapperArray[i]);}}
+		}
+		String jdbc2 = EnvironmentUtil.getToString("jdbc2.dialect.name", "");
+		if(jdbc2.length() > 0)
+		{
+			String[] mapperArray = {null, null, null, null, null, null};
+			spring = ",classpath*:/dswork/config/ex/spring-mybatis2.xml" + spring;
+			String[] mappers = EnvironmentUtil.getToString("jdbc2.mapper", "").split(",");
+			int i = 1;
+			for(String p : mappers){if(p.length() > 0 && i < 6){mapperArray[i] = p;i++;}}
+			for(i = 1; i < 6; i++){if(mapperArray[i] != null){context.setInitParameter("dswork2.m" + i, mapperArray[i]);}}
+		}
+		String jdbc3 = EnvironmentUtil.getToString("jdbc3.dialect.name", "");
+		if(jdbc3.length() > 0)
+		{
+			String[] mapperArray = {null, null, null, null, null, null};
+			spring = ",classpath*:/dswork/config/ex/spring-mybatis3.xml" + spring;
+			String[] mappers = EnvironmentUtil.getToString("jdbc3.mapper", "").split(",");
+			int i = 1;
+			for(String p : mappers){if(p.length() > 0 && i < 6){mapperArray[i] = p;i++;}}
+			for(i = 1; i < 6; i++){if(mapperArray[i] != null){context.setInitParameter("dswork3.m" + i, mapperArray[i]);}}
+		}
+		
 		context.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/spring/spring-property.xml,classpath*:/dswork/config/spring/spring-mybatis.xml,classpath*:/dswork/config/spring/spring-project.xml" + spring);
 		spring = null;
 		
@@ -117,6 +153,7 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		i = 1;
 		for(String p : mappers){if(p.length() > 0 && i < 6){mapperArray[i] = p;i++;}}
 		for(i = 1; i < 6; i++){if(mapperArray[i] != null){context.setInitParameter("dswork.m" + i, mapperArray[i]);}}
+		
 		try
 		{
 			if((new File(context.getRealPath("/") + log4j2)).isFile())

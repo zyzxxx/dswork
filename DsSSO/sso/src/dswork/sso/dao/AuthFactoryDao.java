@@ -24,7 +24,7 @@ public class AuthFactoryDao extends MyBatisDao
 	@Override
 	public Class getEntityClass()
 	{
-		return ISystem.class;
+		return AuthFactoryDao.class;
 	}
 
 	// login //////////////////////////////////////////////////////////////////

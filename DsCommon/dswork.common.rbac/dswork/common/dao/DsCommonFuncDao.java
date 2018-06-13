@@ -20,7 +20,7 @@ public class DsCommonFuncDao extends BaseDao<DsCommonFunc, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCommonFunc.class;
+		return DsCommonFuncDao.class;
 	}
 	
 	/**

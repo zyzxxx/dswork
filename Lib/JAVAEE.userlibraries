@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <eclipse-userlibraries version="2">
-    <library name="JAVAEE" systemlibrary="true">
-        <archive path="/Lib/JAVAEE/jsp-api.jar"/>
-        <archive path="/Lib/JAVAEE/servlet-api.jar"/>
-        <archive path="/Lib/JAVAEE/websocket-api.jar"/>
+    <library name="JAVAEE" systemlibrary="false">
+        <archive path="/Lib/JAVAEE/dswork.ee.jar"/>
+        <archive path="/Lib/JAVAEE/annotations-api.jar"/>
+        <archive path="/Lib/JAVAEE/ecj-4.6.3.jar"/>
+        <archive path="/Lib/JAVAEE/tomcat-dbcp.jar"/>
+        <archive path="/Lib/JAVAEE/tomcat-embed-core.jar"/>
+        <archive path="/Lib/JAVAEE/tomcat-embed-el.jar"/>
+        <archive path="/Lib/JAVAEE/tomcat-embed-jasper.jar"/>
+        <archive path="/Lib/JAVAEE/tomcat-embed-logging-juli.jar"/>
+        <archive path="/Lib/JAVAEE/tomcat-embed-logging-log4j.jar"/>
+        <archive path="/Lib/JAVAEE/tomcat-embed-websocket.jar"/>
     </library>
 </eclipse-userlibraries>

@@ -18,7 +18,7 @@ public class DsCmsCountDao extends MyBatisDao
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCmsCount.class;
+		return DsCmsCountDao.class;
 	}
 
 	public List<DsCmsCount> queryCountForAudit(long siteid, String idsForPage, String idsForPageCategory)

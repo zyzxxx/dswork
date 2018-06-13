@@ -18,7 +18,7 @@ public class DsPersonUserDao extends BaseDao<DsPersonUser, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsPersonUser.class;
+		return DsPersonUserDao.class;
 	}
 
 	public DsPersonUser getUserByAccount(String account)

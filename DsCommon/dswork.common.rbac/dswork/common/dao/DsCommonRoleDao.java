@@ -18,7 +18,7 @@ public class DsCommonRoleDao extends BaseDao<DsCommonRole, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCommonRole.class;
+		return DsCommonRoleDao.class;
 	}
 
 	/**

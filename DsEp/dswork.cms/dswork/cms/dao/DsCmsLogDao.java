@@ -17,7 +17,7 @@ public class DsCmsLogDao extends BaseDao<DsCmsLog, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCmsLog.class;
+		return DsCmsLogDao.class;
 	}
 
 	@Override

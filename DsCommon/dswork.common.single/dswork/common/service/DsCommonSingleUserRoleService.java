@@ -13,24 +13,16 @@ import org.springframework.stereotype.Service;
 
 import dswork.common.dao.DsCommonOrgDao;
 import dswork.common.dao.DsCommonOrgRoleDao;
-import dswork.common.dao.DsCommonRoleDao;
 import dswork.common.dao.DsCommonUserDao;
-import dswork.common.dao.DsCommonUserOrgDao;
 import dswork.common.model.DsCommonOrg;
 import dswork.common.model.DsCommonOrgRole;
-import dswork.common.model.DsCommonRole;
 import dswork.common.model.DsCommonUser;
-import dswork.common.model.DsCommonUserOrg;
 import dswork.core.util.UniqueId;
 
 @Service
 @SuppressWarnings("all")
 public class DsCommonSingleUserRoleService
 {
-	@Autowired
-	private DsCommonUserOrgDao userorgDao;
-	@Autowired
-	private DsCommonRoleDao roleDao;
 	@Autowired
 	private DsCommonUserDao userDao;
 	@Autowired

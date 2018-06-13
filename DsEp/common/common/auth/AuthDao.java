@@ -3,7 +3,6 @@
  */
 package common.auth;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,7 +18,7 @@ public class AuthDao extends MyBatisDao
 	@Override
 	public Class getEntityClass()
 	{
-		return Auth.class;
+		return AuthDao.class;
 	}
 
 	////////////////////////////

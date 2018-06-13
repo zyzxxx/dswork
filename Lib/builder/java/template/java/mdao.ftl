@@ -14,6 +14,6 @@ public class ${model}Dao extends BaseDao<${model}, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return ${model}.class;
+		return ${model}Dao.class;
 	}
 }

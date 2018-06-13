@@ -14,6 +14,6 @@ public class DsBbsSiteDao extends BaseDao<DsBbsSite, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsBbsSite.class;
+		return DsBbsSiteDao.class;
 	}
 }

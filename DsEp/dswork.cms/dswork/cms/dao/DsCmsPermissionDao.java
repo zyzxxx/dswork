@@ -21,7 +21,7 @@ public class DsCmsPermissionDao extends MyBatisDao
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCmsPermission.class;
+		return DsCmsPermissionDao.class;
 	}
 	
 	public int save(DsCmsPermission entity)

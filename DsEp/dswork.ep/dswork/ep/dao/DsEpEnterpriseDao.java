@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 import dswork.core.db.BaseDao;
 import dswork.ep.model.DsEpEnterprise;
-import dswork.ep.model.DsEpUser;
 
 @Repository
 @SuppressWarnings("all")
@@ -16,7 +15,7 @@ public class DsEpEnterpriseDao extends BaseDao<DsEpEnterprise, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsEpEnterprise.class;
+		return DsEpEnterpriseDao.class;
 	}
 	
 	public DsEpEnterprise getByQybm(String qybm)

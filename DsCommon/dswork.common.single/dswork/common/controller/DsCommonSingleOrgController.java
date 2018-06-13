@@ -324,7 +324,7 @@ public class DsCommonSingleOrgController extends BaseController
 		if(rootid > 0)
 		{
 			po = service.get(rootid);
-			if(po ==  null|| po.getStatus() == 0)
+			if(po == null || po.getStatus() == 0)
 			{
 				return null;// 没有此根节点或不能以岗位作为根节点
 			}
