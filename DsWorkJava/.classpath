@@ -18,6 +18,7 @@
 	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.web"/>
 	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.webio"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
+	<classpathentry kind="src" path="dswork.ee"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
