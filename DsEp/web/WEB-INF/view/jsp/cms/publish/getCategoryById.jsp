@@ -88,6 +88,12 @@ $(function(){
 		<td class="form_title">发布</td>
 		<td class="form_input">发布时间：${fn:escapeXml(po.releasetime)}</td>
 	</tr>
+<c:forEach items="${columns}" var="d">
+	<tr>
+		<td class="form_title">${fn:escapeXml(d.cname)}</td>
+		<td class="form_input">${fn:escapeXml(d.cvalue)}</td>
+	</tr>
+</c:forEach>
 </c:if>
 <c:if test="${scope==2}">
 	<tr>

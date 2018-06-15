@@ -39,6 +39,8 @@ public class DsCmsPage
 	private int pagetop = 0;
 	// 链接
 	private String url = "";
+	// 数据集
+	private String jsondata = "{}";
 
 	public Long getId()
 	{
@@ -208,5 +210,15 @@ public class DsCmsPage
 	public void setUrl(String url)
 	{
 		this.url = url;
+	}
+
+	public String getJsondata()
+	{
+		return jsondata;
+	}
+
+	public void setJsondata(String jsondata)
+	{
+		this.jsondata = jsondata;
 	}
 }

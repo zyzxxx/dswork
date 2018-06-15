@@ -10,9 +10,9 @@
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_CATEGORY
-	(PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, MVIEWSITE, MPAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT)
+	(PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, MVIEWSITE, MPAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT, JSONTABLE, JSONDATA)
 	values
-	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{scope}, #{status}, #{url}, #{seq}, #{viewsite}, #{pageviewsite}, #{mviewsite}, #{mpageviewsite}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content})
+	(<if test="null==pid or 0&gt;=pid">null</if><if test="0 &lt; pid">#{pid}</if>, #{siteid}, #{name}, #{scope}, #{status}, #{url}, #{seq}, #{viewsite}, #{pageviewsite}, #{mviewsite}, #{mpageviewsite}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content}, #{jsontable}, #{jsondata})
 </insert>
 
 <delete id="delete">
@@ -27,7 +27,8 @@
 		VIEWSITE=#{viewsite},
 		PAGEVIEWSITE=#{pageviewsite},
 		MVIEWSITE=#{mviewsite},
-		MPAGEVIEWSITE=#{mpageviewsite}
+		MPAGEVIEWSITE=#{mpageviewsite},
+		JSONTABLE=#{jsontable}
 	where ID=#{id}
 </update>
 <update id="updateScope">
@@ -46,7 +47,8 @@
 		RELEASEUSER=#{releaseuser},
 		IMG=#{img},
 		STATUS=#{status},
-		CONTENT=#{content}
+		CONTENT=#{content},
+		JSONDATA=#{jsondata}
 	where ID=#{id} and SITEID=#{siteid}
 </update>
 <update id="updateURL" parameterType="dswork.cms.model.DsCmsCategory">
@@ -83,11 +85,13 @@
 	<result property="releaseuser" column="RELEASEUSER" />
 	<result property="img" column="IMG" />
 	<result property="content" column="CONTENT" />
+	<result property="jsontable" column="JSONTABLE" />
+	<result property="jsondata" column="JSONDATA" />
 	<result property="count" column="COUNT" />
 </resultMap>
 
 <sql id="columns">
-	ID, PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, MVIEWSITE, MPAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT
+	ID, PID, SITEID, NAME, SCOPE, STATUS, URL, SEQ, VIEWSITE, PAGEVIEWSITE, MVIEWSITE, MPAGEVIEWSITE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT, JSONTABLE, JSONDATA
 </sql>
 
 <sql id="dynamicWhere">

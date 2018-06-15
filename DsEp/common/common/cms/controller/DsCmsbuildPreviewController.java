@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import common.cms.CmsFactory;
 import common.cms.CmsFactoryMobile;
 import common.cms.CmsFactoryPreview;
+import common.json.GsonUtil;
 import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 @Scope("prototype")
@@ -40,6 +41,7 @@ public class DsCmsbuildPreviewController extends BaseController
 			put("category", c);
 			put("categorylist", cms.queryCategory("0"));// 顶层节点列表
 			put("id", getString(p.get("id")));
+			put("vo", GsonUtil.toBean(String.valueOf(p.get("jsondata")), Map.class));
 			put("categoryid", getString(p.get("categoryid")));
 			put("title", getString(p.get("title")));
 			put("summary", getString(p.get("summary")));
@@ -66,6 +68,7 @@ public class DsCmsbuildPreviewController extends BaseController
 			put("categorylist", cms.queryCategory("0"));// 顶层节点列表
 			put("categoryid", categoryid);
 			put("category", c);
+			put("vo", GsonUtil.toBean(String.valueOf(c.get("jsondata")), Map.class));
 			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
 			put("datalist", mm.get("list"));
 			put("datapageview", String.valueOf(mm.get("datapageview")));

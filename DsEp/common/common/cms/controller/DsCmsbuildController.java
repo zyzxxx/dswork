@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import common.cms.CmsFactory;
 import common.cms.CmsFactoryMobile;
+import common.json.GsonUtil;
 import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 
@@ -74,6 +75,7 @@ public class DsCmsbuildController extends BaseController
 			Map<String, Object> p = cms.get(pageid + "");
 			Map<String, Object> c = cms.getCategory(p.get("categoryid"));
 			put("category", c);
+			put("vo", GsonUtil.toBean(String.valueOf(p.get("jsondata")), Map.class));
 			put("id", getString(p.get("id")));
 			put("categoryid", getString(p.get("categoryid")));
 			put("title", getString(p.get("title")));
@@ -104,6 +106,7 @@ public class DsCmsbuildController extends BaseController
 			put("categoryparent", cms.getCategory(c.get("pid")));// 不再推荐使用
 			put("categoryid", categoryid);
 			put("category", c);
+			put("vo", GsonUtil.toBean(String.valueOf(c.get("jsondata")), Map.class));
 			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
 			put("datalist", mm.get("list"));
 			put("datapageview", String.valueOf(mm.get("datapageview")));

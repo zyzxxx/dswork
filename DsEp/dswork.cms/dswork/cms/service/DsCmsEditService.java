@@ -69,6 +69,7 @@ public class DsCmsEditService
 			p.setScope(po.getScope());
 			p.setStatus(0);// page设置为新建未发布状态
 			p.setUrl(po.getUrl());
+			p.setJsondata(po.getJsondata());
 			pageDao.save(p);
 			po.setAuditstatus(4);// pageEdit设置为已通过状态
 		}
@@ -105,6 +106,7 @@ public class DsCmsEditService
 				{
 					c.setStatus(1);
 				}
+				c.setJsondata(po.getJsondata());
 				categoryDao.updateContent(c);
 			}
 			else if(c.getScope() == 2)
@@ -168,6 +170,7 @@ public class DsCmsEditService
 			p.setPagetop(po.getPagetop());
 			p.setScope(po.getScope());
 			p.setUrl(po.getUrl());
+			p.setJsondata(po.getJsondata());
 			if(save)
 			{
 				p.setStatus(0);// page设置为新建未发布状态
