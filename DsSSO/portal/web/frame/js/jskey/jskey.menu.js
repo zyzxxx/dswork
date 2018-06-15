@@ -5,6 +5,7 @@ num:1,
 list:[],
 hidden:true,//隐藏所有菜单
 load:function(index, id){},//异步加载菜单
+click:function(index, id){},// 扩展自定义单击事件
 root:"",
 path:"",
 imgPath:"",
@@ -134,9 +135,6 @@ showNode:function(index, data, url){
 },
 showNodeHTML:function(index, html){
 	try{this.list[index].html = html;this.$("JskeyMCD_" + index).innerHTML = html;}catch(e){};
-},
-// 单击
-click:function(index, id){
 },
 //鼠标移过
 imgMouse:function(obj, v, imgpath, over){
