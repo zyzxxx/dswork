@@ -32,7 +32,7 @@ createCell:function(obj, c){
 create:function(){
 	var len = this.list.length;
 	if(len < 1){return;}
-	var html = '<table id="JskeyMG" class="jskeymenu" cellspacing="0" cellpadding="0">';
+	var html = '<table id="JskeyMG" class="jskeymenu" style="height:'+(this.hidden?'100%':'auto')+'" cellspacing="0" cellpadding="0">';
 	for(var c = 0;c < len;c++){html += this.createCell(this.list[c], c);}
 	html += this.createCell({"index":len, "title":"", "id":"", "html":""}, len);// 在最后补一个看不见的，用于收缩
 	html += '</table>';
@@ -70,11 +70,18 @@ clickBar:function(c){
 			this.$("JskeyMC_" + c).className = "cellClose";
 			//this.$("JskeyI" + "JskeyMT_" + c).src = this.imgPath + "right.gif";
 			this.$("JskeyI" + "JskeyMT_" + c).innerHTML = "&#xf1016;";
-			if(this.hidden){
+			if(this.hidden == null){
+				this.$("JskeyMC_" + c).style.height = "auto";
+				this.$("JskeyMC_" + c).style.display = "none";
+				this.$("JskeyMC_" + this.list.length).style.display = "";
+			}
+			else if(this.hidden){
+				this.$("JskeyMC_" + c).style.height = "100%";
 				this.$("JskeyMC_" + this.list.length).style.display = "";
 				this.smoothMenu(this.list.length, c, 0);// 需要将最后一个展开
 			}
 			else{
+				this.$("JskeyMC_" + c).style.height = "auto";
 				this.$("JskeyMC_" + c).style.display = "none";
 			}
 		}
@@ -82,11 +89,31 @@ clickBar:function(c){
 			this.$("JskeyMT_" + c).className = "menuOpen";
 			this.$("JskeyMC_" + c).className = "cellOpen";
 			this.$("JskeyI" + "JskeyMT_" + c).innerHTML = "&#xf1017;";
-			if(this.hidden){
+			if(this.hidden == null){
 				for(var i = 0;i < this.list.length;i++){
 					if(i != c && this.$("JskeyMC_" + i).style.display == ""){// 找到有其他被打开的就直接关掉并返回
 						this.$("JskeyMT_" + i).className = "menuClose";
 						this.$("JskeyMC_" + i).className = "cellClose";
+						this.$("JskeyMC_" + i).style.height = "auto";
+						this.$("JskeyMC_" + i).style.display = "none";
+						this.$("JskeyMC_" + c).style.height = "auto";
+						this.$("JskeyMC_" + c).style.display = "";
+						this.$("JskeyI" + "JskeyMT_" + i).innerHTML = "&#xf1016;";
+						return;
+					}
+				}
+				this.$("JskeyMC_" + c).style.height = "auto";
+				this.$("JskeyMC_" + c).style.display = "";
+				this.$("JskeyMC_" + this.list.length).style.height = "auto";
+				this.$("JskeyMC_" + this.list.length).style.display = "none";
+			}
+			else if(this.hidden){
+				this.$("JskeyMC_" + c).style.height = "100%";
+				for(var i = 0;i < this.list.length;i++){
+					if(i != c && this.$("JskeyMC_" + i).style.display == ""){// 找到有其他被打开的就直接关掉并返回
+						this.$("JskeyMT_" + i).className = "menuClose";
+						this.$("JskeyMC_" + i).className = "cellClose";
+						this.$("JskeyMC_" + i).style.height = "100%";
 						this.$("JskeyI" + "JskeyMT_" + i).innerHTML = "&#xf1016;";
 						this.smoothMenu(c, i, 0);
 						return;
@@ -95,14 +122,15 @@ clickBar:function(c){
 				this.smoothMenu(c, this.list.length, 0);// 找不到被打开的，就关掉最后一个
 			}
 			else{
+				this.$("JskeyMC_" + c).style.height = "auto";
 				this.$("JskeyMC_" + c).style.display = "";
 			}
 		}
 	}
 },
 //用于异步回调，或刷新指定层次菜单
-showNode:function(index, data){
-	try{this.showNodeHTML(index, $jskey.menu.getNodeHtml({name:this.list[index].title, items:data}));}catch(e){};
+showNode:function(index, data, url){
+	try{this.showNodeHTML(index, $jskey.menu.getNodeHtml({name:this.list[index].title, items:data, _root:url}));}catch(e){};
 },
 showNodeHTML:function(index, html){
 	try{this.list[index].html = html;this.$("JskeyMCD_" + index).innerHTML = html;}catch(e){};
@@ -141,13 +169,17 @@ expandNode:function(imgid, oid, img, imgOpen){
 getCellHTML:function(obj, pnodeName){
 	var html = "";
 	var v = this.num++;
+	var url = obj.url;
+	if(obj._root != "" && url.indexOf("^") != 0 && url.indexOf("http") != 0 && url.indexOf(obj._root) != 0){
+		url = obj._root + url;
+	}
 	if(obj.items.length == 0){
 		var _img = this.path + ((obj.img == null || obj.img == "") ? "default.gif" : obj.img);
 		var _imgOpen = this.path + ((obj.imgOpen == null || obj.imgOpen == "") ? "default.gif" : obj.imgOpen);
 		html += "<div style=\"text-align:center;margin:auto;\">";
 		html += "<div class=\"imgdiv outfont\" onmouseover=\"$jskey.menu.imgMouse(this,'" + v + "','" + _imgOpen + "',true)\"";
 		html += "\tonmouseout=\"$jskey.menu.imgMouse(this, '"+v+"', '" + _img + "',false)\"";
-		html += " ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\">";
+		html += " ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + obj.name + "','" + url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + obj.name + "','" + url + "')\">";
 		html += "<img id=\"JskeyI"+v+"\"  class=\"imgOut\" src=\"" + _img + "\"/>";
 		html += obj.name + "</div></div>";//"<br/>" + 
 	}
@@ -159,9 +191,13 @@ getTreeHtml:function(obj, pnodeName, icoString){
 	var v = this.num++;
 	var len = icoString.length;
 	var items = obj.items;
+	var url = obj.url;
+	if(obj._root != "" && url.indexOf("^") != 0 && url.indexOf("http") != 0 && url.indexOf(obj._root) != 0){
+		url = obj._root + url;
+	}
 	if(icoString.length == 1 && items.length == 0){
 		var _timg = this.path + ((obj.img == null || obj.img == "") ? "default.gif" : obj.img);
-		html += "<div class='treenode' ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + obj.name + "','" + obj.url + "')\">";
+		html += "<div class='treenode' ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + obj.name + "','" + url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + obj.name + "','" + url + "')\">";
 		html += "<div class='treenodeout' onmouseover='this.className = \"treenodeover\"' onmouseout='this.className = \"treenodeout\"'>";
 		html += "<i>" + (icoString.charAt(len - 1)=='1' ? "&#xf1042;" : "&#xf1045;") + "</i>";
 		html += "<img class='img' align='absmiddle' src='" + _timg + "' />";
@@ -194,9 +230,14 @@ getTreeHtml:function(obj, pnodeName, icoString){
 		var item;
 		for(var i = 0;i < items.length;i++){
 			item = items[i];
+			item._root = obj._root;
+			var iurl = item.url;
+			if(item._root != "" && iurl.indexOf("^") != 0 && iurl.indexOf("http") != 0 && iurl.indexOf(item._root) != 0){
+				iurl = item._root + iurl;
+			}
 			if(item.items.length == 0){
 				var _timg = this.path + ((item.img == null || item.img == "") ? "default.gif" : item.img);
-				tmpHTML += "<div class='treenode' ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + item.name + "','" + item.url + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + item.name + "','" + item.url + "')\">";
+				tmpHTML += "<div class='treenode' ondblclick=\"$jskey.menu.reChangeURL('" + pnodeName + "','" + item.name + "','" + iurl + "')\" onclick=\"$jskey.menu.changeURL('" + pnodeName + "','" + item.name + "','" + iurl + "')\">";
 				tmpHTML += "<div class='treenodeout' onmouseover='this.className = \"treenodeover\"' onmouseout='this.className = \"treenodeout\"'>";
 				for(var c = 0;c < len;c++){
 					tmpHTML += "<i>" + (icoString.charAt(c)=='0' ? "&#xf1041;" : "&nbsp;") + "</i>";
@@ -233,6 +274,7 @@ getNodeHtml:function(obj){//{name:"",items:[]}
 	if(isTree){
 		for(var i = 0;i < items.length;i++){
 			item = items[i];
+			item._root = obj._root;
 			childrenHTML += this.getTreeHtml(item, obj.name, ((i == items.length-1) ? "1" : "0"));
 			// 增加此功能树节点
 			html += childrenHTML;
@@ -242,6 +284,7 @@ getNodeHtml:function(obj){//{name:"",items:[]}
 	else{
 		for(var i = 0;i < items.length;i++){
 			item = items[i];
+			item._root = obj._root;
 			childrenHTML += this.getCellHTML(item, obj.name);
 			//增加此功能节点
 			html += childrenHTML;
@@ -287,13 +330,15 @@ $jskey.menu.jsSrc = "" + document.getElementsByTagName("script")[document.getEle
 //当前js的引用路径
 $jskey.menu.jsPath = $jskey.menu.jsSrc.substring(0, $jskey.menu.jsSrc.lastIndexOf("/"));
 
-$jskey.menu.show = function(items, isHidden){
-	$jskey.menu.hidden = (isHidden) ? true : false;
+$jskey.menu.show = function(items, isHidden, _root){
+	_root = _root || $jskey.menu.root;
+	$jskey.menu.hidden = isHidden;
 	if($jskey.menu.path == "") $jskey.menu.path = $jskey.menu.jsPath + "/themes/menu/ico/";
 	if($jskey.menu.imgPath == "") $jskey.menu.imgPath = $jskey.menu.jsPath + "/themes/menu/img/";
 	$jskey.menu.reset();
 	for(var i = 0;i < items.length;i++){
 		var item = items[i];
+		item._root = _root;
 		var html = $jskey.menu.getNodeHtml(item);
 		$jskey.menu.put(i, item.name, item.id, html);
 	}
@@ -305,11 +350,11 @@ $jskey.menu.changeURL = function(parentname, nodename, url){
 	if(url.indexOf("^") == 0){
 		url = url.substring(1, url.length);
 	}
-	else if($jskey.menu.root != ""){
-		if(url.indexOf("http") != 0 && url.indexOf($jskey.menu.root) != 0){
-			url = $jskey.menu.root + url;
-		}
-	}
+//	else if($jskey.menu.root != ""){
+//		if(url.indexOf("http") != 0 && url.indexOf($jskey.menu.root) != 0){
+//			url = $jskey.menu.root + url;
+//		}
+//	}
 	if(url != ""){try{
 		var s = nodename;//parentname + '-'+nodename;
 		if(parent.$('#tt').tabs('exists', s)){
@@ -336,11 +381,11 @@ $jskey.menu.reChangeURL = function(parentname, nodename, url){
 	if(url.indexOf("^") == 0){
 		url = url.substring(1, url.length);
 	}
-	else if($jskey.menu.root != ""){
-		if(url.indexOf("http") != 0 && url.indexOf($jskey.menu.root) != 0){
-			url = $jskey.menu.root + url;
-		}
-	}
+//	else if($jskey.menu.root != ""){
+//		if(url.indexOf("http") != 0 && url.indexOf($jskey.menu.root) != 0){
+//			url = $jskey.menu.root + url;
+//		}
+//	}
 	if(url != ""){try{
 		var s = nodename;//parentname + '-'+nodename;
 		var tab = null;
