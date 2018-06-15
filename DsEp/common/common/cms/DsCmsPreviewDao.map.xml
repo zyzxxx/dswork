@@ -10,10 +10,10 @@
 </sql>
 <sql id="c_category">
 	a.id, a.pid, a.siteid, a.name, a.status, a.url, a.viewsite, a.pageviewsite,
-	b.metakeywords, b.metadescription, b.summary, b.releasetime, b.releasesource, b.releaseuser, b.img, b.content
+	b.metakeywords, b.metadescription, b.summary, b.releasetime, b.releasesource, b.releaseuser, b.img, b.content, b.jsondata
 </sql>
 <sql id="c_page">
-	id, siteid, categoryid, title, scope, status, url, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content
+	id, siteid, categoryid, title, scope, status, url, metakeywords, metadescription, summary, releasetime, releasesource, releaseuser, img, content, jsondata
 </sql>
 
 <select id="getSite" resultType="java.util.Map">

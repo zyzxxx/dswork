@@ -48,6 +48,11 @@ public class DsCmsCategory
 	private String img = "";
 	// 内容
 	private String content = "";
+	// 数据结构
+	private String jsontable = "[]";
+	// 数据集
+	private String jsondata = "{}";
+
 	// 子栏目
 	private List<DsCmsCategory> list = new ArrayList<DsCmsCategory>();
 	// 级别(管理时扩展显示)
@@ -255,6 +260,30 @@ public class DsCmsCategory
 	public void setContent(String content)
 	{
 		this.content = content;
+	}
+
+	public String getJsontable()
+	{
+		if(jsontable == null || jsontable.length() < 2)
+		{
+			jsontable = "[]";
+		}
+		return jsontable;
+	}
+
+	public void setJsontable(String jsontable)
+	{
+		this.jsontable = jsontable;
+	}
+
+	public String getJsondata()
+	{
+		return jsondata;
+	}
+
+	public void setJsondata(String jsondata)
+	{
+		this.jsondata = jsondata;
 	}
 
 	public List<DsCmsCategory> getList()
