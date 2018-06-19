@@ -57,7 +57,6 @@ public class MyTomcat
 	public static String getProjectName()
 	{
 		File f = new File(getProjectPath());
-		System.out.println("getProjectName=" + f.getName());
 		return f.getName();
 	}
 	
@@ -81,7 +80,6 @@ public class MyTomcat
 				}
 			}
 		}
-		System.out.println("getWebPath=" + path);
 		return path;
 	}
 	
@@ -99,7 +97,7 @@ public class MyTomcat
 	
 	public MyTomcat addWebapp(String projectName, String projectPath) throws Exception
 	{
-		map.put(projectName, projectPath);
+		map.put(projectName, (new java.io.File(String.valueOf(projectPath).replace('\\', '/').replace("//", "/"))).getPath().replace('\\', '/'));
 		return this;
 	}
 	
@@ -128,6 +126,7 @@ public class MyTomcat
 		tomcat.setHostname(hostname);
 		for(Map.Entry<String, String> x : map.entrySet())
 		{
+			System.out.println(x.getKey() + "=" + x.getValue());
 			tomcat.addWebapp(x.getKey(), x.getValue());
 		}
 		tomcat.start();
