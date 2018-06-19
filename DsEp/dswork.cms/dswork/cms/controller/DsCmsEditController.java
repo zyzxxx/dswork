@@ -308,6 +308,7 @@ public class DsCmsEditController extends DsCmsBaseController
 	}
 
 	// 采编页面
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/updPage1")
 	public String updPage1()
 	{
@@ -322,11 +323,11 @@ public class DsCmsEditController extends DsCmsBaseController
 			)
 			{
 				DsCmsCategory c = service.getCategory(po.getCategoryid());
-				List<Map<String, String>> jsontableList = GsonUtil.toBean(c.getJsontable(), List.class);
+				List<Map<String, String>> jsontable = GsonUtil.toBean(c.getJsontable(), List.class);
 				try
 				{
 					Map<String, Object> jsondata = GsonUtil.toBean(po.getJsondata(), Map.class);
-					for(Map<String, String> m : jsontableList)
+					for(Map<String, String> m : jsontable)
 					{
 						String key = m.get("ctitle");
 						Object value = jsondata.get(key);
@@ -337,7 +338,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				{
 					e.printStackTrace();
 				}
-				put("columns", jsontableList);
+				put("columns", jsontable);
 
 				put("po", po);
 				put("enablemobile", s.getEnablemobile() == 1);
@@ -473,6 +474,7 @@ public class DsCmsEditController extends DsCmsBaseController
 	}
 
 	// 采编栏目
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/updCategory1")
 	public String updCategory1()
 	{
@@ -488,11 +490,11 @@ public class DsCmsEditController extends DsCmsBaseController
 			if(checkEdit(s.getId(), po.getId()))
 			{
 				DsCmsCategory c = service.getCategory(po.getId());
-				List<Map<String, String>> jsontableList = GsonUtil.toBean(c.getJsontable(), List.class);
+				List<Map<String, String>> jsontable = GsonUtil.toBean(c.getJsontable(), List.class);
 				try
 				{
 					Map<String, Object> jsondata = GsonUtil.toBean(po.getJsondata(), Map.class);
-					for(Map<String, String> m : jsontableList)
+					for(Map<String, String> m : jsontable)
 					{
 						String key = m.get("ctitle");
 						Object value = jsondata.get(key);
@@ -503,7 +505,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				{
 					e.printStackTrace();
 				}
-				put("columns", jsontableList);
+				put("columns", jsontable);
 
 				if(po.getReleasetime().isEmpty())
 				{
