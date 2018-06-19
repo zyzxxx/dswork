@@ -124,6 +124,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					}
 					if("submit".equals(action))
 					{
+						po.setStatus(1);
 						if(categoryNotNeedAudit(s.getId(), c.getId()))
 						{
 							service.savePageEdit(po, true, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
@@ -396,6 +397,7 @@ public class DsCmsEditController extends DsCmsBaseController
 						p.setPagetop(page.getPagetop());
 						p.setAuditstatus(DsCmsPageEdit.PASS);
 						p.setJsondata(page.getJsondata());
+						p.setStatus(1);
 						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
 					}
 					print(1);
@@ -415,6 +417,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				p.setImg(po.getImg());
 				p.setImgtop(po.getImgtop());
 				p.setPagetop(po.getPagetop());
+				p.setStatus(1);
 
 				Map<String, String> map = new LinkedHashMap<String, String>();
 				String[] ctitleArr = req.getStringArray("ctitle", false);

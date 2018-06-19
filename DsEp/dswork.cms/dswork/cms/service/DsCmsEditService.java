@@ -71,7 +71,7 @@ public class DsCmsEditService
 			p.setUrl(po.getUrl());
 			p.setJsondata(po.getJsondata());
 			pageDao.save(p);
-			po.setAuditstatus(4);// pageEdit设置为已通过状态
+			po.setAuditstatus(0);// pageEdit设置为草稿状态
 		}
 		pageEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
@@ -115,7 +115,7 @@ public class DsCmsEditService
 				c.setStatus(8);// Category设置为已发布状态（因为外链不需要发布操作）
 				categoryDao.update(c);
 			}
-			po.setAuditstatus(8);// CategoryEdit设置为已通过状态
+			po.setAuditstatus(0);// CategoryEdit设置为草稿状态
 		}
 		categoryEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
@@ -184,7 +184,7 @@ public class DsCmsEditService
 				}
 				pageDao.update(p);
 			}
-			po.setAuditstatus(4);// pageEdit设置为已通过状态
+			po.setAuditstatus(0);// pageEdit设置为草稿状态
 		}
 		pageEditDao.update(po);
 		if((po.isAudit() || po.isPass()) && enablelog)// 只记录提交时的日志
