@@ -43,7 +43,7 @@ public class DsCmsbuildPreviewController extends BaseController
 			put("category", c);
 			put("categorylist", cms.queryCategory("0"));// 顶层节点列表
 			put("id", p.getId());
-			put("vo", p.getViewobject());
+			put("vo", p.getVo());
 			put("categoryid", p.getCategoryid());
 			put("title", p.getTitle());
 			put("summary", p.getSummary());
@@ -70,7 +70,7 @@ public class DsCmsbuildPreviewController extends BaseController
 			put("categorylist", cms.queryCategory("0"));// 顶层节点列表
 			put("categoryid", categoryid);
 			put("category", c);
-			put("vo", c.getViewobject());
+			put("vo", c.getVo());
 			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, c.getUrl(), categoryid);
 			put("datalist", mm.get("list"));
 			put("datapageview", mm.get("datapageview"));

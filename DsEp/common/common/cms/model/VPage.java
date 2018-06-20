@@ -185,7 +185,7 @@ public class VPage
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Map getViewobject()
+	public Map getVo()
 	{
 		if(jsondata == null || jsondata.length() < 2)
 		{

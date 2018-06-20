@@ -77,7 +77,7 @@ public class DsCmsbuildController extends BaseController
 			VPage p = cms.get(pageid + "");
 			VCategory c = cms.getCategory(p.getCategoryid() + "");
 			put("category", c);
-			put("vo", p.getViewobject());
+			put("vo", p.getVo());
 			put("id", p.getId());
 			put("categoryid", p.getCategoryid());
 			put("title", p.getTitle());
@@ -108,7 +108,7 @@ public class DsCmsbuildController extends BaseController
 			put("categoryparent", cms.getCategory(c.getPid()));// 不再推荐使用
 			put("categoryid", categoryid);
 			put("category", c);
-			put("vo", c.getViewobject());
+			put("vo", c.getVo());
 			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, c.getUrl(), categoryid);
 			put("datalist", mm.get("list"));
 			put("datapageview", mm.get("datapageview"));
