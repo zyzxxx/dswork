@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.json.GsonUtil;
+import common.cms.GsonUtil;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPage;

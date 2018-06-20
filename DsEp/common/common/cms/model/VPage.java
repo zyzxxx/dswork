@@ -3,7 +3,7 @@ package common.cms.model;
 import java.util.HashMap;
 import java.util.Map;
 
-import common.json.GsonUtil;
+import common.cms.GsonUtil;
 
 public class VPage
 {

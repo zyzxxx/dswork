@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import common.json.GsonUtil;
+import common.cms.GsonUtil;
 
 public class VCategory
 {
