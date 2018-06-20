@@ -59,7 +59,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
 		<td>
-		<c:if test="${(d.status==0 && (d.edit || d.nopass)) || d.pass}">
+		<c:if test="${!d.audit}">
 			<input name="keyIndex" type="checkbox" value="${d.id}" />
 		</c:if>
 		</td>
