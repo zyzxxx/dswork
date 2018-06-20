@@ -58,11 +58,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
-		<td>
-		<c:if test="${!d.audit}">
-			<input name="keyIndex" type="checkbox" value="${d.id}" />
-		</c:if>
-		</td>
+		<td><c:if test="${!d.audit}"><input name="keyIndex" type="checkbox" value="${d.id}" /></c:if></td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.title)}</td>
 		<td>${fn:escapeXml(d.releasetime)}</td>
