@@ -163,7 +163,7 @@ $(function(){
 <c:forEach items="${columns}" var="d">
 	<tr>
 		<td class="form_title"><input type="hidden" name="ctitle" value="${fn:escapeXml(d.ctitle)}" />${fn:escapeXml(d.cname)}</td>
-		<td class="form_input"><input type="text" name="cvalue" value="${fn:escapeXml(d.cvalue)}" datatype="${d.cdatatype}" /></td>
+		<td class="form_input"><input type="text" name="cvalue" value="${fn:escapeXml(d.cvalue)}" style="width:300px;" datatype="${d.cdatatype}" /></td>
 	</tr>
 </c:forEach>
 </table>
