@@ -1,6 +1,7 @@
 package dswork.ee;
 
 import java.io.File;
+import java.util.Map;
 
 import org.apache.catalina.startup.Tomcat;
 
@@ -9,17 +10,10 @@ public class MyTomcat
 	private Tomcat tomcat = new Tomcat();
 	private int port = 8080;
 	private String hostname = "localhost";
+	private String baseDir = "/WorkServer/TomcatEmbed";
+	private java.util.Map<String, String> map = new java.util.LinkedHashMap<String, String>();
 	public MyTomcat()
 	{
-	}
-	public MyTomcat(int port)
-	{
-		this.port = port;
-	}
-	public MyTomcat(String hostname, int port)
-	{
-		this.hostname = hostname;
-		this.port = port;
 	}
 	private static String loaderPath = "";
 	private static java.io.File loaderFile = null;
@@ -63,7 +57,6 @@ public class MyTomcat
 	public static String getProjectName()
 	{
 		File f = new File(getProjectPath());
-		System.out.println("getProjectName=" + f.getName());
 		return f.getName();
 	}
 	
@@ -87,33 +80,55 @@ public class MyTomcat
 				}
 			}
 		}
-		System.out.println("getWebPath=" + path);
 		return path;
 	}
 	
 	public MyTomcat addWebapp() throws Exception
 	{
-		tomcat.addWebapp("/" + getProjectName(), getWebPath());
+		map.put("/" + getProjectName(), getWebPath());
 		return this;
 	}
 	
 	public MyTomcat addWebapp(String projectName) throws Exception
 	{
-		tomcat.addWebapp(projectName, getWebPath());
+		map.put(projectName, getWebPath());
 		return this;
 	}
 	
 	public MyTomcat addWebapp(String projectName, String projectPath) throws Exception
 	{
-		tomcat.addWebapp(projectName, projectPath);
+		map.put(projectName, (new java.io.File(String.valueOf(projectPath).replace('\\', '/').replace("//", "/"))).getPath().replace('\\', '/'));
+		return this;
+	}
+	
+	public MyTomcat setPort(int port)
+	{
+		this.port = port;
+		return this;
+	}
+	
+	public MyTomcat setHostname(String hostname)
+	{
+		this.hostname = hostname;
+		return this;
+	}
+	
+	public MyTomcat setBaseDir(String baseDir)
+	{
+		this.baseDir = baseDir;
 		return this;
 	}
 	
 	public MyTomcat start() throws Exception
 	{
-		tomcat.setBaseDir("/WorkServer/TomcatBase");
-		tomcat.setHostname(hostname);
 		tomcat.setPort(port);
+		tomcat.setBaseDir(baseDir);
+		tomcat.setHostname(hostname);
+		for(Map.Entry<String, String> x : map.entrySet())
+		{
+			System.out.println(x.getKey() + "=" + x.getValue());
+			tomcat.addWebapp(x.getKey(), x.getValue());
+		}
 		tomcat.start();
 		tomcat.getServer().await();
 		return this;
