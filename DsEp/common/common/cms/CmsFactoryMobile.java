@@ -6,6 +6,7 @@ package common.cms;
 import java.util.HashMap;
 import java.util.Map;
 
+import common.cms.model.VPage;
 import dswork.core.page.Page;
 
 public class CmsFactoryMobile extends CmsFactory
@@ -37,7 +38,7 @@ public class CmsFactoryMobile extends CmsFactory
 		}
 		StringBuilder idArray = new StringBuilder();
 		idArray.append(toLong(categoryid));
-		Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, null);
+		Page<VPage> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		currentPage = page.getCurrentPage();// 更新当前页
 		map.put("list", page.getResult());
@@ -68,14 +69,14 @@ public class CmsFactoryMobile extends CmsFactory
 		}
 		else
 		{
-			sb.append(" href=\"").append(site.get("url")).append(url).append("\"");
+			sb.append(" href=\"").append(site.getUrl()).append(url).append("\"");
 		}
 		sb.append(">1</a>");
 		temppage = currentPage - viewpage - 1;
 		if(temppage > 1)
 		{
 			String u = url.replaceAll("\\.html", "_" + temppage + ".html");
-			sb.append("<a href=\"").append(site.get("url")).append(u).append("\">...</a>");
+			sb.append("<a href=\"").append(site.getUrl()).append(u).append("\">...</a>");
 		}
 		for(int i = currentPage - viewpage; i <= currentPage + viewpage && i < page.getLastPage(); i++)
 		{
@@ -89,7 +90,7 @@ public class CmsFactoryMobile extends CmsFactory
 				}
 				else
 				{
-					sb.append(" href=\"").append(site.get("url")).append(u).append("\"");
+					sb.append(" href=\"").append(site.getUrl()).append(u).append("\"");
 				}
 				sb.append(">").append(i).append("</a>");
 			}
@@ -98,7 +99,7 @@ public class CmsFactoryMobile extends CmsFactory
 		if(temppage < page.getLastPage())
 		{
 			String u = url.replaceAll("\\.html", "_" + temppage + ".html");
-			sb.append("<a href=\"").append(site.get("url")).append(u).append("\">...</a>");
+			sb.append("<a href=\"").append(site.getUrl()).append(u).append("\">...</a>");
 		}
 		if(1 != page.getLastPage())
 		{
@@ -110,7 +111,7 @@ public class CmsFactoryMobile extends CmsFactory
 			}
 			else
 			{
-				sb.append(" href=\"").append(site.get("url")).append(u).append("\"");
+				sb.append(" href=\"").append(site.getUrl()).append(u).append("\"");
 			}
 			sb.append(">").append(page.getLastPage()).append("</a>");
 		}

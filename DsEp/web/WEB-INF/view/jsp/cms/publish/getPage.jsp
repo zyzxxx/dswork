@@ -82,22 +82,20 @@ $(function(){
 <body>
 <table border="0" cellspacing="0" cellpadding="0" class="listLogo">
 	<tr>
-		<td class="title">${fn:escapeXml(po.name)}-内容列表
-<%-- 			<c:if test="${po.status==0 || po.status==1}"> <label style="color:#f00;font-weight:600;">栏目内容已更新，请重新发布栏目和内容</label></c:if> --%>
-		</td>
+		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
 		<td class="menuTool">
 			<a class="delete" id="btn_category_d" href="#">删除栏目首页</a>
 			<a class="delete" id="btn_page_d" href="#">删除发布内容</a>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_category" href="#">发布栏目首页</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览栏目首页</a>
-			<c:if test="enablemobile"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&mobile=true">预览移动版栏目首页</a></c:if>
+			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&mobile=true">预览移动版栏目首页</a></c:if>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_page" href="#">发布栏目内容</a>
 			&nbsp;<a class="vline" href="#"></a>&nbsp;
 			<a class="graph" id="btn_site" href="#">发布首页</a>
 			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
-			<c:if test="enablemobile"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&mobile=true">预览移动版首页</a></c:if>
+			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&mobile=true">预览移动版首页</a></c:if>
 		</td>
 	</tr>
 </table>
@@ -105,9 +103,7 @@ $(function(){
 <form id="queryForm" method="post" action="getPage.htm?id=${po.id}">
 <table border="0" cellspacing="0" cellpadding="0" class="queryTable">
 	<tr>
-		<td class="input">
-			&nbsp;关键字：<input type="text" class="text" name="keyvalue" style="width:300px;" value="${fn:escapeXml(param.keyvalue)}" />
-		</td>
+		<td class="input">&nbsp;关键字：<input type="text" class="text" name="keyvalue" style="width:300px;" value="${fn:escapeXml(param.keyvalue)}" /></td>
 		<td class="query"><input id="_querySubmit_" type="button" class="button" value="查询" /></td>
 	</tr>
 </table>

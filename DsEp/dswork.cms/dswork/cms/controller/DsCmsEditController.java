@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import common.json.GsonUtil;
+import common.cms.GsonUtil;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPage;
@@ -124,6 +124,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					}
 					if("submit".equals(action))
 					{
+						po.setStatus(1);
 						if(categoryNotNeedAudit(s.getId(), c.getId()))
 						{
 							service.savePageEdit(po, true, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
@@ -308,6 +309,7 @@ public class DsCmsEditController extends DsCmsBaseController
 	}
 
 	// 采编页面
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/updPage1")
 	public String updPage1()
 	{
@@ -322,11 +324,11 @@ public class DsCmsEditController extends DsCmsBaseController
 			)
 			{
 				DsCmsCategory c = service.getCategory(po.getCategoryid());
-				List<Map<String, String>> jsontableList = GsonUtil.toBean(c.getJsontable(), List.class);
+				List<Map<String, String>> jsontable = GsonUtil.toBean(c.getJsontable(), List.class);
 				try
 				{
 					Map<String, Object> jsondata = GsonUtil.toBean(po.getJsondata(), Map.class);
-					for(Map<String, String> m : jsontableList)
+					for(Map<String, String> m : jsontable)
 					{
 						String key = m.get("ctitle");
 						Object value = jsondata.get(key);
@@ -337,7 +339,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				{
 					e.printStackTrace();
 				}
-				put("columns", jsontableList);
+				put("columns", jsontable);
 
 				put("po", po);
 				put("enablemobile", s.getEnablemobile() == 1);
@@ -395,6 +397,7 @@ public class DsCmsEditController extends DsCmsBaseController
 						p.setPagetop(page.getPagetop());
 						p.setAuditstatus(DsCmsPageEdit.PASS);
 						p.setJsondata(page.getJsondata());
+						p.setStatus(1);
 						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
 					}
 					print(1);
@@ -414,6 +417,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				p.setImg(po.getImg());
 				p.setImgtop(po.getImgtop());
 				p.setPagetop(po.getPagetop());
+				p.setStatus(1);
 
 				Map<String, String> map = new LinkedHashMap<String, String>();
 				String[] ctitleArr = req.getStringArray("ctitle", false);
@@ -473,6 +477,7 @@ public class DsCmsEditController extends DsCmsBaseController
 	}
 
 	// 采编栏目
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/updCategory1")
 	public String updCategory1()
 	{
@@ -488,11 +493,11 @@ public class DsCmsEditController extends DsCmsBaseController
 			if(checkEdit(s.getId(), po.getId()))
 			{
 				DsCmsCategory c = service.getCategory(po.getId());
-				List<Map<String, String>> jsontableList = GsonUtil.toBean(c.getJsontable(), List.class);
+				List<Map<String, String>> jsontable = GsonUtil.toBean(c.getJsontable(), List.class);
 				try
 				{
 					Map<String, Object> jsondata = GsonUtil.toBean(po.getJsondata(), Map.class);
-					for(Map<String, String> m : jsontableList)
+					for(Map<String, String> m : jsontable)
 					{
 						String key = m.get("ctitle");
 						Object value = jsondata.get(key);
@@ -503,7 +508,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				{
 					e.printStackTrace();
 				}
-				put("columns", jsontableList);
+				put("columns", jsontable);
 
 				if(po.getReleasetime().isEmpty())
 				{
