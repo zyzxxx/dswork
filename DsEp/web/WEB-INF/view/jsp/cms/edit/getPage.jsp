@@ -26,6 +26,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr>
 		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
 		<td class="menuTool">
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
 			<a class="update" href="updCategory1.htm?id=${po.id}">编辑本栏目</a>
 			<a class="insert" href="addPage1.htm?categoryid=${po.id}&page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
