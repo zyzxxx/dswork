@@ -11,8 +11,8 @@ public class VPage
 	private Long siteid;
 	private Long categoryid;
 	private String title;
-	private String scope;
-	private String status;
+	private int scope;
+	private int status;
 	private String url;
 	private String metakeywords;
 	private String metadescription;
@@ -64,22 +64,22 @@ public class VPage
 		this.title = title;
 	}
 
-	public String getScope()
+	public int getScope()
 	{
 		return scope;
 	}
 
-	public void setScope(String scope)
+	public void setScope(int scope)
 	{
 		this.scope = scope;
 	}
 
-	public String getStatus()
+	public int getStatus()
 	{
 		return status;
 	}
 
-	public void setStatus(String status)
+	public void setStatus(int status)
 	{
 		this.status = status;
 	}

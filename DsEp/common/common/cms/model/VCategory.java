@@ -31,7 +31,7 @@ public class VCategory
 	private String content;
 	private String jsondata;
 
-	private VCategory parent;
+	private transient VCategory parent;
 	private List<VCategory> list = new ArrayList<VCategory>();
 
 	public Long getId()
