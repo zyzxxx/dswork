@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import common.cms.GsonUtil;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsSite;
@@ -339,6 +340,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 					put("enablemobile", s.getEnablemobile() == 1);
 					put("templates", getTemplateName(s.getFolder(), false));
 					put("mtemplates", getTemplateName(s.getFolder(), true));
+					put("columns", GsonUtil.toBean(po.getJsontable(), List.class));
 					return "/cms/category/updCategory.jsp";
 				}
 			}
@@ -358,6 +360,24 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			DsCmsSite s = service.getSite(m.getSiteid());
 			if(m.getSiteid() == s.getId() && checkOwn(s.getId()))
 			{
+				List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+				Map<String, String> t = new HashMap<String, String>();
+				String[] cnameArr = req.getStringArray("cname", false);
+				String[] ctitleArr = req.getStringArray("ctitle", false);
+				String[] cdatatypeArr = req.getStringArray("cdatatype", false);
+				for(int i = 0; i < cnameArr.length; i++)
+				{
+					if(ctitleArr[i].length() > 0 && t.get(ctitleArr[i]) == null)
+					{
+						Map<String, String> c = new HashMap<String, String>();
+						c.put("cname", cnameArr[i]);
+						c.put("ctitle", ctitleArr[i]);
+						c.put("cdatatype", cdatatypeArr[i]);
+						t.put(ctitleArr[i], ctitleArr[i]);
+						list.add(c);
+					}
+				}
+				po.setJsontable(GsonUtil.toJson(list));
 				service.update(po);
 				print(1);
 				return;

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import common.cms.GsonUtil;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsPage;
@@ -151,6 +152,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 	}
 
 	// 获取page明细
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/getPageById")
 	public String getPageById()
 	{
@@ -161,6 +163,24 @@ public class DsCmsPublishController extends DsCmsBaseController
 			DsCmsSite s = service.getSite(po.getSiteid());
 			if(checkPublish(s.getId(), po.getCategoryid()))
 			{
+				DsCmsCategory c = service.getCategory(po.getCategoryid());
+				List<Map<String, String>> jsontable = GsonUtil.toBean(c.getJsontable(), List.class);
+				try
+				{
+					Map<String, Object> jsondata = GsonUtil.toBean(po.getJsondata(), Map.class);
+					for(Map<String, String> m : jsontable)
+					{
+						String key = m.get("ctitle");
+						Object value = jsondata.get(key);
+						m.put("cvalue", String.valueOf(value == null ? "" : value));
+					} 
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+				put("columns", jsontable);
+
 				put("po", po);
 				put("enablemobile", s.getEnablemobile() == 1);
 				return "/cms/publish/getPageById.jsp";
@@ -173,6 +193,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 	}
 
 	// 获取category明细
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/getCategoryById")
 	public String getCategoryById()
 	{
@@ -183,9 +204,25 @@ public class DsCmsPublishController extends DsCmsBaseController
 			DsCmsSite s = service.getSite(po.getSiteid());
 			if(checkPublish(s.getId(), po.getId()))
 			{
-				DsCmsCategory m = service.getCategory(po.getId());
+				List<Map<String, String>> jsontable = GsonUtil.toBean(po.getJsontable(), List.class);
+				try
+				{
+					Map<String, Object> jsondata = GsonUtil.toBean(po.getJsondata(), Map.class);
+					for(Map<String, String> m : jsontable)
+					{
+						String key = m.get("ctitle");
+						Object value = jsondata.get(key);
+						m.put("cvalue", String.valueOf(value == null ? "" : value));
+					} 
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+				put("columns", jsontable);
+
 				put("po", po);
-				put("scope", m.getScope());
+				put("scope", po.getScope());
 				put("enablemobile", s.getEnablemobile() == 1);
 				return "/cms/publish/getCategoryById.jsp";
 			}

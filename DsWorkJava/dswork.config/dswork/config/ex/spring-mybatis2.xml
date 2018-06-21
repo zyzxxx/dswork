@@ -70,12 +70,14 @@
 			<list>
 				<bean class="dswork.core.mybatis.LikeTypeHandler" />
 				<bean class="dswork.core.mybatis.LikePrefixTypeHandler" />
+				<bean class="dswork.core.mybatis.LikeSuffixTypeHandler" />
 			</list>
 		</property>
 		<property name="typeAliases">
 			<list>
 				<value>dswork.core.mybatis.LikeTypeHandler</value>
 				<value>dswork.core.mybatis.LikePrefixTypeHandler</value>
+				<value>dswork.core.mybatis.LikeSuffixTypeHandler</value>
 			</list>
 		</property>
 		<property name="mapperLocations">

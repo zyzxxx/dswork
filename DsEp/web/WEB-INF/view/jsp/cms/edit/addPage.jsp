@@ -121,6 +121,12 @@ $(function(){
 			&nbsp;&nbsp;发布时间：<input type="text" name="releasetime" class="WebDate" format="yyyy-MM-dd HH:mm:ss" value="${releasetime}" />
 		</td>
 	</tr>
+<c:forEach items="${columns}" var="d">
+	<tr>
+		<td class="form_title"><input type="hidden" name="ctitle" value="${fn:escapeXml(d.ctitle)}" />${fn:escapeXml(d.cname)}</td>
+		<td class="form_input"><input type="text" name="cvalue" value="" style="width:300px;" datatype="${d.cdatatype}" /></td>
+	</tr>
+</c:forEach>
 </table>
 <input type="hidden" name="action" value="" />
 </form>

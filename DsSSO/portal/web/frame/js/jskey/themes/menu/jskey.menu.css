@@ -14,7 +14,7 @@ td {font-size:12px;}
 	font-weight:normal;
 	font-style:normal;
 }
-.jskeymenu {width:100%;height:100%;border:0px;font-family:Helvetica;}
+.jskeymenu {width:100%;border:0px;font-family:Helvetica;}/*height:100%由程序设置*/
 
 /*分层菜单的样式设置*/
 .jskeymenu .menuOpen,
@@ -27,7 +27,7 @@ td {font-size:12px;}
 	background-repeat: repeat-x;
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#EFF5FF,endColorstr=#E0ECFF,GradientType=0);
 	overflow:hidden;width:100%;height:26px;
-	padding-left:10px;padding-top:2px;cursor:pointer;border:none;
+	padding-left:7px;padding-top:2px;cursor:pointer;border:none;
 	color:#333333;text-align:left;font-weight:bold;
 	border-bottom:solid #95B8E7 1px;
 }
@@ -35,7 +35,7 @@ td {font-size:12px;}
 .jskeymenu .menuClose span {
 	font-family:"treefont";font-size:inherit;font-style:normal;font-weight:normal;outline:0;display:inline-block;margin-right:5px;
 }
-.jskeymenu .cellOpen {width:100%;height:100%;}
+.jskeymenu .cellOpen {width:100%;}/*height:100%由程序设置*/
 .jskeymenu .cellClose {width:100%;height:0%;}
 .jskeymenu .cellContent {width:100%;height:100%;overflow-y:auto;overflow-x:hidden;}
 

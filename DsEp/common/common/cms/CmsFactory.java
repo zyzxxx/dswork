@@ -10,6 +10,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import common.cms.model.VCategory;
+import common.cms.model.VPage;
+import common.cms.model.VSite;
 import dswork.core.page.Page;
 
 public class CmsFactory
@@ -28,9 +31,9 @@ public class CmsFactory
 	protected static DsCmsDao dao = null;
 
 	protected long siteid = 0L;
-	protected Map<String, Object> site = new HashMap<String, Object>();
-	protected List<Map<String, Object>> categoryList = new ArrayList<Map<String, Object>>();
-	protected Map<String, Map<String, Object>> categoryMap = new HashMap<String, Map<String, Object>>();
+	protected VSite site = new VSite();
+	protected List<VCategory> categoryList = new ArrayList<VCategory>();
+	protected Map<String, VCategory> categoryMap = new HashMap<String, VCategory>();
 
 	protected HttpServletRequest request;
 
@@ -38,7 +41,6 @@ public class CmsFactory
 	{
 	}
 
-	@SuppressWarnings("unchecked")
 	public CmsFactory(long siteid)
 	{
 		try
@@ -51,27 +53,25 @@ public class CmsFactory
 			this.site = getDao().getSite(siteid);
 			if(this.site != null)
 			{
-				List<Map<String, Object>> clist = getDao().queryCategory(siteid);
-				for(Map<String, Object> m : clist)
+				List<VCategory> clist = getDao().queryCategory(siteid);
+				for(VCategory m : clist)
 				{
-					if(m.get("pid") == null)
+					if(m.getPid() == null)
 					{
-						m.put("pid", "0");
-						m.put("parent", m);// 顶层节点的父节点为节点自己
+						m.setPid(0L);
+						m.setParent(m);// 顶层节点的父节点为节点自己
 						categoryList.add(m);
 					}
-					m.put("list", new ArrayList<Map<String, Object>>());
-					categoryMap.put(String.valueOf(m.get("id")), m);
+					categoryMap.put(String.valueOf(m.getId()), m);
 				}
-				for(Map<String, Object> m : clist)
+				for(VCategory m : clist)
 				{
-					String pid = String.valueOf(m.get("pid"));
+					String pid = String.valueOf(m.getPid());
 					if(!pid.equals("0") && categoryMap.get(pid) != null)
 					{
-						Map<String, Object> p = (Map<String, Object>)(categoryMap.get(pid));
-						m.put("parent", p);
-						List<Map<String, Object>> list = (List<Map<String, Object>>)(p.get("list"));
-						list.add(m);
+						VCategory p = categoryMap.get(pid);
+						m.setParent(p);
+						p.addList(m);
 					}
 				}
 			}
@@ -96,22 +96,22 @@ public class CmsFactory
 		this.request = request;
 	}
 
-	public Map<String, Object> getSite()
+	public VSite getSite()
 	{
 		return site;
 	}
 
-	public Map<String, Object> getCategory(Object categoryid)
+	public VCategory getCategory(Object categoryid)
 	{
 		return categoryMap.get(String.valueOf(categoryid));
 	}
 
-	public Map<String, Object> get(String pageid)
+	public VPage get(String pageid)
 	{
 		return getDao().get(siteid, toLong(pageid));
 	}
 
-	public List<Map<String, Object>> queryList(int currentPage, int pageSize, boolean onlyImageTop, boolean onlyPageTop, boolean isDesc, Object... categoryids)
+	public List<VPage> queryList(int currentPage, int pageSize, boolean onlyImageTop, boolean onlyPageTop, boolean isDesc, Object... categoryids)
 	{
 		return doQueryList(currentPage, pageSize, isDesc, onlyImageTop, onlyPageTop, null, categoryids);
 	}
@@ -128,7 +128,7 @@ public class CmsFactory
 		}
 		StringBuilder idArray = new StringBuilder();
 		idArray.append(toLong(categoryid));
-		Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, null);
+		Page<VPage> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, null);
 		Map<String, Object> map = new HashMap<String, Object>();
 		currentPage = page.getCurrentPage();// 更新当前页
 		map.put("list", page.getResult());
@@ -157,14 +157,14 @@ public class CmsFactory
 		}
 		else
 		{
-			sb.append(" href=\"").append(site.get("url")).append(url).append("\"");
+			sb.append(" href=\"").append(site.getUrl()).append(url).append("\"");
 		}
 		sb.append(">1</a>");
 		temppage = currentPage - viewpage - 1;
 		if(temppage > 1)
 		{
 			String u = url.replaceAll("\\.html", "_" + temppage + ".html");
-			sb.append("<a href=\"").append(site.get("url")).append(u).append("\">...</a>");
+			sb.append("<a href=\"").append(site.getUrl()).append(u).append("\">...</a>");
 		}
 		for(int i = currentPage - viewpage; i <= currentPage + viewpage && i < page.getLastPage(); i++)
 		{
@@ -178,7 +178,7 @@ public class CmsFactory
 				}
 				else
 				{
-					sb.append(" href=\"").append(site.get("url")).append(u).append("\"");
+					sb.append(" href=\"").append(site.getUrl()).append(u).append("\"");
 				}
 				sb.append(">").append(i).append("</a>");
 			}
@@ -187,7 +187,7 @@ public class CmsFactory
 		if(temppage < page.getLastPage())
 		{
 			String u = url.replaceAll("\\.html", "_" + temppage + ".html");
-			sb.append("<a href=\"").append(site.get("url")).append(u).append("\">...</a>");
+			sb.append("<a href=\"").append(site.getUrl()).append(u).append("\">...</a>");
 		}
 		if(1 != page.getLastPage())
 		{
@@ -199,7 +199,7 @@ public class CmsFactory
 			}
 			else
 			{
-				sb.append(" href=\"").append(site.get("url")).append(u).append("\"");
+				sb.append(" href=\"").append(site.getUrl()).append(u).append("\"");
 			}
 			sb.append(">").append(page.getLastPage()).append("</a>");
 		}
@@ -212,7 +212,7 @@ public class CmsFactory
 		return doQueryPage(currentPage, pageSize, isDesc, false, false, keyvalue, categoryids);
 	}
 
-	private List<Map<String, Object>> doQueryList(int currentPage, int pageSize, boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
+	private List<VPage> doQueryList(int currentPage, int pageSize, boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue, Object... categoryids)
 	{
 		StringBuilder idArray = new StringBuilder();
 		if(categoryids.length > 0)
@@ -240,7 +240,7 @@ public class CmsFactory
 		Map<String, Object> map = new HashMap<String, Object>();
 		try
 		{
-			Page<Map<String, Object>> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, keyvalue);
+			Page<VPage> page = getDao().queryPage(siteid, currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, keyvalue);
 			map.put("status", "1");// success
 			map.put("msg", "success");
 			map.put("size", page.getTotalCount());
@@ -301,20 +301,18 @@ public class CmsFactory
 	 *        父栏目，查询根栏目为空
 	 * @return List&lt;Map&lt;String, Object&gt;&gt;
 	 */
-	public List<Map<String, Object>> queryCategory(Object categoryid)
+	public List<VCategory> queryCategory(Object categoryid)
 	{
 		String pid = String.valueOf(toLong(categoryid));
-		if("0".equals(pid))
+		if(pid.equals("0"))
 		{
 			return categoryList;
 		}
-		Map<String, Object> p = categoryMap.get(pid);
+		VCategory p = categoryMap.get(pid);
 		if(p == null)
 		{
-			return new ArrayList<Map<String, Object>>(); 
+			p = new VCategory(); 
 		}
-		@SuppressWarnings("unchecked")
-		List<Map<String, Object>> list = (List<Map<String, Object>>)p.get("list");
-		return list;
+		return p.getList();
 	}
 }

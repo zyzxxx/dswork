@@ -33,7 +33,7 @@ function menuload(o){
 		function(data){
 			try{
 				o.data = $jskey.menu.format(data);
-				$jskey.menu.showNode(o.index, o.data);
+				$jskey.menu.showNode(o.index, o.data, o.domainurl + o.rooturl);
 			}catch(e){alert(e.message);}
 		}
 	);

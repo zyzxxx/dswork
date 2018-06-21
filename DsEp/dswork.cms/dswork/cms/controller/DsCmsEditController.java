@@ -1,11 +1,15 @@
 package dswork.cms.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import common.cms.GsonUtil;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPage;
@@ -74,6 +78,8 @@ public class DsCmsEditController extends DsCmsBaseController
 	public String addPage1()
 	{
 		put("releasetime", TimeUtil.getCurrentTime());
+		DsCmsCategory c = service.getCategory(req.getLong("categoryid"));
+		put("columns", GsonUtil.toBean(c.getJsontable(), List.class));
 		return "/cms/edit/addPage.jsp";
 	}
 
@@ -99,6 +105,15 @@ public class DsCmsEditController extends DsCmsBaseController
 						po.setReleasetime(TimeUtil.getCurrentTime());
 					}
 
+					Map<String, String> map = new LinkedHashMap<String, String>();
+					String[] ctitleArr = req.getStringArray("ctitle", false);
+					String[] cvalueArr = req.getStringArray("cvalue", false);
+					for(int i = 0; i < ctitleArr.length; i++)
+					{
+						map.put(ctitleArr[i], cvalueArr[i]);
+					}
+					po.setJsondata(GsonUtil.toJson(map));
+
 					String action = req.getString("action");
 					if("save".equals(action))
 					{
@@ -109,6 +124,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					}
 					if("submit".equals(action))
 					{
+						po.setStatus(1);
 						if(categoryNotNeedAudit(s.getId(), c.getId()))
 						{
 							service.savePageEdit(po, true, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
@@ -293,6 +309,7 @@ public class DsCmsEditController extends DsCmsBaseController
 	}
 
 	// 采编页面
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/updPage1")
 	public String updPage1()
 	{
@@ -306,6 +323,24 @@ public class DsCmsEditController extends DsCmsBaseController
 				|| (checkEditown(s.getId(), po.getCategoryid()) && checkEditid(po.getEditid()))
 			)
 			{
+				DsCmsCategory c = service.getCategory(po.getCategoryid());
+				List<Map<String, String>> jsontable = GsonUtil.toBean(c.getJsontable(), List.class);
+				try
+				{
+					Map<String, Object> jsondata = GsonUtil.toBean(po.getJsondata(), Map.class);
+					for(Map<String, String> m : jsontable)
+					{
+						String key = m.get("ctitle");
+						Object value = jsondata.get(key);
+						m.put("cvalue", String.valueOf(value == null ? "" : value));
+					} 
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+				put("columns", jsontable);
+
 				put("po", po);
 				put("enablemobile", s.getEnablemobile() == 1);
 				return "/cms/edit/updPage.jsp";
@@ -361,6 +396,8 @@ public class DsCmsEditController extends DsCmsBaseController
 						p.setImgtop(page.getImgtop());
 						p.setPagetop(page.getPagetop());
 						p.setAuditstatus(DsCmsPageEdit.PASS);
+						p.setJsondata(page.getJsondata());
+						p.setStatus(1);
 						service.updatePageEdit(p, false, s.isWriteLog(), getAccount(), getName());
 					}
 					print(1);
@@ -380,6 +417,16 @@ public class DsCmsEditController extends DsCmsBaseController
 				p.setImg(po.getImg());
 				p.setImgtop(po.getImgtop());
 				p.setPagetop(po.getPagetop());
+				p.setStatus(1);
+
+				Map<String, String> map = new LinkedHashMap<String, String>();
+				String[] ctitleArr = req.getStringArray("ctitle", false);
+				String[] cvalueArr = req.getStringArray("cvalue", false);
+				for(int i = 0; i < ctitleArr.length; i++)
+				{
+					map.put(ctitleArr[i], cvalueArr[i]);
+				}
+				p.setJsondata(GsonUtil.toJson(map));
 
 				if("save".equals(action))
 				{
@@ -430,6 +477,7 @@ public class DsCmsEditController extends DsCmsBaseController
 	}
 
 	// 采编栏目
+	@SuppressWarnings("unchecked")
 	@RequestMapping("/updCategory1")
 	public String updCategory1()
 	{
@@ -444,11 +492,28 @@ public class DsCmsEditController extends DsCmsBaseController
 			DsCmsSite s = service.getSite(po.getSiteid());
 			if(checkEdit(s.getId(), po.getId()))
 			{
+				DsCmsCategory c = service.getCategory(po.getId());
+				List<Map<String, String>> jsontable = GsonUtil.toBean(c.getJsontable(), List.class);
+				try
+				{
+					Map<String, Object> jsondata = GsonUtil.toBean(po.getJsondata(), Map.class);
+					for(Map<String, String> m : jsontable)
+					{
+						String key = m.get("ctitle");
+						Object value = jsondata.get(key);
+						m.put("cvalue", String.valueOf(value == null ? "" : value));
+					} 
+				}
+				catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+				put("columns", jsontable);
+
 				if(po.getReleasetime().isEmpty())
 				{
 					po.setReleasetime(TimeUtil.getCurrentTime());
 				}
-				DsCmsCategory c = service.getCategory(po.getId());
 				put("enablemobile", s.getEnablemobile() == 1);
 				put("scope", c.getScope());
 				put("po", po);
@@ -456,7 +521,7 @@ public class DsCmsEditController extends DsCmsBaseController
 			}
 			return null;
 		}
-		catch(Exception e)
+		catch(Exception ee)
 		{
 			return null;
 		}
@@ -499,6 +564,7 @@ public class DsCmsEditController extends DsCmsBaseController
 						p.setImg(c.getImg());
 						p.setUrl(c.getUrl());
 						p.setAuditstatus(DsCmsCategoryEdit.PASS);
+						p.setJsondata(c.getJsondata());
 						service.updateCategoryEdit(p, false, s.isWriteLog(), getAccount(), getName());
 					}
 					print(1);
@@ -516,6 +582,15 @@ public class DsCmsEditController extends DsCmsBaseController
 				p.setUrl(po.getUrl());
 				p.pushEditidAndEditname(getAccount(), getName());
 				p.setEdittime(TimeUtil.getCurrentTime());
+
+				Map<String, String> map = new LinkedHashMap<String, String>();
+				String[] ctitleArr = req.getStringArray("ctitle", false);
+				String[] cvalueArr = req.getStringArray("cvalue", false);
+				for(int i = 0; i < ctitleArr.length; i++)
+				{
+					map.put(ctitleArr[i], cvalueArr[i]);
+				}
+				p.setJsondata(GsonUtil.toJson(map));
 
 				if("save".equals(action))
 				{

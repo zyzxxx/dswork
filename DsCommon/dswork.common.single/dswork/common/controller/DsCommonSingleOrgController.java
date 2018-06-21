@@ -131,7 +131,7 @@ public class DsCommonSingleOrgController extends BaseController
 			}
 			else if(v2 > 0)
 			{
-				print("1:" + v1 + "个不能删除，部门下有用户");// 一个岗位对应一个用户
+				print("1:" + v2 + "个不能删除，部门下有用户");// 一个岗位对应一个用户
 			}
 			else
 			{

@@ -96,6 +96,12 @@ $(function(){
 		<td class="form_title">状态</td>
 		<td class="form_input">${po.status==-1?'删除发布':po.status==8?'已发布':'待发布'}</td>
 	</tr>
+<c:forEach items="${columns}" var="d">
+	<tr>
+		<td class="form_title">${fn:escapeXml(d.cname)}</td>
+		<td class="form_input">${fn:escapeXml(d.cvalue)}</td>
+	</tr>
+</c:forEach>
 </table>
 </body>
 </html>

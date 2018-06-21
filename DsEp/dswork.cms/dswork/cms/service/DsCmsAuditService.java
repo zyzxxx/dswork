@@ -119,6 +119,7 @@ public class DsCmsAuditService
 				{
 					c.setStatus(1);
 				}
+				c.setJsondata(po.getJsondata());
 				categoryDao.updateContent(c);
 			}
 			else if(c.getScope() == 2)
@@ -166,6 +167,7 @@ public class DsCmsAuditService
 			p.setImgtop(po.getImgtop());
 			p.setPagetop(po.getPagetop());
 			p.setScope(po.getScope());
+			p.setJsondata(po.getJsondata());
 			if(save)
 			{
 				p.setStatus(0);// page设置为新建未发布状态

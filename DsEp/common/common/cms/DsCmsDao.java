@@ -9,6 +9,9 @@ import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
+import common.cms.model.VCategory;
+import common.cms.model.VPage;
+import common.cms.model.VSite;
 import dswork.core.db.MyBatisDao;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
@@ -24,28 +27,28 @@ public class DsCmsDao extends MyBatisDao
 		return DsCmsDao.class;
 	}
 
-	public Map<String, Object> getSite(Long siteid)
+	public VSite getSite(Long siteid)
 	{
-		return (Map)executeSelect("getSite", siteid);
+		return (VSite)executeSelect("getSite", siteid);
 	}
 
-	public Map<String, Object> getCategory(Long siteid, Long categoryid)
+	public VCategory getCategory(Long siteid, Long categoryid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
 		map.put("id", categoryid);
-		return (Map)executeSelect("getCategory", map);
+		return (VCategory)executeSelect("getCategory", map);
 	}
 
-	public Map<String, Object> get(Long siteid, Long pageid)
+	public VPage get(Long siteid, Long pageid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
 		map.put("id", pageid);
-		return (Map)executeSelect("get", map);
+		return (VPage)executeSelect("get", map);
 	}
 
-	public Page<Map<String, Object>> queryPage(Long siteid, int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue)
+	public Page<VPage> queryPage(Long siteid, int currentPage, int pageSize, String idArray, Boolean isDesc, boolean onlyImageTop, boolean onlyPageTop, String keyvalue)
 	{
 		if(currentPage <= 0){currentPage = 1;}
 		if(pageSize <= 0){pageSize = 25;}
@@ -62,10 +65,10 @@ public class DsCmsDao extends MyBatisDao
 		return queryPage("query", rq, "queryCount", rq);
 	}
 
-	public List<Map<String, Object>> queryCategory(Long siteid)
+	public List<VCategory> queryCategory(Long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
-		return (List)executeSelectList("queryCategory", map);
+		return queryList("queryCategory", map);
 	}
 }

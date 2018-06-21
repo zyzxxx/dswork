@@ -10,9 +10,9 @@
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_PAGE
-	(<if test="id!=null and id!=0">ID, </if>SITEID, CATEGORYID, SCOPE, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT)
+	(<if test="id!=null and id!=0">ID, </if>SITEID, CATEGORYID, SCOPE, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, URL, CONTENT, JSONDATA)
 	values
-	(<if test="id!=null and id!=0">#{id}, </if>#{siteid}, #{categoryid}, #{scope}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{url}, #{content})
+	(<if test="id!=null and id!=0">#{id}, </if>#{siteid}, #{categoryid}, #{scope}, #{status}, #{title}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{url}, #{content}, #{jsondata})
 </insert>
 
 <delete id="delete">
@@ -42,7 +42,8 @@
 		IMGTOP=#{imgtop},
 		PAGETOP=#{pagetop},
 		URL=#{url},
-		CONTENT=#{content}
+		CONTENT=#{content},
+		JSONDATA=#{jsondata}
 	where ID=#{id}
 </update>
 
@@ -68,10 +69,11 @@
 	<result property="pagetop" column="PAGETOP" />
 	<result property="url" column="URL" />
 	<result property="content" column="CONTENT" />
+	<result property="jsondata" column="JSONDATA" />
 </resultMap>
 
 <sql id="columns">
-	ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, SCOPE, URL, CONTENT
+	ID, SITEID, CATEGORYID, STATUS, TITLE, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, SCOPE, URL, CONTENT, JSONDATA
 </sql>
 
 <sql id="dynamicWhere">

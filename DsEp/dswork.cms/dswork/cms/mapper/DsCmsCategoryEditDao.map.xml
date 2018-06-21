@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.cms.model.DsCmsCategoryEdit">
 	insert into DS_CMS_CATEGORY_EDIT
-	(ID, SITEID, STATUS, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT, URL, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG)
+	(ID, SITEID, STATUS, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, CONTENT, URL, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG, JSONDATA)
 	values
-	(#{id}, #{siteid}, #{status}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content}, #{url}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg})
+	(#{id}, #{siteid}, #{status}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{content}, #{url}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg}, #{jsondata})
 </insert>
 
 <delete id="delete">
@@ -35,7 +35,8 @@
 		AUDITID=#{auditid},
 		AUDITNAME=#{auditname},
 		AUDITTIME=#{audittime},
-		MSG=#{msg}
+		MSG=#{msg},
+		JSONDATA=#{jsondata}
 	where ID=#{id}
 </update>
 
@@ -62,10 +63,11 @@
 	<result property="msg" column="MSG" />
 	<result property="name" column="NAME" />
 	<result property="scope" column="SCOPE" />
+	<result property="jsondata" column="JSONDATA" />
 </resultMap>
 
 <sql id="columns">
-	a.ID, a.SITEID, a.STATUS, a.METAKEYWORDS, a.METADESCRIPTION, a.SUMMARY, a.RELEASETIME, a.RELEASESOURCE, a.RELEASEUSER, a.IMG, a.CONTENT, a.URL, a.EDITID, a.EDITNAME, a.EDITTIME, a.AUDITSTATUS, a.AUDITID, a.AUDITNAME, a.AUDITTIME, a.MSG
+	a.ID, a.SITEID, a.STATUS, a.METAKEYWORDS, a.METADESCRIPTION, a.SUMMARY, a.RELEASETIME, a.RELEASESOURCE, a.RELEASEUSER, a.IMG, a.CONTENT, a.URL, a.EDITID, a.EDITNAME, a.EDITTIME, a.AUDITSTATUS, a.AUDITID, a.AUDITNAME, a.AUDITTIME, a.MSG, a.JSONDATA
 	, b.NAME, b.SCOPE
 </sql>
 

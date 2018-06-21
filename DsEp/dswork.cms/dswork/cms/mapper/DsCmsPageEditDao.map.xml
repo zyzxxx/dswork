@@ -10,9 +10,9 @@
 		<include refid="dswork.cms.rowid" />
 	</selectKey>
 	insert into DS_CMS_PAGE_EDIT
-	(SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG, PUSHKEY)
+	(SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG, PUSHKEY, JSONDATA)
 	values
-	(#{siteid}, #{categoryid}, #{status}, #{title}, #{scope}, #{url}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg}, #{pushkey})
+	(#{siteid}, #{categoryid}, #{status}, #{title}, #{scope}, #{url}, #{metakeywords}, #{metadescription}, #{summary}, #{releasetime}, #{releasesource}, #{releaseuser}, #{img}, #{imgtop}, #{pagetop}, #{content}, #{editid}, #{editname}, #{edittime}, #{auditstatus}, #{auditid}, #{auditname}, #{audittime}, #{msg}, #{pushkey}, #{jsondata})
 </insert>
 
 <delete id="delete">
@@ -50,7 +50,8 @@
 		AUDITID=#{auditid},
 		AUDITNAME=#{auditname},
 		AUDITTIME=#{audittime},
-		MSG=#{msg}
+		MSG=#{msg},
+		JSONDATA=#{jsondata}
 	where ID=#{id}
 </update>
 
@@ -85,9 +86,10 @@
 	<result property="audittime" column="AUDITTIME" />
 	<result property="msg" column="MSG" />
 	<result property="pushkey" column="PUSHKEY" />
+	<result property="jsondata" column="JSONDATA" />
 </resultMap>
 
-<sql id="columns">ID, SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG, PUSHKEY</sql>
+<sql id="columns">ID, SITEID, CATEGORYID, STATUS, TITLE, SCOPE, URL, METAKEYWORDS, METADESCRIPTION, SUMMARY, RELEASETIME, RELEASESOURCE, RELEASEUSER, IMG, IMGTOP, PAGETOP, CONTENT, EDITID, EDITNAME, EDITTIME, AUDITSTATUS, AUDITID, AUDITNAME, AUDITTIME, MSG, PUSHKEY, JSONDATA</sql>
 	
 <sql id="dynamicWhere">
 	<where>

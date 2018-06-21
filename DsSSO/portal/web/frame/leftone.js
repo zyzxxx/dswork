@@ -16,7 +16,7 @@ function showSystem(){
 				menuload(obj);
 			}
 			else{
-				$jskey.menu.showNode(obj.index, obj.data);
+				$jskey.menu.showNode(obj.index, obj.data, obj.domainurl + obj.rooturl);
 			}
 		}
 	}
@@ -26,9 +26,8 @@ function showSystem(){
 $jskey.menu.showNode = function(i, data){
 	if(sys.length > i){
 		myindex = i;
-		$jskey.menu.root = sys[i].domainurl + sys[i].rooturl;
-		//$jskey.menu.show(jsonData, false);// 可打开多个
-		$jskey.menu.show(data, true);// 只能打开一个，删掉<!DOCTYPE html>则会其余最会置底
+		// true置底仅打开一个，false不置底可打开多个，null不置底仅打开一个
+		$jskey.menu.show(data, true, sys[i].domainurl + sys[i].rooturl);
 		if(data.length > 0)
 		{
 			$jskey.menu.clickBar(0);
