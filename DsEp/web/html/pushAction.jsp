@@ -61,6 +61,7 @@ try
 		p.setScope(po.getScope());
 		p.setStatus(0);// page设置为新建未发布状态
 		p.setUrl(po.getUrl());
+		p.setJsondata(po.getJsondata());
 
 		pageDao.save(p);
 		out.print(GsonUtil.toJson(map));
@@ -92,6 +93,7 @@ try
 			po.setImg(req.getString("img"));
 			po.setImgtop(req.getInt("imgtop"));
 			po.setPagetop(req.getInt("pagetop"));
+			po.setJsondata(req.getString("jsondata"));
 			if(po.getScope() != 2)
 			{
 				po.setUrl("/a/" + po.getCategoryid() + "/" + po.getId() + ".html");
@@ -137,6 +139,7 @@ try
 		p.setPagetop(po.getPagetop());
 		p.setScope(po.getScope());
 		p.setUrl(po.getUrl());
+		p.setJsondata(po.getJsondata());
 		if(save)
 		{
 			p.setStatus(0);// page设置为新建未发布状态
