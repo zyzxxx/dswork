@@ -45,7 +45,6 @@ try
 		pageEditDao.updateUrl(po.getId(), po.getUrl());
 
 		DsCmsPage p = new DsCmsPage();
-		p.setId(po.getId());
 		p.setSiteid(po.getSiteid());
 		p.setCategoryid(po.getCategoryid());
 		p.setTitle(po.getTitle());
