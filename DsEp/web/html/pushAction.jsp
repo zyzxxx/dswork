@@ -61,7 +61,7 @@ try
 		p.setScope(po.getScope());
 		p.setStatus(0);// page设置为新建未发布状态
 		p.setUrl(po.getUrl());
-	
+
 		pageDao.save(p);
 		out.print(GsonUtil.toJson(map));
 		return;
