@@ -11,8 +11,9 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <javaElement handleIdentifier="=DsEp/common&lt;common.cms"/>
         <javaElement handleIdentifier="=DsEp/dswork.cms"/>
+        <javaElement handleIdentifier="=DsEp/common&lt;common.cms.model"/>
+        <javaElement handleIdentifier="=DsEp/common&lt;common.cms"/>
         <javaElement handleIdentifier="=DsEp/common&lt;common.cms.controller"/>
     </selectedElements>
 </jardesc>
