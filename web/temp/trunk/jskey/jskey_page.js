@@ -67,7 +67,7 @@ $jskey.Page=function(p){
 	var _C = this.config;
 	if(_C.jump){_C.fn = _C.jump;_C.jump = null;}
 	if(!_C.redo){_C.redo = function(){_E.redo();};}
-	if(_C._noexecute){
+	if(_C.noexecute){
 		this.redo();
 	}
 	else{
