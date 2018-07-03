@@ -6,7 +6,7 @@
 dswork.web.MyRequest req = new dswork.web.MyRequest(request);
 String service = req.getString("service", "/");
 service = java.net.URLEncoder.encode(service, "UTF-8");
-request.setAttribute("service", "service");
+request.setAttribute("service", service);
 %><!DOCTYPE html>
 <html>
 <head>

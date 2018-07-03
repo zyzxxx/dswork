@@ -5,8 +5,9 @@
 /><%
 dswork.web.MyRequest req = new dswork.web.MyRequest(request);
 String service = req.getString("service", "/");
-service = java.net.URLEncoder.encode(service, "UTF-8");
-request.setAttribute("service", "service");
+String serviceEncode= java.net.URLEncoder.encode(service, "UTF-8");
+request.setAttribute("service", service);
+request.setAttribute("serviceEncode", serviceEncode);
 %><!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +69,7 @@ $(function(){
 			<div class="item"><img src="image/icon_password.png"><input name="password" type="password" id="password" value="" data-type="char" data-show="msg2" placeholder="密码"><div class="msg" id="msg2">密码必须为字母或数字</div></div>
 			<div class="item"><img src="image/icon_authcode.png"><input name="authcode" type="text" value="" data-type="require" data-show="msg3" placeholder="验证码" style="width:40%;"><img id="authcode" alt="请点击" style="vertical-align:middle;width:40%;height:30px;" src="about:blank" onclick="this.src='${ctx}/authcode?r=' + Math.random();" /><div class="msg" id="msg3">验证码不能为空</div></div>
 			<div><input type="submit" class="button" value="登录"></div>
-			<div class="info">没有账号？<a href="register.jsp?service=${service}">注册</a></div>
+			<div class="info">没有账号？<a href="register.jsp?service=${serviceEncode}">注册</a></div>
 		</form>
 		</div>
 	</div>
