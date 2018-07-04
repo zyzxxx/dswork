@@ -33,7 +33,6 @@ public class DsCmsbuildController extends BaseController
 		if(cms == null)
 		{
 			cms = new CmsFactory(siteid);
-			cms.setRequest(request);
 			CmsFactory cms_m = new CmsFactoryMobile(cms);
 			request.getSession().setAttribute(CMS_FACTORY_KEY, cms);
 			request.getSession().setAttribute(CMS_FACTORY_KEY_M, cms_m);
@@ -42,6 +41,7 @@ public class DsCmsbuildController extends BaseController
 				cms = cms_m;
 			}
 		}
+		cms.setRequest(request);
 //		if(cms == null)
 //		{
 //			cms = new CmsFactory(siteid);
