@@ -2,7 +2,12 @@
 %><%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"
 %><%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"
 %><c:set var="ctx" value="${pageContext.request.contextPath}"
-/><!DOCTYPE html>
+/><%
+dswork.web.MyRequest req = new dswork.web.MyRequest(request);
+String service = req.getString("service", "/");
+service = java.net.URLEncoder.encode(service, "UTF-8");
+request.setAttribute("service", service);
+%><!DOCTYPE html>
 <html>
 <head>
 <title>注册</title>
@@ -31,8 +36,10 @@ body{margin:0;padding:0;background-color:#ececec;font-family:"Segoe UI","Lucida 
 <script type="text/javascript" src="js/jskey_des.js"></script>
 <script type="text/javascript" src="js/validator.js"></script>
 <script type="text/javascript">
+if(top.location != this.location){top.location = this.location;}
 $(function(){
 	$('#authcode').click();
+	$('input[name="account"]').focus();
 	$('form').submit(function(){
 		if($(this).validate()){
 			var $pwd = $(this).find('input[name="password"]');
@@ -41,7 +48,7 @@ $(function(){
 				var ss = result.split(':');
 				if(ss[0] != 0){
 					alert('注册成功，请登录');
-					location.href='login.jsp';
+					location.href='login.jsp?service=${service}';
 					return;
 				}
 				alert(ss[1]);
@@ -70,7 +77,7 @@ $(function(){
 			<div class="item"><img src="image/icon_idcard.png"><input name="idcard" type="text" value="" data-type="idcard" data-show="msg7" placeholder="身份证号"><div class="msg" id="msg7">身份证号错误</div></div>
 			<div class="item"><img src="image/icon_authcode.png"><input name="authcode" type="text" value="" data-type="require" data-show="msg8" placeholder="验证码" style="width:40%;"><img id="authcode" alt="请点击" style="vertical-align:middle;width:40%;height:30px;" src="about:blank" onclick="this.src='${ctx}/authcode?r=' + Math.random();" /><div class="msg" id="msg8">验证码不能为空</div></div>
 			<div><input type="submit" class="button" value="注册"></div>
-			<div class="info">已有账号？<a href="login.jsp">登录</a></div>
+			<div class="info">已有账号？<a href="login.jsp?service=${service}">登录</a></div>
 		</form>
 		</div>
 	</div>

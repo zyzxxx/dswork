@@ -19,7 +19,7 @@ $.fn.validate = function(){
 		var t = check(this);
 		var $e = $(this);
 		if(!t){
-			var $m = $('#' + $e.attr('data-show'));
+			var $m = $('#' + $e.data('show'));
 			$m.css({display:'block'});
 			$e.off('blur').on('blur', function(){//防止重复绑定
 				$m.css({display:check(this)?'':'block'});
@@ -33,8 +33,8 @@ $.fn.validate = function(){
 function check(dom){
 	var pass = true;
 	var $e = $(dom);
-	var dt = $e.attr('data-type');
-	var de = $e.attr('data-equal');
+	var dt = $e.data('type');
+	var de = $e.data('equal');
 	if(de){
 		var _$e = $('#' + de);
 		pass = validator.equal($e.val(), _$e.val());

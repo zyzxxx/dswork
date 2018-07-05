@@ -24,7 +24,6 @@ function onChangeListen(){
 		<td class="title">&nbsp;</td>
 		<td class="menuTool">
 			<a class="save" href="#" id="dataFormSave">保存</a>
-			<a class="select" href="#" onclick="$jskey.dialog.showDialog({url:'readme.htm',title:'说明',fit:true,draggable:false});">说明</a>
 		</td>
 	</tr>
 </table>
