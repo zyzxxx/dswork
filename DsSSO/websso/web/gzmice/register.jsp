@@ -36,6 +36,7 @@ body{margin:0;padding:0;background-color:#ececec;font-family:"Segoe UI","Lucida 
 <script type="text/javascript" src="js/jskey_des.js"></script>
 <script type="text/javascript" src="js/validator.js"></script>
 <script type="text/javascript">
+if(top.location != this.location){top.location = this.location;}
 $(function(){
 	$('#authcode').click();
 	$('input[name="account"]').focus();
