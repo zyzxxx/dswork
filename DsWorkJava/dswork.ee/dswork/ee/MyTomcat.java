@@ -11,6 +11,7 @@ public class MyTomcat
 	private int port = 8080;
 	private String hostname = "localhost";
 	private String baseDir = "/WorkServer/TomcatEmbed";
+	private java.io.File contextDir = null;
 	private java.util.Map<String, String> map = new java.util.LinkedHashMap<String, String>();
 	public MyTomcat()
 	{
@@ -119,6 +120,20 @@ public class MyTomcat
 		return this;
 	}
 	
+	public MyTomcat setContextDir(String contextDir)
+	{
+		File f = new File(loaderPath + "/" + contextDir);
+		if(f.isFile())
+		{
+			this.contextDir = f;
+		}
+		else
+		{
+			this.contextDir = new File(contextDir);
+		}
+		return this;
+	}
+	
 	public MyTomcat start() throws Exception
 	{
 		tomcat.setPort(port);
@@ -127,10 +142,15 @@ public class MyTomcat
 		for(Map.Entry<String, String> x : map.entrySet())
 		{
 			System.out.println(x.getKey() + "=" + x.getValue());
-			tomcat.addWebapp(x.getKey(), x.getValue());
+			org.apache.catalina.Context c = tomcat.addWebapp(x.getKey(), x.getValue());
+			if(contextDir != null && contextDir.isFile())
+			{
+				c.setConfigFile(contextDir.toURI().toURL());
+			}
 		}
 		tomcat.start();
 		tomcat.getServer().await();
 		return this;
 	}
+	// String jarPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().getFile() + "!";
 }
