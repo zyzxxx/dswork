@@ -38,6 +38,7 @@ body{margin:0;padding:0;background-color:#ececec;font-family:"Segoe UI","Lucida 
 <script type="text/javascript">
 $(function(){
 	$('#authcode').click();
+	$('input[name="account"]').focus();
 	$('form').submit(function(){
 		if($(this).validate()){
 			var $pwd = $(this).find('input[name="password"]');

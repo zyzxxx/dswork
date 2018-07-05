@@ -37,6 +37,7 @@ body{margin:0;padding:0;background-color:#ececec;font-family:"Segoe UI","Lucida 
 <script type="text/javascript">
 $(function(){
 	$('#authcode').click();
+	$('input[name="account"]').focus();
 });
 </script>
 </head>
