@@ -237,6 +237,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					put("pageModel", pageModel);
 					put("pageNav", new PageNav<DsCmsPageEdit>(request, pageModel));
 					put("po", c);
+					put("enablemobile", s.getEnablemobile() == 1);
 					return "/cms/edit/getPage.jsp";
 				}
 			}
