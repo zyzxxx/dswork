@@ -21,6 +21,10 @@ import dswork.core.page.PageNav;
 import dswork.core.page.PageRequest;
 import dswork.core.util.FileUtil;
 import dswork.core.util.TimeUtil;
+import dswork.html.HtmlUtil;
+import dswork.html.nodes.Document;
+import dswork.html.nodes.Element;
+import dswork.http.HttpUtil;
 import dswork.web.MyFile;
 
 @Scope("prototype")
@@ -113,6 +117,8 @@ public class DsCmsEditController extends DsCmsBaseController
 						map.put(ctitleArr[i], cvalueArr[i]);
 					}
 					po.setJsondata(GsonUtil.toJson(map));
+					po.setImg(changeImageToLocal(s, po.getImg()));
+					po.setContent(changeContentToLocal(s, po.getContent()));
 
 					String action = req.getString("action");
 					if("save".equals(action))
@@ -414,11 +420,11 @@ public class DsCmsEditController extends DsCmsBaseController
 				p.setReleasesource(po.getReleasesource());
 				p.setReleaseuser(po.getReleaseuser());
 				p.setReleasetime(po.getReleasetime());
-				p.setContent(po.getContent());
-				p.setImg(po.getImg());
 				p.setImgtop(po.getImgtop());
 				p.setPagetop(po.getPagetop());
 				p.setStatus(1);
+				p.setImg(changeImageToLocal(s, po.getImg()));
+				p.setContent(changeContentToLocal(s, po.getContent()));
 
 				Map<String, String> map = new LinkedHashMap<String, String>();
 				String[] ctitleArr = req.getStringArray("ctitle", false);
@@ -578,11 +584,11 @@ public class DsCmsEditController extends DsCmsBaseController
 				p.setReleasetime(po.getReleasetime());
 				p.setReleasesource(po.getReleasesource());
 				p.setReleaseuser(po.getReleaseuser());
-				p.setImg(po.getImg());
-				p.setContent(po.getContent());
 				p.setUrl(po.getUrl());
 				p.pushEditidAndEditname(getAccount(), getName());
 				p.setEdittime(TimeUtil.getCurrentTime());
+				p.setImg(changeImageToLocal(s, po.getImg()));
+				p.setContent(changeContentToLocal(s, po.getContent()));
 
 				Map<String, String> map = new LinkedHashMap<String, String>();
 				String[] ctitleArr = req.getStringArray("ctitle", false);
@@ -690,9 +696,9 @@ public class DsCmsEditController extends DsCmsBaseController
 				}
 			}
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
-			ex.printStackTrace();
+			e.printStackTrace();
 		}
 		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
 	}
@@ -738,11 +744,58 @@ public class DsCmsEditController extends DsCmsBaseController
 				}
 			}
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
-			ex.printStackTrace();
+			e.printStackTrace();
 		}
 		print("{\"err\":\"上传失败！\",\"msg\":\"\"}");
+	}
+
+	private String changeContentToLocal(DsCmsSite site, String content)
+	{
+		Document doc = HtmlUtil.parse(content);
+		List<Element> imgs = doc.select("img");
+		for(Element img : imgs)
+		{
+			String imgUrl = img.attr("src");
+			String newUrl = changeImageToLocal(site, imgUrl);
+			if(!imgUrl.equals(newUrl))
+			{
+				content = content.replace(imgUrl, newUrl);
+			}
+		}
+		return content;
+	}
+
+	private String changeImageToLocal(DsCmsSite site, String imgUrl)
+	{
+		if(site.getUrl().length() == 0)
+		{
+			if(imgUrl.startsWith("http"))
+			{
+				return remoteImageToLocal(site.getUrl(), site.getFolder(), imgUrl);
+			}
+		}
+		else
+		{
+			if(imgUrl.startsWith("http") && !imgUrl.startsWith(site.getUrl()))
+			{
+				return remoteImageToLocal(site.getUrl(), site.getFolder(), imgUrl);
+			}
+		}
+		return imgUrl;
+	}
+
+	private String remoteImageToLocal(String siteUrl, String siteFolder, String imgUrl)
+	{
+		imgUrl = imgUrl.split("\\?")[0];
+		String[] ss = imgUrl.split("\\/");
+		String imgName = ss[ss.length - 1];
+		String ym = TimeUtil.getCurrentTime("yyyyMM");
+		String imgPath = getCmsRoot() + "/html/" + siteFolder + "/html/f/img/" + ym + "/" + imgName;
+		HttpUtil httpUtil = new HttpUtil().create(imgUrl);
+		FileUtil.writeFile(imgPath, httpUtil.connectStream(), true);
+		return siteUrl + "/f/img/" + ym + "/" + imgName;
 	}
 
 	private String getCmsRoot()
