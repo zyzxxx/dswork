@@ -788,15 +788,22 @@ public class DsCmsEditController extends DsCmsBaseController
 
 	private String remoteImageToLocal(String siteUrl, String siteFolder, String imgUrl)
 	{
-		imgUrl = imgUrl.split("\\?")[0];
-		String[] ss = imgUrl.split("\\/");
-		String imgName = ss[ss.length - 1];
-		String ym = TimeUtil.getCurrentTime("yyyyMM");
-		String imgPath = getCmsRoot() + "/html/" + siteFolder + "/html/f/img/" + ym + "/" + imgName;
-		HttpUtil httpUtil = new HttpUtil().create(imgUrl);
-		if(FileUtil.writeFile(imgPath, httpUtil.connectStream(), true))
+		if(
+			imgUrl.endsWith("jpg") ||
+			imgUrl.endsWith("jpeg") ||
+			imgUrl.endsWith("gif") ||
+			imgUrl.endsWith("png")
+		)
 		{
-			return siteUrl + "/f/img/" + ym + "/" + imgName;
+			String[] ss = imgUrl.split("\\/");
+			String imgName = ss[ss.length - 1];
+			String ym = TimeUtil.getCurrentTime("yyyyMM");
+			String imgPath = getCmsRoot() + "/html/" + siteFolder + "/html/f/img/" + ym + "/" + imgName;
+			HttpUtil httpUtil = new HttpUtil().create(imgUrl);
+			if(FileUtil.writeFile(imgPath, httpUtil.connectStream(), true))
+			{
+				return siteUrl + "/f/img/" + ym + "/" + imgName;
+			}
 		}
 		return imgUrl;
 	}
