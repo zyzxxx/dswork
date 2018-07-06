@@ -794,8 +794,11 @@ public class DsCmsEditController extends DsCmsBaseController
 		String ym = TimeUtil.getCurrentTime("yyyyMM");
 		String imgPath = getCmsRoot() + "/html/" + siteFolder + "/html/f/img/" + ym + "/" + imgName;
 		HttpUtil httpUtil = new HttpUtil().create(imgUrl);
-		FileUtil.writeFile(imgPath, httpUtil.connectStream(), true);
-		return siteUrl + "/f/img/" + ym + "/" + imgName;
+		if(FileUtil.writeFile(imgPath, httpUtil.connectStream(), true))
+		{
+			return siteUrl + "/f/img/" + ym + "/" + imgName;
+		}
+		return imgUrl;
 	}
 
 	private String getCmsRoot()
