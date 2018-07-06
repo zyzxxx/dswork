@@ -11,6 +11,12 @@
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.reload();
 }};
+function show(){
+	var i = new Image();
+	i.src = $("#inputImg").val();
+	i.onload = function(){$("#imgShow").attr("src",this.src).show()};
+	i.onerror = function(){$("#imgShow").hide()};
+}
 $(function(){
 	$(".form_title").css("width", "8%");
 <c:if test="${scope==1}">
@@ -31,6 +37,7 @@ $(function(){
 			});
 		}
 	});
+	show();
 });
 </script>
 </head>
@@ -69,7 +76,7 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">图片</td>
-		<td class="form_input">${fn:escapeXml(po.img)}</td>
+		<td class="form_input">${fn:escapeXml(po.img)}<br/><input type="hidden" id="inputImg" value="${fn:escapeXml(po.img)}" /><img id="imgShow" style="width:100px"></td>
 	</tr>
 <c:if test="${scope==1}">
 	<tr>
