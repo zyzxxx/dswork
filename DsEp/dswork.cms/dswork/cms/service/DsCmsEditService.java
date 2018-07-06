@@ -92,14 +92,14 @@ public class DsCmsEditService
 		if(writeCategory)
 		{
 			DsCmsCategory c = (DsCmsCategory) categoryDao.get(po.getId());
+			c.setSummary(po.getSummary());
+			c.setReleasesource(po.getReleasesource());
+			c.setReleaseuser(po.getReleasetime());
+			c.setImg(po.getImg());
 			if(c.getScope() == 0 || c.getScope() == 1)
 			{
-				c.setSummary(po.getSummary());
 				c.setMetakeywords(po.getMetakeywords());
 				c.setMetadescription(po.getMetadescription());
-				c.setReleasesource(po.getReleasesource());
-				c.setReleaseuser(po.getReleaseuser());
-				c.setImg(po.getImg());
 				c.setContent(po.getContent());
 				c.setReleasetime(po.getReleasetime());
 				if(c.getStatus() != 0)
@@ -113,7 +113,7 @@ public class DsCmsEditService
 			{
 				c.setUrl(po.getUrl());
 				c.setStatus(8);// Category设置为已发布状态（因为外链不需要发布操作）
-				categoryDao.update(c);
+				categoryDao.updateURL(c);
 			}
 			po.setAuditstatus(0);// CategoryEdit设置为草稿状态
 		}

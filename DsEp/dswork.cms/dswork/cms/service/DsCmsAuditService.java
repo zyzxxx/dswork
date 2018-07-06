@@ -105,14 +105,14 @@ public class DsCmsAuditService
 		if(writeCategory)
 		{
 			DsCmsCategory c = (DsCmsCategory) categoryDao.get(po.getId());
+			c.setSummary(po.getSummary());
+			c.setReleasesource(po.getReleasesource());
+			c.setReleaseuser(po.getReleaseuser());
+			c.setImg(po.getImg());
 			if(c.getScope() == 0 || c.getScope() == 1)
 			{
-				c.setSummary(po.getSummary());
 				c.setMetakeywords(po.getMetakeywords());
 				c.setMetadescription(po.getMetadescription());
-				c.setReleasesource(po.getReleasesource());
-				c.setReleaseuser(po.getReleaseuser());
-				c.setImg(po.getImg());
 				c.setContent(po.getContent());
 				c.setReleasetime(po.getReleasetime());
 				if(c.getStatus() != 0)
@@ -129,7 +129,7 @@ public class DsCmsAuditService
 				{
 					c.setStatus(1);
 				}
-				categoryDao.update(c);
+				categoryDao.updateURL(c);
 			}
 			po.setStatus(1);// categoryEdit设置为待更新状态
 		}

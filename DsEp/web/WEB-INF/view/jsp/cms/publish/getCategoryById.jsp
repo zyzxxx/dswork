@@ -55,18 +55,9 @@ $(function(){
 </table>
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-<c:if test="${scope==1}">
 	<tr>
 		<td class="form_title">摘要</td>
 		<td class="form_input">${fn:escapeXml(po.summary)}</td>
-	</tr>
-	<tr>
-		<td class="form_title">meta关键词</td>
-		<td class="form_input">${fn:escapeXml(po.metakeywords)}</td>
-	</tr>
-	<tr>
-		<td class="form_title">meta描述</td>
-		<td class="form_input">${fn:escapeXml(po.metadescription)}</td>
 	</tr>
 	<tr>
 		<td class="form_title">来源</td>
@@ -79,6 +70,15 @@ $(function(){
 	<tr>
 		<td class="form_title">图片</td>
 		<td class="form_input">${fn:escapeXml(po.img)}</td>
+	</tr>
+<c:if test="${scope==1}">
+	<tr>
+		<td class="form_title">meta关键词</td>
+		<td class="form_input">${fn:escapeXml(po.metakeywords)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">meta描述</td>
+		<td class="form_input">${fn:escapeXml(po.metadescription)}</td>
 	</tr>
 	<tr>
 		<td class="form_title">状态</td>
