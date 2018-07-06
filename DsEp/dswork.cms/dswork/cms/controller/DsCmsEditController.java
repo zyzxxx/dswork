@@ -789,10 +789,10 @@ public class DsCmsEditController extends DsCmsBaseController
 	private String remoteImageToLocal(String siteUrl, String siteFolder, String imgUrl)
 	{
 		if(
-			imgUrl.endsWith("jpg") ||
-			imgUrl.endsWith("jpeg") ||
-			imgUrl.endsWith("gif") ||
-			imgUrl.endsWith("png")
+			imgUrl.endsWith(".jpg") ||
+			imgUrl.endsWith(".jpeg") ||
+			imgUrl.endsWith(".gif") ||
+			imgUrl.endsWith(".png")
 		)
 		{
 			String[] ss = imgUrl.split("\\/");
