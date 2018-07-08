@@ -795,8 +795,9 @@ public class DsCmsEditController extends DsCmsBaseController
 			imgUrl.endsWith(".png")
 		)
 		{
-			String[] ss = imgUrl.split("\\/");
-			String imgName = ss[ss.length - 1];
+			String[] ss = imgUrl.split("\\.");
+			String extName = ss[ss.length - 1];
+			String imgName = System.currentTimeMillis() + "." + extName;
 			String ym = TimeUtil.getCurrentTime("yyyyMM");
 			String imgPath = getCmsRoot() + "/html/" + siteFolder + "/html/f/img/" + ym + "/" + imgName;
 			HttpUtil httpUtil = new HttpUtil().create(imgUrl);
