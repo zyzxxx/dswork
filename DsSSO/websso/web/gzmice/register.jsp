@@ -17,8 +17,12 @@ request.setAttribute("service", service);
 body{margin:0;padding:0;background-color:#ececec;font-family:"Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3",FontAwesome,sans-serif;}
 .logo{background-color:#37bafe;}
 .logo>div{padding:50px 0;}
-.logo>div>a{display:block;width:150px;margin:0 auto;}
-.logo>div>a>img{width:100%;}
+.logo>div>a{display:block;width:150px;height:150px;margin:0 auto;
+	background-image:url(image/logo.png);
+	background-repeat:no-repeat;
+	background-position:center;
+	background-size:100%;
+}
 .main{max-width:640px;margin:0 auto;}
 .card{position:relative;top:-25px;width:80%;margin:0 auto;background-color:#fff;border-radius:10px;box-shadow:1px 5px 8px #D9CDB4;}
 .card .content{padding:20px;}
@@ -61,9 +65,7 @@ $(function(){
 </script>
 </head>
 <body style="background-color:#fff;">
-<div class="logo">
-	<div><a><img src="image/logo.png"></a></div>
-</div>
+<div class="logo"><div><a></a></div></div>
 <div class="main">
 	<div class="card">
 		<div class="content">

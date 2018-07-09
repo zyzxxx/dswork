@@ -11,6 +11,12 @@
 $dswork.callback = function(){if($dswork.result.type == 1){
 	location.reload();
 }};
+function show(){
+	var i = new Image();
+	i.src = $("#inputImg").val();
+	i.onload = function(){$("#imgShow").attr("src",this.src).show()};
+	i.onerror = function(){$("#imgShow").hide()};
+}
 $(function(){
 	$(".form_title").css("width", "8%");
 <c:if test="${scope==1}">
@@ -31,6 +37,7 @@ $(function(){
 			});
 		}
 	});
+	show();
 });
 </script>
 </head>
@@ -41,32 +48,23 @@ $(function(){
 		<td class="menuTool">
 		<c:if test="${scope==1}">
 			<a class="graph" id="btn_category" href="#">发布本栏目</a>
-			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a>
-			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&mobile=true">预览移动版本栏目</a></c:if>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a><c:if test="${enablemobile}">
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&categoryid=${po.id}&mobile=true">预览移动版本栏目</a></c:if>
 		</c:if>
 		<c:if test="${scope==2}">
 			<a class="look" target="_blank" href="${po.url}">预览外链</a>
 		</c:if>
 			<a class="graph" id="btn_site" href="#">发布首页</a>
-			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a>
-			<c:if test="${enablemobile}"><a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&mobile=true">预览移动版首页</a></c:if>
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}">预览首页</a><c:if test="${enablemobile}">
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/buildHTML.chtml?view=true&siteid=${po.siteid}&mobile=true">预览移动版首页</a></c:if>
 		</td>
 	</tr>
 </table>
 <div class="line"></div>
 <table border="0" cellspacing="1" cellpadding="0" class="listTable">
-<c:if test="${scope==1}">
 	<tr>
 		<td class="form_title">摘要</td>
 		<td class="form_input">${fn:escapeXml(po.summary)}</td>
-	</tr>
-	<tr>
-		<td class="form_title">meta关键词</td>
-		<td class="form_input">${fn:escapeXml(po.metakeywords)}</td>
-	</tr>
-	<tr>
-		<td class="form_title">meta描述</td>
-		<td class="form_input">${fn:escapeXml(po.metadescription)}</td>
 	</tr>
 	<tr>
 		<td class="form_title">来源</td>
@@ -78,7 +76,16 @@ $(function(){
 	</tr>
 	<tr>
 		<td class="form_title">图片</td>
-		<td class="form_input">${fn:escapeXml(po.img)}</td>
+		<td class="form_input">${fn:escapeXml(po.img)}<br/><input type="hidden" id="inputImg" value="${fn:escapeXml(po.img)}" /><img id="imgShow" style="width:100px"></td>
+	</tr>
+<c:if test="${scope==1}">
+	<tr>
+		<td class="form_title">meta关键词</td>
+		<td class="form_input">${fn:escapeXml(po.metakeywords)}</td>
+	</tr>
+	<tr>
+		<td class="form_title">meta描述</td>
+		<td class="form_input">${fn:escapeXml(po.metadescription)}</td>
 	</tr>
 	<tr>
 		<td class="form_title">状态</td>

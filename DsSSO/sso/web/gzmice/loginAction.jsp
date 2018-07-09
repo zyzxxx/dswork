@@ -5,7 +5,6 @@ response.setHeader("Access-Control-Allow-Origin", "*");
 response.setCharacterEncoding("UTF-8");
 MyRequest req = new MyRequest(request);
 String account = req.getString("account").toLowerCase();
-String xaccount = ","+account+",";
 String password = req.getString("password");
 String authcode = req.getString("authcode");
 String code = req.getString("code");
@@ -28,32 +27,22 @@ try{
 				msg = "用户已禁用，请联系管理员！";
 			}
 			else if((EncryptUtil.encryptMd5(user.getPassword()+authcode).equals(password))){
-				boolean gkcode = true;
-				if(",admin,99999,hxp,www,".indexOf(xaccount) == -1){
-					code = EncryptUtil.decodeDes(code, "login");
-					if(!dswork.sso.controller.AuthCodeUtil.getCode().equals(code)){
-						gkcode = false;
-						msg = "管控密码错误！";
-					}
+				String cookieTicket = dswork.sso.controller.AuthController.putLoginInfo(request, response, user.getAccount(), user.getName());
+				try{
+					service.saveLogLogin(cookieTicket, dswork.sso.controller.AuthController.getClientIp(request), user.getAccount(), user.getName(), true);
 				}
-				if(gkcode){
-					String cookieTicket = dswork.sso.controller.AuthController.putLoginInfo(request, response, user.getAccount(), user.getName());
-					try{
-						service.saveLogLogin(cookieTicket, dswork.sso.controller.AuthController.getClientIp(request), user.getAccount(), user.getName(), true);
-					}
-					catch(Exception e){
-						e.printStackTrace();
-					}
-					// 成功就跳到切换系统视图
-					// 无需登录，生成ticket给应用去登录
-					if(serviceURL.startsWith(request.getContextPath() + "/password")){
-						response.sendRedirect(serviceURL);
-					}
-					else{
-						response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(cookieTicket));
-					}
-					return;
+				catch(Exception e){
+					e.printStackTrace();
 				}
+				// 成功就跳到切换系统视图
+				// 无需登录，生成ticket给应用去登录
+				if(serviceURL.startsWith(request.getContextPath() + "/password")){
+					response.sendRedirect(serviceURL);
+				}
+				else{
+					response.sendRedirect(serviceURL += ((serviceURL.indexOf("?") != -1) ? "&ticket=" : "?ticket=") + TicketService.getOnceTicket(cookieTicket));
+				}
+				return;
 			}
 		}
 	}
