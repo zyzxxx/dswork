@@ -819,7 +819,8 @@ public class DsCmsEditController extends DsCmsBaseController
 			}
 			catch(Exception e)
 			{
-				System.err.println("图片 " + imgUrl + " 转换到本地失败：" + e.getMessage());
+				System.err.println("图片 " + imgUrl + " 转换到本地失败");
+				e.printStackTrace();
 			}
 		}
 		return imgUrl;
