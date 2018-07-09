@@ -90,15 +90,6 @@ public class DsCmsBaseController extends BaseController
 		return siteMap.get(siteid);
 	}
 
-	public boolean siteNotSetPermission(long siteid)
-	{
-		if(!checkOwn(siteid))
-		{
-			return false;
-		}
-		return siteMap.get(siteid) == null;
-	}
-
 	public boolean categoryNotNeedAudit(long siteid, long categoryid)
 	{
 		if(!checkOwn(siteid))
