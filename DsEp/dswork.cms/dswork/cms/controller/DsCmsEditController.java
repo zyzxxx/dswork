@@ -119,6 +119,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					po.setJsondata(GsonUtil.toJson(map));
 					po.setImg(changeImageToLocal(s, po.getImg()));
 					po.setContent(changeContentToLocal(s, po.getContent()));
+					po.setStatus(0);
 
 					String action = req.getString("action");
 					if("save".equals(action))
@@ -130,9 +131,10 @@ public class DsCmsEditController extends DsCmsBaseController
 					}
 					if("submit".equals(action))
 					{
-						po.setStatus(1);
 						if(categoryNotNeedAudit(s.getId(), c.getId()))
 						{
+							po.setStatus(1);
+							po.setAuditstatus(0);
 							service.savePageEdit(po, true, s.isWriteLog(), getAccount(), getName());// url拼接/id.html
 						}
 						else
@@ -244,6 +246,7 @@ public class DsCmsEditController extends DsCmsBaseController
 					put("pageNav", new PageNav<DsCmsPageEdit>(request, pageModel));
 					put("po", c);
 					put("enablemobile", s.getEnablemobile() == 1);
+					put("categoryNeedAudit", !categoryNotNeedAudit(s.getId(), c.getId()));
 					return "/cms/edit/getPage.jsp";
 				}
 			}
@@ -422,9 +425,9 @@ public class DsCmsEditController extends DsCmsBaseController
 				p.setReleasetime(po.getReleasetime());
 				p.setImgtop(po.getImgtop());
 				p.setPagetop(po.getPagetop());
-				p.setStatus(1);
 				p.setImg(changeImageToLocal(s, po.getImg()));
 				p.setContent(changeContentToLocal(s, po.getContent()));
+				p.setStatus(0);
 
 				Map<String, String> map = new LinkedHashMap<String, String>();
 				String[] ctitleArr = req.getStringArray("ctitle", false);
@@ -453,6 +456,8 @@ public class DsCmsEditController extends DsCmsBaseController
 				{
 					if(categoryNotNeedAudit(p.getSiteid(), p.getCategoryid()))
 					{
+						p.setStatus(1);
+						p.setAuditstatus(0);
 						p.pushEditidAndEditname(getAccount(), getName());
 						p.setEdittime(TimeUtil.getCurrentTime());
 						service.updatePageEdit(p, true, s.isWriteLog(), getAccount(), getName());
@@ -589,6 +594,7 @@ public class DsCmsEditController extends DsCmsBaseController
 				p.setEdittime(TimeUtil.getCurrentTime());
 				p.setImg(changeImageToLocal(s, po.getImg()));
 				p.setContent(changeContentToLocal(s, po.getContent()));
+				p.setStatus(0);
 
 				Map<String, String> map = new LinkedHashMap<String, String>();
 				String[] ctitleArr = req.getStringArray("ctitle", false);
@@ -615,6 +621,8 @@ public class DsCmsEditController extends DsCmsBaseController
 				{
 					if(categoryNotNeedAudit(p.getSiteid(), p.getId()))
 					{
+						p.setStatus(1);
+						po.setAuditstatus(0);
 						service.updateCategoryEdit(p, true, s.isWriteLog(), getAccount(), getName());
 						print(1);
 						return;

@@ -131,7 +131,6 @@ public class DsCmsAuditService
 				}
 				categoryDao.updateURL(c);
 			}
-			po.setStatus(1);// categoryEdit设置为待更新状态
 		}
 		categoryEditDao.update(po);
 		if(enablelog)
@@ -182,7 +181,6 @@ public class DsCmsAuditService
 				}
 				pageDao.update(p);
 			}
-			po.setStatus(1);// pageEdit设置为待更新状态
 		}
 		pageEditDao.update(po);
 		if(enablelog)
