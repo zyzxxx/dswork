@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jardesc>
-    <jar path="E:/Workspaces/jar/dswork/dswork.builder.jar"/>
-    <options buildIfNeeded="true" compress="true" descriptionLocation="/DsWorkJava/dswork.builder.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
+    <jar path="E:/Workspaces/jar/dswork/dswork-builder.jar"/>
+    <options buildIfNeeded="true" compress="true" descriptionLocation="/DsWorkJava/jardesc/dswork-builder.jardesc" exportErrors="true" exportWarnings="true" includeDirectoryEntries="false" overwrite="false" saveDescription="true" storeRefactorings="false" useSourceFolders="false"/>
     <storedRefactorings deprecationInfo="true" structuralOnly="false"/>
     <selectedProjects/>
     <manifest generateManifest="true" mainClassHandleIdentifier="=DsWorkJava/dswork.builder&lt;dswork.builder{Builder.java[Builder" manifestLocation="" manifestVersion="1.0" reuseManifest="false" saveManifest="false" usesManifest="true">
