@@ -1,6 +1,9 @@
 package dswork.analyzer.core;
 
 /**
+ * 源代码由林良益(linliangyi2005@gmail.com)提供
+ * 版权声明 2012，乌龙茶工作室
+ * provided by Linliangyi and copyright 2012 by Oolong studio
  * Lexeme链（路径）
  */
 class LexemePath extends QuickSortSet implements Comparable<LexemePath>

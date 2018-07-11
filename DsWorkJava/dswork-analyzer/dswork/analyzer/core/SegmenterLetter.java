@@ -3,6 +3,9 @@ package dswork.analyzer.core;
 import java.util.Arrays;
 
 /**
+ * 源代码由林良益(linliangyi2005@gmail.com)提供
+ * 版权声明 2012，乌龙茶工作室
+ * provided by Linliangyi and copyright 2012 by Oolong studio
  * 英文字符及阿拉伯数字子分词器
  */
 class SegmenterLetter implements Segmenter

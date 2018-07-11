@@ -1,6 +1,9 @@
 package dswork.analyzer.dict;
 
 /**
+ * 源代码由林良益(linliangyi2005@gmail.com)提供
+ * 版权声明 2012，乌龙茶工作室
+ * provided by Linliangyi and copyright 2012 by Oolong studio
  * 表示一次词典匹配的命中
  */
 public class Hit

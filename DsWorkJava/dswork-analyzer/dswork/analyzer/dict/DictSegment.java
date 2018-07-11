@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * 源代码由林良益(linliangyi2005@gmail.com)提供
+ * 版权声明 2012，乌龙茶工作室
+ * provided by Linliangyi and copyright 2012 by Oolong studio
  * 词典树分段，表示词典树的一个分枝
  */
 class DictSegment implements Comparable<DictSegment>

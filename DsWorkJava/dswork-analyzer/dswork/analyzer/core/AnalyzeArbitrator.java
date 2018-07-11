@@ -4,6 +4,9 @@ import java.util.Stack;
 import java.util.TreeSet;
 
 /**
+ * 源代码由林良益(linliangyi2005@gmail.com)提供
+ * 版权声明 2012，乌龙茶工作室
+ * provided by Linliangyi and copyright 2012 by Oolong studio
  * 分词歧义裁决器
  */
 class AnalyzeArbitrator
