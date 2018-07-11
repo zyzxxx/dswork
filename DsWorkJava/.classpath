@@ -18,6 +18,7 @@
 	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.web"/>
 	<classpathentry excluding="MANIFEST.MF" kind="src" path="dswork.webio"/>
 	<classpathentry kind="src" path="org.hibernate.dialect"/>
+	<classpathentry kind="src" path="dswork.ee"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -33,13 +34,10 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/json/gson/gson-2.8.0.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="/Lib/module/lucene/lucene-core-5.5.4.jar"/>
 	<classpathentry kind="lib" path="/Lib/module/template/freemarker-2.3.27.jar"/>
 	<classpathentry kind="lib" path="/Lib/database/mssql/mssql-jdbc4.jar"/>
+	<classpathentry kind="lib" path="/Lib/tomcat_session/manager/memcached-session-manager-2.3.0.jar"/>
+	<classpathentry kind="lib" path="/Lib/tomcat_session/manager/memcached-session-manager-tc8-2.3.0.jar"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>

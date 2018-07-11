@@ -11,6 +11,12 @@
 $dswork.callback = function(){if($dswork.result.type==1){
 	location.reload();
 }};
+function show(){
+	var i = new Image();
+	i.src = $("#inputImg").val();
+	i.onload = function(){$("#imgShow").attr("src",this.src).show()};
+	i.onerror = function(){$("#imgShow").hide()};
+}
 $(function(){
 	$(".form_title").css("width", "8%");
 	$("#btn_category").bind("click", function(){
@@ -21,7 +27,7 @@ $(function(){
 			});
 		}
 	});
-
+	show();
 });
 </script>
 </head>
@@ -82,7 +88,8 @@ $(function(){
 		<td class="form_title">图片</td>
 		<td class="form_input">
 			图片地址：${fn:escapeXml(po.img)}<br/>
-			焦点图：${po.imgtop==1?'是':'否'}
+			焦点图：${po.imgtop==1?'是':'否'}<br/>
+			<input type="hidden" id="inputImg" value="${fn:escapeXml(po.img)}" /><img id="imgShow" style="width:100px">
 		</td>
 	</tr>
 	<tr>
@@ -96,6 +103,12 @@ $(function(){
 		<td class="form_title">状态</td>
 		<td class="form_input">${po.status==-1?'删除发布':po.status==8?'已发布':'待发布'}</td>
 	</tr>
+<c:forEach items="${columns}" var="d">
+	<tr>
+		<td class="form_title">${fn:escapeXml(d.cname)}</td>
+		<td class="form_input">${fn:escapeXml(d.cvalue)}</td>
+	</tr>
+</c:forEach>
 </table>
 </body>
 </html>

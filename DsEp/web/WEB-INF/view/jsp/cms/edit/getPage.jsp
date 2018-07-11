@@ -26,6 +26,8 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	<tr>
 		<td class="title">${fn:escapeXml(po.name)}-内容列表</td>
 		<td class="menuTool">
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}">预览本栏目</a><c:if test="${enablemobile}">
+			<a class="look" target="_blank" href="${ctx}/cmsbuild/preview.chtml?siteid=${po.siteid}&categoryid=${po.id}&mobile=true">预览移动版本栏目</a></c:if>
 			<a class="update" href="updCategory1.htm?id=${po.id}">编辑本栏目</a>
 			<a class="insert" href="addPage1.htm?categoryid=${po.id}&page=${pageModel.currentPage}">添加</a>
 			<a class="delete" id="listFormDelAll" href="#">删除所选</a>
@@ -58,18 +60,17 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 	</tr>
 <c:forEach items="${pageModel.result}" var="d">
 	<tr>
-		<td>
-		<c:if test="${(d.status==0 && (d.edit || d.nopass)) || d.pass}">
-			<input name="keyIndex" type="checkbox" value="${d.id}" />
-		</c:if>
-		</td>
+		<td><c:if test="${!d.audit}"><input name="keyIndex" type="checkbox" value="${d.id}" /></c:if></td>
 		<td class="menuTool" keyIndex="${d.id}">&nbsp;</td>
 		<td>${fn:escapeXml(d.title)}</td>
 		<td>${fn:escapeXml(d.releasetime)}</td>
 		<td>${d.scope==2?'是':'否'}</td>
 		<td>${d.pagetop==1?'是':'否'}</td>
 		<td>${d.imgtop==1?'是':'否'}</td>
-		<td>${d.edit?'未提交':d.audit?'审核中':d.nopass?'未通过':d.pass?'已通过':''}</td>
+		<td><c:if test="${categoryNeedAudit}">
+			${d.edit?'未提交':d.audit?'审核中':d.nopass?'未通过':d.pass?'已通过':''}</c:if><c:if test="${not categoryNeedAudit}">
+			${d.status==0?'未提交':d.status==1?'已提交':''}</c:if>
+		</td>
 	</tr>
 </c:forEach>
 </table>

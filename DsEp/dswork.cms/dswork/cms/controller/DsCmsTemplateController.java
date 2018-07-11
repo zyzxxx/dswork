@@ -66,8 +66,9 @@ public class DsCmsTemplateController extends DsCmsBaseController
 			put("siteid", siteid);
 			return "/cms/template/getTemplateTree.jsp";
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -137,8 +138,9 @@ public class DsCmsTemplateController extends DsCmsBaseController
 				}
 			}
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 		sb.append("]");
 		print(sb.toString());
@@ -243,5 +245,11 @@ public class DsCmsTemplateController extends DsCmsBaseController
 			e.printStackTrace();
 			print("0:文件读写失败，请重试");
 		}
+	}
+
+	@RequestMapping("readme")
+	public String readme()
+	{
+		return "/cms/template/readme.jsp";
 	}
 }

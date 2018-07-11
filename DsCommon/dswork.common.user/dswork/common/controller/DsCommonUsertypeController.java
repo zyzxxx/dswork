@@ -25,7 +25,7 @@ import dswork.common.service.DsCommonUsertypeService;
 
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/usertype")
+@RequestMapping("/ds/common/usertype")
 public class DsCommonUsertypeController extends BaseController
 {
 	@Autowired
@@ -35,7 +35,7 @@ public class DsCommonUsertypeController extends BaseController
 	@RequestMapping("/addUsertype1")
 	public String addUsertype1()
 	{
-		return "/common/usertype/addUsertype.jsp";
+		return "/ds/common/usertype/addUsertype.jsp";
 	}
 	
 	@RequestMapping("/addUsertype2")
@@ -120,7 +120,7 @@ public class DsCommonUsertypeController extends BaseController
 		put("page", req.getInt("page", 1));
 		List<DsCommonUsertypeRes> list = po.getResourcesList();
 		put("list", list);
-		return "/common/usertype/updUsertype.jsp";
+		return "/ds/common/usertype/updUsertype.jsp";
 	}
 	
 	@RequestMapping("/updUsertype2")
@@ -192,7 +192,7 @@ public class DsCommonUsertypeController extends BaseController
 	{
 		List<DsCommonUsertype> list = service.queryList(new HashMap<String, Object>());
 		put("list", list);
-		return "/common/usertype/updUsertypeSeq.jsp";
+		return "/ds/common/usertype/updUsertypeSeq.jsp";
 	}
 
 	@RequestMapping("/updUsertypeSeq2")
@@ -225,7 +225,7 @@ public class DsCommonUsertypeController extends BaseController
 		Page<DsCommonUsertype> pageModel = service.queryPage(getPageRequest());
 		put("pageModel", pageModel);
 		put("pageNav", new PageNav<DsCommonUsertype>(request, pageModel));
-		return "/common/usertype/getUsertype.jsp";
+		return "/ds/common/usertype/getUsertype.jsp";
 	}
 
 	//明细
@@ -234,6 +234,6 @@ public class DsCommonUsertypeController extends BaseController
 	{
 		Long id = req.getLong("keyIndex");
 		put("po", service.get(id));
-		return "/common/usertype/getUsertypeById.jsp";
+		return "/ds/common/usertype/getUsertypeById.jsp";
 	}
 }

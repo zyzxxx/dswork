@@ -1,43 +1,41 @@
-!!!!!!!!!不得将此项目复制为工作项目，仅作为教学示例!!!!!!!!!
-作为bs项目运行时，还需要将web项目同时发布
-
-
-较2015年及之前老旧项目配置升级：
-	mybatis，sql中like语法升级：
-		将config/application-mybatis.xml新增
-		<property name="typeHandlers">
-			<list>
-				<bean class="dswork.core.mybatis.LikeTypeHandler" />
-			</list>
-		</property>
-		<property name="typeAliases">
-			<list>
-				<value>dswork.core.mybatis.LikeTypeHandler</value>
-			</list>
-		</property>
-
-log4j从1.2升级为2.3
-	将config中原log4j.properties文件替换为现在config/log4j2.xml文件
-	将WEB-INF/web.xml
-		<context-param>
-			<param-name>webAppRootKey</param-name>
-			<param-value>web.root.***</param-value>
-		</context-param>
-		<context-param>
-			<param-name>log4jConfigLocation</param-name>
-			<param-value>/WEB-INF/classes/config/log4j.properties</param-value>
-		</context-param>
-		<listener>
-			<description>log4j</description>
-			<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
-		</listener>
-	替换为：
-		<context-param>
-			<param-name>log4jConfiguration</param-name>
-			<param-value>classpath:config/log4j2.xml</param-value>
-		</context-param>
-		<listener>
-			<listener-class>org.apache.logging.log4j.web.Log4jServletContextListener</listener-class>
-		</listener>
-
-
+系统结构说明
+	系统主要结构为主package：假设为com.test
+		其中分5个文件夹：controller、service、dao、model、mapper
+		如果使用到jsp模板则放于目录：/WEB-INF/view/jsp
+	使用原则
+		controller的名称对应url地址，以驼峰方式命名，jsp模板文件也存放相对于的目录中
+			比如/manage/demo，则控制器名称为：ManageDemoController
+			jsp存放于/WEB-INF/view/jsp/manage/demo目录下 
+			页面名称与控制器方法名一致
+		一个controller对应一个service
+		mapper文件的namespace对应dao的路径
+配置文件使用说明
+	dswork.base-package：主系统扫描使用的基础package逗号分隔，最多五个，如配置为common,com.test
+		spring主容器将扫描service、dao目录
+		mvc主窗口将扫描controller目录
+		mybatis扫描mapper目录
+数据库连接配置，对应sqlSessionTemplate
+	主连接，系统底层采用读写分离，从库为读库（可负载多台），从库配置均加上read，不写时使用主库相同配置，都不写时使用默认配置
+		jdbc.dialect.name=mysql #默认值，使用mysql时可不配置，可选值目前有：(gbase,mariadb,mysql,postgresql,sqlite,dm,oracle,db2,derby,sqlserver,sqlserver2000,sqlserver2005,sqlserver2008,sqlserver2012)
+		jdbc.mapper #主连接默认使用dswork.base-package配置的mapper目录扫描，可不配置，但配置了的话，则不使用dswork.base-package的扫描， 同样最多5个，以逗号分隔，需要配置全地址：classpath*:/com/test/mapper2/*.map.xml,classpath*:/common/**/*.map.xml
+		#其余连接数据源配置如下：
+		jdbc.url
+		jdbc.username
+		jdbc.password
+		jdbc.read.url #不写时等于jdbc.url
+		jdbc.read.username #不写时等于jdbc.username
+		jdbc.read.password #不写时等于jdbc.password
+	其余数据源配置，系统默认可扩展三个，和主连接说明一致
+	所有参数名称前缀jdbc改为相应的jdbc1（对应sqlSessionTemplate1）、jdbc2（对应sqlSessionTemplate2）、jdbc3（对应sqlSessionTemplate3）
+		jdbc1.dialect.name
+		jdbc1.mapper=classpath*:/com/test/mapper2/*.map.xml
+		
+		jdbc1.url
+		jdbc1.username
+		jdbc1.password
+		jdbc1.read.url #不写时等于jdbc1.url
+		jdbc1.read.username #不写时等于jdbc1.username
+		jdbc1.read.password #不写时等于jdbc1.password
+		
+		
+	

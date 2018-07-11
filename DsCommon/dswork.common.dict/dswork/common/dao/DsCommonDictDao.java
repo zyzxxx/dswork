@@ -18,7 +18,7 @@ public class DsCommonDictDao extends BaseDao<DsCommonDict, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCommonDict.class;
+		return DsCommonDictDao.class;
 	}
 	
 	/**

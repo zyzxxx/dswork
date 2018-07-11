@@ -28,6 +28,8 @@ public class WebFilter implements Filter
 {
 	static com.google.gson.Gson gson = AuthGlobal.getGson();
 	static Logger log = LoggerFactory.getLogger("dswork.sso");
+	
+	private static boolean use = false;// 用于判断是否加载sso模块
 
 	private final static String TICKET = "ticket";// url中传来的sessionKey的变量名
 	public final static String LOGINER = "sso.web.loginer";// sessionUser在session中的key
@@ -362,6 +364,11 @@ public class WebFilter implements Filter
 		session.removeAttribute(LOGINER);
 		session.removeAttribute(TICKET);
 	}
+	
+	public static boolean isUse()
+	{
+		return WebFilter.use;
+	}
 
 	public void init(FilterConfig config) throws ServletException
 	{
@@ -382,15 +389,18 @@ public class WebFilter implements Filter
 			ssoName = String.valueOf(CONFIG.getProperty("sso.ssoName")).trim();
 			ssoPassword = String.valueOf(CONFIG.getProperty("sso.ssoPassword")).trim();
 			webURL = String.valueOf(CONFIG.getProperty("sso.webURL")).trim();
-			if("null".equals(webURL))
+			loginURL = String.valueOf(CONFIG.getProperty("sso.loginURL")).trim();
+			logoutURL = String.valueOf(CONFIG.getProperty("sso.logoutURL")).trim();
+			if(!"null".equals(webURL))
 			{
-				loginURL = String.valueOf(CONFIG.getProperty("sso.loginURL")).trim();
-				logoutURL = String.valueOf(CONFIG.getProperty("sso.logoutURL")).trim();
-			}
-			else
-			{
-				loginURL  = webURL + "/login";
-				logoutURL = webURL + "/logout";
+				if("null".equals(loginURL))
+				{
+					loginURL  = webURL + "/login";
+				}
+				if("null".equals(logoutURL))
+				{
+					logoutURL = webURL + "/logout";
+				}
 				passwordURL = webURL + "/password";
 			}
 			systemURL = String.valueOf(CONFIG.getProperty("sso.systemURL")).trim();
@@ -419,6 +429,7 @@ public class WebFilter implements Filter
 			ignoreURL = String.valueOf(config.getInitParameter("ignoreURL")).trim();
 		}
 		AuthGlobal.init(ssoURL, ssoName, ssoPassword);
+		WebFilter.use = true;
 		if("null".equals(systemURL)){systemURL = "";}
 		ignoreURLSet.clear();
 		if(ignoreURL.length() > 0)

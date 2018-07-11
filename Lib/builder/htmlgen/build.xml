@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<project default="init">
+<target name="init">
+	<exec command="htmlgen.exe" failonerror="true"></exec>
+</target>
+</project>

@@ -18,7 +18,7 @@ public class DsCmsPageDao extends BaseDao<DsCmsPage, Long>
 	@Override
 	public Class getEntityClass()
 	{
-		return DsCmsPage.class;
+		return DsCmsPageDao.class;
 	}
 
 	/**
@@ -40,5 +40,10 @@ public class DsCmsPageDao extends BaseDao<DsCmsPage, Long>
 		map.put("siteid", siteid);
 		map.put("categoryid", categoryid);
 		return executeDelete("deleteNeedBeDelete", map);
+	}
+
+	public int deleteByCategoryid(Long categoryid)
+	{
+		return executeDelete("deleteByCategoryid", categoryid);
 	}
 }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC
+	"-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="dswork.ep.dao.DsEpEnterpriseDao">
+
+	<insert id="insert" parameterType="dswork.ep.model.DsEpEnterprise">
+		insert into DS_EP_ENTERPRISE
+		(ID, NAME, SSXQ, QYBM, STATUS, TYPE)
+		values
+		(#{id}, #{name}, #{ssxq}, lower(#{qybm}), #{status}, #{type})
+	</insert>
+
+	<delete id="delete">
+		delete from DS_EP_ENTERPRISE where ID=#{id}
+	</delete>
+
+	<update id="update" parameterType="dswork.ep.model.DsEpEnterprise">
+		update DS_EP_ENTERPRISE set
+			NAME=#{name},
+			SSXQ=#{ssxq},
+			STATUS=#{status},
+			TYPE=#{type}
+		where ID=#{id}
+	</update>
+
+	<resultMap id="result" type="dswork.ep.model.DsEpEnterprise">
+		<id property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="ssxq" column="SSXQ" />
+		<result property="qybm" column="QYBM" />
+		<result property="status" column="STATUS" />
+		<result property="type" column="TYPE" />
+	</resultMap>
+
+	<sql id="columns">
+		ID, NAME, SSXQ, QYBM, STATUS, TYPE
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(name)"> and NAME like #{name, typeHandler=LikeTypeHandler} </if>
+			<if test="@Ognl@isNotEmpty(ssxq)"> and SSXQ=#{ssxq} </if>
+			<if test="@Ognl@isNotEmpty(qybm)"> and QYBM=lower(#{qybm}) </if>
+			<if test="@Ognl@isNotEmpty(keyvalue)"> and (QYBM=lower(#{keyvalue}) or NAME like #{keyvalue, typeHandler=LikeTypeHandler}) </if>
+			<if test="@Ognl@isNotEmpty(status)"> and STATUS=#{status} </if>
+			<if test="@Ognl@isNotEmpty(type)"> and TYPE=#{type} </if>
+		</where>
+	</sql>
+
+	<select id="select" resultMap="result">
+		select <include refid="columns" /> from DS_EP_ENTERPRISE where ID=#{id}
+	</select>
+
+	<select id="query" resultMap="result">
+		select <include refid="columns" /> from DS_EP_ENTERPRISE
+		<include refid="dynamicWhere" />
+	</select>
+
+	<select id="getByQybm" resultMap="result">
+		select <include refid="columns" /> from DS_EP_ENTERPRISE where QYBM=lower(#{qybm})
+	</select>
+
+	<select id="queryCount" resultType="int">
+		select count(1) from DS_EP_ENTERPRISE
+		<include refid="dynamicWhere" />
+	</select>
+
+</mapper>

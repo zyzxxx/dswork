@@ -11,7 +11,8 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.user"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.user.org"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.flow"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.user.role"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.extends"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/dswork.common.single"/>
 		<property name="context-root" value="DsCommon"/>
 		<property name="java-output-path" value="/DsCommon/web/WEB-INF/classes"/>
 	</wb-module>

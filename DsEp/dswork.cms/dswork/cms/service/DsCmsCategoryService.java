@@ -16,12 +16,11 @@ import dswork.cms.dao.DsCmsPageDao;
 import dswork.cms.dao.DsCmsPageEditDao;
 import dswork.cms.dao.DsCmsSiteDao;
 import dswork.cms.model.DsCmsCategory;
-import dswork.cms.model.DsCmsCategoryEdit;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsSite;
-import dswork.core.db.EntityDao;
 import dswork.core.db.BaseService;
+import dswork.core.db.EntityDao;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
 
@@ -140,25 +139,25 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 				Map<String, Object> map = new HashMap<String, Object>();
 				map.put("categoryid", c.getId());
 				List<DsCmsPage> plist = pageDao.queryList(map);
-				List<DsCmsPageEdit> pelist = pageEditDao.queryList(map);
 				for(DsCmsPage p : plist)
 				{
-					if(p.getStatus() != -1)
-					{
-						pageDao.updateStatus(p.getStatus(), 0);
-					}
-				}
-				for(DsCmsPageEdit p : pelist)
-				{
+					// 以DsCmsPage表的状态为基准，保证DsCmsPage和DsCmsPageEdit是一致的
 					if(p.getStatus() == -1)
 					{
+						pageDao.delete(p.getId());
 						pageEditDao.delete(p.getId());
 					}
 					else
 					{
-						p.setStatus(0);
-						p.setAuditstatus(0);
-						pageEditDao.update(p);
+						pageDao.updateStatus(p.getId(), 0);
+						DsCmsPageEdit pe = (DsCmsPageEdit) pageEditDao.get(p.getId());
+						// 防止因两表数据可能不一致而产生NPE
+						if(pe != null)
+						{
+							pe.setStatus(0);
+							pe.setAuditstatus(0);
+							pageEditDao.update(pe);
+						}
 					}
 				}
 			}
@@ -178,13 +177,8 @@ public class DsCmsCategoryService extends BaseService<DsCmsCategory, Long>
 			{
 				if(c.getScope() == 1)
 				{
-					Map<String, Object> map = new HashMap<String, Object>();
-					map.put("categoryid", c.getId());
-					List<DsCmsPageEdit> plist = pageEditDao.queryList(map);
-					for(DsCmsPageEdit p : plist)
-					{
-						pageEditDao.delete(p.getId());
-					}
+					pageDao.deleteByCategoryid(c.getId());
+					pageEditDao.deleteByCategoryid(c.getId());
 				}
 				dao.delete(c.getId());
 			}

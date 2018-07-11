@@ -1,7 +1,5 @@
 package common.cms.controller;
 
-import java.util.Map;
-
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +7,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import common.cms.CmsFactory;
 import common.cms.CmsFactoryMobile;
 import common.cms.CmsFactoryPreview;
+import common.cms.model.ViewCategory;
+import common.cms.model.ViewArticle;
+import common.cms.model.ViewArticleNav;
+import common.cms.model.ViewSite;
 import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
+
 @Scope("prototype")
 @Controller
 public class DsCmsbuildPreviewController extends BaseController
@@ -24,60 +27,59 @@ public class DsCmsbuildPreviewController extends BaseController
 		boolean mobile = req.getString("mobile", "false").equals("true");
 
 		CmsFactory cms = new CmsFactoryPreview(siteid);
+		cms.setRequest(request);
 		if(mobile)
 		{
 			cms = new CmsFactoryMobile(cms);
 		}
 		put("cms", cms);
 		put("year", TimeUtil.getCurrentTime("yyyy"));
-		Map<String, Object> s = cms.getSite();
+		ViewSite s = cms.getSite();
 		put("site", s);
-		put("ctx", request.getContextPath() + "/html/" + s.get("folder") + (mobile ? "/html/m" : "/html"));// 预览时，现在可以不需要运行服务器，即可浏览相对地址
+		put("ctx", request.getContextPath() + "/html/" + s.getFolder() + (mobile ? "/html/m" : "/html"));// 预览时，现在可以不需要运行服务器，即可浏览相对地址
 		if(pageid > 0)// 内容页
 		{
-			Map<String, Object> p = cms.get(pageid.toString());
-			Map<String, Object> c = cms.getCategory(p.get("categoryid"));
+			ViewArticle p = cms.get(pageid.toString());
+			ViewCategory c = cms.getCategory(p.getCategoryid());
 			put("category", c);
-			put("id", getString(p.get("id")));
-			put("categoryid", getString(p.get("categoryid")));
-			put("title", getString(p.get("title")));
-			put("summary", getString(p.get("summary")));
-			put("metakeywords", getString(p.get("metakeywords")));
-			put("metadescription", getString(p.get("metadescription")));
-			put("releasetime", getString(p.get("releasetime")));
-			put("releasesource", getString(p.get("releasesource")));
-			put("releaseuser", getString(p.get("releaseuser")));
-			put("img", getString(p.get("img")));
-			put("url", getString(p.get("url")));
-			put("content", getString(p.get("content")));
-			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mpageviewsite") : "/templates/"+c.get("pageviewsite"));
+			put("categorylist", cms.queryCategory("0"));// 顶层节点列表
+			put("id", p.getId());
+			put("vo", p.getVo());
+			put("categoryid", p.getCategoryid());
+			put("title", p.getTitle());
+			put("summary", p.getSummary());
+			put("metakeywords", p.getMetakeywords());
+			put("metadescription", p.getMetadescription());
+			put("releasetime", p.getReleasetime());
+			put("releasesource", p.getReleasesource());
+			put("releaseuser", p.getReleaseuser());
+			put("img", p.getImg());
+			put("url", p.getUrl());
+			put("content", p.getContent());
+			return "/" + s.getFolder() + (mobile ? "/templates/m/"+c.getMpageviewsite() : "/templates/"+c.getPageviewsite());
 		}
 		if(categoryid > 0)// 栏目页
 		{
 			int page = req.getInt("page", 1);
 			int pagesize = req.getInt("pagesize", 25);
-			Map<String, Object> c = cms.getCategory(categoryid + "");
-			if(String.valueOf(c.get("viewsite")).equals(""))
+			ViewCategory c = cms.getCategory(categoryid + "");
+			if(c.getViewsite().length() == 0)
 			{
 				return null;
 			}
-			put("categoryparent", cms.getCategory(c.get("pid")));
-			put("categorylist", cms.queryCategory("0"));
+			put("categoryparent", cms.getCategory(c.getPid()));// 不再推荐使用
+			put("categorylist", cms.queryCategory("0"));// 顶层节点列表
 			put("categoryid", categoryid);
 			put("category", c);
-			Map<String, Object> mm = cms.queryPage(page, pagesize, false, false, true, String.valueOf(c.get("url")), categoryid);
-			put("datalist", mm.get("list"));
-			put("datapageview", String.valueOf(mm.get("datapageview")));
-			put("datauri", mm.get("datauri"));
-			put("datapage", mm.get("datapage"));
-			return "/" + s.get("folder") + (mobile ? "/templates/m/"+c.get("mviewsite") : "/templates/"+c.get("viewsite"));
+			put("vo", c.getVo());
+			ViewArticleNav nav = cms.queryPage(page, pagesize, false, false, true, c.getUrl(), categoryid);
+			put("datalist", nav.getList());
+			put("datapageview", nav.getDatapageview());
+			put("datauri", nav.getDatauri());
+			put("datapage", nav.getDatapage());
+			return "/" + s.getFolder() + (mobile ? "/templates/m/"+c.getMviewsite() : "/templates/"+c.getViewsite());
 		}
 		// 首页
-		return "/" + s.get("folder") + (mobile ? "/templates/m/"+s.get("mviewsite") : "/templates/"+s.get("viewsite"));
-	}
-	
-	private String getString(Object object)
-	{
-		return object == null ? "" : String.valueOf(object);
+		return "/" + s.getFolder() + (mobile ? "/templates/m/"+s.getMviewsite() : "/templates/"+s.getViewsite());
 	}
 }

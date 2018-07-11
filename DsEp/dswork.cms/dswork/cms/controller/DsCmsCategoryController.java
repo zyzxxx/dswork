@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import common.cms.GsonUtil;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsPageEdit;
 import dswork.cms.model.DsCmsSite;
@@ -66,8 +67,9 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			put("siteid", siteid);
 			return "/cms/category/getCategory.jsp";
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -106,8 +108,9 @@ public class DsCmsCategoryController extends DsCmsBaseController
 			put("siteid", siteid);
 			return "/cms/category/getRecycledCategory.jsp";
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -142,6 +145,24 @@ public class DsCmsCategoryController extends DsCmsBaseController
 				DsCmsSite s = service.getSite(po.getSiteid());
 				if(checkOwn(s.getId()))
 				{
+					List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+					Map<String, String> map = new HashMap<String, String>();
+					String[] cnameArr = req.getStringArray("cname", false);
+					String[] ctitleArr = req.getStringArray("ctitle", false);
+					String[] cdatatypeArr = req.getStringArray("cdatatype", false);
+					for(int i = 0; i < cnameArr.length; i++)
+					{
+						if(ctitleArr[i].length() > 0 && map.get(ctitleArr[i]) == null)
+						{
+							Map<String, String> m = new HashMap<String, String>();
+							m.put("cname", cnameArr[i]);
+							m.put("ctitle", ctitleArr[i]);
+							m.put("cdatatype", cdatatypeArr[i]);
+							map.put(ctitleArr[i], ctitleArr[i]);
+							list.add(m);
+						}
+					}
+					po.setJsontable(GsonUtil.toJson(list));
 					po.setStatus(0);// 没有新增状态，直接就是修改状态
 					service.save(po);
 					print(1);
@@ -339,6 +360,7 @@ public class DsCmsCategoryController extends DsCmsBaseController
 					put("enablemobile", s.getEnablemobile() == 1);
 					put("templates", getTemplateName(s.getFolder(), false));
 					put("mtemplates", getTemplateName(s.getFolder(), true));
+					put("columns", GsonUtil.toBean(po.getJsontable(), List.class));
 					return "/cms/category/updCategory.jsp";
 				}
 			}
@@ -354,10 +376,28 @@ public class DsCmsCategoryController extends DsCmsBaseController
 	{
 		try
 		{
-			DsCmsCategory m = service.get(po.getId());
-			DsCmsSite s = service.getSite(m.getSiteid());
-			if(m.getSiteid() == s.getId() && checkOwn(s.getId()))
+			DsCmsCategory c = service.get(po.getId());
+			DsCmsSite s = service.getSite(c.getSiteid());
+			if(c.getSiteid() == s.getId() && checkOwn(s.getId()))
 			{
+				List<Map<String, String>> list = new ArrayList<Map<String, String>>();
+				Map<String, String> map = new HashMap<String, String>();
+				String[] cnameArr = req.getStringArray("cname", false);
+				String[] ctitleArr = req.getStringArray("ctitle", false);
+				String[] cdatatypeArr = req.getStringArray("cdatatype", false);
+				for(int i = 0; i < cnameArr.length; i++)
+				{
+					if(ctitleArr[i].length() > 0 && map.get(ctitleArr[i]) == null)
+					{
+						Map<String, String> m = new HashMap<String, String>();
+						m.put("cname", cnameArr[i]);
+						m.put("ctitle", ctitleArr[i]);
+						m.put("cdatatype", cdatatypeArr[i]);
+						map.put(ctitleArr[i], ctitleArr[i]);
+						list.add(m);
+					}
+				}
+				po.setJsontable(GsonUtil.toJson(list));
 				service.update(po);
 				print(1);
 				return;
@@ -458,8 +498,9 @@ public class DsCmsCategoryController extends DsCmsBaseController
 				}
 			}
 		}
-		catch(Exception ex)
+		catch(Exception e)
 		{
+			e.printStackTrace();
 		}
 		return list;
 	}

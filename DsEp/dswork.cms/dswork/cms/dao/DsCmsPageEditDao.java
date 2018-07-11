@@ -17,7 +17,7 @@ public class DsCmsPageEditDao extends BaseDao<DsCmsPageEdit, Long>
 	@Override
 	public Class<?> getEntityClass()
 	{
-		return DsCmsPageEdit.class;
+		return DsCmsPageEditDao.class;
 	}
 
 	public int queryCount(Map<String, Object> map)
@@ -44,5 +44,10 @@ public class DsCmsPageEditDao extends BaseDao<DsCmsPageEdit, Long>
 		map.put("id", id);
 		map.put("url", url);
 		return executeUpdate("updateUrl", map);
+	}
+
+	public int deleteByCategoryid(Long categoryid)
+	{
+		return executeDelete("deleteByCategoryid", categoryid);
 	}
 }

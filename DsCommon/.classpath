@@ -11,7 +11,8 @@
 	<classpathentry kind="src" path="dswork.common.org.role"/>
 	<classpathentry kind="src" path="dswork.common.user"/>
 	<classpathentry kind="src" path="dswork.common.user.org"/>
-	<classpathentry kind="src" path="dswork.common.user.role"/>
+	<classpathentry kind="src" path="dswork.common.extends"/>
+	<classpathentry kind="src" path="dswork.common.single"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JAVAEE">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.nondependency" value=""/>
@@ -23,11 +24,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Lib/database/mysql/mysql-connector-java-5.1.31-bin.jar">
-		<attributes>
-			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/json/gson/gson-2.8.0.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

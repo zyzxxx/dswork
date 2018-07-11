@@ -21,7 +21,7 @@ import dswork.core.page.PageNav;
 //角色
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/rolechoose")
+@RequestMapping("/ds/common/rolechoose")
 public class DsCommonRoleChooseController extends BaseController
 {
 	@Autowired
@@ -39,7 +39,7 @@ public class DsCommonRoleChooseController extends BaseController
 		{
 			put("systemid", systemid);
 		}
-		return "/common/rolechoose/getRoleChoose.jsp";
+		return "/ds/common/rolechoose/getRoleChoose.jsp";
 	}
 
 	// 树形管理
@@ -51,7 +51,7 @@ public class DsCommonRoleChooseController extends BaseController
 		{
 			put("po", service.getSystem(systemid));
 		}
-		return "/common/rolechoose/getRoleTree.jsp";
+		return "/ds/common/rolechoose/getRoleTree.jsp";
 	}
 	// 获得树形管理时的json数据
 	@RequestMapping("/getRoleJson")
@@ -92,6 +92,6 @@ public class DsCommonRoleChooseController extends BaseController
 		}
 		put("sys", service.getSystem(po.getSystemid()));
 		//put("po", po);
-		return "/common/rolechoose/getRoleById.jsp";
+		return "/ds/common/rolechoose/getRoleById.jsp";
 	}
 }

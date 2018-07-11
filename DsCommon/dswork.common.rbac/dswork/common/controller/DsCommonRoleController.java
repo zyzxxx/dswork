@@ -21,7 +21,7 @@ import dswork.core.util.CollectionUtil;
 //角色
 @Scope("prototype")
 @Controller
-@RequestMapping("/common/role")
+@RequestMapping("/ds/common/role")
 public class DsCommonRoleController extends BaseController
 {
 	@Autowired
@@ -45,7 +45,7 @@ public class DsCommonRoleController extends BaseController
 		put("parent", parent);
 		put("systemid", systemid);
 		put("pid", req.getLong("pid"));
-		return "/common/role/addRole.jsp";
+		return "/ds/common/role/addRole.jsp";
 	}
 	@RequestMapping("/addRole2")
 	public void addRole2(DsCommonRole po)
@@ -153,7 +153,7 @@ public class DsCommonRoleController extends BaseController
 		}
 		put("po", po);
 		put("parent", parent);
-		return "/common/role/updRole.jsp";
+		return "/ds/common/role/updRole.jsp";
 	}
 	@RequestMapping("/updRole2")
 	public void updRole2(DsCommonRole po)
@@ -208,7 +208,7 @@ public class DsCommonRoleController extends BaseController
 		long pid = req.getLong("pid");
 		List<DsCommonRole> list = service.queryList(systemid, pid);
 		put("list", list);
-		return "/common/role/updRoleSeq.jsp";
+		return "/ds/common/role/updRoleSeq.jsp";
 	}
 	@RequestMapping("/updRoleSeq2")
 	public void updRoleSeq2()
@@ -239,7 +239,7 @@ public class DsCommonRoleController extends BaseController
 	{
 		DsCommonSystem po = service.getSystem(req.getLong("systemid"));
 		put("po", po);
-		return "/common/role/updRoleMove.jsp";
+		return "/ds/common/role/updRoleMove.jsp";
 	}
 	@RequestMapping("/updRoleMove2")
 	public void updRoleMove2()
@@ -285,7 +285,7 @@ public class DsCommonRoleController extends BaseController
 	{
 		long systemid = req.getLong("systemid");
 		put("systemid", systemid);
-		return "/common/role/getRoleTree.jsp";
+		return "/ds/common/role/getRoleTree.jsp";
 	}
 	// 获得列表
 	@RequestMapping("/getRole")
@@ -297,7 +297,7 @@ public class DsCommonRoleController extends BaseController
 		put("list", list);
 		put("systemid", systemid);
 		put("pid", pid);
-		return "/common/role/getRole.jsp";
+		return "/ds/common/role/getRole.jsp";
 	}
 	// 获得树形管理时的json数据
 	@RequestMapping("/getRoleJson")// BySystemidAndPid
@@ -315,7 +315,7 @@ public class DsCommonRoleController extends BaseController
 		Long id = req.getLong("keyIndex");
 		DsCommonRole po = service.get(id);
 		put("po", po);
-		return "/common/role/getRoleById.jsp";
+		return "/ds/common/role/getRoleById.jsp";
 	}
 
 	private Long[] getLongArray(String value)

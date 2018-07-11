@@ -19,7 +19,7 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 		String dswork = "classpath*:/config/config.properties";
 		String dsworkSSO = "/config/sso.properties";
 		
-		String spring = ",/WEB-INF/classes/config/spring-*.xml";
+		String spring = ",classpath*:/config/spring-*.xml";
 		String springmvc = ",classpath*:/config/springmvc-*.xml";
 		
 		if(active.length() > 0)
@@ -69,94 +69,99 @@ public class WebInitializer implements dswork.web.MyWebInitializer
 			}
 		}
 
-		String jdbcDialect = EnvironmentUtil.getToString("jdbc.dialect", "");
-		String dsworkDialect = "mysql";
-		String mybatisDialect = "dswork.core.mybatis.dialect.LimitOffsetDialect";
-		String hibernateDialect = "";
+		String jdbcDialect = EnvironmentUtil.getToString("jdbc.dialect.name", "");
 		if(jdbcDialect.length() > 0)
 		{
-			if("mysql".equals(jdbcDialect) || "gbase".equals(jdbcDialect))
+			context.setInitParameter("jdbc.dialect.name", jdbcDialect);
+		}
+		context.setInitParameter("dsworkConfiguration", dswork);
+		context.setInitParameter("dsworkSSOConfiguration", dsworkSSO);
+		String dsworkDataSource = EnvironmentUtil.getToString("dswork.datasource", "");
+		if(dsworkDataSource.length() > 0)
+		{
+			context.setInitParameter("dswork.datasource", dsworkDataSource);
+		}
+		String jdbcURL = EnvironmentUtil.getToString("jdbc.url", "");
+		if(jdbcURL.length() > 0)
+		{
+			if("com.alibaba.druid.pool.DruidDataSource".equalsIgnoreCase(dsworkDataSource))
 			{
-			}
-			else if("oracle".equals(jdbcDialect))
-			{
-				dsworkDialect = "null";
-				mybatisDialect = "dswork.core.mybatis.dialect.OracleDialect";
-				hibernateDialect = "org.hibernate.dialect.OracleDialect";
-			}
-			else if("db2".equals(jdbcDialect))
-			{
-				dsworkDialect = "null";
-				mybatisDialect = "dswork.core.mybatis.dialect.DB2Dialect";
-				hibernateDialect = "org.hibernate.dialect.DB2Dialect";
-			}
-			else if("sqlite".equals(jdbcDialect))
-			{
-				dsworkDialect = "sqlite";
-				hibernateDialect = "org.hibernate.dialect.SQLiteDialect";
-			}
-			else if(jdbcDialect.startsWith("mssql"))
-			{
-				dsworkDialect = "mssql";
-				if("mssql2000".equals(jdbcDialect))
-				{
-					mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2000Dialect";
-					hibernateDialect = "org.hibernate.dialect.SQLServer2000Dialect";
-				}
-				else if("mssql2005".equals(jdbcDialect))
-				{
-					mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2005Dialect";
-					hibernateDialect = "org.hibernate.dialect.SQLServer2005Dialect";
-				}
-				else if("mssql2008".equals(jdbcDialect))
-				{
-					mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2008Dialect";
-					hibernateDialect = "org.hibernate.dialect.SQLServer2008Dialect";
-				}
-				else if("mssql2012".equals(jdbcDialect))
-				{
-					mybatisDialect = "dswork.core.mybatis.dialect.SQLServer2012Dialect";
-					hibernateDialect = "org.hibernate.dialect.SQLServer2012Dialect";
-				}
-				else
-				{
-					mybatisDialect = "dswork.core.mybatis.dialect.SQLServerDialect";
-					hibernateDialect = "org.hibernate.dialect.SQLServerDialect";
-				}
+				spring = ",classpath*:/dswork/config/spring/spring-datasource-druid.xml" + spring;
 			}
 			else
 			{
-				dsworkDialect = "null";
+				spring = ",classpath*:/dswork/config/spring/spring-datasource.xml" + spring;
 			}
 		}
-		context.setInitParameter("dswork.dialect", dsworkDialect);
-		context.setInitParameter("jdbc.dialect.mybatis", mybatisDialect);
-		context.setInitParameter("jdbc.dialect.hibernate", hibernateDialect);
+		String dsworkCommon = EnvironmentUtil.getToString("jdbc.common.dialect.name", "");
+		if(dsworkCommon.length() > 0)
+		{
+			spring = ",classpath*:/dswork/config/spring/spring-mybatis-common.xml" + spring;
+		}
+		String jdbc1 = EnvironmentUtil.getToString("jdbc1.dialect.name", "");
+		if(jdbc1.length() > 0)
+		{
+			String[] mapperArray = {null, null, null, null, null, null};
+			spring = ",classpath*:/dswork/config/ex/spring-mybatis1.xml" + spring;
+			String[] mappers = EnvironmentUtil.getToString("jdbc1.mapper", "").split(",");
+			int i = 1;
+			for(String p : mappers){if(p.length() > 0 && i < 6){mapperArray[i] = p;i++;}}
+			for(i = 1; i < 6; i++){if(mapperArray[i] != null){context.setInitParameter("dswork1.m" + i, mapperArray[i]);}}
+		}
+		String jdbc2 = EnvironmentUtil.getToString("jdbc2.dialect.name", "");
+		if(jdbc2.length() > 0)
+		{
+			String[] mapperArray = {null, null, null, null, null, null};
+			spring = ",classpath*:/dswork/config/ex/spring-mybatis2.xml" + spring;
+			String[] mappers = EnvironmentUtil.getToString("jdbc2.mapper", "").split(",");
+			int i = 1;
+			for(String p : mappers){if(p.length() > 0 && i < 6){mapperArray[i] = p;i++;}}
+			for(i = 1; i < 6; i++){if(mapperArray[i] != null){context.setInitParameter("dswork2.m" + i, mapperArray[i]);}}
+		}
+		String jdbc3 = EnvironmentUtil.getToString("jdbc3.dialect.name", "");
+		if(jdbc3.length() > 0)
+		{
+			String[] mapperArray = {null, null, null, null, null, null};
+			spring = ",classpath*:/dswork/config/ex/spring-mybatis3.xml" + spring;
+			String[] mappers = EnvironmentUtil.getToString("jdbc3.mapper", "").split(",");
+			int i = 1;
+			for(String p : mappers){if(p.length() > 0 && i < 6){mapperArray[i] = p;i++;}}
+			for(i = 1; i < 6; i++){if(mapperArray[i] != null){context.setInitParameter("dswork3.m" + i, mapperArray[i]);}}
+		}
 		
+		context.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/spring/spring-property.xml,classpath*:/dswork/config/spring/spring-mybatis.xml,classpath*:/dswork/config/spring/spring-project.xml" + spring);
+		spring = null;
+		
+		String[] mapperArray = {null, null, null, null, null, null};
 		String dsworkBasePackage = EnvironmentUtil.getToString("dswork.base-package", "");
+		int i = 1;
 		if(dsworkBasePackage.length() > 0)
 		{
 			context.setInitParameter("dswork.base-package", dsworkBasePackage);
 			String[] basePackages = dsworkBasePackage.split(",");
-			int i = 1;
 			for(String p : basePackages)
 			{
-				if(p.length() > 0)
+				if(p.length() > 0 && i < 6)
 				{
 					context.setInitParameter("dswork.p" + i, p);/*旧版本的spring，如4.0.9的mvc不支持多个扫描包的配置，有bug，这是兼容模式*/
-					context.setInitParameter("dswork.m" + i, "/" + p.replace('.', '/'));
+					mapperArray[i] = "classpath*:/" + p.replace('.', '/') + "/mapper/**/*.map.xml";
 					i++;
 				}
 			}
 		}
-		context.setInitParameter("dsworkConfiguration", dswork);
-		context.setInitParameter("dsworkSSOConfiguration", dsworkSSO);
-		context.setInitParameter("contextConfigLocation", "classpath*:/dswork/config/spring/*.xml" + spring);
+		String[] mappers = EnvironmentUtil.getToString("jdbc.mapper", "").split(",");
+		i = 1;
+		for(String p : mappers){if(p.length() > 0 && i < 6){mapperArray[i] = p;i++;}}
+		for(i = 1; i < 6; i++){if(mapperArray[i] != null){context.setInitParameter("dswork.m" + i, mapperArray[i]);}}
+		
 		try
 		{
-			org.apache.logging.log4j.core.LoggerContext c = (org.apache.logging.log4j.core.LoggerContext)LogManager.getContext(false);
-			c.setConfigLocation(context.getResource(log4j2).toURI());
-			c.reconfigure();
+			if((new File(context.getRealPath("/") + log4j2)).isFile())
+			{
+				org.apache.logging.log4j.core.LoggerContext c = (org.apache.logging.log4j.core.LoggerContext)LogManager.getContext(false);
+				c.setConfigLocation(context.getResource(log4j2).toURI());
+				c.reconfigure();
+			}
 		}
 		catch(Exception e)
 		{
