@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>com.github.skeychen</groupId>
-	<artifactId>dswork-mvc</artifactId>
+	<artifactId>dswork-flow</artifactId>
 	<version>0.0.0-SNAPSHOT</version>
 	
-	<name>dswork-mvc</name>
-	<description>dswork-mvc</description>
+	<name>dswork-flow</name>
+	<description>dswork-flow</description>
 	<url>https://github.com/skeychen/dswork</url>
 	
 	<licenses>
@@ -28,7 +28,7 @@
 	
 	<build>
 		<sourceDirectory>./</sourceDirectory>
-		<directory>E:/Workspaces/jar/pom/dswork-mvc</directory>
+		<directory>E:/Workspaces/jar/pom/dswork-flow</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -40,7 +40,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-		</plugins>
+		</plugins> 
 	</build>
 	
 	<profiles>
@@ -86,15 +86,9 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<spring.version>4.3.18.RELEASE</spring.version>
 		<dswork.version>0.0.0-SNAPSHOT</dswork.version>
 	</properties>
 	<dependencies>
-		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.25</version></dependency>
-		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>3.0.1</version></dependency>
-		<dependency><groupId>org.springframework</groupId><artifactId>spring-web</artifactId><version>${spring.version}</version></dependency>
-		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><version>${dswork.version}</version></dependency>
-		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-web</artifactId><version>${dswork.version}</version></dependency>
 	</dependencies>
 	
 </project>
