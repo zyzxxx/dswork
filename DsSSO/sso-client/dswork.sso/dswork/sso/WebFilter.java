@@ -289,12 +289,12 @@ public class WebFilter implements Filter
 			{
 				if(systemURL.length() > 0)
 				{
-					_url = logoutURL + "?service=" + URLEncoder.encode(systemURL, "UTF-8");
+					_url = (logoutURL.indexOf("?") == -1 ? "?" : "&") + "service=" + URLEncoder.encode(systemURL, "UTF-8");
 				}
 			}
 			else
 			{
-				_url = logoutURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+				_url = (logoutURL.indexOf("?") == -1 ? "?" : "&") + "service=" + URLEncoder.encode(url, "UTF-8");
 			}
 		}
 		catch(Exception e)
