@@ -413,15 +413,18 @@ public class WebFilter implements Filter
 			ssoName = String.valueOf(config.getInitParameter("ssoName")).trim();
 			ssoPassword = String.valueOf(config.getInitParameter("ssoPassword")).trim();
 			webURL = String.valueOf(config.getInitParameter("webURL")).trim();
-			if("null".equals(webURL))
+			loginURL = String.valueOf(config.getInitParameter("loginURL")).trim();
+			logoutURL = String.valueOf(config.getInitParameter("logoutURL")).trim();
+			if(!"null".equals(webURL))
 			{
-				loginURL = String.valueOf(config.getInitParameter("loginURL")).trim();
-				logoutURL = String.valueOf(config.getInitParameter("logoutURL")).trim();
-			}
-			else
-			{
-				loginURL  = webURL + "/login";
-				logoutURL = webURL + "/logout";
+				if("null".equals(loginURL))
+				{
+					loginURL  = webURL + "/login";
+				}
+				if("null".equals(logoutURL))
+				{
+					logoutURL = webURL + "/logout";
+				}
 				passwordURL = webURL + "/password";
 			}
 			systemURL = String.valueOf(config.getInitParameter("systemURL")).trim();
