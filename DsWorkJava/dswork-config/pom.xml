@@ -5,7 +5,7 @@
 	
 	<groupId>com.github.skeychen</groupId>
 	<artifactId>dswork-config</artifactId>
-	<version>8.8.0.RELEASE</version>
+	<version>8.8.0</version>
 	
 	<name>dswork-config</name>
 	<description>dswork-config</description>
@@ -93,7 +93,7 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dswork.version>8.8.0.RELEASE</dswork.version>
+		<dswork.version>8.8.0</dswork.version>
 	</properties>
 	<dependencies>
 		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><version>${dswork.version}</version></dependency>

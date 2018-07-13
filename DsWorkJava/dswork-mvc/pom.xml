@@ -5,7 +5,7 @@
 	
 	<groupId>com.github.skeychen</groupId>
 	<artifactId>dswork-mvc</artifactId>
-	<version>8.8.0.RELEASE</version>
+	<version>8.8.0</version>
 	
 	<name>dswork-mvc</name>
 	<description>dswork-mvc</description>
@@ -87,11 +87,11 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.version>4.3.18.RELEASE</spring.version>
-		<dswork.version>8.8.0.RELEASE</dswork.version>
+		<dswork.version>8.8.0</dswork.version>
 	</properties>
 	<dependencies>
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.25</version></dependency>
-		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>3.0.1</version></dependency>
+		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>3.0.1</version><scope>provided</scope></dependency>
 		<dependency><groupId>org.springframework</groupId><artifactId>spring-web</artifactId><version>${spring.version}</version></dependency>
 		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><version>${dswork.version}</version></dependency>
 		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-web</artifactId><version>${dswork.version}</version></dependency>

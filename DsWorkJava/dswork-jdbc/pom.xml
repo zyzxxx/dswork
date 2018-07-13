@@ -5,7 +5,7 @@
 	
 	<groupId>com.github.skeychen</groupId>
 	<artifactId>dswork-jdbc</artifactId>
-	<version>8.8.0.RELEASE</version>
+	<version>8.8.0</version>
 	
 	<name>dswork-jdbc</name>
 	<description>dswork-jdbc</description>

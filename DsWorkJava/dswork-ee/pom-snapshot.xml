@@ -101,8 +101,9 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<v.tomcat-embed>8.0.53</v.tomcat-embed>
 	</properties>
 	<dependencies>
-		<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-core</artifactId><version>8.0.53</version></dependency>
+		<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-core</artifactId><version>${v.tomcat-embed}</version><scope>provided</scope></dependency>
 	</dependencies>
 </project>
