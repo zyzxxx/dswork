@@ -93,11 +93,15 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<v.servlet-api>3.0.1</v.servlet-api>
+		<v.log4j>2.3</v.log4j>
 		<v.dswork>8.8.0</v.dswork>
 	</properties>
 	<dependencies>
-		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><version>${v.dswork}</version></dependency>
-		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-web</artifactId><version>${v.dswork}</version></dependency>
+		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>${v.servlet-api}</version><scope>provided</scope></dependency>
+		<dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>${v.log4j}</version><scope>provided</scope></dependency>
+		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><version>${v.dswork}</version><scope>provided</scope></dependency>
+		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-web</artifactId><version>${v.dswork}</version><scope>provided</scope></dependency>
 	</dependencies>
 	
 </project>
