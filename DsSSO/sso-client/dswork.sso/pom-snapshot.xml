@@ -86,12 +86,14 @@
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<dswork.version>0.0.0-SNAPSHOT</dswork.version>
+		<v.servlet-api>3.0.1</v.servlet-api>
+		<v.slf4j>1.7.25</v.slf4j>
+		<v.gson>2.8.5</v.gson>
 	</properties>
 	<dependencies>
-		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>1.7.25</version></dependency>
-		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>3.0.1</version></dependency>
-		<dependency><groupId>com.google.code.gson</groupId><artifactId>gson</artifactId><version>2.8.5</version></dependency>
+		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><version>${v.servlet-api}</version><scope>provided</scope></dependency>
+		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><version>${v.slf4j}</version></dependency>
+		<dependency><groupId>com.google.code.gson</groupId><artifactId>gson</artifactId><version>${v.gson}</version></dependency>
 	</dependencies>
 	
 </project>
