@@ -119,8 +119,11 @@ public class DsCmsbuildController extends BaseController
 			put("datapage", nav.getDatapage());
 			return "/" + s.getFolder() + (mobile ? "/templates/m/"+c.getMviewsite() : "/templates/"+c.getViewsite());
 		}
-		// 专题页
-		ViewSpecial sp = cms.getSpecial(specialid + "");
-		return "/" + s.getFolder() + (mobile ? "/templates/m/"+sp.getMviewsite() : "/templates/"+sp.getViewsite());
+		if(specialid > 0)// 专题页
+		{
+			ViewSpecial sp = cms.getSpecial(specialid + "");
+			return "/" + s.getFolder() + (mobile ? "/templates/m/"+sp.getMviewsite() : "/templates/"+sp.getViewsite());
+		}
+		return null;
 	}
 }
