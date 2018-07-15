@@ -16,6 +16,7 @@ import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
+import dswork.cms.model.DsCmsSpecial;
 import dswork.cms.service.DsCmsPublishService;
 import dswork.core.page.Page;
 import dswork.core.page.PageNav;
@@ -67,6 +68,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 				categoryList = categoryAccess(categoryList, this);
 				put("siteList", siteList);
 				put("categoryList", categoryList);
+				put("specialList", service.querySpecialList(siteid));
 			}
 			put("siteid", siteid);
 			return "/cms/publish/getCategoryTree.jsp";
@@ -240,8 +242,9 @@ public class DsCmsPublishController extends DsCmsBaseController
 		Long siteid = req.getLong("siteid", -1);
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
+		Long specialid = req.getLong("specialid", -1);
 		int pagesize = req.getInt("pagesize", 25);
-		_building(true, siteid, categoryid, pageid, pagesize);
+		_building(true, siteid, categoryid, pageid, specialid, pagesize);
 	}
 
 	// 删除指定的信息
@@ -252,7 +255,8 @@ public class DsCmsPublishController extends DsCmsBaseController
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
 		int pagesize = req.getInt("pagesize", 25);
-		_building(false, siteid, categoryid, pageid, pagesize);
+		Long specialid = req.getLong("specialid", -1);
+		_building(false, siteid, categoryid, pageid, specialid, pagesize);
 	}
 
 	/**
@@ -263,7 +267,7 @@ public class DsCmsPublishController extends DsCmsBaseController
 	 * @param pageid
 	 * @param pagesize
 	 */
-	private void _building(boolean createOrDelete, long siteid, long categoryid, long pageid, int pagesize)
+	private void _building(boolean createOrDelete, long siteid, long categoryid, long pageid, long specialid, int pagesize)
 	{
 		pagesize = (pagesize <= 0) ? 25 : pagesize;
 		try
@@ -377,9 +381,21 @@ public class DsCmsPublishController extends DsCmsBaseController
 								}
 							}
 						}
-						else// 首页
+						else if(specialid >= 0)// 专题页
 						{
-							_buildFile(createOrDelete ? path : null, "/index.html", site.getFolder(), enablemobile);
+							List<DsCmsSpecial> specialList = new ArrayList<DsCmsSpecial>();
+							if(specialid == 0)
+							{
+								specialList.addAll(service.querySpecialList(siteid));
+							}
+							else
+							{
+								specialList.add(service.getSpecial(specialid));
+							}
+							for(DsCmsSpecial e : specialList)
+							{
+								_buildFile(createOrDelete ? path + "&specialid=" + e.getId() : null, e.getUrl(), site.getFolder(), enablemobile);
+							}
 						}
 						print("1");
 					}

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import common.cms.model.ViewCategory;
 import common.cms.model.ViewArticle;
 import common.cms.model.ViewSite;
+import common.cms.model.ViewSpecial;
 import dswork.core.db.MyBatisDao;
 import dswork.core.page.Page;
 import dswork.core.page.PageRequest;
@@ -70,5 +71,13 @@ public class DsCmsDao extends MyBatisDao
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
 		return queryList("queryCategory", map);
+	}
+
+	public ViewSpecial getSpecial(Long siteid, Long specialid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		map.put("id", specialid);
+		return (ViewSpecial)executeSelect("getSpecial", map);
 	}
 }

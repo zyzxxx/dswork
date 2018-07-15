@@ -7,9 +7,9 @@
 
 <insert id="insert" parameterType="dswork.cms.model.DsCmsSpecial">
 	insert into DS_CMS_SPECIAL
-	(ID, SITEID, TITLE, VIEWSITE, URL)
+	(ID, SITEID, TITLE, VIEWSITE, MVIEWSITE, URL)
 	values
-	(#{id}, #{siteid}, #{title}, #{viewsite}, #{url})
+	(#{id}, #{siteid}, #{title}, #{viewsite}, #{mviewsite}, #{url})
 </insert>
 
 <delete id="delete">
@@ -22,6 +22,7 @@
 		SITEID=#{siteid},
 		TITLE=#{title},
 		VIEWSITE=#{viewsite},
+		MVIEWSITE=#{mviewsite},
 		URL=#{url}
 	where ID=#{id}
 </update>
@@ -31,10 +32,11 @@
 	<result property="siteid" column="SITEID" />
 	<result property="title" column="TITLE" />
 	<result property="viewsite" column="VIEWSITE" />
+	<result property="mviewsite" column="MVIEWSITE" />
 	<result property="url" column="URL" />
 </resultMap>
 
-<sql id="columns">ID, SITEID, TITLE, VIEWSITE, URL</sql>
+<sql id="columns">ID, SITEID, TITLE, VIEWSITE, MVIEWSITE, URL</sql>
 
 <sql id="dynamicWhere">
 	<where>

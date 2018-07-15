@@ -38,7 +38,7 @@ public class DsCmsSpecialDao extends MyBatisDao
 		return executeDelete("delete", id);
 	}
 
-	public List queryList(Map<String, Object> map)
+	public List<DsCmsSpecial> queryList(Map<String, Object> map)
 	{
 		return executeSelectList("query", map);
 	}

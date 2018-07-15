@@ -13,7 +13,6 @@ import dswork.cms.model.DsCmsSite;
 import dswork.cms.model.DsCmsSpecial;
 
 @Service
-@SuppressWarnings("all")
 public class DsCmsSpecialService
 {
 	@Autowired
@@ -21,30 +20,37 @@ public class DsCmsSpecialService
 	@Autowired
 	private DsCmsSiteDao siteDao;
 
-	public List<DsCmsSpecial> querySpecialListBySiteid(Long siteid)
+	public List<DsCmsSpecial> querySpecialList(Long siteid)
 	{
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("siteid", siteid);
 		return dao.queryList(map);
 	}
 	
-	public void saveUpdateBatch(List<DsCmsSpecial> list)
+	public void saveUpdateDelete(List<DsCmsSpecial> addList, List<DsCmsSpecial> updList, List<Long> delList)
 	{
-		for(DsCmsSpecial po : list)
+		for(DsCmsSpecial po : addList)
 		{
-			if(dao.get(po.getId()) == null)
-			{
-				dao.save(po);
-			}
-			else
-			{
-				dao.update(po);
-			}
+			dao.save(po);
+		}
+		for(DsCmsSpecial po : updList)
+		{
+			dao.update(po);
+		}
+		for(Long id : delList)
+		{
+			dao.delete(id);
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<DsCmsSite> querySiteList(Map<String, Object> map)
 	{
-		return dao.queryList(map);
+		return siteDao.queryList(map);
+	}
+
+	public DsCmsSite getSite(long id)
+	{
+		return (DsCmsSite) siteDao.get(id);
 	}
 }

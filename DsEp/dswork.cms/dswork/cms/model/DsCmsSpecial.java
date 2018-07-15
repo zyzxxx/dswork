@@ -10,6 +10,8 @@ public class DsCmsSpecial
 	private String title = "";
 	// 模板
 	private String viewsite = "";
+	// 移动版模板
+	private String mviewsite = "";
 	// 链接
 	private String url = "";
 
@@ -51,6 +53,16 @@ public class DsCmsSpecial
 	public void setViewsite(String viewsite)
 	{
 		this.viewsite = viewsite;
+	}
+
+	public String getMviewsite()
+	{
+		return mviewsite;
+	}
+
+	public void setMviewsite(String mviewsite)
+	{
+		this.mviewsite = mviewsite;
 	}
 
 	public String getUrl()
