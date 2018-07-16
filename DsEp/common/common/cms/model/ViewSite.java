@@ -8,8 +8,6 @@ public class ViewSite
 	private String folder;
 	private String url;
 	private String img;
-	private String viewsite;
-	private String mviewsite;
 	private String metakeywords;
 	private String metadescription;
 
@@ -71,26 +69,6 @@ public class ViewSite
 	public void setImg(String img)
 	{
 		this.img = img;
-	}
-
-	public String getViewsite()
-	{
-		return viewsite;
-	}
-
-	public void setViewsite(String viewsite)
-	{
-		this.viewsite = viewsite;
-	}
-
-	public String getMviewsite()
-	{
-		return mviewsite;
-	}
-
-	public void setMviewsite(String mviewsite)
-	{
-		this.mviewsite = mviewsite;
 	}
 
 	public String getMetakeywords()

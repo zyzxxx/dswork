@@ -15,6 +15,7 @@ import common.cms.model.ViewArticle;
 import common.cms.model.ViewArticleNav;
 import common.cms.model.ViewArticleSet;
 import common.cms.model.ViewSite;
+import common.cms.model.ViewSpecial;
 import dswork.core.page.Page;
 
 public class CmsFactory
@@ -98,6 +99,11 @@ public class CmsFactory
 	public ViewArticle get(String pageid)
 	{
 		return getDao().getArticle(site.getId(), toLong(pageid));
+	}
+
+	public ViewSpecial getSpecial(String specialid)
+	{
+		return getDao().getSpecial(site.getId(), toLong(specialid));
 	}
 
 	public List<ViewArticle> queryList(int currentPage, int pageSize, boolean onlyImageTop, boolean onlyPageTop, boolean isDesc, Object... categoryids)
