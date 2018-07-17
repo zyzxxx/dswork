@@ -13,12 +13,12 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry excluding="config/analyzer/extend.dic" kind="src" path="analyzer"/>
-	<classpathentry kind="lib" path="/Lib/module/dswork/dswork.analyzer.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/dswork-analyzer.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/dswork.html.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/dswork-html.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
@@ -53,7 +53,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/dswork.core.util.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/dswork-core-util.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
