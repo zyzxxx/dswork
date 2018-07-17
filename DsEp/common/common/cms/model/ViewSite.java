@@ -3,7 +3,6 @@ package common.cms.model;
 public class ViewSite
 {
 	private Long id;
-	private String own = "";
 	private String name = "";
 	private String folder = "";
 	private String url = "";
@@ -19,16 +18,6 @@ public class ViewSite
 	public void setId(Long id)
 	{
 		this.id = id;
-	}
-
-	public String getOwn()
-	{
-		return own;
-	}
-
-	public void setOwn(String own)
-	{
-		this.own = own;
 	}
 
 	public String getName()
