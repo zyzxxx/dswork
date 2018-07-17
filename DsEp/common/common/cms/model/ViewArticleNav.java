@@ -1,13 +1,14 @@
 package common.cms.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewArticleNav
 {
-	private String datauri;
-	private String datapageview;
+	private String datauri = "";
+	private String datapageview = "";
 	private Datapage datapage = new Datapage();
-	private List<ViewArticle> list;
+	private List<ViewArticle> list = new ArrayList<ViewArticle>();
 
 	public String getDatauri()
 	{
@@ -39,9 +40,9 @@ public class ViewArticleNav
 		return list;
 	}
 
-	public void setList(List<ViewArticle> list)
+	public void addListAll(List<ViewArticle> list)
 	{
-		this.list = list;
+		this.list.addAll(list);
 	}
 
 	public class Datapage
@@ -52,10 +53,10 @@ public class ViewArticleNav
 		private int prev;
 		private int next;
 		private int last;
-		private String firsturl;
-		private String prevurl;
-		private String nexturl;
-		private String lasturl;
+		private String firsturl = "";
+		private String prevurl = "";
+		private String nexturl = "";
+		private String lasturl = "";
 
 		public int getPage()
 		{

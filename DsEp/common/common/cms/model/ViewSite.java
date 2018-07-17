@@ -3,13 +3,13 @@ package common.cms.model;
 public class ViewSite
 {
 	private Long id;
-	private String own;
-	private String name;
-	private String folder;
-	private String url;
-	private String img;
-	private String metakeywords;
-	private String metadescription;
+	private String own = "";
+	private String name = "";
+	private String folder = "";
+	private String url = "";
+	private String img = "";
+	private String metakeywords = "";
+	private String metadescription = "";
 
 	public Long getId()
 	{

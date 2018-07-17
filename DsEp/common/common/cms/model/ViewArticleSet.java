@@ -1,5 +1,6 @@
 package common.cms.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ViewArticleSet
@@ -8,12 +9,12 @@ public class ViewArticleSet
 	private int page;
 	private int pagesize;
 	private int totalpage;
-	private List<ViewArticle> rows;
+	private List<ViewArticle> rows = new ArrayList<ViewArticle>();
 	private int status;
-	private String msg;
+	private String msg = "";
 
-	private String categoryids;
-	private String categoryid;
+	private String categoryids = "";
+	private String categoryid = "";
 	private ViewCategory catetory;
 
 	public int getSize()
@@ -61,9 +62,9 @@ public class ViewArticleSet
 		return rows;
 	}
 
-	public void setRows(List<ViewArticle> rows)
+	public void addRowsAll(List<ViewArticle> rows)
 	{
-		this.rows = rows;
+		this.rows.addAll(rows);
 	}
 
 	public int getStatus()
