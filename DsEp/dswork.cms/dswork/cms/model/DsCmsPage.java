@@ -25,7 +25,7 @@ public class DsCmsPage
 	private String summary = "";
 	// 内容
 	private String content = "";
-	// 创建时间
+	// 发布时间
 	private String releasetime = "";
 	// 来源
 	private String releasesource = "";
