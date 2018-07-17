@@ -16,10 +16,12 @@ import dswork.cms.dao.DsCmsCountDao;
 import dswork.cms.dao.DsCmsPageDao;
 import dswork.cms.dao.DsCmsPageEditDao;
 import dswork.cms.dao.DsCmsSiteDao;
+import dswork.cms.dao.DsCmsSpecialDao;
 import dswork.cms.model.DsCmsCategory;
 import dswork.cms.model.DsCmsCount;
 import dswork.cms.model.DsCmsPage;
 import dswork.cms.model.DsCmsSite;
+import dswork.cms.model.DsCmsSpecial;
 import dswork.core.db.BaseService;
 import dswork.core.db.EntityDao;
 
@@ -36,6 +38,8 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 	private DsCmsPageEditDao pageEditDao;
 	@Autowired
 	private DsCmsCountDao countDao;
+	@Autowired
+	private DsCmsSpecialDao specialDao;
 
 	@Override
 	protected EntityDao<DsCmsPage, Long> getEntityDao()
@@ -112,5 +116,17 @@ public class DsCmsPublishService extends BaseService<DsCmsPage, Long>
 	{
 		pageEditDao.delete(siteid, categoryid);
 		pageDao.delete(siteid, categoryid);
+	}
+
+	public List<DsCmsSpecial> querySpecialList(Long siteid)
+	{
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("siteid", siteid);
+		return specialDao.queryList(map);
+	}
+
+	public DsCmsSpecial getSpecial(long id)
+	{
+		return specialDao.get(id);
 	}
 }

@@ -17,10 +17,6 @@ public class DsCmsSite
 	private String url = "";
 	// 图片
 	private String img = "";
-	// 网站模板
-	private String viewsite = "";
-	// 移动版网站模板
-	private String mviewsite = "";
 	// 开始日志(0否,1是)
 	private int enablelog = 0;
 	// 开启移动版(0否,1是)
@@ -88,26 +84,6 @@ public class DsCmsSite
 	public void setImg(String img)
 	{
 		this.img = img;
-	}
-
-	public String getViewsite()
-	{
-		return viewsite;
-	}
-
-	public void setViewsite(String viewsite)
-	{
-		this.viewsite = viewsite;
-	}
-
-	public String getMviewsite()
-	{
-		return mviewsite;
-	}
-
-	public void setMviewsite(String mviewsite)
-	{
-		this.mviewsite = mviewsite;
 	}
 
 	public int getEnablelog()

@@ -10,6 +10,7 @@ import common.cms.model.ViewCategory;
 import common.cms.model.ViewArticle;
 import common.cms.model.ViewArticleNav;
 import common.cms.model.ViewSite;
+import common.cms.model.ViewSpecial;
 import dswork.core.util.TimeUtil;
 import dswork.mvc.BaseController;
 
@@ -27,6 +28,7 @@ public class DsCmsbuildController extends BaseController
 		Long siteid = req.getLong("siteid", -1);
 		Long categoryid = req.getLong("categoryid", -1);
 		Long pageid = req.getLong("pageid", -1);
+		Long specialid = req.getLong("specialid", -1);
 		boolean mobile = req.getString("mobile", "false").equals("true");
 		boolean view = req.getString("view", "false").equals("true");
 
@@ -117,6 +119,11 @@ public class DsCmsbuildController extends BaseController
 			put("datapage", nav.getDatapage());
 			return "/" + s.getFolder() + (mobile ? "/templates/m/"+c.getMviewsite() : "/templates/"+c.getViewsite());
 		}
-		return "/" + s.getFolder() + (mobile ? "/templates/m/"+s.getMviewsite() : "/templates/"+s.getViewsite());
+		if(specialid > 0)// 专题页
+		{
+			ViewSpecial sp = cms.getSpecial(specialid + "");
+			return "/" + s.getFolder() + (mobile ? "/templates/m/"+sp.getMviewsite() : "/templates/"+sp.getViewsite());
+		}
+		return null;
 	}
 }
