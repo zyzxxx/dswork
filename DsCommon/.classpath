@@ -28,12 +28,12 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/sso/dswork.sso.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/sso/dswork-sso.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Lib/module/dswork/dswork.flow.jar">
+	<classpathentry kind="lib" path="/Lib/module/dswork/dswork-flow.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
