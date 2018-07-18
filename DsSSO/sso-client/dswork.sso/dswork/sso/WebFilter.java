@@ -37,6 +37,7 @@ public class WebFilter implements Filter
 	private final static String DS_SSO_TICKET = "DS_SSO_TICKET";
 	private final static String DS_SSO_CODE = "DS_SSO_CODE";
 	
+	private static String thirdLoginURL = "";
 	private static String loginURL = "";// 登入页面
 	private static String logoutURL = "";// 登出页面
 	private static String passwordURL = "";// 修改密码页面
@@ -241,12 +242,12 @@ public class WebFilter implements Filter
 			{
 				if(systemURL.length() > 0)
 				{
-					_url = passwordURL + "?service=" + URLEncoder.encode(systemURL, "UTF-8");
+					_url = passwordURL + "?service=" + URLEncoder.encode(systemURL, "UTF-8") + (thirdLoginURL.length() > 0 ? "&loginURL=" + URLEncoder.encode(thirdLoginURL, "UTF-8") : "");
 				}
 			}
 			else
 			{
-				_url = passwordURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+				_url = passwordURL + "?service=" + URLEncoder.encode(url, "UTF-8") + (thirdLoginURL.length() > 0 ? "&loginURL=" + URLEncoder.encode(thirdLoginURL, "UTF-8") : "");
 			}
 		}
 		catch(Exception e)
@@ -265,12 +266,12 @@ public class WebFilter implements Filter
 			{
 				if(systemURL.length() > 0)
 				{
-					_url = loginURL + "?service=" + URLEncoder.encode(systemURL, "UTF-8");
+					_url = loginURL + (loginURL.indexOf("?") == -1 ? "?" : "&") + "service=" + URLEncoder.encode(systemURL, "UTF-8") + (thirdLoginURL.length() > 0 ? "&loginURL=" + URLEncoder.encode(thirdLoginURL, "UTF-8") : "");
 				}
 			}
 			else
 			{
-				_url = loginURL + "?service=" + URLEncoder.encode(url, "UTF-8");
+				_url = loginURL + (loginURL.indexOf("?") == -1 ? "?" : "&") + "service=" + URLEncoder.encode(url, "UTF-8") + (thirdLoginURL.length() > 0 ? "&loginURL=" + URLEncoder.encode(thirdLoginURL, "UTF-8") : "");
 			}
 		}
 		catch(Exception e)
@@ -289,12 +290,12 @@ public class WebFilter implements Filter
 			{
 				if(systemURL.length() > 0)
 				{
-					_url = logoutURL + (logoutURL.indexOf("?") == -1 ? "?" : "&") + "service=" + URLEncoder.encode(systemURL, "UTF-8");
+					_url = logoutURL + (logoutURL.indexOf("?") == -1 ? "?" : "&") + "service=" + URLEncoder.encode(systemURL, "UTF-8") + (thirdLoginURL.length() > 0 ? "&loginURL=" + URLEncoder.encode(thirdLoginURL, "UTF-8") : "");
 				}
 			}
 			else
 			{
-				_url = logoutURL + (logoutURL.indexOf("?") == -1 ? "?" : "&") + "service=" + URLEncoder.encode(url, "UTF-8");
+				_url = logoutURL + (logoutURL.indexOf("?") == -1 ? "?" : "&") + "service=" + URLEncoder.encode(url, "UTF-8") + (thirdLoginURL.length() > 0 ? "&loginURL=" + URLEncoder.encode(thirdLoginURL, "UTF-8") : "");
 			}
 		}
 		catch(Exception e)
@@ -397,6 +398,10 @@ public class WebFilter implements Filter
 				{
 					loginURL  = webURL + "/login";
 				}
+				else if(!loginURL.equals(webURL + "/login"))
+				{
+					thirdLoginURL = loginURL;
+				}
 				if("null".equals(logoutURL))
 				{
 					logoutURL = webURL + "/logout";
@@ -420,6 +425,10 @@ public class WebFilter implements Filter
 				if("null".equals(loginURL))
 				{
 					loginURL  = webURL + "/login";
+				}
+				else if(!loginURL.equals(webURL + "/login"))
+				{
+					thirdLoginURL = loginURL;
 				}
 				if("null".equals(logoutURL))
 				{

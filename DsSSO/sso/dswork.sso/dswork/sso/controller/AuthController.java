@@ -141,6 +141,10 @@ public class AuthController
 			// 失败则转回来
 			request.setAttribute("account", account);
 			request.setAttribute("service", serviceURL);
+			if(loginURL.length() > 0)
+			{
+				loginURL = loginURL + (loginURL.indexOf("?")==-1 ? "?" : "&") + "service=" + java.net.URLEncoder.encode(serviceURL, "UTF-8");
+			}
 			request.setAttribute("loginURL", loginURL);
 			request.setAttribute("errorMsg", msg);
 			try
