@@ -78,6 +78,7 @@ public class DsCmsSpecialController extends DsCmsBaseController
 		{
 			long siteid = req.getLong("siteid", -1);
 			DsCmsSite s = service.getSite(siteid);
+			boolean enablemobile = s.getEnablemobile() == 1;
 			if(checkOwn(s.getId()))
 			{
 				long [] ids = req.getLongArray("id", -1);
@@ -95,7 +96,10 @@ public class DsCmsSpecialController extends DsCmsBaseController
 					m.setSiteid(siteid);
 					m.setTitle(titles[i]);
 					m.setViewsite(viewsites[i]);
-					m.setMviewsite(mviewsites[i]);
+					if(enablemobile)
+					{
+						m.setMviewsite(mviewsites[i]);
+					}
 					m.setUrl("/" + urls[i].replace("/", "").replace("\\", ""));
 					updList.add(m);
 				}
@@ -106,7 +110,10 @@ public class DsCmsSpecialController extends DsCmsBaseController
 					m.setSiteid(siteid);
 					m.setTitle(titles[i]);
 					m.setViewsite(viewsites[i]);
-					m.setMviewsite(mviewsites[i]);
+					if(enablemobile)
+					{
+						m.setMviewsite(mviewsites[i]);
+					}
 					m.setUrl("/" + urls[i].replace("/", "").replace("\\", ""));
 					addList.add(m);
 				}

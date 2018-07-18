@@ -10,19 +10,19 @@ public class ViewArticle
 	private Long id;
 	private Long siteid;
 	private Long categoryid;
-	private String title;
+	private String title = "";
 	private int scope;
 	private int status;
-	private String url;
-	private String metakeywords;
-	private String metadescription;
-	private String summary;
-	private String releasetime;
-	private String releasesource;
-	private String releaseuser;
-	private String img;
-	private String content;
-	private String jsondata;
+	private String url = "";
+	private String metakeywords = "";
+	private String metadescription = "";
+	private String summary = "";
+	private String releasetime = "";
+	private String releasesource = "";
+	private String releaseuser = "";
+	private String img = "";
+	private String content = "";
+	private String jsondata = "";
 
 	public Long getId()
 	{

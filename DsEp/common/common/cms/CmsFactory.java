@@ -126,7 +126,7 @@ public class CmsFactory
 		Page<ViewArticle> page = getDao().queryArticlePage(site.getId(), currentPage, pageSize, idArray.toString(), isDesc, onlyImageTop, onlyPageTop, null);
 		ViewArticleNav nav = new ViewArticleNav();
 		currentPage = page.getCurrentPage();// 更新当前页
-		nav.setList(page.getResult());
+		nav.addListAll(page.getResult());
 		nav.getDatapage().setPage(currentPage);
 		nav.getDatapage().setPagesize(pageSize);
 		nav.getDatapage().setFirst(1);
@@ -240,7 +240,7 @@ public class CmsFactory
 			set.setPage(page.getCurrentPage());
 			set.setPagesize(page.getPageSize());
 			set.setTotalpage(page.getTotalPage());
-			set.setRows(page.getResult());
+			set.addRowsAll(page.getResult());
 		}
 		catch(Exception e)
 		{

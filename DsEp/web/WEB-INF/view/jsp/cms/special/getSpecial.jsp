@@ -34,7 +34,7 @@ $dswork.callback = function(){if($dswork.result.type == 1){
 $(function(){
 	$("#site").bind("click", function(){
 		if($(this).val()!="${siteid}"){
-			location.href = "getCategory.htm?siteid="+$(this).val();
+			location.href = "getSpecial.htm?siteid="+$(this).val();
 		}
 	});
 });
@@ -47,7 +47,6 @@ $(function(){
 			切换站点：<select id="site"><c:forEach items="${siteList}" var="d"><option value="${d.id}"<c:if test="${d.id==siteid}"> selected="selected"</c:if>>${fn:escapeXml(d.name)}</option></c:forEach></select></td>
 		<td class="menuTool">
 			<a class="save" id="dataFormSave" href="#">保存</a>
-			<a class="back" href="getCategory.htm?siteid=${fn:escapeXml(param.siteid)}">返回</a>
 		</td>
 	</tr>
 </table>
@@ -55,11 +54,11 @@ $(function(){
 <form id="dataForm" method="post" action="updSpecial.htm">
 <table id="contactTable" border="0" cellspacing="1" cellpadding="0" class="listTable">
 	<tr class="list_title">
-		<td style="width:23%;">标题</td>
+		<td>标题</td>
 		<td style="width:23%;">模板</td><c:if test="${enablemobile}">
 		<td style="width:23%;">移动版模板</td></c:if>
 		<td style="width:23%;">链接</td>
-		<td class="menuTool"><a class="insert" onclick="$('#contactTable>tbody').append($('#cloneTable').html());" href="#">添加项</a></td>
+		<td style="width:23%;" class="menuTool"><a class="insert" onclick="$('#contactTable>tbody').append($('#cloneTable').html());" href="#">添加项</a></td>
 	</tr><c:forEach items="${list}" var="d">
 	<tr class="list">
 		<td><input type="text" name="title" value="${d.title}" datatype="Require" /></td>

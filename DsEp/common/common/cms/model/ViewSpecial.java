@@ -3,9 +3,9 @@ package common.cms.model;
 public class ViewSpecial
 {
 	private Long id;
-	private String viewsite;
-	private String mviewsite;
-	private String url;
+	private String viewsite = "";
+	private String mviewsite = "";
+	private String url = "";
 
 	public Long getId()
 	{
