@@ -7,7 +7,7 @@
 
 		创建DS_CMS_LOG表
 		注：如果网站没有开启日志功能可不用创建此表
-			CREATE TABLE DS_CMS_LOG (
+			CREATE TABLE IF NOT EXISTS DS_CMS_LOG (
 			  ID bigint(20) NOT NULL COMMENT '主键',
 			  SITEID bigint(20) DEFAULT NULL COMMENT '站点ID',
 			  CATEGORYID bigint(20) DEFAULT NULL COMMENT '栏目ID',
@@ -65,7 +65,7 @@
 
 		创建栏目编辑表
 		注：如果已存在DS_CMS_CATEGORY_EDIT表则跳过
-			CREATE TABLE DS_CMS_CATEGORY_EDIT (
+			CREATE TABLE IF NOT EXISTS DS_CMS_CATEGORY_EDIT (
 			   ID                   BIGINT NOT NULL COMMENT '主键',
 			   SITEID               BIGINT COMMENT '站点ID',
 			   STATUS               INT COMMENT '状态(-1删除,0新增,1更新)',
@@ -95,7 +95,7 @@
 
 		创建内容编辑表
 		注：如果已存在DS_CMS_PAGE_EDIT表则跳过
-			CREATE TABLE DS_CMS_PAGE_EDIT (
+			CREATE TABLE IF NOT EXISTS DS_CMS_PAGE_EDIT (
 			   ID                   BIGINT NOT NULL AUTO_INCREMENT COMMENT '主键',
 			   SITEID               BIGINT COMMENT '站点ID',
 			   CATEGORYID           BIGINT COMMENT '栏目ID',
@@ -130,7 +130,7 @@
 
 		创建采编审发权限表
 		注：如果已存在DS_CMS_PERMISSION表则跳过
-			CREATE TABLE DS_CMS_PERMISSION (
+			CREATE TABLE IF NOT EXISTS DS_CMS_PERMISSION (
 			   ID                   BIGINT NOT NULL COMMENT '主键',
 			   SITEID               BIGINT COMMENT '站点ID',
 			   ACCOUNT              VARCHAR(300) COMMENT '用户账号',
@@ -201,3 +201,26 @@
 		设置模板：将移动版模板拷贝至templates/m下
 		设置资源：将移动版web资源（js/css/img等）拷贝至html/m下
 		在管理界面中配置栏目的移动版模板，并将DS_CMS_SITE表的MVIEWSITE设置为移动版首页模板
+
+	支持自定义字段，需要运行以下SQL
+		ALTER TABLE DS_CMS_CATEGORY
+		ADD COLUMN JSONTABLE text NULL COMMENT '数据结构' AFTER CONTENT,
+		ADD COLUMN JSONDATA text NULL COMMENT '数据集' AFTER JSONTABLE;
+		ALTER TABLE DS_CMS_CATEGORY_EDIT
+		ADD COLUMN JSONDATA text NULL COMMENT '数据集' AFTER CONTENT;
+		ALTER TABLE DS_CMS_PAGE
+		ADD COLUMN JSONDATA text NULL COMMENT '数据集' AFTER CONTENT;
+		ALTER TABLE DS_CMS_PAGE_EDIT
+		ADD COLUMN JSONDATA text NULL COMMENT '数据集' AFTER PUSHKEY;
+
+2018.7.18 上线专题发布功能，并用发布专题取代发布首页
+	运行以下SQL创建专题表
+	CREATE TABLE IF NOT EXISTS DS_CMS_SPECIAL (
+	  ID bigint(20) NOT NULL COMMENT '主键',
+	  SITEID bigint(20) DEFAULT NULL COMMENT '站点ID',
+	  TITLE varchar(300) DEFAULT NULL COMMENT '标题',
+	  VIEWSITE varchar(300) DEFAULT NULL COMMENT '模板',
+	  MVIEWSITE varchar(300) DEFAULT NULL COMMENT '移动版模板',
+	  URL varchar(300) DEFAULT NULL COMMENT '链接',
+	  PRIMARY KEY (ID)
+	) COMMENT='专题';
