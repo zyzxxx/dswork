@@ -14,12 +14,12 @@
 		<groupId>com.github.skeychen</groupId>
 		<artifactId>dswork-parent</artifactId>
 		<version>${v.dswork}</version>
-		<relativePath>../dswork-parent/pom-snapshot.xml</relativePath>
+		<relativePath>../dswork-parent/pom.xml</relativePath>
 	</parent>
 
 	<build>
 		<sourceDirectory>./</sourceDirectory>
-		<directory>E:/Workspaces/jar/pom-snapshot/dswork-flow</directory>
+		<directory>E:/Workspaces/jar/pom/dswork-flow</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

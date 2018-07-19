@@ -4,31 +4,30 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.skeychen</groupId>
-	<artifactId>dswork-mvc</artifactId>
+	<artifactId>dswork-cs</artifactId>
 	<version>${v.dswork}</version>
-	<name>dswork-mvc</name>
-	<description>dswork-mvc</description>
+	<name>dswork-cs</name>
+	<description>dswork-cs</description>
 	<url>https://github.com/skeychen/dswork</url>
 
 	<parent>
 		<groupId>com.github.skeychen</groupId>
 		<artifactId>dswork-parent</artifactId>
 		<version>${v.dswork}</version>
-		<relativePath>../dswork-parent/pom-snapshot.xml</relativePath>
+		<relativePath>../dswork-parent/pom.xml</relativePath>
 	</parent>
 
 	<dependencies>
-		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><scope>provided</scope></dependency>
-		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><scope>provided</scope></dependency>
-		<dependency><groupId>org.springframework</groupId><artifactId>spring-web</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>org.springframework</groupId><artifactId>spring-context</artifactId><scope>provided</scope></dependency>
 		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-parent</artifactId><scope>provided</scope></dependency>
 		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><scope>provided</scope></dependency>
-		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-web</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-spring</artifactId><scope>provided</scope></dependency>
 	</dependencies>
 
 	<build>
 		<sourceDirectory>./</sourceDirectory>
-		<directory>E:/Workspaces/jar/pom-snapshot/dswork-mvc</directory>
+		<directory>E:/Workspaces/jar/pom-snapshot/dswork-cs</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -37,8 +36,22 @@
 					<archive>
 						<addMavenDescriptor>false</addMavenDescriptor>
 						<manifestFile>./MANIFEST.MF</manifestFile>
-						<manifest><useUniqueVersions>false</useUniqueVersions></manifest>
 					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.3.2</version>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<optimize>true</optimize>
+					<debug>true</debug>
+					<showDeprecation>true</showDeprecation>
+					<showWarnings>false</showWarnings>
+					<compilerArguments>
+						<verbose />
+						<bootclasspath>${java.home}/lib/rt.jar;${java.home}/lib/jce.jar</bootclasspath>
+					</compilerArguments>
 				</configuration>
 			</plugin>
 		</plugins>
