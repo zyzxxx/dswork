@@ -142,7 +142,6 @@
 			<dependency><groupId>org.mybatis</groupId><artifactId>mybatis       </artifactId><version>${v.mybatis}       </version></dependency>
 			<dependency><groupId>org.mybatis</groupId><artifactId>mybatis-spring</artifactId><version>${v.mybatis.spring}</version></dependency>
 			
-			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-parent</artifactId><version>${v.dswork}</version></dependency>
 			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core  </artifactId><version>${v.dswork}</version></dependency>
 			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-http  </artifactId><version>${v.dswork}</version></dependency>
 			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-jdbc  </artifactId><version>${v.dswork}</version></dependency>

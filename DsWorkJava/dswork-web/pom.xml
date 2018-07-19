@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>com.github.skeychen</groupId>
 		<artifactId>dswork-parent</artifactId>
-		<version>${v.dswork}</version>
+		<version>8.8.0</version>
 		<relativePath>../dswork-parent/pom.xml</relativePath>
 	</parent>
 
