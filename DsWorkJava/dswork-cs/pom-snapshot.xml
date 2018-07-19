@@ -5,30 +5,29 @@
 
 	<groupId>com.github.skeychen</groupId>
 	<artifactId>dswork-cs</artifactId>
-	<version>0.0.0-SNAPSHOT</version>
-
+	<version>${v.dswork}</version>
 	<name>dswork-cs</name>
-	<description>dswork-s</description>
+	<description>dswork-cs</description>
 	<url>https://github.com/skeychen/dswork</url>
 
-	<licenses>
-		<license>
-			<name>GNU Lesser General Public License v3.0</name>
-			<url>https://github.com/skeychen/dswork/blob/master/LICENSE</url>
-		</license>
-	</licenses>
-	
-	<developers><developer><id>skeychen</id><name>skey</name><email>249725997@qq.com</email></developer></developers>
+	<parent>
+		<groupId>com.github.skeychen</groupId>
+		<artifactId>dswork-parent</artifactId>
+		<version>${v.dswork}</version>
+		<relativePath>../dswork-parent/pom-snapshot.xml</relativePath>
+	</parent>
 
-	<scm>
-		<connection>scm:git:git://github.com/skeychen/dswork</connection>
-		<developerConnection>scm:git:git://github.com/skeychen/dswork</developerConnection>
-		<url>https://github.com/skeychen/dswork</url>
-	</scm>
+	<dependencies>
+		<dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>org.springframework</groupId><artifactId>spring-context</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-parent</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><scope>provided</scope></dependency>
+		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-spring</artifactId><scope>provided</scope></dependency>
+	</dependencies>
 
 	<build>
 		<sourceDirectory>./</sourceDirectory>
-		<directory>E:/Workspaces/jar/pom/dswork-cs</directory>
+		<directory>E:/Workspaces/jar/pom-snapshot/dswork-cs</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -58,57 +57,4 @@
 		</plugins>
 	</build>
 
-	<profiles>
-		<profile>
-			<id>release</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions><execution><phase>package</phase><goals><goal>jar-no-fork</goal></goals></execution></executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<version>2.9.1</version>
-						<executions>
-							<execution>
-								<phase>package</phase><goals><goal>jar</goal></goals>
-								<configuration><additionalparam>-Xdoclint:none</additionalparam></configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<executions><execution><phase>verify</phase><goals><goal>sign</goal></goals></execution></executions>
-					</plugin>
-				</plugins>
-			</build>
-			<distributionManagement>
-				<snapshotRepository>
-					<id>dswork-server</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-				</snapshotRepository>
-				<repository>
-					<id>dswork-server</id>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-				</repository>
-			</distributionManagement>
-		</profile>
-	</profiles>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<v.log4j>2.3</v.log4j>
-		<v.spring>4.3.18.RELEASE</v.spring>
-		<v.dswork>0.0.0-SNAPSHOT</v.dswork>
-	</properties>
-	<dependencies>
-		<dependency><groupId>org.apache.logging.log4j</groupId><artifactId>log4j-core</artifactId><version>${v.log4j}</version></dependency>
-		<dependency><groupId>org.springframework</groupId><artifactId>spring-context   </artifactId><version>${v.spring}</version></dependency>
-		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><version>${v.dswork}</version></dependency>
-		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-spring</artifactId><version>${v.dswork}</version></dependency>
-	</dependencies>
 </project>

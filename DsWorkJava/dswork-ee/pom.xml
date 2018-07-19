@@ -4,22 +4,26 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.github.skeychen</groupId>
-	<artifactId>dswork-flow</artifactId>
+	<artifactId>dswork-ee</artifactId>
 	<version>${v.dswork}</version>
-	<name>dswork-flow</name>
-	<description>dswork-flow</description>
+	<name>dswork-ee</name>
+	<description>dswork-ee</description>
 	<url>https://github.com/skeychen/dswork</url>
 
 	<parent>
 		<groupId>com.github.skeychen</groupId>
 		<artifactId>dswork-parent</artifactId>
 		<version>${v.dswork}</version>
-		<relativePath>../dswork-parent/pom-snapshot.xml</relativePath>
+		<relativePath>../dswork-parent/pom.xml</relativePath>
 	</parent>
+
+	<dependencies>
+		<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-core</artifactId><scope>provided</scope></dependency>
+	</dependencies>
 
 	<build>
 		<sourceDirectory>./</sourceDirectory>
-		<directory>E:/Workspaces/jar/pom-snapshot/dswork-flow</directory>
+		<directory>E:/Workspaces/jar/pom/dswork-ee</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -31,7 +35,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-		</plugins> 
+		</plugins>
 	</build>
 
 </project>
