@@ -35,5 +35,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="/Lib/common/gson-2.8.5.jar"/>
+	<classpathentry excluding="MANIFEST.MF|pom.xml|pom-snapshot.xml" kind="src" path="dswork-parent"/>
 	<classpathentry kind="output" path="web/WEB-INF/classes"/>
 </classpath>
