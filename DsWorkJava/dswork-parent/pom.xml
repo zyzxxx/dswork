@@ -102,6 +102,8 @@
 		<v.hibernate.javassist>3.18.1-GA</v.hibernate.javassist>
 		<v.hibernate.jboss.logging>3.1.0.GA</v.hibernate.jboss.logging>
 		<v.hibernate.jboss-transaction-api>1.0.1.Final</v.hibernate.jboss-transaction-api>
+		
+		<v.mysql>5.1.45</v.mysql>
 			
 		<v.tomcat-embed>8.0.53</v.tomcat-embed>
 	</properties>
@@ -142,7 +144,6 @@
 			<dependency><groupId>org.mybatis</groupId><artifactId>mybatis       </artifactId><version>${v.mybatis}       </version></dependency>
 			<dependency><groupId>org.mybatis</groupId><artifactId>mybatis-spring</artifactId><version>${v.mybatis.spring}</version></dependency>
 			
-			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-parent</artifactId><version>${v.dswork}</version></dependency>
 			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core  </artifactId><version>${v.dswork}</version></dependency>
 			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-http  </artifactId><version>${v.dswork}</version></dependency>
 			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-jdbc  </artifactId><version>${v.dswork}</version></dependency>
@@ -161,6 +162,9 @@
 			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-sso           </artifactId><version>${v.dswork}</version></dependency>
 			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-sso-authfilter</artifactId><version>${v.dswork}</version></dependency>
 			
+			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-cms    </artifactId><version>${v.dswork}</version></dependency>
+			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-authown</artifactId><version>${v.dswork}</version></dependency>
+			
 			<dependency><groupId>antlr                           </groupId><artifactId>antlr                         </artifactId><version>${v.hibernate.antlr}</version></dependency>
 			<dependency><groupId>org.hibernate.common            </groupId><artifactId>hibernate-commons-annotations </artifactId><version>${v.hibernate.common}</version></dependency>
 			<dependency><groupId>org.hibernate                   </groupId><artifactId>hibernate-core                </artifactId><version>${v.hibernate.core}</version></dependency>
@@ -172,6 +176,8 @@
 			<dependency><groupId>org.apache.tomcat.embed</groupId><artifactId>tomcat-embed-core</artifactId><version>${v.tomcat-embed}</version><scope>provided</scope></dependency>
 			
 			<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-ee</artifactId><version>${v.dswork}</version></dependency>
+			
+			<dependency><groupId>mysql</groupId><artifactId>mysql-connector-java</artifactId><version>${v.mysql}</version></dependency>
 			
 		</dependencies>
 	</dependencyManagement>
