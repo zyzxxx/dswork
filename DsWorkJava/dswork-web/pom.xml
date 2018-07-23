@@ -13,13 +13,12 @@
 	<parent>
 		<groupId>com.github.skeychen</groupId>
 		<artifactId>dswork-parent</artifactId>
-		<version>${v.dswork}</version>
+		<version>8.8.0</version>
 		<relativePath>../dswork-parent/pom.xml</relativePath>
 	</parent>
 
 	<dependencies>
 		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><scope>provided</scope></dependency>
-		<dependency><groupId>javax.servlet.jsp</groupId><artifactId>jsp-api</artifactId><scope>provided</scope></dependency>
 	</dependencies>
 
 	<build>

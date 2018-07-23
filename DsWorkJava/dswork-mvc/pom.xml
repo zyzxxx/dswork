@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>com.github.skeychen</groupId>
 		<artifactId>dswork-parent</artifactId>
-		<version>${v.dswork}</version>
+		<version>8.8.0</version>
 		<relativePath>../dswork-parent/pom.xml</relativePath>
 	</parent>
 
@@ -21,7 +21,6 @@
 		<dependency><groupId>org.slf4j</groupId><artifactId>slf4j-api</artifactId><scope>provided</scope></dependency>
 		<dependency><groupId>javax.servlet</groupId><artifactId>javax.servlet-api</artifactId><scope>provided</scope></dependency>
 		<dependency><groupId>org.springframework</groupId><artifactId>spring-web</artifactId><scope>provided</scope></dependency>
-		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-parent</artifactId><scope>provided</scope></dependency>
 		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-core</artifactId><scope>provided</scope></dependency>
 		<dependency><groupId>com.github.skeychen</groupId><artifactId>dswork-web</artifactId><scope>provided</scope></dependency>
 	</dependencies>

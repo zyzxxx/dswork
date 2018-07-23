@@ -3,7 +3,6 @@ package dswork.web;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.jsp.PageContext;
 
 /**
  * 扩展Cookie
@@ -12,16 +11,6 @@ public class MyCookie
 {
 	private HttpServletResponse response;
 	private HttpServletRequest request;
-
-	/**
-	 * 初始化cookie
-	 * @param context PageContext
-	 */
-	public MyCookie(PageContext context)
-	{
-		this.response = (HttpServletResponse) context.getResponse();
-		this.request = (HttpServletRequest) context.getRequest();
-	}
 
 	/**
 	 * 初始化cookie
