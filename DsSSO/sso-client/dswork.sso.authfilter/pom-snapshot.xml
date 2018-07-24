@@ -23,7 +23,7 @@
 
 	<build>
 		<sourceDirectory>./</sourceDirectory>
-		<directory>E:/Workspaces/jar/pom/dswork-sso-authfilter</directory>
+		<directory>E:/Workspaces/jar/pom-snapshot/dswork-sso-authfilter</directory>
 		 <plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
